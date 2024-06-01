@@ -8,15 +8,11 @@ import {
     varchar,
 } from 'drizzle-orm/mysql-core'
 
-export const users = mysqlTable('users', {
+export const user = mysqlTable('user', {
     id: serial('id').primaryKey(),
-    nama: varchar('nama', { length: 256 }),
-    email: varchar('email', { length: 256 }),
-    img: varchar('img', { length: 256 }),
-    role: varchar('role', { length: 256 }),
-    jabatan: varchar('jabatan', { length: 256 }),
-    nip: varchar('nip', { length: 18 }),
-    nik: varchar('nik', { length: 16 }),
+    username: varchar('username', { length: 256 }),
+    password: varchar('password', { length: 256 }),
+    role: mysqlEnum('role', ['ADMIN', 'USER']),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
 })
@@ -93,6 +89,13 @@ export const pengelolaBlud = mysqlTable('pengelola_blud', {
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
 })
+
+export const userRelations = relations(user, ({ one }) => ({
+    pegawai: one(pegawai, {
+        fields: [user.id],
+        references: [pegawai.id],
+    }),
+}))
 
 export const pengelolaBludRelations = relations(pengelolaBlud, ({ one }) => ({
     pegawai: one(pegawai, {

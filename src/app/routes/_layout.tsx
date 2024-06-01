@@ -1,11 +1,11 @@
 import { Link, Outlet } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/web/components/ui/button'
 
 export default function HomeLayout() {
     return (
         <div>
-            <header className="w-full fixed z-20 border-b">
-                <div className="max-w-7xl mx-auto px-6 py-2">
+            <header className="w-full fixed z-20 border-b shadow-sm bg-background">
+                <div className="max-w-6xl mx-auto px-5 py-5">
                     <div className="w-full justify-between flex items-center">
                         <Link to="/">
                             <img
@@ -25,8 +25,8 @@ export default function HomeLayout() {
                     </div>
                 </div>
             </header>
-            <div className="pt-16">
-                <div className="max-w-7xl mx-auto px-6">
+            <div className="pt-20">
+                <div className="max-w-6xl mx-auto px-5">
                     <Outlet />
                 </div>
             </div>

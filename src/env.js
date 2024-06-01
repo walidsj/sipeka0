@@ -8,12 +8,14 @@ export const env = createEnv({
             .enum(['development', 'test', 'production'])
             .default('development'),
         PORT: z.number().default(3000),
+        JWT_SECRET_KEY: z.string().default('secret'),
     },
     client: {},
     runtimeEnv: {
         DATABASE_URL: process.env.DATABASE_URL,
         NODE_ENV: process.env.NODE_ENV,
         PORT: process.env.PORT ? parseInt(process.env.PORT) : 3000,
+        JWT_SECRET_KEY: process.env.JWT_SECRET_KEY,
     },
     skipValidation: !!process.env.SKIP_ENV_VALIDATION,
     emptyStringAsUndefined: true,

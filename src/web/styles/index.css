@@ -70,9 +70,7 @@
     * {
         @apply border-border;
         font-variant-numeric: tabular-nums;
-        font-feature-settings:
-            'rlig' 1,
-            'calt' 1;
+        font-feature-settings: 'rlig' 1, 'calt' 1;
         font-family: 'Plus Jakarta Sans Variable', sans-serif;
     }
     body {

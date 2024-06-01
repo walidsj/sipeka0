@@ -1,12 +1,15 @@
-import { initTRPC } from '@trpc/server'
+import { initTRPC, TRPCError } from '@trpc/server'
 import superjson from 'superjson'
 import { ZodError } from 'zod'
-
 import { db } from '@/server/db'
+import { eq } from 'drizzle-orm'
+import { user } from './db/schema'
+import { getSession } from './auth'
 
 export const createTRPCContext = async (opts: { headers: Headers }) => {
     return {
         db,
+        session: await getSession(opts.headers.get('authorization') || ''),
         ...opts,
     }
 }
@@ -44,3 +47,19 @@ export const createCallerFactory = t.createCallerFactory
 export const createTRPCRouter = t.router
 
 export const publicProcedure = t.procedure
+
+export const userProcedure = publicProcedure.use(async ({ ctx, next }) => {
+    if (!ctx.session) {
+        throw new TRPCError({ code: 'UNAUTHORIZED' })
+    }
+
+    const existedUser = await ctx.db.query.user.findFirst({
+        where: eq(user.id, parseInt(ctx.session.id)),
+    })
+
+    return next({
+        ctx: {
+            user: existedUser,
+        },
+    })
+})

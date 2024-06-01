@@ -20,4 +20,10 @@ export default defineConfig({
             }`,
         },
     },
+    root: path.resolve(__dirname, 'src/web'),
+    build: {
+        outDir: path.resolve(__dirname, 'dist'),
+        emptyOutDir: true,
+    },
+    publicDir: path.resolve(__dirname, 'public'),
 })

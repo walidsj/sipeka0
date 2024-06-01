@@ -1,10 +1,10 @@
-import { useCookies } from 'react-cookie'
+import { useAuth } from '@/web/lib/auth'
 import { Navigate, Outlet } from 'react-router-dom'
 
 export default function Protected() {
-    const [cookies] = useCookies(['token'])
+    const { token } = useAuth()
 
-    if (!cookies.token) {
+    if (!token) {
         return <Navigate to="/login" replace />
     }
 

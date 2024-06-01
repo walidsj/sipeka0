@@ -2,10 +2,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { loggerLink, httpBatchLink } from '@trpc/client'
 import { createTRPCReact } from '@trpc/react-query'
 import { type inferRouterInputs, type inferRouterOutputs } from '@trpc/server'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import SuperJSON from 'superjson'
-
 import { type AppRouter } from '@/app/api/root'
+import { useCookies } from 'react-cookie'
 
 const createQueryClient = () => new QueryClient()
 
@@ -24,9 +24,11 @@ export type RouterInputs = inferRouterInputs<AppRouter>
 export type RouterOutputs = inferRouterOutputs<AppRouter>
 
 export function TRPCReactProvider(props: { children: React.ReactNode }) {
+    const [cookies] = useCookies(['token'])
+
     const queryClient = getQueryClient()
 
-    const [trpcClient] = useState(() =>
+    const clientTrpcInstance = () =>
         api.createClient({
             links: [
                 loggerLink({
@@ -39,12 +41,18 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
                     url: '/api/trpc',
                     headers: () => {
                         const headers = new Headers()
+                        headers.set('authorization', cookies.token ?? '')
                         return headers
                     },
                 }),
             ],
         })
-    )
+
+    const [trpcClient, setTrpcClient] = useState(clientTrpcInstance)
+
+    useEffect(() => {
+        setTrpcClient(clientTrpcInstance)
+    }, [cookies.token])
 
     return (
         <QueryClientProvider client={queryClient}>
