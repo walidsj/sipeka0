@@ -79,6 +79,10 @@ export const userRouter = createTRPCRouter({
         }),
 
     getProfile: userProcedure.query(async ({ ctx }) => {
-        return ctx.session
+        const existedUser = await ctx.db.query.user.findFirst({
+            where: eq(user.id, parseInt(ctx.session?.id ?? '')),
+        })
+
+        return existedUser
     }),
 })

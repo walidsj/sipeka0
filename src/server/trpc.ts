@@ -9,7 +9,7 @@ import { getSession } from './auth'
 export const createTRPCContext = async (opts: { headers: Headers }) => {
     return {
         db,
-        session: await getSession(opts.headers.get('authorization') || ''),
+        session: await getSession(opts.headers.get('authorization') ?? ''),
         ...opts,
     }
 }

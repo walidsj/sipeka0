@@ -37,7 +37,7 @@ export default function Login() {
         onSuccess(data) {
             auth.login(data.token)
             toast.success(data.message)
-            navigate('/dashboard')
+            navigate('/home')
         },
         onError(error) {
             toast.error(error.message)
@@ -58,11 +58,12 @@ export default function Login() {
     }
 
     return (
-        <Card className="max-w-96">
+        <Card className="max-w-96 w-full shadow-none border-0">
             <CardHeader>
                 <CardTitle>Login</CardTitle>
                 <CardDescription>
-                    Silakan login untuk masuk aplikasi
+                    Mohon masukkan informasi akun Anda untuk mulai menggunakan
+                    SIPEKA
                 </CardDescription>
             </CardHeader>
             <Form {...form}>
@@ -104,14 +105,20 @@ export default function Login() {
                             />
                         </CardContent>
                         <CardFooter className="flex flex-col gap-3">
-                            <Button className="w-full">Masuk ke Sistem</Button>
-                            <Link to="/register">
-                                <Button variant="link">Register</Button>
-                            </Link>
+                            <Button size="lg" className="w-full">
+                                Masuk ke Sistem
+                            </Button>
+                            <Button asChild variant="link">
+                                <Link to="/register">Register</Link>
+                            </Button>
                         </CardFooter>
                     </fieldset>
                 </form>
             </Form>
+            <p className="text-xs text-center text-gray-400 mt-5">
+                &copy; {new Date().getFullYear()} SIPEKA. RSJD Atma Husada
+                Mahakam.
+            </p>
         </Card>
     )
 }

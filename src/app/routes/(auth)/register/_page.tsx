@@ -55,7 +55,7 @@ export default function Login() {
     }
 
     return (
-        <Card className="max-w-96">
+        <Card className="max-w-96 w-full shadow-none border-0">
             <CardHeader>
                 <CardTitle>Register</CardTitle>
                 <CardDescription>Silakan registrasi akun</CardDescription>
@@ -99,14 +99,20 @@ export default function Login() {
                             />
                         </CardContent>
                         <CardFooter className="flex flex-col gap-3">
-                            <Button className="w-full">Daftar Akun</Button>
-                            <Link to="/login">
-                                <Button variant="link">Login</Button>
-                            </Link>
+                            <Button size="lg" className="w-full">
+                                Daftar Akun
+                            </Button>
+                            <Button asChild variant="link">
+                                <Link to="/login">Login</Link>
+                            </Button>
                         </CardFooter>
                     </fieldset>
                 </form>
             </Form>
+            <p className="text-xs text-center text-gray-400 mt-5">
+                &copy; {new Date().getFullYear()} SIPEKA. RSJD Atma Husada
+                Mahakam.
+            </p>
         </Card>
     )
 }

@@ -118,7 +118,27 @@ const orderedRoutes = routes.map((route) => {
             parent = layout ? layout.key : middleware ? middleware.key : null
         }
     } else {
-        parent = middleware ? middleware.key : layout ? layout.key : null
+        if (route.type === 'layout') {
+            if (layout && middleware) {
+                if (layout.segments.length == middleware.segments.length) {
+                    parent = layout.key
+                } else {
+                    parent = middleware
+                        ? middleware.key
+                        : layout
+                        ? layout.key
+                        : null
+                }
+            } else {
+                parent = middleware
+                    ? middleware.key
+                    : layout
+                    ? layout.key
+                    : null
+            }
+        } else {
+            parent = middleware ? middleware.key : layout ? layout.key : null
+        }
     }
 
     return {
@@ -137,7 +157,7 @@ interface RoutePagesType {
     path: string
     type: string
     element: any
-    parent: string | null
+    parent: string | null | undefined
     children: RoutePagesType[]
 }
 
@@ -152,7 +172,10 @@ function nestRoutes(data: typeof orderedRoutes) {
 
     for (const item of data) {
         if (item.parent) {
-            map[item.parent].children.push(map[item.key])
+            map[item.parent].children.push({
+                ...map[item.key],
+                parent: undefined,
+            })
         } else {
             result.push(map[item.key])
         }
@@ -223,11 +246,6 @@ function renderPagesRouter(routes: RoutePagesType[]) {
 }
 
 export default function Router() {
-    // return (
-    //     <code>
-    //         <pre>{JSON.stringify(orderedRoutes, null, 3)}</pre>
-    //     </code>
-    // )
     // return (
     //     <code>
     //         <pre>{JSON.stringify(nest, null, 3)}</pre>

@@ -1,7 +1,15 @@
 import { useCookies } from 'react-cookie'
+import { api } from '../trpc/react'
+import { getQueryKey } from '@trpc/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 
 export function useAuth() {
     const [cookies, setCookie, removeCookie] = useCookies(['token'])
+    const queryClient = useQueryClient()
+
+    const user = api.user.getProfile.useQuery(undefined, {
+        enabled: !!cookies.token,
+    })
 
     function login(token: string) {
         setCookie('token', token, {
@@ -12,8 +20,10 @@ export function useAuth() {
     }
 
     function logout() {
+        const userKey = getQueryKey(api.user.getProfile, undefined)
+        queryClient.removeQueries({ queryKey: userKey })
         removeCookie('token')
     }
 
-    return { login, logout, token: cookies.token }
+    return { login, logout, token: cookies.token ?? '', user: user.data }
 }
