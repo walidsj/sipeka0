@@ -1,5 +1,10 @@
-import { user } from '@/server/db/schema'
-import { createTRPCRouter, publicProcedure, userProcedure } from '@/server/trpc'
+import { pegawai, user } from '@/server/db/schema'
+import {
+    adminRouter,
+    createTRPCRouter,
+    publicProcedure,
+    userProcedure,
+} from '@/server/trpc'
 import { TRPCError } from '@trpc/server'
 import { eq } from 'drizzle-orm'
 import { z } from 'zod'
@@ -10,13 +15,20 @@ import { type JWTPayload, SignJWT } from 'jose'
 const secret = env.JWT_SECRET_KEY
 const key = new TextEncoder().encode(secret)
 
+export const userSchema = z.object({
+    nama: z.string().min(1),
+    username: z.string().min(1),
+    instansi: z.string().min(1),
+    role: z.enum(['USER', 'ADMIN']),
+    pegawaiId: z.number().nullish(),
+})
+
 export const userRouter = createTRPCRouter({
     login: publicProcedure
         .input(
-            z.object({
-                username: z.string().min(1),
-                password: z.string().min(1),
-            })
+            userSchema
+                .pick({ username: true })
+                .merge(z.object({ password: z.string().min(1) }))
         )
         .mutation(async ({ ctx, input }) => {
             const existedUser = await ctx.db.query.user.findFirst({
@@ -52,13 +64,12 @@ export const userRouter = createTRPCRouter({
 
     register: publicProcedure
         .input(
-            z.object({
-                nama: z.string().min(1),
-                username: z.string().min(1),
-                password: z.string().min(5),
-                instansi: z.string().min(1),
-                token: z.string().length(8),
-            })
+            userSchema.omit({ role: true }).merge(
+                z.object({
+                    password: z.string().min(5),
+                    token: z.string().length(8),
+                })
+            )
         )
         .mutation(async ({ ctx, input }) => {
             if (input.token !== '12345678') {
@@ -93,15 +104,20 @@ export const userRouter = createTRPCRouter({
     getProfile: userProcedure.query(async ({ ctx }) => {
         const existedUser = ctx.user!
 
+        if (!existedUser) {
+            throw new TRPCError({
+                message: 'User tidak ditemukan',
+                code: 'UNAUTHORIZED',
+            })
+        }
+
         const { password, ...rest } = existedUser
 
         return rest
     }),
 
     updateProfile: userProcedure
-        .input(
-            z.object({ nama: z.string().min(1), instansi: z.string().min(1) })
-        )
+        .input(userSchema.pick({ nama: true, instansi: true }))
         .mutation(async ({ ctx, input }) => {
             await ctx.db
                 .update(user)
@@ -143,5 +159,109 @@ export const userRouter = createTRPCRouter({
                 .where(eq(user.id, ctx.user?.id ?? 0))
 
             return { message: 'Password berhasil diupdate' }
+        }),
+
+    getAll: userProcedure.query(async ({ ctx }) => {
+        return await ctx.db.query.user.findMany({
+            columns: {
+                id: true,
+                nama: true,
+                username: true,
+                instansi: true,
+                role: true,
+                pegawaiId: true,
+                createdAt: true,
+                updatedAt: true,
+            },
+            with: {
+                pegawai: true,
+            },
+        })
+    }),
+
+    getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {
+        return (await ctx.db.query.user.findFirst({
+            where: eq(user.id, input),
+            columns: {
+                id: true,
+                nama: true,
+                username: true,
+                instansi: true,
+                role: true,
+                pegawaiId: true,
+                createdAt: true,
+                updatedAt: true,
+            },
+            with: {
+                pegawai: true,
+            },
+        })) as Omit<typeof user.$inferSelect, 'password'> & {
+            pegawai?: typeof pegawai.$inferSelect
+        }
+    }),
+
+    create: adminRouter
+        .input(userSchema.merge(z.object({ password: z.string().min(5) })))
+        .mutation(async ({ ctx, input }) => {
+            const existedUser = await ctx.db.query.user.findFirst({
+                where: eq(user.username, input.username),
+            })
+
+            if (existedUser) {
+                throw new TRPCError({
+                    message: 'Username telah didaftarkan, coba username lain',
+                    code: 'UNAUTHORIZED',
+                })
+            }
+
+            const { password, ...rest } = input
+
+            await ctx.db.insert(user).values({
+                password: bcryptjs.hashSync(input.password, 10),
+                ...rest,
+            })
+
+            return { message: 'User berhasil ditambahkan' }
+        }),
+
+    updateById: adminRouter
+        .input(
+            userSchema
+                .pick({
+                    nama: true,
+                    instansi: true,
+                    role: true,
+                    pegawaiId: true,
+                    username: true,
+                })
+                .merge(
+                    z.object({
+                        id: z.number(),
+                        password: z.string().min(5).or(z.string().nullish()),
+                    })
+                )
+        )
+        .mutation(async ({ ctx, input }) => {
+            const { password, ...rest } = input
+
+            await ctx.db
+                .update(user)
+                .set({
+                    password: password
+                        ? bcryptjs.hashSync(password, 10)
+                        : undefined,
+                    ...rest,
+                })
+                .where(eq(user.id, input.id))
+
+            return { message: 'User berhasil diupdate' }
+        }),
+
+    deleteById: adminRouter
+        .input(z.number())
+        .mutation(async ({ ctx, input }) => {
+            await ctx.db.delete(user).where(eq(user.id, input))
+
+            return { message: 'User berhasil dihapus' }
         }),
 })

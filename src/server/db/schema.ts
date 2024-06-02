@@ -15,6 +15,7 @@ export const user = mysqlTable('user', {
     password: varchar('password', { length: 256 }),
     instansi: varchar('instansi', { length: 256 }),
     role: mysqlEnum('role', ['ADMIN', 'USER']),
+    pegawaiId: int('pegawai_id', { unsigned: true }),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
 })
@@ -94,7 +95,7 @@ export const pengelolaBlud = mysqlTable('pengelola_blud', {
 
 export const userRelations = relations(user, ({ one }) => ({
     pegawai: one(pegawai, {
-        fields: [user.id],
+        fields: [user.pegawaiId],
         references: [pegawai.id],
     }),
 }))

@@ -22,6 +22,13 @@
       "when": 1717239420279,
       "tag": "0002_aspiring_nighthawk",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1717341950728,
+      "tag": "0003_fair_wrecking_crew",
+      "breakpoints": true
     }
   ]
 }

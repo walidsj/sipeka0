@@ -30,7 +30,7 @@ export default function Router() {
         const path = key
             .replace(/[^\/]+\.tsx$/, '') // remove file name
             .replace(/\.\.\/app\/routes/g, '') // remove ./routes
-            .replace(/\/\(.*\)/g, '') // remove (segment)
+            .replace(/\/\(([^)]+)\)/g, '') // remove segment with /(segment)
             .replace(/\$([^\/]+)/g, ':$1') // replace $segment with :segment
 
         const segments = key
@@ -75,16 +75,16 @@ export default function Router() {
                 return route.type === 'layout'
             })
             .filter((route: RouteType) => {
-                if (route.type === 'middleware') {
+                if (objRoute.type === 'middleware') {
                     return (
                         objRoute.segments
+                            .slice(0, -1)
                             .join('/')
                             .includes(route.segments.join('/')) &&
-                        objRoute.segments.join('/') !==
-                            route.segments.join('/') &&
                         objRoute.key !== route.key
                     )
                 }
+
                 return (
                     objRoute.segments
                         .join('/')
@@ -96,12 +96,6 @@ export default function Router() {
                 return a.segments.length - b.segments.length
             })
 
-        if (objRoute.type === 'middleware') {
-            if (listOfLayouts.length > 1) {
-                return listOfLayouts[listOfLayouts.length - 2] ?? null
-            }
-        }
-
         return listOfLayouts[listOfLayouts.length - 1] ?? null
     }
 
@@ -111,46 +105,14 @@ export default function Router() {
 
         let parent: string | null = null
 
-        if (route.type === 'page') {
-            if (layout && middleware) {
-                if (layout.segments.length >= middleware.segments.length) {
-                    parent = layout.key
-                } else {
-                    parent = middleware.key
-                }
+        if (layout && middleware) {
+            if (layout.segments.length >= middleware.segments.length) {
+                parent = layout.key
             } else {
-                parent = layout
-                    ? layout.key
-                    : middleware
-                      ? middleware.key
-                      : null
+                parent = middleware.key
             }
         } else {
-            if (route.type === 'layout') {
-                if (layout && middleware) {
-                    if (layout.segments.length >= middleware.segments.length) {
-                        parent = layout.key
-                    } else {
-                        parent = middleware
-                            ? middleware.key
-                            : layout
-                              ? layout.key
-                              : null
-                    }
-                } else {
-                    parent = middleware
-                        ? middleware.key
-                        : layout
-                          ? layout.key
-                          : null
-                }
-            } else {
-                parent = middleware
-                    ? middleware.key
-                    : layout
-                      ? layout.key
-                      : null
-            }
+            parent = layout ? layout.key : middleware ? middleware.key : null
         }
 
         return {

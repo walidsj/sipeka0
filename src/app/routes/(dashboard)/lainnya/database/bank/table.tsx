@@ -20,9 +20,10 @@ import { FiChevronsDown, FiEdit, FiTrash } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
 export default function BankTable() {
-    const bank = api.bank.getAll.useQuery(undefined, {
-        placeholderData: keepPreviousData,
-    })
+    const bank = api.bank.getAll.useQuery(
+        {},
+        { placeholderData: keepPreviousData }
+    )
 
     const deleteBank = api.bank.deleteById.useMutation({
         onMutate() {
@@ -69,7 +70,7 @@ export default function BankTable() {
                             </TableCell>
                             <TableCell>
                                 <DropdownMenu>
-                                    <DropdownMenuTrigger>
+                                    <DropdownMenuTrigger asChild>
                                         <Button variant="outline">
                                             Aksi{' '}
                                             <FiChevronsDown className="ml-2" />

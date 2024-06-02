@@ -64,8 +64,9 @@ export default function ProfilLayout() {
                                     variant="ghost"
                                     className={cn(
                                         'h-12 rounded-none',
-                                        pathname ===
-                                            '/lainnya/pengaturan/pengelola-blud' &&
+                                        pathname.startsWith(
+                                            '/lainnya/pengaturan/pengelola-blud'
+                                        ) &&
                                             'border-b-4 border-primary text-primary'
                                     )}
                                 >

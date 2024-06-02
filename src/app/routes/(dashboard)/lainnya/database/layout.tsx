@@ -9,10 +9,10 @@ export default function ProfilLayout() {
         <div className="flex flex-row">
             <div className="flex min-h-[calc(100svh-138px)] w-72 flex-col bg-background shadow">
                 <nav className="w-full">
-                    <div className="border-b bg-background px-8 py-5">
-                        <h1 className="mb-2 text-xl font-semibold">Database</h1>
+                    <div className="border-b bg-background px-5 py-5">
+                        <h1 className="text-xl font-semibold">Database</h1>
                         <p className="text-sm text-slate-500">
-                            Data referensi operasional pengelolaan BLUD
+                            Basis data pengelolaan BLUD
                         </p>
                     </div>
                     <ul className="flex flex-col">
@@ -21,7 +21,7 @@ export default function ProfilLayout() {
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-12 w-full justify-start rounded-none px-8',
+                                    'h-12 w-full justify-start rounded-none px-5',
                                     pathname.startsWith(
                                         '/lainnya/database/bank'
                                     ) &&
@@ -38,7 +38,7 @@ export default function ProfilLayout() {
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-12 w-full justify-start rounded-none px-8',
+                                    'h-12 w-full justify-start rounded-none px-5',
                                     pathname.startsWith(
                                         '/lainnya/database/rekanan'
                                     ) &&
@@ -55,9 +55,9 @@ export default function ProfilLayout() {
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-12 w-full justify-start rounded-none px-8',
+                                    'h-12 w-full justify-start rounded-none px-5',
                                     pathname.startsWith(
-                                        '/profil/ganti-password'
+                                        '/lainnya/database/pegawai'
                                     ) &&
                                         'border-l-4 border-primary bg-slate-50 text-primary'
                                 )}

@@ -1,0 +1,1 @@
+ALTER TABLE `user` ADD `pegawai_id` int unsigned;

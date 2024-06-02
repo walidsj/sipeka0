@@ -126,7 +126,7 @@ export default function DashboardLayout() {
                                         'border-b-4 border-primary text-primary'
                                 )}
                             >
-                                <Link to="/lainnya/database/rekanan">
+                                <Link to="/lainnya/database/pegawai">
                                     <FiTool className="mr-2" />
                                     Lainnya
                                 </Link>

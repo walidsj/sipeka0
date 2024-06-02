@@ -63,3 +63,14 @@ export const userProcedure = publicProcedure.use(async ({ ctx, next }) => {
         },
     })
 })
+
+export const adminRouter = userProcedure.use(async ({ ctx, next }) => {
+    // if (ctx.user?.role !== 'ADMIN') {
+    //     throw new TRPCError({
+    //         code: 'UNAUTHORIZED',
+    //         message: 'UNAUTHORIZED: Akses hanya untuk akun admin',
+    //     })
+    // }
+
+    return next()
+})

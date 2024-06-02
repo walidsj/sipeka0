@@ -15,18 +15,14 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
-
-const schema = z.object({
-    nama: z.string().min(1),
-    kode: z.string().length(3),
-})
+import { bankSchema } from '../../schema'
 
 export default function EditForm({ data }: { data: typeof bank.$inferSelect }) {
     const navigate = useNavigate()
     const utils = api.useUtils()
 
-    const form = useForm<z.infer<typeof schema>>({
-        resolver: zodResolver(schema),
+    const form = useForm<z.infer<typeof bankSchema>>({
+        resolver: zodResolver(bankSchema),
         mode: 'onTouched',
         defaultValues: {
             nama: data.nama ?? '',
@@ -50,7 +46,7 @@ export default function EditForm({ data }: { data: typeof bank.$inferSelect }) {
         },
     })
 
-    function onSubmit(val: z.infer<typeof schema>) {
+    function onSubmit(val: z.infer<typeof bankSchema>) {
         edit.mutate({ id: data.id, ...val })
     }
 
