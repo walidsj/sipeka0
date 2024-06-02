@@ -10,8 +10,10 @@ import {
 
 export const user = mysqlTable('user', {
     id: serial('id').primaryKey(),
+    nama: varchar('nama', { length: 256 }),
     username: varchar('username', { length: 256 }),
     password: varchar('password', { length: 256 }),
+    instansi: varchar('instansi', { length: 256 }),
     role: mysqlEnum('role', ['ADMIN', 'USER']),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),

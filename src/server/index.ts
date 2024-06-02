@@ -34,7 +34,6 @@ const app = new Hono()
 
 if (env.NODE_ENV === 'production') {
     app.use('*', serveStatic({ root: './dist' }))
-    app.use('*', serveStatic({ root: './public' }))
 }
 app.use('/api/*', cors())
 app.all('/api/trpc/*', (c) => handler(c.req.raw))

@@ -1,0 +1,1 @@
+ALTER TABLE `user` ADD `instansi` varchar(256);

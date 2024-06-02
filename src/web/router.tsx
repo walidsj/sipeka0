@@ -1,260 +1,397 @@
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import React from 'react'
+import { cn } from './lib/utils'
+import ReloadPrompt from './components/reload-pwa'
 
-const importedRoutes: any = import.meta.glob(
-    '@/app/routes/**/(_layout|_page|_not-found).tsx'
-)
+export default function Router() {
+    const importedRoutes: any = import.meta.glob(
+        '@/app/routes/**/(layout|page|not-found).tsx'
+    )
 
-const importedRoutesEager: any = import.meta.glob(
-    '@/app/routes/**/(_middleware).tsx',
-    { eager: true }
-)
+    const importedRoutesEager: any = import.meta.glob(
+        '@/app/routes/**/(middleware).tsx',
+        { eager: true }
+    )
 
-type RouteType = {
-    key: string
-    path: string
-    segments: string[]
-    type: string
-    element: any
-}
-
-const routes: RouteType[] = Object.keys({
-    ...importedRoutes,
-    ...importedRoutesEager,
-}).map((key) => {
-    const type = key.match(/\/\_([^\/]+)\.tsx$/)
-
-    const path = key
-        .replace(/[^\/]+\.tsx$/, '') // remove file name
-        .replace(/\.\.\/app\/routes/g, '') // remove ./routes
-        .replace(/\/\(.*\)/g, '') // remove (segment)
-        .replace(/\$([^\/]+)/g, ':$1') // replace $segment with :segment
-
-    const segments = key
-        .replace(/[^\/]+\.tsx$/, '')
-        .split('/')
-        .filter(Boolean)
-
-    return {
-        key,
-        path: path ?? '/',
-        segments,
-        type: type ? type[1] : '',
-        element:
-            importedRoutes[key] instanceof Function
-                ? React.lazy(importedRoutes[key] as any)
-                : (importedRoutesEager[key].default as any),
+    type RouteType = {
+        key: string
+        path: string
+        segments: string[]
+        type: string
+        element: any
     }
-})
 
-function middlewareResolver(objRoute: RouteType) {
-    const listOfMiddlewares = routes
-        .filter((route: RouteType) => {
-            return route.type === 'middleware'
-        })
-        .filter((route: RouteType) => {
-            return (
-                objRoute.segments
-                    .join('/')
-                    .includes(route.segments.join('/')) &&
-                objRoute.key !== route.key
-            )
-        })
-        .sort((a, b) => {
-            return a.segments.length - b.segments.length
-        })
-    return listOfMiddlewares[listOfMiddlewares.length - 1] ?? null
-}
+    const routes: RouteType[] = Object.keys({
+        ...importedRoutes,
+        ...importedRoutesEager,
+    }).map((key) => {
+        const type = key.match(/\/([^\/]+)\.tsx$/)
 
-function layoutResolver(objRoute: RouteType) {
-    const listOfLayouts = routes
-        .filter((route: RouteType) => {
-            return route.type === 'layout'
-        })
-        .filter((route: RouteType) => {
-            if (route.type === 'middleware') {
+        const path = key
+            .replace(/[^\/]+\.tsx$/, '') // remove file name
+            .replace(/\.\.\/app\/routes/g, '') // remove ./routes
+            .replace(/\/\(.*\)/g, '') // remove (segment)
+            .replace(/\$([^\/]+)/g, ':$1') // replace $segment with :segment
+
+        const segments = key
+            .replace(/[^\/]+\.tsx$/, '')
+            .split('/')
+            .filter(Boolean)
+
+        return {
+            key,
+            path: path ?? '/',
+            segments,
+            type: type ? type[1] : '',
+            element:
+                importedRoutes[key] instanceof Function
+                    ? React.lazy(importedRoutes[key] as any)
+                    : (importedRoutesEager[key].default as any),
+        }
+    })
+
+    function middlewareResolver(objRoute: RouteType) {
+        const listOfMiddlewares = routes
+            .filter((route: RouteType) => {
+                return route.type === 'middleware'
+            })
+            .filter((route: RouteType) => {
                 return (
                     objRoute.segments
                         .join('/')
                         .includes(route.segments.join('/')) &&
-                    objRoute.segments.join('/') !== route.segments.join('/') &&
                     objRoute.key !== route.key
                 )
-            }
-            return (
-                objRoute.segments
-                    .join('/')
-                    .includes(route.segments.join('/')) &&
-                objRoute.key !== route.key
-            )
-        })
-        .sort((a, b) => {
-            return a.segments.length - b.segments.length
-        })
-
-    if (objRoute.type === 'middleware') {
-        if (listOfLayouts.length > 1) {
-            return listOfLayouts[listOfLayouts.length - 2] ?? null
-        }
+            })
+            .sort((a, b) => {
+                return a.segments.length - b.segments.length
+            })
+        return listOfMiddlewares[listOfMiddlewares.length - 1] ?? null
     }
 
-    return listOfLayouts[listOfLayouts.length - 1] ?? null
-}
+    function layoutResolver(objRoute: RouteType) {
+        const listOfLayouts = routes
+            .filter((route: RouteType) => {
+                return route.type === 'layout'
+            })
+            .filter((route: RouteType) => {
+                if (route.type === 'middleware') {
+                    return (
+                        objRoute.segments
+                            .join('/')
+                            .includes(route.segments.join('/')) &&
+                        objRoute.segments.join('/') !==
+                            route.segments.join('/') &&
+                        objRoute.key !== route.key
+                    )
+                }
+                return (
+                    objRoute.segments
+                        .join('/')
+                        .includes(route.segments.join('/')) &&
+                    objRoute.key !== route.key
+                )
+            })
+            .sort((a, b) => {
+                return a.segments.length - b.segments.length
+            })
 
-const orderedRoutes = routes.map((route) => {
-    const layout = layoutResolver(route)
-    const middleware = middlewareResolver(route)
+        if (objRoute.type === 'middleware') {
+            if (listOfLayouts.length > 1) {
+                return listOfLayouts[listOfLayouts.length - 2] ?? null
+            }
+        }
 
-    let parent: string | null = null
+        return listOfLayouts[listOfLayouts.length - 1] ?? null
+    }
 
-    if (route.type === 'page') {
-        if (layout && middleware) {
-            if (layout.segments.length >= middleware.segments.length) {
-                parent = layout.key
+    const orderedRoutes = routes.map((route) => {
+        const layout = layoutResolver(route)
+        const middleware = middlewareResolver(route)
+
+        let parent: string | null = null
+
+        if (route.type === 'page') {
+            if (layout && middleware) {
+                if (layout.segments.length >= middleware.segments.length) {
+                    parent = layout.key
+                } else {
+                    parent = middleware.key
+                }
             } else {
-                parent = middleware.key
+                parent = layout
+                    ? layout.key
+                    : middleware
+                      ? middleware.key
+                      : null
             }
         } else {
-            parent = layout ? layout.key : middleware ? middleware.key : null
-        }
-    } else {
-        if (route.type === 'layout') {
-            if (layout && middleware) {
-                if (layout.segments.length == middleware.segments.length) {
-                    parent = layout.key
+            if (route.type === 'layout') {
+                if (layout && middleware) {
+                    if (layout.segments.length >= middleware.segments.length) {
+                        parent = layout.key
+                    } else {
+                        parent = middleware
+                            ? middleware.key
+                            : layout
+                              ? layout.key
+                              : null
+                    }
                 } else {
                     parent = middleware
                         ? middleware.key
                         : layout
-                        ? layout.key
-                        : null
+                          ? layout.key
+                          : null
                 }
             } else {
                 parent = middleware
                     ? middleware.key
                     : layout
-                    ? layout.key
-                    : null
+                      ? layout.key
+                      : null
             }
-        } else {
-            parent = middleware ? middleware.key : layout ? layout.key : null
         }
-    }
 
-    return {
-        key: route.key,
-        path: route.path,
-        type: route.type,
-        element: route.element,
-        parent,
-        // layout,
-        // middleware,
-    }
-})
-
-interface RoutePagesType {
-    key: string
-    path: string
-    type: string
-    element: any
-    parent: string | null | undefined
-    children: RoutePagesType[]
-}
-
-function nestRoutes(data: typeof orderedRoutes) {
-    const map: { [key: string]: RoutePagesType } = {}
-
-    for (const item of data) {
-        map[item.key] = { ...item, children: [] }
-    }
-
-    const result: RoutePagesType[] = []
-
-    for (const item of data) {
-        if (item.parent) {
-            map[item.parent].children.push({
-                ...map[item.key],
-                parent: undefined,
-            })
-        } else {
-            result.push(map[item.key])
+        return {
+            key: route.key,
+            path: route.path,
+            type: route.type,
+            element: route.element,
+            parent,
+            layout,
+            middleware,
         }
+    })
+
+    interface RoutePagesType {
+        key: string
+        path: string
+        type: string
+        element: any
+        parent: string | null | undefined
+        children: RoutePagesType[]
+        layout?: RouteType
+        middleware?: RouteType
     }
 
-    return result
-}
+    function nestRoutes(data: typeof orderedRoutes) {
+        const map: { [key: string]: RoutePagesType } = {}
 
-const nest = nestRoutes(orderedRoutes)
+        for (const item of data) {
+            map[item.key] = { ...item, children: [] }
+        }
 
-function renderPagesRouter(routes: RoutePagesType[]) {
-    return routes.map((route) => {
-        if (route.type === 'middleware') {
-            if (route.children.length > 0) {
-                return (
-                    <Route key={route.key} element={<route.element />}>
-                        {renderPagesRouter(route.children)}
-                    </Route>
-                )
+        const result: RoutePagesType[] = []
+
+        for (const item of data) {
+            if (item.parent) {
+                map[item.parent].children.push({
+                    ...map[item.key],
+                    parent: undefined,
+                })
+            } else {
+                result.push(map[item.key])
+            }
+        }
+
+        return result
+    }
+
+    const nest = nestRoutes(orderedRoutes)
+
+    function renderRoutes(routes: RoutePagesType[]) {
+        return routes.map((route) => {
+            if (route.type === 'middleware') {
+                if (route.children.length > 0) {
+                    return (
+                        <Route key={route.key} element={<route.element />}>
+                            {renderRoutes(route.children)}
+                        </Route>
+                    )
+                }
+
+                return <Route key={route.key} element={<route.element />} />
             }
 
-            return <Route key={route.key} element={<route.element />} />
-        }
+            if (route.type === 'layout' || route.type === 'page') {
+                if (route.children.length > 0) {
+                    return (
+                        <Route
+                            key={route.key}
+                            element={
+                                <React.Suspense>
+                                    <route.element />
+                                </React.Suspense>
+                            }
+                        >
+                            {renderRoutes(route.children)}
+                        </Route>
+                    )
+                }
 
-        if (route.type === 'layout' || route.type === 'page') {
-            if (route.children.length > 0) {
                 return (
                     <Route
                         key={route.key}
+                        path={route.path}
                         element={
                             <React.Suspense>
                                 <route.element />
                             </React.Suspense>
                         }
-                    >
-                        {renderPagesRouter(route.children)}
-                    </Route>
+                    />
                 )
             }
 
-            return (
-                <Route
-                    key={route.key}
-                    path={route.path}
-                    element={
-                        <React.Suspense>
-                            <route.element />
-                        </React.Suspense>
-                    }
-                />
-            )
-        }
+            if (route.type === 'not-found') {
+                return (
+                    <Route
+                        key={route.key}
+                        path="*"
+                        element={
+                            <React.Suspense>
+                                <route.element />
+                            </React.Suspense>
+                        }
+                    />
+                )
+            }
+        })
+    }
 
-        if (route.type === 'not-found') {
-            return (
-                <Route
-                    key={route.key}
-                    path="*"
-                    element={
-                        <React.Suspense>
-                            <route.element />
-                        </React.Suspense>
-                    }
-                />
-            )
-        }
-    })
-}
+    function simulatePagesRouter(routes: RoutePagesType[]) {
+        return routes.map((route) => {
+            if (route.type === 'middleware') {
+                if (route.children.length > 0) {
+                    return (
+                        <div
+                            className={cn(
+                                'm-5 border border-black p-5',
+                                route.type === 'middleware' && 'bg-red-100'
+                            )}
+                        >
+                            <span className="block font-bold">
+                                {route.path}
+                            </span>
+                            <span className="text-xs text-gray-500">
+                                {route.key}
+                            </span>
+                            <br />
+                            <br />
+                            <small className="text-gray-500">
+                                Middleware: {route.middleware?.key}
+                                <br />
+                                Layout: {route.layout?.key}
+                            </small>
+                            {simulatePagesRouter(route.children)}
+                        </div>
+                    )
+                }
 
-export default function Router() {
-    // return (
-    //     <code>
-    //         <pre>{JSON.stringify(nest, null, 3)}</pre>
-    //     </code>
-    // )
+                return (
+                    <div
+                        className={cn(
+                            'm-5 border border-black p-5',
+                            route.type === 'middleware' && 'bg-red-100'
+                        )}
+                    >
+                        <span className="block font-bold">{route.path}</span>
+                        <span className="text-xs text-gray-500">
+                            {route.key}
+                        </span>
+                        <br />
+                        <br />
+                        <small className="text-gray-500">
+                            Middleware: {route.middleware?.key}
+                            <br />
+                            Layout: {route.layout?.key}
+                        </small>
+                    </div>
+                )
+            }
+
+            if (route.type === 'layout' || route.type === 'page') {
+                if (route.children.length > 0) {
+                    return (
+                        <div
+                            className={cn(
+                                'm-5 border border-black p-5',
+                                route.type === 'layout' && 'bg-yellow-100',
+                                route.type === 'page' && 'bg-background'
+                            )}
+                        >
+                            <span className="block font-bold">
+                                {route.path}
+                            </span>
+                            <span className="text-xs text-gray-500">
+                                {route.key}
+                            </span>
+                            <br />
+                            <br />
+                            <small className="text-gray-500">
+                                Middleware: {route.middleware?.key}
+                                <br />
+                                Layout: {route.layout?.key}
+                            </small>
+                            {simulatePagesRouter(route.children)}
+                        </div>
+                    )
+                }
+
+                return (
+                    <div
+                        className={cn(
+                            'm-5 border border-black p-5',
+                            route.type === 'layout' && 'bg-yellow-100',
+                            route.type === 'page' && 'bg-background'
+                        )}
+                    >
+                        <span className="block font-bold">{route.path}</span>
+                        <span className="text-xs text-gray-500">
+                            {route.key}
+                        </span>
+                        <br />
+                        <br />
+                        <small className="text-gray-500">
+                            Middleware: {route.middleware?.key}
+                            <br />
+                            Layout: {route.layout?.key}
+                        </small>
+                    </div>
+                )
+            }
+
+            if (route.type === 'not-found') {
+                return (
+                    <div
+                        className={cn(
+                            'm-5 border border-black p-5',
+                            route.type === 'not-found' && 'bg-gray-100'
+                        )}
+                    >
+                        <span className="block font-bold">{route.path}</span>
+                        <span className="text-xs text-gray-500">
+                            {route.key}
+                        </span>
+                        <br />
+                        <br />
+                        <small className="text-gray-500">
+                            Middleware: {route.middleware?.key}
+                            <br />
+                            Layout: {route.layout?.key}
+                        </small>
+                    </div>
+                )
+            }
+        })
+    }
 
     return (
         <HashRouter>
-            <Routes>{renderPagesRouter(nest)}</Routes>
+            <ReloadPrompt />
+            <Routes>{renderRoutes(nest)}</Routes>
         </HashRouter>
     )
+
+    return <div>{simulatePagesRouter(nest)}</div>
 }

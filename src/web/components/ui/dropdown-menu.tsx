@@ -1,12 +1,9 @@
 import * as React from 'react'
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu'
-import {
-    CheckIcon,
-    ChevronRightIcon,
-    DotFilledIcon,
-} from '@radix-ui/react-icons'
+import { ChevronRightIcon, DotFilledIcon } from '@radix-ui/react-icons'
 
 import { cn } from '@/web/lib/utils'
+import { FiCheck } from 'react-icons/fi'
 
 const DropdownMenu = DropdownMenuPrimitive.Root
 
@@ -86,7 +83,7 @@ const DropdownMenuItem = React.forwardRef<
     <DropdownMenuPrimitive.Item
         ref={ref}
         className={cn(
-            'relative flex cursor-default select-none items-center rounded-xl px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+            'relative flex cursor-pointer select-none items-center rounded-xl px-4 py-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
             inset && 'pl-8',
             className
         )}
@@ -102,7 +99,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
     <DropdownMenuPrimitive.CheckboxItem
         ref={ref}
         className={cn(
-            'relative flex cursor-default select-none items-center rounded-xl py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+            'relative flex cursor-default select-none items-center rounded-xl py-2 pl-10 pr-4 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
             className
         )}
         checked={checked}
@@ -110,7 +107,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
     >
         <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
             <DropdownMenuPrimitive.ItemIndicator>
-                <CheckIcon className="h-4 w-4" />
+                <FiCheck className="h-4 w-4" />
             </DropdownMenuPrimitive.ItemIndicator>
         </span>
         {children}
@@ -150,7 +147,7 @@ const DropdownMenuLabel = React.forwardRef<
     <DropdownMenuPrimitive.Label
         ref={ref}
         className={cn(
-            'px-2 py-1.5 text-sm font-semibold',
+            'px-4 py-2 text-sm font-semibold',
             inset && 'pl-8',
             className
         )}

@@ -6,59 +6,134 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/web/components/ui/dropdown-menu'
+import React from 'react'
+import { FiLock, FiLogOut } from 'react-icons/fi'
 
 export function Header() {
     const auth = useAuth()
 
     return (
-        <header className="w-full fixed z-20 shadow-sm border-b bg-background">
-            <div className="mx-auto px-10 py-5 max-w-7xl">
-                <div className="w-full justify-between flex items-center">
-                    <Link to="/">
+        <header className="fixed z-20 h-20 w-full border-b bg-background shadow-sm">
+            <div className="mx-auto px-8">
+                <div className="flex w-full items-center justify-between">
+                    <Link to="/" className="flex h-20 items-center">
                         <img
                             src="/images/logo-sipeka-full-long.svg"
                             alt="Logo"
                             className="h-10 w-auto"
                         />
                     </Link>
-                    <nav className="flex gap-4 items-center">
-                        <Button variant="ghost" asChild>
-                            <Link to="/">Dashboard</Link>
-                        </Button>
-
-                        {!auth.user ? (
-                            <Button variant="ghost" asChild>
-                                <Link to="/login">Login</Link>
+                    <ul className="flex items-center">
+                        <li>
+                            <Button
+                                variant="ghost"
+                                asChild
+                                className="h-20 rounded-none px-5"
+                            >
+                                <Link to="/">Beranda</Link>
                             </Button>
-                        ) : (
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button variant="ghost" className="gap-3">
-                                        <Avatar className="h-8 w-8">
-                                            <AvatarImage
-                                                src={`https://ui-avatars.com/api/?name=${auth.user?.username}&background=0D8ABC&color=fff`}
-                                            />
-                                            <AvatarFallback>CN</AvatarFallback>
-                                        </Avatar>
-                                        <span>{auth.user.username}</span>
+                        </li>
+                        <li>
+                            <Button
+                                variant="ghost"
+                                asChild
+                                className="h-20 rounded-none px-5"
+                            >
+                                <Link to="/panduan">Panduan</Link>
+                            </Button>
+                        </li>
+                        {!auth.user ? (
+                            <React.Fragment>
+                                <li>
+                                    <Button
+                                        variant="ghost"
+                                        asChild
+                                        className="h-20 rounded-none px-5"
+                                    >
+                                        <Link to="/login">
+                                            <FiLock className="mr-2" /> Login
+                                        </Link>
                                     </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent>
-                                    <DropdownMenuItem>
-                                        <Button
-                                            variant="destructive"
-                                            className="w-full"
-                                            onClick={() => auth.logout()}
+                                </li>
+                            </React.Fragment>
+                        ) : (
+                            <React.Fragment>
+                                <li>
+                                    <Button
+                                        variant="ghost"
+                                        asChild
+                                        className="h-20 rounded-none px-5"
+                                    >
+                                        <Link to="/home">Dashboard</Link>
+                                    </Button>
+                                </li>
+                                <li>
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger asChild>
+                                            <Button
+                                                variant="ghost"
+                                                className="h-20 gap-3 rounded-none"
+                                            >
+                                                <Avatar>
+                                                    <AvatarImage
+                                                        src={`https://ui-avatars.com/api/?name=${auth.user?.username}&background=0D8ABC&color=fff`}
+                                                    />
+                                                    <AvatarFallback>
+                                                        CN
+                                                    </AvatarFallback>
+                                                </Avatar>
+                                                <div className="text-left">
+                                                    <div className="block text-sm">
+                                                        {auth.user.nama}
+                                                    </div>
+                                                    <div className="block text-xs font-normal text-slate-400">
+                                                        {auth.user.instansi}
+                                                    </div>
+                                                </div>
+                                            </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent
+                                            className="-mt-3"
+                                            align="start"
                                         >
-                                            Logout
-                                        </Button>
-                                    </DropdownMenuItem>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
+                                            <DropdownMenuLabel>
+                                                My Profile
+                                            </DropdownMenuLabel>
+                                            <DropdownMenuSeparator />
+                                            <Link
+                                                to="/profil"
+                                                className="w-full"
+                                            >
+                                                <DropdownMenuItem>
+                                                    Profil Saya
+                                                </DropdownMenuItem>
+                                            </Link>
+                                            <Link
+                                                to="/profil/ganti-password"
+                                                className="w-full"
+                                            >
+                                                <DropdownMenuItem>
+                                                    Ganti Password
+                                                </DropdownMenuItem>
+                                            </Link>
+                                            <DropdownMenuSeparator />
+                                            <DropdownMenuItem
+                                                className="text-red-500"
+                                                onClick={() => auth.logout()}
+                                            >
+                                                <FiLogOut className="mr-2" />{' '}
+                                                Logout
+                                            </DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+                                </li>
+                            </React.Fragment>
                         )}
-                    </nav>
+                    </ul>
                 </div>
             </div>
         </header>

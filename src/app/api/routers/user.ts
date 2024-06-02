@@ -53,11 +53,21 @@ export const userRouter = createTRPCRouter({
     register: publicProcedure
         .input(
             z.object({
+                nama: z.string().min(1),
                 username: z.string().min(1),
                 password: z.string().min(5),
+                instansi: z.string().min(1),
+                token: z.string().length(8),
             })
         )
         .mutation(async ({ ctx, input }) => {
+            if (input.token !== '12345678') {
+                throw new TRPCError({
+                    message: 'TokenID salah',
+                    code: 'UNAUTHORIZED',
+                })
+            }
+
             const existedUser = await ctx.db.query.user.findFirst({
                 where: eq(user.username, input.username),
             })
@@ -70,8 +80,10 @@ export const userRouter = createTRPCRouter({
             }
 
             await ctx.db.insert(user).values({
+                nama: input.nama,
                 username: input.username,
                 password: bcryptjs.hashSync(input.password, 10),
+                instansi: input.instansi,
                 role: 'USER',
             })
 
@@ -79,10 +91,57 @@ export const userRouter = createTRPCRouter({
         }),
 
     getProfile: userProcedure.query(async ({ ctx }) => {
-        const existedUser = await ctx.db.query.user.findFirst({
-            where: eq(user.id, parseInt(ctx.session?.id ?? '')),
-        })
+        const existedUser = ctx.user!
 
-        return existedUser
+        const { password, ...rest } = existedUser
+
+        return rest
     }),
+
+    updateProfile: userProcedure
+        .input(
+            z.object({ nama: z.string().min(1), instansi: z.string().min(1) })
+        )
+        .mutation(async ({ ctx, input }) => {
+            await ctx.db
+                .update(user)
+                .set({ nama: input.nama, instansi: input.instansi })
+                .where(eq(user.id, ctx.user?.id ?? 0))
+
+            return { message: 'Profile berhasil diupdate' }
+        }),
+
+    updatePassword: userProcedure
+        .input(
+            z.object({
+                password: z.string().min(1),
+                newPassword: z.string().min(5),
+            })
+        )
+        .mutation(async ({ ctx, input }) => {
+            const existedUser = await ctx.db.query.user.findFirst({
+                where: eq(user.id, ctx.user?.id ?? 0),
+            })
+
+            if (!existedUser) {
+                throw new TRPCError({
+                    message: 'User tidak ditemukan',
+                    code: 'UNAUTHORIZED',
+                })
+            }
+
+            if (!bcryptjs.compareSync(input.password, existedUser.password!)) {
+                throw new TRPCError({
+                    message: 'Password lama salah',
+                    code: 'UNAUTHORIZED',
+                })
+            }
+
+            await ctx.db
+                .update(user)
+                .set({ password: bcryptjs.hashSync(input.newPassword, 10) })
+                .where(eq(user.id, ctx.user?.id ?? 0))
+
+            return { message: 'Password berhasil diupdate' }
+        }),
 })

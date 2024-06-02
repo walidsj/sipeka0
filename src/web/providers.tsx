@@ -9,7 +9,9 @@ export default function Providers() {
     return (
         <CookiesProvider>
             <TRPCReactProvider>
-                <Router />
+                <div className="min-h-svh bg-slate-100">
+                    <Router />
+                </div>
                 <Toaster />
             </TRPCReactProvider>
         </CookiesProvider>

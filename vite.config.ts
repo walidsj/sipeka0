@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 import dotenv from 'dotenv'
+import { VitePWA } from 'vite-plugin-pwa'
 
 dotenv.config()
 
@@ -9,10 +10,21 @@ dotenv.config()
 export default defineConfig({
     resolve: {
         alias: {
-            '@': path.resolve(__dirname, './src'),
+            '@': path.resolve(__dirname, 'src'),
         },
     },
-    plugins: [react()],
+    plugins: [
+        react(),
+
+        VitePWA({
+            registerType: 'prompt',
+            devOptions: {
+                enabled: false,
+            },
+            outDir: path.resolve(__dirname, 'dist'),
+            srcDir: path.resolve(__dirname, 'src/web'),
+        }),
+    ],
     server: {
         proxy: {
             '/api': `http://localhost:${

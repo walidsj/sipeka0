@@ -17,19 +17,17 @@ export default function DashboardLayout() {
 
     return (
         <React.Fragment>
-            <div className="border-b shadow-sm bg-background">
-                <nav className="mx-auto max-w-7xl px-10 py-2">
-                    <ul className="flex gap-1">
+            <div className="border-b bg-background shadow-sm">
+                <nav className="mx-auto px-8">
+                    <ul className="flex">
                         <li>
                             <Button
                                 asChild
-                                variant={
-                                    pathname.startsWith('/home')
-                                        ? 'default'
-                                        : 'ghost'
-                                }
+                                variant="ghost"
                                 className={cn(
-                                    pathname.startsWith('/home') && 'mr-3'
+                                    'h-14 rounded-none px-5',
+                                    pathname.startsWith('/home') &&
+                                        'border-b-4 border-primary text-primary'
                                 )}
                             >
                                 <Link to="/home">
@@ -41,13 +39,11 @@ export default function DashboardLayout() {
                         <li>
                             <Button
                                 asChild
-                                variant={
-                                    pathname.startsWith('/anggaran')
-                                        ? 'default'
-                                        : 'ghost'
-                                }
+                                variant="ghost"
                                 className={cn(
-                                    pathname.startsWith('/anggaran') && 'mx-3'
+                                    'h-14 rounded-none px-5',
+                                    pathname.startsWith('/anggaran') &&
+                                        'border-b-4 border-primary text-primary'
                                 )}
                             >
                                 <Link to="/anggaran">
@@ -59,13 +55,11 @@ export default function DashboardLayout() {
                         <li>
                             <Button
                                 asChild
-                                variant={
-                                    pathname.startsWith('/pengadaan')
-                                        ? 'default'
-                                        : 'ghost'
-                                }
+                                variant="ghost"
                                 className={cn(
-                                    pathname.startsWith('/pengadaan') && 'mx-3'
+                                    'h-14 rounded-none px-5',
+                                    pathname.startsWith('/pengadaan') &&
+                                        'border-b-4 border-primary text-primary'
                                 )}
                             >
                                 <Link to="/pengadaan">
@@ -77,13 +71,11 @@ export default function DashboardLayout() {
                         <li>
                             <Button
                                 asChild
-                                variant={
-                                    pathname.startsWith('/belanja')
-                                        ? 'default'
-                                        : 'ghost'
-                                }
+                                variant="ghost"
                                 className={cn(
-                                    pathname.startsWith('/belanja') && 'mx-3'
+                                    'h-14 rounded-none px-5',
+                                    pathname.startsWith('/belanja') &&
+                                        'border-b-4 border-primary text-primary'
                                 )}
                             >
                                 <Link to="/belanja">
@@ -95,13 +87,11 @@ export default function DashboardLayout() {
                         <li>
                             <Button
                                 asChild
-                                variant={
-                                    pathname.startsWith('/pendapatan')
-                                        ? 'default'
-                                        : 'ghost'
-                                }
+                                variant="ghost"
                                 className={cn(
-                                    pathname.startsWith('/pendapatan') && 'mx-3'
+                                    'h-14 rounded-none px-5',
+                                    pathname.startsWith('/pendapatan') &&
+                                        'border-b-4 border-primary text-primary'
                                 )}
                             >
                                 <Link to="/pendapatan">
@@ -113,13 +103,11 @@ export default function DashboardLayout() {
                         <li>
                             <Button
                                 asChild
-                                variant={
-                                    pathname.startsWith('/akuntansi')
-                                        ? 'default'
-                                        : 'ghost'
-                                }
+                                variant="ghost"
                                 className={cn(
-                                    pathname.startsWith('/akuntansi') && 'mx-3'
+                                    'h-14 rounded-none px-5',
+                                    pathname.startsWith('/akuntansi') &&
+                                        'border-b-4 border-primary text-primary'
                                 )}
                             >
                                 <Link to="/akuntansi">
@@ -131,16 +119,14 @@ export default function DashboardLayout() {
                         <li>
                             <Button
                                 asChild
-                                variant={
-                                    pathname.startsWith('/lainnya')
-                                        ? 'default'
-                                        : 'ghost'
-                                }
+                                variant="ghost"
                                 className={cn(
-                                    pathname.startsWith('/lainnya') && 'ml-3'
+                                    'h-14 rounded-none px-5',
+                                    pathname.startsWith('/lainnya') &&
+                                        'border-b-4 border-primary text-primary'
                                 )}
                             >
-                                <Link to="/lainnya">
+                                <Link to="/lainnya/database/rekanan">
                                     <FiTool className="mr-2" />
                                     Lainnya
                                 </Link>
@@ -149,9 +135,7 @@ export default function DashboardLayout() {
                     </ul>
                 </nav>
             </div>
-            <div className="mx-auto px-10 py-5 max-w-7xl">
-                <Outlet />
-            </div>
+            <Outlet />
         </React.Fragment>
     )
 }
