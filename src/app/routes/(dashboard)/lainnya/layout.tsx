@@ -59,7 +59,7 @@ export default function DashboardLayout() {
                                 )}
                                 asChild
                             >
-                                <Link to="/lainnya/referensi/kode-rekening">
+                                <Link to="/lainnya/referensi/kode-rekening/1">
                                     <FiBookOpen className="h-6 w-6" />
                                     <span className="text-wrap text-xs">
                                         Referensi

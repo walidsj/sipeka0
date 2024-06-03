@@ -1,0 +1,34 @@
+[
+    {
+        "kode": "1",
+        "uraian": "ASET"
+    },
+    {
+        "kode": "2",
+        "uraian": "KEWAJIBAN"
+    },
+    {
+        "kode": "3",
+        "uraian": "EKUITAS"
+    },
+    {
+        "kode": "4",
+        "uraian": "PENDAPATAN DAERAH"
+    },
+    {
+        "kode": "5",
+        "uraian": "BELANJA DAERAH"
+    },
+    {
+        "kode": "6",
+        "uraian": "PEMBIAYAAN DAERAH"
+    },
+    {
+        "kode": "7",
+        "uraian": "PENDAPATAN DAERAH-LO"
+    },
+    {
+        "kode": "8",
+        "uraian": "BEBAN DAERAH"
+    }
+]
