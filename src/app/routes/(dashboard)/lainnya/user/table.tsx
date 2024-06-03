@@ -93,7 +93,11 @@ export default function UserTable() {
                                         </Avatar>
                                         <div className="flex flex-col">
                                             <p className="text-left text-sm">
+                                                {item.pegawai?.gelarDepan &&
+                                                    `${item.pegawai?.gelarDepan} `}
                                                 {item.pegawai?.nama}
+                                                {item.pegawai?.gelarBelakang &&
+                                                    `, ${item.pegawai?.gelarBelakang}`}
                                             </p>
                                             <p className="text-left text-xs font-normal text-slate-400">
                                                 {item.pegawai?.jabatan}

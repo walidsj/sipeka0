@@ -116,8 +116,7 @@ export default function BankPicker({
                                     <TableRow
                                         key={index}
                                         className={cn(
-                                            (value === item.id ||
-                                                defaultValue === item.id) &&
+                                            selected === item.id &&
                                                 'bg-yellow-100 hover:bg-yellow-200'
                                         )}
                                     >

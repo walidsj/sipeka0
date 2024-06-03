@@ -118,3 +118,48 @@ export const profilBlud = mysqlTable('profil_blud', {
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
 })
+
+export const programRka = mysqlTable('program_rka', {
+    id: serial('id').primaryKey(),
+    kode: varchar('kode', { length: 256 }),
+    nama: varchar('nama', { length: 256 }),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+})
+
+export const kegiatanRka = mysqlTable('kegiatan_rka', {
+    id: serial('id').primaryKey(),
+    kode: varchar('kode', { length: 256 }),
+    nama: varchar('nama', { length: 256 }),
+    programRkaId: int('program_rka_id', { unsigned: true }),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+})
+
+export const programRkaRelations = relations(programRka, ({ many }) => ({
+    kegiatan: many(kegiatanRka),
+}))
+
+export const kegiatanRkaRelations = relations(kegiatanRka, ({ one, many }) => ({
+    program: one(programRka, {
+        fields: [kegiatanRka.programRkaId],
+        references: [programRka.id],
+    }),
+    subKegiatan: many(subKegiatanRka),
+}))
+
+export const subKegiatanRka = mysqlTable('sub_kegiatan_rka', {
+    id: serial('id').primaryKey(),
+    kode: varchar('kode', { length: 256 }),
+    nama: varchar('nama', { length: 256 }),
+    kegiatanRkaId: int('kegiatan_rka_id', { unsigned: true }),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+})
+
+export const subKegiatanRkaRelations = relations(subKegiatanRka, ({ one }) => ({
+    kegiatan: one(kegiatanRka, {
+        fields: [subKegiatanRka.kegiatanRkaId],
+        references: [kegiatanRka.id],
+    }),
+}))
