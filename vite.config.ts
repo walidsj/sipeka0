@@ -21,20 +21,18 @@ export default defineConfig({
             devOptions: {
                 enabled: false,
             },
-            outDir: path.resolve(__dirname, 'build'),
+            outDir: path.resolve(__dirname, 'dist'),
             srcDir: path.resolve(__dirname, 'src/web'),
         }),
     ],
     server: {
         proxy: {
-            '/api': `http://localhost:${
-                process.env.PORT ? parseInt(process.env.PORT) : 3000
-            }`,
+            '/api': `http://localhost:${Number(process.env.PORT ?? 3000)}`,
         },
     },
     root: path.resolve(__dirname, 'src/web'),
     build: {
-        outDir: path.resolve(__dirname, 'build'),
+        outDir: path.resolve(__dirname, 'dist'),
         emptyOutDir: true,
     },
     publicDir: path.resolve(__dirname, 'public'),

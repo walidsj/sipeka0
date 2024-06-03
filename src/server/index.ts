@@ -5,6 +5,9 @@ import { createTRPCContext } from '@/server/trpc'
 import { cors } from 'hono/cors'
 import { serveStatic } from '@hono/node-server/serve-static'
 import { serve } from '@hono/node-server'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const createContext = async (req: Request) => {
     return createTRPCContext({
@@ -32,16 +35,15 @@ const handler = (req: Request) =>
 
 const app = new Hono()
 
-if (process.env.NODE_ENV === 'production') {
-    app.use('*', serveStatic({ root: './build' }))
-}
+app.use('*', serveStatic({ root: '/dist' }))
+
 app.use('/api/*', cors())
 app.all('/api/trpc/*', (c) => handler(c.req.raw))
 app.post('/api/trpc/*', (c) => handler(c.req.raw))
 
 serve({
     fetch: app.fetch.bind(app),
-    port: Number(process.env.PORT ?? 8080),
+    port: Number(process.env.PORT ?? 3000),
 })
 
-console.log(`Listening on http://localhost:${Number(process.env.PORT ?? 8080)}`)
+console.log(`Listening on http://localhost:${Number(process.env.PORT ?? 3000)}`)
