@@ -1,4 +1,4 @@
-import { kegiatanRka } from '@/server/db/schema'
+import { subKegiatanRka } from '@/server/db/schema'
 import { Button } from '@/web/components/ui/button'
 import {
     Form,
@@ -15,35 +15,35 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
-import { kegiatanRkaSchema } from '../../schema'
+import { subKegiatanRkaSchema } from '../../schema'
 import { Textarea } from '@/web/components/ui/textarea'
-import ProgramRkaPicker from '../../../program-rka-picker'
+import KegiatanRkaPicker from '../../../kegiatan-rka-picker'
 
 export default function EditForm({
     data,
 }: {
-    data: typeof kegiatanRka.$inferSelect
+    data: typeof subKegiatanRka.$inferSelect
 }) {
     const navigate = useNavigate()
     const utils = api.useUtils()
 
-    const form = useForm<z.infer<typeof kegiatanRkaSchema>>({
-        resolver: zodResolver(kegiatanRkaSchema),
+    const form = useForm<z.infer<typeof subKegiatanRkaSchema>>({
+        resolver: zodResolver(subKegiatanRkaSchema),
         mode: 'onTouched',
         defaultValues: {
-            programRkaId: data.programRkaId ?? undefined,
+            kegiatanRkaId: data.kegiatanRkaId ?? undefined,
             nama: data.nama ?? '',
             kode: data.kode ?? '',
         },
     })
 
-    const edit = api.kegiatanRka.updateById.useMutation({
+    const edit = api.subKegiatanRka.updateById.useMutation({
         onMutate() {
             toast.loading('Menyimpan data...')
         },
         onSuccess(data) {
             toast.dismiss()
-            utils.kegiatanRka.getById.invalidate()
+            utils.subKegiatanRka.getById.invalidate()
             navigate('/anggaran/rka/program-kegiatan/kegiatan')
             toast.success(data.message)
         },
@@ -53,7 +53,7 @@ export default function EditForm({
         },
     })
 
-    function onSubmit(val: z.infer<typeof kegiatanRkaSchema>) {
+    function onSubmit(val: z.infer<typeof subKegiatanRkaSchema>) {
         edit.mutate({ id: data.id, ...val })
     }
 
@@ -66,12 +66,12 @@ export default function EditForm({
                 >
                     <FormField
                         control={form.control}
-                        name="programRkaId"
+                        name="kegiatanRkaId"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Program</FormLabel>
+                                <FormLabel>Kegiatan</FormLabel>
                                 <FormControl>
-                                    <ProgramRkaPicker
+                                    <KegiatanRkaPicker
                                         onValueChange={field.onChange}
                                         value={field.value}
                                     />

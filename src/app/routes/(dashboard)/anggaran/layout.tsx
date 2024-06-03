@@ -42,7 +42,7 @@ export default function Layout() {
                                 )}
                                 asChild
                             >
-                                <Link to="/anggaran/rka/program-kegiatan">
+                                <Link to="/anggaran/rka/program-kegiatan/program">
                                     <RiPagesLine className="h-6 w-6" />
                                     <span className="text-wrap text-xs">
                                         RKA

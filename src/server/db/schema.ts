@@ -163,3 +163,11 @@ export const subKegiatanRkaRelations = relations(subKegiatanRka, ({ one }) => ({
         references: [kegiatanRka.id],
     }),
 }))
+
+export const rba = mysqlTable('rba', {
+    id: serial('id').primaryKey(),
+    uraian: varchar('uraian', { length: 256 }),
+    tglPenyusunan: timestamp('tgl_penyusunan'),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+})

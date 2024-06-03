@@ -11,9 +11,9 @@ export default function CreatePage() {
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Tambah Kegiatan</CardTitle>
+                <CardTitle>Tambah Sub Kegiatan</CardTitle>
                 <CardDescription>
-                    Form untuk menambah data kegiatan
+                    Form untuk menambah data sub kegiatan
                 </CardDescription>
             </CardHeader>
             <CardContent>

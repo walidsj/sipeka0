@@ -12,22 +12,32 @@ import { api } from '@/web/trpc/react'
 export default function EditPage() {
     const params = useParams<{ id: string }>()
 
-    const kegiatanRka = api.kegiatanRka.getById.useQuery(parseInt(params.id!))
+    const subKegiatanRka = api.subKegiatanRka.getById.useQuery(
+        parseInt(params.id!)
+    )
 
-    if ((kegiatanRka.isSuccess && !kegiatanRka.data) || kegiatanRka.isError)
-        return <Navigate to="/anggaran/rka/program-kegiatan/kegiatan" replace />
+    if (
+        (subKegiatanRka.isSuccess && !subKegiatanRka.data) ||
+        subKegiatanRka.isError
+    )
+        return (
+            <Navigate
+                to="/anggaran/rka/program-kegiatan/sub-kegiatan"
+                replace
+            />
+        )
 
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Edit Kegiatan</CardTitle>
+                <CardTitle>Edit Sub Kegiatan</CardTitle>
                 <CardDescription>
-                    Form untuk mengedit data kegiatan
+                    Form untuk mengedit data sub kegiatan
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                {kegiatanRka.isSuccess && kegiatanRka.data && (
-                    <EditForm data={kegiatanRka.data} />
+                {subKegiatanRka.isSuccess && subKegiatanRka.data && (
+                    <EditForm data={subKegiatanRka.data} />
                 )}
             </CardContent>
         </Card>
