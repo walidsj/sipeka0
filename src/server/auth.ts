@@ -1,7 +1,7 @@
-import {  SignJWT, jwtVerify } from 'jose'
+import { env } from '@/env'
+import { SignJWT, jwtVerify } from 'jose'
 
-
-const secret = process.env.JWT_SECRET_KEY
+const secret = env.JWT_SECRET_KEY
 const key = new TextEncoder().encode(secret)
 
 export async function encrypt(payload: any) {

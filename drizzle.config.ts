@@ -1,16 +1,14 @@
 import { type Config } from 'drizzle-kit'
-import dotenv from 'dotenv'
-
-dotenv.config()
+import { env } from '@/env'
 
 export default {
     schema: './src/server/db/schema.ts',
     out: './drizzle',
     dialect: 'mysql',
     dbCredentials: {
-        host: process.env.DB_HOST as string,
-        user: process.env.DB_USER as string,
-        password: process.env.DB_PASSWORD as string,
-        database: process.env.DB_NAME as string,
+        host: env.DB_HOST,
+        user: env.DB_USER,
+        password: env.DB_PASSWORD,
+        database: env.DB_NAME,
     },
 } satisfies Config

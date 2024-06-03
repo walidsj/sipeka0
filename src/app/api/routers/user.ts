@@ -10,8 +10,9 @@ import { eq } from 'drizzle-orm'
 import { z } from 'zod'
 import bcryptjs from 'bcryptjs'
 import { type JWTPayload, SignJWT } from 'jose'
+import { env } from '@/env'
 
-const secret = process.env.JWT_SECRET_KEY ?? ''
+const secret = env.JWT_SECRET_KEY ?? ''
 const key = new TextEncoder().encode(secret)
 
 export const userSchema = z.object({
