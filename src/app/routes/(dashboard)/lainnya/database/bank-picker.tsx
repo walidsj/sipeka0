@@ -154,6 +154,16 @@ export default function BankPicker({
                                         </TableCell>
                                     </TableRow>
                                 ))}
+                            {bank.isSuccess && bank.data?.length === 0 && (
+                                <TableRow>
+                                    <TableCell
+                                        colSpan={4}
+                                        className="text-center"
+                                    >
+                                        Tidak ada data
+                                    </TableCell>
+                                </TableRow>
+                            )}
                         </TableBody>
                     </Table>
                 </div>

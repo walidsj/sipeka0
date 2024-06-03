@@ -1,10 +1,9 @@
-import { FiUser } from 'react-icons/fi'
+import { FiCommand } from 'react-icons/fi'
 import { Button } from '@/web/components/ui/button'
 import { api } from '@/web/trpc/react'
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -23,7 +22,7 @@ import { useDebounce } from 'use-debounce'
 import { Input } from '@/web/components/ui/input'
 import { keepPreviousData } from '@tanstack/react-query'
 
-export default function PegawaiPicker({
+export default function ProgramRkaPicker({
     value,
     onValueChange,
     defaultValue,
@@ -36,7 +35,7 @@ export default function PegawaiPicker({
         value ?? defaultValue ?? 0
     )
 
-    const pegawaiSelected = api.pegawai.getById.useQuery(selected!, {
+    const programRkaSelected = api.programRka.getById.useQuery(selected!, {
         enabled: !!selected,
         placeholderData: keepPreviousData,
     })
@@ -44,7 +43,7 @@ export default function PegawaiPicker({
     const [search, setSearch] = React.useState<string>('')
     const [searchValue] = useDebounce(search, 300)
 
-    const pegawai = api.pegawai.getAll.useQuery(
+    const programRka = api.programRka.getAll.useQuery(
         { search: searchValue },
         { placeholderData: keepPreviousData }
     )
@@ -62,23 +61,23 @@ export default function PegawaiPicker({
                 >
                     {selected !== undefined && (
                         <div>
-                            {pegawaiSelected.isSuccess &&
-                                pegawaiSelected.data && (
+                            {programRkaSelected.isSuccess &&
+                                programRkaSelected.data && (
                                     <div className="flex items-center gap-3">
-                                        <FiUser className="h-5 w-5 text-primary" />
+                                        <FiCommand className="h-5 w-5 text-primary" />
                                         <div className="flex flex-col text-left">
                                             <span className="line-clamp-1">
-                                                {pegawaiSelected.data.nama}
+                                                {programRkaSelected.data.nama}
                                             </span>
                                             <span className="line-clamp-1 text-xs text-slate-500">
-                                                {pegawaiSelected.data.jabatan}
+                                                {programRkaSelected.data.kode}
                                             </span>
                                         </div>
                                     </div>
                                 )}
-                            {pegawaiSelected.isLoading && (
+                            {programRkaSelected.isLoading && (
                                 <div className="flex items-center gap-3">
-                                    <FiUser className="h-5 w-5 text-primary" />
+                                    <FiCommand className="h-5 w-5 text-primary" />
                                     <div className="flex flex-col text-left">
                                         <span>Loading...</span>
                                     </div>
@@ -90,13 +89,10 @@ export default function PegawaiPicker({
             </DialogTrigger>
             <DialogContent className="max-w-2xl">
                 <DialogHeader>
-                    <DialogTitle>Pilih Pegawai</DialogTitle>
-                    <DialogDescription>
-                        Data referensi pegawai
-                    </DialogDescription>
+                    <DialogTitle>Pilih Program RKA</DialogTitle>
                 </DialogHeader>
                 <Input
-                    placeholder="Cari pegawai..."
+                    placeholder="Cari program..."
                     onChange={(e) => setSearch(e.target.value)}
                 />
                 <div className="max-h-96 overflow-y-auto">
@@ -104,16 +100,16 @@ export default function PegawaiPicker({
                         <TableHeader>
                             <TableRow>
                                 <TableHead className="w-1">No.</TableHead>
-                                <TableHead>Nama Pegawai</TableHead>
+                                <TableHead>Nama Program</TableHead>
                                 <TableHead className="text-center">
-                                    Jabatan
+                                    Kode Program
                                 </TableHead>
                                 <TableHead className="w-1">Aksi</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {pegawai.isSuccess &&
-                                pegawai.data?.map((item, index) => (
+                            {programRka.isSuccess &&
+                                programRka.data?.map((item, index) => (
                                     <TableRow
                                         key={index}
                                         className={cn(
@@ -125,7 +121,9 @@ export default function PegawaiPicker({
                                             {index + 1}
                                         </TableCell>
                                         <TableCell>{item.nama}</TableCell>
-                                        <TableCell>{item.jabatan}</TableCell>
+                                        <TableCell className="text-center">
+                                            {item.kode}
+                                        </TableCell>
                                         <TableCell>
                                             {selected === item.id ? (
                                                 <Button
@@ -153,8 +151,8 @@ export default function PegawaiPicker({
                                         </TableCell>
                                     </TableRow>
                                 ))}
-                            {pegawai.isSuccess &&
-                                pegawai.data?.length === 0 && (
+                            {programRka.isSuccess &&
+                                programRka.data?.length === 0 && (
                                     <TableRow>
                                         <TableCell
                                             colSpan={4}

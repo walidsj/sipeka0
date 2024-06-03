@@ -6,7 +6,7 @@ import { z } from 'zod'
 export const subKegiatanRkaSchema = z.object({
     nama: z.string().min(1),
     kode: z.string().min(1),
-    programRkaId: z.number(),
+    kegiatanRkaId: z.number(),
 })
 
 export const subKegiatanRkaRouter = createTRPCRouter({

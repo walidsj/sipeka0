@@ -10,6 +10,7 @@ import { Button } from '@/web/components/ui/button'
 import { CardTitle } from '@/web/components/ui/card'
 import { cn } from '@/web/lib/utils'
 import { FiBriefcase, FiCommand } from 'react-icons/fi'
+import { CgWorkAlt } from 'react-icons/cg'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 
 export default function Layout() {
@@ -84,6 +85,7 @@ export default function Layout() {
                     asChild
                 >
                     <Link to="/anggaran/rka/program-kegiatan/sub-kegiatan">
+                        <CgWorkAlt className="mr-2" />
                         Sub Kegiatan
                     </Link>
                 </Button>

@@ -1,6 +1,6 @@
 import { kegiatanRka } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { eq } from 'drizzle-orm'
+import { eq, like, or } from 'drizzle-orm'
 import { z } from 'zod'
 
 export const kegiatanRkaSchema = z.object({
@@ -10,9 +10,25 @@ export const kegiatanRkaSchema = z.object({
 })
 
 export const kegiatanRkaRouter = createTRPCRouter({
-    getAll: userProcedure.query(async ({ ctx }) => {
-        return await ctx.db.select().from(kegiatanRka)
-    }),
+    getAll: userProcedure
+        .input(
+            z.object({
+                search: z.string().nullish(),
+            })
+        )
+        .query(async ({ ctx, input }) => {
+            return await ctx.db
+                .select()
+                .from(kegiatanRka)
+                .where(
+                    input.search
+                        ? or(
+                              like(kegiatanRka.nama, `%${input.search}%`),
+                              like(kegiatanRka.kode, `%${input.search}%`)
+                          )
+                        : undefined
+                )
+        }),
 
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {
         return await ctx.db.query.kegiatanRka.findFirst({

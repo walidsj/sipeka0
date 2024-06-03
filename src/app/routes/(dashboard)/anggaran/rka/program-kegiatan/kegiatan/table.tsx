@@ -19,20 +19,20 @@ import toast from 'react-hot-toast'
 import { FiChevronsDown, FiEdit, FiTrash } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
-export default function ProgramRkaTable() {
-    const programRka = api.programRka.getAll.useQuery(
+export default function KegiatanRkaTable() {
+    const kegiatanRka = api.kegiatanRka.getAll.useQuery(
         {},
         { placeholderData: keepPreviousData }
     )
 
-    const deleteProgramRka = api.programRka.deleteById.useMutation({
+    const deleteKegiatanRka = api.kegiatanRka.deleteById.useMutation({
         onMutate() {
             toast.loading('Menghapus data...')
         },
         onSuccess(data) {
             toast.dismiss()
             toast.success(data.message)
-            programRka.refetch()
+            kegiatanRka.refetch()
         },
         onError(error) {
             toast.dismiss()
@@ -46,20 +46,20 @@ export default function ProgramRkaTable() {
                 <TableRow>
                     <TableHead className="w-1 text-center">No.</TableHead>
                     <TableHead>Kode</TableHead>
-                    <TableHead>Nama Program</TableHead>
+                    <TableHead>Nama Kegiatan</TableHead>
                     <TableHead className="w-1" />
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {programRka.isLoading && (
+                {kegiatanRka.isLoading && (
                     <TableRow>
                         <TableCell colSpan={4} className="text-center">
                             Memuat data...
                         </TableCell>
                     </TableRow>
                 )}
-                {programRka.isSuccess &&
-                    programRka.data?.map((item, index) => (
+                {kegiatanRka.isSuccess &&
+                    kegiatanRka.data?.map((item, index) => (
                         <TableRow key={item.id}>
                             <TableCell className="text-center">
                                 {index + 1}
@@ -76,7 +76,7 @@ export default function ProgramRkaTable() {
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent align="start">
                                         <Link
-                                            to={`/anggaran/rka/program-kegiatan/program/${item.id}/edit`}
+                                            to={`/anggaran/rka/program-kegiatan/kegiatan/${item.id}/edit`}
                                         >
                                             <DropdownMenuItem>
                                                 <FiEdit className="mr-2" />
@@ -90,7 +90,7 @@ export default function ProgramRkaTable() {
                                                         'Apakah anda yakin menghapus data ini?'
                                                     )
                                                 ) {
-                                                    deleteProgramRka.mutate(
+                                                    deleteKegiatanRka.mutate(
                                                         item.id
                                                     )
                                                 }
@@ -105,17 +105,17 @@ export default function ProgramRkaTable() {
                             </TableCell>
                         </TableRow>
                     ))}
-                {programRka.isSuccess && programRka.data?.length === 0 && (
+                {kegiatanRka.isSuccess && kegiatanRka.data?.length === 0 && (
                     <TableRow>
                         <TableCell colSpan={4} className="text-center">
                             Tidak ada data
                         </TableCell>
                     </TableRow>
                 )}
-                {programRka.isError && (
+                {kegiatanRka.isError && (
                     <TableRow>
                         <TableCell colSpan={4} className="text-center">
-                            {programRka.error.message}
+                            {kegiatanRka.error.message}
                         </TableCell>
                     </TableRow>
                 )}
