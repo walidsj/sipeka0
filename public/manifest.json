@@ -3,11 +3,11 @@
     "short_name": "SIPEKA",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#fff",
+    "background_color": "#ffffff",
     "description": "Sistem Informasi Pengelolaan Keuangan BLUD",
     "scope": "/",
     "orientation": "portrait",
-    "theme_color": "#fff",
+    "theme_color": "#ffffff",
     "icons": [
         {
             "src": "/images/icons/icon-72x72.png",

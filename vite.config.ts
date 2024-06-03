@@ -21,7 +21,7 @@ export default defineConfig({
             devOptions: {
                 enabled: false,
             },
-            outDir: path.resolve(__dirname, 'dist'),
+            outDir: path.resolve(__dirname, 'build'),
             srcDir: path.resolve(__dirname, 'src/web'),
         }),
     ],
@@ -34,7 +34,7 @@ export default defineConfig({
     },
     root: path.resolve(__dirname, 'src/web'),
     build: {
-        outDir: path.resolve(__dirname, 'dist'),
+        outDir: path.resolve(__dirname, 'build'),
         emptyOutDir: true,
     },
     publicDir: path.resolve(__dirname, 'public'),

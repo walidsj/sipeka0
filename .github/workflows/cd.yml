@@ -1,0 +1,26 @@
+on:
+   push:
+      branches:
+         - 'master'
+
+jobs:
+   deploy:
+      runs-on: ubuntu-latest
+      steps:
+         - name: SSH and deploy
+           uses: appleboy/ssh-action@master
+           with:
+              host: ${{ secrets.SSH_HOST }}
+              username: ${{ secrets.SSH_USERNAME }}
+              password: ${{ secrets.SSH_PASSWORD }}
+              script: |
+                 export NVM_DIR=~/.nvm
+                 source ~/.nvm/nvm.sh
+                 cd /home/sipeka0
+                 git pull origin master
+                 pnpm install
+                 pnpm build
+                 pm2 restart all
+
+              #  sudo ln -s "$NVM_DIR/versions/node/v20.13.1/bin/pm2" "/usr/local/bin/pm2"
+              #  sudo ln -s "$NVM_DIR/versions/node/v20.13.1/bin/pnpm" "/usr/local/bin/pnpm"

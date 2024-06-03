@@ -1,28 +1,22 @@
-import { type JWTPayload, SignJWT, jwtVerify } from 'jose'
-import { env } from '@/env'
+import {  SignJWT, jwtVerify } from 'jose'
 
-const secret = env.JWT_SECRET_KEY
+
+const secret = process.env.JWT_SECRET_KEY
 const key = new TextEncoder().encode(secret)
 
-interface SessionPayload extends JWTPayload {
-    id: string
-    username: string
-    role: string
-}
-
-export async function encrypt(payload: SessionPayload) {
-    return await new SignJWT(payload)
+export async function encrypt(payload: any) {
+    return await new SignJWT(payload as any)
         .setProtectedHeader({ alg: 'HS256' })
         .setIssuedAt()
         .setExpirationTime('30d')
         .sign(key)
 }
 
-export async function decrypt(input: string): Promise<SessionPayload> {
+export async function decrypt(input: string): Promise<any> {
     const { payload } = await jwtVerify(input, key, {
         algorithms: ['HS256'],
     })
-    return payload as SessionPayload
+    return payload as any
 }
 
 export async function getSession(token: string) {

@@ -9,10 +9,9 @@ import { TRPCError } from '@trpc/server'
 import { eq } from 'drizzle-orm'
 import { z } from 'zod'
 import bcryptjs from 'bcryptjs'
-import { env } from '@/env'
 import { type JWTPayload, SignJWT } from 'jose'
 
-const secret = env.JWT_SECRET_KEY
+const secret = process.env.JWT_SECRET_KEY ?? ''
 const key = new TextEncoder().encode(secret)
 
 export const userSchema = z.object({

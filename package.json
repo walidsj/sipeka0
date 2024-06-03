@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently -k \"bun dev:server\" \"bun dev:web\"",
-    "dev:server": "bun run --hot src/server/index.ts",
+    "dev:server": "tsup --watch src/server/index.ts",
     "dev:web": "vite --host 0.0.0.0",
-    "start": "cross-env NODE_ENV=production PORT=8080 vite build && cross-env NODE_ENV=production PORT=8080 bun run src/server/index.ts",
+    "build:web": "cross-env NODE_ENV=production PORT=8080 vite build",
+    "build:server": "tsup src/server/index.ts",
+    "start": "node dist/index.js",
     "dbg": "drizzle-kit generate",
     "dbp": "drizzle-kit push"
   },
@@ -74,6 +76,7 @@
     "postcss": "^8.4.38",
     "prettier-plugin-tailwindcss": "^0.6.1",
     "tailwindcss": "^3.4.3",
+    "tsup": "^8.1.0",
     "typescript": "^5.4.5",
     "vite": "^5.2.12",
     "vite-plugin-pwa": "^0.20.0",
