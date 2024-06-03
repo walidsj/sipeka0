@@ -171,3 +171,10 @@ export const rba = mysqlTable('rba', {
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
 })
+
+export const unitKerja = mysqlTable('unit_kerja', {
+    id: serial('id').primaryKey(),
+    nama: varchar('nama', { length: 256 }),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+})

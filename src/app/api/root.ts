@@ -9,12 +9,14 @@ import { kodeRekeningRouter } from './routers/kodeRekening'
 import { programRkaRouter } from './routers/programRka'
 import { kegiatanRkaRouter } from './routers/kegiatanRka'
 import { subKegiatanRkaRouter } from './routers/subKegiatanRka'
+import { unitKerjaRouter } from './routers/unitKerja'
 
 export const appRouter = createTRPCRouter({
     user: userRouter,
     bank: bankRouter,
     pegawai: pegawaiRouter,
     rekanan: rekananRouter,
+    unitKerja: unitKerjaRouter,
     pengelolaBlud: pengelolaBludRouter,
     profilBlud: profilBludRouter,
     kodeRekening: kodeRekeningRouter,
