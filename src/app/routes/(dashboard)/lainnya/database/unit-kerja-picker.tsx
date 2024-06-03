@@ -1,4 +1,3 @@
-import { FiCreditCard } from 'react-icons/fi'
 import { Button } from '@/web/components/ui/button'
 import { api } from '@/web/trpc/react'
 import {
@@ -22,6 +21,7 @@ import { cn } from '@/web/lib/utils'
 import { useDebounce } from 'use-debounce'
 import { Input } from '@/web/components/ui/input'
 import { keepPreviousData } from '@tanstack/react-query'
+import { FaRegBuilding } from 'react-icons/fa6'
 
 export default function UnitKerjaPicker({
     value,
@@ -65,7 +65,7 @@ export default function UnitKerjaPicker({
                             {unitKerjaSelected.isSuccess &&
                                 unitKerjaSelected.data && (
                                     <div className="flex items-center gap-3">
-                                        <FiCreditCard className="h-5 w-5 text-primary" />
+                                        <FaRegBuilding className="h-5 w-5 text-primary" />
                                         <div className="flex flex-col text-left">
                                             <span className="line-clamp-1">
                                                 {unitKerjaSelected.data.nama}
@@ -75,7 +75,7 @@ export default function UnitKerjaPicker({
                                 )}
                             {unitKerjaSelected.isLoading && (
                                 <div className="flex items-center gap-3">
-                                    <FiCreditCard className="h-5 w-5 text-primary" />
+                                    <FaRegBuilding className="h-5 w-5 text-primary" />
                                     <div className="flex flex-col text-left">
                                         <span>Loading...</span>
                                     </div>
@@ -91,7 +91,7 @@ export default function UnitKerjaPicker({
                     <DialogDescription>Referensi unit kerja</DialogDescription>
                 </DialogHeader>
                 <Input
-                    placeholder="Cari unitKerja..."
+                    placeholder="Cari unit kerja..."
                     onChange={(e) => setSearch(e.target.value)}
                 />
                 <div className="max-h-96 overflow-y-auto">

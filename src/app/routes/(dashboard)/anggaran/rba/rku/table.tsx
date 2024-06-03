@@ -21,20 +21,20 @@ import { FiArrowRight, FiChevronsDown, FiEdit, FiTrash } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { id } from 'date-fns/locale'
 
-export default function RbaTable() {
-    const rba = api.rba.getAll.useQuery(
+export default function RkuTable() {
+    const rku = api.rku.getAll.useQuery(
         {},
         { placeholderData: keepPreviousData }
     )
 
-    const deleteRba = api.rba.deleteById.useMutation({
+    const deleteRku = api.rku.deleteById.useMutation({
         onMutate() {
             toast.loading('Menghapus data...')
         },
         onSuccess(data) {
             toast.dismiss()
             toast.success(data.message)
-            rba.refetch()
+            rku.refetch()
         },
         onError(error) {
             toast.dismiss()
@@ -47,6 +47,7 @@ export default function RbaTable() {
             <TableHeader>
                 <TableRow>
                     <TableHead className="w-1 text-center">No.</TableHead>
+                    <TableHead>Unit Kerja</TableHead>
                     <TableHead>Tanggal</TableHead>
                     <TableHead>No. Dokumen</TableHead>
                     <TableHead>Uraian</TableHead>
@@ -54,19 +55,20 @@ export default function RbaTable() {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {rba.isLoading && (
+                {rku.isLoading && (
                     <TableRow>
                         <TableCell colSpan={5} className="text-center">
                             Memuat data...
                         </TableCell>
                     </TableRow>
                 )}
-                {rba.isSuccess &&
-                    rba.data?.map((item, index) => (
+                {rku.isSuccess &&
+                    rku.data?.map((item, index) => (
                         <TableRow key={item.id}>
                             <TableCell className="text-center">
                                 {index + 1}
                             </TableCell>
+                            <TableCell>{item.unitKerja?.nama}</TableCell>
                             <TableCell>
                                 {format(
                                     String(item.tglDokumen),
@@ -80,9 +82,9 @@ export default function RbaTable() {
                                 <div className="flex gap-3">
                                     <Button asChild className="bg-secondary">
                                         <Link
-                                            to={`/anggaran/rba/penyusunan-rba/${item.id}/aktivitas`}
+                                            to={`/anggaran/rba/rku/${item.id}/rincian`}
                                         >
-                                            Aktivitas
+                                            Rincian Kebutuhan
                                             <FiArrowRight className="ml-2" />
                                         </Link>
                                     </Button>
@@ -95,7 +97,7 @@ export default function RbaTable() {
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent align="start">
                                             <Link
-                                                to={`/anggaran/rba/penyusunan-rba/${item.id}/edit`}
+                                                to={`/anggaran/rba/rku/${item.id}/edit`}
                                             >
                                                 <DropdownMenuItem>
                                                     <FiEdit className="mr-2" />
@@ -109,7 +111,7 @@ export default function RbaTable() {
                                                             'Apakah anda yakin menghapus data ini?'
                                                         )
                                                     ) {
-                                                        deleteRba.mutate(
+                                                        deleteRku.mutate(
                                                             item.id
                                                         )
                                                     }
@@ -125,17 +127,17 @@ export default function RbaTable() {
                             </TableCell>
                         </TableRow>
                     ))}
-                {rba.isSuccess && rba.data?.length === 0 && (
+                {rku.isSuccess && rku.data?.length === 0 && (
                     <TableRow>
                         <TableCell colSpan={5} className="text-center">
                             Tidak ada data
                         </TableCell>
                     </TableRow>
                 )}
-                {rba.isError && (
+                {rku.isError && (
                     <TableRow>
                         <TableCell colSpan={5} className="text-center">
-                            {rba.error.message}
+                            {rku.error.message}
                         </TableCell>
                     </TableRow>
                 )}

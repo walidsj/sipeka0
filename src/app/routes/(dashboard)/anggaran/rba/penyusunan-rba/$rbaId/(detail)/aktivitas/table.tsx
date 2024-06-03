@@ -1,3 +1,4 @@
+import { Badge } from '@/web/components/ui/badge'
 import { Button } from '@/web/components/ui/button'
 import {
     DropdownMenu,
@@ -13,6 +14,7 @@ import {
     TableHeader,
     TableRow,
 } from '@/web/components/ui/table'
+import { cn } from '@/web/lib/utils'
 import { api } from '@/web/trpc/react'
 import { keepPreviousData } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
@@ -49,13 +51,14 @@ export default function AktivitasTable() {
                     <TableHead className="w-1 text-center">No.</TableHead>
                     <TableHead>Kode</TableHead>
                     <TableHead>Nama Aktivitas</TableHead>
+                    <TableHead className="text-center">Jenis</TableHead>
                     <TableHead className="w-1" />
                 </TableRow>
             </TableHeader>
             <TableBody>
                 {aktivitasRba.isLoading && (
                     <TableRow>
-                        <TableCell colSpan={4} className="text-center">
+                        <TableCell colSpan={5} className="text-center">
                             Memuat data...
                         </TableCell>
                     </TableRow>
@@ -68,6 +71,20 @@ export default function AktivitasTable() {
                             </TableCell>
                             <TableCell>{item.kode}</TableCell>
                             <TableCell>{item.nama}</TableCell>
+                            <TableCell className="text-center">
+                                <Badge
+                                    className={cn(
+                                        item.jenis === 'BELANJA' &&
+                                            'bg-red-500',
+                                        item.jenis === 'PENDAPATAN' &&
+                                            'bg-green-500',
+                                        item.jenis === 'PEMBIAYAAN' &&
+                                            'bg-yellow-500'
+                                    )}
+                                >
+                                    {item.jenis}
+                                </Badge>
+                            </TableCell>
                             <TableCell>
                                 <div className="flex gap-3">
                                     <Button asChild className="bg-secondary">
@@ -119,14 +136,14 @@ export default function AktivitasTable() {
                     ))}
                 {aktivitasRba.isSuccess && aktivitasRba.data?.length === 0 && (
                     <TableRow>
-                        <TableCell colSpan={4} className="text-center">
+                        <TableCell colSpan={5} className="text-center">
                             Tidak ada data
                         </TableCell>
                     </TableRow>
                 )}
                 {aktivitasRba.isError && (
                     <TableRow>
-                        <TableCell colSpan={4} className="text-center">
+                        <TableCell colSpan={5} className="text-center">
                             {aktivitasRba.error.message}
                         </TableCell>
                     </TableRow>

@@ -1,4 +1,4 @@
-import { aktivitasRba } from '@/server/db/schema'
+import { rku } from '@/server/db/schema'
 import { Button } from '@/web/components/ui/button'
 import {
     Form,
@@ -15,47 +15,35 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
+import { format } from 'date-fns'
 import { Textarea } from '@/web/components/ui/textarea'
-import { aktivitasRbaSchema } from '../../schema'
-import {
-    SelectItem,
-    Select,
-    SelectContent,
-    SelectTrigger,
-    SelectValue,
-} from '@/web/components/ui/select'
+import { rkuSchema } from '../../schema'
+import UnitKerjaPicker from '@/app/routes/(dashboard)/lainnya/database/unit-kerja-picker'
 
-const newAktivitasRbaSchema = aktivitasRbaSchema.omit({ rbaId: true })
-
-export default function EditForm({
-    data,
-}: {
-    data: typeof aktivitasRba.$inferSelect
-}) {
+export default function EditForm({ data }: { data: typeof rku.$inferSelect }) {
     const navigate = useNavigate()
     const utils = api.useUtils()
 
-    const form = useForm<z.infer<typeof newAktivitasRbaSchema>>({
-        resolver: zodResolver(newAktivitasRbaSchema),
+    const form = useForm<z.infer<typeof rkuSchema>>({
+        resolver: zodResolver(rkuSchema),
         mode: 'onTouched',
         defaultValues: {
-            kode: data.kode ?? '',
-            nama: data.nama ?? '',
-            jenis: data.jenis ?? undefined,
+            unitKerjaId: data.unitKerjaId ?? undefined,
+            noDokumen: data.noDokumen ?? '',
+            uraian: data.uraian ?? '',
+            tglDokumen: data.tglDokumen ?? undefined,
         },
     })
 
-    const edit = api.aktivitasRba.updateById.useMutation({
+    const edit = api.rku.updateById.useMutation({
         onMutate() {
             toast.loading('Menyimpan data...')
         },
-        onSuccess(res) {
+        onSuccess(data) {
             toast.dismiss()
-            utils.aktivitasRba.getById.invalidate()
-            navigate(
-                `/anggaran/rba/penyusunan-rba/${String(data.rbaId)}/aktivitas`
-            )
-            toast.success(res.message)
+            utils.rku.getById.invalidate()
+            navigate('/anggaran/rba/rku')
+            toast.success(data.message)
         },
         onError(error) {
             toast.dismiss()
@@ -63,8 +51,8 @@ export default function EditForm({
         },
     })
 
-    function onSubmit(val: z.infer<typeof newAktivitasRbaSchema>) {
-        edit.mutate({ id: data.id, rbaId: data.rbaId ?? 0, ...val })
+    function onSubmit(val: z.infer<typeof rkuSchema>) {
+        edit.mutate({ id: data.id, ...val })
     }
 
     return (
@@ -76,40 +64,25 @@ export default function EditForm({
                 >
                     <FormField
                         control={form.control}
-                        name="jenis"
+                        name="unitKerjaId"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Jenis</FormLabel>
+                                <FormLabel>Unit Kerja</FormLabel>
                                 <FormControl>
-                                    <Select
+                                    <UnitKerjaPicker
                                         onValueChange={field.onChange}
                                         value={field.value}
-                                    >
-                                        <SelectTrigger>
-                                            <SelectValue />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="BELANJA">
-                                                BELANJA
-                                            </SelectItem>
-                                            <SelectItem value="PENDAPATAN">
-                                                PENDAPATAN
-                                            </SelectItem>
-                                            <SelectItem value="PEMBIAYAAN">
-                                                PEMBIAYAAN
-                                            </SelectItem>
-                                        </SelectContent>
-                                    </Select>
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
                     <FormField
-                        name="kode"
+                        name="noDokumen"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Kode Aktivitas</FormLabel>
+                                <FormLabel>No. Dokumen</FormLabel>
                                 <FormControl>
                                     <Input {...field} />
                                 </FormControl>
@@ -118,12 +91,39 @@ export default function EditForm({
                         )}
                     />
                     <FormField
-                        name="nama"
+                        name="uraian"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Nama Aktivitas</FormLabel>
+                                <FormLabel>Uraian</FormLabel>
                                 <FormControl>
                                     <Textarea {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        name="tglDokumen"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Tanggal Dokumen</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        type="date"
+                                        onChange={(e) =>
+                                            field.onChange(
+                                                new Date(e.target.value)
+                                            )
+                                        }
+                                        value={
+                                            field.value
+                                                ? format(
+                                                      new Date(field.value),
+                                                      'yyyy-MM-dd'
+                                                  )
+                                                : undefined
+                                        }
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

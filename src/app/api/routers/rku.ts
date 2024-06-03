@@ -18,14 +18,12 @@ export const rkuRouter = createTRPCRouter({
             })
         )
         .query(async ({ ctx, input }) => {
-            return await ctx.db
-                .select()
-                .from(rku)
-                .where(
-                    input.search
-                        ? or(like(rku.uraian, `%${input.search}%`))
-                        : undefined
-                )
+            return await ctx.db.query.rku.findMany({
+                with: { unitKerja: true },
+                where: input.search
+                    ? or(like(rku.uraian, `%${input.search}%`))
+                    : undefined,
+            })
         }),
 
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {

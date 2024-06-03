@@ -12,43 +12,36 @@ import { api } from '@/web/trpc/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { Textarea } from '@/web/components/ui/textarea'
-import { aktivitasRbaSchema } from '../schema'
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/web/components/ui/select'
+import { rkuSchema } from '../schema'
+import { format } from 'date-fns'
+import UnitKerjaPicker from '@/app/routes/(dashboard)/lainnya/database/unit-kerja-picker'
 
 const defaultValues = {
-    kode: '',
-    nama: '',
-    jenis: undefined,
+    noDokumen: '',
+    uraian: '',
+    tglDokumen: undefined,
+    unitKerjaId: undefined,
 }
-
-const newAktivitasRbaSchema = aktivitasRbaSchema.omit({ rbaId: true })
 
 export default function CreateForm() {
     const navigate = useNavigate()
-    const params = useParams<{ rbaId: string }>()
 
-    const form = useForm<z.infer<typeof newAktivitasRbaSchema>>({
-        resolver: zodResolver(newAktivitasRbaSchema),
+    const form = useForm<z.infer<typeof rkuSchema>>({
+        resolver: zodResolver(rkuSchema),
         mode: 'onTouched',
         defaultValues,
     })
 
-    const create = api.aktivitasRba.create.useMutation({
+    const create = api.rku.create.useMutation({
         onMutate() {
             toast.loading('Menyimpan data...')
         },
         onSuccess(data) {
             toast.dismiss()
-            navigate(`/anggaran/rba/penyusunan-rba/${params.rbaId}/aktivitas`)
+            navigate('/anggaran/rba/rku')
             toast.success(data.message)
         },
         onError(error) {
@@ -57,8 +50,8 @@ export default function CreateForm() {
         },
     })
 
-    function onSubmit(data: z.infer<typeof newAktivitasRbaSchema>) {
-        create.mutate({ rbaId: parseInt(params.rbaId ?? ''), ...data })
+    function onSubmit(data: z.infer<typeof rkuSchema>) {
+        create.mutate(data)
     }
 
     return (
@@ -70,40 +63,25 @@ export default function CreateForm() {
                 >
                     <FormField
                         control={form.control}
-                        name="jenis"
+                        name="unitKerjaId"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Jenis</FormLabel>
+                                <FormLabel>Unit Kerja</FormLabel>
                                 <FormControl>
-                                    <Select
+                                    <UnitKerjaPicker
                                         onValueChange={field.onChange}
                                         value={field.value}
-                                    >
-                                        <SelectTrigger>
-                                            <SelectValue />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="BELANJA">
-                                                BELANJA
-                                            </SelectItem>
-                                            <SelectItem value="PENDAPATAN">
-                                                PENDAPATAN
-                                            </SelectItem>
-                                            <SelectItem value="PEMBIAYAAN">
-                                                PEMBIAYAAN
-                                            </SelectItem>
-                                        </SelectContent>
-                                    </Select>
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
                     <FormField
-                        name="kode"
+                        name="noDokumen"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Kode Aktivitas</FormLabel>
+                                <FormLabel>No. Dokumen</FormLabel>
                                 <FormControl>
                                     <Input {...field} />
                                 </FormControl>
@@ -112,12 +90,39 @@ export default function CreateForm() {
                         )}
                     />
                     <FormField
-                        name="nama"
+                        name="uraian"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Nama Aktivitas</FormLabel>
+                                <FormLabel>Uraian</FormLabel>
                                 <FormControl>
                                     <Textarea {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        name="tglDokumen"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Tanggal Dokumen</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        type="date"
+                                        onChange={(e) =>
+                                            field.onChange(
+                                                new Date(e.target.value)
+                                            )
+                                        }
+                                        value={
+                                            field.value
+                                                ? format(
+                                                      new Date(field.value),
+                                                      'yyyy-MM-dd'
+                                                  )
+                                                : undefined
+                                        }
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

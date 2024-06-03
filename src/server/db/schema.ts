@@ -206,6 +206,7 @@ export const aktivitasRba = mysqlTable('aktivitas_rba', {
     kode: varchar('kode', { length: 256 }),
     nama: varchar('nama', { length: 256 }),
     rbaId: int('sub_kegiatan_rka_id', { unsigned: true }),
+    jenis: mysqlEnum('jenis', ['BELANJA', 'PENDAPATAN', 'PEMBIAYAAN']),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
 })
