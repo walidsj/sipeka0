@@ -31,7 +31,7 @@ export default function DashboardLayout() {
                                 )}
                             >
                                 <Link to="/home">
-                                    <FiHome className="mr-2" />
+                                    <FiHome className="mr-3" />
                                     Home
                                 </Link>
                             </Button>
@@ -47,7 +47,7 @@ export default function DashboardLayout() {
                                 )}
                             >
                                 <Link to="/anggaran">
-                                    <FiEdit className="mr-2" />
+                                    <FiEdit className="mr-3" />
                                     Anggaran
                                 </Link>
                             </Button>
@@ -63,7 +63,7 @@ export default function DashboardLayout() {
                                 )}
                             >
                                 <Link to="/pengadaan">
-                                    <FiShoppingBag className="mr-2" />
+                                    <FiShoppingBag className="mr-3" />
                                     Pengadaan
                                 </Link>
                             </Button>
@@ -79,7 +79,7 @@ export default function DashboardLayout() {
                                 )}
                             >
                                 <Link to="/belanja">
-                                    <FiShoppingCart className="mr-2" />
+                                    <FiShoppingCart className="mr-3" />
                                     Belanja
                                 </Link>
                             </Button>
@@ -95,7 +95,7 @@ export default function DashboardLayout() {
                                 )}
                             >
                                 <Link to="/pendapatan">
-                                    <FiPocket className="mr-2" />
+                                    <FiPocket className="mr-3" />
                                     Pendapatan
                                 </Link>
                             </Button>
@@ -111,7 +111,7 @@ export default function DashboardLayout() {
                                 )}
                             >
                                 <Link to="/akuntansi">
-                                    <FiFileText className="mr-2" />
+                                    <FiFileText className="mr-3" />
                                     Akuntansi
                                 </Link>
                             </Button>
@@ -127,7 +127,7 @@ export default function DashboardLayout() {
                                 )}
                             >
                                 <Link to="/lainnya/database/pegawai">
-                                    <FiTool className="mr-2" />
+                                    <FiTool className="mr-3" />
                                     Lainnya
                                 </Link>
                             </Button>

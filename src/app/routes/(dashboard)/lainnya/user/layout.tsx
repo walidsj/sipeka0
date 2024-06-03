@@ -13,7 +13,7 @@ export default function Layout() {
     return (
         <div className="flex flex-col gap-5 px-8 py-5">
             <div>
-                <CardTitle className="text-3xl">Data Pegawai</CardTitle>
+                <CardTitle className="text-3xl">Manajemen User</CardTitle>
                 <Breadcrumb>
                     <BreadcrumbList>
                         <BreadcrumbItem>
@@ -29,13 +29,7 @@ export default function Layout() {
                         </BreadcrumbItem>
                         <BreadcrumbSeparator />
                         <BreadcrumbItem>
-                            <BreadcrumbLink asChild>
-                                <Link to="/lainnya/database">Database</Link>
-                            </BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbSeparator />
-                        <BreadcrumbItem>
-                            <BreadcrumbPage>Data Pegawai</BreadcrumbPage>
+                            <BreadcrumbPage>Manajemen User</BreadcrumbPage>
                         </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>

@@ -16,7 +16,7 @@ export default function Home() {
                     <Button asChild size="lg">
                         <Link to="/login">
                             Mulai Sekarang
-                            <FiArrowRight className="ml-2 h-5 w-5" />
+                            <FiArrowRight className="ml-3 h-5 w-5" />
                         </Link>
                     </Button>
                     <Button asChild size="lg" className="bg-emerald-500">

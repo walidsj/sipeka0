@@ -1,6 +1,6 @@
 import { pegawai, user } from '@/server/db/schema'
 import {
-    adminRouter,
+    adminProcedure,
     createTRPCRouter,
     publicProcedure,
     userProcedure,
@@ -200,7 +200,7 @@ export const userRouter = createTRPCRouter({
         }
     }),
 
-    create: adminRouter
+    create: adminProcedure
         .input(userSchema.merge(z.object({ password: z.string().min(5) })))
         .mutation(async ({ ctx, input }) => {
             const existedUser = await ctx.db.query.user.findFirst({
@@ -224,7 +224,7 @@ export const userRouter = createTRPCRouter({
             return { message: 'User berhasil ditambahkan' }
         }),
 
-    updateById: adminRouter
+    updateById: adminProcedure
         .input(
             userSchema
                 .pick({
@@ -257,7 +257,7 @@ export const userRouter = createTRPCRouter({
             return { message: 'User berhasil diupdate' }
         }),
 
-    deleteById: adminRouter
+    deleteById: adminProcedure
         .input(z.number())
         .mutation(async ({ ctx, input }) => {
             await ctx.db.delete(user).where(eq(user.id, input))

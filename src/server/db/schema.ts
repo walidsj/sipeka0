@@ -106,3 +106,15 @@ export const pengelolaBludRelations = relations(pengelolaBlud, ({ one }) => ({
         references: [pegawai.id],
     }),
 }))
+
+export const profilBlud = mysqlTable('profil_blud', {
+    id: serial('id').primaryKey(),
+    nama: varchar('nama', { length: 256 }),
+    alamat: varchar('alamat', { length: 256 }),
+    noTelp: varchar('no_telp', { length: 256 }),
+    noFax: varchar('no_fax', { length: 256 }),
+    email: varchar('email', { length: 256 }),
+    website: varchar('website', { length: 256 }),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+})

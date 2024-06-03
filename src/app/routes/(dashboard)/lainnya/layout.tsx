@@ -80,7 +80,7 @@ export default function DashboardLayout() {
                                 <Link to="/lainnya/user">
                                     <FiUsers className="h-6 w-6" />
                                     <span className="text-wrap text-xs">
-                                        Manajemen Akun
+                                        Manajemen User
                                     </span>
                                 </Link>
                             </Button>
