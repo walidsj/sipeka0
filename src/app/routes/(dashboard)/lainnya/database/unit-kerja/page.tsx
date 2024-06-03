@@ -14,7 +14,7 @@ export default function UnitKerja() {
     return (
         <Card>
             <CardHeader className="flex flex-row items-center justify-between">
-                <div>
+                <div className="flex flex-col gap-1.5">
                     <CardTitle>Daftar Unit Kerja</CardTitle>
                     <CardDescription>
                         Daftar referensi unit kerja untuk BLUD

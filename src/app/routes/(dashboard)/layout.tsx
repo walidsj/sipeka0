@@ -46,7 +46,7 @@ export default function DashboardLayout() {
                                         'border-b-4 border-primary text-primary'
                                 )}
                             >
-                                <Link to="/anggaran/rka/program-kegiatan/program">
+                                <Link to="/anggaran/rba/penyusunan-rba">
                                     <FiEdit className="mr-3" />
                                     Anggaran
                                 </Link>
@@ -126,7 +126,7 @@ export default function DashboardLayout() {
                                         'border-b-4 border-primary text-primary'
                                 )}
                             >
-                                <Link to="/lainnya/database/bank">
+                                <Link to="/lainnya/database/unit-kerja">
                                     <FiTool className="mr-3" />
                                     Lainnya
                                 </Link>

@@ -1,0 +1,1 @@
+ALTER TABLE `rba` ADD `tgl_dokumen` timestamp;

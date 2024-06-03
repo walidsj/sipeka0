@@ -24,7 +24,7 @@ export default function Layout() {
                                 )}
                                 asChild
                             >
-                                <Link to="/anggaran/rba">
+                                <Link to="/anggaran/rba/penyusunan-rba">
                                     <LuBookCopy className="h-6 w-6" />
                                     <span className="text-wrap text-xs">
                                         RBA

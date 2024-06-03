@@ -14,7 +14,7 @@ export default function Rekanan() {
     return (
         <Card>
             <CardHeader className="flex flex-row items-center justify-between">
-                <div>
+                <div className="flex flex-col gap-1.5">
                     <CardTitle>Daftar Rekanan</CardTitle>
                     <CardDescription>
                         Daftar rekanan yang bertransaksi dengan BLUD

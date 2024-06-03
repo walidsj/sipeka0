@@ -8,7 +8,7 @@ export default function PengelolaBlud() {
     return (
         <div className="flex flex-col gap-5">
             <div className="flex flex-row items-center justify-between">
-                <div>
+                <div className="flex flex-col gap-1.5">
                     <CardTitle>Penetapan Pengelola BLUD</CardTitle>
                     <CardDescription>
                         Daftar pegawai yang berperan sebagai pengelola BLUD

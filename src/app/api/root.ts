@@ -10,6 +10,9 @@ import { programRkaRouter } from './routers/programRka'
 import { kegiatanRkaRouter } from './routers/kegiatanRka'
 import { subKegiatanRkaRouter } from './routers/subKegiatanRka'
 import { unitKerjaRouter } from './routers/unitKerja'
+import { rkuRouter } from './routers/rku'
+import { rbaRouter } from './routers/rba'
+import { aktivitasRbaRouter } from './routers/aktivitasRba'
 
 export const appRouter = createTRPCRouter({
     user: userRouter,
@@ -23,6 +26,9 @@ export const appRouter = createTRPCRouter({
     programRka: programRkaRouter,
     kegiatanRka: kegiatanRkaRouter,
     subKegiatanRka: subKegiatanRkaRouter,
+    rku: rkuRouter,
+    rba: rbaRouter,
+    aktivitasRba: aktivitasRbaRouter,
 })
 
 export type AppRouter = typeof appRouter
