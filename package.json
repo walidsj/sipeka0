@@ -7,8 +7,8 @@
         "dev": "concurrently -k \"pnpm dev:server\" \"pnpm dev:web\"",
         "dev:server": "tsx watch src/server/index.ts",
         "dev:web": "vite --host 0.0.0.0",
-        "build:web": "cross-env NODE_ENV=production vite build",
-        "build:server": "cross-env NODE_ENV=production PORT=8080 tsup src/server/index.ts",
+        "build:web": "vite build",
+        "build:server": "tsup src/server/index.ts",
         "start": "node build/index.js",
         "dbg": "drizzle-kit generate",
         "dbp": "drizzle-kit push"

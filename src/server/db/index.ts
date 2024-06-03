@@ -12,10 +12,13 @@ const globalForDb = globalThis as unknown as {
 const conn =
     globalForDb.conn ??
     createPool({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME,
+        host: process.env.DB_HOST ? process.env.DB_HOST : 'localhost',
+        port: process.env.DB_PORT ? Number(process.env.DB_PORT) : 3306,
+        user: process.env.DB_USER ? process.env.DB_USER : 'walid',
+        password: process.env.DB_PASSWORD
+            ? process.env.DB_PASSWORD
+            : 'S1nc3@2023',
+        database: process.env.DB_NAME ? process.env.DB_NAME : 'sipeka_new',
     })
 if (process.env.NODE_ENV !== 'production') globalForDb.conn = conn
 
