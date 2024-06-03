@@ -21,7 +21,7 @@ export default function DashboardLayout() {
                                 )}
                                 asChild
                             >
-                                <Link to="/lainnya/database/bank">
+                                <Link to="/lainnya/database/unit-kerja">
                                     <FiDatabase className="h-6 w-6" />
                                     <span className="text-wrap text-xs">
                                         Database

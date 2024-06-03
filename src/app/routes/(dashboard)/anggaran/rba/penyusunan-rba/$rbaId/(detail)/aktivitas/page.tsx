@@ -7,7 +7,7 @@ import { CardDescription, CardTitle } from '@/web/components/ui/card'
 export default function Page() {
     const params = useParams<{ rbaId: string }>()
     return (
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-6">
             <div className="flex items-center justify-between">
                 <div className="flex flex-col gap-1.5">
                     <CardTitle>Aktivitas</CardTitle>
@@ -24,9 +24,7 @@ export default function Page() {
                     </Link>
                 </Button>
             </div>
-            <div>
-                <AktivitasTable />
-            </div>
+            <AktivitasTable />
         </div>
     )
 }

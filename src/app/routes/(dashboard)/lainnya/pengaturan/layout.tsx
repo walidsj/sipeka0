@@ -40,7 +40,7 @@ export default function ProfilLayout() {
             </div>
             <Card>
                 <CardHeader>
-                    <nav className="mb-3 w-full border-b">
+                    <nav className="mb-5 w-full border-b">
                         <ul className="flex">
                             <li>
                                 <Button

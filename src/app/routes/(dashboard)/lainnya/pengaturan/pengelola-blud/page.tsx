@@ -6,7 +6,7 @@ import PengelolaBludTable from './table'
 
 export default function PengelolaBlud() {
     return (
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-6">
             <div className="flex flex-row items-center justify-between">
                 <div className="flex flex-col gap-1.5">
                     <CardTitle>Penetapan Pengelola BLUD</CardTitle>
