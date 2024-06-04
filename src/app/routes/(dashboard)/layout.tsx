@@ -62,7 +62,7 @@ export default function DashboardLayout() {
                                         'border-b-4 border-primary text-primary'
                                 )}
                             >
-                                <Link to="/pengadaan">
+                                <Link to="/pengadaan/permohonan-rutin/farmasi">
                                     <FiShoppingBag className="mr-3" />
                                     Pengadaan
                                 </Link>

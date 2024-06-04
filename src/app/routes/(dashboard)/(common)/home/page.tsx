@@ -21,7 +21,7 @@ export default function Dashboard() {
                         className="h-14 w-14"
                     />
                     <div className="flex flex-col gap-1">
-                        <CardTitle>20.000.000.000</CardTitle>
+                        <CardTitle>22.000.000.000</CardTitle>
                         <CardDescription>Pagu Belanja</CardDescription>
                     </div>
                 </CardHeader>
@@ -34,8 +34,10 @@ export default function Dashboard() {
                         className="h-14 w-14"
                     />
                     <div className="flex flex-col gap-1">
-                        <CardTitle>20.000.000.000</CardTitle>
-                        <CardDescription>Realisasi Belanja</CardDescription>
+                        <CardTitle>10.150.558.543</CardTitle>
+                        <CardDescription>
+                            Realisasi Belanja (46.14%)
+                        </CardDescription>
                     </div>
                 </CardHeader>
             </Card>
@@ -47,7 +49,7 @@ export default function Dashboard() {
                         className="h-14 w-14"
                     />
                     <div className="flex flex-col gap-1">
-                        <CardTitle>20.000.000.000</CardTitle>
+                        <CardTitle>22.000.000.000</CardTitle>
                         <CardDescription>Target Pendapatan</CardDescription>
                     </div>
                 </CardHeader>
@@ -60,8 +62,10 @@ export default function Dashboard() {
                         className="h-14 w-14"
                     />
                     <div className="flex flex-col gap-1">
-                        <CardTitle>20.000.000.000</CardTitle>
-                        <CardDescription>Realisasi Pendapatan</CardDescription>
+                        <CardTitle>0</CardTitle>
+                        <CardDescription>
+                            Realisasi Pendapatan (0%)
+                        </CardDescription>
                     </div>
                 </CardHeader>
             </Card>
