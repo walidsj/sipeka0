@@ -14,7 +14,7 @@ export default function Layout() {
         <div className="flex flex-col gap-4">
             <div>
                 <CardTitle className="text-3xl">
-                    Rencana Kebutuhan Unit
+                    Pengadaan Laboratorium
                 </CardTitle>
                 <Breadcrumb>
                     <BreadcrumbList>
@@ -26,22 +26,20 @@ export default function Layout() {
                         <BreadcrumbSeparator />
                         <BreadcrumbItem>
                             <BreadcrumbLink asChild>
-                                <Link to="/anggaran">Anggaran</Link>
+                                <Link to="/pengadaan">Pengadaan</Link>
                             </BreadcrumbLink>
                         </BreadcrumbItem>
                         <BreadcrumbSeparator />
                         <BreadcrumbItem>
                             <BreadcrumbLink asChild>
-                                <Link to="/anggaran/rba">
-                                    Rencana Bisnis Anggaran
+                                <Link to="/pengadaan/permohonan-rutin">
+                                    Permohonan Rutin
                                 </Link>
                             </BreadcrumbLink>
                         </BreadcrumbItem>
                         <BreadcrumbSeparator />
                         <BreadcrumbItem>
-                            <BreadcrumbPage>
-                                Rencana Kebutuhan Unit
-                            </BreadcrumbPage>
+                            <BreadcrumbPage>Laboratorium</BreadcrumbPage>
                         </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>

@@ -8,7 +8,7 @@ import {
 } from '@/web/components/ui/card'
 import { FiPlus } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
-import RkuTable from './table'
+import LaboratoriumTable from './table'
 
 export default function Page() {
     return (
@@ -16,20 +16,20 @@ export default function Page() {
             <Card>
                 <CardHeader className="flex flex-row items-center justify-between">
                     <div className="flex flex-col gap-1.5">
-                        <CardTitle>Dokumen RKU</CardTitle>
+                        <CardTitle>Daftar Pesanan Laboratorium</CardTitle>
                         <CardDescription>
-                            Daftar dokumen rencana kebutuhan per unit
+                            Daftar permohonan pengadaan dan pembelian reagen
                         </CardDescription>
                     </div>
                     <Button asChild>
-                        <Link to="/anggaran/rba/rku/tambah">
+                        <Link to="/pengadaan/permohonan-rutin/laboratorium/tambah">
                             <FiPlus className="mr-2" />
-                            Tambah
+                            Tambah Pesanan
                         </Link>
                     </Button>
                 </CardHeader>
                 <CardContent>
-                    <RkuTable />
+                    <LaboratoriumTable />
                 </CardContent>
             </Card>
         </div>

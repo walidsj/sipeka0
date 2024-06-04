@@ -20,8 +20,9 @@ import toast from 'react-hot-toast'
 import { FiArrowRight, FiChevronsDown, FiEdit, FiTrash } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { id } from 'date-fns/locale'
+import { Badge } from '@/web/components/ui/badge'
 
-export default function RkuTable() {
+export default function LaboratoriumTable() {
     const rku = api.rku.getAll.useQuery(
         {},
         { placeholderData: keepPreviousData }
@@ -47,10 +48,12 @@ export default function RkuTable() {
             <TableHeader>
                 <TableRow>
                     <TableHead className="w-1 text-center">No.</TableHead>
-                    <TableHead>Unit Kerja</TableHead>
-                    <TableHead>Tanggal</TableHead>
-                    <TableHead>No. Dokumen</TableHead>
+                    <TableHead>Penyedia</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Tanggal Invoice/Faktur</TableHead>
+                    <TableHead>No. Invoice/Faktur</TableHead>
                     <TableHead>Uraian</TableHead>
+                    <TableHead>Nilai Total</TableHead>
                     <TableHead className="w-1" />
                 </TableRow>
             </TableHeader>
@@ -62,71 +65,59 @@ export default function RkuTable() {
                         </TableCell>
                     </TableRow>
                 )}
-                {rku.isSuccess &&
-                    rku.data?.map((item, index) => (
-                        <TableRow key={item.id}>
-                            <TableCell className="text-center">
-                                {index + 1}
-                            </TableCell>
-                            <TableCell>{item.unitKerja?.nama}</TableCell>
-                            <TableCell>
-                                {format(
-                                    String(item.tglDokumen),
-                                    'dd MMMM yyyy',
-                                    { locale: id }
-                                )}
-                            </TableCell>
-                            <TableCell>{item.noDokumen}</TableCell>
-                            <TableCell>{item.uraian}</TableCell>
-                            <TableCell>
-                                <div className="flex gap-3">
-                                    <Button asChild className="bg-secondary">
-                                        <Link
-                                            to={`/anggaran/rba/rku/${item.id}/rincian`}
-                                        >
-                                            Rincian Kebutuhan
-                                            <FiArrowRight className="ml-2" />
-                                        </Link>
+                <TableRow>
+                    <TableCell className="text-center">1</TableCell>
+                    <TableCell>PT. EH SYAM</TableCell>
+                    <TableCell>
+                        <Badge className="bg-green-500">Belum Terbayar</Badge>
+                    </TableCell>
+                    <TableCell>04 Juni 2024</TableCell>
+                    <TableCell>9203193801293</TableCell>
+                    <TableCell>
+                        Pembelian reagen kimia untuk keperluan laboratorium
+                    </TableCell>
+                    <TableCell className="text-nowrap">Rp 25.000.000</TableCell>
+                    <TableCell>
+                        <div className="flex gap-3">
+                            <Button asChild className="bg-secondary">
+                                <Link to="/pengadaan/permohonan-rutin/farmasi/1/rincian">
+                                    Rincian
+                                    <FiArrowRight className="ml-2" />
+                                </Link>
+                            </Button>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button variant="outline">
+                                        Aksi <FiChevronsDown className="ml-2" />
                                     </Button>
-                                    <DropdownMenu>
-                                        <DropdownMenuTrigger asChild>
-                                            <Button variant="outline">
-                                                Aksi{' '}
-                                                <FiChevronsDown className="ml-2" />
-                                            </Button>
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent align="start">
-                                            <Link
-                                                to={`/anggaran/rba/rku/${item.id}/edit`}
-                                            >
-                                                <DropdownMenuItem>
-                                                    <FiEdit className="mr-2" />
-                                                    Edit
-                                                </DropdownMenuItem>
-                                            </Link>
-                                            <DropdownMenuItem
-                                                onClick={() => {
-                                                    if (
-                                                        confirm(
-                                                            'Apakah anda yakin menghapus data ini?'
-                                                        )
-                                                    ) {
-                                                        deleteRku.mutate(
-                                                            item.id
-                                                        )
-                                                    }
-                                                }}
-                                                className="text-red-500"
-                                            >
-                                                <FiTrash className="mr-2" />
-                                                Hapus
-                                            </DropdownMenuItem>
-                                        </DropdownMenuContent>
-                                    </DropdownMenu>
-                                </div>
-                            </TableCell>
-                        </TableRow>
-                    ))}
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="start">
+                                    <Link to={`/anggaran/rba/rku/edit`}>
+                                        <DropdownMenuItem>
+                                            <FiEdit className="mr-2" />
+                                            Edit
+                                        </DropdownMenuItem>
+                                    </Link>
+                                    <DropdownMenuItem
+                                        onClick={() => {
+                                            if (
+                                                confirm(
+                                                    'Apakah anda yakin menghapus data ini?'
+                                                )
+                                            ) {
+                                                // deleteRku.mutate(item.id)
+                                            }
+                                        }}
+                                        className="text-red-500"
+                                    >
+                                        <FiTrash className="mr-2" />
+                                        Hapus
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        </div>
+                    </TableCell>
+                </TableRow>
                 {rku.isSuccess && rku.data?.length === 0 && (
                     <TableRow>
                         <TableCell colSpan={5} className="text-center">

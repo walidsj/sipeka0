@@ -16,15 +16,13 @@ export default function Page() {
             <Card>
                 <CardHeader className="flex flex-row items-center justify-between">
                     <div className="flex flex-col gap-1.5">
-                        <CardTitle>Daftar Pesanan Farmasi</CardTitle>
-                        <CardDescription>
-                            Daftar permohonan pengadaan dan pembelian obat
-                        </CardDescription>
+                        <CardTitle>Rincian Pengadaan Obat</CardTitle>
+                        <CardDescription>Item pengadaan obat</CardDescription>
                     </div>
                     <Button asChild>
                         <Link to="/pengadaan/permohonan-rutin/farmasi/tambah">
                             <FiPlus className="mr-2" />
-                            Tambah Pesanan
+                            Tambah Item
                         </Link>
                     </Button>
                 </CardHeader>

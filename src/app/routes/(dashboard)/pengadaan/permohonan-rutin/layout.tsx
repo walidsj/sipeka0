@@ -8,7 +8,7 @@ export default function ProfilLayout() {
 
     return (
         <div className="flex flex-row">
-            <div className="flex min-h-[calc(100svh-138px)] w-80 flex-col bg-background shadow">
+            <div className="flex min-h-[calc(100svh-138px)] w-60 flex-col bg-background shadow">
                 <nav className="w-full">
                     <div className="border-b bg-background px-5 py-5">
                         <CardTitle>Permohonan Pengadaan Rutin</CardTitle>
@@ -26,7 +26,7 @@ export default function ProfilLayout() {
                                         'border-l-4 border-primary bg-slate-50 text-primary'
                                 )}
                             >
-                                <Link to="/pengadaan/permohonan-rutin/penyusunan-rba">
+                                <Link to="/pengadaan/permohonan-rutin/farmasi">
                                     Farmasi
                                 </Link>
                             </Button>
@@ -38,7 +38,7 @@ export default function ProfilLayout() {
                                 className={cn(
                                     'h-12 w-full justify-start rounded-none px-5',
                                     pathname.startsWith(
-                                        '/permohonan-rutin/laboratorium'
+                                        '/pengadaan/permohonan-rutin/laboratorium'
                                     ) &&
                                         'border-l-4 border-primary bg-slate-50 text-primary'
                                 )}

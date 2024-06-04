@@ -9,6 +9,7 @@ import {
     Table,
     TableBody,
     TableCell,
+    TableFooter,
     TableHead,
     TableHeader,
     TableRow,
@@ -48,12 +49,11 @@ export default function FarmasiTable() {
             <TableHeader>
                 <TableRow>
                     <TableHead className="w-1 text-center">No.</TableHead>
-                    <TableHead>Penyedia</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Tanggal Invoice/Faktur</TableHead>
-                    <TableHead>No. Invoice/Faktur</TableHead>
-                    <TableHead>Uraian</TableHead>
-                    <TableHead>Nilai Total</TableHead>
+                    <TableHead>Item</TableHead>
+                    <TableHead>Volume</TableHead>
+                    <TableHead>Satuan</TableHead>
+                    <TableHead>Harga Satuan</TableHead>
+                    <TableHead>Harga Total</TableHead>
                     <TableHead className="w-1" />
                 </TableRow>
             </TableHeader>
@@ -67,24 +67,63 @@ export default function FarmasiTable() {
                 )}
                 <TableRow>
                     <TableCell className="text-center">1</TableCell>
-                    <TableCell>PT. STARINDO MULTI SUKSES</TableCell>
-                    <TableCell>
-                        <Badge className="bg-yellow-500">Belum Terbayar</Badge>
+                    <TableCell>Bodrexin (5000gr)</TableCell>
+                    <TableCell>1</TableCell>
+                    <TableCell>tablet</TableCell>
+                    <TableCell className="text-nowrap text-right">
+                        Rp 5.023.129
                     </TableCell>
-                    <TableCell>04 Juni 2024</TableCell>
-                    <TableCell>9203193801293</TableCell>
-                    <TableCell>
-                        Pembelian obat untuk pasien rawat jalan
+                    <TableCell className="text-nowrap text-right">
+                        Rp 5.023.129
                     </TableCell>
-                    <TableCell className="text-nowrap">Rp 15.023.129</TableCell>
                     <TableCell>
                         <div className="flex gap-3">
-                            <Button asChild className="bg-secondary">
-                                <Link to="/pengadaan/permohonan-rutin/farmasi/1/rincian">
-                                    Rincian
-                                    <FiArrowRight className="ml-2" />
-                                </Link>
-                            </Button>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button variant="outline">
+                                        Aksi <FiChevronsDown className="ml-2" />
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="start">
+                                    <Link to={`/anggaran/rba/rku/edit`}>
+                                        <DropdownMenuItem>
+                                            <FiEdit className="mr-2" />
+                                            Edit
+                                        </DropdownMenuItem>
+                                    </Link>
+                                    <DropdownMenuItem
+                                        onClick={() => {
+                                            if (
+                                                confirm(
+                                                    'Apakah anda yakin menghapus data ini?'
+                                                )
+                                            ) {
+                                                // deleteRku.mutate(item.id)
+                                            }
+                                        }}
+                                        className="text-red-500"
+                                    >
+                                        <FiTrash className="mr-2" />
+                                        Hapus
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        </div>
+                    </TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell className="text-center">1</TableCell>
+                    <TableCell>Oskadon</TableCell>
+                    <TableCell>2</TableCell>
+                    <TableCell>tablet</TableCell>
+                    <TableCell className="text-nowrap text-right">
+                        Rp 5.000.000
+                    </TableCell>
+                    <TableCell className="text-nowrap text-right">
+                        Rp 10.000.000
+                    </TableCell>
+                    <TableCell>
+                        <div className="flex gap-3">
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <Button variant="outline">
@@ -133,6 +172,17 @@ export default function FarmasiTable() {
                     </TableRow>
                 )}
             </TableBody>
+            <TableFooter>
+                <TableRow>
+                    <TableCell colSpan={5} className="text-right">
+                        Total
+                    </TableCell>
+                    <TableCell className="text-nowrap text-right">
+                        Rp 15.023.129
+                    </TableCell>
+                    <TableCell />
+                </TableRow>
+            </TableFooter>
         </Table>
     )
 }

@@ -62,22 +62,6 @@ export default function CreateForm() {
                     className="flex max-w-96 flex-col gap-2"
                 >
                     <FormField
-                        control={form.control}
-                        name="unitKerjaId"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Unit Kerja</FormLabel>
-                                <FormControl>
-                                    <UnitKerjaPicker
-                                        onValueChange={field.onChange}
-                                        value={field.value}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
                         name="noDokumen"
                         render={({ field }) => (
                             <FormItem>
