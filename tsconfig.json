@@ -33,8 +33,7 @@
         "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "noFallthroughCasesInSwitch": true,
-        
+        "noFallthroughCasesInSwitch": true
     },
     "include": [
         "src",
@@ -47,5 +46,5 @@
         "**/*.js"
         // ".next/types/**/*.ts"
     ],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules", "build", "dist", ".github"]
 }

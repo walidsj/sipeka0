@@ -2,6 +2,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom'
 import React from 'react'
 import { cn } from './lib/utils'
 import ReloadPrompt from './components/reload-pwa'
+import { AnimatePresence, motion } from 'framer-motion'
 
 export default function Router() {
     const importedRoutes: any = import.meta.glob(
@@ -183,7 +184,13 @@ export default function Router() {
                             key={route.key}
                             element={
                                 <React.Suspense>
-                                    <route.element />
+                                    <motion.div
+                                        key={route.key}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                    >
+                                        <route.element />
+                                    </motion.div>
                                 </React.Suspense>
                             }
                         >
@@ -198,7 +205,13 @@ export default function Router() {
                         path={route.path}
                         element={
                             <React.Suspense>
-                                <route.element />
+                                <motion.div
+                                    key={route.key}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                >
+                                    <route.element />
+                                </motion.div>
                             </React.Suspense>
                         }
                     />
@@ -212,7 +225,13 @@ export default function Router() {
                         path="*"
                         element={
                             <React.Suspense>
-                                <route.element />
+                                <motion.div
+                                    key={route.key}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                >
+                                    <route.element />
+                                </motion.div>
                             </React.Suspense>
                         }
                     />
@@ -349,10 +368,12 @@ export default function Router() {
     }
 
     return (
-        <HashRouter>
-            <ReloadPrompt />
-            <Routes>{renderRoutes(nest)}</Routes>
-        </HashRouter>
+        <AnimatePresence mode="wait">
+            <HashRouter>
+                <ReloadPrompt />
+                <Routes>{renderRoutes(nest)}</Routes>
+            </HashRouter>
+        </AnimatePresence>
     )
 
     return <div>{simulatePagesRouter(nest)}</div>
