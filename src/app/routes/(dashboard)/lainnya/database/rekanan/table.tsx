@@ -74,7 +74,14 @@ export default function RekananTable() {
                                     className="h-10 w-10"
                                 />
                             </TableCell>
-                            <TableCell>{item.nama}</TableCell>
+                            <TableCell>
+                                <p className="block font-semibold">
+                                    {item.nama}
+                                </p>
+                                <span className="line-clamp-1 text-xs text-slate-500">
+                                    {item.alamat}
+                                </span>
+                            </TableCell>
                             <TableCell className="text-center">
                                 {item.jenis}
                             </TableCell>
