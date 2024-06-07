@@ -1,3 +1,4 @@
+import { Badge } from '@/web/components/ui/badge'
 import { Button } from '@/web/components/ui/button'
 import {
     DropdownMenu,
@@ -65,7 +66,6 @@ export default function RabTable() {
                         <TableHead className="w-1 text-center">No.</TableHead>
                         <TableHead>Kode Rekening</TableHead>
                         <TableHead>Uraian</TableHead>
-                        <TableHead>Spesifikasi</TableHead>
                         <TableHead className="w-1" />
                     </TableRow>
                 </TableHeader>
@@ -83,9 +83,19 @@ export default function RabTable() {
                                 <TableCell className="text-center">
                                     {index + 1}
                                 </TableCell>
-                                <TableCell>{item.kodeRekening}</TableCell>
-                                <TableCell>{item.uraian}</TableCell>
-                                <TableCell>{item.spesifikasi}</TableCell>
+                                <TableCell>
+                                    <p>{item.kodeRekening}</p>
+                                    <p>{item.uraianRekening}</p>
+                                </TableCell>
+                                <TableCell>
+                                    <p className="mb-1">{item.uraian}</p>
+                                    <p className="text-xs text-gray-500">
+                                        <Badge className="mr-2 inline-block text-xs">
+                                            Spesifikasi
+                                        </Badge>{' '}
+                                        {item.spesifikasi}
+                                    </p>
+                                </TableCell>
                                 <TableCell>
                                     <DropdownMenu>
                                         <DropdownMenuTrigger asChild>

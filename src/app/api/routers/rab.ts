@@ -1,4 +1,5 @@
 import { rabSchema } from '@/app/schema/rab'
+import { rekeningLevel6 } from '@/data/rekening'
 import { rab } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { eq, like, or } from 'drizzle-orm'
@@ -12,7 +13,7 @@ export const rabRouter = createTRPCRouter({
             })
         )
         .query(async ({ ctx, input }) => {
-            return await ctx.db
+            const rabList = await ctx.db
                 .select()
                 .from(rab)
                 .where(
@@ -20,6 +21,15 @@ export const rabRouter = createTRPCRouter({
                         ? or(like(rab.uraian, `%${input.search}%`))
                         : undefined
                 )
+
+            return rabList.map((rab) => {
+                return {
+                    ...rab,
+                    uraianRekening: rekeningLevel6.find(
+                        (rekening) => rekening.kode === rab.kodeRekening
+                    )?.uraian,
+                }
+            })
         }),
 
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {
