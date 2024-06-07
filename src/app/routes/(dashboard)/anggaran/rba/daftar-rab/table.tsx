@@ -16,13 +16,18 @@ import {
 } from '@/web/components/ui/table'
 import { api } from '@/web/trpc/react'
 import { keepPreviousData } from '@tanstack/react-query'
+import React from 'react'
 import toast from 'react-hot-toast'
 import { FiChevronsDown, FiEdit, FiSearch, FiTrash } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
+import { useDebounce } from 'use-debounce'
 
 export default function RabTable() {
+    const [search, setSearch] = React.useState('')
+    const [searchValue] = useDebounce(search, 300)
+
     const rab = api.rab.getAll.useQuery(
-        {},
+        { search: searchValue },
         { placeholderData: keepPreviousData }
     )
 
@@ -47,7 +52,12 @@ export default function RabTable() {
                 <div className="absolute inset-y-0 left-0 flex items-center justify-center px-3">
                     <FiSearch className="text-gray-400" />
                 </div>
-                <Input className="max-w-80 pl-10" placeholder="Cari data..." />
+                <Input
+                    className="max-w-80 pl-10"
+                    placeholder="Cari data..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
             </div>
             <Table>
                 <TableHeader>

@@ -29,14 +29,7 @@ export const rabRouter = createTRPCRouter({
     }),
 
     create: userProcedure.input(rabSchema).mutation(async ({ ctx, input }) => {
-        await ctx.db.insert(rab).values({
-            kodeRekening: input.kodeRekening,
-            uraian: input.uraian,
-            spesifikasi: input.spesifikasi,
-            volume: String(input.volume),
-            satuan: input.satuan,
-            harga: String(input.harga),
-        })
+        await ctx.db.insert(rab).values(input)
 
         return { message: 'Data berhasil ditambahkan' }
     }),
@@ -45,17 +38,7 @@ export const rabRouter = createTRPCRouter({
         .input(z.object({ id: z.number() }).merge(rabSchema))
         .mutation(async ({ ctx, input }) => {
             const { id, ...rest } = input
-            await ctx.db
-                .update(rab)
-                .set({
-                    kodeRekening: rest.kodeRekening,
-                    uraian: rest.uraian,
-                    spesifikasi: rest.spesifikasi,
-                    volume: String(rest.volume),
-                    satuan: rest.satuan,
-                    harga: String(rest.harga),
-                })
-                .where(eq(rab.id, input.id))
+            await ctx.db.update(rab).set(rest).where(eq(rab.id, input.id))
 
             return { message: 'Data berhasil diupdate' }
         }),
