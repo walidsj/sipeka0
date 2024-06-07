@@ -7,12 +7,11 @@ import {
     BreadcrumbSeparator,
 } from '@/web/components/ui/breadcrumb'
 import { CardTitle } from '@/web/components/ui/card'
-import React from 'react'
 import { Link, Outlet } from 'react-router-dom'
 
 export default function RekananLayout() {
     return (
-        <React.Fragment>
+        <div className="flex w-full flex-col gap-5 px-8 py-5">
             <div>
                 <CardTitle className="text-3xl">Data Rekanan</CardTitle>
                 <Breadcrumb>
@@ -42,6 +41,6 @@ export default function RekananLayout() {
                 </Breadcrumb>
             </div>
             <Outlet />
-        </React.Fragment>
+        </div>
     )
 }

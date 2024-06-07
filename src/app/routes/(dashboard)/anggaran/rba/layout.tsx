@@ -8,12 +8,29 @@ export default function ProfilLayout() {
 
     return (
         <div className="flex flex-row">
-            <div className="flex min-h-[calc(100svh-138px)] w-80 flex-col bg-background shadow">
+            <div className="flex min-h-[calc(100svh-138px)] w-72 flex-col bg-background shadow">
                 <nav className="w-full">
                     <div className="border-b bg-background px-5 py-5">
-                        <CardTitle>Rencana Bisnis Anggaran</CardTitle>
+                        <CardTitle>Rencana Bisnis dan Anggaran</CardTitle>
                     </div>
                     <ul className="flex flex-col">
+                        <li>
+                            <Button
+                                asChild
+                                variant="ghost"
+                                className={cn(
+                                    'h-12 w-full justify-start rounded-none px-5',
+                                    pathname.startsWith(
+                                        '/anggaran/rba/daftar-rab'
+                                    ) &&
+                                        'border-l-4 border-primary bg-slate-50 text-primary'
+                                )}
+                            >
+                                <Link to="/anggaran/rba/daftar-rab">
+                                    Daftar RAB
+                                </Link>
+                            </Button>
+                        </li>
                         <li>
                             <Button
                                 asChild
@@ -31,27 +48,10 @@ export default function ProfilLayout() {
                                 </Link>
                             </Button>
                         </li>
-                        <li>
-                            <Button
-                                asChild
-                                variant="ghost"
-                                className={cn(
-                                    'h-12 w-full justify-start rounded-none px-5',
-                                    pathname.startsWith('/anggaran/rba/rku') &&
-                                        'border-l-4 border-primary bg-slate-50 text-primary'
-                                )}
-                            >
-                                <Link to="/anggaran/rba/rku">
-                                    Rencana Kebutuhan Unit
-                                </Link>
-                            </Button>
-                        </li>
                     </ul>
                 </nav>
             </div>
-            <div className="flex w-full flex-col gap-5 px-8 py-5">
-                <Outlet />
-            </div>
+            <Outlet />
         </div>
     )
 }

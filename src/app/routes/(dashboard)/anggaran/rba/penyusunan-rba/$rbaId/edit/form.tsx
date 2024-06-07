@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { format } from 'date-fns'
 import { Textarea } from '@/web/components/ui/textarea'
-import { rbaSchema } from '../../schema'
+import { rbaSchema } from '@/app/schema/rba'
 
 export default function EditForm({ data }: { data: typeof rba.$inferSelect }) {
     const navigate = useNavigate()

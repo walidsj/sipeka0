@@ -72,25 +72,6 @@ export default function Layout() {
                                     </Link>
                                 </Button>
                             </li>
-                            <li>
-                                <Button
-                                    asChild
-                                    variant="ghost"
-                                    className={cn(
-                                        'h-12 rounded-none',
-                                        pathname.startsWith(
-                                            `/anggaran/rba/penyusunan-rba/${params.rbaId}/sub-kegiatan`
-                                        ) &&
-                                            'border-b-4 border-primary text-primary'
-                                    )}
-                                >
-                                    <Link
-                                        to={`/anggaran/rba/penyusunan-rba/${params.rbaId}/sub-kegiatan`}
-                                    >
-                                        Rincian per Sub Kegiatan
-                                    </Link>
-                                </Button>
-                            </li>
                         </ul>
                     </nav>
                     <div className="py-3">

@@ -21,8 +21,8 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/web/components/ui/select'
-import { userSchema } from '../../schema'
 import PegawaiPicker from '../../../database/pegawai-picker'
+import { userSchema } from '@/app/schema/user'
 
 const defaultValues = {
     nama: '',

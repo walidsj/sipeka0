@@ -6,7 +6,6 @@ import {
     FiFileText,
     FiHome,
     FiPocket,
-    FiShoppingBag,
     FiShoppingCart,
     FiTool,
 } from 'react-icons/fi'
@@ -46,25 +45,9 @@ export default function DashboardLayout() {
                                         'border-b-4 border-primary text-primary'
                                 )}
                             >
-                                <Link to="/anggaran/rba/penyusunan-rba">
+                                <Link to="/anggaran/rba/daftar-rab">
                                     <FiEdit className="mr-3" />
                                     Anggaran
-                                </Link>
-                            </Button>
-                        </li>
-                        <li>
-                            <Button
-                                asChild
-                                variant="ghost"
-                                className={cn(
-                                    'h-14 rounded-none px-5',
-                                    pathname.startsWith('/pengadaan') &&
-                                        'border-b-4 border-primary text-primary'
-                                )}
-                            >
-                                <Link to="/pengadaan/permohonan-rutin/farmasi">
-                                    <FiShoppingBag className="mr-3" />
-                                    Pengadaan
                                 </Link>
                             </Button>
                         </li>

@@ -166,7 +166,7 @@ export default function Home() {
                         variant="outline"
                         className={cn(
                             team === 'Semua' &&
-                                'border border-primary text-primary'
+                                'border-2 border-primary text-primary'
                         )}
                         onClick={() => setTeam('Semua')}
                     >
@@ -176,7 +176,7 @@ export default function Home() {
                         variant="outline"
                         className={cn(
                             team === 'Perbendaharaan' &&
-                                'border border-primary text-primary'
+                                'border-2 border-primary text-primary'
                         )}
                         onClick={() => setTeam('Perbendaharaan')}
                     >
@@ -186,7 +186,7 @@ export default function Home() {
                         variant="outline"
                         className={cn(
                             team === 'Akuntansi' &&
-                                'border border-primary text-primary'
+                                'border-2 border-primary text-primary'
                         )}
                         onClick={() => setTeam('Akuntansi')}
                     >
@@ -196,7 +196,7 @@ export default function Home() {
                         variant="outline"
                         className={cn(
                             team === 'Verifikasi' &&
-                                'border border-primary text-primary'
+                                'border-2 border-primary text-primary'
                         )}
                         onClick={() => setTeam('Verifikasi')}
                     >
@@ -206,7 +206,7 @@ export default function Home() {
                         variant="outline"
                         className={cn(
                             team === 'Tim Efektif' &&
-                                'border border-primary text-primary'
+                                'border-2 border-primary text-primary'
                         )}
                         onClick={() => setTeam('Tim Efektif')}
                     >

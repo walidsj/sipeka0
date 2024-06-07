@@ -185,6 +185,7 @@ export default function Router() {
                             element={
                                 <React.Suspense>
                                     <motion.div
+                                        className="w-full"
                                         key={route.key}
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
@@ -206,6 +207,7 @@ export default function Router() {
                         element={
                             <React.Suspense>
                                 <motion.div
+                                    className="w-full"
                                     key={route.key}
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
@@ -226,6 +228,7 @@ export default function Router() {
                         element={
                             <React.Suspense>
                                 <motion.div
+                                    className="w-full"
                                     key={route.key}
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}

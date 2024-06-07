@@ -1,0 +1,1 @@
+ALTER TABLE `rincian_rba` DROP COLUMN `kode_rekening`;

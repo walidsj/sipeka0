@@ -73,7 +73,7 @@ export default function RbaContentList() {
                                     <Link
                                         to={`/anggaran/rba/penyusunan-rba/${item.id}/aktivitas`}
                                     >
-                                        Aktivitas
+                                        Rincian
                                         <FiArrowRight className="ml-2" />
                                     </Link>
                                 </Button>

@@ -15,8 +15,8 @@ import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { Textarea } from '@/web/components/ui/textarea'
-import { rbaSchema } from '../schema'
 import { format } from 'date-fns'
+import { rbaSchema } from '@/app/schema/rba'
 
 const defaultValues = {
     noDokumen: '',

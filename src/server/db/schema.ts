@@ -1,5 +1,6 @@
 import { relations } from 'drizzle-orm'
 import {
+    decimal,
     int,
     mysqlEnum,
     mysqlTable,
@@ -180,33 +181,33 @@ export const unitKerja = mysqlTable('unit_kerja', {
     updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
 })
 
-export const rku = mysqlTable('rku', {
-    id: serial('id').primaryKey(),
-    noDokumen: varchar('no_dokumen', { length: 256 }),
-    uraian: varchar('uraian', { length: 256 }),
-    unitKerjaId: int('unit_kerja_id', { unsigned: true }),
-    tglDokumen: timestamp('tgl_dokumen'),
-    createdAt: timestamp('created_at').defaultNow().notNull(),
-    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-})
-
-export const rkuRelations = relations(rku, ({ one }) => ({
-    unitKerja: one(unitKerja, {
-        fields: [rku.unitKerjaId],
-        references: [unitKerja.id],
-    }),
-}))
-
-export const unitKerjaRelations = relations(unitKerja, ({ many }) => ({
-    rku: many(rku),
-}))
-
 export const aktivitasRba = mysqlTable('aktivitas_rba', {
     id: serial('id').primaryKey(),
     kode: varchar('kode', { length: 256 }),
     nama: varchar('nama', { length: 256 }),
     rbaId: int('sub_kegiatan_rka_id', { unsigned: true }),
     jenis: mysqlEnum('jenis', ['BELANJA', 'PENDAPATAN', 'PEMBIAYAAN']),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+})
+
+export const rincianRba = mysqlTable('rincian_rba', {
+    id: serial('id').primaryKey(),
+    aktivitasRbaId: int('aktivitas_rba_id', { unsigned: true }),
+    rabId: int('rab_id', { unsigned: true }),
+    volume: decimal('volume'),
+    satuan: varchar('satuan', { length: 256 }),
+    harga: decimal('harga'),
+    keterangan: varchar('keterangan', { length: 256 }),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+})
+
+export const rab = mysqlTable('rab', {
+    id: serial('id').primaryKey(),
+    kodeRekening: varchar('kode_rekening', { length: 256 }),
+    uraian: varchar('uraian', { length: 256 }),
+    spesifikasi: varchar('spesifikasi', { length: 256 }),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
 })

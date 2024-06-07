@@ -1,12 +1,8 @@
+import { bankSchema } from '@/app/schema/bank'
 import { bank } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { eq, like, or } from 'drizzle-orm'
 import { z } from 'zod'
-
-export const bankSchema = z.object({
-    nama: z.string().min(1),
-    kode: z.string().length(3),
-})
 
 export const bankRouter = createTRPCRouter({
     getAll: userProcedure

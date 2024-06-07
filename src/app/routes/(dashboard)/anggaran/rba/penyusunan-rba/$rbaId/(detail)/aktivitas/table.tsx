@@ -89,7 +89,7 @@ export default function AktivitasTable() {
                                 <div className="flex gap-3">
                                     <Button asChild className="bg-secondary">
                                         <Link
-                                            to={`/anggaran/rba/penyusunan-rba/${item.id}/aktivitas/rincian-rba`}
+                                            to={`/anggaran/rba/penyusunan-rba/${params.rbaId}/aktivitas/${item.id}/rincian-rba`}
                                         >
                                             Rincian RBA
                                             <FiArrowRight className="ml-2" />

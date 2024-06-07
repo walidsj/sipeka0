@@ -4,7 +4,6 @@ import { Link, Outlet, useLocation } from 'react-router-dom'
 import { RiPagesLine } from 'react-icons/ri'
 import { LuBookCopy } from 'react-icons/lu'
 import { IoNewspaperOutline } from 'react-icons/io5'
-import { BiMoneyWithdraw } from 'react-icons/bi'
 
 export default function Layout() {
     const { pathname } = useLocation()
@@ -24,7 +23,7 @@ export default function Layout() {
                                 )}
                                 asChild
                             >
-                                <Link to="/anggaran/rba/penyusunan-rba">
+                                <Link to="/anggaran/rba/daftar-rab">
                                     <LuBookCopy className="h-6 w-6" />
                                     <span className="text-wrap text-xs">
                                         RBA
@@ -64,26 +63,6 @@ export default function Layout() {
                                     <IoNewspaperOutline className="h-6 w-6" />
                                     <span className="text-wrap text-xs">
                                         DPA
-                                    </span>
-                                </Link>
-                            </Button>
-                        </li>
-                        <li>
-                            <Button
-                                variant="ghost"
-                                className={cn(
-                                    'flex h-auto w-full flex-col justify-center gap-1 rounded-none px-8 py-3 text-center',
-                                    pathname.startsWith(
-                                        '/anggaran/anggaran-kas'
-                                    ) &&
-                                        'border-l-4 border-primary bg-slate-50 text-primary'
-                                )}
-                                asChild
-                            >
-                                <Link to="/anggaran/anggaran-kas">
-                                    <BiMoneyWithdraw className="h-6 w-6" />
-                                    <span className="text-wrap text-xs">
-                                        Anggaran Kas
                                     </span>
                                 </Link>
                             </Button>

@@ -11,9 +11,11 @@ import { Link, Outlet } from 'react-router-dom'
 
 export default function Layout() {
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 px-8 py-5">
             <div>
-                <CardTitle className="text-3xl">Penyusunan RBA</CardTitle>
+                <CardTitle className="text-3xl">
+                    Rencana Bisnis dan Anggaran
+                </CardTitle>
                 <Breadcrumb>
                     <BreadcrumbList>
                         <BreadcrumbItem>
@@ -31,7 +33,7 @@ export default function Layout() {
                         <BreadcrumbItem>
                             <BreadcrumbLink asChild>
                                 <Link to="/anggaran/rba">
-                                    Rencana Bisnis Anggaran
+                                    Rencana Bisnis dan Anggaran
                                 </Link>
                             </BreadcrumbLink>
                         </BreadcrumbItem>

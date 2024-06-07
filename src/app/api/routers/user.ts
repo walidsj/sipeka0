@@ -11,17 +11,10 @@ import { z } from 'zod'
 import bcryptjs from 'bcryptjs'
 import { type JWTPayload, SignJWT } from 'jose'
 import { env } from '@/env'
+import { userSchema } from '@/app/schema/user'
 
-const secret = env.JWT_SECRET_KEY ?? ''
+const secret = env.JWT_SECRET_KEY ?? 'secret'
 const key = new TextEncoder().encode(secret)
-
-export const userSchema = z.object({
-    nama: z.string().min(1),
-    username: z.string().min(1),
-    instansi: z.string().min(1),
-    role: z.enum(['USER', 'ADMIN']),
-    pegawaiId: z.number().nullish(),
-})
 
 export const userRouter = createTRPCRouter({
     login: publicProcedure

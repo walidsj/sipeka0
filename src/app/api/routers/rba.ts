@@ -1,13 +1,8 @@
+import { rbaSchema } from '@/app/schema/rba'
 import { rba } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { eq, like, or } from 'drizzle-orm'
 import { z } from 'zod'
-
-export const rbaSchema = z.object({
-    noDokumen: z.string().min(1),
-    uraian: z.string().min(1),
-    tglDokumen: z.date(),
-})
 
 export const rbaRouter = createTRPCRouter({
     getAll: userProcedure

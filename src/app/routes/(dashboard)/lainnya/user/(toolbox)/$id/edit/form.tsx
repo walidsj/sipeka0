@@ -15,7 +15,6 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
-import { userSchema } from '../../../schema'
 import {
     Select,
     SelectContent,
@@ -24,6 +23,7 @@ import {
     SelectValue,
 } from '@/web/components/ui/select'
 import PegawaiPicker from '../../../../database/pegawai-picker'
+import { userSchema } from '@/app/schema/user'
 
 const userEditSchema = userSchema.merge(
     z.object({
