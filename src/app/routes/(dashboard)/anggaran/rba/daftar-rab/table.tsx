@@ -85,14 +85,16 @@ export default function RabTable() {
                                 </TableCell>
                                 <TableCell>
                                     <p>{item.kodeRekening}</p>
-                                    <p>{item.uraianRekening}</p>
+                                    <p className="text-xs text-gray-500">
+                                        {item.uraianRekening}
+                                    </p>
                                 </TableCell>
                                 <TableCell>
                                     <p className="mb-1">{item.uraian}</p>
                                     <p className="text-xs text-gray-500">
-                                        <Badge className="mr-2 inline-block text-xs">
-                                            Spesifikasi
-                                        </Badge>{' '}
+                                        <span className="mr-1 inline-block text-green-500">
+                                            Spesifikasi :
+                                        </span>{' '}
                                         {item.spesifikasi}
                                     </p>
                                 </TableCell>
