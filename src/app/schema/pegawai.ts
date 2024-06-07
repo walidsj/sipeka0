@@ -13,4 +13,5 @@ export const pegawaiSchema = z.object({
     bankId: z.number(),
     namaRekening: z.string().min(1),
     noRekening: z.string().min(1),
+    jenisKelamin: z.enum(['LAKI-LAKI', 'PEREMPUAN']),
 })

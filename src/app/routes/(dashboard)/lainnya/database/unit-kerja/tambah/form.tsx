@@ -1,3 +1,4 @@
+import { unitKerjaSchema } from '@/app/schema/unit-kerja'
 import { Button } from '@/web/components/ui/button'
 import {
     Form,
@@ -14,11 +15,6 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
-import { unitKerjaSchema } from '../schema'
-
-const defaultValues = {
-    nama: '',
-}
 
 export default function CreateForm() {
     const navigate = useNavigate()
@@ -26,7 +22,9 @@ export default function CreateForm() {
     const form = useForm<z.infer<typeof unitKerjaSchema>>({
         resolver: zodResolver(unitKerjaSchema),
         mode: 'onTouched',
-        defaultValues,
+        defaultValues: {
+            nama: '',
+        },
     })
 
     const create = api.unitKerja.create.useMutation({

@@ -52,6 +52,7 @@ export const pegawai = mysqlTable('pegawai', {
     bankId: int('bank_id', { unsigned: true }),
     namaRekening: varchar('nama_rekening', { length: 256 }),
     noRekening: varchar('no_rekening', { length: 256 }),
+    jenisKelamin: mysqlEnum('jenis_kelamin', ['LAKI-LAKI', 'PEREMPUAN']),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { mode: 'date' })
         .defaultNow()

@@ -22,23 +22,8 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/web/components/ui/select'
-import { pegawaiSchema } from '../schema'
 import { Textarea } from '@/web/components/ui/textarea'
-
-const defaultValues = {
-    nama: '',
-    gelarDepan: '',
-    gelarBelakang: '',
-    nip: '',
-    nik: '',
-    jabatan: '',
-    npwp: '',
-    noTelp: '',
-    statusPegawai: undefined,
-    bankId: undefined,
-    namaRekening: '',
-    noRekening: '',
-}
+import { pegawaiSchema } from '@/app/schema/pegawai'
 
 export default function CreateForm() {
     const navigate = useNavigate()
@@ -46,7 +31,21 @@ export default function CreateForm() {
     const form = useForm<z.infer<typeof pegawaiSchema>>({
         resolver: zodResolver(pegawaiSchema),
         mode: 'onTouched',
-        defaultValues,
+        defaultValues: {
+            nama: '',
+            gelarDepan: '',
+            gelarBelakang: '',
+            nip: '',
+            nik: '',
+            jabatan: '',
+            npwp: '',
+            noTelp: '',
+            statusPegawai: undefined,
+            bankId: undefined,
+            namaRekening: '',
+            noRekening: '',
+            jenisKelamin: undefined,
+        },
     })
 
     const create = api.pegawai.create.useMutation({
@@ -198,6 +197,34 @@ export default function CreateForm() {
                                                     </SelectItem>
                                                     <SelectItem value="MOU">
                                                         MOU
+                                                    </SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="jenisKelamin"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Jenis Kelamin</FormLabel>
+                                        <FormControl>
+                                            <Select
+                                                onValueChange={field.onChange}
+                                                value={field.value}
+                                            >
+                                                <SelectTrigger>
+                                                    <SelectValue />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="LAKI-LAKI">
+                                                        LAKI-LAKI
+                                                    </SelectItem>
+                                                    <SelectItem value="PEREMPUAN">
+                                                        PEREMPUAN
                                                     </SelectItem>
                                                 </SelectContent>
                                             </Select>

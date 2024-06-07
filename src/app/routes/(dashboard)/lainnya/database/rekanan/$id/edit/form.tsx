@@ -15,7 +15,6 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
-import { rekananSchema } from '../../schema'
 import {
     Select,
     SelectContent,
@@ -25,21 +24,7 @@ import {
 } from '@/web/components/ui/select'
 import BankPicker from '../../../bank-picker'
 import { Textarea } from '@/web/components/ui/textarea'
-
-// export const rekananSchema = z.object({
-//     nama: z.string().min(1),
-//     jenis: z.enum(['PERORANGAN', 'SWASTA', 'BUMN/BUMD', 'PEMERINTAH']),
-//     alamat: z.string().min(1),
-//     npwp: z.string().length(15),
-//     noTelp: z.string().min(1),
-//     namaPimpinan: z.string().min(1),
-//     namaPic: z.string().min(1),
-//     noPic: z.string().min(1),
-//     statusRekanan: z.enum(['BIASA', 'MOU']),
-//     bankId: z.number(),
-//     namaRekening: z.string().min(1),
-//     noRekening: z.string().min(1),
-// })
+import { rekananSchema } from '@/app/schema/rekanan'
 
 export default function EditForm({
     data,

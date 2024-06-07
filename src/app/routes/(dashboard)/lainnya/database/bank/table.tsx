@@ -45,7 +45,7 @@ export default function BankTable() {
             <TableHeader>
                 <TableRow>
                     <TableHead className="w-1 text-center">No.</TableHead>
-                    <TableHead>Nama Bank</TableHead>
+                    <TableHead colSpan={2}>Nama Bank</TableHead>
                     <TableHead className="text-center">Kode Bank</TableHead>
                     <TableHead className="w-1" />
                 </TableRow>
@@ -62,9 +62,18 @@ export default function BankTable() {
                     bank.data?.map((item, index) => (
                         <TableRow key={item.id}>
                             <TableCell className="text-center">
-                                {index + 1}
+                                {index + 1}.
                             </TableCell>
-                            <TableCell>{item.nama}</TableCell>
+                            <TableCell className="w-14">
+                                <img
+                                    src="/images/icons/bank.png"
+                                    alt="bank"
+                                    className="h-10 w-10"
+                                />
+                            </TableCell>
+                            <TableCell className="font-semibold">
+                                {item.nama}
+                            </TableCell>
                             <TableCell className="text-center">
                                 {item.kode}
                             </TableCell>

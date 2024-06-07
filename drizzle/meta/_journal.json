@@ -127,6 +127,13 @@
       "when": 1717719834648,
       "tag": "0017_smiling_firestar",
       "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "5",
+      "when": 1717767279564,
+      "tag": "0018_supreme_the_hunter",
+      "breakpoints": true
     }
   ]
 }

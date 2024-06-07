@@ -1,3 +1,4 @@
+import { bankSchema } from '@/app/schema/bank'
 import { Button } from '@/web/components/ui/button'
 import {
     Form,
@@ -14,12 +15,6 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
-import { bankSchema } from '../schema'
-
-const defaultValues = {
-    nama: '',
-    kode: '',
-}
 
 export default function CreateForm() {
     const navigate = useNavigate()
@@ -27,7 +22,10 @@ export default function CreateForm() {
     const form = useForm<z.infer<typeof bankSchema>>({
         resolver: zodResolver(bankSchema),
         mode: 'onTouched',
-        defaultValues,
+        defaultValues: {
+            nama: '',
+            kode: '',
+        },
     })
 
     const create = api.bank.create.useMutation({

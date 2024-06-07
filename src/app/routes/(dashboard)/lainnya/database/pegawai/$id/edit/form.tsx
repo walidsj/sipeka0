@@ -15,7 +15,6 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
-import { pegawaiSchema } from '../../schema'
 import {
     Select,
     SelectContent,
@@ -25,6 +24,7 @@ import {
 } from '@/web/components/ui/select'
 import BankPicker from '../../../bank-picker'
 import { Textarea } from '@/web/components/ui/textarea'
+import { pegawaiSchema } from '@/app/schema/pegawai'
 
 export default function EditForm({
     data,
@@ -50,6 +50,7 @@ export default function EditForm({
             bankId: data.bankId ?? undefined,
             namaRekening: data.namaRekening ?? '',
             noRekening: data.noRekening ?? '',
+            jenisKelamin: data.jenisKelamin ?? undefined,
         },
     })
 
@@ -203,6 +204,34 @@ export default function EditForm({
                                                     </SelectItem>
                                                     <SelectItem value="MOU">
                                                         MOU
+                                                    </SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="jenisKelamin"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Jenis Kelamin</FormLabel>
+                                        <FormControl>
+                                            <Select
+                                                onValueChange={field.onChange}
+                                                value={field.value}
+                                            >
+                                                <SelectTrigger>
+                                                    <SelectValue />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="LAKI-LAKI">
+                                                        LAKI-LAKI
+                                                    </SelectItem>
+                                                    <SelectItem value="PEREMPUAN">
+                                                        PEREMPUAN
                                                     </SelectItem>
                                                 </SelectContent>
                                             </Select>

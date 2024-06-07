@@ -22,23 +22,8 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/web/components/ui/select'
-import { rekananSchema } from '../schema'
 import { Textarea } from '@/web/components/ui/textarea'
-
-const defaultValues = {
-    nama: '',
-    jenis: undefined,
-    alamat: '',
-    npwp: '',
-    noTelp: '',
-    namaPimpinan: '',
-    namaPic: '',
-    noPic: '',
-    statusRekanan: undefined,
-    bankId: undefined,
-    namaRekening: '',
-    noRekening: '',
-}
+import { rekananSchema } from '@/app/schema/rekanan'
 
 export default function CreateForm() {
     const navigate = useNavigate()
@@ -46,7 +31,20 @@ export default function CreateForm() {
     const form = useForm<z.infer<typeof rekananSchema>>({
         resolver: zodResolver(rekananSchema),
         mode: 'onTouched',
-        defaultValues,
+        defaultValues: {
+            nama: '',
+            jenis: undefined,
+            alamat: '',
+            npwp: '',
+            noTelp: '',
+            namaPimpinan: '',
+            namaPic: '',
+            noPic: '',
+            statusRekanan: undefined,
+            bankId: undefined,
+            namaRekening: '',
+            noRekening: '',
+        },
     })
 
     const create = api.rekanan.create.useMutation({

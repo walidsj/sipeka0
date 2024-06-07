@@ -1,3 +1,4 @@
+import { bankSchema } from '@/app/schema/bank'
 import { bank } from '@/server/db/schema'
 import { Button } from '@/web/components/ui/button'
 import {
@@ -15,7 +16,6 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
-import { bankSchema } from '../../schema'
 
 export default function EditForm({ data }: { data: typeof bank.$inferSelect }) {
     const navigate = useNavigate()

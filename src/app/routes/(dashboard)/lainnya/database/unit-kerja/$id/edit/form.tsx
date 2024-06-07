@@ -1,3 +1,4 @@
+import { unitKerjaSchema } from '@/app/schema/unit-kerja'
 import { unitKerja } from '@/server/db/schema'
 import { Button } from '@/web/components/ui/button'
 import {
@@ -15,7 +16,6 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
-import { unitKerjaSchema } from '../../schema'
 
 export default function EditForm({
     data,

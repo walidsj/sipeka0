@@ -45,7 +45,7 @@ export default function UnitKerjaTable() {
             <TableHeader>
                 <TableRow>
                     <TableHead className="w-1 text-center">No.</TableHead>
-                    <TableHead>Nama Unit Kerja</TableHead>
+                    <TableHead colSpan={2}>Nama Unit Kerja</TableHead>
                     <TableHead className="w-1" />
                 </TableRow>
             </TableHeader>
@@ -61,9 +61,18 @@ export default function UnitKerjaTable() {
                     unitKerja.data?.map((item, index) => (
                         <TableRow key={item.id}>
                             <TableCell className="text-center">
-                                {index + 1}
+                                {index + 1}.
                             </TableCell>
-                            <TableCell>{item.nama}</TableCell>
+                            <TableCell className="w-14">
+                                <img
+                                    src="/images/icons/briefcase.png"
+                                    alt="unit kerja"
+                                    className="h-10 w-10"
+                                />
+                            </TableCell>
+                            <TableCell className="font-semibold">
+                                {item.nama}
+                            </TableCell>
                             <TableCell>
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>

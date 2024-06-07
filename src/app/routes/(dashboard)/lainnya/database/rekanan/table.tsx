@@ -49,7 +49,7 @@ export default function RekananTable() {
                     <TableHead colSpan={2}>Nama Rekanan</TableHead>
                     <TableHead className="text-center">Jenis</TableHead>
                     <TableHead className="text-center">Status</TableHead>
-                    <TableHead>NPWP</TableHead>
+                    <TableHead className="text-center">NPWP</TableHead>
                     <TableHead className="w-1" />
                 </TableRow>
             </TableHeader>
@@ -65,7 +65,7 @@ export default function RekananTable() {
                     rekanan.data?.map((item, index) => (
                         <TableRow key={item.id}>
                             <TableCell className="text-center">
-                                {index + 1}
+                                {index + 1}.
                             </TableCell>
                             <TableCell className="w-14">
                                 <img
@@ -97,7 +97,9 @@ export default function RekananTable() {
                                     {item.statusRekanan}
                                 </Badge>
                             </TableCell>
-                            <TableCell>{item.npwp}</TableCell>
+                            <TableCell className="text-center">
+                                {item.npwp}
+                            </TableCell>
                             <TableCell>
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>

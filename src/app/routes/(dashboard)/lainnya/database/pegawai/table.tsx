@@ -47,11 +47,9 @@ export default function PegawaiTable() {
             <TableHeader>
                 <TableRow>
                     <TableHead className="w-1 text-center">No.</TableHead>
-                    <TableHead>Nama Lengkap</TableHead>
+                    <TableHead colSpan={2}>Nama Lengkap</TableHead>
                     <TableHead className="w-1 text-center">Status</TableHead>
                     <TableHead>Jabatan</TableHead>
-                    <TableHead className="w-1">NIP/NIK</TableHead>
-                    <TableHead className="w-1">NPWP</TableHead>
                     <TableHead className="w-1" />
                 </TableRow>
             </TableHeader>
@@ -67,13 +65,33 @@ export default function PegawaiTable() {
                     pegawai.data?.map((item, index) => (
                         <TableRow key={item.id}>
                             <TableCell className="text-center">
-                                {index + 1}
+                                {index + 1}.
+                            </TableCell>
+                            <TableCell className="w-14">
+                                {item.jenisKelamin && (
+                                    <img
+                                        src={
+                                            item.jenisKelamin === 'PEREMPUAN'
+                                                ? '/images/icons/woman.png'
+                                                : '/images/icons/man.png'
+                                        }
+                                        alt="rekanan"
+                                        className="h-10 w-10"
+                                    />
+                                )}
                             </TableCell>
                             <TableCell>
-                                {item.gelarDepan && `${item.gelarDepan} `}
-                                {item.nama}
-                                {item.gelarBelakang &&
-                                    `, ${item.gelarBelakang}`}
+                                <p className="font-semibold">
+                                    {item.gelarDepan && `${item.gelarDepan} `}
+                                    {item.nama}
+                                    {item.gelarBelakang &&
+                                        `, ${item.gelarBelakang}`}
+                                </p>
+                                {item.nip && (
+                                    <p className="text-xs text-slate-500">
+                                        {item.nip}
+                                    </p>
+                                )}
                             </TableCell>
                             <TableCell className="text-center">
                                 <Badge
@@ -90,11 +108,6 @@ export default function PegawaiTable() {
                                 </Badge>
                             </TableCell>
                             <TableCell>{item.jabatan}</TableCell>
-                            <TableCell>
-                                {item.nip && `${item.nip} / `}
-                                {item.nik}
-                            </TableCell>
-                            <TableCell>{item.npwp}</TableCell>
                             <TableCell>
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
