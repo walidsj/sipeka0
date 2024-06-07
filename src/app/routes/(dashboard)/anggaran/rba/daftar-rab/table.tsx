@@ -48,7 +48,7 @@ export default function RabTable() {
     })
 
     const groupedData = _.chain(rab.data)
-        .groupBy((item) => `${item.kodeRekening}-${item.uraianRekening}`)
+        .groupBy((item) => `${item.kodeRekening}||${item.uraianRekening}`)
         .value()
 
     return (
@@ -87,9 +87,9 @@ export default function RabTable() {
                                 <TableRow className="bg-slate-50">
                                     <TableCell colSpan={3}>
                                         <span className="mr-3 inline-block font-semibold">
-                                            {key.split('-')[0]}
+                                            {key.split('||')[0]}
                                         </span>
-                                        <span>{key.split('-')[1]}</span>
+                                        <span>{key.split('||')[1]}</span>
                                     </TableCell>
                                 </TableRow>
                                 {groupedData[key].map((item, index) => (
