@@ -10,7 +10,7 @@ import { FiPlus } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import RekananTable from './table'
 
-export default function Rekanan() {
+export default function Page() {
     return (
         <Card>
             <CardHeader className="flex flex-row items-center justify-between">
