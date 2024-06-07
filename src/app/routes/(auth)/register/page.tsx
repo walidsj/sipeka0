@@ -79,7 +79,7 @@ export default function Login() {
     }
 
     return (
-        <div className="w-full max-w-96 flex-1 pt-10">
+        <div className="mx-auto w-full max-w-96 flex-1 pt-10">
             <Card className="w-full border-0 shadow-none">
                 <CardHeader>
                     <CardTitle>Register</CardTitle>

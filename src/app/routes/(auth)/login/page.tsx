@@ -67,7 +67,7 @@ export default function Login() {
     }
 
     return (
-        <div className="flex w-full max-w-96 flex-1 items-center justify-center">
+        <div className="mx-auto flex w-full max-w-96 flex-1 items-center justify-center">
             <Card className="w-full border-0 shadow-none">
                 <CardHeader>
                     <CardTitle className="text-2xl">Selamat Datang!</CardTitle>
