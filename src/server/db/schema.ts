@@ -17,16 +17,20 @@ export const user = mysqlTable('user', {
     instansi: varchar('instansi', { length: 256 }),
     role: mysqlEnum('role', ['ADMIN', 'USER']),
     pegawaiId: int('pegawai_id', { unsigned: true }),
-    createdAt: timestamp('created_at').defaultNow().notNull(),
-    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
 })
 
 export const bank = mysqlTable('bank', {
     id: serial('id').primaryKey(),
     nama: varchar('nama', { length: 256 }),
     kode: varchar('kode', { length: 256 }),
-    createdAt: timestamp('created_at').defaultNow().notNull(),
-    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
 })
 
 export const pegawai = mysqlTable('pegawai', {
@@ -48,8 +52,10 @@ export const pegawai = mysqlTable('pegawai', {
     bankId: int('bank_id', { unsigned: true }),
     namaRekening: varchar('nama_rekening', { length: 256 }),
     noRekening: varchar('no_rekening', { length: 256 }),
-    createdAt: timestamp('created_at').defaultNow().notNull(),
-    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
 })
 
 export const rekanan = mysqlTable('rekanan', {
@@ -71,8 +77,10 @@ export const rekanan = mysqlTable('rekanan', {
     bankId: int('bank_id', { unsigned: true }),
     namaRekening: varchar('nama_rekening', { length: 256 }),
     noRekening: varchar('no_rekening', { length: 256 }),
-    createdAt: timestamp('created_at').defaultNow().notNull(),
-    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
 })
 
 export const pengelolaBlud = mysqlTable('pengelola_blud', {
@@ -89,9 +97,11 @@ export const pengelolaBlud = mysqlTable('pengelola_blud', {
         'PEJABAT PENGADAAN',
     ]),
     noSk: varchar('no_sk', { length: 256 }),
-    tglSk: timestamp('tgl_sk'),
-    createdAt: timestamp('created_at').defaultNow().notNull(),
-    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+    tglSk: timestamp('tgl_sk', { mode: 'date' }),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
 })
 
 export const userRelations = relations(user, ({ one }) => ({
@@ -116,16 +126,20 @@ export const profilBlud = mysqlTable('profil_blud', {
     noFax: varchar('no_fax', { length: 256 }),
     email: varchar('email', { length: 256 }),
     website: varchar('website', { length: 256 }),
-    createdAt: timestamp('created_at').defaultNow().notNull(),
-    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
 })
 
 export const programRka = mysqlTable('program_rka', {
     id: serial('id').primaryKey(),
     kode: varchar('kode', { length: 256 }),
     nama: varchar('nama', { length: 256 }),
-    createdAt: timestamp('created_at').defaultNow().notNull(),
-    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
 })
 
 export const kegiatanRka = mysqlTable('kegiatan_rka', {
@@ -133,8 +147,10 @@ export const kegiatanRka = mysqlTable('kegiatan_rka', {
     kode: varchar('kode', { length: 256 }),
     nama: varchar('nama', { length: 256 }),
     programRkaId: int('program_rka_id', { unsigned: true }),
-    createdAt: timestamp('created_at').defaultNow().notNull(),
-    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
 })
 
 export const programRkaRelations = relations(programRka, ({ many }) => ({
@@ -154,8 +170,10 @@ export const subKegiatanRka = mysqlTable('sub_kegiatan_rka', {
     kode: varchar('kode', { length: 256 }),
     nama: varchar('nama', { length: 256 }),
     kegiatanRkaId: int('kegiatan_rka_id', { unsigned: true }),
-    createdAt: timestamp('created_at').defaultNow().notNull(),
-    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
 })
 
 export const subKegiatanRkaRelations = relations(subKegiatanRka, ({ one }) => ({
@@ -169,16 +187,20 @@ export const rba = mysqlTable('rba', {
     id: serial('id').primaryKey(),
     noDokumen: varchar('no_dokumen', { length: 256 }),
     uraian: varchar('uraian', { length: 256 }),
-    tglDokumen: timestamp('tgl_dokumen'),
-    createdAt: timestamp('created_at').defaultNow().notNull(),
-    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+    tglDokumen: timestamp('tgl_dokumen', { mode: 'date' }),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
 })
 
 export const unitKerja = mysqlTable('unit_kerja', {
     id: serial('id').primaryKey(),
     nama: varchar('nama', { length: 256 }),
-    createdAt: timestamp('created_at').defaultNow().notNull(),
-    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
 })
 
 export const aktivitasRba = mysqlTable('aktivitas_rba', {
@@ -187,8 +209,10 @@ export const aktivitasRba = mysqlTable('aktivitas_rba', {
     nama: varchar('nama', { length: 256 }),
     rbaId: int('sub_kegiatan_rka_id', { unsigned: true }),
     jenis: mysqlEnum('jenis', ['BELANJA', 'PENDAPATAN', 'PEMBIAYAAN']),
-    createdAt: timestamp('created_at').defaultNow().notNull(),
-    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
 })
 
 export const rincianRba = mysqlTable('rincian_rba', {
@@ -199,8 +223,10 @@ export const rincianRba = mysqlTable('rincian_rba', {
     satuan: varchar('satuan', { length: 256 }),
     harga: decimal('harga'),
     keterangan: varchar('keterangan', { length: 256 }),
-    createdAt: timestamp('created_at').defaultNow().notNull(),
-    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
 })
 
 export const rab = mysqlTable('rab', {
@@ -208,6 +234,8 @@ export const rab = mysqlTable('rab', {
     kodeRekening: varchar('kode_rekening', { length: 256 }),
     uraian: varchar('uraian', { length: 256 }),
     spesifikasi: varchar('spesifikasi', { length: 256 }),
-    createdAt: timestamp('created_at').defaultNow().notNull(),
-    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
 })
