@@ -22,7 +22,9 @@ export default function Page() {
                     </CardDescription>
                 </div>
                 <Button asChild>
-                    <Link to={`/anggaran/rba/${params.rbaId}/aktivitas/tambah`}>
+                    <Link
+                        to={`/anggaran/rba/penyusunan-rba/${params.rbaId}/aktivitas/tambah`}
+                    >
                         <FiPlus className="mr-2" />
                         Tambah
                     </Link>
