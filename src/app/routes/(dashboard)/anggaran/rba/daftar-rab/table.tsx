@@ -1,4 +1,3 @@
-import { Badge } from '@/web/components/ui/badge'
 import { Button } from '@/web/components/ui/button'
 import {
     DropdownMenu,
@@ -91,12 +90,15 @@ export default function RabTable() {
                                 </TableCell>
                                 <TableCell>
                                     <p className="mb-1">{item.uraian}</p>
-                                    <p className="text-xs text-gray-500">
-                                        <span className="mr-1 inline-block text-green-500">
-                                            Spesifikasi :
-                                        </span>{' '}
-                                        {item.spesifikasi}
-                                    </p>
+                                    {item.spesifikasi !== '-' &&
+                                        item.spesifikasi && (
+                                            <p className="text-xs text-gray-500">
+                                                <span className="mr-1 inline-block text-green-500">
+                                                    Spesifikasi :
+                                                </span>{' '}
+                                                {item.spesifikasi}
+                                            </p>
+                                        )}
                                 </TableCell>
                                 <TableCell>
                                     <DropdownMenu>
