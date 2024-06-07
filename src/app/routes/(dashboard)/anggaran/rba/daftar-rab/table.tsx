@@ -98,11 +98,9 @@ export default function RabTable() {
                                             {index + 1}.
                                         </TableCell>
                                         <TableCell>
-                                            <p className="mb-1">
-                                                {item.uraian}
-                                            </p>
+                                            <p>{item.uraian}</p>
                                             {item.spesifikasi && (
-                                                <p className="text-xs text-gray-500">
+                                                <p className="mt-1 text-xs text-gray-500">
                                                     <span className="mr-1 inline-block text-green-500">
                                                         Spesifikasi :
                                                     </span>{' '}
