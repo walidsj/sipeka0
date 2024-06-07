@@ -64,7 +64,7 @@ export default function RabTable() {
                 <TableHeader>
                     <TableRow>
                         <TableHead className="w-1 text-center">No.</TableHead>
-                        <TableHead>Kode Rekening</TableHead>
+                        <TableHead className="w-60">Kode Rekening</TableHead>
                         <TableHead>Uraian</TableHead>
                         <TableHead className="w-1" />
                     </TableRow>
