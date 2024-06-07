@@ -16,6 +16,7 @@ import {
 } from '@/web/components/ui/table'
 import { api } from '@/web/trpc/react'
 import { keepPreviousData } from '@tanstack/react-query'
+import _ from 'lodash'
 import React from 'react'
 import toast from 'react-hot-toast'
 import { FiChevronsDown, FiEdit, FiSearch, FiTrash } from 'react-icons/fi'
@@ -46,6 +47,10 @@ export default function RabTable() {
         },
     })
 
+    const groupedData = _.chain(rab.data)
+        .groupBy((item) => `${item.kodeRekening}-${item.uraianRekening}`)
+        .value()
+
     return (
         <div className="flex flex-col gap-5">
             <div className="relative">
@@ -63,7 +68,6 @@ export default function RabTable() {
                 <TableHeader>
                     <TableRow>
                         <TableHead className="w-1 text-center">No.</TableHead>
-                        <TableHead className="w-60">Kode Rekening</TableHead>
                         <TableHead>Uraian</TableHead>
                         <TableHead className="w-1" />
                     </TableRow>
@@ -71,83 +75,92 @@ export default function RabTable() {
                 <TableBody>
                     {rab.isLoading && (
                         <TableRow>
-                            <TableCell colSpan={4} className="text-center">
+                            <TableCell colSpan={3} className="text-center">
                                 Memuat data...
                             </TableCell>
                         </TableRow>
                     )}
                     {rab.isSuccess &&
-                        rab.data?.map((item, index) => (
-                            <TableRow key={item.id}>
-                                <TableCell className="text-center">
-                                    {index + 1}
-                                </TableCell>
-                                <TableCell>
-                                    <p>{item.kodeRekening}</p>
-                                    <p className="text-xs text-gray-500">
-                                        {item.uraianRekening}
-                                    </p>
-                                </TableCell>
-                                <TableCell>
-                                    <p className="mb-1">{item.uraian}</p>
-                                    {item.spesifikasi && (
-                                        <p className="text-xs text-gray-500">
-                                            <span className="mr-1 inline-block text-green-500">
-                                                Spesifikasi :
-                                            </span>{' '}
-                                            {item.spesifikasi}
-                                        </p>
-                                    )}
-                                </TableCell>
-                                <TableCell>
-                                    <DropdownMenu>
-                                        <DropdownMenuTrigger asChild>
-                                            <Button variant="outline">
-                                                Aksi{' '}
-                                                <FiChevronsDown className="ml-2" />
-                                            </Button>
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent align="start">
-                                            <Link
-                                                to={`/anggaran/rba/daftar-rab/${item.id}/edit`}
-                                            >
-                                                <DropdownMenuItem>
-                                                    <FiEdit className="mr-2" />
-                                                    Edit
-                                                </DropdownMenuItem>
-                                            </Link>
-                                            <DropdownMenuItem
-                                                onClick={() => {
-                                                    if (
-                                                        confirm(
-                                                            'Apakah anda yakin menghapus data ini?'
-                                                        )
-                                                    ) {
-                                                        deleteRab.mutate(
-                                                            item.id
-                                                        )
-                                                    }
-                                                }}
-                                                className="text-red-500"
-                                            >
-                                                <FiTrash className="mr-2" />
-                                                Hapus
-                                            </DropdownMenuItem>
-                                        </DropdownMenuContent>
-                                    </DropdownMenu>
-                                </TableCell>
-                            </TableRow>
+                        groupedData &&
+                        Object.keys(groupedData).map((key) => (
+                            <React.Fragment key={key}>
+                                <TableRow className="bg-slate-50">
+                                    <TableCell colSpan={3}>
+                                        <span className="mr-3 inline-block font-semibold">
+                                            {key.split('-')[0]}
+                                        </span>
+                                        <span>{key.split('-')[1]}</span>
+                                    </TableCell>
+                                </TableRow>
+                                {groupedData[key].map((item, index) => (
+                                    <TableRow key={item.id}>
+                                        <TableCell className="text-center">
+                                            {index + 1}.
+                                        </TableCell>
+                                        <TableCell>
+                                            <p className="mb-1">
+                                                {item.uraian}
+                                            </p>
+                                            {item.spesifikasi && (
+                                                <p className="text-xs text-gray-500">
+                                                    <span className="mr-1 inline-block text-green-500">
+                                                        Spesifikasi :
+                                                    </span>{' '}
+                                                    {item.spesifikasi}
+                                                </p>
+                                            )}
+                                        </TableCell>
+                                        <TableCell>
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger asChild>
+                                                    <Button variant="outline">
+                                                        Aksi{' '}
+                                                        <FiChevronsDown className="ml-2" />
+                                                    </Button>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent align="start">
+                                                    <Link
+                                                        to={`/anggaran/rba/daftar-rab/${item.id}/edit`}
+                                                    >
+                                                        <DropdownMenuItem>
+                                                            <FiEdit className="mr-2" />
+                                                            Edit
+                                                        </DropdownMenuItem>
+                                                    </Link>
+                                                    <DropdownMenuItem
+                                                        onClick={() => {
+                                                            if (
+                                                                confirm(
+                                                                    'Apakah anda yakin menghapus data ini?'
+                                                                )
+                                                            ) {
+                                                                deleteRab.mutate(
+                                                                    item.id
+                                                                )
+                                                            }
+                                                        }}
+                                                        className="text-red-500"
+                                                    >
+                                                        <FiTrash className="mr-2" />
+                                                        Hapus
+                                                    </DropdownMenuItem>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </React.Fragment>
                         ))}
                     {rab.isSuccess && rab.data?.length === 0 && (
                         <TableRow>
-                            <TableCell colSpan={5} className="text-center">
+                            <TableCell colSpan={3} className="text-center">
                                 Tidak ada data
                             </TableCell>
                         </TableRow>
                     )}
                     {rab.isError && (
                         <TableRow>
-                            <TableCell colSpan={5} className="text-center">
+                            <TableCell colSpan={3} className="text-center">
                                 {rab.error.message}
                             </TableCell>
                         </TableRow>
