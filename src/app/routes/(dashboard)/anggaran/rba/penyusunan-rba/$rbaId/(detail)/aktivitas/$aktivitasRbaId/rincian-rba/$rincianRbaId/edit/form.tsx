@@ -14,7 +14,6 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
-import { Textarea } from '@/web/components/ui/textarea'
 import { rincianRbaSchema } from '@/app/schema/rincian-rba'
 import { Card, CardHeader } from '@/web/components/ui/card'
 import { Input } from '@/web/components/ui/input'
@@ -38,7 +37,6 @@ export default function EditForm({
         defaultValues: {
             rabId: data.rabId ?? undefined,
             harga: Number(data.harga) ?? undefined,
-            keterangan: data.keterangan ?? '',
             satuan: data.satuan ?? '',
             volume: Number(data.volume) ?? undefined,
         },
@@ -171,18 +169,6 @@ export default function EditForm({
                             </div>
                         </CardHeader>
                     </Card>
-                    <FormField
-                        name="keterangan"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Keterangan</FormLabel>
-                                <FormControl>
-                                    <Textarea {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
                     <div className="mt-3">
                         <Button type="submit">
                             {edit.isPending ? 'Menyimpan...' : 'Simpan'}

@@ -61,7 +61,6 @@ export default function RincianTable() {
                     <TableHead>Satuan</TableHead>
                     <TableHead className="text-right">Harga</TableHead>
                     <TableHead className="text-right">Jumlah</TableHead>
-                    <TableHead>Keterangan</TableHead>
                     <TableHead className="w-1" />
                 </TableRow>
             </TableHeader>
@@ -97,7 +96,7 @@ export default function RincianTable() {
                                             'id-ID'
                                         )}
                                     </TableCell>
-                                    <TableCell colSpan={2} />
+                                    <TableCell />
                                 </TableRow>
                                 {groupedData[key].map((item, index) => {
                                     total +=
@@ -138,9 +137,6 @@ export default function RincianTable() {
                                                     Number(item.volume) *
                                                         Number(item.harga)
                                                 ).toLocaleString('id-ID')}
-                                            </TableCell>
-                                            <TableCell>
-                                                {item.keterangan}
                                             </TableCell>
                                             <TableCell>
                                                 <div className="flex gap-3">
@@ -191,14 +187,14 @@ export default function RincianTable() {
                     })}
                 {rincianRba.isSuccess && rincianRba.data?.length === 0 && (
                     <TableRow>
-                        <TableCell colSpan={8} className="text-center">
+                        <TableCell colSpan={7} className="text-center">
                             Tidak ada data
                         </TableCell>
                     </TableRow>
                 )}
                 {rincianRba.isError && (
                     <TableRow>
-                        <TableCell colSpan={8} className="text-center">
+                        <TableCell colSpan={7} className="text-center">
                             {rincianRba.error.message}
                         </TableCell>
                     </TableRow>
@@ -210,7 +206,7 @@ export default function RincianTable() {
                     <TableHead className="text-right">
                         {Number(total).toLocaleString('id-ID')}
                     </TableHead>
-                    <TableHead colSpan={2} />
+                    <TableHead />
                 </TableRow>
             </TableFooter>
         </Table>

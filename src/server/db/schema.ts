@@ -223,7 +223,6 @@ export const rincianRba = mysqlTable('rincian_rba', {
     volume: decimal('volume'),
     satuan: varchar('satuan', { length: 256 }),
     harga: decimal('harga'),
-    keterangan: varchar('keterangan', { length: 256 }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { mode: 'date' })
         .defaultNow()

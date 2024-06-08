@@ -6,5 +6,4 @@ export const rincianRbaSchema = z.object({
     volume: z.number(),
     satuan: z.string().min(1),
     harga: z.number(),
-    keterangan: z.string().min(1),
 })

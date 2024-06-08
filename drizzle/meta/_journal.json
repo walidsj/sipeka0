@@ -134,6 +134,13 @@
       "when": 1717767279564,
       "tag": "0018_supreme_the_hunter",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "5",
+      "when": 1717867198428,
+      "tag": "0019_productive_scalphunter",
+      "breakpoints": true
     }
   ]
 }

@@ -13,7 +13,6 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
-import { Textarea } from '@/web/components/ui/textarea'
 import { rincianRbaSchema } from '@/app/schema/rincian-rba'
 import RabPicker from '@/app/routes/(dashboard)/anggaran/rba/daftar-rab/rab-picker'
 import { Input } from '@/web/components/ui/input'
@@ -32,7 +31,6 @@ export default function CreateForm() {
         defaultValues: {
             rabId: undefined,
             harga: undefined,
-            keterangan: '',
             satuan: '',
             volume: undefined,
         },
@@ -163,18 +161,6 @@ export default function CreateForm() {
                             </div>
                         </CardHeader>
                     </Card>
-                    <FormField
-                        name="keterangan"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Keterangan</FormLabel>
-                                <FormControl>
-                                    <Textarea {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
                     <div className="mt-3">
                         <Button type="submit">
                             {create.isPending ? 'Menyimpan...' : 'Simpan'}

@@ -25,9 +25,9 @@ export default function EditPage() {
     return (
         <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-1.5">
-                <CardTitle>Edit Aktivitas</CardTitle>
+                <CardTitle>Edit Rincian RBA</CardTitle>
                 <CardDescription>
-                    Form untuk mengedit aktivitas rba
+                    Form untuk mengedit rincian rba
                 </CardDescription>
             </div>
             {rincianRba.isSuccess && rincianRba.data && (
