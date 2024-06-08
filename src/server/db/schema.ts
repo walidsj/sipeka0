@@ -240,3 +240,33 @@ export const rab = mysqlTable('rab', {
         .defaultNow()
         .onUpdateNow(),
 })
+
+export const rincianRbaRelations = relations(rincianRba, ({ one }) => ({
+    aktivitas: one(aktivitasRba, {
+        fields: [rincianRba.aktivitasRbaId],
+        references: [aktivitasRba.id],
+    }),
+    rab: one(rab, {
+        fields: [rincianRba.rabId],
+        references: [rab.id],
+    }),
+}))
+
+export const rbaRelations = relations(rba, ({ many }) => ({
+    aktivitas: many(aktivitasRba),
+}))
+
+export const aktivitasRbaRelations = relations(
+    aktivitasRba,
+    ({ one, many }) => ({
+        rba: one(rba, {
+            fields: [aktivitasRba.rbaId],
+            references: [rba.id],
+        }),
+        rincian: many(rincianRba),
+    })
+)
+
+export const rabRelations = relations(rab, ({ many }) => ({
+    rincian: many(rincianRba),
+}))

@@ -16,7 +16,6 @@ import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { Textarea } from '@/web/components/ui/textarea'
-import { aktivitasRbaSchema } from '../../schema'
 import {
     SelectItem,
     Select,
@@ -24,6 +23,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/web/components/ui/select'
+import { aktivitasRbaSchema } from '@/app/schema/aktivitas-rba'
 
 const newAktivitasRbaSchema = aktivitasRbaSchema.omit({ rbaId: true })
 

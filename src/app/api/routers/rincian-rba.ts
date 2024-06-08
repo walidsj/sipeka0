@@ -1,4 +1,5 @@
 import { rincianRbaSchema } from '@/app/schema/rincian-rba'
+import { rekeningLevel6 } from '@/data/rekening'
 import { rincianRba } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { TRPCError } from '@trpc/server'
@@ -13,14 +14,26 @@ export const rincianRbaRouter = createTRPCRouter({
             })
         )
         .query(async ({ ctx, input }) => {
-            return await ctx.db
-                .select()
-                .from(rincianRba)
-                .where(
-                    input.search
-                        ? or(like(rincianRba.uraian, `%${input.search}%`))
-                        : undefined
+            const rincianRbaList = await ctx.db.query.rincianRba.findMany({
+                where: input.search
+                    ? or(like(rincianRba.keterangan, `%${input.search}%`))
+                    : undefined,
+                with: {
+                    rab: true,
+                },
+            })
+
+            return rincianRbaList.map((rincianRba) => {
+                const kodeRekening = rekeningLevel6.find(
+                    (rekening) => rekening.kode === rincianRba.rab?.kodeRekening
                 )
+
+                return {
+                    ...rincianRba,
+                    kodeRekening: kodeRekening?.kode,
+                    uraianRekening: kodeRekening?.uraian,
+                }
+            })
         }),
 
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {
@@ -32,8 +45,21 @@ export const rincianRbaRouter = createTRPCRouter({
     getByAktivitasRbaId: userProcedure
         .input(z.number())
         .query(async ({ ctx, input }) => {
-            return await ctx.db.query.rincianRba.findMany({
+            const rincianRbaList = await ctx.db.query.rincianRba.findMany({
                 where: eq(rincianRba.aktivitasRbaId, input),
+                with: {
+                    rab: true,
+                },
+            })
+            return rincianRbaList.map((rincianRba) => {
+                const kodeRekening = rekeningLevel6.find(
+                    (rekening) => rekening.kode === rincianRba.rab?.kodeRekening
+                )
+
+                return {
+                    ...rincianRba,
+                    rekening: kodeRekening,
+                }
             })
         }),
 
@@ -51,7 +77,14 @@ export const rincianRbaRouter = createTRPCRouter({
                 })
             }
 
-            await ctx.db.insert(rincianRba).values(input)
+            await ctx.db.insert(rincianRba).values({
+                harga: String(input.harga),
+                keterangan: input.keterangan,
+                rabId: input.rabId,
+                satuan: input.satuan,
+                volume: String(input.volume),
+                aktivitasRbaId: input.aktivitasRbaId,
+            })
 
             return { message: 'Data berhasil ditambahkan' }
         }),
@@ -62,7 +95,14 @@ export const rincianRbaRouter = createTRPCRouter({
             const { id, ...rest } = input
             await ctx.db
                 .update(rincianRba)
-                .set(rest)
+                .set({
+                    harga: String(rest.harga),
+                    keterangan: rest.keterangan,
+                    rabId: rest.rabId,
+                    satuan: rest.satuan,
+                    volume: String(rest.volume),
+                    aktivitasRbaId: rest.aktivitasRbaId,
+                })
                 .where(eq(rincianRba.id, input.id))
 
             return { message: 'Data berhasil diupdate' }

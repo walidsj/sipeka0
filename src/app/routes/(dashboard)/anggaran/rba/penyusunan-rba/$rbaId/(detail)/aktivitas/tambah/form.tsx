@@ -15,7 +15,6 @@ import toast from 'react-hot-toast'
 import { useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
 import { Textarea } from '@/web/components/ui/textarea'
-import { aktivitasRbaSchema } from '../schema'
 import {
     Select,
     SelectContent,
@@ -23,12 +22,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/web/components/ui/select'
-
-const defaultValues = {
-    kode: '',
-    nama: '',
-    jenis: undefined,
-}
+import { aktivitasRbaSchema } from '@/app/schema/aktivitas-rba'
 
 const newAktivitasRbaSchema = aktivitasRbaSchema.omit({ rbaId: true })
 
@@ -39,7 +33,11 @@ export default function CreateForm() {
     const form = useForm<z.infer<typeof newAktivitasRbaSchema>>({
         resolver: zodResolver(newAktivitasRbaSchema),
         mode: 'onTouched',
-        defaultValues,
+        defaultValues: {
+            kode: '',
+            nama: '',
+            jenis: undefined,
+        },
     })
 
     const create = api.aktivitasRba.create.useMutation({

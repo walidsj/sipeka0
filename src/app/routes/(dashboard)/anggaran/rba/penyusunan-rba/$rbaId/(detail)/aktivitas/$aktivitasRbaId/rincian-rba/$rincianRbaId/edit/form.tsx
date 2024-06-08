@@ -15,8 +15,11 @@ import toast from 'react-hot-toast'
 import { useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
 import { Textarea } from '@/web/components/ui/textarea'
-import KodeRekeningPicker from '@/app/routes/(dashboard)/lainnya/referensi/kode-rekening-picker'
 import { rincianRbaSchema } from '@/app/schema/rincian-rba'
+import { Card, CardHeader } from '@/web/components/ui/card'
+import { Input } from '@/web/components/ui/input'
+import RabPicker from '@/app/routes/(dashboard)/anggaran/rba/daftar-rab/rab-picker'
+import { Label } from '@/web/components/ui/label'
 
 const newRincianRbaSchema = rincianRbaSchema.omit({ aktivitasRbaId: true })
 
@@ -28,10 +31,6 @@ export default function EditForm({
     const navigate = useNavigate()
     const utils = api.useUtils()
     const params = useParams<{ rbaId: string; aktivitasRbaId: string }>()
-
-    const aktivitasRba = api.aktivitasRba.getById.useQuery(
-        parseInt(params.aktivitasRbaId ?? '')
-    )
 
     const form = useForm<z.infer<typeof newRincianRbaSchema>>({
         resolver: zodResolver(newRincianRbaSchema),
@@ -79,33 +78,99 @@ export default function EditForm({
                     className="flex max-w-96 flex-col gap-2"
                 >
                     <FormField
-                        name="kodeRekening"
+                        name="rabId"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Kode Rekening</FormLabel>
+                                <FormLabel>Item RAB</FormLabel>
                                 <FormControl>
-                                    <KodeRekeningPicker
+                                    <RabPicker
                                         value={field.value}
                                         onValueChange={(val) =>
                                             field.onChange(val)
                                         }
-                                        params={{
-                                            searchKode:
-                                                aktivitasRba.data?.jenis ===
-                                                'BELANJA'
-                                                    ? '5'
-                                                    : aktivitasRba.data
-                                                            ?.jenis ===
-                                                        'PENDAPATAN'
-                                                      ? '4'
-                                                      : '',
-                                        }}
                                     />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
+                    <Card className="mt-2">
+                        <CardHeader>
+                            <FormField
+                                name="satuan"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Satuan</FormLabel>
+                                        <FormControl>
+                                            <Input {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                name="volume"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Volume</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="number"
+                                                value={String(
+                                                    field.value ?? ''
+                                                )}
+                                                onChange={(e) => {
+                                                    field.onChange(
+                                                        Number(e.target.value)
+                                                    )
+                                                }}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                name="harga"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Harga</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="number"
+                                                value={String(
+                                                    field.value ?? ''
+                                                )}
+                                                onChange={(e) => {
+                                                    field.onChange(
+                                                        Number(e.target.value)
+                                                    )
+                                                }}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <div className="text-right">
+                                <Label>Jumlah</Label>
+                                <p className="text-lg font-semibold">
+                                    {Number(
+                                        form.watch('harga') &&
+                                            form.watch('volume')
+                                            ? (form.watch('harga') as number) *
+                                                  (form.watch(
+                                                      'volume'
+                                                  ) as number)
+                                            : '0'
+                                    ).toLocaleString('id-ID', {
+                                        style: 'currency',
+                                        currency: 'IDR',
+                                    })}
+                                </p>
+                            </div>
+                        </CardHeader>
+                    </Card>
                     <FormField
                         name="keterangan"
                         render={({ field }) => (
