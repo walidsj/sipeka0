@@ -7,7 +7,6 @@ import {
     BreadcrumbSeparator,
 } from '@/web/components/ui/breadcrumb'
 import { Button } from '@/web/components/ui/button'
-import { CardTitle } from '@/web/components/ui/card'
 import { cn } from '@/web/lib/utils'
 import { FiBriefcase, FiCommand } from 'react-icons/fi'
 import { CgWorkAlt } from 'react-icons/cg'
@@ -18,34 +17,31 @@ export default function Layout() {
 
     return (
         <div className="flex flex-col gap-4">
-            <div>
-                <CardTitle className="text-3xl">Program/Kegiatan</CardTitle>
-                <Breadcrumb>
-                    <BreadcrumbList>
-                        <BreadcrumbItem>
-                            <BreadcrumbLink asChild>
-                                <Link to="/home">Home</Link>
-                            </BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbSeparator />
-                        <BreadcrumbItem>
-                            <BreadcrumbLink asChild>
-                                <Link to="/anggaran">Anggaran</Link>
-                            </BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbSeparator />
-                        <BreadcrumbItem>
-                            <BreadcrumbLink asChild>
-                                <Link to="/anggaran/rka">RKA</Link>
-                            </BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbSeparator />
-                        <BreadcrumbItem>
-                            <BreadcrumbPage>Program/Kegiatan</BreadcrumbPage>
-                        </BreadcrumbItem>
-                    </BreadcrumbList>
-                </Breadcrumb>
-            </div>
+            <Breadcrumb>
+                <BreadcrumbList>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink asChild>
+                            <Link to="/home">Home</Link>
+                        </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <BreadcrumbLink asChild>
+                            <Link to="/anggaran">Anggaran</Link>
+                        </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <BreadcrumbLink asChild>
+                            <Link to="/anggaran/rka">RKA</Link>
+                        </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <BreadcrumbPage>Program/Kegiatan</BreadcrumbPage>
+                    </BreadcrumbItem>
+                </BreadcrumbList>
+            </Breadcrumb>
             <div className="flex gap-3">
                 <Button
                     variant="outline"

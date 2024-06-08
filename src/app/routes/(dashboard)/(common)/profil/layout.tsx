@@ -7,7 +7,7 @@ import {
     BreadcrumbSeparator,
 } from '@/web/components/ui/breadcrumb'
 import { Button } from '@/web/components/ui/button'
-import { Card, CardHeader, CardTitle } from '@/web/components/ui/card'
+import { Card, CardHeader } from '@/web/components/ui/card'
 import { cn } from '@/web/lib/utils'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 
@@ -16,22 +16,20 @@ export default function ProfilLayout() {
 
     return (
         <div className="flex flex-col gap-4">
-            <div>
-                <CardTitle className="text-3xl">Profil Saya</CardTitle>
-                <Breadcrumb>
-                    <BreadcrumbList>
-                        <BreadcrumbItem>
-                            <BreadcrumbLink asChild>
-                                <Link to="/home">Home</Link>
-                            </BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbSeparator />
-                        <BreadcrumbItem>
-                            <BreadcrumbPage>Profil Saya</BreadcrumbPage>
-                        </BreadcrumbItem>
-                    </BreadcrumbList>
-                </Breadcrumb>
-            </div>
+            <Breadcrumb>
+                <BreadcrumbList>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink asChild>
+                            <Link to="/home">Home</Link>
+                        </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <BreadcrumbPage>Profil Saya</BreadcrumbPage>
+                    </BreadcrumbItem>
+                </BreadcrumbList>
+            </Breadcrumb>
+
             <Card>
                 <CardHeader>
                     <nav className="mb-3 w-full border-b">
