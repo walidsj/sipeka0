@@ -57,7 +57,7 @@ export default function RbaContentList() {
                             </div>
                             <CardTitle>{item.uraian}</CardTitle>
                             <CardDescription>
-                                tanggal{' '}
+                                No. {item.noDokumen} tanggal{' '}
                                 {format(
                                     String(item.tglDokumen),
                                     'dd MMMM yyyy',
