@@ -84,12 +84,14 @@ export default function RabTable() {
                         groupedData &&
                         Object.keys(groupedData).map((key) => (
                             <React.Fragment key={key}>
-                                <TableRow className="bg-yellow-50 hover:bg-yellow-50">
+                                <TableRow className="bg-slate-50 hover:bg-slate-50">
                                     <TableCell colSpan={3}>
-                                        <span className="mr-3 inline-block font-semibold">
+                                        <span className="mr-3 inline-block font-bold">
                                             {key.split('||')[0]}
                                         </span>
-                                        <span>{key.split('||')[1]}</span>
+                                        <span className="font-semibold">
+                                            {key.split('||')[1]}
+                                        </span>
                                     </TableCell>
                                 </TableRow>
                                 {groupedData[key].map((item, index) => (
