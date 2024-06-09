@@ -1,7 +1,6 @@
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import React from 'react'
 import { cn } from './lib/utils'
-import ReloadPrompt from './components/reload-pwa'
 import { AnimatePresence, motion } from 'framer-motion'
 
 export default function Router() {
@@ -373,7 +372,6 @@ export default function Router() {
     return (
         <AnimatePresence mode="wait">
             <HashRouter>
-                <ReloadPrompt />
                 <Routes>{renderRoutes(nest)}</Routes>
             </HashRouter>
         </AnimatePresence>
