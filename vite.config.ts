@@ -28,6 +28,14 @@ export default defineConfig({
     plugins: [
         react(),
         VitePWA({
+            includeAssets: [
+                '/images/**/*.png',
+                '/images/**/*.jpg',
+                '/images/**/*.jpeg',
+                '/images/**/*.webp',
+                '/images/**/*.svg',
+                'favicon.png',
+            ],
             registerType: 'prompt',
             devOptions: {
                 enabled: false,
