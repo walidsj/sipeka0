@@ -298,10 +298,6 @@ export const rincianRbaPendapatanRelations = relations(
     })
 )
 
-export const unitKerjaRelations = relations(unitKerja, ({ many }) => ({
-    rab: many(rab),
-}))
-
 export const rbaRelations = relations(rba, ({ many }) => ({
     aktivitas: many(aktivitasRba),
 }))
@@ -326,6 +322,10 @@ export const rabRelations = relations(rab, ({ many, one }) => ({
     rincianRbaBelanja: many(rincianRbaBelanja),
 }))
 
-export const rapRelations = relations(rab, ({ many }) => ({
+export const unitKerjaRelations = relations(unitKerja, ({ many }) => ({
+    rab: many(rab),
+}))
+
+export const rapRelations = relations(rap, ({ many }) => ({
     rincianRbaPendapatan: many(rincianRbaPendapatan),
 }))
