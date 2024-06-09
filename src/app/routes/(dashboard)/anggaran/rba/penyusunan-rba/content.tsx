@@ -9,7 +9,13 @@ import { api } from '@/web/trpc/react'
 import { keepPreviousData } from '@tanstack/react-query'
 import { format } from 'date-fns'
 import toast from 'react-hot-toast'
-import { FiArrowRight, FiChevronsDown, FiEdit, FiTrash } from 'react-icons/fi'
+import {
+    FiArrowRight,
+    FiChevronsDown,
+    FiCopy,
+    FiEdit,
+    FiTrash,
+} from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { id } from 'date-fns/locale'
 import {
@@ -85,6 +91,14 @@ export default function RbaContentList() {
                                         </Button>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent align="start">
+                                        <Link
+                                            to={`/anggaran/rba/penyusunan-rba/${item.id}/edit`}
+                                        >
+                                            <DropdownMenuItem>
+                                                <FiCopy className="mr-2" />
+                                                Duplikat
+                                            </DropdownMenuItem>
+                                        </Link>
                                         <Link
                                             to={`/anggaran/rba/penyusunan-rba/${item.id}/edit`}
                                         >
