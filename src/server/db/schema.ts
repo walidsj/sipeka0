@@ -318,13 +318,15 @@ export const aktivitasRbaRelations = relations(
     })
 )
 
-export const rabRelations = relations(rab, ({ many, one }) => ({
-    rincianRbaBelanja: many(rincianRbaBelanja),
-    unitKerja: one(unitKerja, {
-        fields: [rab.unitKerjaId],
-        references: [unitKerja.id],
-    }),
-}))
+export const rabRelations = relations(rab, ({ many, one }) => {
+    return {
+        rincianRbaBelanja: many(rincianRbaBelanja),
+        unitKerja: one(unitKerja, {
+            fields: [rab.unitKerjaId],
+            references: [unitKerja.id],
+        }),
+    }
+})
 
 export const rapRelations = relations(rab, ({ many }) => ({
     rincianRbaPendapatan: many(rincianRbaPendapatan),

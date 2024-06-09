@@ -1,8 +1,8 @@
 import { rabSchema } from '@/app/api/schema/rab'
 import { rekeningLevel6 } from '@/data/rekening'
-import { rab } from '@/server/db/schema'
+import { rab, unitKerja } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { eq, like, or } from 'drizzle-orm'
+import { eq, like, or, sql } from 'drizzle-orm'
 import { z } from 'zod'
 
 export const rabRouter = createTRPCRouter({
@@ -13,18 +13,28 @@ export const rabRouter = createTRPCRouter({
             })
         )
         .query(async ({ ctx, input }) => {
-            const rabList = await ctx.db.query.rab.findMany({
-                where: input.search
-                    ? or(like(rab.uraian, `%${input.search}%`))
-                    : undefined,
-                with: {
-                    unitKerja: true,
-                },
-            })
+            const rabList = await ctx.db
+                .select()
+                .from(rab)
+                .where(
+                    input.search
+                        ? or(like(rab.uraian, `%${input.search}%`))
+                        : undefined
+                )
+
+            const unitKerjaList = await ctx.db
+                .select()
+                .from(unitKerja)
+                .where(
+                    sql`${unitKerja.id} IN (${rabList.map((rab) => rab.unitKerjaId).join(',')})`
+                )
 
             return rabList.map((rab) => {
                 return {
                     ...rab,
+                    unitKerja: unitKerjaList.find(
+                        (unitKerja) => unitKerja.id === rab.unitKerjaId
+                    ),
                     rekening: rekeningLevel6.find(
                         (rekening) => rekening.kode === rab.kodeRekening
                     ),
