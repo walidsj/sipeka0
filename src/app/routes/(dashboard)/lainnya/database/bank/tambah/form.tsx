@@ -1,4 +1,4 @@
-import { bankSchema } from '@/app/api/routers/database/bank.schema'
+import { bankSchema } from '@/app/api/schema/bank'
 import { Button } from '@/web/components/ui/button'
 import {
     Form,

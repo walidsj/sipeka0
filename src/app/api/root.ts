@@ -1,6 +1,6 @@
 import { createCallerFactory, createTRPCRouter } from '@/server/trpc'
 import { userRouter } from './routers/user'
-import { bankRouter } from './routers/database/bank'
+import { bankRouter } from './routers/bank'
 import { pegawaiRouter } from './routers/pegawai'
 import { rekananRouter } from './routers/rekanan'
 import { pengelolaBludRouter } from './routers/pengelola-blud'
