@@ -53,7 +53,7 @@ export default function BankTable() {
             <TableBody>
                 {bank.isLoading && (
                     <TableRow>
-                        <TableCell colSpan={4} className="text-center">
+                        <TableCell colSpan={5} className="text-center">
                             Memuat data...
                         </TableCell>
                     </TableRow>
@@ -116,14 +116,14 @@ export default function BankTable() {
                     ))}
                 {bank.isSuccess && bank.data?.length === 0 && (
                     <TableRow>
-                        <TableCell colSpan={4} className="text-center">
+                        <TableCell colSpan={5} className="text-center">
                             Tidak ada data
                         </TableCell>
                     </TableRow>
                 )}
                 {bank.isError && (
                     <TableRow>
-                        <TableCell colSpan={4} className="text-center">
+                        <TableCell colSpan={5} className="text-center">
                             {bank.error.message}
                         </TableCell>
                     </TableRow>

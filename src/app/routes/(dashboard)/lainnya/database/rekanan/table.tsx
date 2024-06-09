@@ -56,7 +56,7 @@ export default function RekananTable() {
             <TableBody>
                 {rekanan.isLoading && (
                     <TableRow>
-                        <TableCell colSpan={4} className="text-center">
+                        <TableCell colSpan={7} className="text-center">
                             Memuat data...
                         </TableCell>
                     </TableRow>
@@ -141,14 +141,14 @@ export default function RekananTable() {
                     ))}
                 {rekanan.isSuccess && rekanan.data?.length === 0 && (
                     <TableRow>
-                        <TableCell colSpan={6} className="text-center">
+                        <TableCell colSpan={7} className="text-center">
                             Tidak ada data
                         </TableCell>
                     </TableRow>
                 )}
                 {rekanan.isError && (
                     <TableRow>
-                        <TableCell colSpan={6} className="text-center">
+                        <TableCell colSpan={7} className="text-center">
                             {rekanan.error.message}
                         </TableCell>
                     </TableRow>

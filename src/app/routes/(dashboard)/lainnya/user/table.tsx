@@ -60,7 +60,7 @@ export default function UserTable() {
             <TableBody>
                 {user.isLoading && (
                     <TableRow>
-                        <TableCell colSpan={4} className="text-center">
+                        <TableCell colSpan={6} className="text-center">
                             Memuat data...
                         </TableCell>
                     </TableRow>
@@ -151,14 +151,14 @@ export default function UserTable() {
                     ))}
                 {user.isSuccess && user.data?.length === 0 && (
                     <TableRow>
-                        <TableCell colSpan={7} className="text-center">
+                        <TableCell colSpan={6} className="text-center">
                             Tidak ada data
                         </TableCell>
                     </TableRow>
                 )}
                 {user.isError && (
                     <TableRow>
-                        <TableCell colSpan={7} className="text-center">
+                        <TableCell colSpan={6} className="text-center">
                             {user.error.message}
                         </TableCell>
                     </TableRow>

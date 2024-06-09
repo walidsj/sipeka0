@@ -52,7 +52,7 @@ export default function UnitKerjaTable() {
             <TableBody>
                 {unitKerja.isLoading && (
                     <TableRow>
-                        <TableCell colSpan={3} className="text-center">
+                        <TableCell colSpan={4} className="text-center">
                             Memuat data...
                         </TableCell>
                     </TableRow>
@@ -114,14 +114,14 @@ export default function UnitKerjaTable() {
                     ))}
                 {unitKerja.isSuccess && unitKerja.data?.length === 0 && (
                     <TableRow>
-                        <TableCell colSpan={3} className="text-center">
+                        <TableCell colSpan={4} className="text-center">
                             Tidak ada data
                         </TableCell>
                     </TableRow>
                 )}
                 {unitKerja.isError && (
                     <TableRow>
-                        <TableCell colSpan={3} className="text-center">
+                        <TableCell colSpan={4} className="text-center">
                             {unitKerja.error.message}
                         </TableCell>
                     </TableRow>

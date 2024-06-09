@@ -59,7 +59,7 @@ export default function PengelolaBludTable() {
             <TableBody>
                 {pengelolaBlud.isLoading && (
                     <TableRow>
-                        <TableCell colSpan={4} className="text-center">
+                        <TableCell colSpan={6} className="text-center">
                             Memuat data...
                         </TableCell>
                     </TableRow>
@@ -133,14 +133,14 @@ export default function PengelolaBludTable() {
                 {pengelolaBlud.isSuccess &&
                     pengelolaBlud.data?.length === 0 && (
                         <TableRow>
-                            <TableCell colSpan={5} className="text-center">
+                            <TableCell colSpan={6} className="text-center">
                                 Tidak ada data
                             </TableCell>
                         </TableRow>
                     )}
                 {pengelolaBlud.isError && (
                     <TableRow>
-                        <TableCell colSpan={5} className="text-center">
+                        <TableCell colSpan={6} className="text-center">
                             {pengelolaBlud.error.message}
                         </TableCell>
                     </TableRow>
