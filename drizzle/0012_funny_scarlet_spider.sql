@@ -1,1 +1,0 @@
-ALTER TABLE `aktivitas_rba` ADD `jenis` enum('BELANJA','PENDAPATAN','PEMBIAYAAN');

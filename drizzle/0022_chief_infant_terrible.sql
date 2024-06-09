@@ -1,1 +1,0 @@
-ALTER TABLE `rab` ADD `unit_kerja_id` int unsigned;

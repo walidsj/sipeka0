@@ -25,27 +25,29 @@ import { Link, useParams } from 'react-router-dom'
 export default function RincianRapTable() {
     const params = useParams<{ rbaId: string; aktivitasRbaId: string }>()
 
-    const rincianRba = api.rincianRba.getRapByAktivitasRbaId.useQuery(
-        parseInt(params.aktivitasRbaId ?? ''),
-        { placeholderData: keepPreviousData }
-    )
+    const rincianRbaPendapatan =
+        api.rincianRbaPendapatan.getByAktivitasRbaId.useQuery(
+            parseInt(params.aktivitasRbaId ?? ''),
+            { placeholderData: keepPreviousData }
+        )
 
-    const deleteRincianRba = api.rincianRba.deleteById.useMutation({
-        onMutate() {
-            toast.loading('Menghapus data...')
-        },
-        onSuccess(data) {
-            toast.dismiss()
-            toast.success(data.message)
-            rincianRba.refetch()
-        },
-        onError(error) {
-            toast.dismiss()
-            toast.error(error.message)
-        },
-    })
+    const deleteRincianRbaPendapatan =
+        api.rincianRbaPendapatan.deleteById.useMutation({
+            onMutate() {
+                toast.loading('Menghapus data...')
+            },
+            onSuccess(data) {
+                toast.dismiss()
+                toast.success(data.message)
+                rincianRbaPendapatan.refetch()
+            },
+            onError(error) {
+                toast.dismiss()
+                toast.error(error.message)
+            },
+        })
 
-    const groupedData = _.chain(rincianRba.data)
+    const groupedData = _.chain(rincianRbaPendapatan.data)
         .groupBy((item) => `${item.rekening?.kode}||${item.rekening?.uraian}`)
         .value()
 
@@ -62,14 +64,14 @@ export default function RincianRapTable() {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {rincianRba.isLoading && (
+                {rincianRbaPendapatan.isLoading && (
                     <TableRow>
                         <TableCell colSpan={4} className="text-center">
                             Memuat data...
                         </TableCell>
                     </TableRow>
                 )}
-                {rincianRba.isSuccess &&
+                {rincianRbaPendapatan.isSuccess &&
                     groupedData &&
                     Object.keys(groupedData).map((key) => {
                         let totalPerGroup = groupedData[key].reduce(
@@ -122,7 +124,7 @@ export default function RincianRapTable() {
                                                         </DropdownMenuTrigger>
                                                         <DropdownMenuContent align="start">
                                                             <Link
-                                                                to={`/anggaran/rba/penyusunan-rba/${params.rbaId}/aktivitas/${params.aktivitasRbaId}/rincian-rba/${item.id}/edit-rap`}
+                                                                to={`/anggaran/rba/penyusunan-rba/${params.rbaId}/aktivitas/${params.aktivitasRbaId}/rincian-rba/rap/${item.id}/edit`}
                                                             >
                                                                 <DropdownMenuItem>
                                                                     <FiEdit className="mr-2" />
@@ -136,7 +138,7 @@ export default function RincianRapTable() {
                                                                             'Apakah anda yakin menghapus data ini?'
                                                                         )
                                                                     ) {
-                                                                        deleteRincianRba.mutate(
+                                                                        deleteRincianRbaPendapatan.mutate(
                                                                             item.id
                                                                         )
                                                                     }
@@ -156,17 +158,18 @@ export default function RincianRapTable() {
                             </React.Fragment>
                         )
                     })}
-                {rincianRba.isSuccess && rincianRba.data?.length === 0 && (
+                {rincianRbaPendapatan.isSuccess &&
+                    rincianRbaPendapatan.data?.length === 0 && (
+                        <TableRow>
+                            <TableCell colSpan={4} className="text-center">
+                                Tidak ada data
+                            </TableCell>
+                        </TableRow>
+                    )}
+                {rincianRbaPendapatan.isError && (
                     <TableRow>
                         <TableCell colSpan={4} className="text-center">
-                            Tidak ada data
-                        </TableCell>
-                    </TableRow>
-                )}
-                {rincianRba.isError && (
-                    <TableRow>
-                        <TableCell colSpan={4} className="text-center">
-                            {rincianRba.error.message}
+                            {rincianRbaPendapatan.error.message}
                         </TableCell>
                     </TableRow>
                 )}

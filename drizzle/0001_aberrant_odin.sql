@@ -1,1 +1,0 @@
-ALTER TABLE `user` ADD `nama` varchar(256);

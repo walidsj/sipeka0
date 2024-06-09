@@ -220,14 +220,23 @@ export const aktivitasRba = mysqlTable('aktivitas_rba', {
         .onUpdateNow(),
 })
 
-export const rincianRba = mysqlTable('rincian_rba', {
+export const rincianRbaBelanja = mysqlTable('rincian_rba_belanja', {
     id: serial('id').primaryKey(),
     aktivitasRbaId: int('aktivitas_rba_id', { unsigned: true }),
     rabId: int('rab_id', { unsigned: true }),
-    rapId: int('rap_id', { unsigned: true }),
     volume: decimal('volume', { precision: 20, scale: 2 }),
     satuan: varchar('satuan', { length: 256 }),
     harga: decimal('harga', { precision: 20, scale: 2 }),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
+})
+
+export const rincianRbaPendapatan = mysqlTable('rincian_rba_pendapatan', {
+    id: serial('id').primaryKey(),
+    aktivitasRbaId: int('aktivitas_rba_id', { unsigned: true }),
+    rapId: int('rap_id', { unsigned: true }),
     jumlah: decimal('jumlah', { precision: 20, scale: 2 }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { mode: 'date' })
@@ -265,20 +274,33 @@ export const rap = mysqlTable('rap', {
         .onUpdateNow(),
 })
 
-export const rincianRbaRelations = relations(rincianRba, ({ one }) => ({
-    aktivitas: one(aktivitasRba, {
-        fields: [rincianRba.aktivitasRbaId],
-        references: [aktivitasRba.id],
-    }),
-    rab: one(rab, {
-        fields: [rincianRba.rabId],
-        references: [rab.id],
-    }),
-    rap: one(rap, {
-        fields: [rincianRba.rapId],
-        references: [rap.id],
-    }),
-}))
+export const rincianRbaBelanjaRelations = relations(
+    rincianRbaBelanja,
+    ({ one }) => ({
+        aktivitas: one(aktivitasRba, {
+            fields: [rincianRbaBelanja.aktivitasRbaId],
+            references: [aktivitasRba.id],
+        }),
+        rab: one(rab, {
+            fields: [rincianRbaBelanja.rabId],
+            references: [rab.id],
+        }),
+    })
+)
+
+export const rincianRbaPendapatanRelations = relations(
+    rincianRbaPendapatan,
+    ({ one }) => ({
+        aktivitas: one(aktivitasRba, {
+            fields: [rincianRbaPendapatan.aktivitasRbaId],
+            references: [aktivitasRba.id],
+        }),
+        rap: one(rap, {
+            fields: [rincianRbaPendapatan.rapId],
+            references: [rap.id],
+        }),
+    })
+)
 
 export const rbaRelations = relations(rba, ({ many }) => ({
     aktivitas: many(aktivitasRba),
@@ -291,14 +313,19 @@ export const aktivitasRbaRelations = relations(
             fields: [aktivitasRba.rbaId],
             references: [rba.id],
         }),
-        rincian: many(rincianRba),
+        rincianRbaBelanja: many(rincianRbaBelanja),
+        rincianRbaPendapatan: many(rincianRbaPendapatan),
     })
 )
 
 export const rabRelations = relations(rab, ({ many, one }) => ({
-    rincian: many(rincianRba),
+    rincianRbaBelanja: many(rincianRbaBelanja),
     unitKerja: one(unitKerja, {
         fields: [rab.unitKerjaId],
         references: [unitKerja.id],
     }),
+}))
+
+export const rapRelations = relations(rab, ({ many }) => ({
+    rincianRbaPendapatan: many(rincianRbaPendapatan),
 }))

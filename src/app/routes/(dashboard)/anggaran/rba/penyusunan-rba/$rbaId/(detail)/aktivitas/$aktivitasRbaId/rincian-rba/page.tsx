@@ -48,7 +48,7 @@ export default function Page() {
                 {aktivitasRba.data?.jenis === 'BELANJA' && (
                     <Button asChild>
                         <Link
-                            to={`/anggaran/rba/penyusunan-rba/${params.rbaId}/aktivitas/${params.aktivitasRbaId}/rincian-rba/tambah-rab`}
+                            to={`/anggaran/rba/penyusunan-rba/${params.rbaId}/aktivitas/${params.aktivitasRbaId}/rincian-rba/rab/tambah`}
                         >
                             <FiPlus className="mr-2" />
                             Tambah Rincian
@@ -58,7 +58,7 @@ export default function Page() {
                 {aktivitasRba.data?.jenis === 'PENDAPATAN' && (
                     <Button asChild>
                         <Link
-                            to={`/anggaran/rba/penyusunan-rba/${params.rbaId}/aktivitas/${params.aktivitasRbaId}/rincian-rba/tambah-rap`}
+                            to={`/anggaran/rba/penyusunan-rba/${params.rbaId}/aktivitas/${params.aktivitasRbaId}/rincian-rba/rap/tambah`}
                         >
                             <FiPlus className="mr-2" />
                             Tambah Rincian

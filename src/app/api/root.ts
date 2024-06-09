@@ -12,9 +12,10 @@ import { subKegiatanRkaRouter } from './routers/sub-kegiatan-rba'
 import { unitKerjaRouter } from './routers/unit-kerja'
 import { rbaRouter } from './routers/rba'
 import { aktivitasRbaRouter } from './routers/aktivitas-rba'
-import { rincianRbaRouter } from './routers/rincian-rba'
+import { rincianRbaBelanjaRouter } from './routers/rincian-rba-belanja'
 import { rabRouter } from './routers/rab'
 import { rapRouter } from './routers/rap'
+import { rincianRbaPendapatanRouter } from './routers/rincian-rba-pendapatan'
 
 export const appRouter = createTRPCRouter({
     user: userRouter,
@@ -30,7 +31,8 @@ export const appRouter = createTRPCRouter({
     subKegiatanRka: subKegiatanRkaRouter,
     rba: rbaRouter,
     aktivitasRba: aktivitasRbaRouter,
-    rincianRba: rincianRbaRouter,
+    rincianRbaBelanja: rincianRbaBelanjaRouter,
+    rincianRbaPendapatan: rincianRbaPendapatanRouter,
     rab: rabRouter,
     rap: rapRouter,
 })

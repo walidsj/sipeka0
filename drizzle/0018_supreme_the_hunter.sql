@@ -1,1 +1,0 @@
-ALTER TABLE `pegawai` ADD `jenis_kelamin` enum('LAKI-LAKI','PEREMPUAN');

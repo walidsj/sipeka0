@@ -1,1 +1,0 @@
-ALTER TABLE `rincian_rba` DROP COLUMN `keterangan`;
