@@ -4,12 +4,16 @@ import { Link, Outlet, useLocation } from 'react-router-dom'
 import { RiPagesLine } from 'react-icons/ri'
 import { LuBookCopy } from 'react-icons/lu'
 import { IoNewspaperOutline } from 'react-icons/io5'
+import { Helmet } from 'react-helmet'
 
 export default function Layout() {
     const { pathname } = useLocation()
 
     return (
         <div className="flex w-full flex-row">
+            <Helmet>
+                <title>Anggaran - SIPEKA</title>
+            </Helmet>
             <div className="flex min-h-[calc(100svh-138px)] w-28 flex-col bg-background shadow">
                 <nav>
                     <ul className="flex w-full flex-col">
