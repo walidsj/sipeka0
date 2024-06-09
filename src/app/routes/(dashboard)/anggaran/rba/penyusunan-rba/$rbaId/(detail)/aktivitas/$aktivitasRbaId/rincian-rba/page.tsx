@@ -1,7 +1,6 @@
 import { Button } from '@/web/components/ui/button'
 import { FiChevronLeft, FiPlus } from 'react-icons/fi'
 import { Link, Navigate, useParams } from 'react-router-dom'
-import AktivitasTable from './table'
 import {
     Card,
     CardDescription,
@@ -11,6 +10,8 @@ import {
 import { api } from '@/web/trpc/react'
 import { Badge } from '@/web/components/ui/badge'
 import { cn } from '@/web/lib/utils'
+import RincianRabTable from './rab-table'
+import RincianRapTable from './rap-table'
 
 export default function Page() {
     const params = useParams<{ rbaId: string; aktivitasRbaId: string }>()
@@ -44,14 +45,26 @@ export default function Page() {
                         Daftar rincian RBA dalam aktivitas
                     </CardDescription>
                 </div>
-                <Button asChild>
-                    <Link
-                        to={`/anggaran/rba/penyusunan-rba/${params.rbaId}/aktivitas/${params.aktivitasRbaId}/rincian-rba/tambah`}
-                    >
-                        <FiPlus className="mr-2" />
-                        Tambah Rincian
-                    </Link>
-                </Button>
+                {aktivitasRba.data?.jenis === 'BELANJA' && (
+                    <Button asChild>
+                        <Link
+                            to={`/anggaran/rba/penyusunan-rba/${params.rbaId}/aktivitas/${params.aktivitasRbaId}/rincian-rba/tambah-rab`}
+                        >
+                            <FiPlus className="mr-2" />
+                            Tambah Rincian
+                        </Link>
+                    </Button>
+                )}
+                {aktivitasRba.data?.jenis === 'PENDAPATAN' && (
+                    <Button asChild>
+                        <Link
+                            to={`/anggaran/rba/penyusunan-rba/${params.rbaId}/aktivitas/${params.aktivitasRbaId}/rincian-rba/tambah-rap`}
+                        >
+                            <FiPlus className="mr-2" />
+                            Tambah Rincian
+                        </Link>
+                    </Button>
+                )}
             </div>
             <Card>
                 <CardHeader>
@@ -75,7 +88,8 @@ export default function Page() {
                     </CardDescription>
                 </CardHeader>
             </Card>
-            <AktivitasTable />
+            {aktivitasRba.data?.jenis === 'BELANJA' && <RincianRabTable />}
+            {aktivitasRba.data?.jenis === 'PENDAPATAN' && <RincianRapTable />}
         </div>
     )
 }

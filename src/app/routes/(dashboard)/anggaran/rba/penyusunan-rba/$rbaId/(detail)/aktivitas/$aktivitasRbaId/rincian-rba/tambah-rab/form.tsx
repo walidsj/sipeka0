@@ -36,7 +36,7 @@ export default function CreateForm() {
         },
     })
 
-    const create = api.rincianRba.create.useMutation({
+    const create = api.rincianRba.createRab.useMutation({
         onMutate() {
             toast.loading('Menyimpan data...')
         },

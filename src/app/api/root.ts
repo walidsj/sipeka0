@@ -14,6 +14,7 @@ import { rbaRouter } from './routers/rba'
 import { aktivitasRbaRouter } from './routers/aktivitas-rba'
 import { rincianRbaRouter } from './routers/rincian-rba'
 import { rabRouter } from './routers/rab'
+import { rapRouter } from './routers/rap'
 
 export const appRouter = createTRPCRouter({
     user: userRouter,
@@ -31,6 +32,7 @@ export const appRouter = createTRPCRouter({
     aktivitasRba: aktivitasRbaRouter,
     rincianRba: rincianRbaRouter,
     rab: rabRouter,
+    rap: rapRouter,
 })
 
 export type AppRouter = typeof appRouter

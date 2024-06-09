@@ -224,9 +224,11 @@ export const rincianRba = mysqlTable('rincian_rba', {
     id: serial('id').primaryKey(),
     aktivitasRbaId: int('aktivitas_rba_id', { unsigned: true }),
     rabId: int('rab_id', { unsigned: true }),
+    rapId: int('rap_id', { unsigned: true }),
     volume: decimal('volume', { precision: 20, scale: 2 }),
     satuan: varchar('satuan', { length: 256 }),
     harga: decimal('harga', { precision: 20, scale: 2 }),
+    jumlah: decimal('jumlah', { precision: 20, scale: 2 }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { mode: 'date' })
         .defaultNow()
@@ -253,6 +255,16 @@ export const rab = mysqlTable('rab', {
         .onUpdateNow(),
 })
 
+export const rap = mysqlTable('rap', {
+    id: serial('id').primaryKey(),
+    kodeRekening: varchar('kode_rekening', { length: 256 }),
+    uraian: varchar('uraian', { length: 256 }),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
+})
+
 export const rincianRbaRelations = relations(rincianRba, ({ one }) => ({
     aktivitas: one(aktivitasRba, {
         fields: [rincianRba.aktivitasRbaId],
@@ -261,6 +273,10 @@ export const rincianRbaRelations = relations(rincianRba, ({ one }) => ({
     rab: one(rab, {
         fields: [rincianRba.rabId],
         references: [rab.id],
+    }),
+    rap: one(rap, {
+        fields: [rincianRba.rapId],
+        references: [rap.id],
     }),
 }))
 

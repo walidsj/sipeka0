@@ -162,6 +162,13 @@
       "when": 1717932534938,
       "tag": "0022_chief_infant_terrible",
       "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "5",
+      "when": 1717939343288,
+      "tag": "0023_stormy_smasher",
+      "breakpoints": true
     }
   ]
 }

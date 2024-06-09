@@ -42,7 +42,7 @@ export default function EditForm({
         },
     })
 
-    const edit = api.rincianRba.updateById.useMutation({
+    const edit = api.rincianRba.updateRabById.useMutation({
         onMutate() {
             toast.loading('Menyimpan data...')
         },
