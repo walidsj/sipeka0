@@ -17,8 +17,7 @@ export default function Page() {
                 <div className="flex flex-col gap-1.5">
                     <CardTitle>Daftar RAB</CardTitle>
                     <CardDescription>
-                        Rencana Anggaran Belanja sesuai dengan peraturan yang
-                        berlaku
+                        Rencana Belanja sesuai dengan kebutuhan Unit Kerja
                     </CardDescription>
                 </div>
                 <div>
