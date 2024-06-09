@@ -105,20 +105,6 @@ export const pengelolaBlud = mysqlTable('pengelola_blud', {
         .onUpdateNow(),
 })
 
-export const userRelations = relations(user, ({ one }) => ({
-    pegawai: one(pegawai, {
-        fields: [user.pegawaiId],
-        references: [pegawai.id],
-    }),
-}))
-
-export const pengelolaBludRelations = relations(pengelolaBlud, ({ one }) => ({
-    pegawai: one(pegawai, {
-        fields: [pengelolaBlud.pegawaiId],
-        references: [pegawai.id],
-    }),
-}))
-
 export const profilBlud = mysqlTable('profil_blud', {
     id: serial('id').primaryKey(),
     nama: varchar('nama', { length: 256 }),
@@ -153,18 +139,6 @@ export const kegiatanRka = mysqlTable('kegiatan_rka', {
         .defaultNow()
         .onUpdateNow(),
 })
-
-export const programRkaRelations = relations(programRka, ({ many }) => ({
-    kegiatan: many(kegiatanRka),
-}))
-
-export const kegiatanRkaRelations = relations(kegiatanRka, ({ one, many }) => ({
-    program: one(programRka, {
-        fields: [kegiatanRka.programRkaId],
-        references: [programRka.id],
-    }),
-    subKegiatan: many(subKegiatanRka),
-}))
 
 export const subKegiatanRka = mysqlTable('sub_kegiatan_rka', {
     id: serial('id').primaryKey(),
@@ -269,6 +243,32 @@ export const rap = mysqlTable('rap', {
         .defaultNow()
         .onUpdateNow(),
 })
+
+export const userRelations = relations(user, ({ one }) => ({
+    pegawai: one(pegawai, {
+        fields: [user.pegawaiId],
+        references: [pegawai.id],
+    }),
+}))
+
+export const pengelolaBludRelations = relations(pengelolaBlud, ({ one }) => ({
+    pegawai: one(pegawai, {
+        fields: [pengelolaBlud.pegawaiId],
+        references: [pegawai.id],
+    }),
+}))
+
+export const programRkaRelations = relations(programRka, ({ many }) => ({
+    kegiatan: many(kegiatanRka),
+}))
+
+export const kegiatanRkaRelations = relations(kegiatanRka, ({ one, many }) => ({
+    program: one(programRka, {
+        fields: [kegiatanRka.programRkaId],
+        references: [programRka.id],
+    }),
+    subKegiatan: many(subKegiatanRka),
+}))
 
 export const rincianRbaBelanjaRelations = relations(
     rincianRbaBelanja,
