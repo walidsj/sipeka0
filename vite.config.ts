@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 import dotenv from 'dotenv'
 import { VitePWA } from 'vite-plugin-pwa'
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 
 dotenv.config()
 
@@ -26,6 +27,7 @@ export default defineConfig({
     publicDir: path.resolve(__dirname, 'public'),
     plugins: [
         react(),
+        ViteImageOptimizer(),
         VitePWA({
             registerType: 'prompt',
             devOptions: {
