@@ -151,13 +151,6 @@ export const subKegiatanRka = mysqlTable('sub_kegiatan_rka', {
         .onUpdateNow(),
 })
 
-export const subKegiatanRkaRelations = relations(subKegiatanRka, ({ one }) => ({
-    kegiatan: one(kegiatanRka, {
-        fields: [subKegiatanRka.kegiatanRkaId],
-        references: [kegiatanRka.id],
-    }),
-}))
-
 export const rba = mysqlTable('rba', {
     id: serial('id').primaryKey(),
     noDokumen: varchar('no_dokumen', { length: 256 }),
@@ -270,6 +263,13 @@ export const kegiatanRkaRelations = relations(kegiatanRka, ({ one, many }) => ({
     subKegiatan: many(subKegiatanRka),
 }))
 
+export const subKegiatanRkaRelations = relations(subKegiatanRka, ({ one }) => ({
+    kegiatan: one(kegiatanRka, {
+        fields: [subKegiatanRka.kegiatanRkaId],
+        references: [kegiatanRka.id],
+    }),
+}))
+
 export const rincianRbaBelanjaRelations = relations(
     rincianRbaBelanja,
     ({ one }) => ({
@@ -318,15 +318,13 @@ export const aktivitasRbaRelations = relations(
     })
 )
 
-export const rabRelations = relations(rab, ({ many, one }) => {
-    return {
-        rincianRbaBelanja: many(rincianRbaBelanja),
-        unitKerja: one(unitKerja, {
-            fields: [rab.unitKerjaId],
-            references: [unitKerja.id],
-        }),
-    }
-})
+export const rabRelations = relations(rab, ({ many, one }) => ({
+    unitKerja: one(unitKerja, {
+        fields: [rab.unitKerjaId],
+        references: [unitKerja.id],
+    }),
+    rincianRbaBelanja: many(rincianRbaBelanja),
+}))
 
 export const rapRelations = relations(rab, ({ many }) => ({
     rincianRbaPendapatan: many(rincianRbaPendapatan),
