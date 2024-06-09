@@ -15,9 +15,10 @@ export default function Page() {
         <Card>
             <CardHeader className="flex flex-row items-center justify-between">
                 <div className="flex flex-col gap-1.5">
-                    <CardTitle>Daftar RAB</CardTitle>
+                    <CardTitle>Daftar Rencana Belanja</CardTitle>
                     <CardDescription>
-                        Rencana Belanja sesuai dengan kebutuhan Unit Kerja
+                        Rencana Anggaran Belanja sesuai dengan kebutuhan Unit
+                        Kerja
                     </CardDescription>
                 </div>
                 <div>

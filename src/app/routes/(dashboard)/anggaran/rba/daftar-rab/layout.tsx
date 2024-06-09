@@ -34,7 +34,7 @@ export default function Layout() {
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
-                        <BreadcrumbPage>Daftar RAB</BreadcrumbPage>
+                        <BreadcrumbPage>Daftar Rencana Belanja</BreadcrumbPage>
                     </BreadcrumbItem>
                 </BreadcrumbList>
             </Breadcrumb>

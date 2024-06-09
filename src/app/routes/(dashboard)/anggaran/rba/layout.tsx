@@ -27,7 +27,24 @@ export default function ProfilLayout() {
                                 )}
                             >
                                 <Link to="/anggaran/rba/daftar-rab">
-                                    Daftar RAB
+                                    Rencana Belanja
+                                </Link>
+                            </Button>
+                        </li>
+                        <li>
+                            <Button
+                                asChild
+                                variant="ghost"
+                                className={cn(
+                                    'h-12 w-full justify-start rounded-none px-5',
+                                    pathname.startsWith(
+                                        '/anggaran/rba/daftar-rap'
+                                    ) &&
+                                        'border-l-4 border-primary bg-slate-50 text-primary'
+                                )}
+                            >
+                                <Link to="/anggaran/rba/daftar-rap">
+                                    Rencana Pendapatan
                                 </Link>
                             </Button>
                         </li>
