@@ -114,7 +114,7 @@ export default function RabTable() {
                                             </p>
                                             {item.spesifikasi && (
                                                 <p className="mt-1 text-xs text-gray-500">
-                                                    <span className="mr-1 inline-block text-primary">
+                                                    <span className="mr-1 inline-block font-medium text-primary">
                                                         Spesifikasi :
                                                     </span>{' '}
                                                     {item.spesifikasi}

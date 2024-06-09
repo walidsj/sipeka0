@@ -68,14 +68,14 @@ export default function RapTable() {
                 <TableHeader>
                     <TableRow>
                         <TableHead className="w-1 text-center">No.</TableHead>
-                        <TableHead>Uraian</TableHead>
+                        <TableHead colSpan={2}>Uraian</TableHead>
                         <TableHead className="w-1" />
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     {rap.isLoading && (
                         <TableRow>
-                            <TableCell colSpan={3} className="text-center">
+                            <TableCell colSpan={4} className="text-center">
                                 Memuat data...
                             </TableCell>
                         </TableRow>
@@ -85,7 +85,7 @@ export default function RapTable() {
                         Object.keys(groupedData).map((key) => (
                             <React.Fragment key={key}>
                                 <TableRow className="bg-blue-50 hover:bg-blue-50">
-                                    <TableCell colSpan={3}>
+                                    <TableCell colSpan={4}>
                                         <span className="mr-3 inline-block font-bold">
                                             {key.split('||')[0]}
                                         </span>
@@ -99,7 +99,16 @@ export default function RapTable() {
                                         <TableCell className="text-center">
                                             {index + 1}.
                                         </TableCell>
-                                        <TableCell>{item.uraian}</TableCell>
+                                        <TableCell className="w-14">
+                                            <img
+                                                src="/images/icons/sell.png"
+                                                alt="sell"
+                                                className="h-10 w-10"
+                                            />
+                                        </TableCell>
+                                        <TableCell className="font-semibold">
+                                            {item.uraian}
+                                        </TableCell>
                                         <TableCell>
                                             <DropdownMenu>
                                                 <DropdownMenuTrigger asChild>
@@ -143,14 +152,14 @@ export default function RapTable() {
                         ))}
                     {rap.isSuccess && rap.data?.length === 0 && (
                         <TableRow>
-                            <TableCell colSpan={3} className="text-center">
+                            <TableCell colSpan={4} className="text-center">
                                 Tidak ada data
                             </TableCell>
                         </TableRow>
                     )}
                     {rap.isError && (
                         <TableRow>
-                            <TableCell colSpan={3} className="text-center">
+                            <TableCell colSpan={4} className="text-center">
                                 {rap.error.message}
                             </TableCell>
                         </TableRow>
