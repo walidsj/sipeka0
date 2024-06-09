@@ -26,7 +26,7 @@ export const rabRouter = createTRPCRouter({
                 .select()
                 .from(unitKerja)
                 .where(
-                    sql`${unitKerja.id} IN (${rabList.map((rab) => rab.unitKerjaId).join(',')})`
+                    sql`${unitKerja.id} IN (${sql.raw([...new Set(rabList.map((rab) => rab.unitKerjaId))].join(','))})`
                 )
 
             return rabList.map((rab) => {
