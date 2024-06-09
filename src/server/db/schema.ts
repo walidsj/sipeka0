@@ -204,10 +204,6 @@ export const unitKerja = mysqlTable('unit_kerja', {
         .onUpdateNow(),
 })
 
-export const unitKerjaRelations = relations(unitKerja, ({ many }) => ({
-    rab: many(rab),
-}))
-
 export const aktivitasRba = mysqlTable('aktivitas_rba', {
     id: serial('id').primaryKey(),
     kode: varchar('kode', { length: 256 }),
@@ -301,6 +297,10 @@ export const rincianRbaPendapatanRelations = relations(
         }),
     })
 )
+
+export const unitKerjaRelations = relations(unitKerja, ({ many }) => ({
+    rab: many(rab),
+}))
 
 export const rbaRelations = relations(rba, ({ many }) => ({
     aktivitas: many(aktivitasRba),

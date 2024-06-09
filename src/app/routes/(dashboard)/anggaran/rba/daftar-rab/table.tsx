@@ -48,7 +48,7 @@ export default function RabTable() {
     })
 
     const groupedData = _.chain(rab.data)
-        .groupBy((item) => `${item.kodeRekening}||${item.uraianRekening}`)
+        .groupBy((item) => `${item.rekening?.kode}||${item.rekening?.uraian}`)
         .value()
 
     return (
@@ -68,7 +68,7 @@ export default function RabTable() {
                 <TableHeader>
                     <TableRow>
                         <TableHead className="w-1 text-center">No.</TableHead>
-                        <TableHead>Uraian</TableHead>
+                        <TableHead colSpan={2}>Uraian</TableHead>
                         <TableHead>Sumber Dana</TableHead>
                         <TableHead>Unit Kerja</TableHead>
                         <TableHead className="w-1" />
@@ -77,7 +77,7 @@ export default function RabTable() {
                 <TableBody>
                     {rab.isLoading && (
                         <TableRow>
-                            <TableCell colSpan={5} className="text-center">
+                            <TableCell colSpan={6} className="text-center">
                                 Memuat data...
                             </TableCell>
                         </TableRow>
@@ -87,7 +87,7 @@ export default function RabTable() {
                         Object.keys(groupedData).map((key) => (
                             <React.Fragment key={key}>
                                 <TableRow className="bg-blue-50 hover:bg-blue-50">
-                                    <TableCell colSpan={5}>
+                                    <TableCell colSpan={6}>
                                         <span className="mr-3 inline-block font-bold">
                                             {key.split('||')[0]}
                                         </span>
@@ -101,11 +101,20 @@ export default function RabTable() {
                                         <TableCell className="text-center">
                                             {index + 1}.
                                         </TableCell>
+                                        <TableCell className="w-14">
+                                            <img
+                                                src="/images/icons/bill.png"
+                                                alt="bill"
+                                                className="h-10 w-10"
+                                            />
+                                        </TableCell>
                                         <TableCell>
-                                            <p>{item.uraian}</p>
+                                            <p className="font-semibold">
+                                                {item.uraian}
+                                            </p>
                                             {item.spesifikasi && (
                                                 <p className="mt-1 text-xs text-gray-500">
-                                                    <span className="mr-1 inline-block text-green-500">
+                                                    <span className="mr-1 inline-block text-primary">
                                                         Spesifikasi :
                                                     </span>{' '}
                                                     {item.spesifikasi}
@@ -159,14 +168,14 @@ export default function RabTable() {
                         ))}
                     {rab.isSuccess && rab.data?.length === 0 && (
                         <TableRow>
-                            <TableCell colSpan={5} className="text-center">
+                            <TableCell colSpan={6} className="text-center">
                                 Tidak ada data
                             </TableCell>
                         </TableRow>
                     )}
                     {rab.isError && (
                         <TableRow>
-                            <TableCell colSpan={5} className="text-center">
+                            <TableCell colSpan={6} className="text-center">
                                 {rab.error.message}
                             </TableCell>
                         </TableRow>

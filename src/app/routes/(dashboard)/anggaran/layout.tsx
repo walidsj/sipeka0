@@ -58,15 +58,15 @@ export default function Layout() {
                                 variant="ghost"
                                 className={cn(
                                     'flex h-auto w-full flex-col justify-center gap-1 rounded-none px-8 py-3 text-center',
-                                    pathname.startsWith('/anggaran/dpa') &&
+                                    pathname.startsWith('/anggaran/dba') &&
                                         'border-l-4 border-primary bg-slate-50 text-primary'
                                 )}
                                 asChild
                             >
-                                <Link to="/anggaran/dpa">
+                                <Link to="/anggaran/dba">
                                     <IoNewspaperOutline className="h-6 w-6" />
                                     <span className="text-wrap text-xs">
-                                        DPA
+                                        DBA
                                     </span>
                                 </Link>
                             </Button>

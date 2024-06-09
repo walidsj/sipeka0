@@ -25,9 +25,9 @@ export const rabRouter = createTRPCRouter({
             return rabList.map((rab) => {
                 return {
                     ...rab,
-                    uraianRekening: rekeningLevel6.find(
+                    rekening: rekeningLevel6.find(
                         (rekening) => rekening.kode === rab.kodeRekening
-                    )?.uraian,
+                    ),
                 }
             })
         }),
