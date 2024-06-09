@@ -204,6 +204,10 @@ export const unitKerja = mysqlTable('unit_kerja', {
         .onUpdateNow(),
 })
 
+export const unitKerjaRelations = relations(unitKerja, ({ many }) => ({
+    rab: many(rab),
+}))
+
 export const aktivitasRba = mysqlTable('aktivitas_rba', {
     id: serial('id').primaryKey(),
     kode: varchar('kode', { length: 256 }),
@@ -242,6 +246,7 @@ export const rab = mysqlTable('rab', {
         'SILPA',
         'APBD',
     ]),
+    unitKerjaId: int('unit_kerja_id', { unsigned: true }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { mode: 'date' })
         .defaultNow()
@@ -274,6 +279,10 @@ export const aktivitasRbaRelations = relations(
     })
 )
 
-export const rabRelations = relations(rab, ({ many }) => ({
+export const rabRelations = relations(rab, ({ many, one }) => ({
     rincian: many(rincianRba),
+    unitKerja: one(unitKerja, {
+        fields: [rab.unitKerjaId],
+        references: [unitKerja.id],
+    }),
 }))

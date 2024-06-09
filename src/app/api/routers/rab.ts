@@ -13,14 +13,14 @@ export const rabRouter = createTRPCRouter({
             })
         )
         .query(async ({ ctx, input }) => {
-            const rabList = await ctx.db
-                .select()
-                .from(rab)
-                .where(
-                    input.search
-                        ? or(like(rab.uraian, `%${input.search}%`))
-                        : undefined
-                )
+            const rabList = await ctx.db.query.rab.findMany({
+                where: input.search
+                    ? or(like(rab.uraian, `%${input.search}%`))
+                    : undefined,
+                with: {
+                    unitKerja: true,
+                },
+            })
 
             return rabList.map((rab) => {
                 return {

@@ -23,6 +23,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/web/components/ui/select'
+import UnitKerjaPicker from '@/app/routes/(dashboard)/lainnya/database/unit-kerja-picker'
 
 export default function CreateForm() {
     const navigate = useNavigate()
@@ -35,6 +36,7 @@ export default function CreateForm() {
             spesifikasi: '',
             uraian: '',
             sumberDana: undefined,
+            unitKerjaId: undefined,
         },
     })
 
@@ -100,6 +102,23 @@ export default function CreateForm() {
                                             </SelectItem>
                                         </SelectContent>
                                     </Select>
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        name="unitKerjaId"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Unit Kerja</FormLabel>
+                                <FormControl>
+                                    <UnitKerjaPicker
+                                        value={field.value}
+                                        onValueChange={(val) =>
+                                            field.onChange(val)
+                                        }
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

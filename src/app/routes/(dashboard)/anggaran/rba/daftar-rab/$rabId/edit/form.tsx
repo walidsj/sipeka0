@@ -24,6 +24,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/web/components/ui/select'
+import UnitKerjaPicker from '@/app/routes/(dashboard)/lainnya/database/unit-kerja-picker'
 
 export default function EditForm({ data }: { data: typeof rab.$inferSelect }) {
     const navigate = useNavigate()
@@ -37,6 +38,7 @@ export default function EditForm({ data }: { data: typeof rab.$inferSelect }) {
             spesifikasi: data.spesifikasi ?? '',
             uraian: data.uraian ?? '',
             sumberDana: data.sumberDana ?? undefined,
+            unitKerjaId: data.unitKerjaId ?? undefined,
         },
     })
 
@@ -103,6 +105,23 @@ export default function EditForm({ data }: { data: typeof rab.$inferSelect }) {
                                             </SelectItem>
                                         </SelectContent>
                                     </Select>
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        name="unitKerjaId"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Unit Kerja</FormLabel>
+                                <FormControl>
+                                    <UnitKerjaPicker
+                                        value={field.value}
+                                        onValueChange={(val) =>
+                                            field.onChange(val)
+                                        }
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

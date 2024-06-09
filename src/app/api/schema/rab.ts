@@ -12,4 +12,5 @@ export const rabSchema = z.object({
         'SILPA',
         'APBD',
     ]),
+    unitKerjaId: z.number(),
 })
