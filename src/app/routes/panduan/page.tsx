@@ -1,9 +1,13 @@
 import { Button } from '@/web/components/ui/button'
+import { Helmet } from 'react-helmet'
 import { FiDownload } from 'react-icons/fi'
 
 export default function Page() {
     return (
         <div className="flex w-full flex-col px-8 py-5">
+            <Helmet>
+                <title>Panduan - SIPEKA</title>
+            </Helmet>
             <h2 className="text-3xl font-extrabold">
                 Panduan Penggunaan Aplikasi
             </h2>

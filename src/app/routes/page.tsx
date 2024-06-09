@@ -1,6 +1,7 @@
 import { Button } from '@/web/components/ui/button'
 import { cn } from '@/web/lib/utils'
 import React from 'react'
+import { Helmet } from 'react-helmet'
 import { FaWhatsapp } from 'react-icons/fa'
 import { FaHeart } from 'react-icons/fa6'
 import { FiArrowRight } from 'react-icons/fi'
@@ -110,6 +111,11 @@ export default function Home() {
 
     return (
         <div className="flex w-full flex-col">
+            <Helmet>
+                <title>
+                    SIPEKA - Sistem Informasi Pengelolaan Keuangan BLUD
+                </title>
+            </Helmet>
             <div className="rounded-lg bg-white px-8 pb-28 pt-20">
                 <h2 className="text-5xl">Selamat datang di </h2>
                 <h1 className="mb-10 text-7xl font-bold">

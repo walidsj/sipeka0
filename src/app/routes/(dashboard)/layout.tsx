@@ -10,12 +10,16 @@ import {
     FiTool,
 } from 'react-icons/fi'
 import { cn } from '@/web/lib/utils'
+import { Helmet } from 'react-helmet'
 
 export default function DashboardLayout() {
     const { pathname } = useLocation()
 
     return (
         <React.Fragment>
+            <Helmet>
+                <title>Dashboard - SIPEKA</title>
+            </Helmet>
             <div className="border-b bg-background shadow-sm">
                 <nav className="mx-auto px-8">
                     <ul className="flex">
