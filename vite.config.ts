@@ -3,7 +3,6 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 import dotenv from 'dotenv'
 import { VitePWA } from 'vite-plugin-pwa'
-import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 
 dotenv.config()
 
@@ -90,17 +89,6 @@ export default defineConfig({
                         purpose: 'any maskable',
                     },
                 ],
-            },
-        }),
-        ViteImageOptimizer({
-            jpg: {
-                quality: 80,
-            },
-            png: {
-                quality: 80,
-            },
-            webp: {
-                quality: 80,
             },
         }),
     ],

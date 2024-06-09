@@ -59,7 +59,7 @@ export default function RincianTable() {
                     <TableHead>Uraian</TableHead>
                     <TableHead className="text-center">Volume</TableHead>
                     <TableHead>Satuan</TableHead>
-                    <TableHead className="text-right">Harga</TableHead>
+                    <TableHead className="text-right">Harga Satuan</TableHead>
                     <TableHead className="text-right">Jumlah</TableHead>
                     <TableHead className="w-1" />
                 </TableRow>
