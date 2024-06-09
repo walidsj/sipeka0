@@ -1,4 +1,4 @@
-import { bankSchema } from '@/app/schema/bank'
+import { bankSchema } from '@/app/api/routers/database/bank.schema'
 import { bank } from '@/server/db/schema'
 import { Button } from '@/web/components/ui/button'
 import {

@@ -23,7 +23,7 @@ import {
     SelectValue,
 } from '@/web/components/ui/select'
 import { Textarea } from '@/web/components/ui/textarea'
-import { rekananSchema } from '@/app/schema/rekanan'
+import { rekananSchema } from '@/app/api/schema/rekanan'
 
 export default function CreateForm() {
     const navigate = useNavigate()

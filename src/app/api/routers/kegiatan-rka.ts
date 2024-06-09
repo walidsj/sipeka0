@@ -1,4 +1,4 @@
-import { kegiatanRkaSchema } from '@/app/schema/kegiatan-rka'
+import { kegiatanRkaSchema } from '@/app/api/schema/kegiatan-rka'
 import { kegiatanRka } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { eq, like, or } from 'drizzle-orm'

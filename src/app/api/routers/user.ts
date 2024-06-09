@@ -11,7 +11,7 @@ import { z } from 'zod'
 import bcryptjs from 'bcryptjs'
 import { type JWTPayload, SignJWT } from 'jose'
 import { env } from '@/env'
-import { userSchema } from '@/app/schema/user'
+import { userSchema } from '@/app/api/schema/user'
 
 const secret = env.JWT_SECRET_KEY ?? 'secret'
 const key = new TextEncoder().encode(secret)

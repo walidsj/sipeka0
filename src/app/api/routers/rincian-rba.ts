@@ -1,4 +1,4 @@
-import { rincianRbaSchema } from '@/app/schema/rincian-rba'
+import { rincianRbaSchema } from '@/app/api/schema/rincian-rba'
 import { rekeningLevel6 } from '@/data/rekening'
 import { rincianRba } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'

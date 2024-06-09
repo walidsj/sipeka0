@@ -1,4 +1,4 @@
-import { subKegiatanRkaSchema } from '@/app/schema/sub-kegiatan-rka'
+import { subKegiatanRkaSchema } from '@/app/api/schema/sub-kegiatan-rka'
 import { subKegiatanRka } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { eq } from 'drizzle-orm'

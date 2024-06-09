@@ -1,4 +1,4 @@
-import { profilBludSchema } from '@/app/schema/profil-blud'
+import { profilBludSchema } from '@/app/api/schema/profil-blud'
 import { profilBlud } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure, adminProcedure } from '@/server/trpc'
 import { eq } from 'drizzle-orm'

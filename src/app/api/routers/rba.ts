@@ -1,4 +1,4 @@
-import { rbaSchema } from '@/app/schema/rba'
+import { rbaSchema } from '@/app/api/schema/rba'
 import { rba } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { eq, like, or } from 'drizzle-orm'

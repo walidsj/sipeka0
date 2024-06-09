@@ -1,4 +1,4 @@
-import { pegawaiSchema } from '@/app/schema/pegawai'
+import { pegawaiSchema } from '@/app/api/schema/pegawai'
 import { pegawai } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { eq, like, or } from 'drizzle-orm'

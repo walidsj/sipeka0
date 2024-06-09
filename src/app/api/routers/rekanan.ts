@@ -1,4 +1,4 @@
-import { rekananSchema } from '@/app/schema/rekanan'
+import { rekananSchema } from '@/app/api/schema/rekanan'
 import { rekanan } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { eq } from 'drizzle-orm'

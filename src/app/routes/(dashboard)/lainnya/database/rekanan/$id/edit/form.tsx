@@ -24,7 +24,7 @@ import {
 } from '@/web/components/ui/select'
 import BankPicker from '../../../bank-picker'
 import { Textarea } from '@/web/components/ui/textarea'
-import { rekananSchema } from '@/app/schema/rekanan'
+import { rekananSchema } from '@/app/api/schema/rekanan'
 
 export default function EditForm({
     data,

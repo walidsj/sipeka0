@@ -1,4 +1,4 @@
-import { unitKerjaSchema } from '@/app/schema/unit-kerja'
+import { unitKerjaSchema } from '@/app/api/schema/unit-kerja'
 import { unitKerja } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { eq, like, or } from 'drizzle-orm'

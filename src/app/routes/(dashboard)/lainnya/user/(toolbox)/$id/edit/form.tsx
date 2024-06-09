@@ -23,7 +23,7 @@ import {
     SelectValue,
 } from '@/web/components/ui/select'
 import PegawaiPicker from '../../../../database/pegawai-picker'
-import { userSchema } from '@/app/schema/user'
+import { userSchema } from '@/app/api/schema/user'
 
 const userEditSchema = userSchema.merge(
     z.object({

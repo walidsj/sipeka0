@@ -1,4 +1,4 @@
-import { pengelolaBludSchema } from '@/app/schema/pengelola-blud'
+import { pengelolaBludSchema } from '@/app/api/schema/pengelola-blud'
 import { pengelolaBlud } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { eq } from 'drizzle-orm'

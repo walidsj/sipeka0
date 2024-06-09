@@ -22,7 +22,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/web/components/ui/select'
-import { aktivitasRbaSchema } from '@/app/schema/aktivitas-rba'
+import { aktivitasRbaSchema } from '@/app/api/schema/aktivitas-rba'
 
 const newAktivitasRbaSchema = aktivitasRbaSchema.omit({ rbaId: true })
 

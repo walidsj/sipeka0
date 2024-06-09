@@ -1,4 +1,4 @@
-import { aktivitasRbaSchema } from '@/app/schema/aktivitas-rba'
+import { aktivitasRbaSchema } from '@/app/api/schema/aktivitas-rba'
 import { aktivitasRba } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { TRPCError } from '@trpc/server'

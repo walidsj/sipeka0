@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { Textarea } from '@/web/components/ui/textarea'
 import { format } from 'date-fns'
-import { rbaSchema } from '@/app/schema/rba'
+import { rbaSchema } from '@/app/api/schema/rba'
 
 const defaultValues = {
     noDokumen: '',

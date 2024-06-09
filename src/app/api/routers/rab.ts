@@ -1,4 +1,4 @@
-import { rabSchema } from '@/app/schema/rab'
+import { rabSchema } from '@/app/api/schema/rab'
 import { rekeningLevel6 } from '@/data/rekening'
 import { rab } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'

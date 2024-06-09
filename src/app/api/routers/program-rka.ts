@@ -1,4 +1,4 @@
-import { programRkaSchema } from '@/app/schema/program-rka'
+import { programRkaSchema } from '@/app/api/schema/program-rka'
 import { programRka } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { eq, like, or } from 'drizzle-orm'

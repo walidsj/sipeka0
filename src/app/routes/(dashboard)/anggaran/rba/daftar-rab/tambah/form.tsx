@@ -13,7 +13,7 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
-import { rabSchema } from '@/app/schema/rab'
+import { rabSchema } from '@/app/api/schema/rab'
 import KodeRekeningPicker from '@/app/routes/(dashboard)/lainnya/referensi/kode-rekening-picker'
 import { Textarea } from '@/web/components/ui/textarea'
 

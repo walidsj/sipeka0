@@ -1,4 +1,4 @@
-import { unitKerjaSchema } from '@/app/schema/unit-kerja'
+import { unitKerjaSchema } from '@/app/api/schema/unit-kerja'
 import { Button } from '@/web/components/ui/button'
 import {
     Form,

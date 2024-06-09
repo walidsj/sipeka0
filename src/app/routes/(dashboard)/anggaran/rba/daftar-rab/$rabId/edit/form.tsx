@@ -15,7 +15,7 @@ import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { Textarea } from '@/web/components/ui/textarea'
-import { rabSchema } from '@/app/schema/rab'
+import { rabSchema } from '@/app/api/schema/rab'
 import KodeRekeningPicker from '@/app/routes/(dashboard)/lainnya/referensi/kode-rekening-picker'
 
 export default function EditForm({ data }: { data: typeof rab.$inferSelect }) {
