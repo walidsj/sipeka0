@@ -27,7 +27,6 @@ export default defineConfig({
     publicDir: path.resolve(__dirname, 'public'),
     plugins: [
         react(),
-        ViteImageOptimizer(),
         VitePWA({
             registerType: 'prompt',
             devOptions: {
@@ -83,6 +82,17 @@ export default defineConfig({
                         purpose: 'any maskable',
                     },
                 ],
+            },
+        }),
+        ViteImageOptimizer({
+            jpg: {
+                quality: 80,
+            },
+            png: {
+                quality: 80,
+            },
+            webp: {
+                quality: 80,
             },
         }),
     ],
