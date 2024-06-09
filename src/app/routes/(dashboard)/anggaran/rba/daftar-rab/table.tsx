@@ -69,6 +69,7 @@ export default function RabTable() {
                     <TableRow>
                         <TableHead className="w-1 text-center">No.</TableHead>
                         <TableHead>Uraian</TableHead>
+                        <TableHead>Sumber Dana</TableHead>
                         <TableHead className="w-1" />
                     </TableRow>
                 </TableHeader>
@@ -85,7 +86,7 @@ export default function RabTable() {
                         Object.keys(groupedData).map((key) => (
                             <React.Fragment key={key}>
                                 <TableRow className="bg-blue-50 hover:bg-blue-50">
-                                    <TableCell colSpan={3}>
+                                    <TableCell colSpan={4}>
                                         <span className="mr-3 inline-block font-bold">
                                             {key.split('||')[0]}
                                         </span>
@@ -110,6 +111,7 @@ export default function RabTable() {
                                                 </p>
                                             )}
                                         </TableCell>
+                                        <TableCell>{item.sumberDana}</TableCell>
                                         <TableCell>
                                             <DropdownMenu>
                                                 <DropdownMenuTrigger asChild>
@@ -153,14 +155,14 @@ export default function RabTable() {
                         ))}
                     {rab.isSuccess && rab.data?.length === 0 && (
                         <TableRow>
-                            <TableCell colSpan={3} className="text-center">
+                            <TableCell colSpan={4} className="text-center">
                                 Tidak ada data
                             </TableCell>
                         </TableRow>
                     )}
                     {rab.isError && (
                         <TableRow>
-                            <TableCell colSpan={3} className="text-center">
+                            <TableCell colSpan={4} className="text-center">
                                 {rab.error.message}
                             </TableCell>
                         </TableRow>

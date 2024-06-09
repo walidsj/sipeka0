@@ -17,6 +17,13 @@ import { z } from 'zod'
 import { Textarea } from '@/web/components/ui/textarea'
 import { rabSchema } from '@/app/api/schema/rab'
 import KodeRekeningPicker from '@/app/routes/(dashboard)/lainnya/referensi/kode-rekening-picker'
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/web/components/ui/select'
 
 export default function EditForm({ data }: { data: typeof rab.$inferSelect }) {
     const navigate = useNavigate()
@@ -26,9 +33,10 @@ export default function EditForm({ data }: { data: typeof rab.$inferSelect }) {
         resolver: zodResolver(rabSchema),
         mode: 'onTouched',
         defaultValues: {
-            kodeRekening: data.kodeRekening ?? '',
+            kodeRekening: data.kodeRekening ?? undefined,
             spesifikasi: data.spesifikasi ?? '',
             uraian: data.uraian ?? '',
+            sumberDana: data.sumberDana ?? undefined,
         },
     })
 
@@ -59,6 +67,47 @@ export default function EditForm({ data }: { data: typeof rab.$inferSelect }) {
                     disabled={edit.isPending}
                     className="flex max-w-96 flex-col gap-2"
                 >
+                    <FormField
+                        control={form.control}
+                        name="sumberDana"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Sumber Dana</FormLabel>
+                                <FormControl>
+                                    <Select
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                    >
+                                        <SelectTrigger>
+                                            <SelectValue />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="JASA LAYANAN">
+                                                JASA LAYANAN
+                                            </SelectItem>
+                                            <SelectItem value="HIBAH">
+                                                HIBAH
+                                            </SelectItem>
+                                            <SelectItem value="HASIL KERJA SAMA">
+                                                HASIL KERJA SAMA
+                                            </SelectItem>
+                                            <SelectItem value="LAIN-LAIN PENDAPATAN BLUD YANG SAH">
+                                                LAIN-LAIN PENDAPATAN BLUD YANG
+                                                SAH
+                                            </SelectItem>
+                                            <SelectItem value="SILPA">
+                                                SILPA
+                                            </SelectItem>
+                                            <SelectItem value="APBD">
+                                                APBD
+                                            </SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
                     <FormField
                         name="kodeRekening"
                         render={({ field }) => (

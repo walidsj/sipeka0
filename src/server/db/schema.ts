@@ -220,9 +220,9 @@ export const rincianRba = mysqlTable('rincian_rba', {
     id: serial('id').primaryKey(),
     aktivitasRbaId: int('aktivitas_rba_id', { unsigned: true }),
     rabId: int('rab_id', { unsigned: true }),
-    volume: decimal('volume'),
+    volume: decimal('volume', { precision: 20, scale: 2 }),
     satuan: varchar('satuan', { length: 256 }),
-    harga: decimal('harga'),
+    harga: decimal('harga', { precision: 20, scale: 2 }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { mode: 'date' })
         .defaultNow()
@@ -234,6 +234,14 @@ export const rab = mysqlTable('rab', {
     kodeRekening: varchar('kode_rekening', { length: 256 }),
     uraian: varchar('uraian', { length: 256 }),
     spesifikasi: varchar('spesifikasi', { length: 256 }),
+    sumberDana: mysqlEnum('sumber_dana', [
+        'JASA LAYANAN',
+        'HIBAH',
+        'HASIL KERJA SAMA',
+        'LAIN-LAIN PENDAPATAN BLUD YANG SAH',
+        'SILPA',
+        'APBD',
+    ]),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { mode: 'date' })
         .defaultNow()
