@@ -34,10 +34,13 @@ export default function Layout() {
                     <CardHeader className="flex flex-row justify-start gap-5">
                         <img
                             src="/images/icons/research.png"
-                            className="h-14"
+                            className="h-20 w-20"
                             alt="RBA"
                         />
                         <div className="flex flex-col gap-1">
+                            <CardDescription>
+                                Rencana Bisnis dan Anggaran (RBA)
+                            </CardDescription>
                             <CardTitle>{rba.data?.uraian}</CardTitle>
                             <CardDescription>
                                 No. Dokumen: {rba.data?.noDokumen}, tanggal:{' '}

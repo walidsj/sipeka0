@@ -1,5 +1,9 @@
 import { Button } from '@/web/components/ui/button'
-import { CardHeader, CardTitle } from '@/web/components/ui/card'
+import {
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/web/components/ui/card'
 import { cn } from '@/web/lib/utils'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 
@@ -12,6 +16,10 @@ export default function ProfilLayout() {
                 <nav className="w-full">
                     <CardHeader className="border-b">
                         <CardTitle>Rencana Kerja Anggaran</CardTitle>
+                        <CardDescription>
+                            Dokumen perencanaan dan penganggaran program dan
+                            kegiatan SKPD
+                        </CardDescription>
                     </CardHeader>
                     <ul className="flex flex-col">
                         <li>

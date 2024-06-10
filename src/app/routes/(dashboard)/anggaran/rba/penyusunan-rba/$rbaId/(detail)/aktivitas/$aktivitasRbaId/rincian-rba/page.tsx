@@ -12,6 +12,7 @@ import { Badge } from '@/web/components/ui/badge'
 import { cn } from '@/web/lib/utils'
 import RincianRabTable from './rab-table'
 import RincianRapTable from './rap-table'
+import Loading from '@/web/components/loading'
 
 export default function Page() {
     const params = useParams<{ rbaId: string; aktivitasRbaId: string }>()
@@ -66,28 +67,32 @@ export default function Page() {
                     </Button>
                 )}
             </div>
-            <Card>
-                <CardHeader>
-                    <CardDescription>
-                        <Badge
-                            className={cn(
-                                aktivitasRba.data?.jenis === 'BELANJA' &&
-                                    'bg-red-500',
-                                aktivitasRba.data?.jenis === 'PENDAPATAN' &&
-                                    'bg-green-500',
-                                aktivitasRba.data?.jenis === 'PEMBIAYAAN' &&
-                                    'bg-yellow-500'
-                            )}
-                        >
-                            {aktivitasRba.data?.jenis}
-                        </Badge>
-                    </CardDescription>
-                    <CardDescription>
-                        {aktivitasRba.data?.kode}{' '}
-                    </CardDescription>
-                    <CardTitle>{aktivitasRba.data?.nama}</CardTitle>
-                </CardHeader>
-            </Card>
+            {aktivitasRba.isLoading && <Loading />}
+            {aktivitasRba.data && (
+                <Card>
+                    <CardHeader>
+                        <CardDescription>
+                            <Badge
+                                className={cn(
+                                    aktivitasRba.data?.jenis === 'BELANJA' &&
+                                        'bg-red-500',
+                                    aktivitasRba.data?.jenis === 'PENDAPATAN' &&
+                                        'bg-green-500',
+                                    aktivitasRba.data?.jenis === 'PEMBIAYAAN' &&
+                                        'bg-yellow-500'
+                                )}
+                            >
+                                {aktivitasRba.data?.jenis}
+                            </Badge>
+                        </CardDescription>
+                        <CardDescription>
+                            {aktivitasRba.data?.kode}{' '}
+                        </CardDescription>
+                        <CardTitle>{aktivitasRba.data?.nama}</CardTitle>
+                    </CardHeader>
+                </Card>
+            )}
+
             {aktivitasRba.data?.jenis === 'BELANJA' && <RincianRabTable />}
             {aktivitasRba.data?.jenis === 'PENDAPATAN' && <RincianRapTable />}
         </div>
