@@ -7,7 +7,7 @@ export default function Layout() {
 
     return (
         <div className="flex flex-row">
-            <div className="flex min-h-[calc(100svh-138px)] w-72 flex-col bg-background shadow">
+            <div className="flex min-h-[calc(100svh-138px)] w-72 flex-col border-r bg-background shadow-sm">
                 <nav className="w-full">
                     <div className="border-b bg-background px-5 py-5">
                         <h1 className="text-xl font-semibold">Referensi</h1>

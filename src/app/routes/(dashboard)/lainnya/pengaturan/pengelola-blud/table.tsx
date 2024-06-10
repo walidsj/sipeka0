@@ -1,3 +1,4 @@
+import Loading from '@/web/components/loading'
 import { Badge } from '@/web/components/ui/badge'
 import { Button } from '@/web/components/ui/button'
 import {
@@ -60,7 +61,7 @@ export default function PengelolaBludTable() {
                 {pengelolaBlud.isLoading && (
                     <TableRow>
                         <TableCell colSpan={6} className="text-center">
-                            Memuat data...
+                            <Loading />
                         </TableCell>
                     </TableRow>
                 )}

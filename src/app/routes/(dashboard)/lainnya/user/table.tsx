@@ -1,3 +1,4 @@
+import Loading from '@/web/components/loading'
 import { Avatar, AvatarFallback, AvatarImage } from '@/web/components/ui/avatar'
 import { Badge } from '@/web/components/ui/badge'
 import { Button } from '@/web/components/ui/button'
@@ -61,7 +62,7 @@ export default function UserTable() {
                 {user.isLoading && (
                     <TableRow>
                         <TableCell colSpan={6} className="text-center">
-                            Memuat data...
+                            <Loading />
                         </TableCell>
                     </TableRow>
                 )}

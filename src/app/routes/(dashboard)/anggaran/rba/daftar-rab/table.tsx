@@ -1,3 +1,4 @@
+import Loading from '@/web/components/loading'
 import { Button } from '@/web/components/ui/button'
 import {
     DropdownMenu,
@@ -78,7 +79,7 @@ export default function RabTable() {
                     {rab.isLoading && (
                         <TableRow>
                             <TableCell colSpan={6} className="text-center">
-                                Memuat data...
+                                <Loading />
                             </TableCell>
                         </TableRow>
                     )}

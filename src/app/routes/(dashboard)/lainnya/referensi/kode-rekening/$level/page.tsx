@@ -1,3 +1,4 @@
+import Loading from '@/web/components/loading'
 import { Input } from '@/web/components/ui/input'
 import {
     Select,
@@ -88,7 +89,9 @@ export default function Page() {
                 <TableBody>
                     {rekening.isLoading && (
                         <TableRow>
-                            <TableCell colSpan={2}>Memuat data...</TableCell>
+                            <TableCell colSpan={2}>
+                                <Loading />
+                            </TableCell>
                         </TableRow>
                     )}
                     {rekening.isSuccess &&
