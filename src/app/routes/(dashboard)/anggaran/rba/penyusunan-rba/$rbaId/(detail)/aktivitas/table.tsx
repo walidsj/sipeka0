@@ -68,10 +68,12 @@ export default function AktivitasTable() {
                     aktivitasRba.data?.map((item, index) => (
                         <TableRow key={item.id}>
                             <TableCell className="text-center">
-                                {index + 1}
+                                {index + 1}.
                             </TableCell>
                             <TableCell>{item.kode}</TableCell>
-                            <TableCell>{item.nama}</TableCell>
+                            <TableCell className="font-semibold">
+                                {item.nama}
+                            </TableCell>
                             <TableCell className="text-center">
                                 <Badge
                                     className={cn(

@@ -68,7 +68,7 @@ export default function Page() {
             </div>
             <Card>
                 <CardHeader>
-                    <div>
+                    <CardDescription>
                         <Badge
                             className={cn(
                                 aktivitasRba.data?.jenis === 'BELANJA' &&
@@ -81,11 +81,11 @@ export default function Page() {
                         >
                             {aktivitasRba.data?.jenis}
                         </Badge>
-                    </div>
-                    <CardTitle>Aktivitas: {aktivitasRba.data?.nama}</CardTitle>
-                    <CardDescription>
-                        Kode: {aktivitasRba.data?.kode}{' '}
                     </CardDescription>
+                    <CardDescription>
+                        {aktivitasRba.data?.kode}{' '}
+                    </CardDescription>
+                    <CardTitle>{aktivitasRba.data?.nama}</CardTitle>
                 </CardHeader>
             </Card>
             {aktivitasRba.data?.jenis === 'BELANJA' && <RincianRabTable />}

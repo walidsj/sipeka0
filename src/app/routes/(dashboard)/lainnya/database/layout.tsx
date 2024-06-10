@@ -1,4 +1,9 @@
 import { Button } from '@/web/components/ui/button'
+import {
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/web/components/ui/card'
 import { cn } from '@/web/lib/utils'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 
@@ -9,23 +14,23 @@ export default function ProfilLayout() {
         <div className="flex flex-row">
             <div className="flex min-h-[calc(100svh-138px)] w-72 flex-col border-r bg-background shadow-sm">
                 <nav className="w-full">
-                    <div className="border-b bg-background px-5 py-5">
-                        <h1 className="text-xl font-semibold">Database</h1>
-                        <p className="text-sm text-slate-500">
+                    <CardHeader className="border-b">
+                        <CardTitle>Database</CardTitle>
+                        <CardDescription>
                             Basis data pengelolaan BLUD
-                        </p>
-                    </div>
+                        </CardDescription>
+                    </CardHeader>
                     <ul className="flex flex-col">
                         <li>
                             <Button
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-12 w-full justify-start rounded-none px-5',
+                                    'h-12 w-full justify-start rounded-none px-6',
                                     pathname.startsWith(
                                         '/lainnya/database/unit-kerja'
                                     ) &&
-                                        'border-l-4 border-primary bg-slate-50 text-primary'
+                                        'border-l-4 border-primary bg-slate-50 px-5 text-primary'
                                 )}
                             >
                                 <Link to="/lainnya/database/unit-kerja">
@@ -38,11 +43,11 @@ export default function ProfilLayout() {
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-12 w-full justify-start rounded-none px-5',
+                                    'h-12 w-full justify-start rounded-none px-6',
                                     pathname.startsWith(
                                         '/lainnya/database/bank'
                                     ) &&
-                                        'border-l-4 border-primary bg-slate-50 text-primary'
+                                        'border-l-4 border-primary bg-slate-50 px-5 text-primary'
                                 )}
                             >
                                 <Link to="/lainnya/database/bank">
@@ -55,11 +60,11 @@ export default function ProfilLayout() {
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-12 w-full justify-start rounded-none px-5',
+                                    'h-12 w-full justify-start rounded-none px-6',
                                     pathname.startsWith(
                                         '/lainnya/database/rekanan'
                                     ) &&
-                                        'border-l-4 border-primary bg-slate-50 text-primary'
+                                        'border-l-4 border-primary bg-slate-50 px-5 text-primary'
                                 )}
                             >
                                 <Link to="/lainnya/database/rekanan">
@@ -72,11 +77,11 @@ export default function ProfilLayout() {
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-12 w-full justify-start rounded-none px-5',
+                                    'h-12 w-full justify-start rounded-none px-6',
                                     pathname.startsWith(
                                         '/lainnya/database/pegawai'
                                     ) &&
-                                        'border-l-4 border-primary bg-slate-50 text-primary'
+                                        'border-l-4 border-primary bg-slate-50 px-5 text-primary'
                                 )}
                             >
                                 <Link to="/lainnya/database/pegawai">

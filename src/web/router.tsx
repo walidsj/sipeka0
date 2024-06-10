@@ -2,6 +2,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom'
 import React from 'react'
 import { cn } from './lib/utils'
 import { AnimatePresence, motion } from 'framer-motion'
+import Loading from './components/loading'
 
 export default function Router() {
     const importedRoutes: any = import.meta.glob(
@@ -182,7 +183,13 @@ export default function Router() {
                         <Route
                             key={route.key}
                             element={
-                                <React.Suspense>
+                                <React.Suspense
+                                    fallback={
+                                        route.type === 'page' ? (
+                                            <Loading />
+                                        ) : undefined
+                                    }
+                                >
                                     <motion.div
                                         className="w-full"
                                         key={route.key}
@@ -204,7 +211,13 @@ export default function Router() {
                         key={route.key}
                         path={route.path}
                         element={
-                            <React.Suspense>
+                            <React.Suspense
+                                fallback={
+                                    route.type === 'page' ? (
+                                        <Loading />
+                                    ) : undefined
+                                }
+                            >
                                 <motion.div
                                     className="w-full"
                                     key={route.key}

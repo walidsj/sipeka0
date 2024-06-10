@@ -1,5 +1,5 @@
 import { Button } from '@/web/components/ui/button'
-import { CardTitle } from '@/web/components/ui/card'
+import { CardHeader, CardTitle } from '@/web/components/ui/card'
 import { cn } from '@/web/lib/utils'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 
@@ -10,20 +10,20 @@ export default function ProfilLayout() {
         <div className="flex flex-row">
             <div className="flex min-h-[calc(100svh-138px)] w-72 flex-col border-r bg-background shadow-sm">
                 <nav className="w-full">
-                    <div className="border-b bg-background px-5 py-5">
+                    <CardHeader className="border-b">
                         <CardTitle>Rencana Kerja Anggaran</CardTitle>
-                    </div>
+                    </CardHeader>
                     <ul className="flex flex-col">
                         <li>
                             <Button
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-12 w-full justify-start rounded-none px-5',
+                                    'h-12 w-full justify-start rounded-none px-6',
                                     pathname.startsWith(
                                         '/anggaran/rka/program-kegiatan'
                                     ) &&
-                                        'border-l-4 border-primary bg-slate-50 text-primary'
+                                        'border-l-4 border-primary bg-slate-50 px-5 text-primary'
                                 )}
                             >
                                 <Link to="/anggaran/rka/program-kegiatan/program">
@@ -36,11 +36,11 @@ export default function ProfilLayout() {
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-12 w-full justify-start rounded-none px-5',
+                                    'h-12 w-full justify-start rounded-none px-6',
                                     pathname.startsWith(
                                         '/anggaran/rka/dokumen-rka'
                                     ) &&
-                                        'border-l-4 border-primary bg-slate-50 text-primary'
+                                        'border-l-4 border-primary bg-slate-50 px-5 text-primary'
                                 )}
                             >
                                 <Link to="/anggaran/rka/dokumen-rka">

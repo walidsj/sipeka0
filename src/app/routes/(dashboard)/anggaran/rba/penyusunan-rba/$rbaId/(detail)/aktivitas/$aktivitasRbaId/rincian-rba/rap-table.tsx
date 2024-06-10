@@ -81,7 +81,7 @@ export default function RincianRapTable() {
                         )
                         return (
                             <React.Fragment key={key}>
-                                <TableRow className="bg-blue-50 hover:bg-blue-50">
+                                <TableRow className="bg-blue-50 hover:bg-blue-100">
                                     <TableCell colSpan={2}>
                                         <span className="mr-3 inline-block font-bold">
                                             {key.split('||')[0]}
@@ -90,7 +90,7 @@ export default function RincianRapTable() {
                                             {key.split('||')[1]}
                                         </span>
                                     </TableCell>
-                                    <TableCell className="text-right font-medium">
+                                    <TableCell className="text-right font-bold">
                                         {Number(totalPerGroup).toLocaleString(
                                             'id-ID'
                                         )}
@@ -104,10 +104,10 @@ export default function RincianRapTable() {
                                             <TableCell className="text-center">
                                                 {index + 1}.
                                             </TableCell>
-                                            <TableCell>
+                                            <TableCell className="font-semibold">
                                                 {item.rap?.uraian}
                                             </TableCell>
-                                            <TableCell className="text-right">
+                                            <TableCell className="text-right font-semibold">
                                                 {Number(
                                                     item.jumlah
                                                 ).toLocaleString('id-ID')}

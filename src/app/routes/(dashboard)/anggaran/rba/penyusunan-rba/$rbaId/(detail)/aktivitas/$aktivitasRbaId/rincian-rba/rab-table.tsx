@@ -85,7 +85,7 @@ export default function RincianRabTable() {
                         )
                         return (
                             <React.Fragment key={key}>
-                                <TableRow className="bg-blue-50 hover:bg-blue-50">
+                                <TableRow className="bg-blue-50 hover:bg-blue-100">
                                     <TableCell colSpan={5}>
                                         <span className="mr-3 inline-block font-bold">
                                             {key.split('||')[0]}
@@ -94,7 +94,7 @@ export default function RincianRabTable() {
                                             {key.split('||')[1]}
                                         </span>
                                     </TableCell>
-                                    <TableCell className="text-right font-medium">
+                                    <TableCell className="text-right font-bold">
                                         {Number(totalPerGroup).toLocaleString(
                                             'id-ID'
                                         )}
@@ -111,10 +111,12 @@ export default function RincianRabTable() {
                                                 {index + 1}.
                                             </TableCell>
                                             <TableCell>
-                                                <p>{item.rab?.uraian}</p>
+                                                <p className="font-semibold">
+                                                    {item.rab?.uraian}
+                                                </p>
                                                 {item.rab?.spesifikasi && (
                                                     <p className="mt-1 text-xs text-gray-500">
-                                                        <span className="mr-1 inline-block text-green-500">
+                                                        <span className="mr-1 inline-block text-primary">
                                                             Spesifikasi :
                                                         </span>{' '}
                                                         {item.rab?.spesifikasi}
@@ -132,7 +134,7 @@ export default function RincianRabTable() {
                                                     item.harga
                                                 ).toLocaleString('id-ID')}
                                             </TableCell>
-                                            <TableCell className="text-right">
+                                            <TableCell className="text-right font-semibold">
                                                 {Number(
                                                     Number(item.volume) *
                                                         Number(item.harga)

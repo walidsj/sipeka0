@@ -66,7 +66,9 @@ export default function KegiatanRkaTable() {
                                 {index + 1}
                             </TableCell>
                             <TableCell>{item.kode}</TableCell>
-                            <TableCell>{item.nama}</TableCell>
+                            <TableCell className="font-semibold">
+                                {item.nama}
+                            </TableCell>
                             <TableCell>
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
