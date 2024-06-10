@@ -16,7 +16,7 @@ export default function Layout() {
     const { pathname } = useLocation()
 
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-5">
             <Breadcrumb>
                 <BreadcrumbList>
                     <BreadcrumbItem>

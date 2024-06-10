@@ -10,7 +10,7 @@ import { Link, Outlet } from 'react-router-dom'
 
 export default function Layout() {
     return (
-        <div className="flex flex-col gap-4 px-8 py-5">
+        <div className="flex flex-col gap-5 px-8 py-5">
             <Breadcrumb>
                 <BreadcrumbList>
                     <BreadcrumbItem>

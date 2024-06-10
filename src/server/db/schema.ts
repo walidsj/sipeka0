@@ -249,6 +249,14 @@ export const pendapatan = mysqlTable('pendapatan', {
         .onUpdateNow(),
 })
 
+export const rka = mysqlTable('rka', {
+    id: serial('id').primaryKey(),
+    rbaId: int('rba_id', { unsigned: true }),
+    noDokumen: varchar('no_dokumen', { length: 256 }),
+    uraian: varchar('uraian', { length: 256 }),
+    tglDokumen: timestamp('tgl_dokumen', { mode: 'date' }),
+})
+
 export const userRelations = relations(user, ({ one }) => ({
     pegawai: one(pegawai, {
         fields: [user.pegawaiId],
