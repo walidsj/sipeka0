@@ -33,7 +33,9 @@ export default function Layout() {
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
                         <BreadcrumbLink asChild>
-                            <Link to="/anggaran/rka">RKA</Link>
+                            <Link to="/anggaran/rka">
+                                Rencana Kerja Anggaran
+                            </Link>
                         </BreadcrumbLink>
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />

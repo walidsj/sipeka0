@@ -21,20 +21,20 @@ import {
 } from '@/web/components/ui/card'
 import Loading from '@/web/components/loading'
 
-export default function RbaContentList() {
-    const rba = api.rba.getAll.useQuery(
+export default function RkaContentList() {
+    const rka = api.rka.getAll.useQuery(
         {},
         { placeholderData: keepPreviousData }
     )
 
-    const deleteRba = api.rba.deleteById.useMutation({
+    const deleteRka = api.rka.deleteById.useMutation({
         onMutate() {
             toast.loading('Menghapus data...')
         },
         onSuccess(data) {
             toast.dismiss()
             toast.success(data.message)
-            rba.refetch()
+            rka.refetch()
         },
         onError(error) {
             toast.dismiss()
@@ -44,20 +44,20 @@ export default function RbaContentList() {
 
     return (
         <div className="grid grid-cols-3 gap-5">
-            {rba.isLoading && (
+            {rka.isLoading && (
                 <div className="col-span-3">
                     <Loading />
                 </div>
             )}
-            {rba.isSuccess &&
-                rba.data?.map((item, index) => (
+            {rka.isSuccess &&
+                rka.data?.map((item, index) => (
                     <Card key={index}>
                         <CardHeader>
                             <div className="mb-2">
                                 <img
-                                    src="/images/icons/contract.png"
+                                    src="/images/icons/documentation.png"
                                     className="h-14"
-                                    alt="RBA"
+                                    alt="RKA"
                                 />
                             </div>
                             <CardTitle>{item.uraian}</CardTitle>
@@ -76,7 +76,7 @@ export default function RbaContentList() {
                             <div className="flex gap-3">
                                 <Button asChild className="bg-secondary">
                                     <Link
-                                        to={`/anggaran/rba/penyusunan-rba/${item.id}/aktivitas`}
+                                        to={`/anggaran/rka/dokumen-rka/${item.id}/rincian`}
                                     >
                                         Rincian
                                         <FiArrowRight className="ml-2" />
@@ -90,16 +90,8 @@ export default function RbaContentList() {
                                         </Button>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent align="start">
-                                        {/* <Link
-                                            to={`/anggaran/rba/penyusunan-rba/${item.id}/edit`}
-                                        >
-                                            <DropdownMenuItem>
-                                                <FiCopy className="mr-2" />
-                                                Duplikat
-                                            </DropdownMenuItem>
-                                        </Link> */}
                                         <Link
-                                            to={`/anggaran/rba/penyusunan-rba/${item.id}/edit`}
+                                            to={`/anggaran/rka/dokumen-rka/${item.id}/edit`}
                                         >
                                             <DropdownMenuItem>
                                                 <FiEdit className="mr-2" />
@@ -113,7 +105,7 @@ export default function RbaContentList() {
                                                         'Apakah anda yakin menghapus data ini?'
                                                     )
                                                 ) {
-                                                    deleteRba.mutate(item.id)
+                                                    deleteRka.mutate(item.id)
                                                 }
                                             }}
                                             className="text-red-500"
@@ -127,11 +119,11 @@ export default function RbaContentList() {
                         </CardContent>
                     </Card>
                 ))}
-            {rba.isSuccess && rba.data?.length === 0 && (
+            {rka.isSuccess && rka.data?.length === 0 && (
                 <div className="col-span-3">Tidak ada data</div>
             )}
-            {rba.isError && (
-                <div className="col-span-3">{rba.error.message}</div>
+            {rka.isError && (
+                <div className="col-span-3">{rka.error.message}</div>
             )}
         </div>
     )
