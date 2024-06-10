@@ -81,7 +81,7 @@ export default function DashboardLayout() {
                                         'border-b-4 border-primary text-primary'
                                 )}
                             >
-                                <Link to="/pendapatan">
+                                <Link to="/pendapatan/perekaman">
                                     <FiPocket className="mr-3" />
                                     Pendapatan
                                 </Link>

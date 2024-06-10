@@ -237,6 +237,18 @@ export const rap = mysqlTable('rap', {
         .onUpdateNow(),
 })
 
+export const pendapatan = mysqlTable('pendapatan', {
+    id: serial('id').primaryKey(),
+    rapId: int('rap_id', { unsigned: true }),
+    tglDokumen: timestamp('tgl_dokumen', { mode: 'date' }),
+    jumlah: decimal('jumlah', { precision: 20, scale: 2 }),
+    keterangan: varchar('keterangan', { length: 256 }),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
+})
+
 export const userRelations = relations(user, ({ one }) => ({
     pegawai: one(pegawai, {
         fields: [user.pegawaiId],
@@ -328,4 +340,12 @@ export const unitKerjaRelations = relations(unitKerja, ({ many }) => ({
 
 export const rapRelations = relations(rap, ({ many }) => ({
     rincianRbaPendapatan: many(rincianRbaPendapatan),
+    pendapatan: many(pendapatan),
+}))
+
+export const pendapatanRelations = relations(pendapatan, ({ one }) => ({
+    rap: one(rap, {
+        fields: [pendapatan.rapId],
+        references: [rap.id],
+    }),
 }))

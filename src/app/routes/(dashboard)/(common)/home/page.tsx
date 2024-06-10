@@ -11,6 +11,8 @@ import { FiGlobe, FiMail, FiPhone, FiPrinter } from 'react-icons/fi'
 export default function Dashboard() {
     const profilBlud = api.profilBlud.get.useQuery()
 
+    const realisasiPendapatan = api.pendapatan.getRealisasiAll.useQuery()
+
     return (
         <div className="grid grid-cols-4 gap-4">
             <Card>
@@ -62,9 +64,22 @@ export default function Dashboard() {
                         className="h-14 w-14"
                     />
                     <div className="flex flex-col gap-1">
-                        <CardTitle>0</CardTitle>
+                        <CardTitle>
+                            {Number(realisasiPendapatan.data).toLocaleString(
+                                'id-ID'
+                            )}
+                        </CardTitle>
                         <CardDescription>
-                            Realisasi Pendapatan (0%)
+                            Realisasi Pendapatan (
+                            {(
+                                Number(
+                                    Number(realisasiPendapatan.data) /
+                                        Number(22_000_000_000)
+                                ) * 100
+                            ).toLocaleString('id-ID', {
+                                maximumFractionDigits: 2,
+                            })}
+                            %)
                         </CardDescription>
                     </div>
                 </CardHeader>
