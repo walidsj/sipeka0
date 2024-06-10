@@ -25,6 +25,7 @@ import {
     CardHeader,
     CardTitle,
 } from '@/web/components/ui/card'
+import Loading from '@/web/components/loading'
 
 export default function RbaContentList() {
     const rba = api.rba.getAll.useQuery(
@@ -49,7 +50,11 @@ export default function RbaContentList() {
 
     return (
         <div className="grid grid-cols-3 gap-5">
-            {rba.isLoading && <div className="col-span-3">Memuat data...</div>}
+            {rba.isLoading && (
+                <div className="col-span-3">
+                    <Loading />
+                </div>
+            )}
             {rba.isSuccess &&
                 rba.data?.map((item, index) => (
                     <Card key={index}>
