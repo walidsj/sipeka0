@@ -10,7 +10,7 @@ export default function EditPage() {
         rincianRbaId: string
     }>()
 
-    const rincianRba = api.rincianRba.getById.useQuery(
+    const rincianRba = api.rincianRbaPendapatan.getById.useQuery(
         parseInt(params.rincianRbaId ?? '')
     )
 
