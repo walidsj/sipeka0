@@ -19,8 +19,8 @@ import { keepPreviousData } from '@tanstack/react-query'
 import _ from 'lodash'
 import React from 'react'
 import toast from 'react-hot-toast'
-import { FiChevronsDown, FiEdit, FiTrash } from 'react-icons/fi'
-import { Link, useParams } from 'react-router-dom'
+import { FiChevronsDown, FiTrash } from 'react-icons/fi'
+import { useParams } from 'react-router-dom'
 
 export default function AktivitasRbaTable() {
     const params = useParams<{ rkaId: string }>()
