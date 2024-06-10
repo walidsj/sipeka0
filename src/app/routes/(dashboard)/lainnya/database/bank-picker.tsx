@@ -121,7 +121,7 @@ export default function BankPicker({
                                         )}
                                     >
                                         <TableCell className="text-center">
-                                            {index + 1}
+                                            {index + 1}.
                                         </TableCell>
                                         <TableCell>{item.nama}</TableCell>
                                         <TableCell className="text-center">

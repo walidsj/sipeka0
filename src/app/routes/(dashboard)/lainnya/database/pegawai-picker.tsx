@@ -68,7 +68,13 @@ export default function PegawaiPicker({
                                         <FiUser className="h-5 w-5 text-primary" />
                                         <div className="flex flex-col text-left">
                                             <span className="line-clamp-1">
+                                                {pegawaiSelected.data
+                                                    .gelarDepan &&
+                                                    `${pegawaiSelected.data.gelarDepan} `}
                                                 {pegawaiSelected.data.nama}
+                                                {pegawaiSelected.data
+                                                    .gelarBelakang &&
+                                                    `, ${pegawaiSelected.data.gelarBelakang}`}
                                             </span>
                                             <span className="line-clamp-1 text-xs text-slate-500">
                                                 {pegawaiSelected.data.jabatan}
@@ -105,9 +111,7 @@ export default function PegawaiPicker({
                             <TableRow>
                                 <TableHead className="w-1">No.</TableHead>
                                 <TableHead>Nama Pegawai</TableHead>
-                                <TableHead className="text-center">
-                                    Jabatan
-                                </TableHead>
+                                <TableHead>Jabatan</TableHead>
                                 <TableHead className="w-1">Aksi</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -122,9 +126,16 @@ export default function PegawaiPicker({
                                         )}
                                     >
                                         <TableCell className="text-center">
-                                            {index + 1}
+                                            {index + 1}.
                                         </TableCell>
-                                        <TableCell>{item.nama}</TableCell>
+                                        <TableCell>
+                                            {' '}
+                                            {item.gelarDepan &&
+                                                `${item.gelarDepan} `}
+                                            {item.nama}
+                                            {item.gelarBelakang &&
+                                                `, ${item.gelarBelakang}`}
+                                        </TableCell>
                                         <TableCell>{item.jabatan}</TableCell>
                                         <TableCell>
                                             {selected === item.id ? (

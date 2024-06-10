@@ -114,7 +114,7 @@ export default function UnitKerjaPicker({
                                         )}
                                     >
                                         <TableCell className="text-center">
-                                            {index + 1}
+                                            {index + 1}.
                                         </TableCell>
                                         <TableCell>{item.nama}</TableCell>
                                         <TableCell>
