@@ -21,6 +21,7 @@ import { cn } from '@/web/lib/utils'
 import { useDebounce } from 'use-debounce'
 import { Input } from '@/web/components/ui/input'
 import { keepPreviousData } from '@tanstack/react-query'
+import Loading from '@/web/components/loading'
 
 export default function ProgramRkaPicker({
     value,
@@ -55,8 +56,8 @@ export default function ProgramRkaPicker({
                     type="button"
                     variant="outline"
                     className={cn(
-                        'w-full justify-start rounded-xl text-sm font-normal',
-                        selected && 'h-14'
+                        'w-full justify-start rounded-lg text-sm font-normal',
+                        selected && 'h-auto min-h-12'
                     )}
                 >
                     {selected !== undefined && (
@@ -77,10 +78,7 @@ export default function ProgramRkaPicker({
                                 )}
                             {programRkaSelected.isLoading && (
                                 <div className="flex items-center gap-3">
-                                    <FiCommand className="h-5 w-5 text-primary" />
-                                    <div className="flex flex-col text-left">
-                                        <span>Loading...</span>
-                                    </div>
+                                    <Loading />
                                 </div>
                             )}
                         </div>

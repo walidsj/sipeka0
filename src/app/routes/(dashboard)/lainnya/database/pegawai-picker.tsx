@@ -1,4 +1,3 @@
-import { FiUser } from 'react-icons/fi'
 import { Button } from '@/web/components/ui/button'
 import { api } from '@/web/trpc/react'
 import {
@@ -22,6 +21,7 @@ import { cn } from '@/web/lib/utils'
 import { useDebounce } from 'use-debounce'
 import { Input } from '@/web/components/ui/input'
 import { keepPreviousData } from '@tanstack/react-query'
+import Loading from '@/web/components/loading'
 
 export default function PegawaiPicker({
     value,
@@ -56,8 +56,8 @@ export default function PegawaiPicker({
                     type="button"
                     variant="outline"
                     className={cn(
-                        'w-full justify-start rounded-xl text-sm font-normal',
-                        selected && 'h-14'
+                        'w-full justify-start rounded-lg text-sm font-normal',
+                        selected && 'h-auto min-h-12'
                     )}
                 >
                     {selected !== undefined && (
@@ -65,7 +65,17 @@ export default function PegawaiPicker({
                             {pegawaiSelected.isSuccess &&
                                 pegawaiSelected.data && (
                                     <div className="flex items-center gap-3">
-                                        <FiUser className="h-5 w-5 text-primary" />
+                                        <img
+                                            src={
+                                                pegawaiSelected.data
+                                                    .jenisKelamin ===
+                                                'PEREMPUAN'
+                                                    ? '/images/icons/woman.png'
+                                                    : '/images/icons/man.png'
+                                            }
+                                            alt="rekanan"
+                                            className="h-10 w-10"
+                                        />
                                         <div className="flex flex-col text-left">
                                             <span className="line-clamp-1">
                                                 {pegawaiSelected.data
@@ -84,10 +94,7 @@ export default function PegawaiPicker({
                                 )}
                             {pegawaiSelected.isLoading && (
                                 <div className="flex items-center gap-3">
-                                    <FiUser className="h-5 w-5 text-primary" />
-                                    <div className="flex flex-col text-left">
-                                        <span>Loading...</span>
-                                    </div>
+                                    <Loading />
                                 </div>
                             )}
                         </div>
