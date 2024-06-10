@@ -1,8 +1,9 @@
 import { rkaSchema } from '@/app/api/schema/rka'
-import { rka } from '@/server/db/schema'
+import { aktivitasRba, rka } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { eq, like, or } from 'drizzle-orm'
+import { and, eq, isNotNull, like, or } from 'drizzle-orm'
 import { z } from 'zod'
+import { aktivitasRbaSchema } from '../schema/aktivitas-rba'
 
 export const rkaRouter = createTRPCRouter({
     getAll: userProcedure
@@ -12,19 +13,18 @@ export const rkaRouter = createTRPCRouter({
             })
         )
         .query(async ({ ctx, input }) => {
-            return await ctx.db
-                .select()
-                .from(rka)
-                .where(
-                    input.search
-                        ? or(like(rka.uraian, `%${input.search}%`))
-                        : undefined
-                )
+            return await ctx.db.query.rka.findMany({
+                where: input.search
+                    ? or(like(rka.uraian, `%${input.search}%`))
+                    : undefined,
+                with: { rba: true },
+            })
         }),
 
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {
         return await ctx.db.query.rka.findFirst({
             where: eq(rka.id, input),
+            with: { rba: true },
         })
     }),
 
@@ -47,6 +47,58 @@ export const rkaRouter = createTRPCRouter({
         .input(z.number())
         .mutation(async ({ ctx, input }) => {
             await ctx.db.delete(rka).where(eq(rka.id, input))
+
+            return { message: 'Data berhasil dihapus' }
+        }),
+
+    addAktivitasToSubKegiatan: userProcedure
+        .input(
+            aktivitasRbaSchema
+                .pick({
+                    subKegiatanRkaId: true,
+                })
+                .merge(z.object({ aktivitasRbaId: z.number() }))
+        )
+        .mutation(async ({ ctx, input }) => {
+            await ctx.db
+                .update(aktivitasRba)
+                .set({ subKegiatanRkaId: input.subKegiatanRkaId })
+                .where(eq(aktivitasRba.id, input.aktivitasRbaId))
+
+            return { message: 'Data berhasil disimpan' }
+        }),
+
+    getAktivitasByRbaId: userProcedure
+        .input(z.number())
+        .query(async ({ ctx, input }) => {
+            return await ctx.db.query.aktivitasRba.findMany({
+                where: and(
+                    eq(aktivitasRba.rbaId, input),
+                    isNotNull(aktivitasRba.subKegiatanRkaId)
+                ),
+                with: {
+                    subKegiatanRka: {
+                        columns: {
+                            kode: true,
+                            nama: true,
+                        },
+                        with: {
+                            aktivitasRba: true,
+                        },
+                    },
+                },
+            })
+        }),
+
+    deleteAktivitasByRbaId: userProcedure
+        .input(z.number())
+        .mutation(async ({ ctx, input }) => {
+            await ctx.db
+                .update(aktivitasRba)
+                .set({
+                    subKegiatanRkaId: null,
+                })
+                .where(eq(aktivitasRba.id, input))
 
             return { message: 'Data berhasil dihapus' }
         }),

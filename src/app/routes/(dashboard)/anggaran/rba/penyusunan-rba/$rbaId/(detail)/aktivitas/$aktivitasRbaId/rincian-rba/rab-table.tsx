@@ -128,7 +128,9 @@ export default function RincianRabTable() {
                                                     item.volume
                                                 ).toLocaleString('id-ID')}
                                             </TableCell>
-                                            <TableCell>{item.satuan}</TableCell>
+                                            <TableCell className="text-center">
+                                                {item.satuan}
+                                            </TableCell>
                                             <TableCell className="text-right">
                                                 {Number(
                                                     item.harga

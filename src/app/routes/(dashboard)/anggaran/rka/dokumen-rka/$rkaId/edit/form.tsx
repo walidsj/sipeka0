@@ -18,6 +18,7 @@ import { z } from 'zod'
 import { format } from 'date-fns'
 import { Textarea } from '@/web/components/ui/textarea'
 import { rkaSchema } from '@/app/api/schema/rka'
+import RbaPicker from '../../../../rba/penyusunan-rba/rba-picker'
 
 export default function EditForm({ data }: { data: typeof rka.$inferSelect }) {
     const navigate = useNavigate()
@@ -27,6 +28,7 @@ export default function EditForm({ data }: { data: typeof rka.$inferSelect }) {
         resolver: zodResolver(rkaSchema),
         mode: 'onTouched',
         defaultValues: {
+            rbaId: data.rbaId ?? undefined,
             noDokumen: data.noDokumen ?? '',
             uraian: data.uraian ?? '',
             tglDokumen: data.tglDokumen ?? undefined,
@@ -60,6 +62,23 @@ export default function EditForm({ data }: { data: typeof rka.$inferSelect }) {
                     disabled={edit.isPending}
                     className="flex max-w-96 flex-col gap-2"
                 >
+                    <FormField
+                        name="rbaId"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Dokumen RBA</FormLabel>
+                                <FormControl>
+                                    <RbaPicker
+                                        value={field.value}
+                                        onValueChange={(val) =>
+                                            field.onChange(val)
+                                        }
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
                     <FormField
                         name="noDokumen"
                         render={({ field }) => (

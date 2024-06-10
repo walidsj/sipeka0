@@ -61,13 +61,13 @@ export default function DashboardLayout() {
                                 variant="ghost"
                                 className={cn(
                                     'h-14 rounded-none px-5',
-                                    pathname.startsWith('/belanja') &&
+                                    pathname.startsWith('/pendapatan') &&
                                         'border-b-4 border-primary text-primary'
                                 )}
                             >
-                                <Link to="/belanja">
-                                    <FiShoppingCart className="mr-3" />
-                                    Belanja
+                                <Link to="/pendapatan/perekaman">
+                                    <FiPocket className="mr-3" />
+                                    Pendapatan
                                 </Link>
                             </Button>
                         </li>
@@ -77,13 +77,13 @@ export default function DashboardLayout() {
                                 variant="ghost"
                                 className={cn(
                                     'h-14 rounded-none px-5',
-                                    pathname.startsWith('/pendapatan') &&
+                                    pathname.startsWith('/belanja') &&
                                         'border-b-4 border-primary text-primary'
                                 )}
                             >
-                                <Link to="/pendapatan/perekaman">
-                                    <FiPocket className="mr-3" />
-                                    Pendapatan
+                                <Link to="/belanja">
+                                    <FiShoppingCart className="mr-3" />
+                                    Belanja
                                 </Link>
                             </Button>
                         </li>

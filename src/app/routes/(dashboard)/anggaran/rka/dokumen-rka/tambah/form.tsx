@@ -17,12 +17,7 @@ import { z } from 'zod'
 import { Textarea } from '@/web/components/ui/textarea'
 import { format } from 'date-fns'
 import { rkaSchema } from '@/app/api/schema/rka'
-
-const defaultValues = {
-    noDokumen: '',
-    uraian: '',
-    tglDokumen: undefined,
-}
+import RbaPicker from '../../../rba/penyusunan-rba/rba-picker'
 
 export default function CreateForm() {
     const navigate = useNavigate()
@@ -30,7 +25,12 @@ export default function CreateForm() {
     const form = useForm<z.infer<typeof rkaSchema>>({
         resolver: zodResolver(rkaSchema),
         mode: 'onTouched',
-        defaultValues,
+        defaultValues: {
+            rbaId: undefined,
+            noDokumen: '',
+            uraian: '',
+            tglDokumen: undefined,
+        },
     })
 
     const create = api.rka.create.useMutation({
@@ -59,6 +59,23 @@ export default function CreateForm() {
                     disabled={create.isPending}
                     className="flex max-w-96 flex-col gap-2"
                 >
+                    <FormField
+                        name="rbaId"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Dokumen RBA</FormLabel>
+                                <FormControl>
+                                    <RbaPicker
+                                        value={field.value}
+                                        onValueChange={(val) =>
+                                            field.onChange(val)
+                                        }
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
                     <FormField
                         name="noDokumen"
                         render={({ field }) => (

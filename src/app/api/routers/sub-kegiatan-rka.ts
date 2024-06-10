@@ -1,13 +1,29 @@
 import { subKegiatanRkaSchema } from '@/app/api/schema/sub-kegiatan-rka'
 import { subKegiatanRka } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { eq } from 'drizzle-orm'
+import { eq, like, or } from 'drizzle-orm'
 import { z } from 'zod'
 
 export const subKegiatanRkaRouter = createTRPCRouter({
-    getAll: userProcedure.query(async ({ ctx }) => {
-        return await ctx.db.select().from(subKegiatanRka)
-    }),
+    getAll: userProcedure
+        .input(
+            z.object({
+                search: z.string().nullish(),
+            })
+        )
+        .query(async ({ ctx, input }) => {
+            return await ctx.db
+                .select()
+                .from(subKegiatanRka)
+                .where(
+                    input.search
+                        ? or(
+                              like(subKegiatanRka.nama, `%${input.search}%`),
+                              like(subKegiatanRka.kode, `%${input.search}%`)
+                          )
+                        : undefined
+                )
+        }),
 
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {
         return await ctx.db.query.subKegiatanRka.findFirst({

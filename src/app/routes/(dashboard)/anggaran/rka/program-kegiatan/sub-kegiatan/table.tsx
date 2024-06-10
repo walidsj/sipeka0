@@ -21,9 +21,10 @@ import { FiChevronsDown, FiEdit, FiTrash } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
 export default function SubKegiatanRkaTable() {
-    const subKegiatanRka = api.subKegiatanRka.getAll.useQuery(undefined, {
-        placeholderData: keepPreviousData,
-    })
+    const subKegiatanRka = api.subKegiatanRka.getAll.useQuery(
+        {},
+        { placeholderData: keepPreviousData }
+    )
 
     const deleteSubKegiatanRka = api.subKegiatanRka.deleteById.useMutation({
         onMutate() {
@@ -65,9 +66,7 @@ export default function SubKegiatanRkaTable() {
                                 {index + 1}
                             </TableCell>
                             <TableCell>{item.kode}</TableCell>
-                            <TableCell className="font-semibold">
-                                {item.nama}
-                            </TableCell>
+                            <TableCell>{item.nama}</TableCell>
                             <TableCell>
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>

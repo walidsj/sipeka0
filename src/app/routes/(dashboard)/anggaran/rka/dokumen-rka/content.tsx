@@ -71,6 +71,16 @@ export default function RkaContentList() {
                                     }
                                 )}
                             </CardDescription>
+                            <p className="rounded-lg border border-yellow-300 bg-yellow-50 p-2 text-xs text-black">
+                                RBA: {item.rba?.noDokumen}
+                                <br />
+                                Tanggal:{' '}
+                                {format(
+                                    String(item.rba?.tglDokumen),
+                                    'dd MMMM yyyy',
+                                    { locale: id }
+                                )}
+                            </p>
                         </CardHeader>
                         <CardContent>
                             <div className="flex gap-3">

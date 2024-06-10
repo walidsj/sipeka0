@@ -24,7 +24,7 @@ export default function Layout() {
                 {rka.data && (
                     <CardHeader className="flex flex-row justify-start gap-5">
                         <img
-                            src="/images/icons/research.png"
+                            src="/images/icons/documentation.png"
                             className="h-20 w-20"
                             alt="RKA"
                         />
@@ -32,15 +32,25 @@ export default function Layout() {
                             <CardDescription>
                                 Rencana Kerja Anggaran (RKA)
                             </CardDescription>
-                            <CardTitle>{rka.data?.uraian}</CardTitle>
+                            <CardTitle>{rka.data.uraian}</CardTitle>
                             <CardDescription>
-                                No. Dokumen: {rka.data?.noDokumen}, tanggal:{' '}
+                                No. Dokumen: {rka.data.noDokumen}, tanggal:{' '}
                                 {format(
                                     String(rka.data.tglDokumen ?? ''),
                                     'dd MMMM yyyy',
                                     { locale: id }
                                 )}
                             </CardDescription>
+                            <p className="rounded-lg border border-yellow-300 bg-yellow-50 p-2 text-xs text-black">
+                                RBA: {rka.data.rba?.noDokumen}
+                                <br />
+                                Tanggal:{' '}
+                                {format(
+                                    String(rka.data.rba?.tglDokumen),
+                                    'dd MMMM yyyy',
+                                    { locale: id }
+                                )}
+                            </p>
                         </div>
                     </CardHeader>
                 )}
