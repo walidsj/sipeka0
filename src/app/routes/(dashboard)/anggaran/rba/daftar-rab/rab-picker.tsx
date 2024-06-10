@@ -127,9 +127,9 @@ export default function RabPicker({
                                             {index + 1}.
                                         </TableCell>
                                         <TableCell>
-                                            <p>{item.kodeRekening}</p>
+                                            <p>{item.rekening?.kode}</p>
                                             <p className="text-xs text-slate-500">
-                                                {item.uraianRekening}
+                                                {item.rekening?.uraian}
                                             </p>
                                         </TableCell>
                                         <TableCell>

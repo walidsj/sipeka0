@@ -1,3 +1,4 @@
+import Loading from '@/web/components/loading'
 import { Button } from '@/web/components/ui/button'
 import {
     DropdownMenu,
@@ -70,7 +71,7 @@ export default function RincianRabTable() {
                 {rincianRbaBelanja.isLoading && (
                     <TableRow>
                         <TableCell colSpan={8} className="text-center">
-                            Memuat data...
+                            <Loading />
                         </TableCell>
                     </TableRow>
                 )}

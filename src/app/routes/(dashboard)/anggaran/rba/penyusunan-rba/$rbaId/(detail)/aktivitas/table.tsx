@@ -1,3 +1,4 @@
+import Loading from '@/web/components/loading'
 import { Badge } from '@/web/components/ui/badge'
 import { Button } from '@/web/components/ui/button'
 import {
@@ -59,7 +60,7 @@ export default function AktivitasTable() {
                 {aktivitasRba.isLoading && (
                     <TableRow>
                         <TableCell colSpan={5} className="text-center">
-                            Memuat data...
+                            <Loading />
                         </TableCell>
                     </TableRow>
                 )}
