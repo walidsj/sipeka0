@@ -31,7 +31,7 @@ export default function Dashboard() {
                         alt="Tanggal DBA"
                         className="h-14 w-14"
                     />
-                    <div className="flex flex-col">
+                    <div className="flex w-full flex-col">
                         <CardDescription>DBA Aktif</CardDescription>
                         <CardTitle>
                             {latestDba.data &&
@@ -56,7 +56,7 @@ export default function Dashboard() {
                         alt="Pagu Belanja"
                         className="h-14 w-14"
                     />
-                    <div className="flex flex-col">
+                    <div className="flex w-full flex-col">
                         <CardDescription>Pagu Belanja</CardDescription>
                         <CardTitle>
                             {targetBelanja.data &&
@@ -74,7 +74,7 @@ export default function Dashboard() {
                         alt="Target Pendapatan"
                         className="h-14 w-14"
                     />
-                    <div className="flex flex-col">
+                    <div className="flex w-full flex-col">
                         <CardDescription>Target Pendapatan</CardDescription>
                         <CardTitle>
                             {targetPendapatan.data &&
@@ -92,7 +92,7 @@ export default function Dashboard() {
                         alt="Realisasi Belanja"
                         className="h-14 w-14"
                     />
-                    <div className="flex flex-col">
+                    <div className="flex w-full flex-col">
                         <CardDescription>Realisasi Belanja</CardDescription>
                         <CardTitle>10.150.558.543</CardTitle>
                         <CardDescription className="text-xs">
@@ -109,7 +109,7 @@ export default function Dashboard() {
                         alt="Realisasi Pendapatan"
                         className="h-14 w-14"
                     />
-                    <div className="flex flex-col">
+                    <div className="flex w-full flex-col">
                         <CardDescription>Realisasi Pendapatan</CardDescription>
                         <CardTitle>
                             {realisasiPendapatan.data &&
