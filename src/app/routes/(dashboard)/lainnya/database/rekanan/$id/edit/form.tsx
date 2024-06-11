@@ -134,8 +134,6 @@ export default function EditForm({
                                     </FormItem>
                                 )}
                             />
-                        </div>
-                        <div className="flex flex-col gap-2">
                             <FormField
                                 name="npwp"
                                 render={({ field }) => (
@@ -188,6 +186,8 @@ export default function EditForm({
                                     </FormItem>
                                 )}
                             />
+                        </div>
+                        <div className="flex flex-col gap-2">
                             <FormField
                                 control={form.control}
                                 name="bankId"
