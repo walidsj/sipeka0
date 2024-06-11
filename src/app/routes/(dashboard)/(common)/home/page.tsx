@@ -4,7 +4,10 @@ import {
     CardHeader,
     CardTitle,
 } from '@/web/components/ui/card'
+import { Progress } from '@/web/components/ui/progress'
 import { api } from '@/web/trpc/react'
+import { format } from 'date-fns'
+import { id } from 'date-fns/locale'
 import React from 'react'
 import { FiGlobe, FiMail, FiPhone, FiPrinter } from 'react-icons/fi'
 
@@ -15,8 +18,33 @@ export default function Dashboard() {
 
     const targetPendapatan = api.pendapatan.getTarget.useQuery()
 
+    const latestDba = api.dba.getLatest.useQuery()
+
     return (
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-5 gap-4">
+            <Card>
+                <CardHeader className="flex flex-row items-center gap-4">
+                    <img
+                        src="/images/icons/document.png"
+                        alt="Tanggal DBA"
+                        className="h-14 w-14"
+                    />
+                    <div className="flex flex-col">
+                        <CardDescription>DBA Aktif</CardDescription>
+                        <CardTitle>
+                            {latestDba.data && latestDba.data.uraian}
+                        </CardTitle>
+                        <CardDescription className="text-xs">
+                            {latestDba.data &&
+                                format(
+                                    String(latestDba.data.tglDokumen),
+                                    'dd MMMM yyyy',
+                                    { locale: id }
+                                )}
+                        </CardDescription>
+                    </div>
+                </CardHeader>
+            </Card>
             <Card>
                 <CardHeader className="flex flex-row items-center gap-4">
                     <img
@@ -24,9 +52,9 @@ export default function Dashboard() {
                         alt="Pagu Belanja"
                         className="h-14 w-14"
                     />
-                    <div className="flex flex-col gap-1">
-                        <CardTitle>22.000.000.000</CardTitle>
+                    <div className="flex flex-col">
                         <CardDescription>Pagu Belanja</CardDescription>
+                        <CardTitle>22.000.000.000</CardTitle>
                     </div>
                 </CardHeader>
             </Card>
@@ -37,11 +65,13 @@ export default function Dashboard() {
                         alt="Realisasi Belanja"
                         className="h-14 w-14"
                     />
-                    <div className="flex flex-col gap-1">
+                    <div className="flex flex-col">
+                        <CardDescription>Realisasi Belanja</CardDescription>
                         <CardTitle>10.150.558.543</CardTitle>
-                        <CardDescription>
-                            Realisasi Belanja (46.14%)
+                        <CardDescription className="text-xs">
+                            46,14%
                         </CardDescription>
+                        <Progress value={46.14} />
                     </div>
                 </CardHeader>
             </Card>
@@ -52,14 +82,14 @@ export default function Dashboard() {
                         alt="Target Pendapatan"
                         className="h-14 w-14"
                     />
-                    <div className="flex flex-col gap-1">
+                    <div className="flex flex-col">
+                        <CardDescription>Target Pendapatan</CardDescription>
                         <CardTitle>
                             {targetPendapatan.data &&
                                 Number(targetPendapatan.data).toLocaleString(
                                     'id-ID'
                                 )}
                         </CardTitle>
-                        <CardDescription>Target Pendapatan</CardDescription>
                     </div>
                 </CardHeader>
             </Card>
@@ -70,15 +100,15 @@ export default function Dashboard() {
                         alt="Realisasi Pendapatan"
                         className="h-14 w-14"
                     />
-                    <div className="flex flex-col gap-1">
+                    <div className="flex flex-col">
+                        <CardDescription>Realisasi Pendapatan</CardDescription>
                         <CardTitle>
                             {realisasiPendapatan.data &&
                                 Number(realisasiPendapatan.data).toLocaleString(
                                     'id-ID'
                                 )}
                         </CardTitle>
-                        <CardDescription>
-                            Realisasi Pendapatan (
+                        <CardDescription className="text-xs">
                             {targetPendapatan.data &&
                                 realisasiPendapatan.data &&
                                 (
@@ -89,8 +119,16 @@ export default function Dashboard() {
                                 ).toLocaleString('id-ID', {
                                     maximumFractionDigits: 2,
                                 })}
-                            %)
+                            %
                         </CardDescription>
+                        <Progress
+                            value={
+                                Number(
+                                    Number(realisasiPendapatan.data) /
+                                        Number(targetPendapatan.data)
+                                ) * 100
+                            }
+                        />
                     </div>
                 </CardHeader>
             </Card>
