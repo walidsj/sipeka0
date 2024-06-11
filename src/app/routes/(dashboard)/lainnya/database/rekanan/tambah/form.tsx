@@ -37,9 +37,6 @@ export default function CreateForm() {
             alamat: '',
             npwp: '',
             noTelp: '',
-            namaPimpinan: '',
-            namaPic: '',
-            noPic: '',
             statusRekanan: undefined,
             bankId: undefined,
             namaRekening: '',
@@ -125,42 +122,6 @@ export default function CreateForm() {
                                         <FormLabel>Alamat</FormLabel>
                                         <FormControl>
                                             <Textarea {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                name="namaPimpinan"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Nama Pimpinan</FormLabel>
-                                        <FormControl>
-                                            <Input {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                name="namaPic"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Nama PIC</FormLabel>
-                                        <FormControl>
-                                            <Input {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                name="noPic"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>No. PIC</FormLabel>
-                                        <FormControl>
-                                            <Input {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>

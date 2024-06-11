@@ -43,9 +43,6 @@ export default function EditForm({
             alamat: data.alamat!,
             npwp: data.npwp!,
             noTelp: data.noTelp!,
-            namaPimpinan: data.namaPimpinan!,
-            namaPic: data.namaPic!,
-            noPic: data.noPic!,
             statusRekanan: data.statusRekanan!,
             bankId: data.bankId!,
             namaRekening: data.namaRekening!,
@@ -132,42 +129,6 @@ export default function EditForm({
                                         <FormLabel>Alamat</FormLabel>
                                         <FormControl>
                                             <Textarea {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                name="namaPimpinan"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Nama Pimpinan</FormLabel>
-                                        <FormControl>
-                                            <Input {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                name="namaPic"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Nama PIC</FormLabel>
-                                        <FormControl>
-                                            <Input {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                name="noPic"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>No. PIC</FormLabel>
-                                        <FormControl>
-                                            <Input {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
