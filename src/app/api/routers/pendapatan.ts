@@ -21,7 +21,10 @@ export const pendapatanRouter = createTRPCRouter({
                 where: input.search
                     ? like(pendapatan.keterangan, `%${input.search}%`)
                     : undefined,
-                orderBy: desc(pendapatan.tglDokumen),
+                orderBy: [
+                    desc(pendapatan.tglDokumen),
+                    desc(pendapatan.createdAt),
+                ],
             })
 
             return pendapatanList.map((pendapatan) => {
