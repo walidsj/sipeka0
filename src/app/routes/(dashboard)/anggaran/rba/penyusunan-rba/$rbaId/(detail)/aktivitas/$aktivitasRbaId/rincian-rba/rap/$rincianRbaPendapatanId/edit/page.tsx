@@ -7,11 +7,11 @@ export default function EditPage() {
     const params = useParams<{
         rbaId: string
         aktivitasRbaId: string
-        rincianRbaId: string
+        rincianRbaPendapatanId: string
     }>()
 
     const rincianRba = api.rincianRbaPendapatan.getById.useQuery(
-        parseInt(params.rincianRbaId ?? '')
+        parseInt(params.rincianRbaPendapatanId ?? '')
     )
 
     if ((rincianRba.isSuccess && !rincianRba.data) || rincianRba.isError)

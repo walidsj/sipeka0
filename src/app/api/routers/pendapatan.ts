@@ -1,9 +1,10 @@
 import { rekeningLevel6 } from '@/data/rekening'
-import { pendapatan } from '@/server/db/schema'
+import { aktivitasRba, dba, pendapatan } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { eq, like } from 'drizzle-orm'
+import { and, desc, eq, like } from 'drizzle-orm'
 import { z } from 'zod'
 import { pendapatanSchema } from '../schema/pendapatan'
+import { TRPCError } from '@trpc/server'
 
 export const pendapatanRouter = createTRPCRouter({
     getAll: userProcedure
@@ -78,5 +79,36 @@ export const pendapatanRouter = createTRPCRouter({
         const realisasi = await ctx.db.select().from(pendapatan)
 
         return realisasi.reduce((acc, item) => acc + Number(item.jumlah), 0)
+    }),
+
+    getTarget: userProcedure.query(async ({ ctx }) => {
+        const currentDba = await ctx.db.query.dba.findFirst({
+            orderBy: desc(dba.tglDokumen),
+            with: { rba: true },
+        })
+
+        if (!currentDba) {
+            throw new TRPCError({
+                code: 'NOT_FOUND',
+                message: 'Belum ada penetapan DBA',
+            })
+        }
+
+        const aktivitasPendapatan = await ctx.db.query.aktivitasRba.findMany({
+            where: and(
+                eq(aktivitasRba.rbaId, Number(currentDba.rbaId)),
+                eq(aktivitasRba.jenis, 'PENDAPATAN')
+            ),
+            with: { rincianRbaPendapatan: true },
+        })
+
+        return aktivitasPendapatan.reduce((acc, item) => {
+            return (
+                acc +
+                item.rincianRbaPendapatan.reduce((acc, item) => {
+                    return acc + Number(item.jumlah)
+                }, 0)
+            )
+        }, 0)
     }),
 })

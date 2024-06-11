@@ -63,7 +63,7 @@ export default function Layout() {
                                 )}
                                 asChild
                             >
-                                <Link to="/anggaran/dba">
+                                <Link to="/anggaran/dba/penetapan">
                                     <IoNewspaperOutline className="h-6 w-6" />
                                     <span className="text-wrap text-xs">
                                         DBA

@@ -258,6 +258,14 @@ export const rka = mysqlTable('rka', {
     tglDokumen: timestamp('tgl_dokumen', { mode: 'date' }),
 })
 
+export const dba = mysqlTable('dba', {
+    id: serial('id').primaryKey(),
+    noDokumen: varchar('no_dokumen', { length: 256 }),
+    rbaId: int('rka_id', { unsigned: true }),
+    uraian: varchar('uraian', { length: 256 }),
+    tglDokumen: timestamp('tgl_dokumen', { mode: 'date' }),
+})
+
 export const userRelations = relations(user, ({ one }) => ({
     pegawai: one(pegawai, {
         fields: [user.pegawaiId],
@@ -326,6 +334,7 @@ export const rincianRbaPendapatanRelations = relations(
 export const rbaRelations = relations(rba, ({ many, one }) => ({
     aktivitas: many(aktivitasRba),
     rka: one(rka),
+    dba: one(dba),
 }))
 
 export const aktivitasRbaRelations = relations(
@@ -371,6 +380,13 @@ export const pendapatanRelations = relations(pendapatan, ({ one }) => ({
 export const rkaRelations = relations(rka, ({ one }) => ({
     rba: one(rba, {
         fields: [rka.rbaId],
+        references: [rba.id],
+    }),
+}))
+
+export const dbaRelations = relations(dba, ({ one }) => ({
+    rba: one(rba, {
+        fields: [dba.rbaId],
         references: [rba.id],
     }),
 }))

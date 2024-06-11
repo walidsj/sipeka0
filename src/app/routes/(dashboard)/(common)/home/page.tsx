@@ -13,6 +13,8 @@ export default function Dashboard() {
 
     const realisasiPendapatan = api.pendapatan.getRealisasiAll.useQuery()
 
+    const targetPendapatan = api.pendapatan.getTarget.useQuery()
+
     return (
         <div className="grid grid-cols-4 gap-4">
             <Card>
@@ -51,7 +53,11 @@ export default function Dashboard() {
                         className="h-14 w-14"
                     />
                     <div className="flex flex-col gap-1">
-                        <CardTitle>22.000.000.000</CardTitle>
+                        <CardTitle>
+                            {Number(targetPendapatan.data).toLocaleString(
+                                'id-ID'
+                            )}
+                        </CardTitle>
                         <CardDescription>Target Pendapatan</CardDescription>
                     </div>
                 </CardHeader>
@@ -74,7 +80,7 @@ export default function Dashboard() {
                             {(
                                 Number(
                                     Number(realisasiPendapatan.data) /
-                                        Number(22_000_000_000)
+                                        Number(targetPendapatan.data)
                                 ) * 100
                             ).toLocaleString('id-ID', {
                                 maximumFractionDigits: 2,
