@@ -19,6 +19,7 @@ import { pendapatanSchema } from '@/app/api/schema/pendapatan'
 import RapPicker from '@/app/routes/(dashboard)/anggaran/rba/daftar-rap/rap-picker'
 import { Input } from '@/web/components/ui/input'
 import { format } from 'date-fns'
+import { NumericFormat } from 'react-number-format'
 
 export default function EditForm({
     data,
@@ -116,14 +117,15 @@ export default function EditForm({
                             <FormItem>
                                 <FormLabel>Jumlah</FormLabel>
                                 <FormControl>
-                                    <Input
-                                        type="number"
-                                        value={String(field.value ?? '')}
-                                        onChange={(e) => {
-                                            field.onChange(
-                                                Number(e.target.value)
-                                            )
-                                        }}
+                                    <NumericFormat
+                                        customInput={Input}
+                                        value={field.value}
+                                        onValueChange={(val) =>
+                                            field.onChange(val.floatValue)
+                                        }
+                                        thousandSeparator={true}
+                                        decimalScale={2}
+                                        prefix={'Rp '}
                                     />
                                 </FormControl>
                                 <FormMessage />

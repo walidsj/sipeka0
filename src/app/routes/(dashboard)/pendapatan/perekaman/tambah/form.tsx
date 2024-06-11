@@ -18,6 +18,7 @@ import { Textarea } from '@/web/components/ui/textarea'
 import { format } from 'date-fns'
 import RapPicker from '../../../anggaran/rba/daftar-rap/rap-picker'
 import { pendapatanSchema } from '@/app/api/schema/pendapatan'
+import { NumericFormat } from 'react-number-format'
 
 export default function CreateForm() {
     const navigate = useNavigate()
@@ -112,14 +113,15 @@ export default function CreateForm() {
                             <FormItem>
                                 <FormLabel>Jumlah</FormLabel>
                                 <FormControl>
-                                    <Input
-                                        type="number"
-                                        value={String(field.value ?? '')}
-                                        onChange={(e) => {
-                                            field.onChange(
-                                                Number(e.target.value)
-                                            )
-                                        }}
+                                    <NumericFormat
+                                        customInput={Input}
+                                        value={field.value}
+                                        onValueChange={(val) =>
+                                            field.onChange(val.floatValue)
+                                        }
+                                        thousandSeparator={true}
+                                        decimalScale={2}
+                                        prefix={'Rp '}
                                     />
                                 </FormControl>
                                 <FormMessage />
