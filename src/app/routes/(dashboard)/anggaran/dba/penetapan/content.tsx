@@ -55,7 +55,7 @@ export default function DbaContentList() {
                         <CardHeader>
                             <div className="mb-2">
                                 <img
-                                    src="/images/icons/documentation.png"
+                                    src="/images/icons/document.png"
                                     className="h-14"
                                     alt="DBA"
                                 />
