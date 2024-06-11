@@ -54,9 +54,10 @@ export default function Dashboard() {
                     />
                     <div className="flex flex-col gap-1">
                         <CardTitle>
-                            {Number(targetPendapatan.data).toLocaleString(
-                                'id-ID'
-                            )}
+                            {targetPendapatan.data &&
+                                Number(targetPendapatan.data).toLocaleString(
+                                    'id-ID'
+                                )}
                         </CardTitle>
                         <CardDescription>Target Pendapatan</CardDescription>
                     </div>
@@ -71,20 +72,23 @@ export default function Dashboard() {
                     />
                     <div className="flex flex-col gap-1">
                         <CardTitle>
-                            {Number(realisasiPendapatan.data).toLocaleString(
-                                'id-ID'
-                            )}
+                            {realisasiPendapatan.data &&
+                                Number(realisasiPendapatan.data).toLocaleString(
+                                    'id-ID'
+                                )}
                         </CardTitle>
                         <CardDescription>
                             Realisasi Pendapatan (
-                            {(
-                                Number(
-                                    Number(realisasiPendapatan.data) /
-                                        Number(targetPendapatan.data)
-                                ) * 100
-                            ).toLocaleString('id-ID', {
-                                maximumFractionDigits: 2,
-                            })}
+                            {targetPendapatan.data &&
+                                realisasiPendapatan.data &&
+                                (
+                                    Number(
+                                        Number(realisasiPendapatan.data) /
+                                            Number(targetPendapatan.data)
+                                    ) * 100
+                                ).toLocaleString('id-ID', {
+                                    maximumFractionDigits: 2,
+                                })}
                             %)
                         </CardDescription>
                     </div>
