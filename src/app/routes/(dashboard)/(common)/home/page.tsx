@@ -20,6 +20,8 @@ export default function Dashboard() {
 
     const latestDba = api.dba.getLatest.useQuery()
 
+    const targetBelanja = api.belanja.getTarget.useQuery()
+
     return (
         <div className="grid grid-cols-5 gap-4">
             <Card>
@@ -54,7 +56,12 @@ export default function Dashboard() {
                     />
                     <div className="flex flex-col">
                         <CardDescription>Pagu Belanja</CardDescription>
-                        <CardTitle>22.000.000.000</CardTitle>
+                        <CardTitle>
+                            {targetBelanja.data &&
+                                Number(targetBelanja.data).toLocaleString(
+                                    'id-ID'
+                                )}
+                        </CardTitle>
                     </div>
                 </CardHeader>
             </Card>
