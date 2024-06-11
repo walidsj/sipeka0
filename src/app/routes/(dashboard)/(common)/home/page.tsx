@@ -22,9 +22,11 @@ export default function Dashboard() {
 
     const targetBelanja = api.belanja.getTarget.useQuery()
 
+    const countDba = api.dba.count.useQuery()
+
     return (
         <div className="grid grid-cols-4 gap-4">
-            <Card className="col-span-2">
+            <Card>
                 <CardHeader className="flex flex-row items-center gap-4">
                     <img
                         src="/images/icons/document.png"
@@ -32,10 +34,9 @@ export default function Dashboard() {
                         className="h-14 w-14"
                     />
                     <div className="flex w-full flex-col">
-                        <CardDescription>DBA Aktif</CardDescription>
+                        <CardDescription>DBA Sedang Aktif</CardDescription>
                         <CardTitle>
-                            {latestDba.data &&
-                                `${latestDba.data.uraian} (${latestDba.data.noDokumen})`}
+                            {latestDba.data && latestDba.data.uraian}
                         </CardTitle>
                         <CardDescription className="text-xs">
                             Tanggal{' '}
@@ -45,6 +46,26 @@ export default function Dashboard() {
                                     'dd MMMM yyyy',
                                     { locale: id }
                                 )}
+                        </CardDescription>
+                    </div>
+                </CardHeader>
+            </Card>
+            <Card>
+                <CardHeader className="flex flex-row items-center gap-4">
+                    <img
+                        src="/images/icons/compliant.png"
+                        alt="Tanggal DBA"
+                        className="h-14 w-14"
+                    />
+                    <div className="flex w-full flex-col">
+                        <CardDescription>Penetapan DBA</CardDescription>
+                        <CardTitle>
+                            {countDba.data &&
+                                `${countDba.data.count.toLocaleString('id-ID')} Kali`}
+                        </CardTitle>
+                        <CardDescription className="text-xs">
+                            {countDba.data &&
+                                `${countDba.data.count.toLocaleString('id-ID')} DBA telah disahkan`}
                         </CardDescription>
                     </div>
                 </CardHeader>

@@ -1,7 +1,7 @@
 import { dbaSchema } from '@/app/api/schema/dba'
 import { dba } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { desc, eq, like, or } from 'drizzle-orm'
+import { count, desc, eq, isNotNull, like, or } from 'drizzle-orm'
 import { z } from 'zod'
 
 export const dbaRouter = createTRPCRouter({
@@ -54,5 +54,14 @@ export const dbaRouter = createTRPCRouter({
         return await ctx.db.query.dba.findFirst({
             orderBy: desc(dba.tglDokumen),
         })
+    }),
+
+    count: userProcedure.query(async ({ ctx }) => {
+        return (
+            await ctx.db
+                .select({ count: count(dba.id) })
+                .from(dba)
+                .where(isNotNull(dba.tglDokumen))
+        )[0]
     }),
 })
