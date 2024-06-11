@@ -23,8 +23,8 @@ export default function Dashboard() {
     const targetBelanja = api.belanja.getTarget.useQuery()
 
     return (
-        <div className="grid grid-cols-5 gap-4">
-            <Card>
+        <div className="grid grid-cols-4 gap-4">
+            <Card className="col-span-2">
                 <CardHeader className="flex flex-row items-center gap-4">
                     <img
                         src="/images/icons/document.png"
@@ -34,9 +34,11 @@ export default function Dashboard() {
                     <div className="flex flex-col">
                         <CardDescription>DBA Aktif</CardDescription>
                         <CardTitle>
-                            {latestDba.data && latestDba.data.uraian}
+                            {latestDba.data &&
+                                `${latestDba.data.uraian} (${latestDba.data.noDokumen})`}
                         </CardTitle>
                         <CardDescription className="text-xs">
+                            Tanggal{' '}
                             {latestDba.data &&
                                 format(
                                     String(latestDba.data.tglDokumen),
@@ -68,23 +70,6 @@ export default function Dashboard() {
             <Card>
                 <CardHeader className="flex flex-row items-center gap-4">
                     <img
-                        src="/images/icons/payment.png"
-                        alt="Realisasi Belanja"
-                        className="h-14 w-14"
-                    />
-                    <div className="flex flex-col">
-                        <CardDescription>Realisasi Belanja</CardDescription>
-                        <CardTitle>10.150.558.543</CardTitle>
-                        <CardDescription className="text-xs">
-                            46,14%
-                        </CardDescription>
-                        <Progress value={46.14} />
-                    </div>
-                </CardHeader>
-            </Card>
-            <Card>
-                <CardHeader className="flex flex-row items-center gap-4">
-                    <img
                         src="/images/icons/list.png"
                         alt="Target Pendapatan"
                         className="h-14 w-14"
@@ -97,6 +82,23 @@ export default function Dashboard() {
                                     'id-ID'
                                 )}
                         </CardTitle>
+                    </div>
+                </CardHeader>
+            </Card>
+            <Card>
+                <CardHeader className="flex flex-row items-center gap-4">
+                    <img
+                        src="/images/icons/payment.png"
+                        alt="Realisasi Belanja"
+                        className="h-14 w-14"
+                    />
+                    <div className="flex flex-col">
+                        <CardDescription>Realisasi Belanja</CardDescription>
+                        <CardTitle>10.150.558.543</CardTitle>
+                        <CardDescription className="text-xs">
+                            46,14%
+                        </CardDescription>
+                        <Progress value={46.14} />
                     </div>
                 </CardHeader>
             </Card>
