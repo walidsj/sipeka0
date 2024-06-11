@@ -120,6 +120,14 @@ export default function Dashboard() {
                             46,14%
                         </CardDescription>
                         <Progress value={46.14} />
+                        <CardDescription className="text-xs">
+                            Sisa Pagu:{' '}
+                            {targetBelanja.data &&
+                                Number(
+                                    Number(targetBelanja.data) -
+                                        Number(10_150_558_543)
+                                ).toLocaleString('id-ID')}
+                        </CardDescription>
                     </div>
                 </CardHeader>
             </Card>
@@ -159,6 +167,15 @@ export default function Dashboard() {
                                 ) * 100
                             }
                         />
+                        <CardDescription className="text-xs">
+                            Sisa Target:{' '}
+                            {targetPendapatan.data &&
+                                realisasiPendapatan.data &&
+                                Number(
+                                    Number(targetPendapatan.data) -
+                                        Number(realisasiPendapatan.data)
+                                ).toLocaleString('id-ID')}
+                        </CardDescription>
                     </div>
                 </CardHeader>
             </Card>

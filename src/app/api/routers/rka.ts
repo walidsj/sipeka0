@@ -4,6 +4,7 @@ import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { and, eq, isNotNull, like, or } from 'drizzle-orm'
 import { z } from 'zod'
 import { aktivitasRbaSchema } from '../schema/aktivitas-rba'
+import { TRPCError } from '@trpc/server'
 
 export const rkaRouter = createTRPCRouter({
     getAll: userProcedure
@@ -71,9 +72,20 @@ export const rkaRouter = createTRPCRouter({
     getAktivitasByRbaId: userProcedure
         .input(z.number())
         .query(async ({ ctx, input }) => {
+            const rkaItem = await ctx.db.query.rka.findFirst({
+                where: eq(rka.id, input),
+            })
+
+            if (!rkaItem) {
+                throw new TRPCError({
+                    code: 'NOT_FOUND',
+                    message: 'RBA tidak ada',
+                })
+            }
+
             return await ctx.db.query.aktivitasRba.findMany({
                 where: and(
-                    eq(aktivitasRba.rbaId, input),
+                    eq(aktivitasRba.rbaId, Number(rkaItem.rbaId)),
                     isNotNull(aktivitasRba.subKegiatanRkaId)
                 ),
                 with: {

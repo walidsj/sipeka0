@@ -14,8 +14,8 @@ import toast from 'react-hot-toast'
 import { useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
 import { aktivitasRbaSchema } from '@/app/api/schema/aktivitas-rba'
-import AktivitasRbaPicker from '@/app/routes/(dashboard)/anggaran/rba/penyusunan-rba/$rbaId/(detail)/aktivitas/aktivitas-rba-picker'
 import SubKegiatanRkaPicker from '../../../../program-kegiatan/sub-kegiatan-rka-picker'
+import AktivitasByRkaPicker from '@/app/routes/(dashboard)/anggaran/rba/penyusunan-rba/$rbaId/(detail)/aktivitas/aktivitas-by-rka-picker'
 
 const addAktivitasSchema = aktivitasRbaSchema
     .pick({
@@ -69,7 +69,7 @@ export default function AddAktivitasToSubKegiatanForm() {
                             <FormItem>
                                 <FormLabel>Aktivitas RBA</FormLabel>
                                 <FormControl>
-                                    <AktivitasRbaPicker
+                                    <AktivitasByRkaPicker
                                         value={field.value}
                                         onValueChange={(val) =>
                                             field.onChange(val)
