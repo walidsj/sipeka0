@@ -1,4 +1,5 @@
 import Loading from '@/web/components/loading'
+import { Badge } from '@/web/components/ui/badge'
 import { Button } from '@/web/components/ui/button'
 import {
     DropdownMenu,
@@ -14,6 +15,7 @@ import {
     TableHeader,
     TableRow,
 } from '@/web/components/ui/table'
+import { cn } from '@/web/lib/utils'
 import { api } from '@/web/trpc/react'
 import { keepPreviousData } from '@tanstack/react-query'
 import _ from 'lodash'
@@ -59,6 +61,7 @@ export default function AktivitasRbaTable() {
                     <TableHead className="w-1 text-center">No.</TableHead>
                     <TableHead>Kode Aktivitas</TableHead>
                     <TableHead>Nama Aktivitas</TableHead>
+                    <TableHead className="text-center">Jenis</TableHead>
                     <TableHead className="w-1" />
                 </TableRow>
             </TableHeader>
@@ -75,7 +78,7 @@ export default function AktivitasRbaTable() {
                     Object.keys(groupedData).map((key) => (
                         <React.Fragment key={key}>
                             <TableRow className="bg-blue-50 hover:bg-blue-50">
-                                <TableCell colSpan={4}>
+                                <TableCell colSpan={5}>
                                     <span className="mr-3 inline-block font-bold">
                                         {key.split('||')[0]}
                                     </span>
@@ -92,6 +95,20 @@ export default function AktivitasRbaTable() {
                                     <TableCell>{item.kode}</TableCell>
                                     <TableCell className="font-semibold">
                                         {item.nama}
+                                    </TableCell>
+                                    <TableCell className="text-center">
+                                        <Badge
+                                            className={cn(
+                                                item.jenis === 'BELANJA' &&
+                                                    'bg-red-500',
+                                                item.jenis === 'PENDAPATAN' &&
+                                                    'bg-green-500',
+                                                item.jenis === 'PEMBIAYAAN' &&
+                                                    'bg-yellow-500'
+                                            )}
+                                        >
+                                            {item.jenis}
+                                        </Badge>
                                     </TableCell>
                                     <TableCell>
                                         <DropdownMenu>

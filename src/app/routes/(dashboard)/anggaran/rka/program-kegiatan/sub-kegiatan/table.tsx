@@ -63,7 +63,7 @@ export default function SubKegiatanRkaTable() {
                     subKegiatanRka.data?.map((item, index) => (
                         <TableRow key={item.id}>
                             <TableCell className="text-center">
-                                {index + 1}
+                                {index + 1}.
                             </TableCell>
                             <TableCell>{item.kode}</TableCell>
                             <TableCell>{item.nama}</TableCell>
