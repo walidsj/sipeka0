@@ -19,6 +19,7 @@ import { Card, CardHeader } from '@/web/components/ui/card'
 import { Input } from '@/web/components/ui/input'
 import RabPicker from '@/app/routes/(dashboard)/anggaran/rba/daftar-rab/rab-picker'
 import { Label } from '@/web/components/ui/label'
+import { NumericFormat } from 'react-number-format'
 
 const newRincianRbaBelanjaSchema = rincianRbaBelanjaSchema.omit({
     aktivitasRbaId: true,
@@ -114,16 +115,17 @@ export default function EditForm({
                                     <FormItem>
                                         <FormLabel>Volume</FormLabel>
                                         <FormControl>
-                                            <Input
-                                                type="number"
-                                                value={String(
-                                                    field.value ?? ''
-                                                )}
-                                                onChange={(e) => {
+                                            <NumericFormat
+                                                customInput={Input}
+                                                value={field.value}
+                                                onValueChange={(val) =>
                                                     field.onChange(
-                                                        Number(e.target.value)
+                                                        val.floatValue
                                                     )
-                                                }}
+                                                }
+                                                thousandSeparator="."
+                                                decimalSeparator=","
+                                                decimalScale={2}
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -136,16 +138,18 @@ export default function EditForm({
                                     <FormItem>
                                         <FormLabel>Harga</FormLabel>
                                         <FormControl>
-                                            <Input
-                                                type="number"
-                                                value={String(
-                                                    field.value ?? ''
-                                                )}
-                                                onChange={(e) => {
+                                            <NumericFormat
+                                                customInput={Input}
+                                                value={field.value}
+                                                onValueChange={(val) =>
                                                     field.onChange(
-                                                        Number(e.target.value)
+                                                        val.floatValue
                                                     )
-                                                }}
+                                                }
+                                                thousandSeparator="."
+                                                decimalSeparator=","
+                                                decimalScale={2}
+                                                prefix={'Rp '}
                                             />
                                         </FormControl>
                                         <FormMessage />

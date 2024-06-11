@@ -17,6 +17,7 @@ import { z } from 'zod'
 import { rincianRbaPendapatanSchema } from '@/app/api/schema/rincian-rba-pendapatan'
 import { Input } from '@/web/components/ui/input'
 import RapPicker from '@/app/routes/(dashboard)/anggaran/rba/daftar-rap/rap-picker'
+import { NumericFormat } from 'react-number-format'
 
 const newRincianRbaPendapatanSchema = rincianRbaPendapatanSchema.omit({
     aktivitasRbaId: true,
@@ -96,14 +97,16 @@ export default function EditForm({
                             <FormItem>
                                 <FormLabel>Jumlah</FormLabel>
                                 <FormControl>
-                                    <Input
-                                        type="number"
-                                        value={String(field.value ?? '')}
-                                        onChange={(e) => {
-                                            field.onChange(
-                                                Number(e.target.value)
-                                            )
-                                        }}
+                                    <NumericFormat
+                                        customInput={Input}
+                                        value={field.value}
+                                        onValueChange={(val) =>
+                                            field.onChange(val.floatValue)
+                                        }
+                                        thousandSeparator="."
+                                        decimalSeparator=","
+                                        decimalScale={2}
+                                        prefix={'Rp '}
                                     />
                                 </FormControl>
                                 <FormMessage />
