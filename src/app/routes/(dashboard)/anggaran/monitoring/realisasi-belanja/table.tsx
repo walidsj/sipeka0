@@ -35,164 +35,215 @@ export default function MonitoringTable() {
     let totalRealisasi = 0
 
     return (
-        <Table className="border-collapse border">
-            <TableHeader>
-                <TableRow>
-                    <TableHead rowSpan={2} className="w-1 border text-center">
-                        Kode Rekening
-                    </TableHead>
-                    <TableHead rowSpan={2} className="border text-center">
-                        Uraian
-                    </TableHead>
-                    <TableHead className="border text-center" colSpan={3}>
-                        Rincian Perhitungan Anggaran
-                    </TableHead>
-                    <TableHead rowSpan={2} className="border text-center">
-                        Jumlah Pagu
-                    </TableHead>
-                    <TableHead colSpan={2} className="border text-center">
-                        Realisasi
-                    </TableHead>
-                    <TableHead rowSpan={2} className="border text-center">
-                        Sisa Anggaran
-                    </TableHead>
-                </TableRow>
-                <TableRow>
-                    <TableHead className="border text-center">Volume</TableHead>
-                    <TableHead className="border text-center">Satuan</TableHead>
-                    <TableHead className="border text-center">
-                        Harga Satuan
-                    </TableHead>
-                    <TableHead className="border text-center">
-                        Keuangan
-                    </TableHead>
-                    <TableHead className="border text-center">(%)</TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                {rbaMonitoring.data?.aktivitas.map((aktivitas) => (
-                    <React.Fragment key={aktivitas.id}>
-                        <TableRow className="bg-blue-50 font-semibold hover:bg-blue-100">
-                            <TableCell className="border">
-                                {aktivitas.kode}
-                            </TableCell>
-                            <TableCell className="border" colSpan={4}>
-                                {aktivitas.nama}
-                            </TableCell>
-                            <TableCell className="border"></TableCell>
-                            <TableCell className="border"></TableCell>
-                            <TableCell className="border"></TableCell>
-                            <TableCell className="border"></TableCell>
-                        </TableRow>
-                        {Object.keys(
-                            _.chain(aktivitas.rincianRbaBelanja)
-                                .groupBy((item) => item.rab?.kodeRekening)
-                                .value()
-                        ).map((key) => (
-                            <React.Fragment key={key}>
-                                <TableRow className="bg-yellow-50 hover:bg-yellow-100">
-                                    <TableCell className="border font-semibold">
-                                        {key}
-                                    </TableCell>
-                                    <TableCell
-                                        className="border font-semibold"
-                                        colSpan={4}
-                                    >
-                                        {
-                                            realisasiMonitoring.data?.find(
-                                                (item) => {
-                                                    return (
-                                                        item.kodeRekening ===
-                                                        key
-                                                    )
-                                                }
-                                            )?.rekening?.uraian
-                                        }
-                                    </TableCell>
-                                    <TableCell className="border text-right font-semibold">
-                                        {_.chain(aktivitas.rincianRbaBelanja)
-                                            .groupBy(
-                                                (item) => item.rab?.kodeRekening
-                                            )
-                                            .value()
-                                            [key].reduce(
-                                                (acc, item) =>
-                                                    acc +
-                                                    Number(
-                                                        Number(item.volume) *
-                                                            Number(item.harga)
-                                                    ),
-                                                0
-                                            )
-                                            .toLocaleString('id-ID')}
-                                    </TableCell>
-                                    <TableCell className="border text-right font-semibold">
-                                        {realisasiMonitoring?.data
-                                            ?.filter(
-                                                (item) =>
-                                                    item.kodeRekening === key &&
-                                                    _.chain(
-                                                        aktivitas.rincianRbaBelanja
-                                                    )
-                                                        .groupBy(
-                                                            (item) =>
-                                                                item.rab
-                                                                    ?.kodeRekening
+        <React.Fragment>
+            <Table className="border-collapse border">
+                <TableHeader>
+                    <TableRow>
+                        <TableHead
+                            rowSpan={2}
+                            className="w-1 border text-center"
+                        >
+                            Kode Rekening
+                        </TableHead>
+                        <TableHead rowSpan={2} className="border text-center">
+                            Uraian
+                        </TableHead>
+                        <TableHead className="border text-center" colSpan={3}>
+                            Rincian Perhitungan Anggaran
+                        </TableHead>
+                        <TableHead rowSpan={2} className="border text-center">
+                            Jumlah Pagu
+                        </TableHead>
+                        <TableHead colSpan={2} className="border text-center">
+                            Realisasi
+                        </TableHead>
+                        <TableHead rowSpan={2} className="border text-center">
+                            Sisa Anggaran
+                        </TableHead>
+                    </TableRow>
+                    <TableRow>
+                        <TableHead className="border text-center">
+                            Volume
+                        </TableHead>
+                        <TableHead className="border text-center">
+                            Satuan
+                        </TableHead>
+                        <TableHead className="border text-center">
+                            Harga Satuan
+                        </TableHead>
+                        <TableHead className="border text-center">
+                            Keuangan
+                        </TableHead>
+                        <TableHead className="border text-center">
+                            (%)
+                        </TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {rbaMonitoring.data?.aktivitas.map((aktivitas) => (
+                        <React.Fragment key={aktivitas.id}>
+                            <TableRow className="bg-blue-50 font-semibold hover:bg-blue-100">
+                                <TableCell className="border">
+                                    {aktivitas.kode}
+                                </TableCell>
+                                <TableCell className="border" colSpan={4}>
+                                    {aktivitas.nama}
+                                </TableCell>
+                                <TableCell className="border"></TableCell>
+                                <TableCell className="border"></TableCell>
+                                <TableCell className="border"></TableCell>
+                                <TableCell className="border"></TableCell>
+                            </TableRow>
+                            {Object.keys(
+                                _.chain(aktivitas.rincianRbaBelanja)
+                                    .groupBy((item) => item.rab?.kodeRekening)
+                                    .value()
+                            ).map((key) => (
+                                <React.Fragment key={key}>
+                                    <TableRow className="bg-yellow-50 hover:bg-yellow-100">
+                                        <TableCell className="border font-semibold">
+                                            {key}
+                                        </TableCell>
+                                        <TableCell
+                                            className="border font-semibold"
+                                            colSpan={4}
+                                        >
+                                            {
+                                                realisasiMonitoring.data?.find(
+                                                    (item) => {
+                                                        return (
+                                                            item.kodeRekening ===
+                                                            key
                                                         )
-                                                        .value()
-                                                        [key].map(
-                                                            (rincian) =>
-                                                                rincian.rabId
-                                                        )
-                                                        .includes(item.id)
+                                                    }
+                                                )?.rekening?.uraian
+                                            }
+                                        </TableCell>
+                                        <TableCell className="border text-right font-semibold">
+                                            {_.chain(
+                                                aktivitas.rincianRbaBelanja
                                             )
-                                            .reduce(
-                                                (acc, item) =>
-                                                    acc + Number(item.jumlah),
-                                                0
-                                            )
-                                            .toLocaleString('id-ID')}
-                                    </TableCell>
-                                    <TableCell className="border text-right">
-                                        {Number(
-                                            Number(
-                                                Number(
-                                                    realisasiMonitoring?.data
-                                                        ?.filter(
-                                                            (item) =>
-                                                                item.kodeRekening ===
-                                                                    key &&
-                                                                _.chain(
-                                                                    aktivitas.rincianRbaBelanja
-                                                                )
-                                                                    .groupBy(
-                                                                        (
-                                                                            item
-                                                                        ) =>
-                                                                            item
-                                                                                .rab
-                                                                                ?.kodeRekening
-                                                                    )
-                                                                    .value()
-                                                                    [key].map(
-                                                                        (
-                                                                            rincian
-                                                                        ) =>
-                                                                            rincian.rabId
-                                                                    )
-                                                                    .includes(
-                                                                        item.id
-                                                                    )
-                                                        )
-                                                        .reduce(
-                                                            (acc, item) =>
-                                                                acc +
+                                                .groupBy(
+                                                    (item) =>
+                                                        item.rab?.kodeRekening
+                                                )
+                                                .value()
+                                                [key].reduce(
+                                                    (acc, item) =>
+                                                        acc +
+                                                        Number(
+                                                            Number(
+                                                                item.volume
+                                                            ) *
                                                                 Number(
-                                                                    item.jumlah
-                                                                ),
-                                                            0
-                                                        ) ?? 0
-                                                ) /
+                                                                    item.harga
+                                                                )
+                                                        ),
+                                                    0
+                                                )
+                                                .toLocaleString('id-ID')}
+                                        </TableCell>
+                                        <TableCell className="border text-right font-semibold">
+                                            {realisasiMonitoring?.data
+                                                ?.filter(
+                                                    (item) =>
+                                                        item.kodeRekening ===
+                                                            key &&
+                                                        _.chain(
+                                                            aktivitas.rincianRbaBelanja
+                                                        )
+                                                            .groupBy(
+                                                                (item) =>
+                                                                    item.rab
+                                                                        ?.kodeRekening
+                                                            )
+                                                            .value()
+                                                            [key].map(
+                                                                (rincian) =>
+                                                                    rincian.rabId
+                                                            )
+                                                            .includes(item.id)
+                                                )
+                                                .reduce(
+                                                    (acc, item) =>
+                                                        acc +
+                                                        Number(item.jumlah),
+                                                    0
+                                                )
+                                                .toLocaleString('id-ID')}
+                                        </TableCell>
+                                        <TableCell className="border text-right">
+                                            {Number(
+                                                Number(
+                                                    Number(
+                                                        realisasiMonitoring?.data
+                                                            ?.filter(
+                                                                (item) =>
+                                                                    item.kodeRekening ===
+                                                                        key &&
+                                                                    _.chain(
+                                                                        aktivitas.rincianRbaBelanja
+                                                                    )
+                                                                        .groupBy(
+                                                                            (
+                                                                                item
+                                                                            ) =>
+                                                                                item
+                                                                                    .rab
+                                                                                    ?.kodeRekening
+                                                                        )
+                                                                        .value()
+                                                                        [
+                                                                            key
+                                                                        ].map(
+                                                                            (
+                                                                                rincian
+                                                                            ) =>
+                                                                                rincian.rabId
+                                                                        )
+                                                                        .includes(
+                                                                            item.id
+                                                                        )
+                                                            )
+                                                            .reduce(
+                                                                (acc, item) =>
+                                                                    acc +
+                                                                    Number(
+                                                                        item.jumlah
+                                                                    ),
+                                                                0
+                                                            ) ?? 0
+                                                    ) /
+                                                        _.chain(
+                                                            aktivitas.rincianRbaBelanja
+                                                        )
+                                                            .groupBy(
+                                                                (item) =>
+                                                                    item.rab
+                                                                        ?.kodeRekening
+                                                            )
+                                                            .value()
+                                                            [key].reduce(
+                                                                (acc, item) =>
+                                                                    acc +
+                                                                    Number(
+                                                                        Number(
+                                                                            item.volume
+                                                                        ) *
+                                                                            Number(
+                                                                                item.harga
+                                                                            )
+                                                                    ),
+                                                                0
+                                                            )
+                                                ) * 100
+                                            ).toLocaleString('id-ID', {
+                                                maximumFractionDigits: 2,
+                                            })}
+                                        </TableCell>
+                                        <TableCell className="border text-right font-semibold">
+                                            {Number(
+                                                Number(
                                                     _.chain(
                                                         aktivitas.rincianRbaBelanja
                                                     )
@@ -215,208 +266,185 @@ export default function MonitoringTable() {
                                                                 ),
                                                             0
                                                         )
-                                            ) * 100
-                                        ).toLocaleString('id-ID', {
-                                            maximumFractionDigits: 2,
-                                        })}
-                                    </TableCell>
-                                    <TableCell className="border text-right font-semibold">
-                                        {Number(
-                                            Number(
-                                                _.chain(
-                                                    aktivitas.rincianRbaBelanja
-                                                )
-                                                    .groupBy(
-                                                        (item) =>
-                                                            item.rab
-                                                                ?.kodeRekening
-                                                    )
-                                                    .value()
-                                                    [key].reduce(
-                                                        (acc, item) =>
-                                                            acc +
-                                                            Number(
-                                                                Number(
-                                                                    item.volume
-                                                                ) *
-                                                                    Number(
-                                                                        item.harga
-                                                                    )
-                                                            ),
-                                                        0
-                                                    )
-                                            ) -
-                                                Number(
-                                                    realisasiMonitoring?.data
-                                                        ?.filter(
-                                                            (item) =>
-                                                                item.kodeRekening ===
-                                                                    key &&
-                                                                _.chain(
-                                                                    aktivitas.rincianRbaBelanja
-                                                                )
-                                                                    .groupBy(
-                                                                        (
-                                                                            item
-                                                                        ) =>
-                                                                            item
-                                                                                .rab
-                                                                                ?.kodeRekening
-                                                                    )
-                                                                    .value()
-                                                                    [key].map(
-                                                                        (
-                                                                            rincian
-                                                                        ) =>
-                                                                            rincian.rabId
-                                                                    )
-                                                                    .includes(
-                                                                        item.id
-                                                                    )
-                                                        )
-                                                        .reduce(
-                                                            (acc, item) =>
-                                                                acc +
-                                                                Number(
-                                                                    item.jumlah
-                                                                ),
-                                                            0
-                                                        ) ?? 0
-                                                )
-                                        ).toLocaleString('id-ID')}
-                                    </TableCell>
-                                </TableRow>
-                                {_.chain(aktivitas.rincianRbaBelanja)
-                                    .groupBy((item) => item.rab?.kodeRekening)
-                                    .value()
-                                    [key].map((rincian) => {
-                                        totalPagu =
-                                            totalPagu +
-                                            Number(
-                                                Number(rincian.volume) *
-                                                    Number(rincian.harga)
-                                            )
-
-                                        totalRealisasi =
-                                            totalRealisasi +
-                                            Number(
-                                                realisasiMonitoring.data?.find(
-                                                    (item) => {
-                                                        return (
-                                                            item.id ===
-                                                            rincian.rabId
-                                                        )
-                                                    }
-                                                )?.jumlah
-                                            )
-
-                                        return (
-                                            <TableRow
-                                                key={rincian.id}
-                                                className={cn(
+                                                ) -
                                                     Number(
-                                                        Number(rincian.volume) *
-                                                            Number(
-                                                                rincian.harga
-                                                            ) -
-                                                            Number(
-                                                                realisasiMonitoring.data?.find(
-                                                                    (item) => {
-                                                                        return (
-                                                                            item.id ===
-                                                                            rincian.rabId
+                                                        realisasiMonitoring?.data
+                                                            ?.filter(
+                                                                (item) =>
+                                                                    item.kodeRekening ===
+                                                                        key &&
+                                                                    _.chain(
+                                                                        aktivitas.rincianRbaBelanja
+                                                                    )
+                                                                        .groupBy(
+                                                                            (
+                                                                                item
+                                                                            ) =>
+                                                                                item
+                                                                                    .rab
+                                                                                    ?.kodeRekening
                                                                         )
-                                                                    }
-                                                                )?.jumlah
+                                                                        .value()
+                                                                        [
+                                                                            key
+                                                                        ].map(
+                                                                            (
+                                                                                rincian
+                                                                            ) =>
+                                                                                rincian.rabId
+                                                                        )
+                                                                        .includes(
+                                                                            item.id
+                                                                        )
                                                             )
-                                                    ) < 0 &&
-                                                        'bg-red-50 text-red-500 hover:bg-red-100'
-                                                )}
-                                            >
-                                                <TableCell className="border">
-                                                    <DropdownMenu>
-                                                        <DropdownMenuTrigger
-                                                            asChild
-                                                        >
-                                                            <Button
-                                                                variant="outline"
-                                                                className="text-foreground"
+                                                            .reduce(
+                                                                (acc, item) =>
+                                                                    acc +
+                                                                    Number(
+                                                                        item.jumlah
+                                                                    ),
+                                                                0
+                                                            ) ?? 0
+                                                    )
+                                            ).toLocaleString('id-ID')}
+                                        </TableCell>
+                                    </TableRow>
+                                    {_.chain(aktivitas.rincianRbaBelanja)
+                                        .groupBy(
+                                            (item) => item.rab?.kodeRekening
+                                        )
+                                        .value()
+                                        [key].map((rincian) => {
+                                            totalPagu =
+                                                totalPagu +
+                                                Number(
+                                                    Number(rincian.volume) *
+                                                        Number(rincian.harga)
+                                                )
+
+                                            totalRealisasi =
+                                                totalRealisasi +
+                                                Number(
+                                                    realisasiMonitoring.data?.find(
+                                                        (item) => {
+                                                            return (
+                                                                item.id ===
+                                                                rincian.rabId
+                                                            )
+                                                        }
+                                                    )?.jumlah
+                                                )
+
+                                            return (
+                                                <TableRow
+                                                    key={rincian.id}
+                                                    className={cn(
+                                                        Number(
+                                                            Number(
+                                                                rincian.volume
+                                                            ) *
+                                                                Number(
+                                                                    rincian.harga
+                                                                ) -
+                                                                Number(
+                                                                    realisasiMonitoring.data?.find(
+                                                                        (
+                                                                            item
+                                                                        ) => {
+                                                                            return (
+                                                                                item.id ===
+                                                                                rincian.rabId
+                                                                            )
+                                                                        }
+                                                                    )?.jumlah
+                                                                )
+                                                        ) < 0 &&
+                                                            'bg-red-50 text-red-500 hover:bg-red-100'
+                                                    )}
+                                                >
+                                                    <TableCell className="border">
+                                                        <DropdownMenu>
+                                                            <DropdownMenuTrigger
+                                                                asChild
                                                             >
-                                                                Aksi{' '}
-                                                                <FiChevronsDown className="ml-2" />
-                                                            </Button>
-                                                        </DropdownMenuTrigger>
-                                                        <DropdownMenuContent align="start">
-                                                            <Link
-                                                                to={`/anggaran/monitoring/realisasi-belanja/${rincian.id}/detail-belanja`}
-                                                            >
-                                                                <DropdownMenuItem>
-                                                                    <FiList className="mr-2" />
-                                                                    Detail
-                                                                    Belanja
-                                                                </DropdownMenuItem>
-                                                            </Link>
-                                                            <Link
-                                                                to={`/anggaran/monitoring/realisasi-belanja/${rincian.id}/edit`}
-                                                            >
-                                                                <DropdownMenuItem>
-                                                                    <FiEdit className="mr-2" />
-                                                                    Edit Pagu
-                                                                </DropdownMenuItem>
-                                                            </Link>
-                                                        </DropdownMenuContent>
-                                                    </DropdownMenu>
-                                                </TableCell>
-                                                <TableCell className="border">
-                                                    <p className="font-medium">
-                                                        {rincian.rab?.uraian}
-                                                    </p>
-                                                    {rincian.rab
-                                                        ?.spesifikasi && (
-                                                        <p className="text-xs text-gray-500">
+                                                                <Button
+                                                                    variant="outline"
+                                                                    className="text-foreground"
+                                                                >
+                                                                    Aksi{' '}
+                                                                    <FiChevronsDown className="ml-2" />
+                                                                </Button>
+                                                            </DropdownMenuTrigger>
+                                                            <DropdownMenuContent align="start">
+                                                                <Link
+                                                                    to={`/anggaran/monitoring/realisasi-belanja/${rincian.id}/detail-belanja`}
+                                                                >
+                                                                    <DropdownMenuItem>
+                                                                        <FiList className="mr-2" />
+                                                                        Detail
+                                                                        Belanja
+                                                                    </DropdownMenuItem>
+                                                                </Link>
+                                                                <Link
+                                                                    to={`/anggaran/monitoring/realisasi-belanja/${rincian.id}/edit`}
+                                                                >
+                                                                    <DropdownMenuItem>
+                                                                        <FiEdit className="mr-2" />
+                                                                        Edit
+                                                                        Pagu
+                                                                    </DropdownMenuItem>
+                                                                </Link>
+                                                            </DropdownMenuContent>
+                                                        </DropdownMenu>
+                                                    </TableCell>
+                                                    <TableCell className="border">
+                                                        <p className="font-medium">
                                                             {
                                                                 rincian.rab
-                                                                    ?.spesifikasi
+                                                                    ?.uraian
                                                             }
                                                         </p>
-                                                    )}
-                                                </TableCell>
-                                                <TableCell className="border text-center">
-                                                    {Number(
-                                                        rincian.volume
-                                                    ).toLocaleString('id-ID')}
-                                                </TableCell>
-                                                <TableCell className="border text-center">
-                                                    {rincian.satuan}
-                                                </TableCell>
-                                                <TableCell className="border text-right">
-                                                    {Number(
-                                                        rincian.harga
-                                                    ).toLocaleString('id-ID')}
-                                                </TableCell>
-                                                <TableCell className="border text-right font-medium">
-                                                    {Number(
-                                                        Number(rincian.volume) *
+                                                        {rincian.rab
+                                                            ?.spesifikasi && (
+                                                            <p className="text-xs text-gray-500">
+                                                                {
+                                                                    rincian.rab
+                                                                        ?.spesifikasi
+                                                                }
+                                                            </p>
+                                                        )}
+                                                    </TableCell>
+                                                    <TableCell className="border text-center">
+                                                        {Number(
+                                                            rincian.volume
+                                                        ).toLocaleString(
+                                                            'id-ID'
+                                                        )}
+                                                    </TableCell>
+                                                    <TableCell className="border text-center">
+                                                        {rincian.satuan}
+                                                    </TableCell>
+                                                    <TableCell className="border text-right">
+                                                        {Number(
+                                                            rincian.harga
+                                                        ).toLocaleString(
+                                                            'id-ID'
+                                                        )}
+                                                    </TableCell>
+                                                    <TableCell className="border text-right font-medium">
+                                                        {Number(
                                                             Number(
-                                                                rincian.harga
-                                                            )
-                                                    ).toLocaleString('id-ID')}
-                                                </TableCell>
-                                                <TableCell className="border text-right font-medium">
-                                                    {Number(
-                                                        realisasiMonitoring.data?.find(
-                                                            (item) => {
-                                                                return (
-                                                                    item.id ===
-                                                                    rincian.rabId
+                                                                rincian.volume
+                                                            ) *
+                                                                Number(
+                                                                    rincian.harga
                                                                 )
-                                                            }
-                                                        )?.jumlah
-                                                    ).toLocaleString('id-ID')}
-                                                </TableCell>
-                                                <TableCell className="border text-right">
-                                                    {Number(
-                                                        (Number(
+                                                        ).toLocaleString(
+                                                            'id-ID'
+                                                        )}
+                                                    </TableCell>
+                                                    <TableCell className="border text-right font-medium">
+                                                        {Number(
                                                             realisasiMonitoring.data?.find(
                                                                 (item) => {
                                                                     return (
@@ -425,27 +453,13 @@ export default function MonitoringTable() {
                                                                     )
                                                                 }
                                                             )?.jumlah
-                                                        ) /
-                                                            Number(
-                                                                Number(
-                                                                    rincian.volume
-                                                                ) *
-                                                                    Number(
-                                                                        rincian.harga
-                                                                    )
-                                                            )) *
-                                                            100
-                                                    ).toLocaleString('id-ID', {
-                                                        maximumFractionDigits: 2,
-                                                    })}
-                                                </TableCell>
-                                                <TableCell className="border text-right font-medium">
-                                                    {Number(
-                                                        Number(rincian.volume) *
-                                                            Number(
-                                                                rincian.harga
-                                                            ) -
-                                                            Number(
+                                                        ).toLocaleString(
+                                                            'id-ID'
+                                                        )}
+                                                    </TableCell>
+                                                    <TableCell className="border text-right">
+                                                        {Number(
+                                                            (Number(
                                                                 realisasiMonitoring.data?.find(
                                                                     (item) => {
                                                                         return (
@@ -454,46 +468,85 @@ export default function MonitoringTable() {
                                                                         )
                                                                     }
                                                                 )?.jumlah
-                                                            )
-                                                    ).toLocaleString('id-ID')}
-                                                </TableCell>
-                                            </TableRow>
-                                        )
-                                    })}
-                            </React.Fragment>
-                        ))}
-                    </React.Fragment>
-                ))}
-            </TableBody>
-            <TableFooter>
-                <TableRow className="bg-gray-50">
-                    <TableCell
-                        className="border text-right font-semibold"
-                        colSpan={5}
-                    >
-                        Total
-                    </TableCell>
-                    <TableCell className="border text-right font-semibold">
-                        {totalPagu.toLocaleString('id-ID')}
-                    </TableCell>
-                    <TableCell className="border text-right font-semibold">
-                        {totalRealisasi.toLocaleString('id-ID')}
-                    </TableCell>
-                    <TableCell className="border text-right font-semibold">
-                        {Number(
-                            (totalRealisasi / totalPagu) * 100
-                        ).toLocaleString('id-ID', {
-                            maximumFractionDigits: 2,
-                        })}
-                        %
-                    </TableCell>
-                    <TableCell className="border text-right font-semibold">
-                        {Number(totalPagu - totalRealisasi).toLocaleString(
-                            'id-ID'
-                        )}
-                    </TableCell>
-                </TableRow>
-            </TableFooter>
-        </Table>
+                                                            ) /
+                                                                Number(
+                                                                    Number(
+                                                                        rincian.volume
+                                                                    ) *
+                                                                        Number(
+                                                                            rincian.harga
+                                                                        )
+                                                                )) *
+                                                                100
+                                                        ).toLocaleString(
+                                                            'id-ID',
+                                                            {
+                                                                maximumFractionDigits: 2,
+                                                            }
+                                                        )}
+                                                    </TableCell>
+                                                    <TableCell className="border text-right font-medium">
+                                                        {Number(
+                                                            Number(
+                                                                rincian.volume
+                                                            ) *
+                                                                Number(
+                                                                    rincian.harga
+                                                                ) -
+                                                                Number(
+                                                                    realisasiMonitoring.data?.find(
+                                                                        (
+                                                                            item
+                                                                        ) => {
+                                                                            return (
+                                                                                item.id ===
+                                                                                rincian.rabId
+                                                                            )
+                                                                        }
+                                                                    )?.jumlah
+                                                                )
+                                                        ).toLocaleString(
+                                                            'id-ID'
+                                                        )}
+                                                    </TableCell>
+                                                </TableRow>
+                                            )
+                                        })}
+                                </React.Fragment>
+                            ))}
+                        </React.Fragment>
+                    ))}
+                </TableBody>
+                <TableFooter>
+                    <TableRow className="bg-gray-50">
+                        <TableCell
+                            className="border text-right font-semibold"
+                            colSpan={5}
+                        >
+                            Total
+                        </TableCell>
+                        <TableCell className="border text-right font-semibold">
+                            {totalPagu.toLocaleString('id-ID')}
+                        </TableCell>
+                        <TableCell className="border text-right font-semibold">
+                            {totalRealisasi.toLocaleString('id-ID')}
+                        </TableCell>
+                        <TableCell className="border text-right font-semibold">
+                            {Number(
+                                (totalRealisasi / totalPagu) * 100
+                            ).toLocaleString('id-ID', {
+                                maximumFractionDigits: 2,
+                            })}
+                            %
+                        </TableCell>
+                        <TableCell className="border text-right font-semibold">
+                            {Number(totalPagu - totalRealisasi).toLocaleString(
+                                'id-ID'
+                            )}
+                        </TableCell>
+                    </TableRow>
+                </TableFooter>
+            </Table>
+        </React.Fragment>
     )
 }

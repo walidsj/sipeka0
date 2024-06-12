@@ -7,11 +7,10 @@ import {
     rab,
     rba,
     rincianRbaBelanja,
-    rincianRbaPendapatan,
 } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { TRPCError } from '@trpc/server'
-import { count, desc, eq, inArray, isNotNull, like, or, sql } from 'drizzle-orm'
+import { count, desc, eq, isNotNull, like, or, sql } from 'drizzle-orm'
 import { z } from 'zod'
 
 export const dbaRouter = createTRPCRouter({
@@ -137,4 +136,32 @@ export const dbaRouter = createTRPCRouter({
 
         return dataBelanja
     }),
+
+    getRincianBelanjaByRincianRbaBelanjaId: userProcedure
+        .input(z.number())
+        .query(async ({ ctx, input }) => {
+            const rincianRbaBelanjaSelected =
+                await ctx.db.query.rincianRbaBelanja.findFirst({
+                    where: eq(rincianRbaBelanja.id, input),
+                    with: {
+                        rab: true,
+                    },
+                })
+
+            if (!rincianRbaBelanjaSelected) {
+                throw new TRPCError({
+                    code: 'NOT_FOUND',
+                    message: 'Data tidak ditemukan',
+                })
+            }
+
+            const belanjaList = await ctx.db.query.belanja.findMany({
+                where: eq(
+                    belanja.rabId,
+                    Number(rincianRbaBelanjaSelected.rab?.id ?? 0)
+                ),
+            })
+
+            return belanjaList
+        }),
 })
