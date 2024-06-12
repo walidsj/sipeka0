@@ -1,15 +1,31 @@
 import { rekananSchema } from '@/app/api/schema/rekanan'
 import { rekanan } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { asc, eq } from 'drizzle-orm'
+import { asc, eq, like, or } from 'drizzle-orm'
 import { z } from 'zod'
 
 export const rekananRouter = createTRPCRouter({
-    getAll: userProcedure.query(async ({ ctx }) => {
-        return await ctx.db.query.rekanan.findMany({
-            orderBy: [asc(rekanan.nama)],
-        })
-    }),
+    getAll: userProcedure
+        .input(
+            z.object({
+                search: z.string().optional(),
+            })
+        )
+        .query(async ({ ctx, input }) => {
+            return await ctx.db
+                .select()
+                .from(rekanan)
+                .where(
+                    input.search
+                        ? or(
+                              like(rekanan.nama, `%${input.search}%`),
+                              like(rekanan.alamat, `%${input.search}%`),
+                              like(rekanan.namaRekening, `${input.search}%`)
+                          )
+                        : undefined
+                )
+                .orderBy(asc(rekanan.nama))
+        }),
 
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {
         return await ctx.db.query.rekanan.findFirst({

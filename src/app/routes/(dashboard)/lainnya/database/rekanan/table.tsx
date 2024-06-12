@@ -23,9 +23,10 @@ import { FiChevronsDown, FiEdit, FiTrash } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
 export default function RekananTable() {
-    const rekanan = api.rekanan.getAll.useQuery(undefined, {
-        placeholderData: keepPreviousData,
-    })
+    const rekanan = api.rekanan.getAll.useQuery(
+        {},
+        { placeholderData: keepPreviousData }
+    )
 
     const deleteRekanan = api.rekanan.deleteById.useMutation({
         onMutate() {

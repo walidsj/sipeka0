@@ -253,6 +253,10 @@ export const rka = mysqlTable('rka', {
     noDokumen: varchar('no_dokumen', { length: 256 }),
     uraian: varchar('uraian', { length: 256 }),
     tglDokumen: timestamp('tgl_dokumen', { mode: 'date' }),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
 })
 
 export const dba = mysqlTable('dba', {
@@ -261,6 +265,27 @@ export const dba = mysqlTable('dba', {
     rbaId: int('rka_id', { unsigned: true }),
     uraian: varchar('uraian', { length: 256 }),
     tglDokumen: timestamp('tgl_dokumen', { mode: 'date' }),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
+})
+
+export const belanja = mysqlTable('belanja', {
+    id: serial('id').primaryKey(),
+    rabId: int('rab_id', { unsigned: true }),
+    tglDokumen: timestamp('tgl_dokumen', { mode: 'date' }),
+    noDokumen: varchar('no_dokumen', { length: 256 }),
+    uraian: varchar('uraian', { length: 256 }),
+    jumlah: decimal('jumlah', { precision: 20, scale: 2 }),
+    rekananId: int('rekanan_id', { unsigned: true }),
+    pegawaiId: int('pegawai_id', { unsigned: true }),
+    metodePembayaran: mysqlEnum('metode_pembayaran', ['TUNAI', 'TRANSFER']),
+    buktiPembayaran: varchar('bukti_pembayaran', { length: 256 }),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
 })
 
 export const userRelations = relations(user, ({ one }) => ({
@@ -356,6 +381,7 @@ export const rabRelations = relations(rab, ({ many, one }) => ({
         references: [unitKerja.id],
     }),
     rincianRbaBelanja: many(rincianRbaBelanja),
+    belanja: many(belanja),
 }))
 
 export const unitKerjaRelations = relations(unitKerja, ({ many }) => ({
@@ -386,4 +412,37 @@ export const dbaRelations = relations(dba, ({ one }) => ({
         fields: [dba.rbaId],
         references: [rba.id],
     }),
+}))
+
+export const belanjaRelations = relations(belanja, ({ one }) => ({
+    rab: one(rab, {
+        fields: [belanja.rabId],
+        references: [rab.id],
+    }),
+    rekanan: one(rekanan, {
+        fields: [belanja.rekananId],
+        references: [rekanan.id],
+    }),
+    pegawai: one(pegawai, {
+        fields: [belanja.pegawaiId],
+        references: [pegawai.id],
+    }),
+}))
+
+export const rekananRelations = relations(rekanan, ({ one, many }) => ({
+    bank: one(bank, {
+        fields: [rekanan.bankId],
+        references: [bank.id],
+    }),
+    belanja: many(belanja),
+}))
+
+export const pegawaiRelations = relations(pegawai, ({ one, many }) => ({
+    bank: one(bank, {
+        fields: [pegawai.bankId],
+        references: [bank.id],
+    }),
+    rekanan: many(rekanan),
+    belanja: many(belanja),
+    pengelolaBlud: many(pengelolaBlud),
 }))

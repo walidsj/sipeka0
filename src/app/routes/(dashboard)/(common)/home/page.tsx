@@ -18,7 +18,11 @@ export default function Dashboard() {
 
     const targetPendapatan = api.pendapatan.getTarget.useQuery()
 
+    const latestPendapatan = api.pendapatan.getLatest.useQuery()
+
     const latestDba = api.dba.getLatest.useQuery()
+
+    const realisasiBelanja = api.belanja.getRealisasiAll.useQuery()
 
     const targetBelanja = api.belanja.getTarget.useQuery()
 
@@ -115,17 +119,40 @@ export default function Dashboard() {
                     />
                     <div className="flex w-full flex-col">
                         <CardDescription>Realisasi Belanja</CardDescription>
-                        <CardTitle>10.150.558.543</CardTitle>
+                        <CardTitle>
+                            {realisasiBelanja.data &&
+                                Number(realisasiBelanja.data).toLocaleString(
+                                    'id-ID'
+                                )}
+                        </CardTitle>
                         <CardDescription className="text-xs">
-                            46,14%
+                            {targetBelanja.data &&
+                                realisasiBelanja.data &&
+                                (
+                                    Number(
+                                        Number(realisasiBelanja.data) /
+                                            Number(targetBelanja.data)
+                                    ) * 100
+                                ).toLocaleString('id-ID', {
+                                    maximumFractionDigits: 2,
+                                })}
+                            %
                         </CardDescription>
-                        <Progress value={46.14} />
+                        <Progress
+                            value={
+                                Number(
+                                    Number(realisasiBelanja.data) /
+                                        Number(targetBelanja.data)
+                                ) * 100
+                            }
+                        />
                         <CardDescription className="text-xs">
                             Sisa Pagu:{' '}
                             {targetBelanja.data &&
+                                realisasiBelanja.data &&
                                 Number(
                                     Number(targetBelanja.data) -
-                                        Number(10_150_558_543)
+                                        Number(realisasiBelanja.data)
                                 ).toLocaleString('id-ID')}
                         </CardDescription>
                     </div>
@@ -175,6 +202,20 @@ export default function Dashboard() {
                                     Number(targetPendapatan.data) -
                                         Number(realisasiPendapatan.data)
                                 ).toLocaleString('id-ID')}
+                        </CardDescription>
+                        <CardDescription className="text-xs">
+                            {latestPendapatan.data && (
+                                <React.Fragment>
+                                    Per{' '}
+                                    {format(
+                                        String(
+                                            latestPendapatan.data?.tglDokumen
+                                        ),
+                                        'dd MMMM yyyy',
+                                        { locale: id }
+                                    )}
+                                </React.Fragment>
+                            )}
                         </CardDescription>
                     </div>
                 </CardHeader>

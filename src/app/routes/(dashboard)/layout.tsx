@@ -81,7 +81,7 @@ export default function DashboardLayout() {
                                         'border-b-4 border-primary text-primary'
                                 )}
                             >
-                                <Link to="/belanja">
+                                <Link to="/belanja/perekaman">
                                     <FiShoppingCart className="mr-3" />
                                     Belanja
                                 </Link>

@@ -1,7 +1,7 @@
 import { rekeningLevel6 } from '@/data/rekening'
 import { aktivitasRba, dba, pendapatan } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { and, desc, eq, like } from 'drizzle-orm'
+import { and, desc, eq, like, sum } from 'drizzle-orm'
 import { z } from 'zod'
 import { pendapatanSchema } from '../schema/pendapatan'
 import { TRPCError } from '@trpc/server'
@@ -80,9 +80,19 @@ export const pendapatanRouter = createTRPCRouter({
         }),
 
     getRealisasiAll: userProcedure.query(async ({ ctx }) => {
-        const realisasi = await ctx.db.select().from(pendapatan)
+        const realisasi = await ctx.db
+            .select({ sum: sum(pendapatan.jumlah) })
+            .from(pendapatan)
 
-        return realisasi.reduce((acc, item) => acc + Number(item.jumlah), 0)
+        return realisasi[0].sum
+    }),
+
+    getLatest: userProcedure.query(async ({ ctx }) => {
+        const lastData = await ctx.db.query.pendapatan.findFirst({
+            orderBy: desc(pendapatan.tglDokumen),
+        })
+
+        return lastData
     }),
 
     getTarget: userProcedure.query(async ({ ctx }) => {
