@@ -1,7 +1,7 @@
 import { pegawaiSchema } from '@/app/api/schema/pegawai'
 import { pegawai } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { eq, like, or } from 'drizzle-orm'
+import { asc, eq, like, or } from 'drizzle-orm'
 import { z } from 'zod'
 
 export const pegawaiRouter = createTRPCRouter({
@@ -25,6 +25,7 @@ export const pegawaiRouter = createTRPCRouter({
                           )
                         : undefined
                 )
+                .orderBy(asc(pegawai.nama))
         }),
 
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {
