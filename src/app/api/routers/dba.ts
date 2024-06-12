@@ -1,7 +1,17 @@
 import { dbaSchema } from '@/app/api/schema/dba'
-import { dba } from '@/server/db/schema'
+import { rekeningLevel6 } from '@/data/rekening'
+import {
+    aktivitasRba,
+    belanja,
+    dba,
+    rab,
+    rba,
+    rincianRbaBelanja,
+    rincianRbaPendapatan,
+} from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { count, desc, eq, isNotNull, like, or } from 'drizzle-orm'
+import { TRPCError } from '@trpc/server'
+import { count, desc, eq, inArray, isNotNull, like, or, sql } from 'drizzle-orm'
 import { z } from 'zod'
 
 export const dbaRouter = createTRPCRouter({
@@ -63,5 +73,68 @@ export const dbaRouter = createTRPCRouter({
                 .from(dba)
                 .where(isNotNull(dba.tglDokumen))
         )[0]
+    }),
+
+    getRbaBelanjaMonitoring: userProcedure.query(async ({ ctx }) => {
+        const latestDba = await ctx.db.query.dba.findFirst({
+            orderBy: desc(dba.tglDokumen),
+        })
+
+        if (!latestDba) {
+            throw new TRPCError({
+                code: 'NOT_FOUND',
+                message: 'DBA belum tersedia',
+            })
+        }
+
+        const rbaByDba = await ctx.db.query.rba.findFirst({
+            where: eq(rba.id, latestDba.rbaId!),
+            with: {
+                aktivitas: {
+                    where: eq(aktivitasRba.jenis, 'BELANJA'),
+                    with: {
+                        rincianRbaBelanja: {
+                            with: {
+                                rab: true,
+                            },
+                        },
+                    },
+                },
+            },
+        })
+
+        return rbaByDba
+    }),
+
+    getRealisasiBelanjaMonitoring: userProcedure.query(async ({ ctx }) => {
+        const rekapBelanja = ctx.db
+            .select({
+                rabId: belanja.rabId,
+                jumlah: sql`SUM(${belanja.jumlah})`.as('jumlah'),
+            })
+            .from(belanja)
+            .groupBy(belanja.rabId)
+            .as('belanja')
+
+        const belanjaList = await ctx.db
+            .select({
+                id: rab.id,
+                uraian: rab.uraian,
+                kodeRekening: rab.kodeRekening,
+                jumlah: rekapBelanja.jumlah,
+            })
+            .from(rab)
+            .leftJoin(rekapBelanja, eq(rab.id, rekapBelanja.rabId))
+
+        const dataBelanja = belanjaList.map((belanja) => {
+            return {
+                ...belanja,
+                rekening: rekeningLevel6.find(
+                    (rekening) => rekening.kode === belanja.kodeRekening
+                ),
+            }
+        })
+
+        return dataBelanja
     }),
 })

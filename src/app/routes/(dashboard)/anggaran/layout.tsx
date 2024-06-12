@@ -5,6 +5,7 @@ import { RiPagesLine } from 'react-icons/ri'
 import { LuBookCopy } from 'react-icons/lu'
 import { IoNewspaperOutline } from 'react-icons/io5'
 import { Helmet } from 'react-helmet'
+import { FiSearch } from 'react-icons/fi'
 
 export default function Layout() {
     const { pathname } = useLocation()
@@ -67,6 +68,26 @@ export default function Layout() {
                                     <IoNewspaperOutline className="h-6 w-6" />
                                     <span className="text-wrap text-xs">
                                         DBA
+                                    </span>
+                                </Link>
+                            </Button>
+                        </li>
+                        <li>
+                            <Button
+                                variant="ghost"
+                                className={cn(
+                                    'flex h-auto w-full flex-col justify-center gap-1 rounded-none px-8 py-3 text-center',
+                                    pathname.startsWith(
+                                        '/anggaran/monitoring'
+                                    ) &&
+                                        'border-l-4 border-primary bg-slate-50 text-primary'
+                                )}
+                                asChild
+                            >
+                                <Link to="/anggaran/monitoring/realisasi-belanja">
+                                    <FiSearch className="h-6 w-6" />
+                                    <span className="text-wrap text-xs">
+                                        Monitoring
                                     </span>
                                 </Link>
                             </Button>
