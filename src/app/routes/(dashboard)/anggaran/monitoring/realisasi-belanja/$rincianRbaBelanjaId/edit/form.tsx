@@ -67,14 +67,14 @@ export default function EditForm({
     }
 
     return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
-                <fieldset
-                    disabled={edit.isPending}
-                    className="flex max-w-96 flex-col gap-2"
-                >
-                    <Card className="mt-2">
-                        <CardHeader>
+        <Card>
+            <CardHeader>
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)}>
+                        <fieldset
+                            disabled={edit.isPending}
+                            className="flex max-w-96 flex-col gap-2"
+                        >
                             <FormField
                                 name="satuan"
                                 render={({ field }) => (
@@ -151,15 +151,15 @@ export default function EditForm({
                                     })}
                                 </p>
                             </div>
-                        </CardHeader>
-                    </Card>
-                    <div className="mt-3">
-                        <Button type="submit">
-                            {edit.isPending ? 'Menyimpan...' : 'Simpan'}
-                        </Button>
-                    </div>
-                </fieldset>
-            </form>
-        </Form>
+                            <div className="mt-3">
+                                <Button type="submit">
+                                    {edit.isPending ? 'Menyimpan...' : 'Simpan'}
+                                </Button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </Form>
+            </CardHeader>
+        </Card>
     )
 }
