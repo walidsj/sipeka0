@@ -38,7 +38,7 @@ export default function EditPage() {
             </div>
             <div className="flex flex-row gap-5">
                 <Card className="max-w-lg">
-                    <CardHeader>
+                    <CardHeader className="space-y-1.5">
                         <div className="space-y-1">
                             <Label>Satuan</Label>
                             <Input

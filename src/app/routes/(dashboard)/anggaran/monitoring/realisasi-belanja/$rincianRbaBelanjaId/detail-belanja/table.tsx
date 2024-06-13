@@ -53,6 +53,13 @@ export default function DetailTable() {
                         </TableCell>
                     </TableRow>
                 ))}
+                {belanja.isSuccess && belanja.data?.length === 0 && (
+                    <TableRow>
+                        <TableCell colSpan={5} className="text-center">
+                            Tidak Ada Data
+                        </TableCell>
+                    </TableRow>
+                )}
             </TableBody>
             <TableFooter>
                 <TableRow>

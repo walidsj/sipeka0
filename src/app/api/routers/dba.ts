@@ -161,6 +161,7 @@ export const dbaRouter = createTRPCRouter({
                     belanja.rabId,
                     Number(rincianRbaBelanjaSelected.rab?.id ?? 0)
                 ),
+                orderBy: [asc(belanja.tglDokumen), asc(belanja.noDokumen)],
             })
 
             return belanjaList
