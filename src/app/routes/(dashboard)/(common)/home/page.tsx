@@ -26,6 +26,8 @@ export default function Dashboard() {
 
     const targetBelanja = api.belanja.getTarget.useQuery()
 
+    const latestBelanja = api.belanja.getLatest.useQuery()
+
     const countDba = api.dba.count.useQuery()
 
     return (
@@ -154,6 +156,18 @@ export default function Dashboard() {
                                     Number(targetBelanja.data) -
                                         Number(realisasiBelanja.data)
                                 ).toLocaleString('id-ID')}
+                        </CardDescription>
+                        <CardDescription className="text-xs">
+                            {latestBelanja.data && (
+                                <React.Fragment>
+                                    Per{' '}
+                                    {format(
+                                        String(latestBelanja.data?.tglDokumen),
+                                        'dd MMMM yyyy',
+                                        { locale: id }
+                                    )}
+                                </React.Fragment>
+                            )}
                         </CardDescription>
                     </div>
                 </CardHeader>
