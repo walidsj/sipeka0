@@ -1,7 +1,7 @@
 import { rkaSchema } from '@/app/api/schema/rka'
 import { aktivitasRba, rka } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { and, eq, isNotNull, like, or } from 'drizzle-orm'
+import { and, asc, eq, isNotNull, like, or } from 'drizzle-orm'
 import { z } from 'zod'
 import { aktivitasRbaSchema } from '../schema/aktivitas-rba'
 import { TRPCError } from '@trpc/server'
@@ -19,6 +19,7 @@ export const rkaRouter = createTRPCRouter({
                     ? or(like(rka.uraian, `%${input.search}%`))
                     : undefined,
                 with: { rba: true },
+                orderBy: asc(rka.tglDokumen),
             })
         }),
 

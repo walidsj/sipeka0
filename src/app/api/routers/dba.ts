@@ -10,7 +10,7 @@ import {
 } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { TRPCError } from '@trpc/server'
-import { count, desc, eq, isNotNull, like, or, sql } from 'drizzle-orm'
+import { asc, count, desc, eq, isNotNull, like, or, sql } from 'drizzle-orm'
 import { z } from 'zod'
 
 export const dbaRouter = createTRPCRouter({
@@ -26,6 +26,7 @@ export const dbaRouter = createTRPCRouter({
                     ? or(like(dba.uraian, `%${input.search}%`))
                     : undefined,
                 with: { rba: true },
+                orderBy: asc(dba.tglDokumen),
             })
         }),
 
