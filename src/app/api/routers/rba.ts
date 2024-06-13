@@ -1,8 +1,8 @@
 import { rbaSchema } from '@/app/api/schema/rba'
-import { aktivitasRba, rba, rincianRbaBelanja } from '@/server/db/schema'
+import { aktivitasRba, rba } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { TRPCError } from '@trpc/server'
-import { and, asc, eq, like, or, sql } from 'drizzle-orm'
+import { asc, eq, like, or } from 'drizzle-orm'
 import { z } from 'zod'
 
 export const rbaRouter = createTRPCRouter({
@@ -20,7 +20,8 @@ export const rbaRouter = createTRPCRouter({
                     input.search
                         ? or(like(rba.uraian, `%${input.search}%`))
                         : undefined
-                ).orderBy(asc(rba.tglDokumen))
+                )
+                .orderBy(asc(rba.tglDokumen))
         }),
 
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {

@@ -547,6 +547,28 @@ export default function MonitoringTable() {
                     </TableRow>
                 </TableFooter>
             </Table>
+            <div className="fixed right-0 top-16 rounded-lg border bg-white p-3 pt-6 text-xs shadow">
+                <div className="flex w-full flex-row justify-between">
+                    <span className="mr-3">Pagu:</span>
+                    <span className="font-semibold">
+                        {totalPagu.toLocaleString('id-ID')}
+                    </span>
+                </div>
+                <div className="flex w-full flex-row justify-between border-b border-foreground">
+                    <span className="mr-3">Realisasi:</span>
+                    <span className="font-semibold">
+                        {totalRealisasi.toLocaleString('id-ID')}
+                    </span>
+                </div>
+                <div className="flex w-full flex-row justify-between">
+                    <span className="mr-3">Sisa:</span>
+                    <span className="font-semibold">
+                        {Number(totalPagu - totalRealisasi).toLocaleString(
+                            'id-ID'
+                        )}
+                    </span>
+                </div>
+            </div>
         </React.Fragment>
     )
 }
