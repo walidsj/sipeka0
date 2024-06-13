@@ -84,7 +84,7 @@ export default function EditPage() {
                         </div>
                     </CardHeader>
                 </Card>
-                <div>
+                <div className="mt-20">
                     <FiChevronsRight className="text-7xl text-gray-400" />
                     <div className="text-center text-gray-400">Menjadi</div>
                 </div>
