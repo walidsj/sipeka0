@@ -1,4 +1,5 @@
 import {
+    Rekening,
     rekeningLevel1,
     rekeningLevel2,
     rekeningLevel3,
@@ -14,15 +15,19 @@ export const kodeRekeningRouter = createTRPCRouter({
         .input(
             z.object({
                 level: z.enum(['1', '2', '3', '4', '5', '6']),
-                kode: z.string().nullish(),
-                searchKode: z.string().nullish(),
-                search: z.string().nullish(),
-                page: z.number().nullish(),
-                perPage: z.number().nullish(),
+                kode: z.string().optional(),
+                searchKode: z.string().optional(),
+                search: z.string().optional(),
+                page: z.number().optional(),
+                pageSize: z.number().optional(),
             })
         )
         .query(async ({ input }) => {
-            let data
+            const page = input.page ?? 1
+            const pageSize = input.pageSize ?? 10
+
+            let data: Rekening = []
+            let dataTotal: number = 0
 
             if (input.level === '1') {
                 data = rekeningLevel1.filter((item) => {
@@ -57,6 +62,7 @@ export const kodeRekeningRouter = createTRPCRouter({
 
                     return true
                 })
+                dataTotal = data.length
             }
 
             if (input.level === '2') {
@@ -92,6 +98,7 @@ export const kodeRekeningRouter = createTRPCRouter({
 
                     return true
                 })
+                dataTotal = data.length
             }
 
             if (input.level === '3') {
@@ -127,6 +134,7 @@ export const kodeRekeningRouter = createTRPCRouter({
 
                     return true
                 })
+                dataTotal = data.length
             }
 
             if (input.level === '4') {
@@ -162,6 +170,7 @@ export const kodeRekeningRouter = createTRPCRouter({
 
                     return true
                 })
+                dataTotal = data.length
             }
 
             if (input.level === '5') {
@@ -197,6 +206,7 @@ export const kodeRekeningRouter = createTRPCRouter({
 
                     return true
                 })
+                dataTotal = data.length
             }
 
             if (input.level === '6') {
@@ -232,16 +242,34 @@ export const kodeRekeningRouter = createTRPCRouter({
 
                     return true
                 })
+                dataTotal = data.length
             }
 
-            if (input.page && input.perPage) {
-                const start = (input.page - 1) * input.perPage
-                const end = start + input.perPage
+            if (input.page && input.pageSize) {
+                const start = (input.page - 1) * input.pageSize
+                const end = start + input.pageSize
 
                 data = data?.slice(start, end)
             }
 
-            return data
+            const firstRow = (page ? (page - 1) * pageSize : 0) + 1
+            const lastRow = (page ? (page - 1) * pageSize : 0) + data.length
+            const pageCount = Math.ceil(dataTotal! / pageSize)
+
+            return {
+                data,
+                meta: {
+                    pagination: {
+                        dataTotal,
+                        dataCount: data.length,
+                        page,
+                        pageCount,
+                        pageSize,
+                        firstRow,
+                        lastRow,
+                    },
+                },
+            }
         }),
 
     getByKode: userProcedure

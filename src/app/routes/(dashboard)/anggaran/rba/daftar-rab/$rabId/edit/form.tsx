@@ -138,6 +138,9 @@ export default function EditForm({ data }: { data: typeof rab.$inferSelect }) {
                                         onValueChange={(val) =>
                                             field.onChange(val)
                                         }
+                                        params={{
+                                            searchKode: '5',
+                                        }}
                                     />
                                 </FormControl>
                                 <FormMessage />

@@ -95,6 +95,8 @@ export default function RabTable() {
         .groupBy((item) => `${item.rekening?.kode}||${item.rekening?.uraian}`)
         .value()
 
+    let globalIndex = 0
+
     return (
         <div className="flex flex-col gap-5">
             <div className="flex flex-row items-center gap-5">
@@ -156,10 +158,15 @@ export default function RabTable() {
                                         </span>
                                     </TableCell>
                                 </TableRow>
-                                {groupedData[key].map((item, index) => (
+                                {groupedData[key].map((item) => (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">
-                                            {index + 1}.
+                                            {Number(
+                                                rab.meta.pagination.firstRow
+                                            ) +
+                                                ++globalIndex -
+                                                1}
+                                            .
                                         </TableCell>
                                         <TableCell className="w-14">
                                             <img

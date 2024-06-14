@@ -5,12 +5,12 @@ import level4 from './level-4.json'
 import level5 from './level-5.json'
 import level6 from './level-6.json'
 
-type RekeningLevel = {
+export type RekeningLevel = {
     kode: string
     uraian: string
 }
 
-type Rekening = RekeningLevel[]
+export type Rekening = RekeningLevel[]
 
 export const rekeningLevel1 = level1 as unknown as Rekening
 export const rekeningLevel2 = level2 as unknown as Rekening

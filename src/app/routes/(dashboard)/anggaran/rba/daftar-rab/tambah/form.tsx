@@ -135,6 +135,9 @@ export default function CreateForm() {
                                         onValueChange={(val) =>
                                             field.onChange(val)
                                         }
+                                        params={{
+                                            searchKode: '5',
+                                        }}
                                     />
                                 </FormControl>
                                 <FormMessage />

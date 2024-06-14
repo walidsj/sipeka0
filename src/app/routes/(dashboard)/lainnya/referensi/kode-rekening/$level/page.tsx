@@ -1,6 +1,13 @@
 import Loading from '@/web/components/loading'
 import { Input } from '@/web/components/ui/input'
 import {
+    Pagination,
+    PaginationContent,
+    PaginationItem,
+    PaginationNext,
+    PaginationPrevious,
+} from '@/web/components/ui/pagination'
+import {
     Select,
     SelectContent,
     SelectItem,
@@ -10,11 +17,13 @@ import {
 import {
     Table,
     TableBody,
+    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
     TableRow,
 } from '@/web/components/ui/table'
+import { formatAngka } from '@/web/lib/utils'
 import { api } from '@/web/trpc/react'
 import { keepPreviousData } from '@tanstack/react-query'
 import { FiSearch } from 'react-icons/fi'
@@ -23,32 +32,51 @@ import { useDebounce } from 'use-debounce'
 
 export default function Page() {
     const params = useParams<{ level: '1' | '2' | '3' | '4' | '5' | '6' }>()
-    const [searchParams, setSearchParams] = useSearchParams()
+    const [searchParams, setSearchParams] = useSearchParams({
+        search: '',
+        page: '1',
+        pageSize: '10',
+    })
+
+    const [searchValue] = useDebounce(searchParams.get('search') ?? '', 300)
 
     if (!['1', '2', '3', '4', '5', '6'].includes(params.level as string)) {
         return <Navigate to={`/lainnya/referensi/kode-rekening/1`} />
     }
 
-    const [search] = useDebounce(searchParams.get('search') ?? '', 300)
-
-    const rekening = api.kodeRekening.getAll.useQuery(
+    const {
+        isLoading,
+        isError,
+        error,
+        data: rekening,
+    } = api.kodeRekening.getAll.useQuery(
         {
             level: params.level ?? '1',
-            page: parseInt(searchParams.get('page') ?? '1'),
-            perPage: parseInt(searchParams.get('perPage') ?? '10'),
-            search,
+            search: searchValue,
+            page: searchParams.get('page')
+                ? Number(searchParams.get('page'))
+                : 1,
+            pageSize: searchParams.get('pageSize')
+                ? Number(searchParams.get('pageSize'))
+                : 10,
         },
         { placeholderData: keepPreviousData }
     )
+
+    if (isLoading) return <Loading />
+
+    if (isError) return <div>{error.message}</div>
+
+    if (!rekening) return <div>Data tidak dapat dimuat.</div>
 
     return (
         <div className="flex flex-col gap-5">
             <div className="flex gap-5">
                 <Select
-                    value={searchParams.get('perPage') ?? '10'}
+                    value={searchParams.get('pageSize') ?? '10'}
                     onValueChange={(val) =>
                         setSearchParams((prev) => {
-                            prev.set('perPage', val)
+                            prev.set('pageSize', val)
                             return prev
                         })
                     }
@@ -87,36 +115,59 @@ export default function Page() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {rekening.isLoading && (
-                        <TableRow>
-                            <TableCell colSpan={2}>
-                                <Loading />
-                            </TableCell>
+                    {rekening.data?.map((item, index) => (
+                        <TableRow key={index}>
+                            <TableCell>{item.kode}</TableCell>
+                            <TableCell>{item.uraian}</TableCell>
                         </TableRow>
-                    )}
-                    {rekening.isSuccess &&
-                        rekening.data?.map((item, index) => (
-                            <TableRow key={index}>
-                                <TableCell>{item.kode}</TableCell>
-                                <TableCell>{item.uraian}</TableCell>
-                            </TableRow>
-                        ))}
-                    {rekening.isSuccess && rekening.data?.length === 0 && (
-                        <TableRow>
-                            <TableCell colSpan={2} className="text-center">
-                                Tidak ada data
-                            </TableCell>
-                        </TableRow>
-                    )}
-                    {rekening.isError && (
-                        <TableRow>
-                            <TableCell colSpan={2} className="text-center">
-                                {rekening.error.message}
-                            </TableCell>
-                        </TableRow>
-                    )}
+                    ))}
                 </TableBody>
+                <TableCaption>
+                    Menampilkan data{' '}
+                    {formatAngka(rekening.meta.pagination.firstRow)}-
+                    {formatAngka(rekening.meta.pagination.lastRow)} dari total{' '}
+                    {formatAngka(rekening.meta.pagination.dataTotal)} data.
+                </TableCaption>
             </Table>
+            <Pagination>
+                <PaginationContent>
+                    <PaginationItem>
+                        <PaginationPrevious
+                            onClick={() => {
+                                Number(rekening.meta.pagination.page) > 1 &&
+                                    searchParams.set(
+                                        'page',
+                                        String(
+                                            Number(
+                                                rekening.meta.pagination.page
+                                            ) - 1
+                                        )
+                                    )
+                                setSearchParams(searchParams)
+                            }}
+                        />
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationNext
+                            onClick={() => {
+                                Number(rekening.meta.pagination.page) <
+                                    Number(
+                                        rekening.meta.pagination.pageCount
+                                    ) &&
+                                    searchParams.set(
+                                        'page',
+                                        String(
+                                            Number(
+                                                rekening.meta.pagination.page
+                                            ) + 1
+                                        )
+                                    )
+                                setSearchParams(searchParams)
+                            }}
+                        />
+                    </PaginationItem>
+                </PaginationContent>
+            </Pagination>
         </div>
     )
 }

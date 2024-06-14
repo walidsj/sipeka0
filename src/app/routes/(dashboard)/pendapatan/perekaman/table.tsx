@@ -150,7 +150,10 @@ export default function PendapatanTable() {
                     {pendapatan.data.map((item, index) => (
                         <TableRow key={item.id}>
                             <TableCell className="text-center">
-                                {index + 1}.
+                                {formatAngka(
+                                    pendapatan.meta.pagination.firstRow + index
+                                )}
+                                .
                             </TableCell>
                             <TableCell className="w-14">
                                 <img
