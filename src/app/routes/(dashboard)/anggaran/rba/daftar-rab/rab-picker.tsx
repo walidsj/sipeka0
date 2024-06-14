@@ -18,7 +18,7 @@ import {
     TableRow,
 } from '@/web/components/ui/table'
 import React from 'react'
-import { cn } from '@/web/lib/utils'
+import { cn, formatAngka } from '@/web/lib/utils'
 import { useDebounce } from 'use-debounce'
 import { Input } from '@/web/components/ui/input'
 import { keepPreviousData } from '@tanstack/react-query'
@@ -73,9 +73,9 @@ export default function RabPicker({
         data: rab,
     } = api.rab.getAll.useQuery(
         {
-            search: searchValue,
-            page: Number(searchParams.get('page')),
-            pageSize: Number(searchParams.get('pageSize')),
+            search: searchValue ?? '',
+            page: Number(searchParams.get('page') ?? 1),
+            pageSize: Number(searchParams.get('pageSize') ?? 10),
         },
         { placeholderData: keepPreviousData }
     )
@@ -253,9 +253,10 @@ export default function RabPicker({
                     </Table>
                 </div>
                 <TableCaption>
-                    Menampilkan data {rab.meta.pagination.firstRow}-
-                    {rab.meta.pagination.lastRow} dari total{' '}
-                    {rab.meta.pagination.dataTotal} data.
+                    Menampilkan data {formatAngka(rab.meta.pagination.firstRow)}
+                    -{formatAngka(rab.meta.pagination.lastRow)} dari{' '}
+                    {formatAngka(rab.meta.pagination.dataFiltered)}/
+                    {formatAngka(rab.meta.pagination.dataTotal)} data.
                 </TableCaption>
                 <Pagination>
                     <PaginationContent>

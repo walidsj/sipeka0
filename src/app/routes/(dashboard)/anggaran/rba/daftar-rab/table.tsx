@@ -30,6 +30,7 @@ import {
     TableHeader,
     TableRow,
 } from '@/web/components/ui/table'
+import { formatAngka } from '@/web/lib/utils'
 import { api } from '@/web/trpc/react'
 import { keepPreviousData } from '@tanstack/react-query'
 import _ from 'lodash'
@@ -57,9 +58,9 @@ export default function RabTable() {
         data: rab,
     } = api.rab.getAll.useQuery(
         {
-            search: searchValue,
-            page: Number(searchParams.get('page')),
-            pageSize: Number(searchParams.get('pageSize')),
+            search: searchValue ?? '',
+            page: Number(searchParams.get('page') ?? 1),
+            pageSize: Number(searchParams.get('pageSize') ?? 10),
         },
         { placeholderData: keepPreviousData }
     )
@@ -245,9 +246,10 @@ export default function RabTable() {
                     </TableBody>
                 )}
                 <TableCaption>
-                    Menampilkan data {rab.meta.pagination.firstRow}-
-                    {rab.meta.pagination.lastRow} dari total{' '}
-                    {rab.meta.pagination.dataTotal} data.
+                    Menampilkan data {formatAngka(rab.meta.pagination.firstRow)}
+                    -{formatAngka(rab.meta.pagination.lastRow)} dari{' '}
+                    {formatAngka(rab.meta.pagination.dataFiltered)}/
+                    {formatAngka(rab.meta.pagination.dataTotal)} data.
                 </TableCaption>
             </Table>
             <Pagination>

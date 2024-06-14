@@ -21,7 +21,7 @@ export const rabRouter = createTRPCRouter({
 
             const rabList = await ctx.db.query.rab.findMany({
                 with: { unitKerja: true },
-                where: search ? or(like(rab.uraian, `%${search}%`)) : undefined,
+                where: search ? like(rab.uraian, `%${search}%`) : undefined,
                 limit: pageSize ?? 10,
                 offset: page ? (page - 1) * pageSize : 0,
             })
@@ -39,18 +39,23 @@ export const rabRouter = createTRPCRouter({
                 })
                 .from(rab)
 
-            const dataCount = data.length
+            const filtered = await ctx.db
+                .select({ count: count(rab.id) })
+                .from(rab)
+                .where(search ? or(like(rab.uraian, `%${search}%`)) : undefined)
+
             const dataTotal = total[0].count
+            const dataFiltered = filtered[0].count
             const firstRow = (page ? (page - 1) * pageSize : 0) + 1
             const lastRow = (page ? (page - 1) * pageSize : 0) + data.length
-            const pageCount = Math.ceil(dataCount / pageSize)
+            const pageCount = Math.ceil(dataFiltered / pageSize)
 
             return {
                 data,
                 meta: {
                     pagination: {
                         dataTotal,
-                        dataCount,
+                        dataFiltered,
                         page,
                         pageCount,
                         pageSize,

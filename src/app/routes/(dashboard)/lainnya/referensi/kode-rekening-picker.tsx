@@ -80,12 +80,8 @@ export default function KodeRekeningPicker({
             searchKode: params?.searchKode,
             level: level,
             search: searchValue,
-            page: searchParams.get('page')
-                ? Number(searchParams.get('page'))
-                : 1,
-            pageSize: searchParams.get('pageSize')
-                ? Number(searchParams.get('pageSize'))
-                : 10,
+            page: Number(searchParams.get('page') ?? 1),
+            pageSize: Number(searchParams.get('pageSize') ?? 10),
         },
         { placeholderData: keepPreviousData }
     )
@@ -245,9 +241,9 @@ export default function KodeRekeningPicker({
                         <TableCaption>
                             Menampilkan data{' '}
                             {formatAngka(rekening.meta.pagination.firstRow)}-
-                            {formatAngka(rekening.meta.pagination.lastRow)} dari
-                            total{' '}
-                            {formatAngka(rekening.meta.pagination.dataTotal)}{' '}
+                            {formatAngka(rekening.meta.pagination.lastRow)} dari{' '}
+                            {formatAngka(rekening.meta.pagination.dataFiltered)}
+                            /{formatAngka(rekening.meta.pagination.dataTotal)}{' '}
                             data.
                         </TableCaption>
                     </Table>

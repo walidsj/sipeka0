@@ -59,9 +59,9 @@ export default function PendapatanTable() {
         data: pendapatan,
     } = api.pendapatan.getAll.useQuery(
         {
-            search: searchValue,
-            page: Number(searchParams.get('page')),
-            pageSize: Number(searchParams.get('pageSize')),
+            search: searchValue ?? '',
+            page: Number(searchParams.get('page') ?? 1),
+            pageSize: Number(searchParams.get('pageSize') ?? 10),
         },
         { placeholderData: keepPreviousData }
     )
@@ -252,9 +252,11 @@ export default function PendapatanTable() {
                     </TableRow>
                 </TableFooter>
                 <TableCaption>
-                    Menampilkan data {pendapatan.meta.pagination.firstRow}-
-                    {pendapatan.meta.pagination.lastRow} dari total{' '}
-                    {pendapatan.meta.pagination.dataTotal} data.
+                    Menampilkan data{' '}
+                    {formatAngka(pendapatan.meta.pagination.firstRow)}-
+                    {formatAngka(pendapatan.meta.pagination.lastRow)} dari{' '}
+                    {formatAngka(pendapatan.meta.pagination.dataFiltered)}/
+                    {formatAngka(pendapatan.meta.pagination.dataTotal)} data.
                 </TableCaption>
             </Table>
             <Pagination>

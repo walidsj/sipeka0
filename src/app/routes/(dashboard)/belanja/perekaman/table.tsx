@@ -58,9 +58,9 @@ export default function BelanjaTable() {
         data: belanja,
     } = api.belanja.getAll.useQuery(
         {
-            search: searchValue,
-            page: Number(searchParams.get('page')),
-            pageSize: Number(searchParams.get('pageSize')),
+            search: searchValue ?? '',
+            page: Number(searchParams.get('page') ?? 1),
+            pageSize: Number(searchParams.get('pageSize') ?? 10),
         },
         { placeholderData: keepPreviousData }
     )
@@ -265,9 +265,11 @@ export default function BelanjaTable() {
                     </TableRow>
                 </TableFooter>
                 <TableCaption>
-                    Menampilkan data {belanja.meta.pagination.firstRow}-
-                    {belanja.meta.pagination.lastRow} dari total{' '}
-                    {belanja.meta.pagination.dataTotal} data.
+                    Menampilkan data{' '}
+                    {formatAngka(belanja.meta.pagination.firstRow)}-
+                    {formatAngka(belanja.meta.pagination.lastRow)} dari{' '}
+                    {formatAngka(belanja.meta.pagination.dataFiltered)}/
+                    {formatAngka(belanja.meta.pagination.dataTotal)} data.
                 </TableCaption>
             </Table>
             <Pagination>

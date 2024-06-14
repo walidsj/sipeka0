@@ -53,12 +53,8 @@ export default function Page() {
         {
             level: params.level ?? '1',
             search: searchValue,
-            page: searchParams.get('page')
-                ? Number(searchParams.get('page'))
-                : 1,
-            pageSize: searchParams.get('pageSize')
-                ? Number(searchParams.get('pageSize'))
-                : 10,
+            page: Number(searchParams.get('page') ?? 1),
+            pageSize: Number(searchParams.get('pageSize') ?? 10),
         },
         { placeholderData: keepPreviousData }
     )
@@ -125,7 +121,8 @@ export default function Page() {
                 <TableCaption>
                     Menampilkan data{' '}
                     {formatAngka(rekening.meta.pagination.firstRow)}-
-                    {formatAngka(rekening.meta.pagination.lastRow)} dari total{' '}
+                    {formatAngka(rekening.meta.pagination.lastRow)} dari{' '}
+                    {formatAngka(rekening.meta.pagination.dataFiltered)}/
                     {formatAngka(rekening.meta.pagination.dataTotal)} data.
                 </TableCaption>
             </Table>

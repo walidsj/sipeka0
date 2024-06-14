@@ -30,6 +30,7 @@ export const kodeRekeningRouter = createTRPCRouter({
             let dataTotal: number = 0
 
             if (input.level === '1') {
+                dataTotal = rekeningLevel1.length
                 data = rekeningLevel1.filter((item) => {
                     if (input.search) {
                         if (input.searchKode) {
@@ -62,10 +63,10 @@ export const kodeRekeningRouter = createTRPCRouter({
 
                     return true
                 })
-                dataTotal = data.length
             }
 
             if (input.level === '2') {
+                dataTotal = rekeningLevel2.length
                 data = rekeningLevel2.filter((item) => {
                     if (input.search) {
                         if (input.searchKode) {
@@ -98,10 +99,10 @@ export const kodeRekeningRouter = createTRPCRouter({
 
                     return true
                 })
-                dataTotal = data.length
             }
 
             if (input.level === '3') {
+                dataTotal = rekeningLevel3.length
                 data = rekeningLevel3.filter((item) => {
                     if (input.search) {
                         if (input.searchKode) {
@@ -134,10 +135,10 @@ export const kodeRekeningRouter = createTRPCRouter({
 
                     return true
                 })
-                dataTotal = data.length
             }
 
             if (input.level === '4') {
+                dataTotal = rekeningLevel4.length
                 data = rekeningLevel4.filter((item) => {
                     if (input.search) {
                         if (input.searchKode) {
@@ -170,10 +171,10 @@ export const kodeRekeningRouter = createTRPCRouter({
 
                     return true
                 })
-                dataTotal = data.length
             }
 
             if (input.level === '5') {
+                dataTotal = rekeningLevel5.length
                 data = rekeningLevel5.filter((item) => {
                     if (input.search) {
                         if (input.searchKode) {
@@ -206,10 +207,10 @@ export const kodeRekeningRouter = createTRPCRouter({
 
                     return true
                 })
-                dataTotal = data.length
             }
 
             if (input.level === '6') {
+                dataTotal = rekeningLevel6.length
                 data = rekeningLevel6.filter((item) => {
                     if (input.search) {
                         if (input.searchKode) {
@@ -242,8 +243,9 @@ export const kodeRekeningRouter = createTRPCRouter({
 
                     return true
                 })
-                dataTotal = data.length
             }
+
+            const dataFiltered = data.length
 
             if (input.page && input.pageSize) {
                 const start = (input.page - 1) * input.pageSize
@@ -252,17 +254,16 @@ export const kodeRekeningRouter = createTRPCRouter({
                 data = data?.slice(start, end)
             }
 
-            const dataCount = data.length
             const firstRow = (page ? (page - 1) * pageSize : 0) + 1
             const lastRow = (page ? (page - 1) * pageSize : 0) + data.length
-            const pageCount = Math.ceil(dataCount! / pageSize)
+            const pageCount = Math.ceil(dataFiltered / pageSize)
 
             return {
                 data,
                 meta: {
                     pagination: {
                         dataTotal,
-                        dataCount,
+                        dataFiltered,
                         page,
                         pageCount,
                         pageSize,

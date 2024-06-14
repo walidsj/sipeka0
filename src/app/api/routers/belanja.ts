@@ -47,12 +47,24 @@ export const belanjaRouter = createTRPCRouter({
                 })
                 .from(belanja)
 
+            const filtered = await ctx.db
+                .select({ count: count(belanja.jumlah) })
+                .from(belanja)
+                .where(
+                    search
+                        ? or(
+                              like(belanja.uraian, `%${search}%`),
+                              like(belanja.noDokumen, `%${search}%`)
+                          )
+                        : undefined
+                )
+
             const totalSum = total[0].sum
-            const dataCount = data.length
+            const dataFiltered = filtered[0].count
             const dataTotal = total[0].count
             const firstRow = (page ? (page - 1) * pageSize : 0) + 1
             const lastRow = (page ? (page - 1) * pageSize : 0) + data.length
-            const pageCount = Math.ceil(dataCount / pageSize)
+            const pageCount = Math.ceil(dataFiltered / pageSize)
 
             return {
                 data,
@@ -60,7 +72,7 @@ export const belanjaRouter = createTRPCRouter({
                 meta: {
                     pagination: {
                         dataTotal,
-                        dataCount,
+                        dataFiltered,
                         page,
                         pageCount,
                         pageSize,
