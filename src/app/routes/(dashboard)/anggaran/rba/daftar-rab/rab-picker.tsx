@@ -143,7 +143,7 @@ export default function RabPicker({
                 </DialogHeader>
                 <div className="flex flex-row items-center gap-5">
                     <Select
-                        value={searchParams.get('pageSize') ?? ''}
+                        value={searchParams.get('pageSize') ?? '10'}
                         onValueChange={(val) => {
                             searchParams.set('pageSize', val)
                             searchParams.set('page', '1')

@@ -1,4 +1,4 @@
-import { FiCode } from 'react-icons/fi'
+import { FiCode, FiSearch } from 'react-icons/fi'
 import { Button } from '@/web/components/ui/button'
 import { api } from '@/web/trpc/react'
 import {
@@ -32,6 +32,13 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from '@/web/components/ui/pagination'
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/web/components/ui/select'
 
 export default function KodeRekeningPicker({
     value,
@@ -135,16 +142,42 @@ export default function KodeRekeningPicker({
                         Data referensi kode rekening
                     </DialogDescription>
                 </DialogHeader>
-                <Input
-                    placeholder="Cari kodeRekening..."
-                    value={searchParams.get('search') ?? ''}
-                    onChange={(e) =>
-                        setSearchParams((prev) => {
-                            prev.set('search', e.target.value)
-                            return prev
-                        })
-                    }
-                />
+                <div className="flex gap-5">
+                    <Select
+                        value={searchParams.get('pageSize') ?? '10'}
+                        onValueChange={(val) => {
+                            searchParams.set('pageSize', val)
+                            searchParams.set('page', '1')
+                            setSearchParams(searchParams)
+                        }}
+                    >
+                        <SelectTrigger className="w-20 font-semibold">
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="10">10</SelectItem>
+                            <SelectItem value="25">25</SelectItem>
+                            <SelectItem value="50">50</SelectItem>
+                            <SelectItem value="100">100</SelectItem>
+                        </SelectContent>
+                    </Select>
+                    <div className="relative">
+                        <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+                            <FiSearch />
+                        </div>
+                        <Input
+                            className="w-80 pl-10"
+                            placeholder="Cari kode rekening"
+                            value={searchParams.get('search') ?? ''}
+                            onChange={(e) =>
+                                setSearchParams((prev) => {
+                                    prev.set('search', e.target.value)
+                                    return prev
+                                })
+                            }
+                        />
+                    </div>
+                </div>
                 <div className="max-h-96 overflow-y-auto">
                     <Table>
                         <TableHeader>

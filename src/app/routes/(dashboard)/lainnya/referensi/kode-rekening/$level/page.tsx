@@ -74,20 +74,20 @@ export default function Page() {
             <div className="flex gap-5">
                 <Select
                     value={searchParams.get('pageSize') ?? '10'}
-                    onValueChange={(val) =>
-                        setSearchParams((prev) => {
-                            prev.set('pageSize', val)
-                            return prev
-                        })
-                    }
+                    onValueChange={(val) => {
+                        searchParams.set('pageSize', val)
+                        searchParams.set('page', '1')
+                        setSearchParams(searchParams)
+                    }}
                 >
-                    <SelectTrigger className="w-20">
+                    <SelectTrigger className="w-20 font-semibold">
                         <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value="10">10</SelectItem>
                         <SelectItem value="25">25</SelectItem>
                         <SelectItem value="50">50</SelectItem>
+                        <SelectItem value="100">100</SelectItem>
                     </SelectContent>
                 </Select>
                 <div className="relative">
