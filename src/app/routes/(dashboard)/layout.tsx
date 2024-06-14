@@ -21,20 +21,29 @@ export default function DashboardLayout() {
                 <title>Dashboard - SIPEKA</title>
             </Helmet>
             <div className="border-b bg-background shadow-sm">
-                <nav className="mx-auto px-8">
+                <nav className="mx-auto px-3">
                     <ul className="flex">
                         <li>
                             <Button
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-14 rounded-none px-5',
+                                    'h-14 gap-3 rounded-none px-5',
                                     pathname.startsWith('/home') &&
-                                        'border-b-4 border-primary text-primary'
+                                        'text-primary'
                                 )}
                             >
                                 <Link to="/home">
-                                    <FiHome className="mr-3" />
+                                    <div
+                                        className={cn(
+                                            'flex items-center justify-center rounded-lg p-2 text-primary shadow',
+                                            pathname.startsWith('/home')
+                                                ? 'bg-gradient-to-br from-blue-400 to-primary text-white'
+                                                : 'border bg-background'
+                                        )}
+                                    >
+                                        <FiHome />
+                                    </div>
                                     Home
                                 </Link>
                             </Button>
@@ -44,13 +53,22 @@ export default function DashboardLayout() {
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-14 rounded-none px-5',
+                                    'h-14 gap-3 rounded-none px-5',
                                     pathname.startsWith('/anggaran') &&
-                                        'border-b-4 border-primary text-primary'
+                                        'text-primary'
                                 )}
                             >
                                 <Link to="/anggaran/rba/daftar-rab">
-                                    <FiEdit className="mr-3" />
+                                    <div
+                                        className={cn(
+                                            'flex items-center justify-center rounded-lg p-2 text-primary shadow',
+                                            pathname.startsWith('/anggaran')
+                                                ? 'bg-gradient-to-br from-blue-400 to-primary text-white'
+                                                : 'border bg-background'
+                                        )}
+                                    >
+                                        <FiEdit />
+                                    </div>
                                     Anggaran
                                 </Link>
                             </Button>
@@ -60,13 +78,22 @@ export default function DashboardLayout() {
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-14 rounded-none px-5',
+                                    'h-14 gap-3 rounded-none px-5',
                                     pathname.startsWith('/pendapatan') &&
-                                        'border-b-4 border-primary text-primary'
+                                        'text-primary'
                                 )}
                             >
                                 <Link to="/pendapatan/perekaman">
-                                    <FiPocket className="mr-3" />
+                                    <div
+                                        className={cn(
+                                            'flex items-center justify-center rounded-lg p-2 text-primary shadow',
+                                            pathname.startsWith('/pendapatan')
+                                                ? 'bg-gradient-to-br from-blue-400 to-primary text-white'
+                                                : 'border bg-background'
+                                        )}
+                                    >
+                                        <FiPocket />
+                                    </div>
                                     Pendapatan
                                 </Link>
                             </Button>
@@ -76,13 +103,22 @@ export default function DashboardLayout() {
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-14 rounded-none px-5',
+                                    'h-14 gap-3 rounded-none px-5',
                                     pathname.startsWith('/belanja') &&
-                                        'border-b-4 border-primary text-primary'
+                                        'text-primary'
                                 )}
                             >
                                 <Link to="/belanja/perekaman">
-                                    <FiShoppingCart className="mr-3" />
+                                    <div
+                                        className={cn(
+                                            'flex items-center justify-center rounded-lg p-2 text-primary shadow',
+                                            pathname.startsWith('/belanja')
+                                                ? 'bg-gradient-to-br from-blue-400 to-primary text-white'
+                                                : 'border bg-background'
+                                        )}
+                                    >
+                                        <FiShoppingCart />
+                                    </div>
                                     Belanja
                                 </Link>
                             </Button>
@@ -92,13 +128,22 @@ export default function DashboardLayout() {
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-14 rounded-none px-5',
+                                    'h-14 gap-3 rounded-none px-5',
                                     pathname.startsWith('/akuntansi') &&
-                                        'border-b-4 border-primary text-primary'
+                                        'text-primary'
                                 )}
                             >
                                 <Link to="/akuntansi">
-                                    <FiFileText className="mr-3" />
+                                    <div
+                                        className={cn(
+                                            'flex items-center justify-center rounded-lg p-2 text-primary shadow',
+                                            pathname.startsWith('/akuntansi')
+                                                ? 'bg-gradient-to-br from-blue-400 to-primary text-white'
+                                                : 'border bg-background'
+                                        )}
+                                    >
+                                        <FiFileText />
+                                    </div>
                                     Akuntansi
                                 </Link>
                             </Button>
@@ -108,13 +153,22 @@ export default function DashboardLayout() {
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-14 rounded-none px-5',
+                                    'h-14 gap-3 rounded-none px-5',
                                     pathname.startsWith('/lainnya') &&
-                                        'border-b-4 border-primary text-primary'
+                                        'text-primary'
                                 )}
                             >
                                 <Link to="/lainnya/database/unit-kerja">
-                                    <FiTool className="mr-3" />
+                                    <div
+                                        className={cn(
+                                            'flex items-center justify-center rounded-lg p-2 text-primary shadow',
+                                            pathname.startsWith('/lainnya')
+                                                ? 'bg-gradient-to-br from-blue-400 to-primary text-white'
+                                                : 'border bg-background'
+                                        )}
+                                    >
+                                        <FiTool />
+                                    </div>
                                     Lainnya
                                 </Link>
                             </Button>
