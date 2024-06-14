@@ -25,6 +25,7 @@ import {
 import {
     Table,
     TableBody,
+    TableCaption,
     TableCell,
     TableFooter,
     TableHead,
@@ -70,8 +71,8 @@ export default function BelanjaTable() {
         },
         onSuccess(data) {
             toast.dismiss()
-            toast.success(data.message)
             utils.belanja.invalidate()
+            toast.success(data.message)
         },
         onError(error) {
             toast.dismiss()
@@ -87,7 +88,11 @@ export default function BelanjaTable() {
         return <div>{error.message}</div>
     }
 
-    const totalBelanjaTable = belanja?.data?.reduce(
+    if (!belanja) {
+        return <div>Data tidak dapat dimuat.</div>
+    }
+
+    const totalBelanjaTable = belanja.data?.reduce(
         (acc, item) => acc + Number(item.jumlah),
         0
     )
@@ -144,8 +149,9 @@ export default function BelanjaTable() {
                         <TableHead className="w-1" />
                     </TableRow>
                 </TableHeader>
+
                 <TableBody>
-                    {belanja?.data.map((item, index) => (
+                    {belanja.data.map((item, index) => (
                         <TableRow key={index}>
                             <TableCell className="text-center">
                                 {formatAngka(
@@ -234,7 +240,7 @@ export default function BelanjaTable() {
                             </TableCell>
                         </TableRow>
                     ))}
-                    {belanja?.data.length === 0 && (
+                    {belanja.data.length === 0 && (
                         <TableRow>
                             <TableCell colSpan={9} className="text-center">
                                 Tidak ada data
@@ -253,27 +259,29 @@ export default function BelanjaTable() {
                     <TableRow>
                         <TableCell colSpan={7}>Total Keseluruhan</TableCell>
                         <TableCell className="text-right">
-                            {formatAngka(belanja?.totalSum)}
+                            {formatAngka(belanja.totalSum)}
                         </TableCell>
                         <TableCell />
                     </TableRow>
                 </TableFooter>
+                <TableCaption>
+                    Menampilkan data {belanja.meta.pagination.firstRow}-
+                    {belanja.meta.pagination.lastRow} dari total{' '}
+                    {belanja.meta.pagination.dataTotal} data.
+                </TableCaption>
             </Table>
-            <div className="text-sm">
-                Menampilkan {belanja?.meta.pagination.firstRow}-
-                {belanja?.meta.pagination.lastRow} dari total{' '}
-                {belanja?.meta.pagination.dataTotal} data
-            </div>
             <Pagination>
                 <PaginationContent>
                     <PaginationItem>
                         <PaginationPrevious
                             onClick={() => {
-                                Number(searchParams.get('page')) > 1 &&
+                                Number(belanja.meta.pagination.page) > 1 &&
                                     searchParams.set(
                                         'page',
                                         String(
-                                            Number(searchParams.get('page')) - 1
+                                            Number(
+                                                belanja.meta.pagination.page
+                                            ) - 1
                                         )
                                     )
                                 setSearchParams(searchParams)
@@ -281,7 +289,7 @@ export default function BelanjaTable() {
                         />
                     </PaginationItem>
                     <Select
-                        value={searchParams.get('page') ?? '1'}
+                        value={String(belanja.meta.pagination.page) ?? '1'}
                         onValueChange={(val) => {
                             searchParams.set('page', val)
                             setSearchParams(searchParams)
@@ -294,7 +302,7 @@ export default function BelanjaTable() {
                             {Array.from(
                                 {
                                     length: Number(
-                                        belanja?.meta.pagination.pageCount
+                                        belanja.meta.pagination.pageCount
                                     ),
                                 },
                                 (_, i) => i + 1
@@ -308,14 +316,14 @@ export default function BelanjaTable() {
                     <PaginationItem>
                         <PaginationNext
                             onClick={() => {
-                                Number(searchParams.get('page')) <
-                                    Number(
-                                        belanja?.meta.pagination.pageCount
-                                    ) &&
+                                Number(belanja.meta.pagination.page) <
+                                    Number(belanja.meta.pagination.pageCount) &&
                                     searchParams.set(
                                         'page',
                                         String(
-                                            Number(searchParams.get('page')) + 1
+                                            Number(
+                                                belanja.meta.pagination.page
+                                            ) + 1
                                         )
                                     )
                                 setSearchParams(searchParams)

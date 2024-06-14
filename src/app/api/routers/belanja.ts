@@ -33,12 +33,12 @@ export const belanjaRouter = createTRPCRouter({
                 offset: page ? (page - 1) * pageSize : 0,
             })
 
-            const data = belanjaList.map((belanja) => {
-                const rekening = rekeningLevel6.find(
+            const data = belanjaList.map((belanja) => ({
+                ...belanja,
+                rekening: rekeningLevel6.find(
                     (rekening) => rekening.kode === belanja.rab?.kodeRekening
-                )
-                return { ...belanja, rekening }
-            })
+                ),
+            }))
 
             const total = await ctx.db
                 .select({
@@ -50,8 +50,7 @@ export const belanjaRouter = createTRPCRouter({
             const totalSum = total[0].sum
             const dataTotal = total[0].count
             const firstRow = (page ? (page - 1) * pageSize : 0) + 1
-            const lastRow =
-                (page ? (page - 1) * pageSize : 0) + belanjaList.length
+            const lastRow = (page ? (page - 1) * pageSize : 0) + data.length
             const pageCount = Math.ceil(dataTotal / pageSize)
 
             return {
@@ -60,7 +59,7 @@ export const belanjaRouter = createTRPCRouter({
                 meta: {
                     pagination: {
                         dataTotal,
-                        dataCount: belanjaList.length,
+                        dataCount: data.length,
                         page,
                         pageCount,
                         pageSize,

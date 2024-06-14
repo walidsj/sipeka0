@@ -8,8 +8,23 @@ import {
 } from '@/web/components/ui/dropdown-menu'
 import { Input } from '@/web/components/ui/input'
 import {
+    Pagination,
+    PaginationContent,
+    PaginationItem,
+    PaginationNext,
+    PaginationPrevious,
+} from '@/web/components/ui/pagination'
+import {
+    SelectItem,
+    Select,
+    SelectContent,
+    SelectTrigger,
+    SelectValue,
+} from '@/web/components/ui/select'
+import {
     Table,
     TableBody,
+    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
@@ -21,15 +36,31 @@ import _ from 'lodash'
 import React from 'react'
 import toast from 'react-hot-toast'
 import { FiChevronsDown, FiEdit, FiSearch, FiTrash } from 'react-icons/fi'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useDebounce } from 'use-debounce'
 
 export default function RabTable() {
-    const [search, setSearch] = React.useState('')
-    const [searchValue] = useDebounce(search, 300)
+    const utils = api.useUtils()
 
-    const rab = api.rab.getAll.useQuery(
-        { search: searchValue },
+    const [searchParams, setSearchParams] = useSearchParams({
+        search: '',
+        page: '1',
+        pageSize: '10',
+    })
+
+    const [searchValue] = useDebounce(searchParams.get('search') ?? '', 300)
+
+    const {
+        isLoading,
+        isError,
+        error,
+        data: rab,
+    } = api.rab.getAll.useQuery(
+        {
+            search: searchValue,
+            page: Number(searchParams.get('page')),
+            pageSize: Number(searchParams.get('pageSize')),
+        },
         { placeholderData: keepPreviousData }
     )
 
@@ -39,8 +70,8 @@ export default function RabTable() {
         },
         onSuccess(data) {
             toast.dismiss()
+            utils.rab.invalidate()
             toast.success(data.message)
-            rab.refetch()
         },
         onError(error) {
             toast.dismiss()
@@ -48,22 +79,58 @@ export default function RabTable() {
         },
     })
 
+    if (isLoading) {
+        return <Loading />
+    }
+
+    if (isError) {
+        return <div>{error.message}</div>
+    }
+
+    if (!rab) {
+        return <div>Data tidak dapat dimuat.</div>
+    }
+
     const groupedData = _.chain(rab.data)
         .groupBy((item) => `${item.rekening?.kode}||${item.rekening?.uraian}`)
         .value()
 
     return (
         <div className="flex flex-col gap-5">
-            <div className="relative">
-                <div className="absolute inset-y-0 left-0 flex items-center justify-center px-3">
-                    <FiSearch className="text-gray-400" />
+            <div className="flex flex-row items-center gap-5">
+                <Select
+                    value={searchParams.get('pageSize') ?? ''}
+                    onValueChange={(val) => {
+                        searchParams.set('pageSize', val)
+                        searchParams.set('page', '1')
+                        setSearchParams(searchParams)
+                    }}
+                >
+                    <SelectTrigger className="w-20 font-semibold">
+                        <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="10">10</SelectItem>
+                        <SelectItem value="25">25</SelectItem>
+                        <SelectItem value="50">50</SelectItem>
+                        <SelectItem value="100">100</SelectItem>
+                    </SelectContent>
+                </Select>
+                <div className="relative">
+                    <div className="absolute inset-y-0 left-0 flex items-center justify-center px-3">
+                        <FiSearch className="text-gray-400" />
+                    </div>
+                    <Input
+                        className="pl-10"
+                        placeholder="Cari data..."
+                        value={searchParams.get('search') ?? ''}
+                        onChange={(e) => {
+                            searchParams.set('search', e.target.value)
+                            searchParams.set('page', '1')
+                            setSearchParams(searchParams)
+                        }}
+                    />
                 </div>
-                <Input
-                    className="max-w-80 pl-10"
-                    placeholder="Cari data..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                />
             </div>
             <Table>
                 <TableHeader>
@@ -75,17 +142,9 @@ export default function RabTable() {
                         <TableHead className="w-1" />
                     </TableRow>
                 </TableHeader>
-                <TableBody>
-                    {rab.isLoading && (
-                        <TableRow>
-                            <TableCell colSpan={6} className="text-center">
-                                <Loading />
-                            </TableCell>
-                        </TableRow>
-                    )}
-                    {rab.isSuccess &&
-                        groupedData &&
-                        Object.keys(groupedData).map((key) => (
+                {groupedData && (
+                    <TableBody>
+                        {Object.keys(groupedData).map((key) => (
                             <React.Fragment key={key}>
                                 <TableRow className="bg-blue-50 hover:bg-blue-50">
                                     <TableCell colSpan={6}>
@@ -167,22 +226,81 @@ export default function RabTable() {
                                 ))}
                             </React.Fragment>
                         ))}
-                    {rab.isSuccess && rab.data?.length === 0 && (
+                    </TableBody>
+                )}
+                {rab.data.length === 0 && (
+                    <TableBody>
                         <TableRow>
                             <TableCell colSpan={6} className="text-center">
                                 Tidak ada data
                             </TableCell>
                         </TableRow>
-                    )}
-                    {rab.isError && (
-                        <TableRow>
-                            <TableCell colSpan={6} className="text-center">
-                                {rab.error.message}
-                            </TableCell>
-                        </TableRow>
-                    )}
-                </TableBody>
+                    </TableBody>
+                )}
+                <TableCaption>
+                    Menampilkan data {rab.meta.pagination.firstRow}-
+                    {rab.meta.pagination.lastRow} dari total{' '}
+                    {rab.meta.pagination.dataTotal} data.
+                </TableCaption>
             </Table>
+            <Pagination>
+                <PaginationContent>
+                    <PaginationItem>
+                        <PaginationPrevious
+                            onClick={() => {
+                                Number(rab.meta.pagination.page) > 1 &&
+                                    searchParams.set(
+                                        'page',
+                                        String(
+                                            Number(rab.meta.pagination.page) - 1
+                                        )
+                                    )
+                                setSearchParams(searchParams)
+                            }}
+                        />
+                    </PaginationItem>
+                    <Select
+                        value={String(rab.meta.pagination.page) ?? '1'}
+                        onValueChange={(val) => {
+                            searchParams.set('page', val)
+                            setSearchParams(searchParams)
+                        }}
+                    >
+                        <SelectTrigger className="w-20 font-semibold">
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {Array.from(
+                                {
+                                    length: Number(
+                                        rab.meta.pagination.pageCount
+                                    ),
+                                },
+                                (_, i) => i + 1
+                            ).map((page) => (
+                                <SelectItem key={page} value={String(page)}>
+                                    {page}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                    <PaginationItem>
+                        <PaginationNext
+                            onClick={() => {
+                                Number(rab.meta.pagination.page) <
+                                    Number(rab.meta.pagination.pageCount) &&
+                                    searchParams.set(
+                                        'page',
+                                        String(
+                                            Number(rab.meta.pagination.page) + 1
+                                        )
+                                    )
+                                setSearchParams(searchParams)
+                            }}
+                        />
+                    </PaginationItem>
+                </PaginationContent>
+            </Pagination>
         </div>
     )
 }

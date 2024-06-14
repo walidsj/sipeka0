@@ -24,6 +24,7 @@ import {
 import {
     Table,
     TableBody,
+    TableCaption,
     TableCell,
     TableFooter,
     TableHead,
@@ -71,8 +72,8 @@ export default function PendapatanTable() {
         },
         onSuccess(data) {
             toast.dismiss()
-            toast.success(data.message)
             utils.pendapatan.invalidate()
+            toast.success(data.message)
         },
         onError(error) {
             toast.dismiss()
@@ -88,7 +89,11 @@ export default function PendapatanTable() {
         return <div>{error.message}</div>
     }
 
-    const totalPendapatan = pendapatan?.data?.reduce(
+    if (!pendapatan) {
+        return <div>Data tidak dapat dimuat.</div>
+    }
+
+    const totalPendapatan = pendapatan.data?.reduce(
         (acc, item) => acc + Number(item.jumlah),
         0
     )
@@ -142,7 +147,7 @@ export default function PendapatanTable() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {pendapatan?.data.map((item, index) => (
+                    {pendapatan.data.map((item, index) => (
                         <TableRow key={item.id}>
                             <TableCell className="text-center">
                                 {index + 1}.
@@ -219,7 +224,7 @@ export default function PendapatanTable() {
                             </TableCell>
                         </TableRow>
                     ))}
-                    {pendapatan?.data.length === 0 && (
+                    {pendapatan.data.length === 0 && (
                         <TableRow>
                             <TableCell colSpan={6} className="text-center">
                                 Tidak ada data
@@ -238,27 +243,29 @@ export default function PendapatanTable() {
                     <TableRow>
                         <TableCell colSpan={5}>Total Keseluruhan</TableCell>
                         <TableCell className="text-right">
-                            {formatAngka(pendapatan?.totalSum)}
+                            {formatAngka(pendapatan.totalSum)}
                         </TableCell>
                         <TableCell />
                     </TableRow>
                 </TableFooter>
+                <TableCaption>
+                    Menampilkan data {pendapatan.meta.pagination.firstRow}-
+                    {pendapatan.meta.pagination.lastRow} dari total{' '}
+                    {pendapatan.meta.pagination.dataTotal} data.
+                </TableCaption>
             </Table>
-            <div className="text-sm">
-                Menampilkan {pendapatan?.meta.pagination.firstRow}-
-                {pendapatan?.meta.pagination.lastRow} dari total{' '}
-                {pendapatan?.meta.pagination.dataTotal} data
-            </div>
             <Pagination>
                 <PaginationContent>
                     <PaginationItem>
                         <PaginationPrevious
                             onClick={() => {
-                                Number(searchParams.get('page')) > 1 &&
+                                Number(pendapatan.meta.pagination.page) > 1 &&
                                     searchParams.set(
                                         'page',
                                         String(
-                                            Number(searchParams.get('page')) - 1
+                                            Number(
+                                                pendapatan.meta.pagination.page
+                                            ) - 1
                                         )
                                     )
                                 setSearchParams(searchParams)
@@ -266,7 +273,7 @@ export default function PendapatanTable() {
                         />
                     </PaginationItem>
                     <Select
-                        value={searchParams.get('page') ?? '1'}
+                        value={String(pendapatan.meta.pagination.page) ?? '1'}
                         onValueChange={(val) => {
                             searchParams.set('page', val)
                             setSearchParams(searchParams)
@@ -279,7 +286,7 @@ export default function PendapatanTable() {
                             {Array.from(
                                 {
                                     length: Number(
-                                        pendapatan?.meta.pagination.pageCount
+                                        pendapatan.meta.pagination.pageCount
                                     ),
                                 },
                                 (_, i) => i + 1
@@ -293,9 +300,9 @@ export default function PendapatanTable() {
                     <PaginationItem>
                         <PaginationNext
                             onClick={() => {
-                                Number(searchParams.get('page')) <
+                                Number(pendapatan.meta.pagination.page) <
                                     Number(
-                                        pendapatan?.meta.pagination.pageCount
+                                        pendapatan.meta.pagination.pageCount
                                     ) &&
                                     searchParams.set(
                                         'page',

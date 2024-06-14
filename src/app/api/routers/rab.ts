@@ -2,7 +2,7 @@ import { rabSchema } from '@/app/api/schema/rab'
 import { rekeningLevel6 } from '@/data/rekening'
 import { rab } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { eq, like, or } from 'drizzle-orm'
+import { count, eq, like, or } from 'drizzle-orm'
 import { z } from 'zod'
 
 export const rabRouter = createTRPCRouter({
@@ -10,26 +10,54 @@ export const rabRouter = createTRPCRouter({
         .input(
             z.object({
                 search: z.string().optional(),
+                page: z.number().optional(),
+                pageSize: z.number().optional(),
             })
         )
         .query(async ({ ctx, input }) => {
+            const page = input.page ?? 1
+            const pageSize = input.pageSize ?? 10
+            const search = input.search ?? ''
+
             const rabList = await ctx.db.query.rab.findMany({
-                where: input.search
-                    ? or(like(rab.uraian, `%${input.search}%`))
-                    : undefined,
-                with: {
-                    unitKerja: true,
-                },
+                with: { unitKerja: true },
+                where: search ? or(like(rab.uraian, `%${search}%`)) : undefined,
+                limit: pageSize ?? 10,
+                offset: page ? (page - 1) * pageSize : 0,
             })
 
-            return rabList.map((rab) => {
-                return {
-                    ...rab,
-                    rekening: rekeningLevel6.find(
-                        (rekening) => rekening.kode === rab.kodeRekening
-                    ),
-                }
-            })
+            const data = rabList.map((rab) => ({
+                ...rab,
+                rekening: rekeningLevel6.find(
+                    (rekening) => rekening.kode === rab.kodeRekening
+                ),
+            }))
+
+            const total = await ctx.db
+                .select({
+                    count: count(rab.id),
+                })
+                .from(rab)
+
+            const dataTotal = total[0].count
+            const firstRow = (page ? (page - 1) * pageSize : 0) + 1
+            const lastRow = (page ? (page - 1) * pageSize : 0) + data.length
+            const pageCount = Math.ceil(dataTotal / pageSize)
+
+            return {
+                data,
+                meta: {
+                    pagination: {
+                        dataTotal,
+                        dataCount: data.length,
+                        page,
+                        pageCount,
+                        pageSize,
+                        firstRow,
+                        lastRow,
+                    },
+                },
+            }
         }),
 
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {

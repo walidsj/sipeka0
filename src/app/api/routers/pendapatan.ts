@@ -35,13 +35,12 @@ export const pendapatanRouter = createTRPCRouter({
                 offset: page ? (page - 1) * pageSize : 0,
             })
 
-            const data = pendapatanList.map((pendapatan) => {
-                const kodeRekening = rekeningLevel6.find(
+            const data = pendapatanList.map((pendapatan) => ({
+                ...pendapatan,
+                rekening: rekeningLevel6.find(
                     (rekening) => rekening.kode === pendapatan.rap?.kodeRekening
-                )
-
-                return { ...pendapatan, rekening: kodeRekening }
-            })
+                ),
+            }))
 
             const total = await ctx.db
                 .select({
@@ -53,8 +52,7 @@ export const pendapatanRouter = createTRPCRouter({
             const totalSum = total[0].sum
             const dataTotal = total[0].count
             const firstRow = (page ? (page - 1) * pageSize : 0) + 1
-            const lastRow =
-                (page ? (page - 1) * pageSize : 0) + pendapatanList.length
+            const lastRow = (page ? (page - 1) * pageSize : 0) + data.length
             const pageCount = Math.ceil(dataTotal / pageSize)
 
             return {
@@ -63,7 +61,7 @@ export const pendapatanRouter = createTRPCRouter({
                 meta: {
                     pagination: {
                         dataTotal,
-                        dataCount: pendapatanList.length,
+                        dataCount: data.length,
                         page,
                         pageCount,
                         pageSize,
