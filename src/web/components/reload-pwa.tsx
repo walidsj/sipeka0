@@ -29,9 +29,11 @@ const ReloadPrompt = () => {
 
     return (
         <AlertDialog open={!!needRefresh}>
-            <Helmet>
-                <title>Update Aplikasi Sekarang! - SIPEKA</title>
-            </Helmet>
+            {needRefresh && (
+                <Helmet>
+                    <title>Update Aplikasi Sekarang! - SIPEKA</title>
+                </Helmet>
+            )}
             <AlertDialogContent className="w-full max-w-md">
                 <AlertDialogHeader>
                     <AlertDialogTitle>
