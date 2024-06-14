@@ -88,7 +88,7 @@ export default function PendapatanTable() {
         return <div>{error.message}</div>
     }
 
-    const totalPendapatan = pendapatan?.data.reduce(
+    const totalPendapatan = pendapatan?.data?.reduce(
         (acc, item) => acc + Number(item.jumlah),
         0
     )

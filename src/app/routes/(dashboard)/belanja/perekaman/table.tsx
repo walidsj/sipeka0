@@ -87,7 +87,7 @@ export default function BelanjaTable() {
         return <div>{error.message}</div>
     }
 
-    const totalBelanjaTable = belanja?.data.reduce(
+    const totalBelanjaTable = belanja?.data?.reduce(
         (acc, item) => acc + Number(item.jumlah),
         0
     )
