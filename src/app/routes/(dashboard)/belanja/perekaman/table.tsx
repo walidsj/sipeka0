@@ -105,7 +105,7 @@ export default function BelanjaTable() {
                         setSearchParams(searchParams)
                     }}
                 >
-                    <SelectTrigger className="w-20">
+                    <SelectTrigger className="w-20 font-semibold">
                         <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
