@@ -263,6 +263,9 @@ export default function PendapatanTable() {
                 <PaginationContent>
                     <PaginationItem>
                         <PaginationPrevious
+                            disabled={
+                                Number(pendapatan.meta.pagination.page) === 1
+                            }
                             onClick={() => {
                                 Number(pendapatan.meta.pagination.page) > 1 &&
                                     searchParams.set(
@@ -304,6 +307,10 @@ export default function PendapatanTable() {
                     </Select>
                     <PaginationItem>
                         <PaginationNext
+                            disabled={
+                                Number(pendapatan.meta.pagination.page) ===
+                                Number(pendapatan.meta.pagination.pageCount)
+                            }
                             onClick={() => {
                                 Number(pendapatan.meta.pagination.page) <
                                     Number(

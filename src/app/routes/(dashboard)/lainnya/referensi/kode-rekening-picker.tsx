@@ -252,6 +252,9 @@ export default function KodeRekeningPicker({
                     <PaginationContent>
                         <PaginationItem>
                             <PaginationPrevious
+                                disabled={
+                                    Number(rekening.meta.pagination.page) === 1
+                                }
                                 onClick={() => {
                                     Number(rekening.meta.pagination.page) > 1 &&
                                         searchParams.set(
@@ -269,6 +272,10 @@ export default function KodeRekeningPicker({
                         </PaginationItem>
                         <PaginationItem>
                             <PaginationNext
+                                disabled={
+                                    Number(rekening.meta.pagination.page) ===
+                                    Number(rekening.meta.pagination.pageCount)
+                                }
                                 onClick={() => {
                                     Number(rekening.meta.pagination.page) <
                                         Number(

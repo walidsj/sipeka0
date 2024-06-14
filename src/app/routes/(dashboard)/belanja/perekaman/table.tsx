@@ -276,6 +276,9 @@ export default function BelanjaTable() {
                 <PaginationContent>
                     <PaginationItem>
                         <PaginationPrevious
+                            disabled={
+                                Number(belanja.meta.pagination.page) === 1
+                            }
                             onClick={() => {
                                 Number(belanja.meta.pagination.page) > 1 &&
                                     searchParams.set(
@@ -317,6 +320,10 @@ export default function BelanjaTable() {
                     </Select>
                     <PaginationItem>
                         <PaginationNext
+                            disabled={
+                                Number(belanja.meta.pagination.page) ===
+                                Number(belanja.meta.pagination.pageCount)
+                            }
                             onClick={() => {
                                 Number(belanja.meta.pagination.page) <
                                     Number(belanja.meta.pagination.pageCount) &&

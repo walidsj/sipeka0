@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { cn } from '@/web/lib/utils'
-import { ButtonProps, buttonVariants } from '@/web/components/ui/button'
+import { Button, ButtonProps } from '@/web/components/ui/button'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 
 const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
@@ -36,8 +36,7 @@ PaginationItem.displayName = 'PaginationItem'
 
 type PaginationLinkProps = {
     isActive?: boolean
-} & Pick<ButtonProps, 'size'> &
-    React.ComponentProps<'a'>
+} & ButtonProps
 
 const PaginationLink = ({
     className,
@@ -45,15 +44,11 @@ const PaginationLink = ({
     size = 'icon',
     ...props
 }: PaginationLinkProps) => (
-    <a
+    <Button
+        type="button"
+        variant={isActive ? 'outline' : 'ghost'}
         aria-current={isActive ? 'page' : undefined}
-        className={cn(
-            buttonVariants({
-                variant: isActive ? 'outline' : 'ghost',
-                size,
-            }),
-            className
-        )}
+        className={cn(className)}
         {...props}
     />
 )

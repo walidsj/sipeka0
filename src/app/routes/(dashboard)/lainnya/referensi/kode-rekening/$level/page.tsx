@@ -94,12 +94,11 @@ export default function Page() {
                         className="w-80 pl-10"
                         placeholder="Cari kode rekening"
                         value={searchParams.get('search') ?? ''}
-                        onChange={(e) =>
-                            setSearchParams((prev) => {
-                                prev.set('search', e.target.value)
-                                return prev
-                            })
-                        }
+                        onChange={(e) => {
+                            searchParams.set('search', e.target.value)
+                            searchParams.set('page', '1')
+                            setSearchParams(searchParams)
+                        }}
                     />
                 </div>
             </div>
@@ -130,6 +129,9 @@ export default function Page() {
                 <PaginationContent>
                     <PaginationItem>
                         <PaginationPrevious
+                            disabled={
+                                Number(rekening.meta.pagination.page) === 1
+                            }
                             onClick={() => {
                                 Number(rekening.meta.pagination.page) > 1 &&
                                     searchParams.set(
@@ -146,6 +148,10 @@ export default function Page() {
                     </PaginationItem>
                     <PaginationItem>
                         <PaginationNext
+                            disabled={
+                                Number(rekening.meta.pagination.page) ===
+                                Number(rekening.meta.pagination.pageCount)
+                            }
                             onClick={() => {
                                 Number(rekening.meta.pagination.page) <
                                     Number(

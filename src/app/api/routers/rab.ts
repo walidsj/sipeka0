@@ -2,7 +2,7 @@ import { rabSchema } from '@/app/api/schema/rab'
 import { rekeningLevel6 } from '@/data/rekening'
 import { rab } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { count, eq, like, or } from 'drizzle-orm'
+import { asc, count, eq, like, or } from 'drizzle-orm'
 import { z } from 'zod'
 
 export const rabRouter = createTRPCRouter({
@@ -24,6 +24,7 @@ export const rabRouter = createTRPCRouter({
                 where: search ? like(rab.uraian, `%${search}%`) : undefined,
                 limit: pageSize ?? 10,
                 offset: page ? (page - 1) * pageSize : 0,
+                orderBy: asc(rab.kodeRekening),
             })
 
             const data = rabList.map((rab) => ({

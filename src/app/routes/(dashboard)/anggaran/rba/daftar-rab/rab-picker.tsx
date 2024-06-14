@@ -262,6 +262,9 @@ export default function RabPicker({
                     <PaginationContent>
                         <PaginationItem>
                             <PaginationPrevious
+                                disabled={
+                                    Number(rab.meta.pagination.page) === 1
+                                }
                                 onClick={() => {
                                     Number(rab.meta.pagination.page) > 1 &&
                                         searchParams.set(
@@ -303,6 +306,10 @@ export default function RabPicker({
                         </Select>
                         <PaginationItem>
                             <PaginationNext
+                                disabled={
+                                    Number(rab.meta.pagination.page) ===
+                                    Number(rab.meta.pagination.pageCount)
+                                }
                                 onClick={() => {
                                     Number(rab.meta.pagination.page) <
                                         Number(rab.meta.pagination.pageCount) &&
