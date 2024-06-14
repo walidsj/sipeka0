@@ -9,6 +9,7 @@ import {
 } from './ui/alert-dialog'
 import { Button } from './ui/button'
 import { CardTitle } from './ui/card'
+import { Helmet } from 'react-helmet'
 
 const ReloadPrompt = () => {
     const {
@@ -28,6 +29,9 @@ const ReloadPrompt = () => {
 
     return (
         <AlertDialog open={!!needRefresh}>
+            <Helmet>
+                <title>Update Aplikasi Sekarang! - SIPEKA</title>
+            </Helmet>
             <AlertDialogContent className="w-full max-w-md">
                 <AlertDialogHeader>
                     <AlertDialogTitle>
