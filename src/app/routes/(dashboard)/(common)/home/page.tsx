@@ -31,7 +31,7 @@ export default function Dashboard() {
     const countDba = api.dba.count.useQuery()
 
     return (
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             <Card>
                 <CardHeader className="flex flex-row items-center gap-4">
                     <img
@@ -234,7 +234,7 @@ export default function Dashboard() {
                     </div>
                 </CardHeader>
             </Card>
-            <Card className="col-span-2">
+            <Card className="sm:col-span-2 lg:col-span-3 xl:col-span-2">
                 <CardHeader className="flex flex-row items-start justify-between">
                     <div>
                         <CardDescription className="mb-2">

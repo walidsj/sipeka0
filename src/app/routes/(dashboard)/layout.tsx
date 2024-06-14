@@ -21,7 +21,7 @@ export default function DashboardLayout() {
                 <title>Dashboard - SIPEKA</title>
             </Helmet>
             <div className="border-b bg-background shadow-sm">
-                <nav className="mx-auto px-3">
+                <nav className="mx-auto w-full overflow-x-auto">
                     <ul className="flex">
                         <li>
                             <Button

@@ -18,13 +18,26 @@ export function Header() {
 
     return (
         <header className="fixed z-20 h-20 w-full border-b bg-background shadow-sm">
-            <div className="mx-auto px-8">
+            <div className="mx-auto px-4 pr-0">
                 <div className="flex w-full items-center justify-between">
-                    <Link to="/" className="flex h-20 items-center">
+                    <Link
+                        to="/"
+                        className="flex h-20 flex-shrink-0 items-center"
+                    >
                         <img
                             src="/images/logo-sipeka-full-long.svg"
                             alt="Logo"
-                            className="h-10 w-auto"
+                            className="hidden h-10 w-auto lg:block"
+                        />
+                        <img
+                            src="/images/logo-sipeka-full.svg"
+                            alt="Logo"
+                            className="hidden h-10 w-auto sm:block lg:hidden"
+                        />
+                        <img
+                            src="/images/logo-sipeka.svg"
+                            alt="Logo"
+                            className="h-10 w-10 sm:hidden"
                         />
                     </Link>
                     <ul className="flex items-center">
@@ -32,7 +45,7 @@ export function Header() {
                             <Button
                                 variant="ghost"
                                 asChild
-                                className="h-20 rounded-none px-5"
+                                className="hidden h-20 rounded-none px-5 md:flex"
                             >
                                 <Link to="/">Beranda</Link>
                             </Button>
@@ -41,7 +54,7 @@ export function Header() {
                             <Button
                                 variant="ghost"
                                 asChild
-                                className="h-20 rounded-none px-5"
+                                className="hidden h-20 rounded-none px-5 sm:flex"
                             >
                                 <Link to="/panduan">Panduan</Link>
                             </Button>
@@ -86,7 +99,7 @@ export function Header() {
                                                         CN
                                                     </AvatarFallback>
                                                 </Avatar>
-                                                <div className="text-left">
+                                                <div className="hidden text-left lg:block">
                                                     <div className="block text-sm">
                                                         {auth.user.nama}
                                                     </div>
