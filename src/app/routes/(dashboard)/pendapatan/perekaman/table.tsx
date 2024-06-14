@@ -20,7 +20,6 @@ import { api } from '@/web/trpc/react'
 import { keepPreviousData } from '@tanstack/react-query'
 import { format } from 'date-fns'
 import { id } from 'date-fns/locale'
-import _ from 'lodash'
 import React from 'react'
 import toast from 'react-hot-toast'
 import { FiChevronsDown, FiEdit, FiSearch, FiTrash } from 'react-icons/fi'
@@ -113,7 +112,7 @@ export default function PendapatanTable() {
                                     )}
                                 </TableCell>
                                 <TableCell className="w-60">
-                                    <p className="font-semibold">
+                                    <p className="font-medium">
                                         {item.rap?.uraian}
                                     </p>
                                     <p className="text-sm text-slate-500">

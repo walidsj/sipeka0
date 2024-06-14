@@ -11,32 +11,49 @@ export const belanjaRouter = createTRPCRouter({
         .input(
             z.object({
                 search: z.string().optional(),
+                page: z.number().optional(),
+                pageSize: z.number().optional(),
             })
         )
         .query(async ({ ctx, input }) => {
+            const page = input.page ?? 1
+            const pageSize = input.pageSize ?? 10
+            const search = input.search ?? ''
+
             const belanjaList = await ctx.db.query.belanja.findMany({
-                with: {
-                    rab: true,
-                },
-                where: input.search
+                with: { rab: true },
+                where: search
                     ? or(
-                          like(belanja.uraian, `%${input.search}%`),
-                          like(belanja.noDokumen, `%${input.search}%`)
+                          like(belanja.uraian, `%${search}%`),
+                          like(belanja.noDokumen, `%${search}%`)
                       )
                     : undefined,
                 orderBy: [desc(belanja.tglDokumen), desc(belanja.noDokumen)],
+                limit: pageSize ?? 10,
+                offset: page ? (page - 1) * pageSize : 0,
             })
 
-            return belanjaList.map((belanja) => {
-                const kodeRekening = rekeningLevel6.find(
-                    (rekening) => rekening.kode === belanja.rab?.kodeRekening
-                )
+            const totalData = await ctx.db
+                .select({ sum: sum(belanja.jumlah) })
+                .from(belanja)
 
-                return {
-                    ...belanja,
-                    rekening: kodeRekening,
-                }
-            })
+            return {
+                data: belanjaList.map((belanja) => {
+                    const rekening = rekeningLevel6.find(
+                        (rekening) =>
+                            rekening.kode === belanja.rab?.kodeRekening
+                    )
+                    return { ...belanja, rekening }
+                }),
+                totalSum: totalData[0].sum,
+                meta: {
+                    pagination: {
+                        page,
+                        pageSize,
+                        firstRow: (page ? (page - 1) * pageSize : 0) + 1,
+                    },
+                },
+            }
         }),
 
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {
