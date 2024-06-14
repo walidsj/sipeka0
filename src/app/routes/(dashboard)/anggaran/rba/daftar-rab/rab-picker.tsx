@@ -11,6 +11,7 @@ import {
 import {
     Table,
     TableBody,
+    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
@@ -22,6 +23,22 @@ import { useDebounce } from 'use-debounce'
 import { Input } from '@/web/components/ui/input'
 import { keepPreviousData } from '@tanstack/react-query'
 import Loading from '@/web/components/loading'
+import { useSearchParams } from 'react-router-dom'
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/web/components/ui/select'
+import { FiSearch } from 'react-icons/fi'
+import {
+    Pagination,
+    PaginationContent,
+    PaginationItem,
+    PaginationNext,
+    PaginationPrevious,
+} from '@/web/components/ui/pagination'
 
 export default function RabPicker({
     value,
@@ -41,13 +58,39 @@ export default function RabPicker({
         placeholderData: keepPreviousData,
     })
 
-    const [search, setSearch] = React.useState<string>('')
-    const [searchValue] = useDebounce(search, 300)
+    const [searchParams, setSearchParams] = useSearchParams({
+        search: '',
+        page: '1',
+        pageSize: '10',
+    })
 
-    const rab = api.rab.getAll.useQuery(
-        { search: searchValue },
+    const [searchValue] = useDebounce(searchParams.get('search') ?? '', 300)
+
+    const {
+        isLoading,
+        isError,
+        error,
+        data: rab,
+    } = api.rab.getAll.useQuery(
+        {
+            search: searchValue,
+            page: Number(searchParams.get('page')),
+            pageSize: Number(searchParams.get('pageSize')),
+        },
         { placeholderData: keepPreviousData }
     )
+
+    if (isLoading) {
+        return <Loading />
+    }
+
+    if (isError) {
+        return <div>{error.message}</div>
+    }
+
+    if (!rab) {
+        return <div>Data tidak dapat dimuat.</div>
+    }
 
     return (
         <Dialog>
@@ -98,10 +141,41 @@ export default function RabPicker({
                         Referensi RAB untuk transaksi
                     </DialogDescription>
                 </DialogHeader>
-                <Input
-                    placeholder="Cari rab..."
-                    onChange={(e) => setSearch(e.target.value)}
-                />
+                <div className="flex flex-row items-center gap-5">
+                    <Select
+                        value={searchParams.get('pageSize') ?? ''}
+                        onValueChange={(val) => {
+                            searchParams.set('pageSize', val)
+                            searchParams.set('page', '1')
+                            setSearchParams(searchParams)
+                        }}
+                    >
+                        <SelectTrigger className="w-20 font-semibold">
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="10">10</SelectItem>
+                            <SelectItem value="25">25</SelectItem>
+                            <SelectItem value="50">50</SelectItem>
+                            <SelectItem value="100">100</SelectItem>
+                        </SelectContent>
+                    </Select>
+                    <div className="relative">
+                        <div className="absolute inset-y-0 left-0 flex items-center justify-center px-3">
+                            <FiSearch className="text-gray-400" />
+                        </div>
+                        <Input
+                            className="pl-10"
+                            placeholder="Cari data..."
+                            value={searchParams.get('search') ?? ''}
+                            onChange={(e) => {
+                                searchParams.set('search', e.target.value)
+                                searchParams.set('page', '1')
+                                setSearchParams(searchParams)
+                            }}
+                        />
+                    </div>
+                </div>
                 <div className="max-h-96 overflow-y-auto">
                     <Table>
                         <TableHeader>
@@ -115,60 +189,57 @@ export default function RabPicker({
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {rab.isSuccess &&
-                                rab.data?.map((item, index) => (
-                                    <TableRow
-                                        key={index}
-                                        className={cn(
-                                            selected === item.id &&
-                                                'bg-yellow-100 hover:bg-yellow-200'
+                            {rab.data.map((item, index) => (
+                                <TableRow
+                                    key={index}
+                                    className={cn(
+                                        selected === item.id &&
+                                            'bg-yellow-100 hover:bg-yellow-200'
+                                    )}
+                                >
+                                    <TableCell className="text-center">
+                                        {index + 1}.
+                                    </TableCell>
+                                    <TableCell>
+                                        <p>{item.rekening?.kode}</p>
+                                        <p className="text-xs text-slate-500">
+                                            {item.rekening?.uraian}
+                                        </p>
+                                    </TableCell>
+                                    <TableCell>
+                                        <p className="font-semibold">
+                                            {item.uraian}
+                                        </p>
+                                        <p className="text-sm">
+                                            {item.spesifikasi}
+                                        </p>
+                                    </TableCell>
+                                    <TableCell>
+                                        {selected === item.id ? (
+                                            <Button
+                                                variant="destructive"
+                                                onClick={() => {
+                                                    setSelected(undefined)
+                                                    onValueChange?.(undefined)
+                                                }}
+                                            >
+                                                Batal
+                                            </Button>
+                                        ) : (
+                                            <Button
+                                                variant="outline"
+                                                onClick={() => {
+                                                    setSelected(item.id)
+                                                    onValueChange?.(item.id)
+                                                }}
+                                            >
+                                                Pilih
+                                            </Button>
                                         )}
-                                    >
-                                        <TableCell className="text-center">
-                                            {index + 1}.
-                                        </TableCell>
-                                        <TableCell>
-                                            <p>{item.rekening?.kode}</p>
-                                            <p className="text-xs text-slate-500">
-                                                {item.rekening?.uraian}
-                                            </p>
-                                        </TableCell>
-                                        <TableCell>
-                                            <p className="font-semibold">
-                                                {item.uraian}
-                                            </p>
-                                            <p className="text-sm">
-                                                {item.spesifikasi}
-                                            </p>
-                                        </TableCell>
-                                        <TableCell>
-                                            {selected === item.id ? (
-                                                <Button
-                                                    variant="destructive"
-                                                    onClick={() => {
-                                                        setSelected(undefined)
-                                                        onValueChange?.(
-                                                            undefined
-                                                        )
-                                                    }}
-                                                >
-                                                    Batal
-                                                </Button>
-                                            ) : (
-                                                <Button
-                                                    variant="outline"
-                                                    onClick={() => {
-                                                        setSelected(item.id)
-                                                        onValueChange?.(item.id)
-                                                    }}
-                                                >
-                                                    Pilih
-                                                </Button>
-                                            )}
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                            {rab.isSuccess && rab.data?.length === 0 && (
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                            {rab.data.length === 0 && (
                                 <TableRow>
                                     <TableCell
                                         colSpan={4}
@@ -181,6 +252,73 @@ export default function RabPicker({
                         </TableBody>
                     </Table>
                 </div>
+                <TableCaption>
+                    Menampilkan data {rab.meta.pagination.firstRow}-
+                    {rab.meta.pagination.lastRow} dari total{' '}
+                    {rab.meta.pagination.dataTotal} data.
+                </TableCaption>
+                <Pagination>
+                    <PaginationContent>
+                        <PaginationItem>
+                            <PaginationPrevious
+                                onClick={() => {
+                                    Number(rab.meta.pagination.page) > 1 &&
+                                        searchParams.set(
+                                            'page',
+                                            String(
+                                                Number(
+                                                    rab.meta.pagination.page
+                                                ) - 1
+                                            )
+                                        )
+                                    setSearchParams(searchParams)
+                                }}
+                            />
+                        </PaginationItem>
+                        <Select
+                            value={String(rab.meta.pagination.page) ?? '1'}
+                            onValueChange={(val) => {
+                                searchParams.set('page', val)
+                                setSearchParams(searchParams)
+                            }}
+                        >
+                            <SelectTrigger className="w-20 font-semibold">
+                                <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {Array.from(
+                                    {
+                                        length: Number(
+                                            rab.meta.pagination.pageCount
+                                        ),
+                                    },
+                                    (_, i) => i + 1
+                                ).map((page) => (
+                                    <SelectItem key={page} value={String(page)}>
+                                        {page}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                        <PaginationItem>
+                            <PaginationNext
+                                onClick={() => {
+                                    Number(rab.meta.pagination.page) <
+                                        Number(rab.meta.pagination.pageCount) &&
+                                        searchParams.set(
+                                            'page',
+                                            String(
+                                                Number(
+                                                    rab.meta.pagination.page
+                                                ) + 1
+                                            )
+                                        )
+                                    setSearchParams(searchParams)
+                                }}
+                            />
+                        </PaginationItem>
+                    </PaginationContent>
+                </Pagination>
             </DialogContent>
         </Dialog>
     )
