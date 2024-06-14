@@ -252,16 +252,17 @@ export const kodeRekeningRouter = createTRPCRouter({
                 data = data?.slice(start, end)
             }
 
+            const dataCount = data.length
             const firstRow = (page ? (page - 1) * pageSize : 0) + 1
             const lastRow = (page ? (page - 1) * pageSize : 0) + data.length
-            const pageCount = Math.ceil(dataTotal! / pageSize)
+            const pageCount = Math.ceil(dataCount! / pageSize)
 
             return {
                 data,
                 meta: {
                     pagination: {
                         dataTotal,
-                        dataCount: data.length,
+                        dataCount,
                         page,
                         pageCount,
                         pageSize,
