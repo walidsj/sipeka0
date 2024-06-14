@@ -1,6 +1,6 @@
 import { aktivitasRba, belanja, dba } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { and, desc, eq, like, or, sum } from 'drizzle-orm'
+import { and, count, desc, eq, like, or, sum } from 'drizzle-orm'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import { belanjaSchema } from '../schema/belanja'
@@ -33,9 +33,19 @@ export const belanjaRouter = createTRPCRouter({
                 offset: page ? (page - 1) * pageSize : 0,
             })
 
-            const totalData = await ctx.db
-                .select({ sum: sum(belanja.jumlah) })
+            const total = await ctx.db
+                .select({
+                    sum: sum(belanja.jumlah),
+                    count: count(belanja.jumlah),
+                })
                 .from(belanja)
+
+            const totalSum = total[0].sum
+            const dataTotal = total[0].count
+            const firstRow = (page ? (page - 1) * pageSize : 0) + 1
+            const lastRow =
+                (page ? (page - 1) * pageSize : 0) + belanjaList.length
+            const pageCount = Math.ceil(dataTotal / pageSize)
 
             return {
                 data: belanjaList.map((belanja) => {
@@ -45,12 +55,16 @@ export const belanjaRouter = createTRPCRouter({
                     )
                     return { ...belanja, rekening }
                 }),
-                totalSum: totalData[0].sum,
+                totalSum,
                 meta: {
                     pagination: {
+                        dataTotal,
+                        dataCount: belanjaList.length,
                         page,
+                        pageCount,
                         pageSize,
-                        firstRow: (page ? (page - 1) * pageSize : 0) + 1,
+                        firstRow,
+                        lastRow,
                     },
                 },
             }

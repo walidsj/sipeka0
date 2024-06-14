@@ -34,6 +34,7 @@ import {
 import { cn, formatAngka, formatTanggal } from '@/web/lib/utils'
 import { api } from '@/web/trpc/react'
 import { keepPreviousData } from '@tanstack/react-query'
+import { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { FiChevronsDown, FiEdit, FiSearch, FiTrash } from 'react-icons/fi'
 import { Link, useSearchParams } from 'react-router-dom'
@@ -260,6 +261,11 @@ export default function BelanjaTable() {
                     </TableRow>
                 </TableFooter>
             </Table>
+            <div className="text-sm">
+                Menampilkan {belanja?.meta.pagination.firstRow}-
+                {belanja?.meta.pagination.lastRow} dari total{' '}
+                {belanja?.meta.pagination.dataTotal} data
+            </div>
             <Pagination>
                 <PaginationContent>
                     <PaginationItem>
@@ -276,13 +282,44 @@ export default function BelanjaTable() {
                             }}
                         />
                     </PaginationItem>
+                    <Select
+                        value={searchParams.get('page') ?? '1'}
+                        onValueChange={(val) => {
+                            searchParams.set('page', val)
+                            setSearchParams(searchParams)
+                        }}
+                    >
+                        <SelectTrigger className="w-20 font-semibold">
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {Array.from(
+                                {
+                                    length: Number(
+                                        belanja?.meta.pagination.pageCount
+                                    ),
+                                },
+                                (_, i) => i + 1
+                            ).map((page) => (
+                                <SelectItem key={page} value={String(page)}>
+                                    {page}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
                     <PaginationItem>
                         <PaginationNext
                             onClick={() => {
-                                searchParams.set(
-                                    'page',
-                                    String(Number(searchParams.get('page')) + 1)
-                                )
+                                Number(searchParams.get('page')) <
+                                    Number(
+                                        belanja?.meta.pagination.pageCount
+                                    ) &&
+                                    searchParams.set(
+                                        'page',
+                                        String(
+                                            Number(searchParams.get('page')) + 1
+                                        )
+                                    )
                                 setSearchParams(searchParams)
                             }}
                         />
