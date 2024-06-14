@@ -1,7 +1,7 @@
 import { rekeningLevel6 } from '@/data/rekening'
 import { aktivitasRba, dba, pendapatan } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { and, desc, eq, like, sum } from 'drizzle-orm'
+import { and, count, desc, eq, like, sum } from 'drizzle-orm'
 import { z } from 'zod'
 import { pendapatanSchema } from '../schema/pendapatan'
 import { TRPCError } from '@trpc/server'
@@ -11,32 +11,67 @@ export const pendapatanRouter = createTRPCRouter({
         .input(
             z.object({
                 search: z.string().optional(),
+                page: z.number().optional(),
+                pageSize: z.number().optional(),
             })
         )
         .query(async ({ ctx, input }) => {
+            const page = input.page ?? 1
+            const pageSize = input.pageSize ?? 10
+            const search = input.search ?? ''
+
             const pendapatanList = await ctx.db.query.pendapatan.findMany({
                 with: {
                     rap: true,
                 },
-                where: input.search
-                    ? like(pendapatan.keterangan, `%${input.search}%`)
+                where: search
+                    ? like(pendapatan.keterangan, `%${search}%`)
                     : undefined,
                 orderBy: [
                     desc(pendapatan.tglDokumen),
                     desc(pendapatan.createdAt),
                 ],
+                limit: pageSize ?? 10,
+                offset: page ? (page - 1) * pageSize : 0,
             })
 
-            return pendapatanList.map((pendapatan) => {
+            const data = pendapatanList.map((pendapatan) => {
                 const kodeRekening = rekeningLevel6.find(
                     (rekening) => rekening.kode === pendapatan.rap?.kodeRekening
                 )
 
-                return {
-                    ...pendapatan,
-                    rekening: kodeRekening,
-                }
+                return { ...pendapatan, rekening: kodeRekening }
             })
+
+            const total = await ctx.db
+                .select({
+                    sum: sum(pendapatan.jumlah),
+                    count: count(pendapatan.jumlah),
+                })
+                .from(pendapatan)
+
+            const totalSum = total[0].sum
+            const dataTotal = total[0].count
+            const firstRow = (page ? (page - 1) * pageSize : 0) + 1
+            const lastRow =
+                (page ? (page - 1) * pageSize : 0) + pendapatanList.length
+            const pageCount = Math.ceil(dataTotal / pageSize)
+
+            return {
+                data,
+                totalSum,
+                meta: {
+                    pagination: {
+                        dataTotal,
+                        dataCount: pendapatanList.length,
+                        page,
+                        pageCount,
+                        pageSize,
+                        firstRow,
+                        lastRow,
+                    },
+                },
+            }
         }),
 
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {

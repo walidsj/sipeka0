@@ -34,7 +34,6 @@ import {
 import { cn, formatAngka, formatTanggal } from '@/web/lib/utils'
 import { api } from '@/web/trpc/react'
 import { keepPreviousData } from '@tanstack/react-query'
-import { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { FiChevronsDown, FiEdit, FiSearch, FiTrash } from 'react-icons/fi'
 import { Link, useSearchParams } from 'react-router-dom'
@@ -52,11 +51,10 @@ export default function BelanjaTable() {
     const [searchValue] = useDebounce(searchParams.get('search') ?? '', 300)
 
     const {
-        data: belanja,
         isLoading,
-        isPending,
         isError,
         error,
+        data: belanja,
     } = api.belanja.getAll.useQuery(
         {
             search: searchValue,
@@ -146,7 +144,7 @@ export default function BelanjaTable() {
                         <TableHead className="w-1" />
                     </TableRow>
                 </TableHeader>
-                <TableBody className={cn(isPending && 'opacity-50')}>
+                <TableBody>
                     {belanja?.data.map((item, index) => (
                         <TableRow key={index}>
                             <TableCell className="text-center">
@@ -248,7 +246,7 @@ export default function BelanjaTable() {
                     <TableRow>
                         <TableCell colSpan={7}>Total</TableCell>
                         <TableCell className="text-right">
-                            {Number(totalBelanjaTable).toLocaleString('id-ID')}
+                            {formatAngka(totalBelanjaTable)}
                         </TableCell>
                         <TableCell />
                     </TableRow>
