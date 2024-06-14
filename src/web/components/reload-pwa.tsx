@@ -8,6 +8,7 @@ import {
     AlertDialogTitle,
 } from './ui/alert-dialog'
 import { Button } from './ui/button'
+import { CardTitle } from './ui/card'
 
 const ReloadPrompt = () => {
     const {
@@ -38,15 +39,15 @@ const ReloadPrompt = () => {
                                     className="mb-5 w-36"
                                 />
                             </div>
-                            <h4 className="text-center">
-                                Versi Terbaru SIPEKA Tersedia!
-                            </h4>
+                            <CardTitle className="text-center">
+                                Update Versi Terbaru
+                            </CardTitle>
                         </div>
                     </AlertDialogTitle>
                     <AlertDialogDescription>
                         <p className="text-center text-gray-500">
-                            Silahkan update untuk mendapatkan versi yang lebih
-                            aman dan cepat.
+                            Silahkan update untuk mendapatkan versi aplikasi
+                            yang lebih aman dan cepat.
                         </p>
                     </AlertDialogDescription>
                 </AlertDialogHeader>
