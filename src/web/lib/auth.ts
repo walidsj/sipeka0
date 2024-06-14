@@ -2,14 +2,25 @@ import { useCookies } from 'react-cookie'
 import { api } from '../trpc/react'
 import { getQueryKey } from '@trpc/react-query'
 import { useQueryClient } from '@tanstack/react-query'
+import toast from 'react-hot-toast'
 
 export function useAuth() {
     const [cookies, setCookie, removeCookie] = useCookies(['token'])
     const queryClient = useQueryClient()
 
-    const user = api.user.getProfile.useQuery(undefined, {
+    const {
+        data: user,
+        isLoading,
+        isError,
+        error,
+    } = api.user.getProfile.useQuery(undefined, {
         enabled: !!cookies.token,
     })
+
+    if (isError && error.data?.code === 'UNAUTHORIZED') {
+        toast.error('Maaf, silakan login kembali')
+        logout()
+    }
 
     function login(token: string) {
         setCookie('token', token, {
@@ -25,5 +36,5 @@ export function useAuth() {
         removeCookie('token')
     }
 
-    return { login, logout, token: cookies.token ?? '', user: user.data }
+    return { login, logout, token: cookies.token ?? '', user: user }
 }
