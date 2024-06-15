@@ -127,7 +127,7 @@ export default function Home() {
                         Aplikasi Pengelola Keuangan RSJD Atma Husada Mahakam
                         Prov. Kaltim
                     </h2>
-                    <div className="flex gap-2">
+                    <div className="flex items-center justify-center gap-2 md:justify-start">
                         <Button asChild size="lg">
                             <Link to="/login">
                                 Akses Sekarang
@@ -137,16 +137,16 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="relative max-w-lg flex-shrink-0">
-                    <Card className="absolute left-0 top-52 flex flex-row items-center gap-2 px-4 py-2 text-sm font-semibold shadow-lg">
-                        <AiOutlineThunderbolt className="h-5 w-5 text-primary" />{' '}
+                    <Card className="absolute left-0 top-52 flex flex-row items-center gap-1 px-2 py-1 text-xs font-semibold shadow-lg sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
+                        <AiOutlineThunderbolt className="h-4 w-4 text-primary sm:h-5 sm:w-5" />{' '}
                         Akses Mudah
                     </Card>
-                    <Card className="absolute bottom-10 left-10 flex flex-row items-center gap-2 px-4 py-2 text-sm font-semibold shadow-lg">
-                        <FiLock className="h-4 w-4 text-primary" /> Aman dan
-                        Terstandarisasi
+                    <Card className="absolute bottom-10 left-10 flex flex-row items-center gap-1 px-2 py-1 text-xs font-semibold shadow-lg sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
+                        <FiLock className="h-3 w-3 text-primary sm:h-4 sm:w-4" />{' '}
+                        Aman dan Terstandarisasi
                     </Card>
-                    <Card className="absolute bottom-40 right-10 flex flex-row items-center gap-2 px-4 py-2 text-sm font-semibold shadow-lg">
-                        <RiShareLine className="h-4 w-4 text-primary" />
+                    <Card className="absolute bottom-40 right-8 flex flex-row items-center gap-1 px-2 py-1 text-xs font-semibold shadow-lg sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
+                        <RiShareLine className="h-4 w-4 text-primary sm:h-5 sm:w-5" />
                         Integrasi Data
                     </Card>
                     <img
