@@ -119,7 +119,13 @@ export default function Home() {
                 </title>
             </Helmet>
             <div className="flex flex-col items-center justify-between gap-5 rounded-lg bg-white px-5 py-16 md:flex-row md:px-8 lg:px-10">
-                <div className="pb-0 md:pb-10">
+                <div className="pb-0 md:pb-20">
+                    <div className="mb-5 flex items-center justify-center gap-2 md:justify-start">
+                        <div className="h-5 w-5 rounded-full bg-red-500" />
+                        <div className="h-5 w-5 rounded-full bg-yellow-500" />
+                        <div className="h-5 w-5 rounded-full bg-green-500" />
+                        <div className="h-5 w-5 rounded-full bg-blue-500" />
+                    </div>
                     <h1 className="mb-5 text-center text-4xl font-extrabold md:text-left md:text-5xl lg:text-6xl">
                         Sistem Informasi Pengelolaan Keuangan
                     </h1>
