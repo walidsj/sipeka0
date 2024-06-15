@@ -1,11 +1,14 @@
 import { Button } from '@/web/components/ui/button'
+import { Card } from '@/web/components/ui/card'
 import { cn } from '@/web/lib/utils'
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import { FaWhatsapp } from 'react-icons/fa'
 import { FaHeart } from 'react-icons/fa6'
-import { FiArrowRight } from 'react-icons/fi'
+import { FiArrowRight, FiLock } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
+import { AiOutlineThunderbolt } from 'react-icons/ai'
+import { RiShareLine } from 'react-icons/ri'
 
 const list = [
     {
@@ -116,45 +119,71 @@ export default function Home() {
                     SIPEKA - Sistem Informasi Pengelolaan Keuangan BLUD
                 </title>
             </Helmet>
-            <div className="rounded-lg bg-white px-8 pb-28 pt-20">
-                <h2 className="text-5xl">Selamat datang di </h2>
-                <h1 className="mb-10 text-7xl font-bold">
-                    Sistem Informasi Pengelolaan Keuangan
-                </h1>
-                <div className="flex gap-2">
-                    <Button asChild size="lg">
-                        <Link to="/login">
-                            Mulai Sekarang
-                            <FiArrowRight className="ml-3 h-5 w-5" />
-                        </Link>
-                    </Button>
-                    <Button asChild size="lg" className="bg-emerald-500">
-                        <a href="https://wa.me/6285172277277">
-                            <FaWhatsapp className="mr-2 h-5 w-5" />
-                            Hubungi Admin
-                        </a>
-                    </Button>
+            <div className="flex flex-col items-center justify-between gap-5 rounded-lg bg-white px-5 py-16 md:flex-row">
+                <div className="pb-0 md:pb-10">
+                    <h1 className="mb-5 text-center text-4xl font-extrabold md:text-left md:text-6xl">
+                        Sistem Informasi Pengelolaan Keuangan (SIPEKA)
+                    </h1>
+                    <h2 className="mb-10 text-center text-xl font-semibold md:text-left md:text-3xl">
+                        Aplikasi Pengelola Keuangan RSJD Atma Husada Mahakam
+                        Prov. Kaltim
+                    </h2>
+                    <div className="flex gap-2">
+                        <Button asChild size="lg">
+                            <Link to="/login">
+                                Akses Sekarang
+                                <FiArrowRight className="ml-3 h-5 w-5" />
+                            </Link>
+                        </Button>
+                        <Button asChild size="lg" className="bg-emerald-500">
+                            <a href="https://wa.me/6285172277277">
+                                <FaWhatsapp className="mr-2 h-5 w-5" />
+                                Hubungi Admin
+                            </a>
+                        </Button>
+                    </div>
+                </div>
+                <div className="relative max-w-lg flex-shrink-0">
+                    <Card className="absolute left-0 top-52 flex flex-row items-center gap-2 px-4 py-2 text-sm font-semibold shadow-lg">
+                        <AiOutlineThunderbolt className="h-5 w-5 text-primary" />{' '}
+                        Akses Mudah
+                    </Card>
+                    <Card className="absolute bottom-10 left-10 flex flex-row items-center gap-2 px-4 py-2 text-sm font-semibold shadow-lg">
+                        <FiLock className="h-4 w-4 text-primary" /> Aman dan
+                        Terstandarisasi
+                    </Card>
+                    <Card className="absolute bottom-40 right-10 flex flex-row items-center gap-2 px-4 py-2 text-sm font-semibold shadow-lg">
+                        <RiShareLine className="h-4 w-4 text-primary" />
+                        Integrasi Data
+                    </Card>
+                    <img
+                        src="/images/hero-bu.png"
+                        alt="Hero Image - Sopia Lena"
+                        className="h-auto"
+                    />
                 </div>
             </div>
-            <div className="flex gap-10 bg-secondary px-8 py-20 text-white">
-                <div className="-mt-5 flex flex-col">
+            <div className="flex flex-col-reverse gap-10 bg-secondary px-5 py-16 text-white">
+                <div className="-mt-5 flex flex-row items-center justify-center gap-5">
                     <img
                         src="/images/teams/bu-lena.png"
-                        className="mb-2 h-96"
+                        className="mb-2 h-auto max-w-36"
                     />
-                    <h6 className="text-center text-2xl font-bold">
-                        Sopia Lena, SE, M.Si
-                    </h6>
-                    <p className="text-center text-sm">
-                        Kepala Bagian Keuangan dan Akuntansi
-                    </p>
+                    <div>
+                        <h6 className="text-xl font-bold">
+                            Sopia Lena, SE, M.Si
+                        </h6>
+                        <p className="text-sm">
+                            Kepala Bagian Keuangan dan Akuntansi
+                        </p>
+                    </div>
                 </div>
-                <div>
+                <div className="text-left md:text-center">
                     <h2 className="text-3xl font-bold">Tentang Kami</h2>
                     <p className="mb-8 text-5xl font-extrabold tracking-wide">
                         Keuangan RSJD AHM
                     </p>
-                    <p className="max-w-xl">
+                    <p className="md:mx-auto md:max-w-3xl">
                         Bagian Keuangan RSJD Atma Husada Mahakam adalah bagian
                         yang bertugas mengelola keuangan di rumah sakit. Bagian
                         ini memiliki beberapa tim yang bertugas mengelola
@@ -162,69 +191,71 @@ export default function Home() {
                     </p>
                 </div>
             </div>
-            <div className="px-8 py-20">
-                <h2 className="text-3xl font-bold">Perkenalkan</h2>
-                <h2 className="mb-8 text-5xl font-extrabold tracking-wide">
+            <div className="py-16">
+                <h2 className="px-5 text-3xl font-bold">Perkenalkan</h2>
+                <h2 className="mb-8 px-5 text-5xl font-extrabold tracking-wide">
                     Tim Kami
                 </h2>
-                <div className="mx-auto flex gap-3 text-sm">
-                    <Button
-                        variant="outline"
-                        className={cn(
-                            team === 'Semua' &&
-                                'border-2 border-primary text-primary'
-                        )}
-                        onClick={() => setTeam('Semua')}
-                    >
-                        Semua
-                    </Button>
-                    <Button
-                        variant="outline"
-                        className={cn(
-                            team === 'Perbendaharaan' &&
-                                'border-2 border-primary text-primary'
-                        )}
-                        onClick={() => setTeam('Perbendaharaan')}
-                    >
-                        Perbendaharaan
-                    </Button>
-                    <Button
-                        variant="outline"
-                        className={cn(
-                            team === 'Akuntansi' &&
-                                'border-2 border-primary text-primary'
-                        )}
-                        onClick={() => setTeam('Akuntansi')}
-                    >
-                        Akuntansi
-                    </Button>
-                    <Button
-                        variant="outline"
-                        className={cn(
-                            team === 'Verifikasi' &&
-                                'border-2 border-primary text-primary'
-                        )}
-                        onClick={() => setTeam('Verifikasi')}
-                    >
-                        JPK Center
-                    </Button>
-                    <Button
-                        variant="outline"
-                        className={cn(
-                            team === 'Tim Efektif' &&
-                                'border-2 border-primary text-primary'
-                        )}
-                        onClick={() => setTeam('Tim Efektif')}
-                    >
-                        Tim Efektif
-                    </Button>
+                <div className="overflow-auto">
+                    <div className="flex gap-3 px-5 text-sm">
+                        <Button
+                            variant="outline"
+                            className={cn(
+                                team === 'Semua' &&
+                                    'border-2 border-primary text-primary'
+                            )}
+                            onClick={() => setTeam('Semua')}
+                        >
+                            Semua
+                        </Button>
+                        <Button
+                            variant="outline"
+                            className={cn(
+                                team === 'Perbendaharaan' &&
+                                    'border-2 border-primary text-primary'
+                            )}
+                            onClick={() => setTeam('Perbendaharaan')}
+                        >
+                            Perbendaharaan
+                        </Button>
+                        <Button
+                            variant="outline"
+                            className={cn(
+                                team === 'Akuntansi' &&
+                                    'border-2 border-primary text-primary'
+                            )}
+                            onClick={() => setTeam('Akuntansi')}
+                        >
+                            Akuntansi
+                        </Button>
+                        <Button
+                            variant="outline"
+                            className={cn(
+                                team === 'Verifikasi' &&
+                                    'border-2 border-primary text-primary'
+                            )}
+                            onClick={() => setTeam('Verifikasi')}
+                        >
+                            JPK Center
+                        </Button>
+                        <Button
+                            variant="outline"
+                            className={cn(
+                                team === 'Tim Efektif' &&
+                                    'border-2 border-primary text-primary'
+                            )}
+                            onClick={() => setTeam('Tim Efektif')}
+                        >
+                            Tim Efektif
+                        </Button>
+                    </div>
                 </div>
                 <div
                     className={cn(
-                        'pt-10',
+                        'px-5 pt-10',
                         team === 'Semua'
-                            ? 'grid grid-cols-4 gap-5'
-                            : 'grid grid-cols-5 gap-10'
+                            ? 'grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4'
+                            : 'grid grid-cols-3 gap-10 md:grid-cols-4 lg:grid-cols-5'
                     )}
                 >
                     {list
@@ -257,8 +288,8 @@ export default function Home() {
                                         className={cn(
                                             'font-bold',
                                             team === 'Semua'
-                                                ? 'text-sm'
-                                                : 'text-lg'
+                                                ? 'text-xs md:text-sm'
+                                                : 'text-xs md:text-lg'
                                         )}
                                     >
                                         {item.name}
@@ -266,8 +297,8 @@ export default function Home() {
                                     <p
                                         className={cn(
                                             team === 'Semua'
-                                                ? 'text-xs'
-                                                : 'text-sm'
+                                                ? 'text-xs md:text-sm'
+                                                : 'text-xs md:text-sm'
                                         )}
                                     >
                                         {item.role}
@@ -277,14 +308,13 @@ export default function Home() {
                         ))}
                 </div>
             </div>
-            <footer className="flex justify-between bg-primary p-8 text-sm text-white">
+            <footer className="flex flex-col justify-between gap-5 bg-primary p-8 text-sm text-white md:flex-row">
                 <p>
                     <img
                         src="/images/logo-sipeka-light.svg"
                         className="mr-3 inline-flex h-6"
                     />
-                    &copy; {new Date().getFullYear()} RSJD Atma Husada Mahakam.
-                    Hak Cipta dilindungi oleh undang-undang
+                    &copy;{new Date().getFullYear()} by RSJD Atma Husada Mahakam
                 </p>
                 <p>
                     Build with{' '}
