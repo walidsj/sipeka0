@@ -3,7 +3,6 @@ import { Card } from '@/web/components/ui/card'
 import { cn } from '@/web/lib/utils'
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import { FaWhatsapp } from 'react-icons/fa'
 import { FaHeart } from 'react-icons/fa6'
 import { FiArrowRight, FiLock } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
@@ -134,12 +133,6 @@ export default function Home() {
                                 Akses Sekarang
                                 <FiArrowRight className="ml-3 h-5 w-5" />
                             </Link>
-                        </Button>
-                        <Button asChild size="lg" className="bg-emerald-500">
-                            <a href="https://wa.me/6285172277277">
-                                <FaWhatsapp className="mr-2 h-5 w-5" />
-                                Hubungi Admin
-                            </a>
                         </Button>
                     </div>
                 </div>
