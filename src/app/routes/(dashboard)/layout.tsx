@@ -21,14 +21,14 @@ export default function DashboardLayout() {
                 <title>Dashboard - SIPEKA</title>
             </Helmet>
             <div className="border-b bg-background shadow-sm">
-                <nav className="mx-auto w-full overflow-x-auto">
+                <nav className="mx-auto w-full overflow-x-auto md:px-3 lg:px-5">
                     <ul className="flex">
                         <li>
                             <Button
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-14 gap-3 rounded-none px-5',
+                                    'h-16 gap-3 rounded-none px-5',
                                     pathname.startsWith('/home') &&
                                         'text-primary'
                                 )}
@@ -53,7 +53,7 @@ export default function DashboardLayout() {
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-14 gap-3 rounded-none px-5',
+                                    'h-16 gap-3 rounded-none px-5',
                                     pathname.startsWith('/anggaran') &&
                                         'text-primary'
                                 )}
@@ -78,7 +78,7 @@ export default function DashboardLayout() {
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-14 gap-3 rounded-none px-5',
+                                    'h-16 gap-3 rounded-none px-5',
                                     pathname.startsWith('/pendapatan') &&
                                         'text-primary'
                                 )}
@@ -103,7 +103,7 @@ export default function DashboardLayout() {
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-14 gap-3 rounded-none px-5',
+                                    'h-16 gap-3 rounded-none px-5',
                                     pathname.startsWith('/belanja') &&
                                         'text-primary'
                                 )}
@@ -128,7 +128,7 @@ export default function DashboardLayout() {
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-14 gap-3 rounded-none px-5',
+                                    'h-16 gap-3 rounded-none px-5',
                                     pathname.startsWith('/akuntansi') &&
                                         'text-primary'
                                 )}
@@ -153,7 +153,7 @@ export default function DashboardLayout() {
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-14 gap-3 rounded-none px-5',
+                                    'h-16 gap-3 rounded-none px-5',
                                     pathname.startsWith('/lainnya') &&
                                         'text-primary'
                                 )}

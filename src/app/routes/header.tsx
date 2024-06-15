@@ -18,7 +18,7 @@ export function Header() {
 
     return (
         <header className="fixed z-20 h-20 w-full border-b bg-background shadow-sm">
-            <div className="mx-auto px-4 pr-0">
+            <div className="mx-auto px-5 pr-1 md:px-8 md:pr-6 lg:px-10 lg:pr-6">
                 <div className="flex w-full items-center justify-between">
                     <Link
                         to="/"

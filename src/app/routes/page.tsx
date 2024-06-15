@@ -118,14 +118,14 @@ export default function Home() {
                     SIPEKA - Sistem Informasi Pengelolaan Keuangan BLUD
                 </title>
             </Helmet>
-            <div className="flex flex-col items-center justify-between gap-5 rounded-lg bg-white px-5 py-16 md:flex-row">
+            <div className="flex flex-col items-center justify-between gap-5 rounded-lg bg-white px-5 py-16 md:flex-row md:px-8 lg:px-10">
                 <div className="pb-0 md:pb-10">
-                    <h1 className="mb-5 text-center text-4xl font-extrabold md:text-left md:text-6xl">
-                        Sistem Informasi Pengelolaan Keuangan (SIPEKA)
+                    <h1 className="mb-5 text-center text-4xl font-extrabold md:text-left md:text-5xl lg:text-6xl">
+                        Sistem Informasi Pengelolaan Keuangan
                     </h1>
-                    <h2 className="mb-10 text-center text-xl font-semibold md:text-left md:text-3xl">
-                        Aplikasi Pengelola Keuangan RSJD Atma Husada Mahakam
-                        Prov. Kaltim
+                    <h2 className="mb-10 text-center text-xl font-semibold md:text-left md:text-2xl lg:text-3xl">
+                        Manajemen Keuangan RSJD Atma Husada Mahakam Prov. Kaltim
+                        dalam Satu Aplikasi
                     </h2>
                     <div className="flex items-center justify-center gap-2 md:justify-start">
                         <Button asChild size="lg">
@@ -136,14 +136,26 @@ export default function Home() {
                         </Button>
                     </div>
                 </div>
-                <div className="relative max-w-lg flex-shrink-0">
-                    <Card className="absolute left-0 top-52 flex flex-row items-center gap-1 px-2 py-1 text-xs font-semibold shadow-lg sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
+                <div className="relative flex-shrink-0 md:max-w-md lg:max-w-lg">
+                    <Card className="absolute left-5 top-20 flex flex-row items-center gap-1 px-2 py-1 text-xs font-semibold shadow-lg sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
                         <AiOutlineThunderbolt className="h-4 w-4 text-primary sm:h-5 sm:w-5" />{' '}
                         Akses Mudah
                     </Card>
+                    <Card className="absolute left-0 top-56 flex h-16 w-16 flex-row items-center p-3 shadow-lg">
+                        <img src="/images/logo-sipeka.svg" />
+                    </Card>
+                    <Card className="absolute left-20 top-48 flex h-14 w-14 flex-row items-center p-2 shadow-lg">
+                        <img
+                            src="/images/logo-rsjdahm.webp"
+                            className="h-auto w-10"
+                        />
+                    </Card>
+                    <Card className="absolute right-5 top-16 flex h-14 w-14 flex-row items-center p-3 shadow-lg">
+                        <img src="/images/logo-kaltimprov.webp" />
+                    </Card>
                     <Card className="absolute bottom-10 left-10 flex flex-row items-center gap-1 px-2 py-1 text-xs font-semibold shadow-lg sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
                         <FiLock className="h-3 w-3 text-primary sm:h-4 sm:w-4" />{' '}
-                        Aman dan Terstandarisasi
+                        Aman dan Terstandar
                     </Card>
                     <Card className="absolute bottom-40 right-8 flex flex-row items-center gap-1 px-2 py-1 text-xs font-semibold shadow-lg sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
                         <RiShareLine className="h-4 w-4 text-primary sm:h-5 sm:w-5" />
@@ -156,7 +168,7 @@ export default function Home() {
                     />
                 </div>
             </div>
-            <div className="flex flex-col-reverse gap-10 bg-secondary px-5 py-16 text-white">
+            <div className="flex flex-col-reverse gap-10 bg-secondary px-5 py-16 text-white md:px-8 lg:px-10">
                 <div className="-mt-5 flex flex-row items-center justify-center gap-5">
                     <img
                         src="/images/teams/bu-lena.png"
@@ -185,12 +197,14 @@ export default function Home() {
                 </div>
             </div>
             <div className="py-16">
-                <h2 className="px-5 text-3xl font-bold">Perkenalkan</h2>
-                <h2 className="mb-8 px-5 text-5xl font-extrabold tracking-wide">
+                <h2 className="px-5 text-3xl font-bold md:px-8 lg:px-10">
+                    Perkenalkan
+                </h2>
+                <h2 className="mb-8 px-5 text-5xl font-extrabold tracking-wide md:px-8 lg:px-10">
                     Tim Kami
                 </h2>
                 <div className="overflow-auto">
-                    <div className="flex gap-3 px-5 text-sm">
+                    <div className="flex gap-3 px-5 text-sm md:px-8 lg:px-10">
                         <Button
                             variant="outline"
                             className={cn(
@@ -245,7 +259,7 @@ export default function Home() {
                 </div>
                 <div
                     className={cn(
-                        'px-5 pt-10',
+                        'px-5 pt-10 md:px-8 lg:px-10',
                         team === 'Semua'
                             ? 'grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4'
                             : 'grid grid-cols-3 gap-10 md:grid-cols-4 lg:grid-cols-5'

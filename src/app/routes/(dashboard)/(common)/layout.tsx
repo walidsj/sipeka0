@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom'
 
 export default function HomeLayout() {
     return (
-        <div className="p-4">
+        <div className="px-5 py-5 md:px-8 lg:px-10">
             <Outlet />
         </div>
     )
