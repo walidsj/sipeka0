@@ -141,16 +141,13 @@ export default function Home() {
                         <AiOutlineThunderbolt className="h-4 w-4 text-primary sm:h-5 sm:w-5" />{' '}
                         Akses Mudah
                     </Card>
-                    <Card className="absolute left-0 top-56 flex h-16 w-16 flex-row items-center p-3 shadow-lg">
+                    <Card className="absolute left-0 top-56 flex h-12 w-12 flex-row items-center p-3 shadow-lg md:h-14 md:w-14 lg:h-16 lg:w-16">
                         <img src="/images/logo-sipeka.svg" />
                     </Card>
-                    <Card className="absolute left-20 top-48 flex h-14 w-14 flex-row items-center p-2 shadow-lg">
-                        <img
-                            src="/images/logo-rsjdahm.webp"
-                            className="h-auto w-10"
-                        />
+                    <Card className="md:2-12 absolute left-20 top-48 flex h-10 w-10 flex-row items-center p-2 shadow-lg md:h-12 lg:h-14 lg:w-14">
+                        <img src="/images/logo-rsjdahm.webp" />
                     </Card>
-                    <Card className="absolute right-5 top-16 flex h-14 w-14 flex-row items-center p-3 shadow-lg">
+                    <Card className="md:2-12 absolute right-5 top-16 flex h-10 w-10 flex-row items-center p-3 shadow-lg md:h-12 lg:h-14 lg:w-14">
                         <img src="/images/logo-kaltimprov.webp" />
                     </Card>
                     <Card className="absolute bottom-10 left-10 flex flex-row items-center gap-1 px-2 py-1 text-xs font-semibold shadow-lg sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
