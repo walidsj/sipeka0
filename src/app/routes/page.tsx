@@ -172,13 +172,13 @@ export default function Home() {
                 </div>
             </div>
             <div className="flex flex-col-reverse gap-10 bg-secondary px-5 py-16 text-white md:px-8 lg:px-10">
-                <div className="-mt-5 flex flex-row items-center justify-center gap-5">
+                <div className="-mt-5 flex flex-row items-center justify-start gap-5 md:justify-center">
                     <img
                         src="/images/teams/bu-lena.png"
-                        className="mb-2 h-auto max-w-36"
+                        className="mb-2 h-auto max-w-24 md:max-w-32 lg:max-w-40"
                     />
                     <div>
-                        <h6 className="text-xl font-bold">
+                        <h6 className="text-base font-bold md:text-lg lg:text-xl">
                             Sopia Lena, SE, M.Si
                         </h6>
                         <p className="text-sm">
@@ -187,23 +187,26 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="text-left md:text-center">
-                    <h2 className="text-3xl font-bold">Tentang Kami</h2>
-                    <p className="mb-8 text-5xl font-extrabold tracking-wide">
+                    <h2 className="text-xl font-semibold md:text-center md:text-2xl lg:text-3xl">
+                        Tentang Kami
+                    </h2>
+                    <p className="mb-8 text-3xl font-extrabold tracking-wide md:text-center md:text-4xl lg:text-5xl">
                         Keuangan RSJD AHM
                     </p>
                     <p className="md:mx-auto md:max-w-3xl">
-                        Bagian Keuangan RSJD Atma Husada Mahakam adalah bagian
-                        yang bertugas mengelola keuangan di rumah sakit. Bagian
-                        ini memiliki beberapa tim yang bertugas mengelola
-                        keuangan di rumah sakit.
+                        Bagian Keuangan dan Akuntansi mempunyai tugas menyusun
+                        rencana kerja, mengawasi dan mengevaluasi pelayanan
+                        penyimpanan uang, pembuatan dokumen, pembuatan daftar
+                        gaji, bendahara, casemix, dan penyusunan klaim pasien di
+                        Rumah Sakit.
                     </p>
                 </div>
             </div>
             <div className="py-16">
-                <h2 className="px-5 text-3xl font-bold md:px-8 lg:px-10">
+                <h2 className="px-5 text-xl font-semibold md:px-8 md:text-2xl lg:px-10 lg:text-3xl">
                     Perkenalkan
                 </h2>
-                <h2 className="mb-8 px-5 text-5xl font-extrabold tracking-wide md:px-8 lg:px-10">
+                <h2 className="mb-8 px-5 text-3xl font-extrabold tracking-wide md:px-8 md:text-4xl lg:px-10 lg:text-5xl">
                     Tim Kami
                 </h2>
                 <div className="overflow-auto">
