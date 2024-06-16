@@ -67,107 +67,102 @@ export default function Login() {
     }
 
     return (
-        <div className="mx-auto flex w-full max-w-96 flex-1 items-center justify-center">
-            <Card className="w-full border-0 shadow-none">
-                <CardHeader>
-                    <CardTitle className="text-2xl">Selamat Datang!</CardTitle>
-                    <CardDescription>
-                        Mohon masukkan informasi akun Anda untuk mulai
-                        menggunakan SIPEKA
-                    </CardDescription>
-                </CardHeader>
-                <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)}>
-                        <fieldset disabled={login.isPending}>
-                            <CardContent className="flex flex-col gap-2">
-                                <FormField
-                                    name="username"
-                                    control={form.control}
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Username</FormLabel>
-                                            <div className="relative">
-                                                <div className="absolute left-0 top-0 flex h-full items-center pl-3">
-                                                    <FiUser className="text-gray-400" />
-                                                </div>
-                                                <FormControl>
-                                                    <Input
-                                                        placeholder="Username"
-                                                        className="h-12 pl-10"
-                                                        {...field}
-                                                    />
-                                                </FormControl>
+        <Card className="mx-auto w-full max-w-xs items-center justify-center border-0 p-0 shadow-none">
+            <CardHeader className="px-0">
+                <CardTitle className="text-2xl">Selamat Datang!</CardTitle>
+                <CardDescription>
+                    Mohon masukkan informasi akun Anda untuk mulai menggunakan
+                    SIPEKA
+                </CardDescription>
+            </CardHeader>
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)}>
+                    <fieldset disabled={login.isPending}>
+                        <CardContent className="flex flex-col gap-2 px-0">
+                            <FormField
+                                name="username"
+                                control={form.control}
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Username</FormLabel>
+                                        <div className="relative">
+                                            <div className="absolute left-0 top-0 flex h-full items-center pl-3">
+                                                <FiUser className="text-gray-400" />
                                             </div>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    name="password"
-                                    control={form.control}
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Password</FormLabel>
-                                            <div className="relative">
-                                                <div className="absolute left-0 top-0 flex h-full items-center pl-3">
-                                                    <FiLock className="text-gray-400" />
-                                                </div>
-                                                <FormControl>
-                                                    <Input
-                                                        placeholder="Password"
-                                                        className="h-12 px-10"
-                                                        type={
-                                                            showPassword
-                                                                ? 'text'
-                                                                : 'password'
-                                                        }
-                                                        {...field}
-                                                    />
-                                                </FormControl>
-                                                <div className="absolute right-0 top-0 flex h-full items-center">
-                                                    <Button
-                                                        type="button"
-                                                        variant="ghost"
-                                                        className="hover:bg-transparent"
-                                                        onClick={() =>
-                                                            setShowPassword(
-                                                                (prev) => !prev
-                                                            )
-                                                        }
-                                                    >
-                                                        {showPassword ? (
-                                                            <FiEyeOff />
-                                                        ) : (
-                                                            <FiEye />
-                                                        )}
-                                                    </Button>
-                                                </div>
+                                            <FormControl>
+                                                <Input
+                                                    placeholder="Username"
+                                                    className="h-12 pl-10"
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                        </div>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                name="password"
+                                control={form.control}
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Password</FormLabel>
+                                        <div className="relative">
+                                            <div className="absolute left-0 top-0 flex h-full items-center pl-3">
+                                                <FiLock className="text-gray-400" />
                                             </div>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                            </CardContent>
-                            <CardFooter className="flex flex-col gap-3">
-                                <Button size="lg" className="w-full">
-                                    {login.isPending
-                                        ? 'Memproses...'
-                                        : 'Masuk ke Sistem'}
-                                </Button>
-                                <p>
-                                    Belum punya akun?{' '}
-                                    <Link
-                                        to="/register"
-                                        className="text-primary"
-                                    >
-                                        Daftar sekarang
-                                    </Link>
-                                </p>
-                            </CardFooter>
-                        </fieldset>
-                    </form>
-                </Form>
-            </Card>
-        </div>
+                                            <FormControl>
+                                                <Input
+                                                    placeholder="Password"
+                                                    className="h-12 px-10"
+                                                    type={
+                                                        showPassword
+                                                            ? 'text'
+                                                            : 'password'
+                                                    }
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                            <div className="absolute right-0 top-0 flex h-full items-center">
+                                                <Button
+                                                    type="button"
+                                                    variant="ghost"
+                                                    className="hover:bg-transparent"
+                                                    onClick={() =>
+                                                        setShowPassword(
+                                                            (prev) => !prev
+                                                        )
+                                                    }
+                                                >
+                                                    {showPassword ? (
+                                                        <FiEyeOff />
+                                                    ) : (
+                                                        <FiEye />
+                                                    )}
+                                                </Button>
+                                            </div>
+                                        </div>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </CardContent>
+                        <CardFooter className="flex flex-col gap-3 px-0">
+                            <Button size="lg" className="w-full">
+                                {login.isPending
+                                    ? 'Memproses...'
+                                    : 'Masuk ke Sistem'}
+                            </Button>
+                            <p>
+                                Belum punya akun?{' '}
+                                <Link to="/register" className="text-primary">
+                                    Daftar sekarang
+                                </Link>
+                            </p>
+                        </CardFooter>
+                    </fieldset>
+                </form>
+            </Form>
+        </Card>
     )
 }

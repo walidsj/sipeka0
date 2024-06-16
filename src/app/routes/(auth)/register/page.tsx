@@ -79,180 +79,174 @@ export default function Login() {
     }
 
     return (
-        <div className="mx-auto w-full max-w-96 flex-1 pt-10">
-            <Card className="w-full border-0 shadow-none">
-                <CardHeader>
-                    <CardTitle>Register</CardTitle>
-                    <CardDescription>Silakan registrasi akun</CardDescription>
-                </CardHeader>
-                <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)}>
-                        <fieldset disabled={register.isPending}>
-                            <CardContent className="flex flex-col gap-2">
-                                <FormField
-                                    name="nama"
-                                    control={form.control}
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Nama Lengkap</FormLabel>
+        <Card className="mx-auto w-full max-w-xs items-center justify-center border-0 p-0 shadow-none">
+            <CardHeader className="px-0">
+                <CardTitle>Register</CardTitle>
+                <CardDescription>Silakan registrasi akun</CardDescription>
+            </CardHeader>
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)}>
+                    <fieldset disabled={register.isPending}>
+                        <CardContent className="flex flex-col gap-2 px-0">
+                            <FormField
+                                name="nama"
+                                control={form.control}
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Nama Lengkap</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                placeholder="Nama Lengkap"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                name="username"
+                                control={form.control}
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Username</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                placeholder="Username"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                name="password"
+                                control={form.control}
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Password</FormLabel>
+                                        <div className="relative">
                                             <FormControl>
                                                 <Input
-                                                    placeholder="Nama Lengkap"
-                                                    {...field}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    name="username"
-                                    control={form.control}
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Username</FormLabel>
-                                            <FormControl>
-                                                <Input
-                                                    placeholder="Username"
-                                                    {...field}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    name="password"
-                                    control={form.control}
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Password</FormLabel>
-                                            <div className="relative">
-                                                <FormControl>
-                                                    <Input
-                                                        placeholder="Password"
-                                                        type={
-                                                            showPassword
-                                                                ? 'text'
-                                                                : 'password'
-                                                        }
-                                                        className="pr-10"
-                                                        {...field}
-                                                    />
-                                                </FormControl>
-                                                <Button
-                                                    type="button"
-                                                    variant="ghost"
-                                                    className="absolute right-0 top-0 hover:bg-transparent"
-                                                    onClick={() =>
-                                                        setShowPassword(
-                                                            (prev) => !prev
-                                                        )
+                                                    placeholder="Password"
+                                                    type={
+                                                        showPassword
+                                                            ? 'text'
+                                                            : 'password'
                                                     }
-                                                >
-                                                    {showPassword ? (
-                                                        <FiEyeOff />
-                                                    ) : (
-                                                        <FiEye />
-                                                    )}
-                                                </Button>
-                                            </div>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    name="instansi"
-                                    control={form.control}
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Asal Instansi</FormLabel>
-                                            <Select
-                                                onValueChange={field.onChange}
-                                                defaultValue={field.value}
-                                            >
-                                                <FormControl>
-                                                    <SelectTrigger>
-                                                        <SelectValue placeholder="Asal Instansi" />
-                                                    </SelectTrigger>
-                                                </FormControl>
-                                                <SelectContent>
-                                                    <SelectGroup>
-                                                        <SelectLabel>
-                                                            Internal
-                                                        </SelectLabel>
-                                                        <SelectItem value="RSJD Atma Husada Mahakam">
-                                                            RSJD Atma Husada
-                                                            Mahakam
-                                                        </SelectItem>
-                                                    </SelectGroup>
-                                                    <SelectGroup>
-                                                        <SelectLabel>
-                                                            Eksternal
-                                                        </SelectLabel>
-                                                        <SelectItem value="BPKAD Prov. Kaltim">
-                                                            BPKAD Prov. Kaltim
-                                                        </SelectItem>
-                                                        <SelectItem value="Bapenda Prov. Kaltim">
-                                                            Bapenda Prov. Kaltim
-                                                        </SelectItem>
-                                                        <SelectItem value="BPK RI">
-                                                            BPK RI
-                                                        </SelectItem>
-                                                        <SelectItem value="Biro Perekonomian Setda Prov. Kaltim">
-                                                            Biro Perekonomian
-                                                            Setda Prov. Kaltim
-                                                        </SelectItem>
-                                                        <SelectItem value="Inspektorat Prov. Kaltim">
-                                                            Inspektorat Prov.
-                                                            Kaltim
-                                                        </SelectItem>
-                                                        <SelectItem value="Lainnya">
-                                                            Lainnya
-                                                        </SelectItem>
-                                                    </SelectGroup>
-                                                </SelectContent>
-                                            </Select>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    name="token"
-                                    control={form.control}
-                                    render={({ field }) => (
-                                        <FormItem className="mt-3 rounded-xl border border-blue-100 bg-blue-50 p-3">
-                                            <FormLabel>
-                                                Masukkan TokenID
-                                            </FormLabel>
-                                            <FormControl>
-                                                <Input
-                                                    placeholder="TokenID"
+                                                    className="pr-10"
                                                     {...field}
                                                 />
                                             </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                            </CardContent>
-                            <CardFooter className="flex flex-col gap-3">
-                                <Button size="lg" className="w-full">
-                                    {register.isPending
-                                        ? 'Mendaftarkan...'
-                                        : 'Daftar Akun'}
-                                </Button>
-                                <p>
-                                    Sudah punya akun?{' '}
-                                    <Link to="/login" className="text-primary">
-                                        Masuk
-                                    </Link>
-                                </p>
-                            </CardFooter>
-                        </fieldset>
-                    </form>
-                </Form>
-            </Card>
-        </div>
+                                            <Button
+                                                type="button"
+                                                variant="ghost"
+                                                className="absolute right-0 top-0 hover:bg-transparent"
+                                                onClick={() =>
+                                                    setShowPassword(
+                                                        (prev) => !prev
+                                                    )
+                                                }
+                                            >
+                                                {showPassword ? (
+                                                    <FiEyeOff />
+                                                ) : (
+                                                    <FiEye />
+                                                )}
+                                            </Button>
+                                        </div>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                name="instansi"
+                                control={form.control}
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Asal Instansi</FormLabel>
+                                        <Select
+                                            onValueChange={field.onChange}
+                                            defaultValue={field.value}
+                                        >
+                                            <FormControl>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Asal Instansi" />
+                                                </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                                <SelectGroup>
+                                                    <SelectLabel>
+                                                        Internal
+                                                    </SelectLabel>
+                                                    <SelectItem value="RSJD Atma Husada Mahakam">
+                                                        RSJD Atma Husada Mahakam
+                                                    </SelectItem>
+                                                </SelectGroup>
+                                                <SelectGroup>
+                                                    <SelectLabel>
+                                                        Eksternal
+                                                    </SelectLabel>
+                                                    <SelectItem value="BPKAD Prov. Kaltim">
+                                                        BPKAD Prov. Kaltim
+                                                    </SelectItem>
+                                                    <SelectItem value="Bapenda Prov. Kaltim">
+                                                        Bapenda Prov. Kaltim
+                                                    </SelectItem>
+                                                    <SelectItem value="BPK RI">
+                                                        BPK RI
+                                                    </SelectItem>
+                                                    <SelectItem value="Biro Perekonomian Setda Prov. Kaltim">
+                                                        Biro Perekonomian Setda
+                                                        Prov. Kaltim
+                                                    </SelectItem>
+                                                    <SelectItem value="Inspektorat Prov. Kaltim">
+                                                        Inspektorat Prov. Kaltim
+                                                    </SelectItem>
+                                                    <SelectItem value="Lainnya">
+                                                        Lainnya
+                                                    </SelectItem>
+                                                </SelectGroup>
+                                            </SelectContent>
+                                        </Select>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                name="token"
+                                control={form.control}
+                                render={({ field }) => (
+                                    <FormItem className="mt-3 rounded-xl border border-blue-100 bg-blue-50 p-3">
+                                        <FormLabel>Masukkan TokenID</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                placeholder="TokenID"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </CardContent>
+                        <CardFooter className="flex flex-col gap-3 px-0">
+                            <Button size="lg" className="w-full">
+                                {register.isPending
+                                    ? 'Mendaftarkan...'
+                                    : 'Daftar Akun'}
+                            </Button>
+                            <p>
+                                Sudah punya akun?{' '}
+                                <Link to="/login" className="text-primary">
+                                    Masuk
+                                </Link>
+                            </p>
+                        </CardFooter>
+                    </fieldset>
+                </form>
+            </Form>
+        </Card>
     )
 }
