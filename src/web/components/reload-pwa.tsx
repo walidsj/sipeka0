@@ -16,11 +16,16 @@ const ReloadPrompt = () => {
         needRefresh: [needRefresh],
         updateServiceWorker,
     } = useRegisterSW({
-        onRegisteredSW(_swUrl, registration) {
+        onRegisteredSW(swUrl, registration) {
+            console.log(`Service Worker at: ${swUrl}`)
             registration &&
                 setInterval(() => {
                     registration.update()
-                }, 5000)
+                }, 3000)
+        },
+        // immediate: true,  // load SW immediately
+        onNeedRefresh() {
+            console.log('App is outdated. Need to refresh')
         },
         onRegisterError(error) {
             console.log('SW registration error', error)
