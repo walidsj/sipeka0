@@ -3,7 +3,7 @@ import path from 'path'
 
 export default defineConfig({
     entry: ['./src/**/*.ts', './src/**/*.js'],
-    format: ['esm', 'cjs'],
+    format: ['cjs'],
     dts: true,
     splitting: false,
     sourcemap: false,
