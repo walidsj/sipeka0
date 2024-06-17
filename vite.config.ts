@@ -28,9 +28,6 @@ export default defineConfig({
     plugins: [
         react(),
         VitePWA({
-            workbox: {
-                sourcemap: true,
-            },
             includeAssets: [
                 '/images/**/*.png',
                 '/images/**/*.jpg',
