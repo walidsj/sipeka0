@@ -22,7 +22,6 @@ export default defineConfig({
     build: {
         outDir: path.resolve(__dirname, 'dist'),
         emptyOutDir: true,
-        sourcemap: true,
     },
     publicDir: path.resolve(__dirname, 'public'),
     plugins: [
