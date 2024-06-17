@@ -16,7 +16,7 @@ import {
     DropdownMenuTrigger,
 } from '@/web/components/ui/dropdown-menu'
 import { api } from '@/web/trpc/react'
-import _ from 'lodash'
+import lodash from 'lodash'
 import React from 'react'
 import { FiChevronsDown, FiEdit, FiList } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
@@ -95,7 +95,7 @@ export default function MonitoringTable() {
                                 <TableCell className="border"></TableCell>
                             </TableRow>
                             {Object.keys(
-                                _.chain(aktivitas.rincianRbaBelanja)
+                                lodash.chain(aktivitas.rincianRbaBelanja)
                                     .groupBy((item) => item.rab?.kodeRekening)
                                     .value()
                             ).map((key) => (
@@ -120,7 +120,7 @@ export default function MonitoringTable() {
                                             }
                                         </TableCell>
                                         <TableCell className="border text-right font-semibold">
-                                            {_.chain(
+                                            {lodash.chain(
                                                 aktivitas.rincianRbaBelanja
                                             )
                                                 .groupBy(
@@ -149,7 +149,7 @@ export default function MonitoringTable() {
                                                     (item) =>
                                                         item.kodeRekening ===
                                                             key &&
-                                                        _.chain(
+                                                        lodash.chain(
                                                             aktivitas.rincianRbaBelanja
                                                         )
                                                             .groupBy(
@@ -181,7 +181,7 @@ export default function MonitoringTable() {
                                                                 (item) =>
                                                                     item.kodeRekening ===
                                                                         key &&
-                                                                    _.chain(
+                                                                    lodash.chain(
                                                                         aktivitas.rincianRbaBelanja
                                                                     )
                                                                         .groupBy(
@@ -214,7 +214,7 @@ export default function MonitoringTable() {
                                                                 0
                                                             ) ?? 0
                                                     ) /
-                                                        _.chain(
+                                                        lodash.chain(
                                                             aktivitas.rincianRbaBelanja
                                                         )
                                                             .groupBy(
@@ -244,7 +244,7 @@ export default function MonitoringTable() {
                                         <TableCell className="border text-right font-semibold">
                                             {Number(
                                                 Number(
-                                                    _.chain(
+                                                    lodash.chain(
                                                         aktivitas.rincianRbaBelanja
                                                     )
                                                         .groupBy(
@@ -273,7 +273,7 @@ export default function MonitoringTable() {
                                                                 (item) =>
                                                                     item.kodeRekening ===
                                                                         key &&
-                                                                    _.chain(
+                                                                    lodash.chain(
                                                                         aktivitas.rincianRbaBelanja
                                                                     )
                                                                         .groupBy(
@@ -309,7 +309,7 @@ export default function MonitoringTable() {
                                             ).toLocaleString('id-ID')}
                                         </TableCell>
                                     </TableRow>
-                                    {_.chain(aktivitas.rincianRbaBelanja)
+                                    {lodash.chain(aktivitas.rincianRbaBelanja)
                                         .groupBy(
                                             (item) => item.rab?.kodeRekening
                                         )
@@ -547,28 +547,6 @@ export default function MonitoringTable() {
                     </TableRow>
                 </TableFooter>
             </Table>
-            <div className="fixed right-0 top-16 rounded-lg border bg-white p-3 pt-6 text-xs shadow">
-                <div className="flex w-full flex-row justify-between">
-                    <span className="mr-3">Pagu:</span>
-                    <span className="font-semibold">
-                        {totalPagu.toLocaleString('id-ID')}
-                    </span>
-                </div>
-                <div className="flex w-full flex-row justify-between border-b border-foreground">
-                    <span className="mr-3">Realisasi:</span>
-                    <span className="font-semibold">
-                        {totalRealisasi.toLocaleString('id-ID')}
-                    </span>
-                </div>
-                <div className="flex w-full flex-row justify-between">
-                    <span className="mr-3">Sisa:</span>
-                    <span className="font-semibold">
-                        {Number(totalPagu - totalRealisasi).toLocaleString(
-                            'id-ID'
-                        )}
-                    </span>
-                </div>
-            </div>
         </React.Fragment>
     )
 }
