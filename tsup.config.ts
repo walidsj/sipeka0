@@ -3,9 +3,9 @@ import path from 'path'
 
 export default defineConfig({
     entry: ['./src/**/*.ts', './src/**/*.js'],
-    format: ['cjs'],
+    format: ['esm'],
     dts: true,
-    splitting: false,
+    splitting: true,
     sourcemap: false,
     clean: true,
     outDir: path.resolve(__dirname, 'build'),
