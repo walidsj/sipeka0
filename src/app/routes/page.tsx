@@ -4,7 +4,12 @@ import { cn } from '@/web/lib/utils'
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import { FaHeart } from 'react-icons/fa6'
-import { FiArrowRight, FiChevronDown, FiLock } from 'react-icons/fi'
+import {
+    FiArrowRight,
+    FiChevronDown,
+    FiExternalLink,
+    FiLock,
+} from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { AiOutlineThunderbolt } from 'react-icons/ai'
 import { RiShareLine } from 'react-icons/ri'
@@ -133,11 +138,17 @@ export default function Home() {
                         Manajemen Keuangan RSJD Atma Husada Mahakam Prov. Kaltim
                         dalam Satu Aplikasi
                     </h2>
-                    <div className="flex items-center justify-center gap-2 md:justify-start">
+                    <div className="flex flex-col items-center justify-center gap-2 sm:flex-row md:justify-start">
                         <Button asChild size="lg">
                             <Link to="/login">
                                 Akses Sekarang
                                 <FiArrowRight className="ml-3 h-5 w-5" />
+                            </Link>
+                        </Button>
+                        <Button asChild size="lg" variant="ghost">
+                            <Link to="/panduan" target="_blank">
+                                Panduan
+                                <FiExternalLink className="ml-3 h-5 w-5" />
                             </Link>
                         </Button>
                     </div>
@@ -329,12 +340,8 @@ export default function Home() {
                         ))}
                 </div>
             </div>
-            <footer className="flex flex-col justify-between gap-5 bg-primary py-5 text-sm text-white md:flex-row md:px-8 lg:px-10 xl:px-12">
+            <footer className="flex flex-col justify-between gap-5 bg-primary px-5 py-5 text-sm text-white md:flex-row md:px-8 lg:px-10 xl:px-12">
                 <p>
-                    <img
-                        src="/images/logo-sipeka-light.svg"
-                        className="mr-3 inline-flex h-6"
-                    />
                     &copy;{new Date().getFullYear()} by RSJD Atma Husada Mahakam
                 </p>
                 <p>
