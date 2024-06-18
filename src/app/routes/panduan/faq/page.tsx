@@ -20,9 +20,9 @@ export default function () {
                         </AccordionTrigger>
                         <AccordionContent>
                             Jika akun tersebut tidak dapat masuk / login kedalam
-                            Aplikasi SIPD Nasional maka pastikan username dan
-                            password yang dimasukkan benar atau pastikan akun
-                            tersebut masih aktif
+                            Aplikasi SIPEKA maka pastikan username dan password
+                            yang dimasukkan benar atau pastikan akun tersebut
+                            masih aktif
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>
