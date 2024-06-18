@@ -4,7 +4,7 @@ import { cn } from '@/web/lib/utils'
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import { FaHeart } from 'react-icons/fa6'
-import { FiArrowRight, FiLock } from 'react-icons/fi'
+import { FiArrowRight, FiChevronDown, FiLock } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { AiOutlineThunderbolt } from 'react-icons/ai'
 import { RiShareLine } from 'react-icons/ri'
@@ -118,7 +118,7 @@ export default function Home() {
                     SIPEKA - Sistem Informasi Pengelolaan Keuangan BLUD
                 </title>
             </Helmet>
-            <div className="flex flex-col items-center justify-between gap-5 rounded-lg bg-white px-5 py-16 md:flex-row md:px-8 lg:px-10">
+            <div className="flex flex-col items-center justify-between gap-5 rounded-lg bg-white px-5 py-16 md:flex-row md:px-8 lg:px-10 xl:px-12">
                 <div className="pb-0 md:pb-20">
                     <div className="mb-5 flex items-center justify-center gap-2 md:justify-start">
                         <div className="h-5 w-5 rounded-full bg-red-500" />
@@ -171,7 +171,15 @@ export default function Home() {
                     />
                 </div>
             </div>
-            <div className="flex flex-col-reverse gap-10 bg-secondary px-5 py-16 text-white md:px-8 lg:px-10">
+            <div className="z-10 flex flex-row items-center justify-center">
+                <Button
+                    variant="outline"
+                    className="-mb-5 rounded-xl shadow-lg"
+                >
+                    <FiChevronDown className="h-8 w-8" />
+                </Button>
+            </div>
+            <div className="flex flex-col-reverse gap-10 bg-secondary px-5 py-16 text-white md:px-8 lg:px-10 xl:px-12">
                 <div className="-mt-5 flex flex-row items-center justify-start gap-5 md:justify-center">
                     <img
                         src="/images/teams/bu-lena.png"
@@ -203,14 +211,14 @@ export default function Home() {
                 </div>
             </div>
             <div className="py-16">
-                <h2 className="px-5 text-xl font-semibold md:px-8 md:text-2xl lg:px-10 lg:text-3xl">
+                <h2 className="px-5 text-xl font-semibold md:px-8 md:text-2xl lg:px-10 lg:text-3xl xl:px-12">
                     Perkenalkan
                 </h2>
-                <h2 className="mb-8 px-5 text-3xl font-extrabold tracking-wide md:px-8 md:text-4xl lg:px-10 lg:text-5xl">
+                <h2 className="mb-8 px-5 text-3xl font-extrabold tracking-wide md:px-8 md:text-4xl lg:px-10 lg:text-5xl xl:px-12">
                     Tim Kami
                 </h2>
                 <div className="overflow-auto">
-                    <div className="flex gap-3 px-5 text-sm md:px-8 lg:px-10">
+                    <div className="flex gap-3 px-5 text-sm md:px-8 lg:px-10 xl:px-12">
                         <Button
                             variant="outline"
                             className={cn(
@@ -265,7 +273,7 @@ export default function Home() {
                 </div>
                 <div
                     className={cn(
-                        'px-5 pt-10 md:px-8 lg:px-10',
+                        'px-5 pt-10 md:px-8 lg:px-10 xl:px-12',
                         team === 'Semua'
                             ? 'grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4'
                             : 'grid grid-cols-3 gap-10 md:grid-cols-4 lg:grid-cols-5'
@@ -321,7 +329,7 @@ export default function Home() {
                         ))}
                 </div>
             </div>
-            <footer className="flex flex-col justify-between gap-5 bg-primary p-8 text-sm text-white md:flex-row">
+            <footer className="flex flex-col justify-between gap-5 bg-primary py-5 text-sm text-white md:flex-row md:px-8 lg:px-10 xl:px-12">
                 <p>
                     <img
                         src="/images/logo-sipeka-light.svg"
