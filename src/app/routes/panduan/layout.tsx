@@ -45,6 +45,19 @@ export default function () {
                         {pathname === '/panduan/login' && <FiArrowRight />}
                     </Link>
                     <Link
+                        to="/panduan/pendaftaran"
+                        className={cn(
+                            'flex items-center justify-between',
+                            pathname === '/panduan/pendaftaran' &&
+                                'text-primary'
+                        )}
+                    >
+                        Pendaftaran Akun
+                        {pathname === '/panduan/pendaftaran' && (
+                            <FiArrowRight />
+                        )}
+                    </Link>
+                    <Link
                         to="/panduan/faq"
                         className={cn(
                             'flex items-center justify-between',
