@@ -14,6 +14,7 @@ export default function () {
             </Helmet>
             <div className="w-96 border-r px-5 md:pl-8 lg:pl-10 xl:pl-12">
                 <div className="flex flex-col gap-3 font-semibold">
+                    <h2 className="text-xl font-extrabold">Dasar</h2>
                     <Link
                         to="/panduan"
                         className={cn(
@@ -67,6 +68,47 @@ export default function () {
                         FAQ
                         {pathname === '/panduan/faq' && <FiArrowRight />}
                     </Link>
+                    {/* <h2 className="mt-3 text-xl font-extrabold">Anggaran</h2>
+                    <Link
+                        to="/panduan/rba"
+                        className={cn(
+                            'flex items-center justify-between',
+                            pathname === '/panduan/rba' && 'text-primary'
+                        )}
+                    >
+                        RBA
+                        {pathname === '/panduan/rba' && <FiArrowRight />}
+                    </Link>
+                    <Link
+                        to="/panduan/rka"
+                        className={cn(
+                            'flex items-center justify-between',
+                            pathname === '/panduan/rka' && 'text-primary'
+                        )}
+                    >
+                        RKA
+                        {pathname === '/panduan/rka' && <FiArrowRight />}
+                    </Link>
+                    <Link
+                        to="/panduan/dba"
+                        className={cn(
+                            'flex items-center justify-between',
+                            pathname === '/panduan/dba' && 'text-primary'
+                        )}
+                    >
+                        DBA
+                        {pathname === '/panduan/dba' && <FiArrowRight />}
+                    </Link>
+                    <Link
+                        to="/panduan/monitoring"
+                        className={cn(
+                            'flex items-center justify-between',
+                            pathname === '/panduan/monitoring' && 'text-primary'
+                        )}
+                    >
+                        Monitoring
+                        {pathname === '/panduan/monitoring' && <FiArrowRight />}
+                    </Link> */}
                 </div>
             </div>
             <Outlet />
