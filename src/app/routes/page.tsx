@@ -123,7 +123,7 @@ export default function Home() {
                     SIPEKA - Sistem Informasi Pengelolaan Keuangan BLUD
                 </title>
             </Helmet>
-            <div className="flex flex-col items-center justify-between gap-5 rounded-lg bg-white px-5 py-16 md:flex-row md:px-8 lg:px-10 xl:px-12">
+            <div className="flex flex-col items-center justify-between gap-5 rounded-lg bg-white px-5 py-16 md:flex-row md:gap-16 md:px-8 lg:px-10 xl:px-12">
                 <div className="pb-0 md:pb-20">
                     <div className="mb-5 flex items-center justify-center gap-2 md:justify-start">
                         <div className="h-5 w-5 rounded-full bg-red-500" />
