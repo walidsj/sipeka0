@@ -1,3 +1,4 @@
+import { id } from 'date-fns/locale'
 import { relations } from 'drizzle-orm'
 import {
     decimal,
@@ -288,6 +289,25 @@ export const belanja = mysqlTable('belanja', {
         .onUpdateNow(),
 })
 
+export const potonganBelanja = mysqlTable('potongan_belanja', {
+    id: serial('id').primaryKey(),
+    belanjaId: int('belanja_id', { unsigned: true }),
+    jenis: mysqlEnum('jenis', [
+        'PPH 21',
+        'PPH 22',
+        'PPH 23',
+        'PPH 4(2)',
+        'PPN',
+    ]),
+    jumlah: decimal('jumlah', { precision: 20, scale: 2 }),
+    billing: varchar('billing', { length: 256 }),
+    ntpn: varchar('ntpn', { length: 256 }),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
+})
+
 export const userRelations = relations(user, ({ one }) => ({
     pegawai: one(pegawai, {
         fields: [user.pegawaiId],
@@ -414,7 +434,7 @@ export const dbaRelations = relations(dba, ({ one }) => ({
     }),
 }))
 
-export const belanjaRelations = relations(belanja, ({ one }) => ({
+export const belanjaRelations = relations(belanja, ({ one, many }) => ({
     rab: one(rab, {
         fields: [belanja.rabId],
         references: [rab.id],
@@ -427,7 +447,18 @@ export const belanjaRelations = relations(belanja, ({ one }) => ({
         fields: [belanja.pegawaiId],
         references: [pegawai.id],
     }),
+    potonganBelanja: many(potonganBelanja),
 }))
+
+export const potonganBelanjaRelations = relations(
+    potonganBelanja,
+    ({ one }) => ({
+        belanja: one(belanja, {
+            fields: [potonganBelanja.belanjaId],
+            references: [belanja.id],
+        }),
+    })
+)
 
 export const rekananRelations = relations(rekanan, ({ one, many }) => ({
     bank: one(bank, {

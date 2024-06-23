@@ -17,7 +17,7 @@ import { z } from 'zod'
 import { Textarea } from '@/web/components/ui/textarea'
 import { format } from 'date-fns'
 import RabPicker from '../../../anggaran/rba/daftar-rab/rab-picker'
-import { belanjaSchema } from '@/app/api/schema/belanja'
+import { belanjaSchema } from '@/app/api/modules/belanja/schema'
 import { NumericFormat } from 'react-number-format'
 import {
     Select,

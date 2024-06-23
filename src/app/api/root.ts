@@ -19,7 +19,7 @@ import { rincianRbaPendapatanRouter } from './routers/rincian-rba-pendapatan'
 import { pendapatanRouter } from './routers/pendapatan'
 import { rkaRouter } from './routers/rka'
 import { dbaRouter } from './routers/dba'
-import { belanjaRouter } from './routers/belanja'
+import { belanjaRouter } from './modules/belanja'
 
 export const appRouter = createTRPCRouter({
     user: userRouter,

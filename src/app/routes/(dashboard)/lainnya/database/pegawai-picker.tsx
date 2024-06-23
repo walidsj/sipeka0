@@ -135,7 +135,7 @@ export default function PegawaiPicker({
                                         <TableCell className="text-center">
                                             {index + 1}.
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell className="font-semibold">
                                             {' '}
                                             {item.gelarDepan &&
                                                 `${item.gelarDepan} `}

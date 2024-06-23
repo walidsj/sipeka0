@@ -3,7 +3,7 @@ import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { and, count, desc, eq, like, or, sum } from 'drizzle-orm'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
-import { belanjaSchema } from '../schema/belanja'
+import { belanjaSchema } from './schema'
 import { rekeningLevel6 } from '@/data/rekening'
 
 export const belanjaRouter = createTRPCRouter({
