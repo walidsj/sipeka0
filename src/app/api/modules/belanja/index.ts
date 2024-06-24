@@ -87,6 +87,7 @@ export const belanjaRouter = createTRPCRouter({
         return await ctx.db.query.belanja.findFirst({
             where: eq(belanja.id, input),
             with: {
+                potonganBelanja: true,
                 rab: true,
                 pegawai: {
                     with: {

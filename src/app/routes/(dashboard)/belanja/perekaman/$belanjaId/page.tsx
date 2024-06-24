@@ -46,12 +46,19 @@ export default function EditPage() {
         toast.success(`"${text}" berhasil dicopy`)
     }
 
+    const biayaAdmin =
+        belanja.rekanan?.bank?.kode == '124' || belanja.pegawai?.bank?.kode
+            ? 0
+            : 2900
+
     return (
         <Card>
-            <CardHeader>
-                <CardTitle>Detail Belanja</CardTitle>
-                <CardDescription>Data untuk detail belanja</CardDescription>
-            </CardHeader>
+            <div className="mb-5 flex flex-row items-center justify-between px-6 pt-6">
+                <CardHeader className="p-0">
+                    <CardTitle>Detail Belanja</CardTitle>
+                    <CardDescription>Data untuk detail belanja</CardDescription>
+                </CardHeader>
+            </div>
             <CardContent>
                 <Table>
                     <TableBody>
@@ -325,6 +332,96 @@ export default function EditPage() {
             </div>
             <CardContent>
                 <PotonganTable />
+            </CardContent>
+            <CardHeader>
+                <CardTitle>Realisasi Belanja</CardTitle>
+                <CardDescription>
+                    Daftar rincian realisasi belanja
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Table>
+                    <TableBody>
+                        <TableRow>
+                            <TableHead>Belanja yang Dibayarkan</TableHead>
+                            <TableCell className="text-right">
+                                {formatAngka(belanja.jumlah)}
+                            </TableCell>
+                            <TableCell className="w-1" />
+                        </TableRow>
+                        <TableRow>
+                            <TableHead>Jumlah Potongan</TableHead>
+                            <TableCell className="text-right">
+                                {formatAngka(
+                                    belanja.potonganBelanja.reduce(
+                                        (acc, item) =>
+                                            acc + Number(item.jumlah),
+                                        0
+                                    )
+                                )}
+                            </TableCell>
+                            <TableCell />
+                        </TableRow>
+                        <TableRow>
+                            <TableHead>Jumlah Setelah Potongan</TableHead>
+                            <TableCell className="text-right">
+                                {formatAngka(
+                                    Number(belanja.jumlah) -
+                                        belanja.potonganBelanja.reduce(
+                                            (acc, item) =>
+                                                acc + Number(item.jumlah),
+                                            0
+                                        )
+                                )}
+                            </TableCell>
+                            <TableCell />
+                        </TableRow>
+                        <TableRow>
+                            <TableHead>Biaya Admin Bank</TableHead>
+                            <TableCell className="text-right">
+                                {formatAngka(biayaAdmin)}
+                            </TableCell>
+                            <TableCell />
+                        </TableRow>
+                        <TableRow>
+                            <TableHead>Jumlah Netto</TableHead>
+                            <TableCell className="text-right">
+                                {formatAngka(
+                                    Number(belanja.jumlah) -
+                                        belanja.potonganBelanja.reduce(
+                                            (acc, item) =>
+                                                acc + Number(item.jumlah),
+                                            0
+                                        ) -
+                                        biayaAdmin
+                                )}
+                            </TableCell>
+                            <TableCell>
+                                <Button
+                                    size="icon"
+                                    variant="outline"
+                                    className="h-8 w-8"
+                                    onClick={() =>
+                                        handleCopy(
+                                            String(
+                                                Number(belanja.jumlah) -
+                                                    belanja.potonganBelanja.reduce(
+                                                        (acc, item) =>
+                                                            acc +
+                                                            Number(item.jumlah),
+                                                        0
+                                                    ) -
+                                                    biayaAdmin
+                                            )
+                                        )
+                                    }
+                                >
+                                    <FiCopy />
+                                </Button>
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
             </CardContent>
         </Card>
     )

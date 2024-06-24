@@ -75,7 +75,9 @@ export default function PotonganTable() {
             <TableBody>
                 {potongan.map((item, index) => (
                     <TableRow key={index}>
-                        <TableCell>{index + 1}.</TableCell>
+                        <TableCell className="text-center">
+                            {index + 1}.
+                        </TableCell>
                         <TableCell>{item.jenis}</TableCell>
                         <TableCell>{item.billing}</TableCell>
                         <TableCell>{item.ntpn}</TableCell>
@@ -120,7 +122,7 @@ export default function PotonganTable() {
                 ))}
                 {potongan.length === 0 && (
                     <TableRow>
-                        <TableCell colSpan={5} className="text-center">
+                        <TableCell colSpan={6} className="text-center">
                             Tidak ada data
                         </TableCell>
                     </TableRow>
@@ -128,7 +130,7 @@ export default function PotonganTable() {
             </TableBody>
             <TableFooter>
                 <TableRow>
-                    <TableCell colSpan={3}>Total Potongan</TableCell>
+                    <TableCell colSpan={4}>Total Potongan</TableCell>
                     <TableCell className="text-right">
                         {formatAngka(totalPotongan)}
                     </TableCell>
