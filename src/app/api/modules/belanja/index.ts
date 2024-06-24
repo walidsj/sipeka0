@@ -1,9 +1,9 @@
-import { aktivitasRba, belanja, dba } from '@/server/db/schema'
+import { aktivitasRba, belanja, dba, potonganBelanja } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { and, count, desc, eq, like, or, sum } from 'drizzle-orm'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
-import { belanjaSchema } from './schema'
+import { belanjaSchema, potonganBelanjaSchema } from './schema'
 import { rekeningLevel6 } from '@/data/rekening'
 
 export const belanjaRouter = createTRPCRouter({
@@ -88,7 +88,11 @@ export const belanjaRouter = createTRPCRouter({
             where: eq(belanja.id, input),
             with: {
                 rab: true,
-                pegawai: true,
+                pegawai: {
+                    with: {
+                        bank: true,
+                    },
+                },
                 rekanan: {
                     with: {
                         bank: true,
@@ -179,4 +183,70 @@ export const belanjaRouter = createTRPCRouter({
 
         return lastData
     }),
+
+    createPotonganById: userProcedure
+        .input(potonganBelanjaSchema)
+        .mutation(async ({ ctx, input }) => {
+            const belanjaData = await ctx.db.query.belanja.findFirst({
+                where: eq(belanja.id, input.belanjaId),
+            })
+
+            if (!belanjaData) {
+                throw new TRPCError({
+                    code: 'NOT_FOUND',
+                    message: 'Data belanja tidak ditemukan',
+                })
+            }
+
+            await ctx.db.insert(potonganBelanja).values({
+                belanjaId: input.belanjaId,
+                jenis: input.jenis,
+                jumlah: String(input.jumlah),
+                billing: input.billing,
+                ntpn: input.ntpn,
+            })
+
+            return { message: 'Data berhasil ditambahkan' }
+        }),
+
+    getPotonganByBelanjaId: userProcedure
+        .input(z.number())
+        .query(async ({ ctx, input }) => {
+            return await ctx.db.query.potonganBelanja.findMany({
+                where: eq(potonganBelanja.belanjaId, input),
+            })
+        }),
+
+    getPotonganById: userProcedure
+        .input(z.number())
+        .query(async ({ ctx, input }) => {
+            return await ctx.db.query.potonganBelanja.findFirst({
+                where: eq(potonganBelanja.id, input),
+            })
+        }),
+
+    updatePotonganById: userProcedure
+        .input(z.object({ id: z.number() }).merge(potonganBelanjaSchema))
+        .mutation(async ({ ctx, input }) => {
+            const { id, ...rest } = input
+            await ctx.db
+                .update(potonganBelanja)
+                .set({
+                    ...rest,
+                    jumlah: String(rest.jumlah),
+                })
+                .where(eq(potonganBelanja.id, input.id))
+
+            return { message: 'Data berhasil diupdate' }
+        }),
+
+    deletePotonganById: userProcedure
+        .input(z.number())
+        .mutation(async ({ ctx, input }) => {
+            await ctx.db
+                .delete(potonganBelanja)
+                .where(eq(potonganBelanja.id, input))
+
+            return { message: 'Data berhasil dihapus' }
+        }),
 })

@@ -11,3 +11,11 @@ export const belanjaSchema = z.object({
     metodePembayaran: z.enum(['TUNAI', 'TRANSFER']),
     buktiPembayaran: z.string(),
 })
+
+export const potonganBelanjaSchema = z.object({
+    belanjaId: z.number(),
+    jenis: z.enum(['PPH 21', 'PPH 22', 'PPH 23', 'PPH 4(2)', 'PPN']),
+    jumlah: z.number(),
+    billing: z.string().length(15),
+    ntpn: z.string(),
+})
