@@ -15,9 +15,10 @@ import {
     TableHeader,
     TableRow,
 } from '@/web/components/ui/table'
-import { formatAngka, formatTanggal } from '@/web/lib/utils'
+import { cn, formatAngka, formatTanggal } from '@/web/lib/utils'
 import Loading from '@/web/components/loading'
 import React from 'react'
+import { Badge } from '@/web/components/ui/badge'
 
 export default function EditPage() {
     const params = useParams<{ belanjaId: string }>()
@@ -74,7 +75,18 @@ export default function EditPage() {
                         </TableRow>
                         <TableRow>
                             <TableHead>Metode Pembayaran</TableHead>
-                            <TableCell>{belanja.metodePembayaran}</TableCell>
+                            <TableCell>
+                                <Badge
+                                    className={cn(
+                                        belanja.metodePembayaran === 'TUNAI' &&
+                                            'bg-green-500',
+                                        belanja.metodePembayaran ===
+                                            'TRANSFER' && 'bg-blue-500'
+                                    )}
+                                >
+                                    {belanja.metodePembayaran}
+                                </Badge>
+                            </TableCell>
                         </TableRow>
                         {belanja.rekanan && (
                             <React.Fragment>
