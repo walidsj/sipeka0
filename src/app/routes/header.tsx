@@ -88,7 +88,7 @@ export function Header() {
                                             >
                                                 <Avatar>
                                                     <AvatarImage
-                                                        src={`https://ui-avatars.com/api/?name=${auth.user?.username}&background=${auth.user.role == 'ADMIN' ? 'E64B4B' : '0D8ABC'}&color=fff`}
+                                                        src={`https://ui-avatars.com/api/?name=${auth.user?.nama}&background=${auth.user.role == 'ADMIN' ? 'E64B4B' : '0D8ABC'}&color=fff`}
                                                     />
                                                     <AvatarFallback>
                                                         CN
