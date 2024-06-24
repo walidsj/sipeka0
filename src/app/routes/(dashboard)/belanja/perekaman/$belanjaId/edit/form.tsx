@@ -74,6 +74,16 @@ export default function EditForm({
         edit.mutate({ id: data.id, ...val })
     }
 
+    function handleAtasNama(val: string) {
+        const uraian = form.getValues('uraian')
+        console.log(uraian, val)
+        const newUraian = uraian.includes('a.n.')
+            ? uraian.replace(/[\s\S]a.n. [\s\S]*/g, val ? ` a.n. ${val}` : '')
+            : uraian + (val ? ` a.n. ${val}` : '')
+
+        return form.setValue('uraian', newUraian)
+    }
+
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -229,9 +239,12 @@ export default function EditForm({
                                 <FormControl>
                                     <RekananPicker
                                         value={field.value}
-                                        onValueChange={(val) =>
+                                        onValueChange={(val, item) => {
                                             field.onChange(val)
-                                        }
+                                            if (item) {
+                                                handleAtasNama(item.nama!)
+                                            }
+                                        }}
                                     />
                                 </FormControl>
                                 <FormMessage />

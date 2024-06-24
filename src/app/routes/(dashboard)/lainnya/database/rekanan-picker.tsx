@@ -22,6 +22,7 @@ import { useDebounce } from 'use-debounce'
 import { Input } from '@/web/components/ui/input'
 import { keepPreviousData } from '@tanstack/react-query'
 import Loading from '@/web/components/loading'
+import { rekanan as rekananSchema } from '@/server/db/schema'
 
 export default function RekananPicker({
     value,
@@ -29,7 +30,10 @@ export default function RekananPicker({
     defaultValue,
 }: {
     value?: number | undefined
-    onValueChange?: (value: number | undefined) => void
+    onValueChange?: (
+        value: number | undefined,
+        rekanan: typeof rekananSchema.$inferSelect | undefined
+    ) => void
     defaultValue?: number
 }) {
     const [selected, setSelected] = React.useState<number | undefined>(
@@ -139,6 +143,7 @@ export default function RekananPicker({
                                                     onClick={() => {
                                                         setSelected(undefined)
                                                         onValueChange?.(
+                                                            undefined,
                                                             undefined
                                                         )
                                                     }}
@@ -150,7 +155,10 @@ export default function RekananPicker({
                                                     variant="outline"
                                                     onClick={() => {
                                                         setSelected(item.id)
-                                                        onValueChange?.(item.id)
+                                                        onValueChange?.(
+                                                            item.id,
+                                                            item
+                                                        )
                                                     }}
                                                 >
                                                     Pilih
