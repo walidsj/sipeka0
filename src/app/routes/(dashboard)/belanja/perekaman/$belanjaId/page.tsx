@@ -145,6 +145,16 @@ export default function EditPage() {
                             </TableCell>
                             <TableCell />
                         </TableRow>
+                    </TableBody>
+                </Table>
+            </CardContent>
+            <CardHeader>
+                <CardTitle>Data Lawan Transaksi</CardTitle>
+                <CardDescription>Rincian data lawan transaksi</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Table>
+                    <TableBody>
                         {belanja.rekanan && (
                             <React.Fragment>
                                 <TableRow>
@@ -152,7 +162,7 @@ export default function EditPage() {
                                     <TableCell>
                                         {belanja.rekanan.nama}
                                     </TableCell>
-                                    <TableCell />
+                                    <TableCell className="w-1" />
                                 </TableRow>
                                 <TableRow>
                                     <TableHead>NPWP Rekanan</TableHead>
@@ -241,11 +251,11 @@ export default function EditPage() {
                         {belanja.pegawai && (
                             <React.Fragment>
                                 <TableRow>
-                                    <TableHead>Pegawai</TableHead>
+                                    <TableHead>Nama Pegawai</TableHead>
                                     <TableCell>
                                         {belanja.pegawai?.nama}
                                     </TableCell>
-                                    <TableCell />
+                                    <TableCell className="w-1" />
                                 </TableRow>
                                 <TableRow>
                                     <TableHead>Rekening Bank</TableHead>
