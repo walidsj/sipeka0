@@ -85,6 +85,11 @@ export default function Page() {
                     pembiayaan.
                 </p>
             </div>
+            <iframe
+                width="auto"
+                height="390"
+                src="https://www.youtube.com/embed/WmfNcTK9Sg4?si=NEzmpGrjG32JGPVb?enablejsapi=1&origin=https://sipeka.atmaku.com"
+            ></iframe>
         </div>
     )
 }
