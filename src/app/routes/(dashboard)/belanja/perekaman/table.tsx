@@ -36,7 +36,13 @@ import { cn, formatAngka, formatTanggal } from '@/web/lib/utils'
 import { api } from '@/web/trpc/react'
 import { keepPreviousData } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
-import { FiChevronsDown, FiEdit, FiSearch, FiTrash } from 'react-icons/fi'
+import {
+    FiChevronsDown,
+    FiEdit,
+    FiEye,
+    FiSearch,
+    FiTrash,
+} from 'react-icons/fi'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useDebounce } from 'use-debounce'
 
@@ -210,6 +216,14 @@ export default function BelanjaTable() {
                                         </Button>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent align="start">
+                                        <Link
+                                            to={`/belanja/perekaman/${item.id}`}
+                                        >
+                                            <DropdownMenuItem>
+                                                <FiEye className="mr-2" />
+                                                Detail
+                                            </DropdownMenuItem>
+                                        </Link>
                                         <Link
                                             to={`/belanja/perekaman/${item.id}/edit`}
                                         >

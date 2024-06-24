@@ -86,6 +86,15 @@ export const belanjaRouter = createTRPCRouter({
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {
         return await ctx.db.query.belanja.findFirst({
             where: eq(belanja.id, input),
+            with: {
+                rab: true,
+                pegawai: true,
+                rekanan: {
+                    with: {
+                        bank: true,
+                    },
+                },
+            },
         })
     }),
 
