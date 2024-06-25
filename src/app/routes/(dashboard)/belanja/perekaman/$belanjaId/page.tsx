@@ -47,7 +47,8 @@ export default function EditPage() {
     }
 
     const biayaAdmin =
-        belanja.rekanan?.bank?.kode == '124' || belanja.pegawai?.bank?.kode
+        belanja.rekanan?.bank?.kode == '124' ||
+        belanja.pegawai?.bank?.kode == '124'
             ? 0
             : 2900
 
