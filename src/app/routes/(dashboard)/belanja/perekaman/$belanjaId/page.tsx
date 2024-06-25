@@ -150,14 +150,14 @@ export default function EditPage() {
                         {belanja.rekanan && (
                             <React.Fragment>
                                 <TableRow>
-                                    <TableHead>Nama Rekanan</TableHead>
+                                    <TableHead>Nama</TableHead>
                                     <TableCell>
                                         {belanja.rekanan.nama}
                                     </TableCell>
                                     <TableCell className="w-1" />
                                 </TableRow>
                                 <TableRow>
-                                    <TableHead>NPWP Rekanan</TableHead>
+                                    <TableHead>NPWP</TableHead>
                                     <TableCell>
                                         {belanja.rekanan.npwp}
                                     </TableCell>
@@ -243,11 +243,31 @@ export default function EditPage() {
                         {belanja.pegawai && (
                             <React.Fragment>
                                 <TableRow>
-                                    <TableHead>Nama Pegawai</TableHead>
+                                    <TableHead>Nama</TableHead>
                                     <TableCell>
                                         {belanja.pegawai?.nama}
                                     </TableCell>
                                     <TableCell className="w-1" />
+                                </TableRow>
+                                <TableRow>
+                                    <TableHead>NPWP</TableHead>
+                                    <TableCell>
+                                        {belanja.pegawai?.npwp}
+                                    </TableCell>
+                                    <TableCell>
+                                        <Button
+                                            size="icon"
+                                            variant="outline"
+                                            className="h-8 w-8"
+                                            onClick={() =>
+                                                handleCopy(
+                                                    belanja.pegawai?.npwp
+                                                )
+                                            }
+                                        >
+                                            <FiCopy />
+                                        </Button>
+                                    </TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableHead>Rekening Bank</TableHead>
