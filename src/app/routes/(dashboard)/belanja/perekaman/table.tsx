@@ -203,7 +203,7 @@ export default function BelanjaTable() {
                                 >
                                     {item.metodePembayaran}
                                 </Badge>
-                                <p className="text-xs text-gray-500">
+                                <p className="text-xs text-slate-500">
                                     {item.buktiPembayaran}
                                 </p>
                             </TableCell>
