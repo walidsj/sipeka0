@@ -114,20 +114,7 @@ export default function EditPage() {
                         <TableRow>
                             <TableHead>Jumlah</TableHead>
                             <TableCell>{formatAngka(belanja.jumlah)}</TableCell>
-                            <TableCell>
-                                <Button
-                                    size="icon"
-                                    variant="outline"
-                                    className="h-8 w-8"
-                                    onClick={() =>
-                                        handleCopy(
-                                            Number(belanja.jumlah).toString()
-                                        )
-                                    }
-                                >
-                                    <FiCopy />
-                                </Button>
-                            </TableCell>
+                            <TableCell />
                         </TableRow>
                         <TableRow>
                             <TableHead>Metode Pembayaran</TableHead>
