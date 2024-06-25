@@ -145,6 +145,11 @@ export default function EditPage() {
                             </TableCell>
                             <TableCell />
                         </TableRow>
+                        <TableRow>
+                            <TableHead>Bukti Pembayaran</TableHead>
+                            <TableCell>{belanja.buktiPembayaran}</TableCell>
+                            <TableCell />
+                        </TableRow>
                     </TableBody>
                 </Table>
             </CardContent>
