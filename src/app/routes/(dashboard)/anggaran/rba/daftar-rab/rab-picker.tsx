@@ -198,7 +198,7 @@ export default function RabPicker({
                                     )}
                                 >
                                     <TableCell className="text-center">
-                                        {index + 1}.
+                                        {rab.meta.pagination.firstRow + index}.
                                     </TableCell>
                                     <TableCell>
                                         <p>{item.rekening?.kode}</p>
