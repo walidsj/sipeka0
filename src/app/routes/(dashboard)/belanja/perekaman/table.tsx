@@ -203,6 +203,7 @@ export default function BelanjaTable() {
                                 >
                                     {item.metodePembayaran}
                                 </Badge>
+                                {item.buktiPembayaran}
                             </TableCell>
                             <TableCell className="text-right font-semibold">
                                 {formatAngka(item.jumlah)}
