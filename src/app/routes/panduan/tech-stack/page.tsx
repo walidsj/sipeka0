@@ -1,6 +1,5 @@
 import {
     Card,
-    CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
@@ -13,13 +12,9 @@ export default function () {
             <div className="py-8 text-justify">
                 <p className="mb-5">
                     Tech (technology) stack merupakan suatu rangkaian teknologi
-                    yang digunakan untuk membuat website atau aplikasi.
-                    Rangkaian teknologi itu terdiri dari framework, database,
-                    front-end tools, back-end tools, bahasa pemrograman, dan
-                    aplikasi yang terhubung dengan API.
-                </p>
-                <p className="mb-5">
-                    Aplikasi SIPEKA menggunakan teknologi sebagai berikut:
+                    yang digunakan untuk membuat website atau aplikasi. Aplikasi
+                    SIPEKA menggunakan teknologi terbaru sesuai dengan standar
+                    website modern sebagai berikut:
                 </p>
                 <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     <Card>

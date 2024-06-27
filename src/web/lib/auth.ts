@@ -36,5 +36,5 @@ export function useAuth() {
         removeCookie('token')
     }
 
-    return { login, logout, token: cookies.token ?? '', user: user }
+    return { login, logout, token: cookies.token ?? '', user: user, isLoading }
 }

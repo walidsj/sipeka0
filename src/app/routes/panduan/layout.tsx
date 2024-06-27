@@ -126,21 +126,7 @@ export default function () {
                 <p>&copy;{new Date().getFullYear()} RSJD Atma Husada Mahakam</p>
                 <p>
                     Build with{' '}
-                    <FaHeart className="inline-block h-5 w-5 text-red-500" />,
-                    <img
-                        src="/images/icons/react.png"
-                        className="inline-block h-5"
-                    />
-                    ,{' '}
-                    <img
-                        src="/images/icons/tailwind.png"
-                        className="inline-block h-5"
-                    />{' '}
-                    , and{' '}
-                    <img
-                        src="/images/icons/hono.png"
-                        className="inline-block h-5"
-                    />
+                    <FaHeart className="inline-block h-5 w-5 text-red-500" />
                 </p>
             </footer>
         </div>

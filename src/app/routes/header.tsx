@@ -12,6 +12,7 @@ import {
 } from '@/web/components/ui/dropdown-menu'
 import React from 'react'
 import { FiLock, FiLogOut } from 'react-icons/fi'
+import Loading from '@/web/components/loading'
 
 export function Header() {
     const auth = useAuth()
@@ -54,19 +55,25 @@ export function Header() {
                                 <Link to="/panduan">Panduan</Link>
                             </Button>
                         </li>
+
                         {!auth.user ? (
                             <React.Fragment>
-                                <li>
-                                    <Button
-                                        variant="ghost"
-                                        asChild
-                                        className="h-20 rounded-none px-5"
-                                    >
-                                        <Link to="/login">
-                                            <FiLock className="mr-2" /> Login
-                                        </Link>
-                                    </Button>
-                                </li>
+                                {auth.isLoading ? (
+                                    <Loading />
+                                ) : (
+                                    <li>
+                                        <Button
+                                            variant="ghost"
+                                            asChild
+                                            className="h-20 rounded-none px-5"
+                                        >
+                                            <Link to="/login">
+                                                <FiLock className="mr-2" />{' '}
+                                                Login
+                                            </Link>
+                                        </Button>
+                                    </li>
+                                )}
                             </React.Fragment>
                         ) : (
                             <React.Fragment>
