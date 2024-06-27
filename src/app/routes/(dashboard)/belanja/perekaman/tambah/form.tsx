@@ -111,14 +111,12 @@ export default function CreateForm() {
                                     <Input
                                         type="date"
                                         onChange={(e) =>
-                                            field.onChange(
-                                                new Date(e.target.value)
-                                            )
+                                            field.onChange(e.target.valueAsDate)
                                         }
                                         value={
                                             field.value
                                                 ? format(
-                                                      new Date(field.value),
+                                                      field.value,
                                                       'yyyy-MM-dd'
                                                   )
                                                 : undefined
