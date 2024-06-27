@@ -4,16 +4,9 @@ import { cn } from '@/web/lib/utils'
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import { FaHeart } from 'react-icons/fa6'
-import {
-    FiArrowRight,
-    FiChevronDown,
-    FiExternalLink,
-    FiLock,
-} from 'react-icons/fi'
+import { FiArrowRight, FiExternalLink } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
-import { AiOutlineThunderbolt } from 'react-icons/ai'
-import { RiShareLine } from 'react-icons/ri'
-import { GiThreeLeaves } from 'react-icons/gi'
+import { FaBolt, FaLeaf, FaLock, FaShareAlt } from 'react-icons/fa'
 
 const list = [
     {
@@ -156,7 +149,7 @@ export default function Home() {
                 </div>
                 <div className="relative flex-shrink-0 md:max-w-md lg:max-w-lg">
                     <Card className="absolute left-5 top-20 flex flex-row items-center gap-1 px-2 py-1 text-xs font-semibold shadow-lg sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
-                        <AiOutlineThunderbolt className="h-4 w-4 text-primary sm:h-5 sm:w-5" />{' '}
+                        <FaBolt className="h-4 w-4 text-primary sm:h-5 sm:w-5" />{' '}
                         Akses Mudah
                     </Card>
                     <Card className="absolute left-0 top-56 flex h-12 w-12 flex-row items-center p-3 shadow-lg md:h-14 md:w-14 lg:h-16 lg:w-16">
@@ -165,20 +158,17 @@ export default function Home() {
                     <Card className="md:2-12 absolute left-20 top-48 flex h-10 w-10 flex-row items-center p-2 shadow-lg md:h-12 lg:h-14 lg:w-14">
                         <img src="/images/logo-rsjdahm.webp" />
                     </Card>
-                    {/* <Card className="md:2-12 absolute right-5 top-16 flex h-10 w-10 flex-row items-center p-3 shadow-lg md:h-12 lg:h-14 lg:w-14">
-                        <img src="/images/logo-kaltimprov.webp" />
-                    </Card> */}
                     <Card className="absolute bottom-10 left-10 flex flex-row items-center gap-1 px-2 py-1 text-xs font-semibold shadow-lg sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
-                        <FiLock className="h-3 w-3 text-primary sm:h-4 sm:w-4" />{' '}
+                        <FaLock className="h-3 w-3 text-primary sm:h-4 sm:w-4" />{' '}
                         Aman dan Terstandar
                     </Card>
-                    <Card className="absolute bottom-40 right-8 flex flex-row items-center gap-1 px-2 py-1 text-xs font-semibold shadow-lg sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
-                        <RiShareLine className="h-4 w-4 text-primary sm:h-5 sm:w-5" />
-                        Integrasi Data
-                    </Card>
-                    <Card className="absolute right-0 top-52 flex flex-row items-center gap-1 px-2 py-1 text-xs font-semibold shadow-lg sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
-                        <GiThreeLeaves className="h-4 w-4 text-primary sm:h-5 sm:w-5" />
+                    <Card className="absolute bottom-48 right-0 flex flex-row items-center gap-1 px-2 py-1 text-xs font-semibold shadow-lg sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
+                        <FaLeaf className="h-4 w-4 text-primary sm:h-5 sm:w-5" />
                         Ramah Lingkungan
+                    </Card>
+                    <Card className="absolute bottom-24 right-14 flex flex-row items-center gap-1 px-2 py-1 text-xs font-semibold shadow-lg sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
+                        <FaShareAlt className="h-4 w-4 text-primary sm:h-5 sm:w-5" />
+                        Integrasi Data
                     </Card>
                     <img
                         src="/images/hero-bu.png"
@@ -186,14 +176,6 @@ export default function Home() {
                         className="h-auto"
                     />
                 </div>
-            </div>
-            <div className="z-10 flex flex-row items-center justify-center">
-                <Button
-                    variant="outline"
-                    className="-mb-5 rounded-xl shadow-lg"
-                >
-                    <FiChevronDown className="h-8 w-8" />
-                </Button>
             </div>
             <div className="flex flex-col-reverse gap-10 bg-secondary px-5 py-16 text-white md:px-8 lg:px-10 xl:px-12">
                 <div className="-mt-5 flex flex-row items-center justify-start gap-5 md:justify-center">

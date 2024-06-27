@@ -36,6 +36,16 @@ export default function () {
                         {pathname === '/panduan/pengenalan' && <FiArrowRight />}
                     </Link>
                     <Link
+                        to="/panduan/tech-stack"
+                        className={cn(
+                            'flex items-center justify-between',
+                            pathname === '/panduan/tech-stack' && 'text-primary'
+                        )}
+                    >
+                        Tech Stack
+                        {pathname === '/panduan/tech-stack' && <FiArrowRight />}
+                    </Link>
+                    <Link
                         to="/panduan/login"
                         className={cn(
                             'flex items-center justify-between',

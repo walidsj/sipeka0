@@ -3,6 +3,12 @@ export default function Page() {
         <div className="flex w-full flex-col px-5 py-5 md:px-8 lg:px-10 xl:px-12">
             <h2 className="text-3xl font-extrabold">Pendahuluan</h2>
             <div className="py-8 text-justify">
+                <iframe
+                    width="100%"
+                    height="390"
+                    className="mx-auto mb-5 rounded-xl border"
+                    src="https://www.youtube.com/embed/yIir_9Y21eQ?si=HlgKySwJ30SZDkSO?enablejsapi=1&origin=https://sipeka.atmaku.com"
+                ></iframe>
                 <p className="mb-5">
                     Rumah Sakit Jiwa Daerah Atma Husada Mahakam adalah salah
                     satu organisasi perangkat daerah Pemerintah Provinsi
@@ -85,11 +91,6 @@ export default function Page() {
                     pembiayaan.
                 </p>
             </div>
-            <iframe
-                width="auto"
-                height="390"
-                src="https://www.youtube.com/embed/WmfNcTK9Sg4?si=NEzmpGrjG32JGPVb?enablejsapi=1&origin=https://sipeka.atmaku.com"
-            ></iframe>
         </div>
     )
 }
