@@ -13,6 +13,7 @@ import {
 import { Link } from 'react-router-dom'
 import { AiOutlineThunderbolt } from 'react-icons/ai'
 import { RiShareLine } from 'react-icons/ri'
+import { GiThreeLeaves } from 'react-icons/gi'
 
 const list = [
     {
@@ -164,9 +165,9 @@ export default function Home() {
                     <Card className="md:2-12 absolute left-20 top-48 flex h-10 w-10 flex-row items-center p-2 shadow-lg md:h-12 lg:h-14 lg:w-14">
                         <img src="/images/logo-rsjdahm.webp" />
                     </Card>
-                    <Card className="md:2-12 absolute right-5 top-16 flex h-10 w-10 flex-row items-center p-3 shadow-lg md:h-12 lg:h-14 lg:w-14">
+                    {/* <Card className="md:2-12 absolute right-5 top-16 flex h-10 w-10 flex-row items-center p-3 shadow-lg md:h-12 lg:h-14 lg:w-14">
                         <img src="/images/logo-kaltimprov.webp" />
-                    </Card>
+                    </Card> */}
                     <Card className="absolute bottom-10 left-10 flex flex-row items-center gap-1 px-2 py-1 text-xs font-semibold shadow-lg sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
                         <FiLock className="h-3 w-3 text-primary sm:h-4 sm:w-4" />{' '}
                         Aman dan Terstandar
@@ -174,6 +175,10 @@ export default function Home() {
                     <Card className="absolute bottom-40 right-8 flex flex-row items-center gap-1 px-2 py-1 text-xs font-semibold shadow-lg sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
                         <RiShareLine className="h-4 w-4 text-primary sm:h-5 sm:w-5" />
                         Integrasi Data
+                    </Card>
+                    <Card className="absolute right-0 top-52 flex flex-row items-center gap-1 px-2 py-1 text-xs font-semibold shadow-lg sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
+                        <GiThreeLeaves className="h-4 w-4 text-primary sm:h-5 sm:w-5" />
+                        Ramah Lingkungan
                     </Card>
                     <img
                         src="/images/hero-bu.png"
@@ -210,7 +215,7 @@ export default function Home() {
                         Tentang Kami
                     </h2>
                     <p className="mb-8 text-3xl font-extrabold tracking-wide md:text-center md:text-4xl lg:text-5xl">
-                        Keuangan RSJD AHM
+                        Keuangan dan Akuntansi RSJD AHM
                     </p>
                     <p className="md:mx-auto md:max-w-3xl">
                         Bagian Keuangan dan Akuntansi mempunyai tugas menyusun
