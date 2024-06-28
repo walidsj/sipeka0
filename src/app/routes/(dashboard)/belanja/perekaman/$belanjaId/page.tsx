@@ -5,7 +5,7 @@ import {
     CardHeader,
     CardTitle,
 } from '@/web/components/ui/card'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
 import { api } from '@/web/trpc/react'
 import {
     Table,
@@ -19,12 +19,21 @@ import Loading from '@/web/components/loading'
 import React from 'react'
 import { Badge } from '@/web/components/ui/badge'
 import { Button } from '@/web/components/ui/button'
-import { FiCopy, FiPlus } from 'react-icons/fi'
+import { FiChevronsDown, FiCopy, FiEdit, FiPlus, FiTrash } from 'react-icons/fi'
 import toast from 'react-hot-toast'
 import PotonganTable from './table'
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from '@/web/components/ui/dropdown-menu'
 
 export default function EditPage() {
     const params = useParams<{ belanjaId: string }>()
+    const utils = api.useUtils()
+    const navigate = useNavigate()
 
     const {
         data: belanja,
@@ -52,6 +61,22 @@ export default function EditPage() {
             ? 0
             : 2900
 
+    const deleteBelanja = api.belanja.deleteById.useMutation({
+        onMutate() {
+            toast.loading('Menghapus data...')
+        },
+        onSuccess(data) {
+            toast.dismiss()
+            navigate('/belanja/perekaman')
+            utils.belanja.invalidate()
+            toast.success(data.message)
+        },
+        onError(error) {
+            toast.dismiss()
+            toast.error(error.message)
+        },
+    })
+
     return (
         <Card>
             <div className="mb-5 flex flex-row items-center justify-between px-6 pt-6">
@@ -59,6 +84,41 @@ export default function EditPage() {
                     <CardTitle>Detail Belanja</CardTitle>
                     <CardDescription>Data untuk detail belanja</CardDescription>
                 </CardHeader>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="outline">
+                            Aksi <FiChevronsDown className="ml-2" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="start">
+                        <Link
+                            to={`/belanja/perekaman/${params.belanjaId}/edit`}
+                        >
+                            <DropdownMenuItem>
+                                <FiEdit className="mr-2" />
+                                Edit
+                            </DropdownMenuItem>
+                        </Link>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem
+                            onClick={() => {
+                                if (
+                                    confirm(
+                                        'Apakah anda yakin menghapus data ini?'
+                                    )
+                                ) {
+                                    deleteBelanja.mutate(
+                                        Number(params.belanjaId)
+                                    )
+                                }
+                            }}
+                            className="text-red-500"
+                        >
+                            <FiTrash className="mr-2" />
+                            Hapus
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </div>
             <CardContent>
                 <Table>
