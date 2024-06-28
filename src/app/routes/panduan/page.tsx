@@ -4,9 +4,7 @@ export default function Page() {
             <h2 className="text-3xl font-extrabold">Pendahuluan</h2>
             <div className="py-8 text-justify">
                 <iframe
-                    width="100%"
-                    height="390"
-                    className="mx-auto mb-5 rounded-xl border"
+                    className="mx-auto mb-5 aspect-video w-full rounded-xl border"
                     src="https://www.youtube.com/embed/0-qrJKJMT5U?si=pFOvV3qwIb8dzkoL?enablejsapi=1&origin=https://sipeka.atmaku.com"
                 ></iframe>
                 <p className="mb-5">
