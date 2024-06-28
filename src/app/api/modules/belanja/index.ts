@@ -179,7 +179,7 @@ export const belanjaRouter = createTRPCRouter({
 
     getLatest: userProcedure.query(async ({ ctx }) => {
         const lastData = await ctx.db.query.belanja.findFirst({
-            orderBy: desc(belanja.tglDokumen),
+            orderBy: [desc(belanja.tglDokumen), desc(belanja.createdAt)],
         })
 
         return lastData

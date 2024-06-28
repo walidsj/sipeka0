@@ -85,7 +85,7 @@ export default function CreateForm() {
             <form onSubmit={form.handleSubmit(onSubmit)}>
                 <fieldset
                     disabled={create.isPending}
-                    className="flex max-w-96 flex-col gap-2"
+                    className="flex flex-col gap-2"
                 >
                     <FormField
                         name="noDokumen"
