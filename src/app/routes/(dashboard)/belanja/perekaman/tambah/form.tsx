@@ -96,6 +96,7 @@ export default function CreateForm() {
                                     <Input
                                         value={field.value}
                                         onChange={field.onChange}
+                                        className="h-12 text-xl font-bold"
                                     />
                                 </FormControl>
                                 <FormMessage />
