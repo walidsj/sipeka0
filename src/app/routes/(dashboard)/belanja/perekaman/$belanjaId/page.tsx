@@ -41,6 +41,22 @@ export default function EditPage() {
         isLoading,
     } = api.belanja.getById.useQuery(Number(params.belanjaId))
 
+    const deleteBelanja = api.belanja.deleteById.useMutation({
+        onMutate() {
+            toast.loading('Menghapus data...')
+        },
+        onSuccess(data) {
+            toast.dismiss()
+            navigate('/belanja/perekaman')
+            utils.belanja.invalidate()
+            toast.success(data.message)
+        },
+        onError(error) {
+            toast.dismiss()
+            toast.error(error.message)
+        },
+    })
+
     if (isLoading) return <Loading />
 
     if (isError) return <Navigate to={`/belanja/perekaman`} replace />
@@ -60,22 +76,6 @@ export default function EditPage() {
         belanja.pegawai?.bank?.kode == '124'
             ? 0
             : 2900
-
-    const deleteBelanja = api.belanja.deleteById.useMutation({
-        onMutate() {
-            toast.loading('Menghapus data...')
-        },
-        onSuccess(data) {
-            toast.dismiss()
-            navigate('/belanja/perekaman')
-            utils.belanja.invalidate()
-            toast.success(data.message)
-        },
-        onError(error) {
-            toast.dismiss()
-            toast.error(error.message)
-        },
-    })
 
     return (
         <Card>
