@@ -50,7 +50,7 @@ export default function Layout() {
                     className={cn(
                         pathname.startsWith(
                             '/anggaran/rka/program-kegiatan/program'
-                        ) && 'border-2 border-primary text-primary'
+                        ) && 'bg-slate-600 text-white'
                     )}
                     asChild
                 >
@@ -64,7 +64,7 @@ export default function Layout() {
                     className={cn(
                         pathname.startsWith(
                             '/anggaran/rka/program-kegiatan/kegiatan'
-                        ) && 'border-2 border-primary text-primary'
+                        ) && 'bg-slate-600 text-white'
                     )}
                     asChild
                 >
@@ -78,7 +78,7 @@ export default function Layout() {
                     className={cn(
                         pathname.startsWith(
                             '/anggaran/rka/program-kegiatan/sub-kegiatan'
-                        ) && 'border-2 border-primary text-primary'
+                        ) && 'bg-slate-600 text-white'
                     )}
                     asChild
                 >

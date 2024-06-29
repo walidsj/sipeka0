@@ -220,8 +220,7 @@ export default function Home() {
                         <Button
                             variant="outline"
                             className={cn(
-                                team === 'Semua' &&
-                                    'border-2 border-primary text-primary'
+                                team === 'Semua' && 'bg-slate-600 text-white'
                             )}
                             onClick={() => setTeam('Semua')}
                         >
@@ -231,7 +230,7 @@ export default function Home() {
                             variant="outline"
                             className={cn(
                                 team === 'Perbendaharaan' &&
-                                    'border-2 border-primary text-primary'
+                                    'bg-slate-600 text-white'
                             )}
                             onClick={() => setTeam('Perbendaharaan')}
                         >
@@ -241,7 +240,7 @@ export default function Home() {
                             variant="outline"
                             className={cn(
                                 team === 'Akuntansi' &&
-                                    'border-2 border-primary text-primary'
+                                    'bg-slate-600 text-white'
                             )}
                             onClick={() => setTeam('Akuntansi')}
                         >
@@ -251,7 +250,7 @@ export default function Home() {
                             variant="outline"
                             className={cn(
                                 team === 'Verifikasi' &&
-                                    'border-2 border-primary text-primary'
+                                    'bg-slate-600 text-white'
                             )}
                             onClick={() => setTeam('Verifikasi')}
                         >
@@ -261,7 +260,7 @@ export default function Home() {
                             variant="outline"
                             className={cn(
                                 team === 'Tim Efektif' &&
-                                    'border-2 border-primary text-primary'
+                                    'bg-slate-600 text-white'
                             )}
                             onClick={() => setTeam('Tim Efektif')}
                         >

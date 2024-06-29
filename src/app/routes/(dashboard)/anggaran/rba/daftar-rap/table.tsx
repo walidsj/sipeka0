@@ -85,7 +85,7 @@ export default function RapTable() {
                         groupedData &&
                         Object.keys(groupedData).map((key) => (
                             <React.Fragment key={key}>
-                                <TableRow className="bg-blue-50 hover:bg-blue-50">
+                                <TableRow>
                                     <TableCell colSpan={4}>
                                         <span className="mr-3 inline-block font-bold">
                                             {key.split('||')[0]}

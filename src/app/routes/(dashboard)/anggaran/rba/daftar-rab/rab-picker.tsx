@@ -99,7 +99,7 @@ export default function RabPicker({
                     type="button"
                     variant="outline"
                     className={cn(
-                        'w-full justify-start rounded-lg text-sm font-normal',
+                        'w-full justify-start bg-slate-100 text-sm font-normal',
                         selected && 'h-auto min-h-12'
                     )}
                 >

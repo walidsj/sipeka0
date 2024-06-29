@@ -12,7 +12,7 @@ export default function Layout() {
             <Helmet>
                 <title>Modul Lainnya - SIPEKA</title>
             </Helmet>
-            <div className="flex min-h-[calc(100svh-138px)] w-28 flex-col border-r bg-background shadow-sm">
+            <div className="flex min-h-[calc(100svh-138px)] w-28 flex-col">
                 <nav>
                     <ul className="flex w-full flex-col">
                         <li>
@@ -21,7 +21,7 @@ export default function Layout() {
                                 className={cn(
                                     'flex h-auto w-full flex-col justify-center gap-1 rounded-none px-8 py-3 text-center',
                                     pathname.startsWith('/lainnya/database') &&
-                                        'border-l-4 border-primary bg-slate-50 text-primary'
+                                        'text-primary'
                                 )}
                                 asChild
                             >
@@ -40,8 +40,7 @@ export default function Layout() {
                                     'flex h-auto w-full flex-col justify-center gap-1 rounded-none px-8 py-3 text-center',
                                     pathname.startsWith(
                                         '/lainnya/pengaturan'
-                                    ) &&
-                                        'border-l-4 border-primary bg-slate-50 text-primary'
+                                    ) && 'text-primary'
                                 )}
                                 asChild
                             >
@@ -59,7 +58,7 @@ export default function Layout() {
                                 className={cn(
                                     'flex h-auto w-full flex-col justify-center gap-1 rounded-none px-8 py-3 text-center',
                                     pathname.startsWith('/lainnya/referensi') &&
-                                        'border-l-4 border-primary bg-slate-50 text-primary'
+                                        'text-primary'
                                 )}
                                 asChild
                             >
@@ -77,7 +76,7 @@ export default function Layout() {
                                 className={cn(
                                     'flex h-auto w-full flex-col justify-center gap-1 rounded-none px-8 py-3 text-center',
                                     pathname.startsWith('/lainnya/user') &&
-                                        'border-l-4 border-primary bg-slate-50 text-primary'
+                                        'text-primary'
                                 )}
                                 asChild
                             >
