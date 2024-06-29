@@ -193,7 +193,7 @@ export default function Router() {
                                     <motion.div
                                         className="w-full"
                                         key={route.key}
-                                        initial={{ opacity: 0, y: 20 }}
+                                        initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                     >
                                         <route.element />
@@ -221,7 +221,7 @@ export default function Router() {
                                 <motion.div
                                     className="w-full"
                                     key={route.key}
-                                    initial={{ opacity: 0, y: 20 }}
+                                    initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                 >
                                     <route.element />
@@ -242,7 +242,7 @@ export default function Router() {
                                 <motion.div
                                     className="w-full"
                                     key={route.key}
-                                    initial={{ opacity: 0, y: 20 }}
+                                    initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                 >
                                     <route.element />
@@ -383,7 +383,7 @@ export default function Router() {
     }
 
     return (
-        <AnimatePresence mode="wait">
+        <AnimatePresence>
             <HashRouter>
                 <Routes>{renderRoutes(nest)}</Routes>
             </HashRouter>
