@@ -15,7 +15,7 @@ export default function Layout() {
             <Helmet>
                 <title>Anggaran - SIPEKA</title>
             </Helmet>
-            <div className="flex min-h-[calc(100svh-138px)] w-28 flex-col border-r bg-background shadow-sm">
+            <div className="flex min-h-[calc(100svh-138px)] w-28 flex-col bg-background">
                 <nav>
                     <ul className="flex w-full flex-col">
                         <li>
@@ -24,7 +24,7 @@ export default function Layout() {
                                 className={cn(
                                     'flex h-auto w-full flex-col justify-center gap-1 rounded-none px-8 py-3 text-center',
                                     pathname.startsWith('/anggaran/rba') &&
-                                        'border-l-4 border-primary bg-slate-50 text-primary'
+                                        'bg-slate-50 text-primary'
                                 )}
                                 asChild
                             >
@@ -42,7 +42,7 @@ export default function Layout() {
                                 className={cn(
                                     'flex h-auto w-full flex-col justify-center gap-1 rounded-none px-8 py-3 text-center',
                                     pathname.startsWith('/anggaran/rka') &&
-                                        'border-l-4 border-primary bg-slate-50 text-primary'
+                                        'bg-slate-50 text-primary'
                                 )}
                                 asChild
                             >
@@ -60,7 +60,7 @@ export default function Layout() {
                                 className={cn(
                                     'flex h-auto w-full flex-col justify-center gap-1 rounded-none px-8 py-3 text-center',
                                     pathname.startsWith('/anggaran/dba') &&
-                                        'border-l-4 border-primary bg-slate-50 text-primary'
+                                        'bg-slate-50 text-primary'
                                 )}
                                 asChild
                             >
@@ -79,8 +79,7 @@ export default function Layout() {
                                     'flex h-auto w-full flex-col justify-center gap-1 rounded-none px-8 py-3 text-center',
                                     pathname.startsWith(
                                         '/anggaran/monitoring'
-                                    ) &&
-                                        'border-l-4 border-primary bg-slate-50 text-primary'
+                                    ) && 'bg-slate-50 text-primary'
                                 )}
                                 asChild
                             >

@@ -6,7 +6,7 @@ export default function HomeLayout() {
     return (
         <React.Fragment>
             <Header />
-            <div className="w-full pt-20">
+            <div className="min-h-screen w-full bg-slate-100 pt-20">
                 <Outlet />
             </div>
         </React.Fragment>

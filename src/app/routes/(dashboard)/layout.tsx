@@ -20,7 +20,7 @@ export default function DashboardLayout() {
             <Helmet>
                 <title>Dashboard - SIPEKA</title>
             </Helmet>
-            <div className="border-b bg-background shadow-sm">
+            <div className="bg-background">
                 <nav className="mx-auto w-full overflow-x-auto md:px-3 lg:px-5 xl:px-8">
                     <ul className="flex">
                         <li>

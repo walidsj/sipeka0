@@ -12,9 +12,9 @@ export default function ProfilLayout() {
 
     return (
         <div className="flex flex-row">
-            <div className="flex min-h-[calc(100svh-138px)] w-72 flex-col border-r bg-background shadow-sm">
+            <div className="flex min-h-[calc(100svh-138px)] w-72 flex-col bg-background">
                 <nav className="w-full">
-                    <CardHeader className="border-b">
+                    <CardHeader>
                         <CardTitle>Rencana Kerja Anggaran</CardTitle>
                         <CardDescription>
                             Dokumen perencanaan dan penganggaran program dan
@@ -27,11 +27,10 @@ export default function ProfilLayout() {
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-12 w-full justify-start rounded-none px-6',
+                                    'h-12 w-full justify-start rounded-none px-5',
                                     pathname.startsWith(
                                         '/anggaran/rka/program-kegiatan'
-                                    ) &&
-                                        'border-l-4 border-primary bg-slate-50 px-5 text-primary'
+                                    ) && 'bg-slate-50 text-primary'
                                 )}
                             >
                                 <Link to="/anggaran/rka/program-kegiatan/program">
@@ -44,11 +43,10 @@ export default function ProfilLayout() {
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-12 w-full justify-start rounded-none px-6',
+                                    'h-12 w-full justify-start rounded-none px-5',
                                     pathname.startsWith(
                                         '/anggaran/rka/dokumen-rka'
-                                    ) &&
-                                        'border-l-4 border-primary bg-slate-50 px-5 text-primary'
+                                    ) && 'bg-slate-50 text-primary'
                                 )}
                             >
                                 <Link to="/anggaran/rka/dokumen-rka">

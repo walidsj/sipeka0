@@ -37,7 +37,7 @@ export default function () {
                     <img
                         src="/images/panduan/login-page.png"
                         alt="Halaman Login"
-                        className="mx-auto mb-2 max-w-3xl rounded-xl border"
+                        className="mx-auto mb-2 max-w-3xl rounded-xl"
                     />
                     <small className="block text-center italic text-gray-500">
                         Login SIPEKA
@@ -52,7 +52,7 @@ export default function () {
                     <img
                         src="/images/panduan/dashboard-page.png"
                         alt="Halaman Dashboard"
-                        className="mx-auto mb-2 max-w-3xl rounded-xl border"
+                        className="mx-auto mb-2 max-w-3xl rounded-xl"
                     />
                     <small className="block text-center italic text-gray-500">
                         Halaman Dashboard

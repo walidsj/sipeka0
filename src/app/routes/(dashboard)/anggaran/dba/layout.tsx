@@ -12,9 +12,9 @@ export default function ProfilLayout() {
 
     return (
         <div className="flex flex-row">
-            <div className="flex min-h-[calc(100svh-138px)] w-72 flex-col border-r bg-background shadow-sm">
+            <div className="flex min-h-[calc(100svh-138px)] w-72 flex-col bg-background">
                 <nav className="w-full">
-                    <CardHeader className="border-b">
+                    <CardHeader>
                         <CardTitle>Dokumen Bisnis dan Anggaran</CardTitle>
                         <CardDescription>
                             Rencana bisnis dan anggaran BLUD yang telah disahkan
@@ -27,11 +27,10 @@ export default function ProfilLayout() {
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-12 w-full justify-start rounded-none px-6',
+                                    'h-12 w-full justify-start rounded-none px-5',
                                     pathname.startsWith(
                                         '/anggaran/dba/penetapan'
-                                    ) &&
-                                        'border-l-4 border-primary bg-slate-50 px-5 text-primary'
+                                    ) && 'bg-slate-50 text-primary'
                                 )}
                             >
                                 <Link to="/anggaran/dba/penetapan">

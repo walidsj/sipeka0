@@ -12,7 +12,7 @@ export default function Layout() {
             <Helmet>
                 <title>Pendapatan - SIPEKA</title>
             </Helmet>
-            <div className="flex min-h-[calc(100svh-138px)] w-28 flex-col border-r bg-background shadow-sm">
+            <div className="flex min-h-[calc(100svh-138px)] w-28 flex-col bg-background">
                 <nav>
                     <ul className="flex w-full flex-col">
                         <li>

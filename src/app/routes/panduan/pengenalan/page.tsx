@@ -16,7 +16,7 @@ export default function () {
                     <img
                         src="/images/panduan/preview-sipeka.png"
                         alt="SIPEKA"
-                        className="mx-auto mb-2 max-w-3xl rounded-xl border"
+                        className="mx-auto mb-2 max-w-3xl rounded-xl"
                     />
                     <small className="block text-center italic text-gray-500">
                         Tampilan Depan SIPEKA

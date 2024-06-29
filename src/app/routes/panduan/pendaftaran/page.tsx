@@ -42,7 +42,7 @@ export default function () {
                     <img
                         src="/images/panduan/register-page.png"
                         alt="Halaman Register"
-                        className="mx-auto mb-2 max-w-3xl rounded-xl border"
+                        className="mx-auto mb-2 max-w-3xl rounded-xl"
                     />
                     <small className="block text-center italic text-gray-500">
                         Register akun di SIPEKA
