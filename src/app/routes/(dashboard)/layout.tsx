@@ -20,7 +20,7 @@ export default function DashboardLayout() {
             <Helmet>
                 <title>Dashboard - SIPEKA</title>
             </Helmet>
-            <div className="bg-background">
+            <div className="">
                 <nav className="mx-auto w-full overflow-x-auto md:px-3 lg:px-5 xl:px-8">
                     <ul className="flex">
                         <li>
@@ -36,10 +36,10 @@ export default function DashboardLayout() {
                                 <Link to="/home">
                                     <div
                                         className={cn(
-                                            'flex items-center justify-center rounded-lg p-2 text-primary shadow',
+                                            'flex items-center justify-center rounded-lg p-2 text-primary',
                                             pathname.startsWith('/home')
-                                                ? 'bg-gradient-to-br from-blue-400 to-primary text-white'
-                                                : 'border bg-background'
+                                                ? 'bg-primary text-white'
+                                                : 'bg-background'
                                         )}
                                     >
                                         <FiHome />
@@ -61,10 +61,10 @@ export default function DashboardLayout() {
                                 <Link to="/anggaran/rba/daftar-rab">
                                     <div
                                         className={cn(
-                                            'flex items-center justify-center rounded-lg p-2 text-primary shadow',
+                                            'flex items-center justify-center rounded-lg p-2 text-primary',
                                             pathname.startsWith('/anggaran')
-                                                ? 'bg-gradient-to-br from-blue-400 to-primary text-white'
-                                                : 'border bg-background'
+                                                ? 'bg-primary text-white'
+                                                : 'bg-background'
                                         )}
                                     >
                                         <FiEdit />
@@ -86,10 +86,10 @@ export default function DashboardLayout() {
                                 <Link to="/pendapatan/perekaman">
                                     <div
                                         className={cn(
-                                            'flex items-center justify-center rounded-lg p-2 text-primary shadow',
+                                            'flex items-center justify-center rounded-lg p-2 text-primary',
                                             pathname.startsWith('/pendapatan')
-                                                ? 'bg-gradient-to-br from-blue-400 to-primary text-white'
-                                                : 'border bg-background'
+                                                ? 'bg-primary text-white'
+                                                : 'bg-background'
                                         )}
                                     >
                                         <FiPocket />
@@ -111,10 +111,10 @@ export default function DashboardLayout() {
                                 <Link to="/belanja/perekaman">
                                     <div
                                         className={cn(
-                                            'flex items-center justify-center rounded-lg p-2 text-primary shadow',
+                                            'flex items-center justify-center rounded-lg p-2 text-primary',
                                             pathname.startsWith('/belanja')
-                                                ? 'bg-gradient-to-br from-blue-400 to-primary text-white'
-                                                : 'border bg-background'
+                                                ? 'bg-primary text-white'
+                                                : 'bg-background'
                                         )}
                                     >
                                         <FiShoppingCart />
@@ -136,10 +136,10 @@ export default function DashboardLayout() {
                                 <Link to="/akuntansi">
                                     <div
                                         className={cn(
-                                            'flex items-center justify-center rounded-lg p-2 text-primary shadow',
+                                            'flex items-center justify-center rounded-lg p-2 text-primary',
                                             pathname.startsWith('/akuntansi')
-                                                ? 'bg-gradient-to-br from-blue-400 to-primary text-white'
-                                                : 'border bg-background'
+                                                ? 'bg-primary text-white'
+                                                : 'bg-background'
                                         )}
                                     >
                                         <FiFileText />
@@ -161,10 +161,10 @@ export default function DashboardLayout() {
                                 <Link to="/lainnya/database/unit-kerja">
                                     <div
                                         className={cn(
-                                            'flex items-center justify-center rounded-lg p-2 text-primary shadow',
+                                            'flex items-center justify-center rounded-lg p-2 text-primary',
                                             pathname.startsWith('/lainnya')
-                                                ? 'bg-gradient-to-br from-blue-400 to-primary text-white'
-                                                : 'border bg-background'
+                                                ? 'bg-primary text-white'
+                                                : 'bg-background'
                                         )}
                                     >
                                         <FiTool />

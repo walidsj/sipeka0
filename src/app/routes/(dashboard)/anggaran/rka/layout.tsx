@@ -12,7 +12,7 @@ export default function ProfilLayout() {
 
     return (
         <div className="flex flex-row">
-            <div className="flex min-h-[calc(100svh-138px)] w-72 flex-col bg-background">
+            <div className="flex min-h-[calc(100svh-138px)] w-72 flex-col">
                 <nav className="w-full">
                     <CardHeader>
                         <CardTitle>Rencana Kerja Anggaran</CardTitle>
@@ -27,10 +27,10 @@ export default function ProfilLayout() {
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-12 w-full justify-start rounded-none px-5',
+                                    'h-12 w-full justify-start rounded-none px-6',
                                     pathname.startsWith(
                                         '/anggaran/rka/program-kegiatan'
-                                    ) && 'bg-slate-50 text-primary'
+                                    ) && 'text-primary'
                                 )}
                             >
                                 <Link to="/anggaran/rka/program-kegiatan/program">
@@ -43,10 +43,10 @@ export default function ProfilLayout() {
                                 asChild
                                 variant="ghost"
                                 className={cn(
-                                    'h-12 w-full justify-start rounded-none px-5',
+                                    'h-12 w-full justify-start rounded-none px-6',
                                     pathname.startsWith(
                                         '/anggaran/rka/dokumen-rka'
-                                    ) && 'bg-slate-50 text-primary'
+                                    ) && 'text-primary'
                                 )}
                             >
                                 <Link to="/anggaran/rka/dokumen-rka">
