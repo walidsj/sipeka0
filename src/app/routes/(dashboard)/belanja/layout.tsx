@@ -1,7 +1,6 @@
 import { Button } from '@/web/components/ui/button'
 import { cn } from '@/web/lib/utils'
 import { Link, Outlet, useLocation } from 'react-router-dom'
-import { LuBook, LuFileInput } from 'react-icons/lu'
 import {
     HiOutlineBookmarkAlt,
     HiOutlineClipboardList,

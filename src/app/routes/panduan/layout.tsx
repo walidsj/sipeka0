@@ -23,7 +23,9 @@ export default function () {
                         )}
                     >
                         Pendahuluan
-                        {pathname === '/panduan' && <FiArrowRight />}
+                        {pathname === '/panduan' && (
+                            <FiArrowRight className="h-5 w-5" />
+                        )}
                     </Link>
                     <Link
                         to="/panduan/pengenalan"
@@ -33,7 +35,9 @@ export default function () {
                         )}
                     >
                         Pengenalan Aplikasi
-                        {pathname === '/panduan/pengenalan' && <FiArrowRight />}
+                        {pathname === '/panduan/pengenalan' && (
+                            <FiArrowRight className="h-5 w-5" />
+                        )}
                     </Link>
                     <Link
                         to="/panduan/tech-stack"
@@ -43,7 +47,9 @@ export default function () {
                         )}
                     >
                         Tech Stack
-                        {pathname === '/panduan/tech-stack' && <FiArrowRight />}
+                        {pathname === '/panduan/tech-stack' && (
+                            <FiArrowRight className="h-5 w-5" />
+                        )}
                     </Link>
                     <Link
                         to="/panduan/login"
@@ -53,7 +59,9 @@ export default function () {
                         )}
                     >
                         Akses Masuk
-                        {pathname === '/panduan/login' && <FiArrowRight />}
+                        {pathname === '/panduan/login' && (
+                            <FiArrowRight className="h-5 w-5" />
+                        )}
                     </Link>
                     <Link
                         to="/panduan/pendaftaran"
@@ -65,7 +73,7 @@ export default function () {
                     >
                         Pendaftaran Akun
                         {pathname === '/panduan/pendaftaran' && (
-                            <FiArrowRight />
+                            <FiArrowRight className="h-5 w-5" />
                         )}
                     </Link>
                     <Link
@@ -76,7 +84,9 @@ export default function () {
                         )}
                     >
                         FAQ
-                        {pathname === '/panduan/faq' && <FiArrowRight />}
+                        {pathname === '/panduan/faq' && (
+                            <FiArrowRight className="h-5 w-5" />
+                        )}
                     </Link>
                 </div>
             </div>

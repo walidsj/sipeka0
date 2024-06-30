@@ -22,7 +22,19 @@ export default function () {
                             Jika akun tersebut tidak dapat masuk / login kedalam
                             Aplikasi SIPEKA maka pastikan username dan password
                             yang dimasukkan benar atau pastikan akun tersebut
-                            masih aktif
+                            masih aktif.
+                        </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="2">
+                        <AccordionTrigger>
+                            Saya tidak punya TokenID untuk registrasi
+                        </AccordionTrigger>
+                        <AccordionContent>
+                            TokenID merupakan kode unik dalam rangka memperkuat
+                            keamanan aplikasi yang diberikan oleh Admin kepada
+                            pengguna baru untuk melakukan registrasi akun. Jika
+                            anda tidak memiliki TokenID silahkan hubungi Admin
+                            untuk mendapatkan TokenID.
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>
