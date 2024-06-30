@@ -8,53 +8,51 @@ export default function Layout() {
     const { pathname } = useLocation()
 
     return (
-        <div className="flex w-full flex-row">
+        <div className="flex w-full flex-col">
             <Helmet>
                 <title>Belanja - SIPEKA</title>
             </Helmet>
-            <div className="flex min-h-[calc(100svh-138px)] w-28 flex-col">
-                <nav>
-                    <ul className="flex w-full flex-col">
-                        <li>
-                            <Button
-                                variant="ghost"
-                                className={cn(
-                                    'flex h-auto w-full flex-col justify-center gap-1 rounded-none px-8 py-3 text-center',
-                                    pathname.startsWith('/belanja/perekaman') &&
-                                        'text-primary'
-                                )}
-                                asChild
-                            >
-                                <Link to="/belanja/perekaman">
-                                    <LuFileInput className="h-6 w-6" />
-                                    <span className="text-wrap text-xs">
-                                        Rekam Belanja
-                                    </span>
-                                </Link>
-                            </Button>
-                        </li>
-                        <li>
-                            <Button
-                                variant="ghost"
-                                className={cn(
-                                    'flex h-auto w-full flex-col justify-center gap-1 rounded-none px-8 py-3 text-center',
-                                    pathname.startsWith('/belanja/laporan') &&
-                                        'text-primary'
-                                )}
-                                asChild
-                            >
-                                <Link to="/belanja/laporan">
-                                    <LuBook className="h-6 w-6" />
-                                    <span className="text-wrap text-xs">
-                                        Laporan
-                                    </span>
-                                </Link>
-                            </Button>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <div className="w-full">
+            <nav className="mx-auto w-full overflow-x-auto md:px-3 lg:px-5 xl:px-8">
+                <ul className="flex w-full">
+                    <li>
+                        <Button
+                            variant="ghost"
+                            className={cn(
+                                'flex h-auto w-full justify-center gap-2 rounded-none text-center',
+                                pathname.startsWith('/belanja/perekaman') &&
+                                    'text-primary'
+                            )}
+                            asChild
+                        >
+                            <Link to="/belanja/perekaman">
+                                <LuFileInput className="h-4 w-4" />
+                                <span className="text-wrap text-sm">
+                                    Rekam Belanja
+                                </span>
+                            </Link>
+                        </Button>
+                    </li>
+                    <li>
+                        <Button
+                            variant="ghost"
+                            className={cn(
+                                'flex h-auto w-full justify-center gap-2 rounded-none text-center',
+                                pathname.startsWith('/belanja/laporan') &&
+                                    'text-primary'
+                            )}
+                            asChild
+                        >
+                            <Link to="/belanja/laporan">
+                                <LuBook className="h-4 w-4" />
+                                <span className="text-wrap text-sm">
+                                    Laporan
+                                </span>
+                            </Link>
+                        </Button>
+                    </li>
+                </ul>
+            </nav>
+            <div className="flex w-full flex-col px-5 py-5 md:px-8 md:pr-6 lg:px-10 lg:pr-6 xl:px-12">
                 <Outlet />
             </div>
         </div>
