@@ -35,6 +35,7 @@ import {
 import { cn, formatAngka, formatTanggal } from '@/web/lib/utils'
 import { api } from '@/web/trpc/react'
 import { keepPreviousData } from '@tanstack/react-query'
+import { format } from 'date-fns'
 import toast from 'react-hot-toast'
 import {
     FiChevronsDown,
@@ -53,7 +54,7 @@ export default function BelanjaTable() {
         search: '',
         page: '1',
         pageSize: '10',
-        startDate: '',
+        startDate: format(new Date(), 'yyyy-MM-01'),
         endDate: '',
     })
 
