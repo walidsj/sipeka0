@@ -53,6 +53,8 @@ export default function BelanjaTable() {
         search: '',
         page: '1',
         pageSize: '10',
+        startDate: '',
+        endDate: '',
     })
 
     const [searchValue] = useDebounce(searchParams.get('search') ?? '', 300)
@@ -67,6 +69,12 @@ export default function BelanjaTable() {
             search: searchValue ?? '',
             page: Number(searchParams.get('page') ?? 1),
             pageSize: Number(searchParams.get('pageSize') ?? 10),
+            startDate: searchParams.get('startDate')
+                ? new Date(searchParams.get('startDate')!)
+                : undefined,
+            endDate: searchParams.get('endDate')
+                ? new Date(searchParams.get('endDate')!)
+                : undefined,
         },
         { placeholderData: keepPreviousData }
     )
@@ -124,6 +132,26 @@ export default function BelanjaTable() {
                         <SelectItem value="100">100</SelectItem>
                     </SelectContent>
                 </Select>
+                <div className="flex gap-2">
+                    <Input
+                        value={searchParams.get('startDate') ?? ''}
+                        type="date"
+                        onChange={(e) => {
+                            searchParams.set('page', '1')
+                            searchParams.set('startDate', e.target.value)
+                            setSearchParams(searchParams)
+                        }}
+                    />
+                    <Input
+                        type="date"
+                        value={searchParams.get('endDate') ?? ''}
+                        onChange={(e) => {
+                            searchParams.set('page', '1')
+                            searchParams.set('endDate', e.target.value)
+                            setSearchParams(searchParams)
+                        }}
+                    />
+                </div>
                 <div className="relative">
                     <div className="absolute inset-y-0 left-0 flex items-center justify-center px-3">
                         <FiSearch className="text-gray-400" />

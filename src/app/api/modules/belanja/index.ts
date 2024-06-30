@@ -1,6 +1,6 @@
 import { aktivitasRba, belanja, dba, potonganBelanja } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { and, count, desc, eq, like, or, sum } from 'drizzle-orm'
+import { and, count, desc, eq, gte, like, lte, or, sum } from 'drizzle-orm'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import { belanjaSchema, potonganBelanjaSchema } from './schema'
@@ -13,21 +13,33 @@ export const belanjaRouter = createTRPCRouter({
                 search: z.string().optional(),
                 page: z.number().optional(),
                 pageSize: z.number().optional(),
+                startDate: z.date().optional(),
+                endDate: z.date().optional(),
             })
         )
         .query(async ({ ctx, input }) => {
             const page = input.page ?? 1
             const pageSize = input.pageSize ?? 10
             const search = input.search ?? ''
+            const startDate = input.startDate
+            const endDate = input.endDate
+
+            const filterDate = and(
+                startDate ? gte(belanja.tglDokumen, startDate) : undefined,
+                endDate ? lte(belanja.tglDokumen, endDate) : undefined
+            )
 
             const belanjaList = await ctx.db.query.belanja.findMany({
                 with: { rab: true },
                 where: search
-                    ? or(
-                          like(belanja.uraian, `%${search}%`),
-                          like(belanja.noDokumen, `%${search}%`)
+                    ? and(
+                          or(
+                              like(belanja.uraian, `%${search}%`),
+                              like(belanja.noDokumen, `%${search}%`)
+                          ),
+                          filterDate
                       )
-                    : undefined,
+                    : filterDate,
                 orderBy: [desc(belanja.tglDokumen), desc(belanja.noDokumen)],
                 limit: pageSize ?? 10,
                 offset: page ? (page - 1) * pageSize : 0,
@@ -52,11 +64,14 @@ export const belanjaRouter = createTRPCRouter({
                 .from(belanja)
                 .where(
                     search
-                        ? or(
-                              like(belanja.uraian, `%${search}%`),
-                              like(belanja.noDokumen, `%${search}%`)
+                        ? and(
+                              or(
+                                  like(belanja.uraian, `%${search}%`),
+                                  like(belanja.noDokumen, `%${search}%`)
+                              ),
+                              filterDate
                           )
-                        : undefined
+                        : filterDate
                 )
 
             const totalSum = total[0].sum
