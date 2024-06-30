@@ -97,7 +97,7 @@ export default function Layout() {
                     </li>
                 </ul>
             </nav>
-            <div className="flex w-full flex-col px-5 py-5 md:px-8 md:pr-6 lg:px-10 lg:pr-6 xl:px-12">
+            <div className="flex w-full flex-col px-5 py-5 md:px-8 lg:px-10 xl:px-12">
                 <Outlet />
             </div>
         </div>

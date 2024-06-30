@@ -12,7 +12,7 @@ export default function ProfilLayout() {
 
     return (
         <div className="flex flex-row">
-            <div className="flex min-h-[calc(100svh-138px)] w-72 flex-col">
+            <div className="flex w-72 flex-col">
                 <nav className="w-full">
                     <CardHeader>
                         <CardTitle>Rencana Kerja Anggaran</CardTitle>
@@ -57,7 +57,7 @@ export default function ProfilLayout() {
                     </ul>
                 </nav>
             </div>
-            <div className="flex w-full flex-col gap-5 px-8 py-5">
+            <div className="flex w-full flex-col">
                 <Outlet />
             </div>
         </div>

@@ -8,7 +8,7 @@ export default function Layout() {
     const { pathname } = useLocation()
 
     return (
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 pt-5">
             <div className="flex gap-3">
                 <Button
                     variant="outline"
