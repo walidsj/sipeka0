@@ -16,9 +16,9 @@ export default function Page() {
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Monitoring Realisasi Anggaran</CardTitle>
+                <CardTitle>Monitoring Realisasi Belanja</CardTitle>
                 <CardDescription>
-                    Rincian realisasi anggaran berdasarkan DBA
+                    Rincian realisasi belanja berdasarkan DBA
                 </CardDescription>
             </CardHeader>
             {rbaMonitoring.data && (

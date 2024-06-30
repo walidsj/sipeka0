@@ -1,11 +1,3 @@
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from '@/web/components/ui/breadcrumb'
 import { Button } from '@/web/components/ui/button'
 import { Card, CardHeader } from '@/web/components/ui/card'
 import { cn } from '@/web/lib/utils'
@@ -16,20 +8,6 @@ export default function ProfilLayout() {
 
     return (
         <div className="flex flex-col gap-4">
-            <Breadcrumb>
-                <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink asChild>
-                            <Link to="/home">Home</Link>
-                        </BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbPage>Profil Saya</BreadcrumbPage>
-                    </BreadcrumbItem>
-                </BreadcrumbList>
-            </Breadcrumb>
-
             <Card>
                 <CardHeader>
                     <nav className="mb-3 w-full border-b">

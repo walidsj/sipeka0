@@ -1,11 +1,3 @@
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from '@/web/components/ui/breadcrumb'
 import { Button } from '@/web/components/ui/button'
 import { cn } from '@/web/lib/utils'
 import { FiBriefcase, FiCommand } from 'react-icons/fi'
@@ -17,33 +9,6 @@ export default function Layout() {
 
     return (
         <div className="flex flex-col gap-5">
-            <Breadcrumb>
-                <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink asChild>
-                            <Link to="/home">Home</Link>
-                        </BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbLink asChild>
-                            <Link to="/anggaran">Anggaran</Link>
-                        </BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbLink asChild>
-                            <Link to="/anggaran/rka">
-                                Rencana Kerja Anggaran
-                            </Link>
-                        </BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbPage>Program/Kegiatan</BreadcrumbPage>
-                    </BreadcrumbItem>
-                </BreadcrumbList>
-            </Breadcrumb>
             <div className="flex gap-3">
                 <Button
                     variant="outline"
