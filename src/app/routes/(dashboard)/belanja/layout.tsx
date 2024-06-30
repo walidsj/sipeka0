@@ -2,6 +2,13 @@ import { Button } from '@/web/components/ui/button'
 import { cn } from '@/web/lib/utils'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { LuBook, LuFileInput } from 'react-icons/lu'
+import {
+    HiOutlineBookmarkAlt,
+    HiOutlineClipboardList,
+    HiOutlineDocumentText,
+    HiOutlineSave,
+    HiOutlineSwitchHorizontal,
+} from 'react-icons/hi'
 import { Helmet } from 'react-helmet'
 
 export default function Layout() {
@@ -18,17 +25,14 @@ export default function Layout() {
                         <Button
                             variant="ghost"
                             className={cn(
-                                'flex h-auto w-full justify-center gap-2 rounded-none text-center',
                                 pathname.startsWith('/belanja/perekaman') &&
                                     'text-primary'
                             )}
                             asChild
                         >
                             <Link to="/belanja/perekaman">
-                                <LuFileInput className="h-4 w-4" />
-                                <span className="text-wrap text-sm">
-                                    Rekam Belanja
-                                </span>
+                                <HiOutlineClipboardList className="mr-1 h-5 w-5" />
+                                <span>Rekam Belanja</span>
                             </Link>
                         </Button>
                     </li>
@@ -36,17 +40,59 @@ export default function Layout() {
                         <Button
                             variant="ghost"
                             className={cn(
-                                'flex h-auto w-full justify-center gap-2 rounded-none text-center',
+                                pathname.startsWith('/belanja/panjar') &&
+                                    'text-primary'
+                            )}
+                            asChild
+                        >
+                            <Link to="/belanja/panjar">
+                                <HiOutlineSave className="mr-1 h-5 w-5" />
+                                <span>Panjar</span>
+                            </Link>
+                        </Button>
+                    </li>
+                    <li>
+                        <Button
+                            variant="ghost"
+                            className={cn(
+                                pathname.startsWith('/belanja/tagihan') &&
+                                    'text-primary'
+                            )}
+                            asChild
+                        >
+                            <Link to="/belanja/tagihan">
+                                <HiOutlineSwitchHorizontal className="mr-1 h-5 w-5" />
+                                <span>Tagihan</span>
+                            </Link>
+                        </Button>
+                    </li>
+                    <li>
+                        <Button
+                            variant="ghost"
+                            className={cn(
+                                pathname.startsWith('/belanja/buku') &&
+                                    'text-primary'
+                            )}
+                            asChild
+                        >
+                            <Link to="/belanja/buku">
+                                <HiOutlineBookmarkAlt className="mr-1 h-5 w-5" />
+                                <span>Buku Bendahara</span>
+                            </Link>
+                        </Button>
+                    </li>
+                    <li>
+                        <Button
+                            variant="ghost"
+                            className={cn(
                                 pathname.startsWith('/belanja/laporan') &&
                                     'text-primary'
                             )}
                             asChild
                         >
                             <Link to="/belanja/laporan">
-                                <LuBook className="h-4 w-4" />
-                                <span className="text-wrap text-sm">
-                                    Laporan
-                                </span>
+                                <HiOutlineDocumentText className="mr-1 h-5 w-5" />
+                                <span>Laporan</span>
                             </Link>
                         </Button>
                     </li>

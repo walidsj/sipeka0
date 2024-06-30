@@ -27,14 +27,14 @@ export default function DashboardLayout() {
                             asChild
                             variant="ghost"
                             className={cn(
-                                'h-16 gap-3 rounded-none px-5',
+                                'h-16 px-5',
                                 pathname.startsWith('/home') && 'text-primary'
                             )}
                         >
                             <Link to="/home">
                                 <div
                                     className={cn(
-                                        'flex items-center justify-center rounded-lg p-2 text-primary',
+                                        'mr-2 flex items-center justify-center rounded-lg p-2 text-primary',
                                         pathname.startsWith('/home')
                                             ? 'bg-primary text-white'
                                             : 'bg-background'
@@ -51,7 +51,7 @@ export default function DashboardLayout() {
                             asChild
                             variant="ghost"
                             className={cn(
-                                'h-16 gap-3 rounded-none px-5',
+                                'h-16 px-5',
                                 pathname.startsWith('/anggaran') &&
                                     'text-primary'
                             )}
@@ -59,7 +59,7 @@ export default function DashboardLayout() {
                             <Link to="/anggaran/rba/daftar-rab">
                                 <div
                                     className={cn(
-                                        'flex items-center justify-center rounded-lg p-2 text-primary',
+                                        'mr-2 flex items-center justify-center rounded-lg p-2 text-primary',
                                         pathname.startsWith('/anggaran')
                                             ? 'bg-primary text-white'
                                             : 'bg-background'
@@ -76,7 +76,7 @@ export default function DashboardLayout() {
                             asChild
                             variant="ghost"
                             className={cn(
-                                'h-16 gap-3 rounded-none px-5',
+                                'h-16 px-5',
                                 pathname.startsWith('/pendapatan') &&
                                     'text-primary'
                             )}
@@ -84,7 +84,7 @@ export default function DashboardLayout() {
                             <Link to="/pendapatan/perekaman">
                                 <div
                                     className={cn(
-                                        'flex items-center justify-center rounded-lg p-2 text-primary',
+                                        'mr-2 flex items-center justify-center rounded-lg p-2 text-primary',
                                         pathname.startsWith('/pendapatan')
                                             ? 'bg-primary text-white'
                                             : 'bg-background'
@@ -101,7 +101,7 @@ export default function DashboardLayout() {
                             asChild
                             variant="ghost"
                             className={cn(
-                                'h-16 gap-3 rounded-none px-5',
+                                'h-16 px-5',
                                 pathname.startsWith('/belanja') &&
                                     'text-primary'
                             )}
@@ -109,7 +109,7 @@ export default function DashboardLayout() {
                             <Link to="/belanja/perekaman">
                                 <div
                                     className={cn(
-                                        'flex items-center justify-center rounded-lg p-2 text-primary',
+                                        'mr-2 flex items-center justify-center rounded-lg p-2 text-primary',
                                         pathname.startsWith('/belanja')
                                             ? 'bg-primary text-white'
                                             : 'bg-background'
@@ -126,7 +126,7 @@ export default function DashboardLayout() {
                             asChild
                             variant="ghost"
                             className={cn(
-                                'h-16 gap-3 rounded-none px-5',
+                                'h-16 px-5',
                                 pathname.startsWith('/akuntansi') &&
                                     'text-primary'
                             )}
@@ -134,7 +134,7 @@ export default function DashboardLayout() {
                             <Link to="/akuntansi">
                                 <div
                                     className={cn(
-                                        'flex items-center justify-center rounded-lg p-2 text-primary',
+                                        'mr-2 flex items-center justify-center rounded-lg p-2 text-primary',
                                         pathname.startsWith('/akuntansi')
                                             ? 'bg-primary text-white'
                                             : 'bg-background'
@@ -151,7 +151,7 @@ export default function DashboardLayout() {
                             asChild
                             variant="ghost"
                             className={cn(
-                                'h-16 gap-3 rounded-none px-5',
+                                'h-16 px-5',
                                 pathname.startsWith('/lainnya') &&
                                     'text-primary'
                             )}
@@ -159,7 +159,7 @@ export default function DashboardLayout() {
                             <Link to="/lainnya/database/unit-kerja">
                                 <div
                                     className={cn(
-                                        'flex items-center justify-center rounded-lg p-2 text-primary',
+                                        'mr-2 flex items-center justify-center rounded-lg p-2 text-primary',
                                         pathname.startsWith('/lainnya')
                                             ? 'bg-primary text-white'
                                             : 'bg-background'
