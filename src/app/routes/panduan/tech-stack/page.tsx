@@ -11,10 +11,9 @@ export default function () {
             <h2 className="text-3xl font-extrabold">Tech Stack</h2>
             <div className="py-8 text-justify">
                 <p className="mb-5">
-                    Tech (technology) stack merupakan suatu rangkaian teknologi
-                    yang digunakan untuk membuat website atau aplikasi. Aplikasi
-                    SIPEKA menggunakan teknologi terbaru sesuai dengan standar
-                    website modern sebagai berikut:
+                    Tech stack merupakan suatu rangkaian teknologi yang
+                    digunakan untuk membuat website atau aplikasi. Aplikasi
+                    SIPEKA menggunakan teknologi terbaru sebagai berikut:
                 </p>
                 <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     <Card>
@@ -24,7 +23,7 @@ export default function () {
                                 alt="TypeScript"
                                 className="h-14 w-14"
                             />
-                            <CardDescription>Bahasa</CardDescription>
+                            <CardDescription>Language</CardDescription>
                             <CardTitle>TypeScript</CardTitle>
                         </CardHeader>
                     </Card>
@@ -90,7 +89,7 @@ export default function () {
                                 alt="tRPC"
                                 className="h-14 w-14"
                             />
-                            <CardDescription>REST Driver</CardDescription>
+                            <CardDescription>API Driver</CardDescription>
                             <CardTitle>tRPC</CardTitle>
                         </CardHeader>
                     </Card>
@@ -103,6 +102,39 @@ export default function () {
                             />
                             <CardDescription>Build Tool</CardDescription>
                             <CardTitle>Vite</CardTitle>
+                        </CardHeader>
+                    </Card>
+                    <Card>
+                        <CardHeader>
+                            <img
+                                src="/images/icons/docker.png"
+                                alt="Docker"
+                                className="h-14 w-16"
+                            />
+                            <CardDescription>Container</CardDescription>
+                            <CardTitle>Docker</CardTitle>
+                        </CardHeader>
+                    </Card>
+                    <Card>
+                        <CardHeader>
+                            <img
+                                src="/images/icons/nginx.svg"
+                                alt="Nginx"
+                                className="h-14 w-14"
+                            />
+                            <CardDescription>Web Server</CardDescription>
+                            <CardTitle>Nginx</CardTitle>
+                        </CardHeader>
+                    </Card>
+                    <Card>
+                        <CardHeader>
+                            <img
+                                src="/images/icons/ubuntu.png"
+                                alt="Ubuntu"
+                                className="h-14 w-14"
+                            />
+                            <CardDescription>Operating System</CardDescription>
+                            <CardTitle>Ubuntu</CardTitle>
                         </CardHeader>
                     </Card>
                 </div>
