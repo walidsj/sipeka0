@@ -181,6 +181,8 @@ export default function BelanjaTable() {
                             Metode Pembayaran
                         </TableHead>
                         <TableHead className="text-right">Jumlah</TableHead>
+                        <TableHead className="text-center">Potongan</TableHead>
+                        <TableHead className="text-center">Nett</TableHead>
                         <TableHead className="w-1" />
                     </TableRow>
                 </TableHeader>
@@ -240,6 +242,64 @@ export default function BelanjaTable() {
                                 {formatAngka(item.jumlah)}
                             </TableCell>
                             <TableCell>
+                                {item.potonganBelanja && (
+                                    <Table className="text-xs">
+                                        {item.potonganBelanja.map(
+                                            (potongan) => (
+                                                <TableRow
+                                                    key={potongan.id}
+                                                    className="font-semibold"
+                                                >
+                                                    <TableCell className="text-nowrap py-0">
+                                                        {potongan.jenis}
+                                                    </TableCell>
+                                                    <TableCell className="py-0 text-right">
+                                                        {formatAngka(
+                                                            potongan.jumlah
+                                                        )}
+                                                    </TableCell>
+                                                </TableRow>
+                                            )
+                                        )}
+                                        {item.metodePembayaran === 'TRANSFER' &&
+                                            ((item.rekanan &&
+                                                item.rekanan.bank?.kode !==
+                                                    '124') ||
+                                                (item.pegawai &&
+                                                    item.pegawai.bank?.kode !==
+                                                        '124')) && (
+                                                <TableRow>
+                                                    <TableCell className="text-nowrap py-0">
+                                                        Admin Bank
+                                                    </TableCell>
+                                                    <TableCell className="py-0 text-right">
+                                                        {formatAngka(2_900)}
+                                                    </TableCell>
+                                                </TableRow>
+                                            )}
+                                    </Table>
+                                )}
+                            </TableCell>
+                            <TableCell className="text-right font-semibold">
+                                {formatAngka(
+                                    Number(item.jumlah) -
+                                        (item.potonganBelanja?.reduce(
+                                            (acc, item) =>
+                                                acc + Number(item.jumlah),
+                                            0
+                                        ) ?? 0) -
+                                        (item.metodePembayaran === 'TRANSFER' &&
+                                        ((item.rekanan &&
+                                            item.rekanan.bank?.kode !==
+                                                '124') ||
+                                            (item.pegawai &&
+                                                item.pegawai.bank?.kode !==
+                                                    '124'))
+                                            ? 2_900
+                                            : 0)
+                                )}
+                            </TableCell>
+                            <TableCell>
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
                                         <Button variant="outline">
@@ -288,7 +348,7 @@ export default function BelanjaTable() {
                     ))}
                     {belanja.data.length === 0 && (
                         <TableRow>
-                            <TableCell colSpan={9} className="text-center">
+                            <TableCell colSpan={11} className="text-center">
                                 Tidak ada data
                             </TableCell>
                         </TableRow>
@@ -301,12 +361,16 @@ export default function BelanjaTable() {
                             {formatAngka(totalBelanjaTable)}
                         </TableCell>
                         <TableCell />
+                        <TableCell />
+                        <TableCell />
                     </TableRow>
                     <TableRow>
                         <TableCell colSpan={7}>Total Keseluruhan</TableCell>
                         <TableCell className="text-right">
                             {formatAngka(belanja.totalSum)}
                         </TableCell>
+                        <TableCell />
+                        <TableCell />
                         <TableCell />
                     </TableRow>
                 </TableFooter>

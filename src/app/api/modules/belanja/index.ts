@@ -30,7 +30,20 @@ export const belanjaRouter = createTRPCRouter({
             )
 
             const belanjaList = await ctx.db.query.belanja.findMany({
-                with: { rab: true },
+                with: {
+                    rab: true,
+                    potonganBelanja: true,
+                    rekanan: {
+                        with: {
+                            bank: true,
+                        },
+                    },
+                    pegawai: {
+                        with: {
+                            bank: true,
+                        },
+                    },
+                },
                 where: search
                     ? and(
                           or(
