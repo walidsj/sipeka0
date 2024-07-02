@@ -57,7 +57,8 @@ export default function CreateForm() {
         onSuccess(data) {
             toast.dismiss()
             utils.belanja.invalidate()
-            navigate('/belanja/perekaman')
+            // navigate(`/belanja/perekaman`)
+            navigate(-1)
             toast.success(data.message)
         },
         onError(error) {
