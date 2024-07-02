@@ -35,6 +35,8 @@ app.use(
     })
 )
 
+app.use(express.static('dist'))
+
 const server = createServer(app)
 const io = new Server(server)
 
