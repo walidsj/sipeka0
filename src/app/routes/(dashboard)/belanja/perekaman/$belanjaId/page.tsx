@@ -19,7 +19,14 @@ import Loading from '@/web/components/loading'
 import React from 'react'
 import { Badge } from '@/web/components/ui/badge'
 import { Button } from '@/web/components/ui/button'
-import { FiChevronsDown, FiCopy, FiEdit, FiPlus, FiTrash } from 'react-icons/fi'
+import {
+    FiChevronsDown,
+    FiCopy,
+    FiEdit,
+    FiPlus,
+    FiPrinter,
+    FiTrash,
+} from 'react-icons/fi'
 import toast from 'react-hot-toast'
 import PotonganTable from './table'
 import {
@@ -97,6 +104,22 @@ export default function EditPage() {
                             <DropdownMenuItem>
                                 <FiEdit className="mr-2" />
                                 Edit
+                            </DropdownMenuItem>
+                        </Link>
+                        <Link
+                            to={`/belanja/perekaman/${params.belanjaId}/cetak-kwitansi`}
+                        >
+                            <DropdownMenuItem>
+                                <FiPrinter className="mr-2" />
+                                Cetak Kwitansi
+                            </DropdownMenuItem>
+                        </Link>
+                        <Link
+                            to={`/belanja/perekaman/${params.belanjaId}/cetak-amplop`}
+                        >
+                            <DropdownMenuItem>
+                                <FiPrinter className="mr-2" />
+                                Cetak Amplop
                             </DropdownMenuItem>
                         </Link>
                         <DropdownMenuSeparator />

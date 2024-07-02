@@ -13,6 +13,9 @@ const config = {
             },
         },
         extend: {
+            fontFamily: {
+                serif: ['Cambria', 'serif'],
+            },
             colors: {
                 border: 'hsl(var(--border))',
                 input: 'hsl(var(--input))',
