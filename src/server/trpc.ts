@@ -5,11 +5,11 @@ import { db } from '@/server/db'
 import { eq } from 'drizzle-orm'
 import { user } from './db/schema'
 import { getSession } from './auth'
-import * as trpcExpress from '@trpc/server/adapters/express'
+import { type CreateExpressContextOptions } from '@trpc/server/adapters/express'
 
 export const createTRPCContext = async ({
     req,
-}: trpcExpress.CreateExpressContextOptions) => ({
+}: CreateExpressContextOptions) => ({
     headers: req.headers,
     db,
     session: await getSession(req.headers.authorization ?? ''),

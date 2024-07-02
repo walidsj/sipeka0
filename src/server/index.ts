@@ -3,7 +3,10 @@ import dotenv from 'dotenv'
 import express from 'express'
 import { createServer } from 'node:http'
 import { Server } from 'socket.io'
-import * as trpcExpress from '@trpc/server/adapters/express'
+import {
+    createExpressMiddleware,
+    type CreateExpressContextOptions,
+} from '@trpc/server/adapters/express'
 import { getSession } from './auth'
 import { db } from '@/server/db'
 
@@ -13,11 +16,9 @@ const app = express()
 
 app.use(
     '/api/trpc',
-    trpcExpress.createExpressMiddleware({
+    createExpressMiddleware({
         router: appRouter,
-        createContext: async ({
-            req,
-        }: trpcExpress.CreateExpressContextOptions) => ({
+        createContext: async ({ req }: CreateExpressContextOptions) => ({
             headers: req.headers,
             db,
             session: await getSession(req.headers.authorization ?? ''),
@@ -38,7 +39,11 @@ app.use(
 app.use(express.static('dist'))
 
 const server = createServer(app)
-const io = new Server(server)
+const io = new Server(server, {
+    cors: {
+        origin: '*',
+    },
+})
 
 io.on('connection', () => {
     console.log('a user connected')

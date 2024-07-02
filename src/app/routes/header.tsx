@@ -13,8 +13,32 @@ import {
 import React from 'react'
 import { FiLock, FiLogOut } from 'react-icons/fi'
 import Loading from '@/web/components/loading'
+import { socket } from '@/web/lib/socket'
+import { Badge } from '@/web/components/ui/badge'
+import { FaCircle } from 'react-icons/fa'
+import { cn } from '@/web/lib/utils'
 
 export function Header() {
+    const [isConnected, setIsConnected] = React.useState(socket.connected)
+
+    React.useEffect(() => {
+        function onConnect() {
+            setIsConnected(true)
+        }
+
+        function onDisconnect() {
+            setIsConnected(false)
+        }
+
+        socket.on('connect', onConnect)
+        socket.on('disconnect', onDisconnect)
+
+        return () => {
+            socket.off('connect', onConnect)
+            socket.off('disconnect', onDisconnect)
+        }
+    }, [])
+
     const auth = useAuth()
 
     return (
@@ -37,6 +61,23 @@ export function Header() {
                         />
                     </Link>
                     <ul className="flex items-center">
+                        <li>
+                            <Badge
+                                className={cn(
+                                    'mx-5 bg-green-500',
+                                    !isConnected && 'bg-slate-400'
+                                )}
+                            >
+                                {isConnected ? (
+                                    <>
+                                        <FaCircle className="mr-1 h-2 w-2 animate-pulse" />
+                                        Connected
+                                    </>
+                                ) : (
+                                    'Disconnected'
+                                )}
+                            </Badge>
+                        </li>
                         <li>
                             <Button
                                 variant="ghost"
