@@ -221,7 +221,39 @@ export default function BelanjaTable() {
                                 </p>
                             </TableCell>
                             <TableCell className="font-semibold">
-                                {item.uraian}
+                                <p>{item.uraian}</p>
+                                {item.rekanan && (
+                                    <p className="mt-3 text-xs text-slate-500">
+                                        <img
+                                            src="/images/icons/shop.png"
+                                            alt="rekanan"
+                                            className="mr-1 inline h-4 w-4"
+                                        />
+                                        {item.rekanan.nama}
+                                    </p>
+                                )}
+                                {item.pegawai && (
+                                    <p className="mt-3 text-xs text-slate-500">
+                                        {item.pegawai.jenisKelamin && (
+                                            <img
+                                                src={
+                                                    item.pegawai
+                                                        .jenisKelamin ===
+                                                    'PEREMPUAN'
+                                                        ? '/images/icons/woman.png'
+                                                        : '/images/icons/man.png'
+                                                }
+                                                alt="pegawai"
+                                                className="mr-1 inline h-4 w-4"
+                                            />
+                                        )}
+                                        {item.pegawai.gelarDepan &&
+                                            `${item.pegawai.gelarDepan} `}
+                                        {item.pegawai.nama}
+                                        {item.pegawai.gelarBelakang &&
+                                            `, ${item.pegawai.gelarBelakang}`}
+                                    </p>
+                                )}
                             </TableCell>
                             <TableCell className="text-center font-semibold">
                                 <Badge
