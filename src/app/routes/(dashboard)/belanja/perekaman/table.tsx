@@ -36,7 +36,6 @@ import { cn, formatAngka, formatTanggal } from '@/web/lib/utils'
 import { api } from '@/web/trpc/react'
 import { keepPreviousData } from '@tanstack/react-query'
 import { format } from 'date-fns'
-import React from 'react'
 import toast from 'react-hot-toast'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import {
@@ -51,7 +50,6 @@ import { useDebounce } from 'use-debounce'
 
 export default function BelanjaTable() {
     const utils = api.useUtils()
-    const [showPotonganColumn, setShowPotonganColumn] = React.useState(false)
 
     const [searchParams, setSearchParams] = useSearchParams({
         search: '',
@@ -59,6 +57,7 @@ export default function BelanjaTable() {
         pageSize: '10',
         startDate: format(new Date(), 'yyyy-MM-01'),
         endDate: '',
+        showPotonganColumn: '',
     })
 
     const [searchValue] = useDebounce(searchParams.get('search') ?? '', 300)
@@ -184,7 +183,7 @@ export default function BelanjaTable() {
                             Metode Pembayaran
                         </TableHead>
                         <TableHead className="text-right">Jumlah</TableHead>
-                        {showPotonganColumn && (
+                        {searchParams.get('showPotonganColumn') && (
                             <>
                                 <TableHead className="text-center">
                                     Potongan
@@ -199,11 +198,17 @@ export default function BelanjaTable() {
                             <Button
                                 variant="outline"
                                 size="icon"
-                                onClick={() =>
-                                    setShowPotonganColumn(!showPotonganColumn)
-                                }
+                                onClick={() => {
+                                    searchParams.set(
+                                        'showPotonganColumn',
+                                        searchParams.get('showPotonganColumn')
+                                            ? ''
+                                            : 'true'
+                                    )
+                                    setSearchParams(searchParams)
+                                }}
                             >
-                                {showPotonganColumn ? (
+                                {searchParams.get('showPotonganColumn') ? (
                                     <FaChevronLeft />
                                 ) : (
                                     <FaChevronRight />
@@ -299,12 +304,13 @@ export default function BelanjaTable() {
                             <TableCell
                                 className={cn(
                                     'text-right font-semibold',
-                                    showPotonganColumn && 'border-r'
+                                    searchParams.get('showPotonganColumn') &&
+                                        'border-r'
                                 )}
                             >
                                 {formatAngka(item.jumlah)}
                             </TableCell>
-                            {showPotonganColumn && (
+                            {searchParams.get('showPotonganColumn') && (
                                 <>
                                     <TableCell>
                                         {item.potonganBelanja && (
@@ -423,7 +429,11 @@ export default function BelanjaTable() {
                     {belanja.data.length === 0 && (
                         <TableRow>
                             <TableCell
-                                colSpan={showPotonganColumn ? 11 : 9}
+                                colSpan={
+                                    searchParams.get('showPotonganColumn')
+                                        ? 11
+                                        : 9
+                                }
                                 className="text-center"
                             >
                                 Tidak ada data
@@ -437,13 +447,14 @@ export default function BelanjaTable() {
                         <TableCell
                             className={cn(
                                 'text-right',
-                                showPotonganColumn && 'border-r'
+                                searchParams.get('showPotonganColumn') &&
+                                    'border-r'
                             )}
                         >
                             {formatAngka(totalBelanjaTable)}
                         </TableCell>
                         <TableCell />
-                        {showPotonganColumn && (
+                        {searchParams.get('showPotonganColumn') && (
                             <>
                                 <TableCell />
                                 <TableCell />
@@ -455,13 +466,14 @@ export default function BelanjaTable() {
                         <TableCell
                             className={cn(
                                 'text-right',
-                                showPotonganColumn && 'border-r'
+                                searchParams.get('showPotonganColumn') &&
+                                    'border-r'
                             )}
                         >
                             {formatAngka(belanja.totalSum)}
                         </TableCell>
                         <TableCell />
-                        {showPotonganColumn && (
+                        {searchParams.get('showPotonganColumn') && (
                             <>
                                 <TableCell />
                                 <TableCell />
