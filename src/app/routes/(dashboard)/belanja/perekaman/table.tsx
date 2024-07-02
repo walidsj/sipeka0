@@ -36,7 +36,9 @@ import { cn, formatAngka, formatTanggal } from '@/web/lib/utils'
 import { api } from '@/web/trpc/react'
 import { keepPreviousData } from '@tanstack/react-query'
 import { format } from 'date-fns'
+import React from 'react'
 import toast from 'react-hot-toast'
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import {
     FiChevronsDown,
     FiEdit,
@@ -49,6 +51,7 @@ import { useDebounce } from 'use-debounce'
 
 export default function BelanjaTable() {
     const utils = api.useUtils()
+    const [showPotonganColumn, setShowPotonganColumn] = React.useState(false)
 
     const [searchParams, setSearchParams] = useSearchParams({
         search: '',
@@ -181,9 +184,32 @@ export default function BelanjaTable() {
                             Metode Pembayaran
                         </TableHead>
                         <TableHead className="text-right">Jumlah</TableHead>
-                        <TableHead className="text-center">Potongan</TableHead>
-                        <TableHead className="text-center">Nett</TableHead>
-                        <TableHead className="w-1" />
+                        {showPotonganColumn && (
+                            <>
+                                <TableHead className="text-center">
+                                    Potongan
+                                </TableHead>
+                                <TableHead className="text-center">
+                                    Nett
+                                </TableHead>
+                            </>
+                        )}
+
+                        <TableHead className="w-1">
+                            <Button
+                                variant="outline"
+                                size="icon"
+                                onClick={() =>
+                                    setShowPotonganColumn(!showPotonganColumn)
+                                }
+                            >
+                                {showPotonganColumn ? (
+                                    <FaChevronLeft />
+                                ) : (
+                                    <FaChevronRight />
+                                )}
+                            </Button>
+                        </TableHead>
                     </TableRow>
                 </TableHeader>
 
@@ -270,67 +296,83 @@ export default function BelanjaTable() {
                                     {item.buktiPembayaran}
                                 </p>
                             </TableCell>
-                            <TableCell className="border-r text-right font-semibold">
+                            <TableCell
+                                className={cn(
+                                    'text-right font-semibold',
+                                    showPotonganColumn && 'border-r'
+                                )}
+                            >
                                 {formatAngka(item.jumlah)}
                             </TableCell>
-                            <TableCell>
-                                {item.potonganBelanja && (
-                                    <Table className="text-xs">
-                                        {item.potonganBelanja.map(
-                                            (potongan) => (
-                                                <TableRow
-                                                    key={potongan.id}
-                                                    className="font-semibold"
-                                                >
-                                                    <TableCell className="text-nowrap py-0">
-                                                        {potongan.jenis}
-                                                    </TableCell>
-                                                    <TableCell className="py-0 text-right">
-                                                        {formatAngka(
-                                                            potongan.jumlah
-                                                        )}
-                                                    </TableCell>
-                                                </TableRow>
-                                            )
+                            {showPotonganColumn && (
+                                <>
+                                    <TableCell>
+                                        {item.potonganBelanja && (
+                                            <Table className="text-xs">
+                                                {item.potonganBelanja.map(
+                                                    (potongan) => (
+                                                        <TableRow
+                                                            key={potongan.id}
+                                                            className="font-semibold"
+                                                        >
+                                                            <TableCell className="text-nowrap py-0">
+                                                                {potongan.jenis}
+                                                            </TableCell>
+                                                            <TableCell className="py-0 text-right">
+                                                                {formatAngka(
+                                                                    potongan.jumlah
+                                                                )}
+                                                            </TableCell>
+                                                        </TableRow>
+                                                    )
+                                                )}
+                                                {item.metodePembayaran ===
+                                                    'TRANSFER' &&
+                                                    ((item.rekanan &&
+                                                        item.rekanan.bank
+                                                            ?.kode !== '124') ||
+                                                        (item.pegawai &&
+                                                            item.pegawai.bank
+                                                                ?.kode !==
+                                                                '124')) && (
+                                                        <TableRow>
+                                                            <TableCell className="text-nowrap py-0">
+                                                                Admin Bank
+                                                            </TableCell>
+                                                            <TableCell className="py-0 text-right">
+                                                                {formatAngka(
+                                                                    2_900
+                                                                )}
+                                                            </TableCell>
+                                                        </TableRow>
+                                                    )}
+                                            </Table>
                                         )}
-                                        {item.metodePembayaran === 'TRANSFER' &&
-                                            ((item.rekanan &&
-                                                item.rekanan.bank?.kode !==
-                                                    '124') ||
-                                                (item.pegawai &&
-                                                    item.pegawai.bank?.kode !==
-                                                        '124')) && (
-                                                <TableRow>
-                                                    <TableCell className="text-nowrap py-0">
-                                                        Admin Bank
-                                                    </TableCell>
-                                                    <TableCell className="py-0 text-right">
-                                                        {formatAngka(2_900)}
-                                                    </TableCell>
-                                                </TableRow>
-                                            )}
-                                    </Table>
-                                )}
-                            </TableCell>
-                            <TableCell className="text-right font-semibold">
-                                {formatAngka(
-                                    Number(item.jumlah) -
-                                        (item.potonganBelanja?.reduce(
-                                            (acc, item) =>
-                                                acc + Number(item.jumlah),
-                                            0
-                                        ) ?? 0) -
-                                        (item.metodePembayaran === 'TRANSFER' &&
-                                        ((item.rekanan &&
-                                            item.rekanan.bank?.kode !==
-                                                '124') ||
-                                            (item.pegawai &&
-                                                item.pegawai.bank?.kode !==
-                                                    '124'))
-                                            ? 2_900
-                                            : 0)
-                                )}
-                            </TableCell>
+                                    </TableCell>
+                                    <TableCell className="text-right font-semibold">
+                                        {formatAngka(
+                                            Number(item.jumlah) -
+                                                (item.potonganBelanja?.reduce(
+                                                    (acc, item) =>
+                                                        acc +
+                                                        Number(item.jumlah),
+                                                    0
+                                                ) ?? 0) -
+                                                (item.metodePembayaran ===
+                                                    'TRANSFER' &&
+                                                ((item.rekanan &&
+                                                    item.rekanan.bank?.kode !==
+                                                        '124') ||
+                                                    (item.pegawai &&
+                                                        item.pegawai.bank
+                                                            ?.kode !== '124'))
+                                                    ? 2_900
+                                                    : 0)
+                                        )}
+                                    </TableCell>
+                                </>
+                            )}
+
                             <TableCell>
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
@@ -380,7 +422,10 @@ export default function BelanjaTable() {
                     ))}
                     {belanja.data.length === 0 && (
                         <TableRow>
-                            <TableCell colSpan={11} className="text-center">
+                            <TableCell
+                                colSpan={showPotonganColumn ? 11 : 9}
+                                className="text-center"
+                            >
                                 Tidak ada data
                             </TableCell>
                         </TableRow>
@@ -389,21 +434,39 @@ export default function BelanjaTable() {
                 <TableFooter>
                     <TableRow>
                         <TableCell colSpan={7}>Total</TableCell>
-                        <TableCell className="border-r text-right">
+                        <TableCell
+                            className={cn(
+                                'text-right',
+                                showPotonganColumn && 'border-r'
+                            )}
+                        >
                             {formatAngka(totalBelanjaTable)}
                         </TableCell>
                         <TableCell />
-                        <TableCell />
-                        <TableCell />
+                        {showPotonganColumn && (
+                            <>
+                                <TableCell />
+                                <TableCell />
+                            </>
+                        )}
                     </TableRow>
                     <TableRow>
                         <TableCell colSpan={7}>Total Keseluruhan</TableCell>
-                        <TableCell className="border-r text-right">
+                        <TableCell
+                            className={cn(
+                                'text-right',
+                                showPotonganColumn && 'border-r'
+                            )}
+                        >
                             {formatAngka(belanja.totalSum)}
                         </TableCell>
                         <TableCell />
-                        <TableCell />
-                        <TableCell />
+                        {showPotonganColumn && (
+                            <>
+                                <TableCell />
+                                <TableCell />
+                            </>
+                        )}
                     </TableRow>
                 </TableFooter>
                 <TableCaption>
