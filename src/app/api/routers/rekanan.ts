@@ -19,6 +19,10 @@ export const rekananRouter = createTRPCRouter({
                     input.search
                         ? or(
                               like(rekanan.nama, `%${input.search}%`),
+                              like(
+                                  rekanan.nama,
+                                  `%${input.search.split('').join('% ')}%`
+                              ),
                               like(rekanan.alamat, `%${input.search}%`),
                               like(rekanan.namaRekening, `${input.search}%`)
                           )
