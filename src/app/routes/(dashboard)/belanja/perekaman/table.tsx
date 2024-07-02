@@ -55,7 +55,7 @@ export default function BelanjaTable() {
         search: '',
         page: '1',
         pageSize: '10',
-        startDate: format(new Date(), 'yyyy-MM-01'),
+        startDate: '',
         endDate: '',
         showPotonganColumn: '',
     })
