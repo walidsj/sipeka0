@@ -180,7 +180,9 @@ export default function BelanjaTable() {
                         <TableHead className="text-center">
                             Metode Pembayaran
                         </TableHead>
-                        <TableHead className="text-right">Jumlah</TableHead>
+                        <TableHead className="border-r text-right">
+                            Jumlah
+                        </TableHead>
                         <TableHead className="text-center">Potongan</TableHead>
                         <TableHead className="text-center">Nett</TableHead>
                         <TableHead className="w-1" />
@@ -238,7 +240,7 @@ export default function BelanjaTable() {
                                     {item.buktiPembayaran}
                                 </p>
                             </TableCell>
-                            <TableCell className="text-right font-semibold">
+                            <TableCell className="border-r text-right font-semibold">
                                 {formatAngka(item.jumlah)}
                             </TableCell>
                             <TableCell>
@@ -357,7 +359,7 @@ export default function BelanjaTable() {
                 <TableFooter>
                     <TableRow>
                         <TableCell colSpan={7}>Total</TableCell>
-                        <TableCell className="text-right">
+                        <TableCell className="border-r text-right">
                             {formatAngka(totalBelanjaTable)}
                         </TableCell>
                         <TableCell />
@@ -366,7 +368,7 @@ export default function BelanjaTable() {
                     </TableRow>
                     <TableRow>
                         <TableCell colSpan={7}>Total Keseluruhan</TableCell>
-                        <TableCell className="text-right">
+                        <TableCell className="border-r text-right">
                             {formatAngka(belanja.totalSum)}
                         </TableCell>
                         <TableCell />
