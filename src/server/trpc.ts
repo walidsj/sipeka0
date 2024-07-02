@@ -5,14 +5,15 @@ import { db } from '@/server/db'
 import { eq } from 'drizzle-orm'
 import { user } from './db/schema'
 import { getSession } from './auth'
+import * as trpcExpress from '@trpc/server/adapters/express'
 
-export const createTRPCContext = async (opts: { headers: Headers }) => {
-    return {
-        db,
-        session: await getSession(opts.headers.get('authorization') ?? ''),
-        ...opts,
-    }
-}
+export const createTRPCContext = async ({
+    req,
+}: trpcExpress.CreateExpressContextOptions) => ({
+    headers: req.headers,
+    db,
+    session: await getSession(req.headers.authorization ?? ''),
+})
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
     transformer: superjson,
