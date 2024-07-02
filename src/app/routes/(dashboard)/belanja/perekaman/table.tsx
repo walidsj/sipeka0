@@ -180,9 +180,7 @@ export default function BelanjaTable() {
                         <TableHead className="text-center">
                             Metode Pembayaran
                         </TableHead>
-                        <TableHead className="border-r text-right">
-                            Jumlah
-                        </TableHead>
+                        <TableHead className="text-right">Jumlah</TableHead>
                         <TableHead className="text-center">Potongan</TableHead>
                         <TableHead className="text-center">Nett</TableHead>
                         <TableHead className="w-1" />
