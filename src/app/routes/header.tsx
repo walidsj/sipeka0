@@ -22,7 +22,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from '@/web/components/ui/popover'
-import { CardDescription, CardTitle } from '@/web/components/ui/card'
+import { CardTitle } from '@/web/components/ui/card'
 
 type IOnlineUser = {
     socketId: string
@@ -164,42 +164,34 @@ export function Header() {
                                                 onlineUsers,
                                                 ({ user }) => user
                                             )
-                                        ).filter(
-                                            (user) => user !== auth.user?.nama
-                                        ).length > 0 &&
-                                            Object.keys(
-                                                Object.groupBy(
-                                                    onlineUsers,
-                                                    ({ user }) => user
-                                                )
+                                        )
+                                            .filter(
+                                                (user) =>
+                                                    user !== auth.user?.nama
                                             )
-                                                .filter(
-                                                    (user) =>
-                                                        user !== auth.user?.nama
-                                                )
-                                                .map((user) => (
-                                                    <div
-                                                        key={user}
-                                                        className="my-2 flex items-center"
-                                                    >
-                                                        <Avatar className="h-8 w-8">
-                                                            <AvatarImage
-                                                                src={`https://ui-avatars.com/api/?name=${user}&background=0D8ABC&color=fff`}
-                                                            />
-                                                            <AvatarFallback>
-                                                                CN
-                                                            </AvatarFallback>
-                                                        </Avatar>
-                                                        <div className="ml-2">
-                                                            <div className="font-semibold">
-                                                                {user}
-                                                            </div>
-                                                            <div className="text-xs text-slate-500">
-                                                                Online
-                                                            </div>
+                                            .map((user) => (
+                                                <div
+                                                    key={user}
+                                                    className="my-2 flex items-center"
+                                                >
+                                                    <Avatar className="h-8 w-8">
+                                                        <AvatarImage
+                                                            src={`https://ui-avatars.com/api/?name=${user}&background=0D8ABC&color=fff`}
+                                                        />
+                                                        <AvatarFallback>
+                                                            CN
+                                                        </AvatarFallback>
+                                                    </Avatar>
+                                                    <div className="ml-2">
+                                                        <div className="font-semibold">
+                                                            {user}
+                                                        </div>
+                                                        <div className="text-xs text-slate-500">
+                                                            Online
                                                         </div>
                                                     </div>
-                                                ))}
+                                                </div>
+                                            ))}
 
                                         {Object.keys(
                                             Object.groupBy(
