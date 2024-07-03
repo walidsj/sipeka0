@@ -22,7 +22,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from '@/web/components/ui/popover'
-import { CardTitle } from '@/web/components/ui/card'
+import { CardDescription, CardTitle } from '@/web/components/ui/card'
 
 type IOnlineUser = {
     socketId: string
@@ -60,7 +60,7 @@ export function Header() {
 
         function onDisconnect() {
             setIsConnected(false)
-            socket.emit('offline', auth.user?.nama)
+            // socket.emit('offline')
         }
 
         socket.on('connect', onConnect)
@@ -92,49 +92,165 @@ export function Header() {
                         />
                     </Link>
                     <ul className="flex items-center">
-                        <li>
-                            <Popover>
-                                <PopoverTrigger>
-                                    <Badge
-                                        className={cn(
-                                            'mx-5 bg-green-500',
-                                            !isConnected && 'bg-slate-400'
-                                        )}
-                                    >
-                                        {isConnected ? (
-                                            <>
-                                                <FaCircle className="mr-1 h-2 w-2 animate-pulse" />
-                                                {onlineUsers.length > 0
-                                                    ? onlineUsers.length
-                                                    : ''}{' '}
-                                                Online
-                                            </>
-                                        ) : (
-                                            'Offline'
-                                        )}
-                                    </Badge>
-                                </PopoverTrigger>
-                                <PopoverContent>
-                                    <CardTitle className="mb-2">
-                                        User Online
-                                    </CardTitle>
-                                    {onlineUsers.map((onlineUser) => (
-                                        <div
-                                            key={onlineUser.socketId}
-                                            className="flex items-center text-sm"
+                        {auth.user && (
+                            <li>
+                                <Popover>
+                                    <PopoverTrigger>
+                                        <Badge
+                                            className={cn(
+                                                'mx-5 bg-green-500',
+                                                !isConnected && 'bg-slate-400'
+                                            )}
                                         >
-                                            <FaCircle className="mr-2 h-2 w-2 text-green-500" />
-                                            {onlineUser.user}
-                                        </div>
-                                    ))}
-                                    {onlineUsers.length === 0 && (
-                                        <div className="text-sm text-slate-400">
-                                            Tidak ada user online
-                                        </div>
-                                    )}
-                                </PopoverContent>
-                            </Popover>
-                        </li>
+                                            {isConnected ? (
+                                                <>
+                                                    <FaCircle className="mr-1 h-2 w-2 animate-pulse" />
+                                                    {Object.keys(
+                                                        Object.groupBy(
+                                                            onlineUsers,
+                                                            ({ user }) => user
+                                                        )
+                                                    ).length > 0
+                                                        ? Object.keys(
+                                                              Object.groupBy(
+                                                                  onlineUsers,
+                                                                  ({ user }) =>
+                                                                      user
+                                                              )
+                                                          ).length
+                                                        : ''}{' '}
+                                                    Online
+                                                </>
+                                            ) : (
+                                                'Offline'
+                                            )}
+                                        </Badge>
+                                    </PopoverTrigger>
+                                    <PopoverContent align="start">
+                                        <CardTitle className="mb-3">
+                                            User Online
+                                        </CardTitle>
+                                        {Object.keys(
+                                            Object.groupBy(
+                                                onlineUsers,
+                                                ({ user }) => user
+                                            )
+                                        ).find(
+                                            (user) => user === auth.user?.nama
+                                        ) && (
+                                            <>
+                                                <CardDescription className="my-1 font-semibold">
+                                                    Saya
+                                                </CardDescription>
+                                                <div className="my-1 flex items-center">
+                                                    <Avatar className="h-8 w-8">
+                                                        <AvatarImage
+                                                            src={`https://ui-avatars.com/api/?name=${auth.user?.nama}&background=0D8ABC&color=fff`}
+                                                        />
+                                                        <AvatarFallback>
+                                                            CN
+                                                        </AvatarFallback>
+                                                    </Avatar>
+                                                    <div className="ml-2">
+                                                        <div className="font-semibold">
+                                                            {auth.user?.nama}
+                                                        </div>
+                                                        <div className="text-xs text-slate-500">
+                                                            {
+                                                                onlineUsers.filter(
+                                                                    (u) =>
+                                                                        u.user ===
+                                                                        auth
+                                                                            .user
+                                                                            ?.nama
+                                                                ).length
+                                                            }{' '}
+                                                            Perangkat
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        )}
+                                        {Object.keys(
+                                            Object.groupBy(
+                                                onlineUsers,
+                                                ({ user }) => user
+                                            )
+                                        ).filter(
+                                            (user) => user !== auth.user?.nama
+                                        ).length > 0 && (
+                                            <>
+                                                <CardDescription className="my-1 mt-3 font-semibold">
+                                                    User Lainnya
+                                                </CardDescription>
+                                                {Object.keys(
+                                                    Object.groupBy(
+                                                        onlineUsers,
+                                                        ({ user }) => user
+                                                    )
+                                                )
+                                                    .filter(
+                                                        (user) =>
+                                                            user !==
+                                                            auth.user?.nama
+                                                    )
+                                                    .map((user) => (
+                                                        <div
+                                                            key={user}
+                                                            className="my-1 flex items-center"
+                                                        >
+                                                            <Avatar className="h-8 w-8">
+                                                                <AvatarImage
+                                                                    src={`https://ui-avatars.com/api/?name=${user}&background=0D8ABC&color=fff`}
+                                                                />
+                                                                <AvatarFallback>
+                                                                    CN
+                                                                </AvatarFallback>
+                                                            </Avatar>
+                                                            <div className="ml-2">
+                                                                <div className="font-semibold">
+                                                                    {user}
+                                                                </div>
+                                                                <div className="text-xs text-slate-500">
+                                                                    {
+                                                                        onlineUsers.filter(
+                                                                            (
+                                                                                u
+                                                                            ) =>
+                                                                                u.user ===
+                                                                                user
+                                                                        ).length
+                                                                    }{' '}
+                                                                    Perangkat
+                                                                    {user ===
+                                                                        auth
+                                                                            .user
+                                                                            ?.nama && (
+                                                                        <span className="ml-1 font-semibold text-green-500">
+                                                                            (Saya)
+                                                                        </span>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                            </>
+                                        )}
+
+                                        {Object.keys(
+                                            Object.groupBy(
+                                                onlineUsers,
+                                                ({ user }) => user
+                                            )
+                                        ).length === 0 && (
+                                            <div className="text-sm text-slate-500">
+                                                Tidak ada user online
+                                            </div>
+                                        )}
+                                    </PopoverContent>
+                                </Popover>
+                            </li>
+                        )}
                         <li>
                             <Button
                                 variant="ghost"

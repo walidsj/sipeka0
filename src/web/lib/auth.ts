@@ -34,7 +34,7 @@ export function useAuth() {
     function logout() {
         const userKey = getQueryKey(api.user.getProfile, undefined)
         queryClient.removeQueries({ queryKey: userKey })
-        socket.emit('offline', user?.nama)
+        socket.emit('offline')
         removeCookie('token')
     }
 

@@ -55,19 +55,13 @@ let onlineUsers: IOnlineUser[] = []
 io.on('connection', (socket) => {
     console.log('a user connected')
 
-    // socket.on('enter-onlines', (data) => {
-    //     socket.broadcast.emit('onlines', data)
-    // })
-
     socket.on('new-user-add', (user: string) => {
-        onlineUsers = onlineUsers.filter((u) => u.user !== user)
         onlineUsers.push({ socketId: socket.id, user })
-        // send all active users to new user
         io.emit('get-users', onlineUsers)
     })
 
-    socket.on('offline', (user: string) => {
-        onlineUsers = onlineUsers.filter((u) => u.user !== user)
+    socket.on('offline', () => {
+        onlineUsers = onlineUsers.filter((user) => user.socketId !== socket.id)
         io.emit('get-users', onlineUsers)
     })
 
