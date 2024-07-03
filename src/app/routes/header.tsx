@@ -44,6 +44,10 @@ export function Header() {
         socket.on('get-users', (users) => {
             setOnlineUsers(users)
         })
+
+        return () => {
+            socket.off('get-users')
+        }
     }, [auth.user])
 
     React.useEffect(() => {
