@@ -46,9 +46,8 @@ const io = new Server(server, {
 })
 
 type IOnlineUser = {
-    socketId: string
     user: string
-    address: string
+    status: 'on focus' | 'idle'
 }
 
 let onlineUsers: IOnlineUser[] = []
@@ -56,46 +55,27 @@ let onlineUsers: IOnlineUser[] = []
 io.on('connection', (socket) => {
     console.log('a user connected')
 
-    socket.on('new-user-add', (user: string) => {
-        onlineUsers.push({
-            socketId: socket.id,
-            user,
-            address: socket.handshake.address,
-        })
+    socket.on(
+        'new-user-add',
+        ({ user, status }: { user: string; status: 'on focus' | 'idle' }) => {
+            onlineUsers = onlineUsers.filter((u) => u.user !== user)
+            onlineUsers.push({
+                user,
+                status,
+            })
 
-        // emit only user & address from onlineUsers
-        io.emit('get-users', [
-            ...new Set(
-                onlineUsers.map((user) => ({
-                    user: user.user,
-                    address: user.address,
-                }))
-            ),
-        ])
-    })
+            // emit only user & address from onlineUsers
+            io.emit('get-users', onlineUsers)
+        }
+    )
 
-    socket.on('offline', () => {
-        onlineUsers = onlineUsers.filter((user) => user.socketId !== socket.id)
-        io.emit('get-users', [
-            ...new Set(
-                onlineUsers.map((user) => ({
-                    user: user.user,
-                    address: user.address,
-                }))
-            ),
-        ])
+    socket.on('offline', (id: string) => {
+        onlineUsers = onlineUsers.filter((user) => user.user !== id)
+        io.emit('get-users', onlineUsers)
     })
 
     socket.on('disconnect', () => {
-        onlineUsers = onlineUsers.filter((user) => user.socketId !== socket.id)
-        io.emit('get-users', [
-            ...new Set(
-                onlineUsers.map((user) => ({
-                    user: user.user,
-                    address: user.address,
-                }))
-            ),
-        ])
+        io.emit('get-users', onlineUsers)
     })
 })
 

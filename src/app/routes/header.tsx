@@ -25,9 +25,8 @@ import {
 import { CardDescription, CardTitle } from '@/web/components/ui/card'
 
 type IOnlineUserClient = {
-    socketId: string
     user: string
-    address: string
+    status: 'on focus' | 'idle'
 }
 
 export function Header() {
@@ -40,7 +39,10 @@ export function Header() {
     React.useEffect(() => {
         if (auth.user) {
             if (!onlineUsers.find((user) => user.user === auth.user?.nama)) {
-                socket.emit('new-user-add', auth.user?.nama)
+                socket.emit('new-user-add', {
+                    user: auth.user?.nama,
+                    status: 'on focus',
+                })
             }
         }
 
@@ -54,6 +56,26 @@ export function Header() {
     }, [auth.user])
 
     React.useEffect(() => {
+        window.onfocus = () => {
+            if (auth.user) {
+                socket.emit('new-user-add', {
+                    user: auth.user?.nama,
+                    status: 'on focus',
+                })
+            }
+        }
+
+        window.onblur = () => {
+            if (auth.user) {
+                socket.emit('new-user-add', {
+                    user: auth.user?.nama,
+                    status: 'idle',
+                })
+            }
+        }
+    }, [window.onfocus, window.onblur, auth.user])
+
+    React.useEffect(() => {
         function onConnect() {
             setIsConnected(true)
             socket.on('get-users', (users) => {
@@ -63,6 +85,7 @@ export function Header() {
 
         function onDisconnect() {
             setIsConnected(false)
+            socket.emit('offline', auth.user?.nama)
         }
 
         socket.on('connect', onConnect)
@@ -132,13 +155,9 @@ export function Header() {
                                         <CardTitle className="mb-3">
                                             User Online
                                         </CardTitle>
-                                        {Object.keys(
-                                            Object.groupBy(
-                                                onlineUsers,
-                                                ({ user }) => user
-                                            )
-                                        ).find(
-                                            (user) => user === auth.user?.nama
+                                        {onlineUsers.find(
+                                            (user) =>
+                                                user.user === auth.user?.nama
                                         ) && (
                                             <>
                                                 <CardDescription className="my-1 font-semibold">
@@ -157,53 +176,32 @@ export function Header() {
                                                         <div className="font-semibold">
                                                             {auth.user?.nama}
                                                         </div>
-                                                        <div className="text-xs text-slate-500">
-                                                            {
-                                                                onlineUsers.filter(
-                                                                    (u) =>
-                                                                        u.user ===
-                                                                        auth
-                                                                            .user
-                                                                            ?.nama
-                                                                ).length
-                                                            }{' '}
-                                                            Perangkat
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </>
                                         )}
-                                        {Object.keys(
-                                            Object.groupBy(
-                                                onlineUsers,
-                                                ({ user }) => user
-                                            )
-                                        ).filter(
-                                            (user) => user !== auth.user?.nama
+                                        {onlineUsers.filter(
+                                            (user) =>
+                                                user.user !== auth.user?.nama
                                         ).length > 0 && (
                                             <>
                                                 <CardDescription className="my-1 mt-3 font-semibold">
                                                     User Lainnya
                                                 </CardDescription>
-                                                {Object.keys(
-                                                    Object.groupBy(
-                                                        onlineUsers,
-                                                        ({ user }) => user
-                                                    )
-                                                )
+                                                {onlineUsers
                                                     .filter(
                                                         (user) =>
-                                                            user !==
+                                                            user.user !==
                                                             auth.user?.nama
                                                     )
                                                     .map((user) => (
                                                         <div
-                                                            key={user}
+                                                            key={user.user}
                                                             className="my-1 flex items-center"
                                                         >
                                                             <Avatar className="h-8 w-8">
                                                                 <AvatarImage
-                                                                    src={`https://ui-avatars.com/api/?name=${user}&background=0D8ABC&color=fff`}
+                                                                    src={`https://ui-avatars.com/api/?name=${user.user}&background=0D8ABC&color=fff`}
                                                                 />
                                                                 <AvatarFallback>
                                                                     CN
@@ -211,27 +209,12 @@ export function Header() {
                                                             </Avatar>
                                                             <div className="ml-2">
                                                                 <div className="font-semibold">
-                                                                    {user}
+                                                                    {user.user}
                                                                 </div>
                                                                 <div className="text-xs text-slate-500">
                                                                     {
-                                                                        onlineUsers.filter(
-                                                                            (
-                                                                                u
-                                                                            ) =>
-                                                                                u.user ===
-                                                                                user
-                                                                        ).length
-                                                                    }{' '}
-                                                                    Perangkat
-                                                                    {user ===
-                                                                        auth
-                                                                            .user
-                                                                            ?.nama && (
-                                                                        <span className="ml-1 font-semibold text-green-500">
-                                                                            (Saya)
-                                                                        </span>
-                                                                    )}
+                                                                        user.status
+                                                                    }
                                                                 </div>
                                                             </div>
                                                         </div>
