@@ -112,7 +112,7 @@ export function Header() {
                                 </PopoverTrigger>
                                 <PopoverContent>
                                     <CardTitle className="mb-2">
-                                        Daftar Online
+                                        User Online
                                     </CardTitle>
                                     {onlineUsers.map((onlineUser) => (
                                         <div
