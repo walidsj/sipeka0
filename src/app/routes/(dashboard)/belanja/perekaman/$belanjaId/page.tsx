@@ -122,6 +122,14 @@ export default function EditPage() {
                                 Cetak Amplop
                             </DropdownMenuItem>
                         </Link>
+                        <Link
+                            to={`/belanja/perekaman/${params.belanjaId}/cetak-daftar-potong`}
+                        >
+                            <DropdownMenuItem>
+                                <FiPrinter className="mr-2" />
+                                Cetak Daftar Potong
+                            </DropdownMenuItem>
+                        </Link>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
                             onClick={() => {
@@ -329,7 +337,11 @@ export default function EditPage() {
                                 <TableRow>
                                     <TableHead>Nama</TableHead>
                                     <TableCell>
-                                        {belanja.pegawai?.nama}
+                                        {belanja.pegawai.gelarDepan &&
+                                            `${belanja.pegawai.gelarDepan} `}
+                                        {belanja.pegawai.nama}
+                                        {belanja.pegawai.gelarBelakang &&
+                                            `, ${belanja.pegawai.gelarBelakang}`}
                                     </TableCell>
                                     <TableCell className="w-1" />
                                 </TableRow>
