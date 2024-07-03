@@ -24,15 +24,18 @@ import {
 } from '@/web/components/ui/popover'
 import { CardDescription, CardTitle } from '@/web/components/ui/card'
 
-type IOnlineUser = {
+type IOnlineUserClient = {
     socketId: string
     user: string
+    address: string
 }
 
 export function Header() {
     const auth = useAuth()
     const [isConnected, setIsConnected] = React.useState(socket.connected)
-    const [onlineUsers, setOnlineUsers] = React.useState<IOnlineUser[]>([])
+    const [onlineUsers, setOnlineUsers] = React.useState<IOnlineUserClient[]>(
+        []
+    )
 
     React.useEffect(() => {
         if (auth.user) {
@@ -60,7 +63,6 @@ export function Header() {
 
         function onDisconnect() {
             setIsConnected(false)
-            // socket.emit('offline')
         }
 
         socket.on('connect', onConnect)
@@ -165,7 +167,7 @@ export function Header() {
                                                                             ?.nama
                                                                 ).length
                                                             }{' '}
-                                                            Perangkat
+                                                            Jendela
                                                         </div>
                                                     </div>
                                                 </div>

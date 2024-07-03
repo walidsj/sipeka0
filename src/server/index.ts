@@ -48,6 +48,7 @@ const io = new Server(server, {
 type IOnlineUser = {
     socketId: string
     user: string
+    address: string
 }
 
 let onlineUsers: IOnlineUser[] = []
@@ -56,18 +57,45 @@ io.on('connection', (socket) => {
     console.log('a user connected')
 
     socket.on('new-user-add', (user: string) => {
-        onlineUsers.push({ socketId: socket.id, user })
-        io.emit('get-users', onlineUsers)
+        onlineUsers.push({
+            socketId: socket.id,
+            user,
+            address: socket.handshake.address,
+        })
+
+        // emit only user & address from onlineUsers
+        io.emit('get-users', [
+            ...new Set(
+                onlineUsers.map((user) => ({
+                    user: user.user,
+                    address: user.address,
+                }))
+            ),
+        ])
     })
 
     socket.on('offline', () => {
         onlineUsers = onlineUsers.filter((user) => user.socketId !== socket.id)
-        io.emit('get-users', onlineUsers)
+        io.emit('get-users', [
+            ...new Set(
+                onlineUsers.map((user) => ({
+                    user: user.user,
+                    address: user.address,
+                }))
+            ),
+        ])
     })
 
     socket.on('disconnect', () => {
         onlineUsers = onlineUsers.filter((user) => user.socketId !== socket.id)
-        io.emit('get-users', onlineUsers)
+        io.emit('get-users', [
+            ...new Set(
+                onlineUsers.map((user) => ({
+                    user: user.user,
+                    address: user.address,
+                }))
+            ),
+        ])
     })
 })
 
