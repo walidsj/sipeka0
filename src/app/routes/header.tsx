@@ -167,7 +167,7 @@ export function Header() {
                                                                             ?.nama
                                                                 ).length
                                                             }{' '}
-                                                            Jendela
+                                                            Perangkat
                                                         </div>
                                                     </div>
                                                 </div>
