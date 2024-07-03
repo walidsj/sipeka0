@@ -114,7 +114,7 @@ export function Header() {
                                     {onlineUsers.map((onlineUser) => (
                                         <div
                                             key={onlineUser.socketId}
-                                            className="flex items-center"
+                                            className="flex items-center text-sm"
                                         >
                                             <FaCircle className="mr-2 h-2 w-2 text-green-500" />
                                             {onlineUser.user}
