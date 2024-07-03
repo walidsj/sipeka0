@@ -24,25 +24,20 @@ import {
 } from '@/web/components/ui/popover'
 import { CardDescription, CardTitle } from '@/web/components/ui/card'
 
-type IOnlineUserClient = {
+type IOnlineUser = {
+    socketId: string
     user: string
-    status: 'on focus' | 'idle'
 }
 
 export function Header() {
     const auth = useAuth()
     const [isConnected, setIsConnected] = React.useState(socket.connected)
-    const [onlineUsers, setOnlineUsers] = React.useState<IOnlineUserClient[]>(
-        []
-    )
+    const [onlineUsers, setOnlineUsers] = React.useState<IOnlineUser[]>([])
 
     React.useEffect(() => {
         if (auth.user) {
             if (!onlineUsers.find((user) => user.user === auth.user?.nama)) {
-                socket.emit('new-user-add', {
-                    user: auth.user?.nama,
-                    status: 'on focus',
-                })
+                socket.emit('new-user-add', auth.user?.nama)
             }
         }
 
@@ -56,26 +51,6 @@ export function Header() {
     }, [auth.user])
 
     React.useEffect(() => {
-        window.onfocus = () => {
-            if (auth.user) {
-                socket.emit('new-user-add', {
-                    user: auth.user?.nama,
-                    status: 'on focus',
-                })
-            }
-        }
-
-        window.onblur = () => {
-            if (auth.user) {
-                socket.emit('new-user-add', {
-                    user: auth.user?.nama,
-                    status: 'idle',
-                })
-            }
-        }
-    }, [window.onfocus, window.onblur, auth.user])
-
-    React.useEffect(() => {
         function onConnect() {
             setIsConnected(true)
             socket.on('get-users', (users) => {
@@ -85,7 +60,6 @@ export function Header() {
 
         function onDisconnect() {
             setIsConnected(false)
-            socket.emit('offline', auth.user?.nama)
         }
 
         socket.on('connect', onConnect)
@@ -155,72 +129,77 @@ export function Header() {
                                         <CardTitle className="mb-3">
                                             User Online
                                         </CardTitle>
-                                        {onlineUsers.find(
-                                            (user) =>
-                                                user.user === auth.user?.nama
+                                        {Object.keys(
+                                            Object.groupBy(
+                                                onlineUsers,
+                                                ({ user }) => user
+                                            )
+                                        ).find(
+                                            (user) => user === auth.user?.nama
                                         ) && (
-                                            <>
-                                                <CardDescription className="my-1 font-semibold">
-                                                    Saya
-                                                </CardDescription>
-                                                <div className="my-1 flex items-center">
-                                                    <Avatar className="h-8 w-8">
-                                                        <AvatarImage
-                                                            src={`https://ui-avatars.com/api/?name=${auth.user?.nama}&background=0D8ABC&color=fff`}
-                                                        />
-                                                        <AvatarFallback>
-                                                            CN
-                                                        </AvatarFallback>
-                                                    </Avatar>
-                                                    <div className="ml-2">
-                                                        <div className="font-semibold">
-                                                            {auth.user?.nama}
-                                                        </div>
+                                            <div className="my-2 flex items-center">
+                                                <Avatar className="h-8 w-8">
+                                                    <AvatarImage
+                                                        src={`https://ui-avatars.com/api/?name=${auth.user?.nama}&background=0D8ABC&color=fff`}
+                                                    />
+                                                    <AvatarFallback>
+                                                        CN
+                                                    </AvatarFallback>
+                                                </Avatar>
+                                                <div className="ml-2">
+                                                    <div className="font-semibold">
+                                                        {auth.user?.nama}
+                                                    </div>
+                                                    <div className="text-xs text-slate-500">
+                                                        Online{' '}
+                                                        <span className="text-green-500">
+                                                            (Saya)
+                                                        </span>
                                                     </div>
                                                 </div>
-                                            </>
+                                            </div>
                                         )}
-                                        {onlineUsers.filter(
-                                            (user) =>
-                                                user.user !== auth.user?.nama
-                                        ).length > 0 && (
-                                            <>
-                                                <CardDescription className="my-1 mt-3 font-semibold">
-                                                    User Lainnya
-                                                </CardDescription>
-                                                {onlineUsers
-                                                    .filter(
-                                                        (user) =>
-                                                            user.user !==
-                                                            auth.user?.nama
-                                                    )
-                                                    .map((user) => (
-                                                        <div
-                                                            key={user.user}
-                                                            className="my-1 flex items-center"
-                                                        >
-                                                            <Avatar className="h-8 w-8">
-                                                                <AvatarImage
-                                                                    src={`https://ui-avatars.com/api/?name=${user.user}&background=0D8ABC&color=fff`}
-                                                                />
-                                                                <AvatarFallback>
-                                                                    CN
-                                                                </AvatarFallback>
-                                                            </Avatar>
-                                                            <div className="ml-2">
-                                                                <div className="font-semibold">
-                                                                    {user.user}
-                                                                </div>
-                                                                <div className="text-xs text-slate-500">
-                                                                    {
-                                                                        user.status
-                                                                    }
-                                                                </div>
+                                        {Object.keys(
+                                            Object.groupBy(
+                                                onlineUsers,
+                                                ({ user }) => user
+                                            )
+                                        ).filter(
+                                            (user) => user !== auth.user?.nama
+                                        ).length > 0 &&
+                                            Object.keys(
+                                                Object.groupBy(
+                                                    onlineUsers,
+                                                    ({ user }) => user
+                                                )
+                                            )
+                                                .filter(
+                                                    (user) =>
+                                                        user !== auth.user?.nama
+                                                )
+                                                .map((user) => (
+                                                    <div
+                                                        key={user}
+                                                        className="my-2 flex items-center"
+                                                    >
+                                                        <Avatar className="h-8 w-8">
+                                                            <AvatarImage
+                                                                src={`https://ui-avatars.com/api/?name=${user}&background=0D8ABC&color=fff`}
+                                                            />
+                                                            <AvatarFallback>
+                                                                CN
+                                                            </AvatarFallback>
+                                                        </Avatar>
+                                                        <div className="ml-2">
+                                                            <div className="font-semibold">
+                                                                {user}
+                                                            </div>
+                                                            <div className="text-xs text-slate-500">
+                                                                Online
                                                             </div>
                                                         </div>
-                                                    ))}
-                                            </>
-                                        )}
+                                                    </div>
+                                                ))}
 
                                         {Object.keys(
                                             Object.groupBy(
