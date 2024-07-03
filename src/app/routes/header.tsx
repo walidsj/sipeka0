@@ -17,9 +17,37 @@ import { socket } from '@/web/lib/socket'
 import { Badge } from '@/web/components/ui/badge'
 import { FaCircle } from 'react-icons/fa'
 import { cn } from '@/web/lib/utils'
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from '@/web/components/ui/popover'
+import { CardTitle } from '@/web/components/ui/card'
+
+type IOnlineUser = {
+    socketId: string
+    user: string
+}
 
 export function Header() {
+    const auth = useAuth()
     const [isConnected, setIsConnected] = React.useState(socket.connected)
+    const [onlineUsers, setOnlineUsers] = React.useState<IOnlineUser[]>([])
+
+    React.useEffect(() => {
+        if (auth.user) {
+            if (
+                auth.user?.nama &&
+                !onlineUsers.find((user) => user.user === auth.user?.nama)
+            ) {
+                socket.emit('new-user-add', auth.user?.nama)
+            }
+        }
+
+        socket.on('get-users', (users) => {
+            setOnlineUsers(users)
+        })
+    }, [auth.user, socket])
 
     React.useEffect(() => {
         function onConnect() {
@@ -28,6 +56,7 @@ export function Header() {
 
         function onDisconnect() {
             setIsConnected(false)
+            socket.emit('offline', auth.user?.nama)
         }
 
         socket.on('connect', onConnect)
@@ -38,8 +67,6 @@ export function Header() {
             socket.off('disconnect', onDisconnect)
         }
     }, [])
-
-    const auth = useAuth()
 
     return (
         <header className="fixed z-50 h-20 w-full bg-background">
@@ -62,21 +89,39 @@ export function Header() {
                     </Link>
                     <ul className="flex items-center">
                         <li>
-                            <Badge
-                                className={cn(
-                                    'mx-5 bg-green-500',
-                                    !isConnected && 'bg-slate-400'
-                                )}
-                            >
-                                {isConnected ? (
-                                    <>
-                                        <FaCircle className="mr-1 h-2 w-2 animate-pulse" />
-                                        Connected
-                                    </>
-                                ) : (
-                                    'Disconnected'
-                                )}
-                            </Badge>
+                            <Popover>
+                                <PopoverTrigger>
+                                    <Badge
+                                        className={cn(
+                                            'mx-5 bg-green-500',
+                                            !isConnected && 'bg-slate-400'
+                                        )}
+                                    >
+                                        {isConnected ? (
+                                            <>
+                                                <FaCircle className="mr-1 h-2 w-2 animate-pulse" />
+                                                Online
+                                            </>
+                                        ) : (
+                                            'Offline'
+                                        )}
+                                    </Badge>
+                                </PopoverTrigger>
+                                <PopoverContent>
+                                    <CardTitle className="mb-2">
+                                        Daftar Online
+                                    </CardTitle>
+                                    {onlineUsers.map((onlineUser) => (
+                                        <div
+                                            key={onlineUser.socketId}
+                                            className="flex items-center"
+                                        >
+                                            <FaCircle className="mr-2 h-2 w-2 text-green-500" />
+                                            {onlineUser.user}
+                                        </div>
+                                    ))}
+                                </PopoverContent>
+                            </Popover>
                         </li>
                         <li>
                             <Button
