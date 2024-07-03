@@ -60,6 +60,7 @@ io.on('connection', (socket) => {
     // })
 
     socket.on('new-user-add', (user: string) => {
+        onlineUsers = onlineUsers.filter((u) => u.user !== user)
         onlineUsers.push({ socketId: socket.id, user })
         // send all active users to new user
         io.emit('get-users', onlineUsers)

@@ -36,10 +36,7 @@ export function Header() {
 
     React.useEffect(() => {
         if (auth.user) {
-            if (
-                auth.user?.nama &&
-                !onlineUsers.find((user) => user.user === auth.user?.nama)
-            ) {
+            if (!onlineUsers.find((user) => user.user === auth.user?.nama)) {
                 socket.emit('new-user-add', auth.user?.nama)
             }
         }
@@ -47,7 +44,7 @@ export function Header() {
         socket.on('get-users', (users) => {
             setOnlineUsers(users)
         })
-    }, [auth.user, socket])
+    }, [auth.user])
 
     React.useEffect(() => {
         function onConnect() {
@@ -123,6 +120,11 @@ export function Header() {
                                             {onlineUser.user}
                                         </div>
                                     ))}
+                                    {onlineUsers.length === 0 && (
+                                        <div className="text-sm text-slate-400">
+                                            Tidak ada user online
+                                        </div>
+                                    )}
                                 </PopoverContent>
                             </Popover>
                         </li>
