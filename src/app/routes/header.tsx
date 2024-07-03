@@ -113,7 +113,7 @@ export function Header() {
                                         (onlineUser) =>
                                             onlineUser.user === auth.user?.nama
                                     ) && (
-                                        <div className="my-3 flex">
+                                        <div className="my-3 flex items-center">
                                             <Avatar className="mr-2 h-10 w-10">
                                                 <AvatarImage
                                                     src={`https://ui-avatars.com/api/?name=${auth.user?.nama}&background=0D8ABC&color=fff`}
@@ -144,7 +144,7 @@ export function Header() {
                                         .map((onlineUser) => (
                                             <div
                                                 key={onlineUser.socketId}
-                                                className="my-3 flex"
+                                                className="my-3 flex items-center"
                                             >
                                                 <Avatar className="mr-2 h-10 w-10">
                                                     <AvatarImage
