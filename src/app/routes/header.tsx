@@ -98,7 +98,15 @@ export function Header() {
                                         {isConnected ? (
                                             <>
                                                 <FaCircle className="mr-1 h-2 w-2 animate-pulse" />
-                                                {onlineUsers.length} Online
+                                                {
+                                                    Object.keys(
+                                                        Object.groupBy(
+                                                            onlineUsers,
+                                                            ({ user }) => user
+                                                        )
+                                                    ).length
+                                                }{' '}
+                                                Online
                                             </>
                                         ) : (
                                             'Not Connected'
