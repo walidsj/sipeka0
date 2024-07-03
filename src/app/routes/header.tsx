@@ -100,6 +100,9 @@ export function Header() {
                                         {isConnected ? (
                                             <>
                                                 <FaCircle className="mr-1 h-2 w-2 animate-pulse" />
+                                                {onlineUsers.length > 0
+                                                    ? onlineUsers.length
+                                                    : ''}{' '}
                                                 Online
                                             </>
                                         ) : (
