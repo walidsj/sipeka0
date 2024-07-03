@@ -53,6 +53,9 @@ export function Header() {
     React.useEffect(() => {
         function onConnect() {
             setIsConnected(true)
+            socket.on('get-users', (users) => {
+                setOnlineUsers(users)
+            })
         }
 
         function onDisconnect() {
