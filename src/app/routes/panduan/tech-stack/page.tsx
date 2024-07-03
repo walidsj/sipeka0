@@ -137,6 +137,17 @@ export default function () {
                             <CardTitle>Ubuntu</CardTitle>
                         </CardHeader>
                     </Card>
+                    <Card>
+                        <CardHeader>
+                            <img
+                                src="/images/icons/socketio.svg"
+                                alt="Socket.IO"
+                                className="h-14 w-14"
+                            />
+                            <CardDescription>Websocket</CardDescription>
+                            <CardTitle>Socket.IO</CardTitle>
+                        </CardHeader>
+                    </Card>
                 </div>
             </div>
         </div>
