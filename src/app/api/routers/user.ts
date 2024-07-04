@@ -106,7 +106,11 @@ export const userRouter = createTRPCRouter({
 
         const { password, ...rest } = existedUser
 
-        return rest
+        const pegawaiData = await ctx.db.query.pegawai.findFirst({
+            where: eq(pegawai.id, existedUser.pegawaiId!),
+        })
+
+        return { ...rest, pegawai: pegawaiData }
     }),
 
     updateProfile: userProcedure

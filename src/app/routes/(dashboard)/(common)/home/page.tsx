@@ -1,3 +1,4 @@
+import { Badge } from '@/web/components/ui/badge'
 import {
     Card,
     CardDescription,
@@ -5,13 +6,16 @@ import {
     CardTitle,
 } from '@/web/components/ui/card'
 import { Progress } from '@/web/components/ui/progress'
+import { useAuth } from '@/web/lib/auth'
+import { cn } from '@/web/lib/utils'
 import { api } from '@/web/trpc/react'
 import { format } from 'date-fns'
 import { id } from 'date-fns/locale'
 import React from 'react'
-import { FiGlobe, FiMail, FiPhone, FiPrinter } from 'react-icons/fi'
 
 export default function Dashboard() {
+    const auth = useAuth()
+
     const profilBlud = api.profilBlud.get.useQuery()
 
     const realisasiPendapatan = api.pendapatan.getRealisasiAll.useQuery()
@@ -32,6 +36,39 @@ export default function Dashboard() {
 
     return (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <Card>
+                <CardHeader className="flex flex-row items-start justify-between">
+                    <div>
+                        <CardDescription>Profil User Pegawai</CardDescription>
+                        {(auth.user?.pegawai && (
+                            <React.Fragment>
+                                <CardTitle>
+                                    {auth.user.pegawai.gelarDepan &&
+                                        `${auth.user.pegawai.gelarDepan} `}
+                                    {auth.user.pegawai.nama}
+                                    {auth.user.pegawai.gelarBelakang &&
+                                        `, ${auth.user.pegawai.gelarBelakang}`}
+                                </CardTitle>
+                                <p className="text-sm text-slate-500">
+                                    {auth.user.pegawai.jabatan}
+                                </p>
+                                <Badge
+                                    className={cn(
+                                        auth.user.pegawai.statusPegawai ===
+                                            'PPPK' && 'bg-secondary',
+                                        auth.user.pegawai.statusPegawai ===
+                                            'NON ASN' && 'bg-yellow-500',
+                                        auth.user.pegawai.statusPegawai ===
+                                            'MOU' && 'bg-red-400'
+                                    )}
+                                >
+                                    {auth.user.pegawai.statusPegawai}
+                                </Badge>
+                            </React.Fragment>
+                        )) || <CardTitle>Profil belum terkoneksi</CardTitle>}
+                    </div>
+                </CardHeader>
+            </Card>
             <Card>
                 <CardHeader className="flex flex-row items-center gap-4">
                     <img
@@ -234,7 +271,7 @@ export default function Dashboard() {
                     </div>
                 </CardHeader>
             </Card>
-            <Card className="sm:col-span-2 lg:col-span-3 xl:col-span-2">
+            <Card>
                 <CardHeader className="flex flex-row items-start justify-between">
                     <div>
                         <CardDescription className="mb-2">
@@ -245,25 +282,6 @@ export default function Dashboard() {
                                 <CardTitle>{profilBlud.data?.nama}</CardTitle>
                                 <p className="mb-2 text-sm text-slate-500">
                                     {profilBlud.data?.alamat}
-                                </p>
-                                <p className="text-sm">
-                                    <span className="mr-3">
-                                        <FiPhone className="mr-1 inline-flex" />
-                                        {profilBlud.data?.noTelp}
-                                    </span>
-                                    <span className="mr-3">
-                                        <FiPrinter className="mr-1 inline-flex" />
-                                        {profilBlud.data?.noFax}
-                                    </span>
-                                    <br />
-                                    <span className="mr-3">
-                                        <FiMail className="mr-1 inline-flex" />
-                                        {profilBlud.data?.email}
-                                    </span>
-                                    <span className="mr-3">
-                                        <FiGlobe className="mr-1 inline-flex" />
-                                        {profilBlud.data?.website}
-                                    </span>
                                 </p>
                             </React.Fragment>
                         )}
