@@ -1,5 +1,10 @@
 import { Button } from '@/web/components/ui/button'
-import { Card } from '@/web/components/ui/card'
+import {
+    Card,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/web/components/ui/card'
 import { cn } from '@/web/lib/utils'
 import React from 'react'
 import { Helmet } from 'react-helmet'
@@ -7,6 +12,14 @@ import { FaHeart } from 'react-icons/fa6'
 import { FiArrowRight, FiExternalLink } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { FaBolt, FaLeaf, FaLock, FaShareAlt } from 'react-icons/fa'
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from '@/web/components/ui/carousel'
+import { Avatar, AvatarImage } from '@/web/components/ui/avatar'
 
 const list = [
     {
@@ -206,6 +219,120 @@ export default function Home() {
                         gaji, bendahara, casemix, dan penyusunan klaim pasien di
                         Rumah Sakit.
                     </p>
+                </div>
+            </div>
+            <div className="py-16">
+                <div className="px-5 md:px-8 lg:px-10 xl:px-12">
+                    <h2 className="text-center text-xl font-semibold text-green-500 md:text-2xl lg:text-3xl">
+                        Testimoni
+                    </h2>
+                    <p className="mb-8 text-center text-3xl font-extrabold tracking-wide md:text-4xl lg:text-5xl">
+                        Dukungan
+                    </p>
+                    <div className="px-10">
+                        <Carousel>
+                            <CarouselContent>
+                                <CarouselItem className="lg:basis-1/2 xl:basis-1/3">
+                                    <Card>
+                                        <CardHeader className="flex gap-5">
+                                            <p>
+                                                Aplikasi SIPEKA yang dikhususkan
+                                                untuk anggaran BLUD sangat kami
+                                                harapkan untuk membantu RS dalam
+                                                hal penggunaan aplikasi SIPD-RI
+                                                yang belum support ke anggaran
+                                                BLUD. Semoga Aplikasi SIPEKA
+                                                bisa menjawab kekosongan
+                                                Aplikasi SIPD-RI terhadap BLUD
+                                                RS.
+                                            </p>
+                                            <div className="flex items-center gap-5">
+                                                <Avatar className="h-16 w-16">
+                                                    <AvatarImage src="/images/testimoni/drindah.png" />
+                                                </Avatar>
+                                                <div>
+                                                    <CardTitle>
+                                                        dr. Indah Puspitasari,
+                                                        MARS
+                                                    </CardTitle>
+                                                    <CardDescription>
+                                                        Direktur RSJD Atma
+                                                        Husada Mahakam
+                                                    </CardDescription>
+                                                </div>
+                                            </div>
+                                        </CardHeader>
+                                    </Card>
+                                </CarouselItem>
+                                <CarouselItem className="lg:basis-1/2 xl:basis-1/3">
+                                    <Card>
+                                        <CardHeader className="flex gap-5">
+                                            <p>
+                                                Aplikasi SIPEKA yang dikhususkan
+                                                untuk anggaran BLUD sangat kami
+                                                harapkan untuk membantu RS dalam
+                                                hal penggunaan aplikasi SIPD-RI
+                                                yang belum support ke anggaran
+                                                BLUD. Semoga Aplikasi SIPEKA
+                                                bisa menjawab kekosongan
+                                                Aplikasi SIPD-RI terhadap BLUD
+                                                RS.
+                                            </p>
+                                            <div className="flex items-center gap-5">
+                                                <Avatar className="h-16 w-16">
+                                                    <AvatarImage src="/images/testimoni/drjaya.png" />
+                                                </Avatar>
+                                                <div>
+                                                    <CardTitle>
+                                                        Dr. dr. H. Jaya
+                                                        Mualimin, MARS, Sp.KJ,
+                                                        M.Kes, MARS
+                                                    </CardTitle>
+                                                    <CardDescription>
+                                                        Kepala Dinas Kesehatan
+                                                        Prov. Kaltim
+                                                    </CardDescription>
+                                                </div>
+                                            </div>
+                                        </CardHeader>
+                                    </Card>
+                                </CarouselItem>
+                                <CarouselItem className="lg:basis-1/2 xl:basis-1/3">
+                                    <Card>
+                                        <CardHeader className="flex gap-5">
+                                            <p>
+                                                Aplikasi SIPEKA yang dikhususkan
+                                                untuk anggaran BLUD sangat kami
+                                                harapkan untuk membantu RS dalam
+                                                hal penggunaan aplikasi SIPD-RI
+                                                yang belum support ke anggaran
+                                                BLUD. Semoga Aplikasi SIPEKA
+                                                bisa menjawab kekosongan
+                                                Aplikasi SIPD-RI terhadap BLUD
+                                                RS.
+                                            </p>
+                                            <div className="flex items-center gap-5">
+                                                <Avatar className="h-16 w-16">
+                                                    <AvatarImage src="/images/testimoni/herynordi.png" />
+                                                </Avatar>
+                                                <div>
+                                                    <CardTitle>
+                                                        H. Hery Nordi, SE
+                                                    </CardTitle>
+                                                    <CardDescription>
+                                                        Sekretaris Inspektorat
+                                                        Prov. Kaltim
+                                                    </CardDescription>
+                                                </div>
+                                            </div>
+                                        </CardHeader>
+                                    </Card>
+                                </CarouselItem>
+                            </CarouselContent>
+                            <CarouselPrevious />
+                            <CarouselNext />
+                        </Carousel>
+                    </div>
                 </div>
             </div>
             <div className="py-16">

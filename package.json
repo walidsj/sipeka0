@@ -37,6 +37,7 @@
         "date-fns": "^3.6.0",
         "dotenv": "^16.4.5",
         "drizzle-orm": "^0.30.10",
+        "embla-carousel-react": "^8.1.6",
         "express": "^4.19.2",
         "framer-motion": "^11.2.10",
         "jose": "^5.3.0",
