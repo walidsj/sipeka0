@@ -48,6 +48,7 @@ const io = new Server(server, {
 type IOnlineUser = {
     socketId: string
     user: string
+    isActive: boolean
 }
 
 let onlineUsers: IOnlineUser[] = []
@@ -59,11 +60,20 @@ io.on('connection', (socket) => {
         io.emit('get-users', onlineUsers)
     })
 
-    socket.on('online', (user: string) => {
-        onlineUsers = onlineUsers.filter((user) => user.socketId !== socket.id)
-        onlineUsers.push({ socketId: socket.id, user })
-        io.emit('get-users', onlineUsers)
-    })
+    socket.on(
+        'online',
+        ({ user, isActive }: { user: string; isActive: boolean }) => {
+            onlineUsers = onlineUsers.filter(
+                (user) => user.socketId !== socket.id
+            )
+            onlineUsers.push({
+                socketId: socket.id,
+                user,
+                isActive,
+            })
+            io.emit('get-users', onlineUsers)
+        }
+    )
 
     socket.on('disconnect', () => {
         onlineUsers = onlineUsers.filter((user) => user.socketId !== socket.id)

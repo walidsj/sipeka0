@@ -15,7 +15,7 @@ import { FiLock, FiLogOut } from 'react-icons/fi'
 import Loading from '@/web/components/loading'
 import { socket } from '@/web/lib/socket'
 import { Badge } from '@/web/components/ui/badge'
-import { FaCircle } from 'react-icons/fa'
+import { FaCircle, FaRegCircle } from 'react-icons/fa'
 import { cn } from '@/web/lib/utils'
 import {
     Popover,
@@ -27,6 +27,7 @@ import { CardTitle } from '@/web/components/ui/card'
 type IOnlineUser = {
     socketId: string
     user: string
+    isActive: boolean
 }
 
 export function Header() {
@@ -41,13 +42,40 @@ export function Header() {
                 if (
                     !onlineUsers.find((user) => user.user === auth.user?.nama)
                 ) {
-                    socket.emit('online', auth.user.nama)
+                    socket.emit('online', {
+                        user: auth.user.nama,
+                        isActive: true,
+                    })
                 }
             } else {
                 socket.disconnect()
             }
         }
     }, [auth.user, auth.isLoading])
+
+    React.useEffect(() => {
+        window.onfocus = () => {
+            const user = onlineUsers.find((user) => user.socketId === socket.id)
+
+            if (user) {
+                socket.emit('online', {
+                    user: user.user,
+                    isActive: true,
+                })
+            }
+        }
+
+        window.onblur = () => {
+            const user = onlineUsers.find((user) => user.socketId === socket.id)
+
+            if (user) {
+                socket.emit('online', {
+                    user: user.user,
+                    isActive: false,
+                })
+            }
+        }
+    }, [window])
 
     React.useEffect(() => {
         function onConnect() {
@@ -141,9 +169,8 @@ export function Header() {
                                                     {auth.user?.nama}
                                                 </div>
                                                 <div className="block text-xs font-normal text-slate-500">
-                                                    Online{' '}
                                                     <span className="text-green-500">
-                                                        (Anda)
+                                                        Anda
                                                     </span>
                                                 </div>
                                             </div>
@@ -172,7 +199,12 @@ export function Header() {
                                                     <div className="block truncate text-sm font-semibold">
                                                         {onlineUser.user}
                                                     </div>
-                                                    <div className="block text-xs font-normal text-slate-500">
+                                                    <div className="flex items-center text-xs font-normal text-slate-500">
+                                                        {onlineUser.isActive ? (
+                                                            <FaCircle className="mr-1 h-2 w-2 text-green-500" />
+                                                        ) : (
+                                                            <FaRegCircle className="mr-1 h-2 w-2 text-slate-500" />
+                                                        )}
                                                         Online
                                                     </div>
                                                 </div>
