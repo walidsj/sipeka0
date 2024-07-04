@@ -1,6 +1,12 @@
-import { aktivitasRba, belanja, dba, potonganBelanja } from '@/server/db/schema'
+import {
+    aktivitasRba,
+    belanja,
+    dba,
+    potonganBelanja,
+    rba,
+} from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { and, count, desc, eq, gte, like, lte, or, sum } from 'drizzle-orm'
+import { and, asc, count, desc, eq, gte, like, lte, or, sum } from 'drizzle-orm'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import { belanjaSchema, potonganBelanjaSchema } from './schema'
@@ -278,4 +284,49 @@ export const belanjaRouter = createTRPCRouter({
 
             return { message: 'Data berhasil dihapus' }
         }),
+
+    getUnclassifiedBelanjaByRba: userProcedure.query(async ({ ctx }) => {
+        const latestDba = await ctx.db.query.dba.findFirst({
+            orderBy: desc(dba.tglDokumen),
+        })
+
+        if (!latestDba) {
+            throw new TRPCError({
+                code: 'NOT_FOUND',
+                message: 'DBA belum tersedia',
+            })
+        }
+
+        const rbaByDba = await ctx.db.query.rba.findFirst({
+            where: eq(rba.id, latestDba.rbaId!),
+        })
+
+        const unclassified = await ctx.db.query.belanja.findMany({
+            with: {
+                rab: {
+                    with: {
+                        rincianRbaBelanja: {
+                            with: {
+                                aktivitas: true,
+                            },
+                        },
+                    },
+                },
+            },
+            orderBy: [asc(belanja.tglDokumen), asc(belanja.createdAt)],
+        })
+
+        return unclassified
+            .filter((item) => {
+                return !item.rab?.rincianRbaBelanja.find((rincian) => {
+                    return rincian.aktivitas?.rbaId === rbaByDba?.id
+                })
+            })
+            .map((item) => ({
+                ...item,
+                rekening: rekeningLevel6.find(
+                    (rekening) => rekening.kode === item.rab?.kodeRekening
+                ),
+            }))
+    }),
 })
