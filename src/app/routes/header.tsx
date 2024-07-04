@@ -124,7 +124,7 @@ export function Header() {
                         {isConnected && (
                             <Popover>
                                 <PopoverTrigger disabled={!isConnected}>
-                                    <li className="flex">
+                                    <li className="flex px-5">
                                         {onlineUsers
                                             .filter(
                                                 (onlineUser) =>
