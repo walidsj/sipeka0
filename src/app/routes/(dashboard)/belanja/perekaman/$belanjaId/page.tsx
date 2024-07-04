@@ -268,68 +268,82 @@ export default function EditPage() {
                                         </Button>
                                     </TableCell>
                                 </TableRow>
-                                <TableRow>
-                                    <TableHead>Rekening Bank</TableHead>
-                                    <TableCell>
-                                        <p>{belanja.rekanan.bank?.nama}</p>
-                                        <p>{belanja.rekanan.bank?.kode}</p>
-                                    </TableCell>
-                                    <TableCell>
-                                        <Button
-                                            size="icon"
-                                            variant="outline"
-                                            className="h-8 w-8"
-                                            onClick={() =>
-                                                handleCopy(
-                                                    belanja.rekanan?.bank?.kode
-                                                )
-                                            }
-                                        >
-                                            <FiCopy />
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableHead>Nama di Rekening</TableHead>
-                                    <TableCell>
-                                        {belanja.rekanan.namaRekening}
-                                    </TableCell>
-                                    <TableCell>
-                                        <Button
-                                            size="icon"
-                                            variant="outline"
-                                            className="h-8 w-8"
-                                            onClick={() =>
-                                                handleCopy(
-                                                    belanja.rekanan
-                                                        ?.namaRekening
-                                                )
-                                            }
-                                        >
-                                            <FiCopy />
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableHead>Nomor Rekening</TableHead>
-                                    <TableCell>
-                                        {belanja.rekanan.noRekening}
-                                    </TableCell>
-                                    <TableCell>
-                                        <Button
-                                            size="icon"
-                                            variant="outline"
-                                            className="h-8 w-8"
-                                            onClick={() =>
-                                                handleCopy(
-                                                    belanja.rekanan?.noRekening
-                                                )
-                                            }
-                                        >
-                                            <FiCopy />
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
+                                {belanja.metodePembayaran === 'TRANSFER' && (
+                                    <>
+                                        <TableRow>
+                                            <TableHead>Rekening Bank</TableHead>
+                                            <TableCell>
+                                                <p>
+                                                    {belanja.rekanan.bank?.nama}
+                                                </p>
+                                                <p>
+                                                    {belanja.rekanan.bank?.kode}
+                                                </p>
+                                            </TableCell>
+                                            <TableCell>
+                                                <Button
+                                                    size="icon"
+                                                    variant="outline"
+                                                    className="h-8 w-8"
+                                                    onClick={() =>
+                                                        handleCopy(
+                                                            belanja.rekanan
+                                                                ?.bank?.kode
+                                                        )
+                                                    }
+                                                >
+                                                    <FiCopy />
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableHead>
+                                                Nama di Rekening
+                                            </TableHead>
+                                            <TableCell>
+                                                {belanja.rekanan.namaRekening}
+                                            </TableCell>
+                                            <TableCell>
+                                                <Button
+                                                    size="icon"
+                                                    variant="outline"
+                                                    className="h-8 w-8"
+                                                    onClick={() =>
+                                                        handleCopy(
+                                                            belanja.rekanan
+                                                                ?.namaRekening
+                                                        )
+                                                    }
+                                                >
+                                                    <FiCopy />
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableHead>
+                                                Nomor Rekening
+                                            </TableHead>
+                                            <TableCell>
+                                                {belanja.rekanan.noRekening}
+                                            </TableCell>
+                                            <TableCell>
+                                                <Button
+                                                    size="icon"
+                                                    variant="outline"
+                                                    className="h-8 w-8"
+                                                    onClick={() =>
+                                                        handleCopy(
+                                                            belanja.rekanan
+                                                                ?.noRekening
+                                                        )
+                                                    }
+                                                >
+                                                    <FiCopy />
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                    </>
+                                )}
                             </React.Fragment>
                         )}
                         {belanja.pegawai && (
@@ -365,68 +379,82 @@ export default function EditPage() {
                                         </Button>
                                     </TableCell>
                                 </TableRow>
-                                <TableRow>
-                                    <TableHead>Rekening Bank</TableHead>
-                                    <TableCell>
-                                        <p>{belanja.pegawai.bank?.nama}</p>
-                                        <p>{belanja.pegawai.bank?.kode}</p>
-                                    </TableCell>
-                                    <TableCell>
-                                        <Button
-                                            size="icon"
-                                            variant="outline"
-                                            className="h-8 w-8"
-                                            onClick={() =>
-                                                handleCopy(
-                                                    belanja.pegawai?.bank?.kode
-                                                )
-                                            }
-                                        >
-                                            <FiCopy />
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableHead>Nama di Rekening</TableHead>
-                                    <TableCell>
-                                        {belanja.pegawai.namaRekening}
-                                    </TableCell>
-                                    <TableCell>
-                                        <Button
-                                            size="icon"
-                                            variant="outline"
-                                            className="h-8 w-8"
-                                            onClick={() =>
-                                                handleCopy(
-                                                    belanja.pegawai
-                                                        ?.namaRekening
-                                                )
-                                            }
-                                        >
-                                            <FiCopy />
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableHead>Nomor Rekening</TableHead>
-                                    <TableCell>
-                                        {belanja.pegawai.noRekening}
-                                    </TableCell>
-                                    <TableCell>
-                                        <Button
-                                            size="icon"
-                                            variant="outline"
-                                            className="h-8 w-8"
-                                            onClick={() =>
-                                                handleCopy(
-                                                    belanja.pegawai?.noRekening
-                                                )
-                                            }
-                                        >
-                                            <FiCopy />
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
+                                {belanja.metodePembayaran === 'TRANSFER' && (
+                                    <>
+                                        <TableRow>
+                                            <TableHead>Rekening Bank</TableHead>
+                                            <TableCell>
+                                                <p>
+                                                    {belanja.pegawai.bank?.nama}
+                                                </p>
+                                                <p>
+                                                    {belanja.pegawai.bank?.kode}
+                                                </p>
+                                            </TableCell>
+                                            <TableCell>
+                                                <Button
+                                                    size="icon"
+                                                    variant="outline"
+                                                    className="h-8 w-8"
+                                                    onClick={() =>
+                                                        handleCopy(
+                                                            belanja.pegawai
+                                                                ?.bank?.kode
+                                                        )
+                                                    }
+                                                >
+                                                    <FiCopy />
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableHead>
+                                                Nama di Rekening
+                                            </TableHead>
+                                            <TableCell>
+                                                {belanja.pegawai.namaRekening}
+                                            </TableCell>
+                                            <TableCell>
+                                                <Button
+                                                    size="icon"
+                                                    variant="outline"
+                                                    className="h-8 w-8"
+                                                    onClick={() =>
+                                                        handleCopy(
+                                                            belanja.pegawai
+                                                                ?.namaRekening
+                                                        )
+                                                    }
+                                                >
+                                                    <FiCopy />
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableHead>
+                                                Nomor Rekening
+                                            </TableHead>
+                                            <TableCell>
+                                                {belanja.pegawai.noRekening}
+                                            </TableCell>
+                                            <TableCell>
+                                                <Button
+                                                    size="icon"
+                                                    variant="outline"
+                                                    className="h-8 w-8"
+                                                    onClick={() =>
+                                                        handleCopy(
+                                                            belanja.pegawai
+                                                                ?.noRekening
+                                                        )
+                                                    }
+                                                >
+                                                    <FiCopy />
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                    </>
+                                )}
                             </React.Fragment>
                         )}
                     </TableBody>
