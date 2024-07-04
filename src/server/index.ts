@@ -88,6 +88,25 @@ io.on('connection', (socket) => {
         }
     )
 
+    socket.on('logout', () => {
+        let user = tempOnlineUser.find((u) => u.socketId === socket.id)
+
+        tempOnlineUser = tempOnlineUser.filter(
+            (tempUser) => tempUser.user !== user?.user
+        )
+
+        onlineUsers = Array.from(
+            new Set(tempOnlineUser.map((u) => u.user))
+        ).map((user) => ({
+            user,
+            isActive: tempOnlineUser.find((u) => u.user === user && u.isActive)
+                ? true
+                : false,
+        }))
+
+        io.emit('get-users', onlineUsers)
+    })
+
     socket.on('disconnect', () => {
         tempOnlineUser = tempOnlineUser.filter(
             (user) => user.socketId !== socket.id
