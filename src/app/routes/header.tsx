@@ -76,7 +76,7 @@ export function Header() {
             window.onfocus = null
             window.onblur = null
         }
-    }, [window])
+    }, [window.onfocus, window.onblur, auth.user])
 
     React.useEffect(() => {
         function onConnect() {
