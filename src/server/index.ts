@@ -46,11 +46,16 @@ const io = new Server(server, {
 })
 
 type IOnlineUser = {
+    user: string
+    isActive: boolean
+}
+type ITempOnlineUser = {
     socketId: string
     user: string
     isActive: boolean
 }
 
+let tempOnlineUser: ITempOnlineUser[] = []
 let onlineUsers: IOnlineUser[] = []
 
 io.on('connection', (socket) => {
@@ -63,20 +68,46 @@ io.on('connection', (socket) => {
     socket.on(
         'online',
         ({ user, isActive }: { user: string; isActive: boolean }) => {
-            onlineUsers = onlineUsers.filter(
-                (user) => user.socketId !== socket.id
+            tempOnlineUser = tempOnlineUser.filter(
+                (tempUser) => tempUser.socketId !== socket.id
             )
-            onlineUsers.push({
-                socketId: socket.id,
-                user,
-                isActive,
-            })
+            tempOnlineUser.push({ socketId: socket.id, user, isActive })
+            onlineUsers = [
+                ...new Set(
+                    tempOnlineUser.map((u) => ({
+                        user: u.user,
+                        isActive: tempOnlineUser.some(
+                            (tempUser) =>
+                                tempUser.user === u.user && tempUser.isActive
+                        )
+                            ? true
+                            : false,
+                    }))
+                ),
+            ]
+
             io.emit('get-users', onlineUsers)
         }
     )
 
     socket.on('disconnect', () => {
-        onlineUsers = onlineUsers.filter((user) => user.socketId !== socket.id)
+        tempOnlineUser = tempOnlineUser.filter(
+            (user) => user.socketId !== socket.id
+        )
+        onlineUsers = [
+            ...new Set(
+                tempOnlineUser.map((u) => ({
+                    user: u.user,
+                    isActive: tempOnlineUser.some(
+                        (tempUser) =>
+                            tempUser.user === u.user && tempUser.isActive
+                    )
+                        ? true
+                        : false,
+                }))
+            ),
+        ]
+
         io.emit('get-users', onlineUsers)
     })
 })

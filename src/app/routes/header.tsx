@@ -25,7 +25,6 @@ import {
 import { CardTitle } from '@/web/components/ui/card'
 
 type IOnlineUser = {
-    socketId: string
     user: string
     isActive: boolean
 }
@@ -133,15 +132,7 @@ export function Header() {
                                         {isConnected ? (
                                             <>
                                                 <FaCircle className="mr-1 h-2 w-2 animate-pulse" />
-                                                {
-                                                    Object.keys(
-                                                        Object.groupBy(
-                                                            onlineUsers,
-                                                            ({ user }) => user
-                                                        )
-                                                    ).length
-                                                }{' '}
-                                                Online
+                                                {onlineUsers.length} Online
                                             </>
                                         ) : (
                                             'Not Connected'
@@ -185,7 +176,7 @@ export function Header() {
                                         )
                                         .map((onlineUser) => (
                                             <div
-                                                key={onlineUser.socketId}
+                                                key={onlineUser.user}
                                                 className="my-3 flex items-center"
                                             >
                                                 <Avatar className="mr-2 h-10 w-10">
