@@ -35,13 +35,19 @@ export function Header() {
     const [onlineUsers, setOnlineUsers] = React.useState<IOnlineUser[]>([])
 
     React.useEffect(() => {
-        if (auth.user) {
-            if (!onlineUsers.find((user) => user.user === auth.user?.nama)) {
-                socket.connect()
-                socket.emit('online', auth.user.nama)
+        if (!auth.isLoading) {
+            if (auth.user) {
+                if (
+                    !onlineUsers.find((user) => user.user === auth.user?.nama)
+                ) {
+                    socket.connect()
+                    socket.emit('online', auth.user.nama)
+                }
+            } else {
+                socket.disconnect()
             }
         }
-    }, [auth.user])
+    }, [auth.user, auth.isLoading])
 
     React.useEffect(() => {
         function onConnect() {
