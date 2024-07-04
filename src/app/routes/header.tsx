@@ -165,6 +165,10 @@ export function Header() {
                                             >
                                                 <Avatar className="mr-2 h-10 w-10">
                                                     <AvatarImage
+                                                        className={cn(
+                                                            !onlineUser.isActive &&
+                                                                'opacity-20'
+                                                        )}
                                                         src={`https://ui-avatars.com/api/?name=${onlineUser.user}&background=${colorImg[index % 5]}&color=fff`}
                                                     />
                                                     <AvatarFallback>
