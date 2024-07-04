@@ -55,22 +55,18 @@ export function Header() {
 
     React.useEffect(() => {
         window.onfocus = () => {
-            const user = onlineUsers.find((user) => user.socketId === socket.id)
-
-            if (user) {
+            if (auth.user) {
                 socket.emit('online', {
-                    user: user.user,
+                    user: auth.user.nama,
                     isActive: true,
                 })
             }
         }
 
         window.onblur = () => {
-            const user = onlineUsers.find((user) => user.socketId === socket.id)
-
-            if (user) {
+            if (auth.user) {
                 socket.emit('online', {
-                    user: user.user,
+                    user: auth.user.nama,
                     isActive: false,
                 })
             }
