@@ -14,20 +14,21 @@ import React from 'react'
 import { FiLock, FiLogOut } from 'react-icons/fi'
 import Loading from '@/web/components/loading'
 import { socket } from '@/web/lib/socket'
-import { Badge } from '@/web/components/ui/badge'
 import { FaCircle, FaRegCircle } from 'react-icons/fa'
-import { cn } from '@/web/lib/utils'
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
 } from '@/web/components/ui/popover'
 import { CardTitle } from '@/web/components/ui/card'
+import { cn } from '@/web/lib/utils'
 
 type IOnlineUser = {
     user: string
     isActive: boolean
 }
+
+const colorImg = ['0ea5e9', '6366f1', '14b8a6', 'eab308', 'ec4899']
 
 export function Header() {
     const auth = useAuth()
@@ -120,68 +121,51 @@ export function Header() {
                         />
                     </Link>
                     <ul className="flex items-center">
-                        <li>
+                        {isConnected && (
                             <Popover>
                                 <PopoverTrigger disabled={!isConnected}>
-                                    <Badge
-                                        className={cn(
-                                            'mx-5 bg-green-500',
-                                            !isConnected && 'bg-slate-400'
-                                        )}
-                                    >
-                                        {isConnected ? (
-                                            <>
-                                                <FaCircle className="mr-1 h-2 w-2 animate-pulse" />
-                                                {onlineUsers.length} Online
-                                            </>
-                                        ) : (
-                                            'Not Connected'
-                                        )}
-                                    </Badge>
+                                    <li className="flex">
+                                        {onlineUsers
+                                            .filter(
+                                                (onlineUser) =>
+                                                    onlineUser.user !==
+                                                    auth.user?.nama
+                                            )
+                                            .map((onlineUser, index) => (
+                                                <Avatar
+                                                    className={cn(
+                                                        '-ml-3 h-7 w-7 bg-white'
+                                                    )}
+                                                >
+                                                    <AvatarImage
+                                                        className={cn(
+                                                            !onlineUser.isActive &&
+                                                                'opacity-20'
+                                                        )}
+                                                        src={`https://ui-avatars.com/api/?name=${onlineUser.user}&background=${colorImg[index % 5]}&color=fff`}
+                                                    />
+                                                </Avatar>
+                                            ))}
+                                    </li>
                                 </PopoverTrigger>
                                 <PopoverContent>
                                     <CardTitle className="mb-4">
-                                        User Online
+                                        User Online Lainnya
                                     </CardTitle>
-                                    {onlineUsers.find(
-                                        (onlineUser) =>
-                                            onlineUser.user === auth.user?.nama
-                                    ) && (
-                                        <div className="my-3 flex items-center">
-                                            <Avatar className="mr-2 h-10 w-10">
-                                                <AvatarImage
-                                                    src={`https://ui-avatars.com/api/?name=${auth.user?.nama}&background=0D8ABC&color=fff`}
-                                                />
-                                                <AvatarFallback>
-                                                    CN
-                                                </AvatarFallback>
-                                            </Avatar>
-                                            <div>
-                                                <div className="block truncate text-sm font-semibold">
-                                                    {auth.user?.nama}
-                                                </div>
-                                                <div className="block text-xs font-normal text-slate-500">
-                                                    <span className="text-green-500">
-                                                        Anda
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )}
                                     {onlineUsers
                                         .filter(
                                             (onlineUser) =>
                                                 onlineUser.user !==
                                                 auth.user?.nama
                                         )
-                                        .map((onlineUser) => (
+                                        .map((onlineUser, index) => (
                                             <div
                                                 key={onlineUser.user}
                                                 className="my-3 flex items-center"
                                             >
                                                 <Avatar className="mr-2 h-10 w-10">
                                                     <AvatarImage
-                                                        src={`https://ui-avatars.com/api/?name=${onlineUser.user}&background=0D8ABC&color=fff`}
+                                                        src={`https://ui-avatars.com/api/?name=${onlineUser.user}&background=${colorImg[index % 5]}&color=fff`}
                                                     />
                                                     <AvatarFallback>
                                                         CN
@@ -209,7 +193,7 @@ export function Header() {
                                     )}
                                 </PopoverContent>
                             </Popover>
-                        </li>
+                        )}
                         <li>
                             <Button
                                 variant="ghost"
@@ -268,7 +252,7 @@ export function Header() {
                                             >
                                                 <Avatar>
                                                     <AvatarImage
-                                                        src={`https://ui-avatars.com/api/?name=${auth.user?.nama}&background=${auth.user.role == 'ADMIN' ? 'E64B4B' : '0D8ABC'}&color=fff`}
+                                                        src={`https://ui-avatars.com/api/?name=${auth.user?.nama}&background=3b82f6&color=fff`}
                                                     />
                                                     <AvatarFallback>
                                                         CN
