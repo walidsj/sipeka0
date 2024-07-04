@@ -43,7 +43,7 @@ export function Header() {
                 ) {
                     socket.emit('online', {
                         user: auth.user.nama,
-                        isActive: false,
+                        isActive: true,
                     })
                 }
             } else {
