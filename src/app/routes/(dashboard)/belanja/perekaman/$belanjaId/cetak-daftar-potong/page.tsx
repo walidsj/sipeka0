@@ -101,39 +101,39 @@ export default function Page() {
                         <table className="mt-3 w-full">
                             <thead className="text-center font-bold">
                                 <tr>
-                                    <td className="w-1 border border-black px-1.5 py-0.5 font-serif">
+                                    <td className="w-1 border border-black px-1.5 py-2 font-serif">
                                         No.
                                     </td>
-                                    <td className="border border-black px-1.5 py-0.5 font-serif">
+                                    <td className="border border-black px-1.5 py-2 font-serif">
                                         Nama
                                     </td>
-                                    <td className="w-1 border border-black px-1.5 py-0.5 font-serif">
+                                    <td className="w-1 border border-black px-1.5 py-2 font-serif">
                                         Kode Rek
                                     </td>
-                                    <td className="border border-black px-1.5 py-0.5 font-serif">
+                                    <td className="border border-black px-1.5 py-2 font-serif">
                                         Jumlah
                                         <br />
                                         (Rp)
                                     </td>
-                                    <td className="border border-black px-1.5 py-0.5 font-serif">
+                                    <td className="border border-black px-1.5 py-2 font-serif">
                                         Potongan
                                     </td>
-                                    <td className="border border-black px-1.5 py-0.5 font-serif">
+                                    <td className="border border-black px-1.5 py-2 font-serif">
                                         Jumlah Bersih
                                         <br />
                                         (Rp)
                                     </td>
-                                    <td className="border border-black px-1.5 py-0.5 font-serif">
+                                    <td className="border border-black px-1.5 py-2 font-serif">
                                         Tanda Tangan
                                     </td>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td className="border border-black px-1.5 py-0.5 text-center font-serif">
+                                    <td className="border border-black px-1.5 py-2 text-center font-serif">
                                         1.
                                     </td>
-                                    <td className="border border-black px-1.5 py-0.5 font-serif">
+                                    <td className="border border-black px-1.5 py-2 font-serif">
                                         {belanja.pegawai && (
                                             <p className="font-serif">
                                                 {belanja.pegawai.gelarDepan &&
@@ -154,14 +154,14 @@ export default function Page() {
                                         style={{
                                             fontSize: '8pt',
                                         }}
-                                        className="border border-black px-1.5 py-0.5 text-center font-serif"
+                                        className="border border-black px-1.5 py-2 text-center font-serif"
                                     >
                                         {belanja.rab?.kodeRekening}
                                     </td>
-                                    <td className="border border-black px-1.5 py-0.5 text-right font-serif">
+                                    <td className="border border-black px-1.5 py-2 text-right font-serif">
                                         {formatAngka(belanja.jumlah)}
                                     </td>
-                                    <td className="border border-black px-1.5 py-0.5 text-right font-serif">
+                                    <td className="border border-black px-1.5 py-2 text-right font-serif">
                                         {belanja.potonganBelanja.length > 0 ? (
                                             <table className="w-full">
                                                 {belanja.potonganBelanja.map(
@@ -183,7 +183,7 @@ export default function Page() {
                                             '0'
                                         )}
                                     </td>
-                                    <td className="border border-black px-1.5 py-0.5 text-right font-serif">
+                                    <td className="border border-black px-1.5 py-2 text-right font-serif">
                                         {formatAngka(
                                             Number(belanja.jumlah) -
                                                 Number(
@@ -196,21 +196,21 @@ export default function Page() {
                                                 )
                                         )}
                                     </td>
-                                    <td className="border border-black px-1.5 py-0.5 font-serif"></td>
+                                    <td className="border border-black px-1.5 py-2 font-serif"></td>
                                 </tr>
                             </tbody>
                             <tfoot className="font-bold">
                                 <tr>
                                     <td
                                         colSpan={3}
-                                        className="border border-black px-1.5 py-0.5 font-serif"
+                                        className="border border-black px-1.5 py-2 font-serif"
                                     >
                                         Total
                                     </td>
-                                    <td className="border border-black px-1.5 py-0.5 text-right font-serif">
+                                    <td className="border border-black px-1.5 py-2 text-right font-serif">
                                         {formatAngka(belanja.jumlah)}
                                     </td>
-                                    <td className="border border-black px-1.5 py-0.5 text-right font-serif">
+                                    <td className="border border-black px-1.5 py-2 text-right font-serif">
                                         {formatAngka(
                                             Number(
                                                 belanja.potonganBelanja.reduce(
@@ -222,7 +222,7 @@ export default function Page() {
                                             )
                                         )}
                                     </td>
-                                    <td className="border border-black px-1.5 py-0.5 text-right font-serif">
+                                    <td className="border border-black px-1.5 py-2 text-right font-serif">
                                         {formatAngka(
                                             Number(belanja.jumlah) -
                                                 Number(
@@ -235,7 +235,7 @@ export default function Page() {
                                                 )
                                         )}
                                     </td>
-                                    <td className="border border-black px-1.5 py-0.5 font-serif"></td>
+                                    <td className="border border-black px-1.5 py-2 font-serif"></td>
                                 </tr>
                             </tfoot>
                         </table>
