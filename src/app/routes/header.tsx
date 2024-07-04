@@ -75,6 +75,11 @@ export function Header() {
                 })
             }
         }
+
+        return () => {
+            window.onfocus = null
+            window.onblur = null
+        }
     }, [window])
 
     React.useEffect(() => {
