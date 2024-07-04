@@ -37,10 +37,10 @@ export function Header() {
     React.useEffect(() => {
         if (!auth.isLoading) {
             if (auth.user) {
+                socket.connect()
                 if (
                     !onlineUsers.find((user) => user.user === auth.user?.nama)
                 ) {
-                    socket.connect()
                     socket.emit('online', auth.user.nama)
                 }
             } else {
