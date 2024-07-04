@@ -72,19 +72,17 @@ io.on('connection', (socket) => {
                 (tempUser) => tempUser.socketId !== socket.id
             )
             tempOnlineUser.push({ socketId: socket.id, user, isActive })
-            onlineUsers = [
-                ...new Set(
-                    tempOnlineUser.map((u) => ({
-                        user: u.user,
-                        isActive: tempOnlineUser.some(
-                            (tempUser) =>
-                                tempUser.user === u.user && tempUser.isActive
-                        )
-                            ? true
-                            : false,
-                    }))
-                ),
-            ]
+
+            onlineUsers = Array.from(
+                new Set(tempOnlineUser.map((u) => u.user))
+            ).map((user) => ({
+                user,
+                isActive: tempOnlineUser.find(
+                    (u) => u.user === user && u.isActive
+                )
+                    ? true
+                    : false,
+            }))
 
             io.emit('get-users', onlineUsers)
         }
@@ -94,19 +92,14 @@ io.on('connection', (socket) => {
         tempOnlineUser = tempOnlineUser.filter(
             (user) => user.socketId !== socket.id
         )
-        onlineUsers = [
-            ...new Set(
-                tempOnlineUser.map((u) => ({
-                    user: u.user,
-                    isActive: tempOnlineUser.some(
-                        (tempUser) =>
-                            tempUser.user === u.user && tempUser.isActive
-                    )
-                        ? true
-                        : false,
-                }))
-            ),
-        ]
+        onlineUsers = Array.from(
+            new Set(tempOnlineUser.map((u) => u.user))
+        ).map((user) => ({
+            user,
+            isActive: tempOnlineUser.find((u) => u.user === user && u.isActive)
+                ? true
+                : false,
+        }))
 
         io.emit('get-users', onlineUsers)
     })
