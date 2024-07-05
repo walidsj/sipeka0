@@ -23,7 +23,6 @@ import { useDebounce } from 'use-debounce'
 import { Input } from '@/web/components/ui/input'
 import { keepPreviousData } from '@tanstack/react-query'
 import Loading from '@/web/components/loading'
-import { useSearchParams } from 'react-router-dom'
 import {
     Select,
     SelectContent,
@@ -58,13 +57,13 @@ export default function RabPicker({
         placeholderData: keepPreviousData,
     })
 
-    const [searchParams, setSearchParams] = useSearchParams({
+    const [pagination, setPagination] = React.useState({
         search: '',
         page: '1',
         pageSize: '10',
     })
 
-    const [searchValue] = useDebounce(searchParams.get('search') ?? '', 300)
+    const [searchValue] = useDebounce(pagination.search ?? '', 300)
 
     const {
         isLoading,
@@ -74,8 +73,8 @@ export default function RabPicker({
     } = api.rab.getAll.useQuery(
         {
             search: searchValue ?? '',
-            page: Number(searchParams.get('page') ?? 1),
-            pageSize: Number(searchParams.get('pageSize') ?? 10),
+            page: Number(pagination.page ?? 1),
+            pageSize: Number(pagination.pageSize ?? 10),
         },
         { placeholderData: keepPreviousData }
     )
@@ -143,12 +142,14 @@ export default function RabPicker({
                 </DialogHeader>
                 <div className="flex flex-row items-center gap-5">
                     <Select
-                        value={searchParams.get('pageSize') ?? '10'}
-                        onValueChange={(val) => {
-                            searchParams.set('pageSize', val)
-                            searchParams.set('page', '1')
-                            setSearchParams(searchParams)
-                        }}
+                        value={pagination.pageSize ?? '10'}
+                        onValueChange={(val) =>
+                            setPagination((prev) => ({
+                                ...prev,
+                                pageSize: val,
+                                page: '1',
+                            }))
+                        }
                     >
                         <SelectTrigger className="w-20 font-semibold">
                             <SelectValue />
@@ -167,12 +168,14 @@ export default function RabPicker({
                         <Input
                             className="pl-10"
                             placeholder="Cari data..."
-                            value={searchParams.get('search') ?? ''}
-                            onChange={(e) => {
-                                searchParams.set('search', e.target.value)
-                                searchParams.set('page', '1')
-                                setSearchParams(searchParams)
-                            }}
+                            value={pagination.search ?? ''}
+                            onChange={(e) =>
+                                setPagination((prev) => ({
+                                    ...prev,
+                                    pageSize: e.target.value,
+                                    page: '1',
+                                }))
+                            }
                         />
                     </div>
                 </div>
@@ -267,23 +270,24 @@ export default function RabPicker({
                                 }
                                 onClick={() => {
                                     Number(rab.meta.pagination.page) > 1 &&
-                                        searchParams.set(
-                                            'page',
-                                            String(
+                                        setPagination((prev) => ({
+                                            ...prev,
+                                            page: String(
                                                 Number(
                                                     rab.meta.pagination.page
                                                 ) - 1
-                                            )
-                                        )
-                                    setSearchParams(searchParams)
+                                            ),
+                                        }))
                                 }}
                             />
                         </PaginationItem>
                         <Select
                             value={String(rab.meta.pagination.page) ?? '1'}
                             onValueChange={(val) => {
-                                searchParams.set('page', val)
-                                setSearchParams(searchParams)
+                                setPagination((prev) => ({
+                                    ...prev,
+                                    page: val,
+                                }))
                             }}
                         >
                             <SelectTrigger className="w-20 font-semibold">
@@ -313,15 +317,14 @@ export default function RabPicker({
                                 onClick={() => {
                                     Number(rab.meta.pagination.page) <
                                         Number(rab.meta.pagination.pageCount) &&
-                                        searchParams.set(
-                                            'page',
-                                            String(
+                                        setPagination((prev) => ({
+                                            ...prev,
+                                            page: String(
                                                 Number(
                                                     rab.meta.pagination.page
                                                 ) + 1
-                                            )
-                                        )
-                                    setSearchParams(searchParams)
+                                            ),
+                                        }))
                                 }}
                             />
                         </PaginationItem>
