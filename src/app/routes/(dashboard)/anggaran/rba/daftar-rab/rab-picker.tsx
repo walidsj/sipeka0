@@ -172,7 +172,7 @@ export default function RabPicker({
                             onChange={(e) =>
                                 setPagination((prev) => ({
                                     ...prev,
-                                    pageSize: e.target.value,
+                                    search: e.target.value,
                                     page: '1',
                                 }))
                             }
