@@ -105,7 +105,7 @@ export default function EditPage() {
                         <table className="mt-3 w-full">
                             <tr>
                                 <td className="w-36 font-serif">
-                                    Sudah terima
+                                    Sudah terima dari
                                 </td>
                                 <td className="w-4">:</td>
                                 <td className="font-serif">
