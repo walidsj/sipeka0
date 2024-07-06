@@ -7,7 +7,7 @@ export default function ProfilLayout() {
     const { pathname } = useLocation()
 
     return (
-        <div className="flex flex-col gap-5 px-8 py-5">
+        <div className="flex flex-col gap-5">
             <Card>
                 <CardHeader>
                     <nav className="mb-5 w-full border-b">

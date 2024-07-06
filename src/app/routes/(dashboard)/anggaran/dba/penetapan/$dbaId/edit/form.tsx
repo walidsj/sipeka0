@@ -18,7 +18,7 @@ import { z } from 'zod'
 import { format } from 'date-fns'
 import { Textarea } from '@/web/components/ui/textarea'
 import { dbaSchema } from '@/app/api/schema/dba'
-import RbaPicker from '../../../../rba/penyusunan-rba/rba-picker'
+import RbaPicker from '../../../../rba/rba-picker'
 
 export default function EditForm({ data }: { data: typeof dba.$inferSelect }) {
     const navigate = useNavigate()

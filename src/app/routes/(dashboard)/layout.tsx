@@ -20,7 +20,7 @@ export default function DashboardLayout() {
             <Helmet>
                 <title>Dashboard - SIPEKA</title>
             </Helmet>
-            <nav className="mx-auto w-full overflow-x-auto py-3 md:px-8 lg:px-10 xl:px-12">
+            <nav className="mx-auto w-full overflow-x-auto py-4 md:px-8 lg:px-10 xl:px-12">
                 <ul className="flex gap-3">
                     <li>
                         <Link to="/home">
@@ -40,7 +40,7 @@ export default function DashboardLayout() {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/anggaran/rba/daftar-rab">
+                        <Link to="/anggaran">
                             <Card className="flex flex-row items-center py-2 pl-3 pr-5 font-semibold">
                                 <div
                                     className={cn(
@@ -126,7 +126,9 @@ export default function DashboardLayout() {
                     </li>
                 </ul>
             </nav>
-            <Outlet />
+            <div className="flex w-full flex-col px-5 md:px-8 lg:px-10 xl:px-12">
+                <Outlet />
+            </div>
         </React.Fragment>
     )
 }

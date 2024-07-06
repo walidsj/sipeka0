@@ -1,6 +1,5 @@
 import { Button } from '@/web/components/ui/button'
 import { cn } from '@/web/lib/utils'
-import { Helmet } from 'react-helmet'
 import { FiBookOpen, FiDatabase, FiSettings, FiUsers } from 'react-icons/fi'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 
@@ -9,9 +8,6 @@ export default function Layout() {
 
     return (
         <div className="flex w-full flex-row">
-            <Helmet>
-                <title>Modul Lainnya - SIPEKA</title>
-            </Helmet>
             <div className="flex min-h-[calc(100svh-138px)] w-28 flex-col">
                 <nav>
                     <ul className="flex w-full flex-col">

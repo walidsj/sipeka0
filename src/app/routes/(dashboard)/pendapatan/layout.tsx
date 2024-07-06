@@ -1,7 +1,6 @@
 import { Button } from '@/web/components/ui/button'
 import { cn } from '@/web/lib/utils'
 import { Link, Outlet, useLocation } from 'react-router-dom'
-import { Helmet } from 'react-helmet'
 import { HiOutlineClipboardList, HiOutlineDocumentText } from 'react-icons/hi'
 
 export default function Layout() {
@@ -9,10 +8,7 @@ export default function Layout() {
 
     return (
         <div className="flex w-full flex-col">
-            <Helmet>
-                <title>Pendapatan - SIPEKA</title>
-            </Helmet>
-            <nav className="mx-auto w-full overflow-x-auto md:px-3 lg:px-5 xl:px-8">
+            <nav className="mx-auto w-full overflow-x-auto">
                 <ul className="flex w-full">
                     <li>
                         <Button
@@ -46,9 +42,7 @@ export default function Layout() {
                     </li>
                 </ul>
             </nav>
-            <div className="flex w-full flex-col px-5 py-5 md:px-8 lg:px-10 xl:px-12">
-                <Outlet />
-            </div>
+            <Outlet />
         </div>
     )
 }

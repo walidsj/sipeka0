@@ -8,17 +8,13 @@ import {
     HiOutlineSave,
     HiOutlineSwitchHorizontal,
 } from 'react-icons/hi'
-import { Helmet } from 'react-helmet'
 
 export default function Layout() {
     const { pathname } = useLocation()
 
     return (
         <div className="flex w-full flex-col">
-            <Helmet>
-                <title>Belanja - SIPEKA</title>
-            </Helmet>
-            <nav className="mx-auto w-full overflow-x-auto md:px-3 lg:px-5 xl:px-8">
+            <nav className="mx-auto w-full overflow-x-auto">
                 <ul className="flex w-full">
                     <li>
                         <Button
@@ -97,9 +93,7 @@ export default function Layout() {
                     </li>
                 </ul>
             </nav>
-            <div className="flex w-full flex-col px-5 py-5 md:px-8 lg:px-10 xl:px-12">
-                <Outlet />
-            </div>
+            <Outlet />
         </div>
     )
 }

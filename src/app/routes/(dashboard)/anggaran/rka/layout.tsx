@@ -57,9 +57,7 @@ export default function ProfilLayout() {
                     </ul>
                 </nav>
             </div>
-            <div className="flex w-full flex-col">
-                <Outlet />
-            </div>
+            <Outlet />
         </div>
     )
 }
