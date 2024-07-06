@@ -1,4 +1,3 @@
-import { Button } from '@/web/components/ui/button'
 import React from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import {
@@ -11,6 +10,7 @@ import {
 } from 'react-icons/fi'
 import { cn } from '@/web/lib/utils'
 import { Helmet } from 'react-helmet'
+import { Card } from '@/web/components/ui/card'
 
 export default function DashboardLayout() {
     const { pathname } = useLocation()
@@ -20,21 +20,14 @@ export default function DashboardLayout() {
             <Helmet>
                 <title>Dashboard - SIPEKA</title>
             </Helmet>
-            <nav className="mx-auto w-full overflow-x-auto md:px-3 lg:px-5 xl:px-7">
-                <ul className="flex">
+            <nav className="mx-auto w-full overflow-x-auto py-3 md:px-8 lg:px-10 xl:px-12">
+                <ul className="flex gap-3">
                     <li>
-                        <Button
-                            asChild
-                            variant="ghost"
-                            className={cn(
-                                'h-16 px-5',
-                                pathname.startsWith('/home') && 'text-primary'
-                            )}
-                        >
-                            <Link to="/home">
+                        <Link to="/home">
+                            <Card className="flex flex-row items-center py-2 pl-3 pr-5 font-semibold">
                                 <div
                                     className={cn(
-                                        'mr-2 flex items-center justify-center rounded-lg p-2 text-primary',
+                                        'mr-2 flex items-center justify-center rounded-full p-2 text-primary transition-all',
                                         pathname.startsWith('/home')
                                             ? 'bg-primary text-white'
                                             : 'bg-background'
@@ -43,23 +36,15 @@ export default function DashboardLayout() {
                                     <FiHome />
                                 </div>
                                 Home
-                            </Link>
-                        </Button>
+                            </Card>
+                        </Link>
                     </li>
                     <li>
-                        <Button
-                            asChild
-                            variant="ghost"
-                            className={cn(
-                                'h-16 px-5',
-                                pathname.startsWith('/anggaran') &&
-                                    'text-primary'
-                            )}
-                        >
-                            <Link to="/anggaran/rba/daftar-rab">
+                        <Link to="/anggaran/rba/daftar-rab">
+                            <Card className="flex flex-row items-center py-2 pl-3 pr-5 font-semibold">
                                 <div
                                     className={cn(
-                                        'mr-2 flex items-center justify-center rounded-lg p-2 text-primary',
+                                        'mr-2 flex items-center justify-center rounded-full p-2 text-primary transition-all',
                                         pathname.startsWith('/anggaran')
                                             ? 'bg-primary text-white'
                                             : 'bg-background'
@@ -68,23 +53,15 @@ export default function DashboardLayout() {
                                     <FiEdit />
                                 </div>
                                 Anggaran
-                            </Link>
-                        </Button>
+                            </Card>
+                        </Link>
                     </li>
                     <li>
-                        <Button
-                            asChild
-                            variant="ghost"
-                            className={cn(
-                                'h-16 px-5',
-                                pathname.startsWith('/pendapatan') &&
-                                    'text-primary'
-                            )}
-                        >
-                            <Link to="/pendapatan/perekaman">
+                        <Link to="/pendapatan/perekaman">
+                            <Card className="flex flex-row items-center py-2 pl-3 pr-5 font-semibold">
                                 <div
                                     className={cn(
-                                        'mr-2 flex items-center justify-center rounded-lg p-2 text-primary',
+                                        'mr-2 flex items-center justify-center rounded-full p-2 text-primary transition-all',
                                         pathname.startsWith('/pendapatan')
                                             ? 'bg-primary text-white'
                                             : 'bg-background'
@@ -93,23 +70,15 @@ export default function DashboardLayout() {
                                     <FiPocket />
                                 </div>
                                 Pendapatan
-                            </Link>
-                        </Button>
+                            </Card>
+                        </Link>
                     </li>
                     <li>
-                        <Button
-                            asChild
-                            variant="ghost"
-                            className={cn(
-                                'h-16 px-5',
-                                pathname.startsWith('/belanja') &&
-                                    'text-primary'
-                            )}
-                        >
-                            <Link to="/belanja/perekaman">
+                        <Link to="/belanja/perekaman">
+                            <Card className="flex flex-row items-center py-2 pl-3 pr-5 font-semibold">
                                 <div
                                     className={cn(
-                                        'mr-2 flex items-center justify-center rounded-lg p-2 text-primary',
+                                        'mr-2 flex items-center justify-center rounded-full p-2 text-primary transition-all',
                                         pathname.startsWith('/belanja')
                                             ? 'bg-primary text-white'
                                             : 'bg-background'
@@ -118,23 +87,15 @@ export default function DashboardLayout() {
                                     <FiShoppingCart />
                                 </div>
                                 Belanja
-                            </Link>
-                        </Button>
+                            </Card>
+                        </Link>
                     </li>
                     <li>
-                        <Button
-                            asChild
-                            variant="ghost"
-                            className={cn(
-                                'h-16 px-5',
-                                pathname.startsWith('/akuntansi') &&
-                                    'text-primary'
-                            )}
-                        >
-                            <Link to="/akuntansi">
+                        <Link to="/akuntansi">
+                            <Card className="flex flex-row items-center py-2 pl-3 pr-5 font-semibold">
                                 <div
                                     className={cn(
-                                        'mr-2 flex items-center justify-center rounded-lg p-2 text-primary',
+                                        'mr-2 flex items-center justify-center rounded-full p-2 text-primary transition-all',
                                         pathname.startsWith('/akuntansi')
                                             ? 'bg-primary text-white'
                                             : 'bg-background'
@@ -143,23 +104,15 @@ export default function DashboardLayout() {
                                     <FiFileText />
                                 </div>
                                 Akuntansi
-                            </Link>
-                        </Button>
+                            </Card>
+                        </Link>
                     </li>
                     <li>
-                        <Button
-                            asChild
-                            variant="ghost"
-                            className={cn(
-                                'h-16 px-5',
-                                pathname.startsWith('/lainnya') &&
-                                    'text-primary'
-                            )}
-                        >
-                            <Link to="/lainnya/database/unit-kerja">
+                        <Link to="/lainnya/database/unit-kerja">
+                            <Card className="flex flex-row items-center py-2 pl-3 pr-5 font-semibold">
                                 <div
                                     className={cn(
-                                        'mr-2 flex items-center justify-center rounded-lg p-2 text-primary',
+                                        'mr-2 flex items-center justify-center rounded-full p-2 text-primary transition-all',
                                         pathname.startsWith('/lainnya')
                                             ? 'bg-primary text-white'
                                             : 'bg-background'
@@ -168,8 +121,8 @@ export default function DashboardLayout() {
                                     <FiTool />
                                 </div>
                                 Lainnya
-                            </Link>
-                        </Button>
+                            </Card>
+                        </Link>
                     </li>
                 </ul>
             </nav>
