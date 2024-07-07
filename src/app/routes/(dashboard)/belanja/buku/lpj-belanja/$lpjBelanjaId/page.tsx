@@ -26,6 +26,7 @@ import {
     HiOutlineTrash,
 } from 'react-icons/hi'
 import BelanjaEmptyLpjTable from './table'
+import { formatTanggal } from '@/web/lib/utils'
 
 export default function EditPage() {
     const params = useParams<{ lpjBelanjaId: string }>()
@@ -124,6 +125,19 @@ export default function EditPage() {
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
+            <CardContent>
+                <div className="flex flex-row items-center gap-4">
+                    <img src="/images/icons/research.png" className="h-16" />
+                    <div>
+                        <CardDescription>Dokumen LPJ Belanja</CardDescription>
+                        <CardTitle>{lpjBelanja.noDokumen}</CardTitle>
+                        <CardDescription>
+                            tanggal {formatTanggal(lpjBelanja.tglDokumen)}
+                        </CardDescription>
+                        <CardDescription>{lpjBelanja.uraian}</CardDescription>
+                    </div>
+                </div>
+            </CardContent>
             <CardContent>
                 <BelanjaEmptyLpjTable />
             </CardContent>

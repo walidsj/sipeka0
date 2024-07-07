@@ -1,5 +1,3 @@
-import Loading from '@/web/components/loading'
-import { Button } from '@/web/components/ui/button'
 import {
     Card,
     CardContent,
@@ -7,117 +5,52 @@ import {
     CardHeader,
     CardTitle,
 } from '@/web/components/ui/card'
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from '@/web/components/ui/table'
-import { formatAngka, formatTanggal } from '@/web/lib/utils'
+import { Navigate, useParams } from 'react-router-dom'
 import { api } from '@/web/trpc/react'
-import toast from 'react-hot-toast'
-import { HiOutlinePlus } from 'react-icons/hi'
-import { useParams } from 'react-router-dom'
+import Loading from '@/web/components/loading'
 
-export default function Page() {
-    const utils = api.useUtils()
+import { formatTanggal } from '@/web/lib/utils'
+import BelanjaTable from './table'
+
+export default function EditPage() {
     const params = useParams<{ lpjBelanjaId: string }>()
 
     const {
-        isLoading,
+        data: lpjBelanja,
         isError,
-        error,
-        data: belanja,
-    } = api.lpjBelanja.getBelanjaByEmptyLpjBelanja.useQuery()
-
-    const addItemToLpjBelanja = api.lpjBelanja.addItemToLpjBelanja.useMutation({
-        onMutate() {
-            toast.loading('Menghapus data...')
-        },
-        onSuccess(data) {
-            toast.dismiss()
-            utils.lpjBelanja.invalidate()
-            toast.success(data.message)
-        },
-        onError(error) {
-            toast.dismiss()
-            toast.error(error.message)
-        },
-    })
+        isLoading,
+    } = api.lpjBelanja.getById.useQuery(Number(params.lpjBelanjaId))
 
     if (isLoading) return <Loading />
 
-    if (isError) {
-        return <div>{error.message}</div>
-    }
+    if (isError) return <Navigate to={`/belanja/buku/lpj-belanja`} replace />
 
-    if (!belanja) return <div>Data tidak dapat dimuat.</div>
+    if (!lpjBelanja)
+        return <Navigate to={`/belanja/buku/lpj-belanja`} replace />
 
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Daftar Belanja</CardTitle>
+                <CardTitle>Tambahkan Belanja ke LPJ Belanja</CardTitle>
                 <CardDescription>
-                    Belanja yang dapat ditambahkan ke LPJ Belanja
+                    Data untuk detail daftar belanja
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead className="w-1">No.</TableHead>
-                            <TableHead>Tanggal Dokumen</TableHead>
-                            <TableHead>Nomor Dokumen</TableHead>
-                            <TableHead>Uraian</TableHead>
-                            <TableHead>Jumlah</TableHead>
-                            <TableHead className="w-1" />
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {belanja.map((item, index) => (
-                            <TableRow key={index}>
-                                <TableCell className="text-center">
-                                    {index + 1}.
-                                </TableCell>
-                                <TableCell>
-                                    {formatTanggal(item.tglDokumen)}
-                                </TableCell>
-                                <TableCell>{item.noDokumen}</TableCell>
-                                <TableCell>{item.uraian}</TableCell>
-                                <TableCell className="text-right">
-                                    {formatAngka(item.jumlah)}
-                                </TableCell>
-                                <TableCell>
-                                    <Button
-                                        size="icon"
-                                        onClick={() =>
-                                            addItemToLpjBelanja.mutate({
-                                                lpjBelanjaId: Number(
-                                                    params.lpjBelanjaId
-                                                ),
-                                                id: item.id,
-                                            })
-                                        }
-                                    >
-                                        <HiOutlinePlus />
-                                    </Button>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                        {belanja.length === 0 && (
-                            <TableRow>
-                                <TableCell
-                                    className="text-center"
-                                    colSpan={100}
-                                >
-                                    Tidak ada data
-                                </TableCell>
-                            </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
+                <div className="flex flex-row items-center gap-4">
+                    <img src="/images/icons/research.png" className="h-16" />
+                    <div>
+                        <CardDescription>Dokumen LPJ Belanja</CardDescription>
+                        <CardTitle>{lpjBelanja.noDokumen}</CardTitle>
+                        <CardDescription>
+                            tanggal {formatTanggal(lpjBelanja.tglDokumen)}
+                        </CardDescription>
+                        <CardDescription>{lpjBelanja.uraian}</CardDescription>
+                    </div>
+                </div>
+            </CardContent>
+            <CardContent>
+                <BelanjaTable />
             </CardContent>
         </Card>
     )
