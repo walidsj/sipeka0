@@ -112,9 +112,21 @@ export default function CreateForm() {
                         )}
                     />
                     <FormField
+                        name="nomorDokumen"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Nomor Dokumen</FormLabel>
+                                <FormControl>
+                                    <Input {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
                         name="tglDokumen"
                         render={({ field }) => (
-                            <FormItem className="mt-5">
+                            <FormItem>
                                 <FormLabel>Tanggal Dokumen</FormLabel>
                                 <FormControl>
                                     <Input
