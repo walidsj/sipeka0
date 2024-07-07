@@ -20,6 +20,7 @@ import { pendapatanRouter } from './routers/pendapatan'
 import { rkaRouter } from './routers/rka'
 import { dbaRouter } from './routers/dba'
 import { belanjaRouter } from './modules/belanja'
+import { sp3bRouter } from './modules/sp3b'
 
 export const appRouter = createTRPCRouter({
     user: userRouter,
@@ -43,6 +44,7 @@ export const appRouter = createTRPCRouter({
     rka: rkaRouter,
     dba: dbaRouter,
     belanja: belanjaRouter,
+    sp3b: sp3bRouter,
 })
 
 export type AppRouter = typeof appRouter

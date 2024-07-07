@@ -1,3 +1,4 @@
+import { sp3bTable } from '@/server/db/schema'
 import { Button } from '@/web/components/ui/button'
 import {
     Form,
@@ -15,33 +16,36 @@ import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { format } from 'date-fns'
-import PegawaiPicker from '../../../lainnya/database/pegawai-picker'
+import PegawaiPicker from '@/app/routes/(dashboard)/lainnya/database/pegawai-picker'
 import { sp3bSchema } from '@/app/api/modules/sp3b/schema'
 
-export default function CreateForm() {
+export default function EditForm({
+    data,
+}: {
+    data: typeof sp3bTable.$inferSelect
+}) {
     const navigate = useNavigate()
-
     const utils = api.useUtils()
 
     const form = useForm<z.infer<typeof sp3bSchema>>({
         resolver: zodResolver(sp3bSchema),
         mode: 'onTouched',
         defaultValues: {
-            tglMulai: undefined,
-            tglSelesai: undefined,
-            noDokumen: '',
-            tglDokumen: undefined,
-            penandatanganId: undefined,
+            noDokumen: data.noDokumen ?? '',
+            tglDokumen: data.tglDokumen ?? undefined,
+            penandatanganId: data.penandatanganId ?? undefined,
+            tglMulai: data.tglMulai ?? undefined,
+            tglSelesai: data.tglSelesai ?? undefined,
         },
     })
 
-    const create = api.sp3b.create.useMutation({
+    const edit = api.sp3b.updateById.useMutation({
         onMutate() {
             toast.loading('Menyimpan data...')
         },
         onSuccess(data) {
             toast.dismiss()
-            utils.sp3b.invalidate()
+            utils.sp3b.getById.invalidate()
             navigate(-1)
             toast.success(data.message)
         },
@@ -51,15 +55,15 @@ export default function CreateForm() {
         },
     })
 
-    function onSubmit(data: z.infer<typeof sp3bSchema>) {
-        create.mutate(data)
+    function onSubmit(val: z.infer<typeof sp3bSchema>) {
+        edit.mutate({ id: data.id, ...val })
     }
 
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
                 <fieldset
-                    disabled={create.isPending}
+                    disabled={edit.isPending}
                     className="flex max-w-96 flex-col gap-2"
                 >
                     <FormField
@@ -168,7 +172,7 @@ export default function CreateForm() {
                     />
                     <div className="mt-3">
                         <Button type="submit">
-                            {create.isPending ? 'Menyimpan...' : 'Simpan'}
+                            {edit.isPending ? 'Menyimpan...' : 'Simpan'}
                         </Button>
                     </div>
                 </fieldset>

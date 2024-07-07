@@ -307,6 +307,15 @@ export const potonganBelanja = mysqlTable('potongan_belanja', {
         .onUpdateNow(),
 })
 
+export const sp3bTable = mysqlTable('sp3b', {
+    id: serial('id').primaryKey(),
+    tglMulai: timestamp('tgl_mulai', { mode: 'date' }),
+    tglSelesai: timestamp('tgl_selesai', { mode: 'date' }),
+    noDokumen: varchar('no_dokumen', { length: 256 }),
+    tglDokumen: timestamp('tgl_dokumen', { mode: 'date' }),
+    penandatanganId: int('penandatangan_id', { unsigned: true }),
+})
+
 export const userRelations = relations(user, ({ one }) => ({
     pegawai: one(pegawai, {
         fields: [user.pegawaiId],
@@ -475,4 +484,12 @@ export const pegawaiRelations = relations(pegawai, ({ one, many }) => ({
     rekanan: many(rekanan),
     belanja: many(belanja),
     pengelolaBlud: many(pengelolaBlud),
+    sp3b: many(sp3bTable),
+}))
+
+export const sp3bTableRelations = relations(sp3bTable, ({ one }) => ({
+    penandatangan: one(pegawai, {
+        fields: [sp3bTable.penandatanganId],
+        references: [pegawai.id],
+    }),
 }))

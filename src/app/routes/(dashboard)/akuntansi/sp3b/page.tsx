@@ -8,6 +8,7 @@ import {
 import { Button } from '@/web/components/ui/button'
 import { Link } from 'react-router-dom'
 import { FiPlus } from 'react-icons/fi'
+import Sp3bTable from './table'
 
 export default function Page() {
     return (
@@ -29,7 +30,9 @@ export default function Page() {
                     </Button>
                 </div>
             </CardHeader>
-            <CardContent></CardContent>
+            <CardContent>
+                <Sp3bTable />
+            </CardContent>
         </Card>
     )
 }

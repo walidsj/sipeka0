@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@develoka/angka-terbilang-js':
+        specifier: ^1.4.2
+        version: 1.4.2
       '@hookform/resolvers':
         specifier: ^3.4.2
         version: 3.4.2(react-hook-form@7.51.5(react@18.3.1))
@@ -838,6 +841,9 @@ packages:
   '@babel/types@7.24.6':
     resolution: {integrity: sha512-WaMsgi6Q8zMgMth93GvWPXkhAIEobfsIkLTacoVZoK1J0CevIPGYY2Vo5YvJGqyHqXM6P4ppOYGsIRU8MM9pFQ==}
     engines: {node: '>=6.9.0'}
+
+  '@develoka/angka-terbilang-js@1.4.2':
+    resolution: {integrity: sha512-eunTDwPs1JmtY1bpP7SBrjjn3eTcy9NcGWUrECbH3CWjfznOsTiNbxLDMGeNxRCUYUR5rL9lI0hr6bTOXeVmzQ==}
 
   '@esbuild-kit/core-utils@3.3.2':
     resolution: {integrity: sha512-sPRAnw9CdSsRmEtnsl2WXWdyquogVpB3yZ3dgwJfe8zrOzTsV7cJvmwrKVa+0ma5BoiGJ+BoqkMvawbayKUsqQ==}
@@ -5586,6 +5592,8 @@ snapshots:
       '@babel/helper-string-parser': 7.24.6
       '@babel/helper-validator-identifier': 7.24.6
       to-fast-properties: 2.0.0
+
+  '@develoka/angka-terbilang-js@1.4.2': {}
 
   '@esbuild-kit/core-utils@3.3.2':
     dependencies:
