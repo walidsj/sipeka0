@@ -282,6 +282,19 @@ export const belanja = mysqlTable('belanja', {
     pegawaiId: int('pegawai_id', { unsigned: true }),
     metodePembayaran: mysqlEnum('metode_pembayaran', ['TUNAI', 'TRANSFER']),
     buktiPembayaran: varchar('bukti_pembayaran', { length: 256 }),
+    lpjBelanjaId: int('lpj_belanja_id', { unsigned: true }),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
+})
+
+export const lpjBelanjaTable = mysqlTable('lpj_belanja', {
+    id: serial('id').primaryKey(),
+    tglDokumen: timestamp('tgl_dokumen', { mode: 'date' }),
+    noDokumen: varchar('no_dokumen', { length: 256 }),
+    jenis: mysqlEnum('jenis', ['GU', 'LS', 'TU']),
+    uraian: varchar('uraian', { length: 256 }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { mode: 'date' })
         .defaultNow()
@@ -314,6 +327,10 @@ export const sp3bTable = mysqlTable('sp3b', {
     noDokumen: varchar('no_dokumen', { length: 256 }),
     tglDokumen: timestamp('tgl_dokumen', { mode: 'date' }),
     penandatanganId: int('penandatangan_id', { unsigned: true }),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
 })
 
 export const userRelations = relations(user, ({ one }) => ({
@@ -456,6 +473,10 @@ export const belanjaRelations = relations(belanja, ({ one, many }) => ({
         references: [pegawai.id],
     }),
     potonganBelanja: many(potonganBelanja),
+    lpjBelanja: one(lpjBelanjaTable, {
+        fields: [belanja.lpjBelanjaId],
+        references: [lpjBelanjaTable.id],
+    }),
 }))
 
 export const potonganBelanjaRelations = relations(
@@ -465,6 +486,13 @@ export const potonganBelanjaRelations = relations(
             fields: [potonganBelanja.belanjaId],
             references: [belanja.id],
         }),
+    })
+)
+
+export const lpjBelanjaTableRelations = relations(
+    lpjBelanjaTable,
+    ({ many }) => ({
+        belanja: many(belanja),
     })
 )
 

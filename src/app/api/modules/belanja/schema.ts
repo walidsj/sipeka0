@@ -10,6 +10,7 @@ export const belanjaSchema = z.object({
     pegawaiId: z.number().nullish(),
     metodePembayaran: z.enum(['TUNAI', 'TRANSFER']),
     buktiPembayaran: z.string(),
+    lpjBelanjaId: z.number().nullish(),
 })
 
 export const potonganBelanjaSchema = z.object({

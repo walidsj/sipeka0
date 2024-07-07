@@ -1,13 +1,16 @@
 import { Button } from '@/web/components/ui/button'
 import { cn } from '@/web/lib/utils'
 import { Link, Outlet, useLocation } from 'react-router-dom'
-import { HiOutlineClipboardList, HiOutlineDocumentText } from 'react-icons/hi'
+import {
+    HiOutlineClipboardList,
+    // HiOutlineDocumentText
+} from 'react-icons/hi'
 
 export default function Layout() {
     const { pathname } = useLocation()
 
     return (
-        <div className="flex w-full flex-col">
+        <div className="flex w-full flex-col gap-4">
             <nav className="mx-auto w-full overflow-x-auto">
                 <ul className="flex w-full">
                     <li>
@@ -25,7 +28,7 @@ export default function Layout() {
                             </Link>
                         </Button>
                     </li>
-                    <li>
+                    {/* <li>
                         <Button
                             variant="ghost"
                             className={cn(
@@ -39,7 +42,7 @@ export default function Layout() {
                                 <span>Laporan</span>
                             </Link>
                         </Button>
-                    </li>
+                    </li> */}
                 </ul>
             </nav>
             <Outlet />
