@@ -7,7 +7,6 @@ import {
 } from '@/web/components/ui/card'
 import { cn } from '@/web/lib/utils'
 import React from 'react'
-import { Helmet } from 'react-helmet'
 import { FaHeart } from 'react-icons/fa6'
 import { FiArrowRight, FiExternalLink } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
@@ -125,11 +124,6 @@ export default function Home() {
 
     return (
         <div className="flex w-full flex-col">
-            <Helmet>
-                <title>
-                    SIPEKA - Sistem Informasi Pengelolaan Keuangan BLUD
-                </title>
-            </Helmet>
             <div className="flex flex-col items-center justify-between gap-5 rounded-lg bg-white px-5 py-16 md:flex-row md:gap-16 md:px-8 lg:px-10 xl:px-12">
                 <div className="pb-0 md:pb-20">
                     <div className="mb-5 flex items-center justify-center gap-2 md:justify-start">
