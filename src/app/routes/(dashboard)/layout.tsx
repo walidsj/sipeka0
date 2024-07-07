@@ -9,7 +9,6 @@ import {
     FiTool,
 } from 'react-icons/fi'
 import { cn } from '@/web/lib/utils'
-import { Helmet } from 'react-helmet'
 import { Card } from '@/web/components/ui/card'
 
 export default function DashboardLayout() {
@@ -17,9 +16,6 @@ export default function DashboardLayout() {
 
     return (
         <React.Fragment>
-            <Helmet>
-                <title>Dashboard - SIPEKA</title>
-            </Helmet>
             <nav className="mx-auto w-full overflow-x-auto py-4 md:px-8 lg:px-10 xl:px-12">
                 <ul className="flex gap-3">
                     <li>
