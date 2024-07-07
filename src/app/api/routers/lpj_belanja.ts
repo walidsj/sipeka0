@@ -104,7 +104,7 @@ export const lpjBelanjaRouter = createTRPCRouter({
             await ctx.db
                 .update(belanja)
                 .set({ lpjBelanjaId: null })
-                .where(eq(belanja.lpjBelanjaId, input))
+                .where(eq(belanja.id, input))
 
             return { message: 'Data berhasil dihapus' }
         }),
