@@ -89,13 +89,109 @@ export default function MonitoringTable() {
                                 <TableCell className="border" colSpan={4}>
                                     {aktivitas.nama}
                                 </TableCell>
-                                <TableCell className="border"></TableCell>
-                                <TableCell className="border"></TableCell>
-                                <TableCell className="border"></TableCell>
-                                <TableCell className="border"></TableCell>
+                                <TableCell className="border text-right">
+                                    {aktivitas.rincianRbaBelanja
+                                        .reduce(
+                                            (acc, item) =>
+                                                acc +
+                                                Number(
+                                                    Number(item.volume) *
+                                                        Number(item.harga)
+                                                ),
+                                            0
+                                        )
+                                        .toLocaleString('id-ID')}
+                                </TableCell>
+                                <TableCell className="border text-right">
+                                    {realisasiMonitoring.data
+                                        ?.filter((item) =>
+                                            aktivitas.rincianRbaBelanja
+                                                .map((rincian) => rincian.rabId)
+                                                .includes(item.id)
+                                        )
+                                        .reduce(
+                                            (acc, item) =>
+                                                acc + Number(item.jumlah),
+                                            0
+                                        )
+                                        .toLocaleString('id-ID')}
+                                </TableCell>
+                                <TableCell className="border text-right">
+                                    {
+                                        // menghitung persentase realisasi
+                                        Number(
+                                            (Number(
+                                                realisasiMonitoring.data
+                                                    ?.filter((item) =>
+                                                        aktivitas.rincianRbaBelanja
+                                                            .map(
+                                                                (rincian) =>
+                                                                    rincian.rabId
+                                                            )
+                                                            .includes(item.id)
+                                                    )
+                                                    .reduce(
+                                                        (acc, item) =>
+                                                            acc +
+                                                            Number(item.jumlah),
+                                                        0
+                                                    ) ?? 0
+                                            ) /
+                                                aktivitas.rincianRbaBelanja.reduce(
+                                                    (acc, item) =>
+                                                        acc +
+                                                        Number(
+                                                            Number(
+                                                                item.volume
+                                                            ) *
+                                                                Number(
+                                                                    item.harga
+                                                                )
+                                                        ),
+                                                    0
+                                                )) *
+                                                100
+                                        ).toLocaleString('id-ID', {
+                                            maximumFractionDigits: 2,
+                                        })
+                                    }
+                                </TableCell>
+                                <TableCell className="border text-right">
+                                    {Number(
+                                        Number(
+                                            aktivitas.rincianRbaBelanja.reduce(
+                                                (acc, item) =>
+                                                    acc +
+                                                    Number(
+                                                        Number(item.volume) *
+                                                            Number(item.harga)
+                                                    ),
+                                                0
+                                            )
+                                        ) -
+                                            Number(
+                                                realisasiMonitoring.data
+                                                    ?.filter((item) =>
+                                                        aktivitas.rincianRbaBelanja
+                                                            .map(
+                                                                (rincian) =>
+                                                                    rincian.rabId
+                                                            )
+                                                            .includes(item.id)
+                                                    )
+                                                    .reduce(
+                                                        (acc, item) =>
+                                                            acc +
+                                                            Number(item.jumlah),
+                                                        0
+                                                    ) ?? 0
+                                            )
+                                    ).toLocaleString('id-ID')}
+                                </TableCell>
                             </TableRow>
                             {Object.keys(
-                                lodash.chain(aktivitas.rincianRbaBelanja)
+                                lodash
+                                    .chain(aktivitas.rincianRbaBelanja)
                                     .groupBy((item) => item.rab?.kodeRekening)
                                     .value()
                             ).map((key) => (
@@ -120,9 +216,10 @@ export default function MonitoringTable() {
                                             }
                                         </TableCell>
                                         <TableCell className="border text-right font-semibold">
-                                            {lodash.chain(
-                                                aktivitas.rincianRbaBelanja
-                                            )
+                                            {lodash
+                                                .chain(
+                                                    aktivitas.rincianRbaBelanja
+                                                )
                                                 .groupBy(
                                                     (item) =>
                                                         item.rab?.kodeRekening
@@ -149,9 +246,10 @@ export default function MonitoringTable() {
                                                     (item) =>
                                                         item.kodeRekening ===
                                                             key &&
-                                                        lodash.chain(
-                                                            aktivitas.rincianRbaBelanja
-                                                        )
+                                                        lodash
+                                                            .chain(
+                                                                aktivitas.rincianRbaBelanja
+                                                            )
                                                             .groupBy(
                                                                 (item) =>
                                                                     item.rab
@@ -172,7 +270,7 @@ export default function MonitoringTable() {
                                                 )
                                                 .toLocaleString('id-ID')}
                                         </TableCell>
-                                        <TableCell className="border text-right">
+                                        <TableCell className="border text-right font-semibold">
                                             {Number(
                                                 Number(
                                                     Number(
@@ -181,9 +279,10 @@ export default function MonitoringTable() {
                                                                 (item) =>
                                                                     item.kodeRekening ===
                                                                         key &&
-                                                                    lodash.chain(
-                                                                        aktivitas.rincianRbaBelanja
-                                                                    )
+                                                                    lodash
+                                                                        .chain(
+                                                                            aktivitas.rincianRbaBelanja
+                                                                        )
                                                                         .groupBy(
                                                                             (
                                                                                 item
@@ -214,9 +313,10 @@ export default function MonitoringTable() {
                                                                 0
                                                             ) ?? 0
                                                     ) /
-                                                        lodash.chain(
-                                                            aktivitas.rincianRbaBelanja
-                                                        )
+                                                        lodash
+                                                            .chain(
+                                                                aktivitas.rincianRbaBelanja
+                                                            )
                                                             .groupBy(
                                                                 (item) =>
                                                                     item.rab
@@ -244,9 +344,10 @@ export default function MonitoringTable() {
                                         <TableCell className="border text-right font-semibold">
                                             {Number(
                                                 Number(
-                                                    lodash.chain(
-                                                        aktivitas.rincianRbaBelanja
-                                                    )
+                                                    lodash
+                                                        .chain(
+                                                            aktivitas.rincianRbaBelanja
+                                                        )
                                                         .groupBy(
                                                             (item) =>
                                                                 item.rab
@@ -273,9 +374,10 @@ export default function MonitoringTable() {
                                                                 (item) =>
                                                                     item.kodeRekening ===
                                                                         key &&
-                                                                    lodash.chain(
-                                                                        aktivitas.rincianRbaBelanja
-                                                                    )
+                                                                    lodash
+                                                                        .chain(
+                                                                            aktivitas.rincianRbaBelanja
+                                                                        )
                                                                         .groupBy(
                                                                             (
                                                                                 item
@@ -309,7 +411,8 @@ export default function MonitoringTable() {
                                             ).toLocaleString('id-ID')}
                                         </TableCell>
                                     </TableRow>
-                                    {lodash.chain(aktivitas.rincianRbaBelanja)
+                                    {lodash
+                                        .chain(aktivitas.rincianRbaBelanja)
                                         .groupBy(
                                             (item) => item.rab?.kodeRekening
                                         )
