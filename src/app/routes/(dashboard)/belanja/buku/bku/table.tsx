@@ -665,7 +665,12 @@ export default function BkuTable() {
                             </div>
                         </div>
                         <div className="w-1/3">
-                            <div className="font-serif">Samarinda,</div>
+                            <div className="font-serif">
+                                Samarinda,{' '}
+                                {formatTanggal(
+                                    searchParams.get('endDate') || new Date()
+                                )}
+                            </div>
                             <div className="font-serif">
                                 Bendahara Pengeluaran Pembantu BLUD
                             </div>
