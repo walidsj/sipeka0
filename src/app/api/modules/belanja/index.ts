@@ -363,25 +363,16 @@ export const belanjaRouter = createTRPCRouter({
 
             type JurnalType = {
                 id?: string | number
-                no: number | null
                 tgl: Date | null
                 noDokumen: string | null
                 kodeRekening?: string | null
                 uraian: string | null
                 penerimaan: number | null
                 pengeluaran: number | null
-                saldo?: number
-                type?:
-                    | 'belanja'
-                    | 'pendapatan'
-                    | 'saldo awal'
-                    | 'potongan belanja'
+                potonganBelanja?: JurnalType[]
             }
 
             let jurnal: JurnalType[] = []
-
-            let no = 0
-            let saldo = 0
 
             const belanjaBeforeList = await ctx.db.query.belanja.findMany({
                 where: lt(belanja.tglDokumen, startDate!),
@@ -442,31 +433,10 @@ export const belanjaRouter = createTRPCRouter({
 
             if (startDate && startDate >= new Date('2024-01-15')) {
                 saldoAwalPenerimaan = saldoAwalPenerimaan += 750_000_000
-                saldo = saldoAwalPenerimaan - saldoAwalPengeluaran
             }
-
-            jurnal.push({
-                no: null,
-                tgl: null,
-                noDokumen: null,
-                kodeRekening: null,
-                uraian: `Sisa kas yang lalu (Per tanggal ${Intl.DateTimeFormat(
-                    'id-ID',
-                    {
-                        day: '2-digit',
-                        month: 'long',
-                        year: 'numeric',
-                    }
-                ).format(
-                    new Date(startDate!.getTime() - 24 * 60 * 60 * 1000)
-                )})`,
-                penerimaan: null,
-                pengeluaran: null,
-            })
 
             if (startDate && startDate < new Date('2024-01-15')) {
                 jurnal.push({
-                    no: ++no,
                     tgl: new Date('2024-01-15'),
                     noDokumen: '900.1.3.5/001/UP /SP2D/RSJD-AHM/BLUD',
                     kodeRekening: null,
@@ -489,7 +459,6 @@ export const belanjaRouter = createTRPCRouter({
 
                     if (lpjSelected && lpjSelected.jenis !== 'GU') {
                         jurnal.push({
-                            no: ++no,
                             tgl: lpjSelected.tglDokumen,
                             noDokumen: `900.1.3.5/${lpjSelected.noDokumen}/${lpjSelected.jenis} /SP2D/RSJD-AHM/BLUD`,
                             kodeRekening: null,
@@ -506,25 +475,23 @@ export const belanjaRouter = createTRPCRouter({
 
                     jurnal.push({
                         id: blj.id,
-                        no: ++no,
                         tgl: blj.tglDokumen,
                         noDokumen: blj.noDokumen,
                         kodeRekening: blj.rab?.kodeRekening,
                         uraian: blj.uraian,
                         penerimaan: 0,
                         pengeluaran: Number(blj.jumlah),
-                    })
-
-                    blj.potonganBelanja.map((potongan) => {
-                        jurnal.push({
-                            no: null,
-                            tgl: null,
-                            noDokumen: null,
-                            kodeRekening: null,
-                            uraian: `Pemotongan dan penyetoran ${potongan.jenis}`,
-                            penerimaan: Number(potongan.jumlah),
-                            pengeluaran: Number(potongan.jumlah),
-                        })
+                        potonganBelanja: blj.potonganBelanja.map(
+                            (potongan) => ({
+                                tgl: null,
+                                id: blj.id,
+                                noDokumen: null,
+                                kodeRekening: null,
+                                uraian: `Pemotongan dan penyetoran ${potongan.jenis}`,
+                                penerimaan: Number(potongan.jumlah),
+                                pengeluaran: Number(potongan.jumlah),
+                            })
+                        ),
                     })
                 })
 
@@ -555,7 +522,6 @@ export const belanjaRouter = createTRPCRouter({
                 const spliceBawah = jurnal.splice(0, lastBelanjaIndex + 1)
 
                 const jurnalGu = {
-                    no: ++no,
                     tgl: lpj.tglDokumen,
                     noDokumen: `900.1.3.5/${lpj.noDokumen}/${lpj.jenis} /SP2D/RSJD-AHM/BLUD`,
                     kodeRekening: null,
@@ -569,15 +535,7 @@ export const belanjaRouter = createTRPCRouter({
                 jurnal = [...spliceBawah, jurnalGu, ...spliceAtas]
             })
 
-            jurnal = lodash.sortBy(jurnal, ['tanggal'], ['asc'])
-
-            jurnal = jurnal.map((item) => {
-                return {
-                    ...item,
-                    saldo: (saldo +=
-                        (item.penerimaan ?? 0) - (item.pengeluaran ?? 0)),
-                }
-            })
+            jurnal = lodash.sortBy(jurnal, ['tgl'], ['asc'])
 
             return {
                 data: jurnal,

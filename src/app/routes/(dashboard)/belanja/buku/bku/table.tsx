@@ -58,6 +58,7 @@ export default function BkuTable() {
 
     let saldoPenerimaan = 0
     let saldoPengeluaran = 0
+    let saldo = 0
 
     return (
         <div className="flex flex-col gap-5">
@@ -86,7 +87,7 @@ export default function BkuTable() {
             <div className="rounded-md border p-10 shadow">
                 <div
                     style={{
-                        fontSize: '8pt',
+                        fontSize: '9pt',
                     }}
                     className="leading-4"
                     ref={componentRef}
@@ -215,21 +216,62 @@ export default function BkuTable() {
                             </tr>
                         </thead>
                         <tbody className="border-b-2 border-double border-black">
+                            <tr>
+                                <td className="border border-black px-2 py-1"></td>
+                                <td className="border border-black px-2 py-1"></td>
+                                <td className="border border-black px-2 py-1"></td>
+                                <td className="border border-black px-2 py-1"></td>
+                                <td className="border border-black px-2 py-1 font-serif">
+                                    Sisa kas yang lalu (Per tanggal{' '}
+                                    {Intl.DateTimeFormat('id-ID', {
+                                        day: '2-digit',
+                                        month: 'long',
+                                        year: 'numeric',
+                                    }).format(
+                                        new Date(
+                                            searchParams.get('startDate') ||
+                                                format(new Date(), 'yyyy-MM-01')
+                                        ).getTime() -
+                                            24 * 60 * 60 * 1000
+                                    )}
+                                    )
+                                </td>
+                                <td className="border border-black px-2 py-1 text-right font-serif">
+                                    {formatAngka(0)}
+                                </td>
+                                <td className="border border-black px-2 py-1 text-right font-serif">
+                                    {formatAngka(0)}
+                                </td>
+                                <td className="border border-black px-2 py-1 text-right font-serif">
+                                    {formatAngka(
+                                        (saldo +=
+                                            jurnal.meta.totalLastPeriode
+                                                .penerimaan +
+                                            jurnal.meta.totalLastPeriode
+                                                .potongan -
+                                            jurnal.meta.totalLastPeriode
+                                                .pengeluaran -
+                                            jurnal.meta.totalLastPeriode
+                                                .potongan)
+                                    )}
+                                </td>
+                            </tr>
                             {jurnal.data.map((item, index) => {
                                 saldoPenerimaan += item.penerimaan || 0
                                 saldoPengeluaran += item.pengeluaran || 0
                                 return (
                                     <React.Fragment key={index}>
                                         <tr
+                                            className="border-t border-black"
                                             style={{
                                                 pageBreakInside: 'avoid',
                                                 pageBreakAfter: 'auto',
                                             }}
                                         >
-                                            <td className="border border-black px-2 py-1 text-center font-serif">
-                                                {item.no}
+                                            <td className="border-l border-r border-black px-2 py-1 text-center font-serif">
+                                                {index + 1}
                                             </td>
-                                            <td className="border border-black px-2 py-1 text-center font-serif">
+                                            <td className="border-r border-black px-2 py-1 text-center font-serif">
                                                 {item.tgl &&
                                                     Intl.DateTimeFormat(
                                                         'id-ID',
@@ -240,31 +282,103 @@ export default function BkuTable() {
                                                         }
                                                     ).format(item.tgl!)}
                                             </td>
-                                            <td className="border border-black px-2 py-1 text-center font-serif">
+                                            <td className="border-r border-black px-2 py-1 text-center font-serif">
                                                 {item.noDokumen}
                                             </td>
-                                            <td className="border border-black px-2 py-1 text-center font-serif">
+                                            <td className="border-r border-black px-2 py-1 text-center font-serif">
                                                 {item.kodeRekening}
                                             </td>
-                                            <td className="border border-black px-2 py-1 font-serif">
+                                            <td className="border-r border-black px-2 py-1 font-serif">
                                                 {item.uraian}
                                             </td>
-                                            <td className="border border-black px-2 py-1 text-right font-serif">
+                                            <td className="border-r border-black px-2 py-1 text-right font-serif">
                                                 {item.penerimaan !== null &&
                                                     formatAngka(
                                                         item.penerimaan
                                                     )}
                                             </td>
-                                            <td className="border border-black px-2 py-1 text-right font-serif">
+                                            <td className="border-r border-black px-2 py-1 text-right font-serif">
                                                 {item.pengeluaran !== null &&
                                                     formatAngka(
                                                         item.pengeluaran
                                                     )}
                                             </td>
-                                            <td className="border border-black px-2 py-1 text-right font-serif">
-                                                {formatAngka(item.saldo)}
+                                            <td className="border-r border-black px-2 py-1 text-right font-serif">
+                                                {formatAngka(
+                                                    (saldo +=
+                                                        Number(
+                                                            item.penerimaan
+                                                        ) -
+                                                        Number(
+                                                            item.pengeluaran
+                                                        ))
+                                                )}
                                             </td>
                                         </tr>
+                                        {item.potonganBelanja &&
+                                            item.potonganBelanja.map(
+                                                (item, index) => (
+                                                    <tr
+                                                        key={index}
+                                                        style={{
+                                                            pageBreakInside:
+                                                                'avoid',
+                                                            pageBreakAfter:
+                                                                'auto',
+                                                        }}
+                                                        className="border-t border-dotted border-slate-400"
+                                                    >
+                                                        <td className="border-l border-r border-black px-2 py-1 text-center font-serif"></td>
+                                                        <td className="border-r border-black px-2 py-1 text-center font-serif">
+                                                            {item.tgl &&
+                                                                Intl.DateTimeFormat(
+                                                                    'id-ID',
+                                                                    {
+                                                                        day: '2-digit',
+                                                                        month: '2-digit',
+                                                                        year: 'numeric',
+                                                                    }
+                                                                ).format(
+                                                                    item.tgl!
+                                                                )}
+                                                        </td>
+                                                        <td className="border-r border-black px-2 py-1 text-center font-serif">
+                                                            {item.noDokumen}
+                                                        </td>
+                                                        <td className="border-r border-black px-2 py-1 text-center font-serif">
+                                                            {item.kodeRekening}
+                                                        </td>
+                                                        <td className="border-r border-black px-2 py-1 font-serif">
+                                                            {item.uraian}
+                                                        </td>
+                                                        <td className="border-r border-black px-2 py-1 text-right font-serif">
+                                                            {item.penerimaan !==
+                                                                null &&
+                                                                formatAngka(
+                                                                    item.penerimaan
+                                                                )}
+                                                        </td>
+                                                        <td className="border-r border-black px-2 py-1 text-right font-serif">
+                                                            {item.pengeluaran !==
+                                                                null &&
+                                                                formatAngka(
+                                                                    item.pengeluaran
+                                                                )}
+                                                        </td>
+                                                        <td className="border-r border-black px-2 py-1 text-right font-serif">
+                                                            {formatAngka(
+                                                                (saldo +=
+                                                                    Number(
+                                                                        item.penerimaan
+                                                                    ) -
+                                                                    Number(
+                                                                        item.pengeluaran
+                                                                    ))
+                                                            )}
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            )}
                                     </React.Fragment>
                                 )
                             })}
@@ -661,16 +775,11 @@ export default function BkuTable() {
                         </tbody>
                     </table>
                     <p className="mt-5 font-serif">
-                        Demikianlah Buku Kas Umum Bendahara Pengeluaran Pembantu
+                        Demikian Buku Kas Umum Bendahara Pengeluaran Pembantu
                         BLUD ini dibuat dengan sebenarnya untuk dipergunakan
                         sebagaimana mestinya.
                     </p>
-                    <div
-                        style={{
-                            fontSize: '8.5pt',
-                        }}
-                        className="mt-5 flex"
-                    >
+                    <div className="mt-5 flex">
                         <div className="w-1/3">
                             <div className="font-serif">Menyetujui:</div>
                             <div className="font-serif">
