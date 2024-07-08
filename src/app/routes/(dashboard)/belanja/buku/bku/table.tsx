@@ -146,13 +146,13 @@ export default function BkuTable() {
                     </table>
                     <hr className="mb-5 mt-3 border-b-4 border-double border-black" />
                     <h5
-                        style={{ fontSize: '12pt' }}
+                        style={{ fontSize: '11pt' }}
                         className="text-center font-serif font-bold uppercase underline"
                     >
                         BUKU KAS UMUM PENGELUARAN BLUD
                     </h5>
                     <h4
-                        style={{ fontSize: '10pt' }}
+                        style={{ fontSize: '9pt' }}
                         className="mb-4 text-center font-serif font-bold uppercase"
                     >
                         BENDAHARA PENGELUARAN PEMBANTU
@@ -172,7 +172,7 @@ export default function BkuTable() {
                         )}
                     </h6>
                     <table
-                        className="my-5 w-full"
+                        className="my-5 w-[calc(100%-2px)]"
                         style={{
                             pageBreakInside: 'auto',
                         }}
@@ -184,32 +184,32 @@ export default function BkuTable() {
                             className="border-b-2 border-double border-black"
                         >
                             <tr>
-                                <th className="w-1 border border-black px-2 py-2 text-center font-serif">
+                                <th className="w-1 border border-black px-2 py-1 text-center font-serif">
                                     No
                                 </th>
-                                <th className="border border-black px-2 py-2 text-center font-serif">
+                                <th className="border border-black px-2 py-1 text-center font-serif">
                                     Tanggal
                                 </th>
-                                <th className="w-10 border border-black px-2 py-2 text-center font-serif">
+                                <th className="w-10 border border-black px-2 py-1 text-center font-serif">
                                     Nomor Bukti
                                 </th>
-                                <th className="border border-black px-2 py-2 text-center font-serif">
+                                <th className="border border-black px-2 py-1 text-center font-serif">
                                     Kode Rekening
                                 </th>
-                                <th className="border border-black px-2 py-2 font-serif">
+                                <th className="border border-black px-2 py-1 font-serif">
                                     Uraian
                                 </th>
-                                <th className="border border-black px-2 py-2 font-serif">
+                                <th className="border border-black px-2 py-1 font-serif">
                                     Penerimaan
                                     <br />
                                     (Rp)
                                 </th>
-                                <th className="border border-black px-2 py-2 font-serif">
+                                <th className="border border-black px-2 py-1 font-serif">
                                     Pengeluaran
                                     <br />
                                     (Rp)
                                 </th>
-                                <th className="border border-black px-2 py-2 font-serif">
+                                <th className="border border-black px-2 py-1 font-serif">
                                     Saldo
                                     <br />
                                     (Rp)
@@ -396,7 +396,7 @@ export default function BkuTable() {
                             <tr className="border-t-2 border-double border-black">
                                 <td
                                     colSpan={100}
-                                    className="border border-black px-2 py-2 text-left font-serif font-bold"
+                                    className="border border-black px-2 py-1 text-left font-serif font-bold"
                                 >
                                     Total
                                 </td>
@@ -507,7 +507,7 @@ export default function BkuTable() {
                             <tr className="border-t-2 border-double border-black">
                                 <td
                                     colSpan={100}
-                                    className="border border-black px-2 py-2 text-left font-serif font-bold"
+                                    className="border border-black px-2 py-1 text-left font-serif font-bold"
                                 >
                                     Dikurangi Jurnal Pemotongan/Penyetoran Pajak
                                 </td>
