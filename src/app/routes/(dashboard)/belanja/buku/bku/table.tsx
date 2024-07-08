@@ -85,7 +85,7 @@ export default function BkuTable() {
             <div className="rounded-md border p-10 shadow">
                 <div
                     style={{
-                        fontSize: '9pt',
+                        fontSize: '8pt',
                     }}
                     className="leading-4"
                     ref={componentRef}
@@ -95,8 +95,8 @@ export default function BkuTable() {
                             @page {
                                 size: landscape;
                                 margin-top: 1cm;
-                                margin-left: 1cm;
-                                margin-right: 1cm;
+                                margin-left: 1.5cm;
+                                margin-right: 1.5cm;
                                 margin-bottom: 1cm;
                                 
                             }
@@ -113,18 +113,21 @@ export default function BkuTable() {
                                 </td>
                                 <td className="text-center">
                                     <div
-                                        style={{ fontSize: '11pt' }}
+                                        style={{ fontSize: '10pt' }}
                                         className="font-serif font-bold uppercase"
                                     >
                                         Pemerintah Provinsi Kalimantan Timur
                                     </div>
                                     <div
-                                        style={{ fontSize: '13pt' }}
+                                        style={{ fontSize: '12pt' }}
                                         className="font-serif font-bold uppercase"
                                     >
                                         Dinas Kesehatan
                                     </div>
-                                    <div className="font-serif text-lg font-bold uppercase">
+                                    <div
+                                        style={{ fontSize: '12pt' }}
+                                        className="font-serif font-bold uppercase"
+                                    >
                                         Rumah Sakit Jiwa Daerah Atma Husada
                                         Mahakam
                                     </div>
@@ -181,32 +184,32 @@ export default function BkuTable() {
                             className="border-b-2 border-double border-black"
                         >
                             <tr>
-                                <th className="w-1 border border-black px-2 py-3 text-center font-serif">
+                                <th className="w-1 border border-black px-2 py-2 text-center font-serif">
                                     No
                                 </th>
-                                <th className="border border-black px-2 py-3 text-center font-serif">
+                                <th className="border border-black px-2 py-2 text-center font-serif">
                                     Tanggal
                                 </th>
-                                <th className="w-10 border border-black px-2 py-3 text-center font-serif">
+                                <th className="w-10 border border-black px-2 py-2 text-center font-serif">
                                     Nomor Bukti
                                 </th>
-                                <th className="border border-black px-2 py-3 text-center font-serif">
+                                <th className="border border-black px-2 py-2 text-center font-serif">
                                     Kode Rekening
                                 </th>
-                                <th className="border border-black px-2 py-3 font-serif">
+                                <th className="border border-black px-2 py-2 font-serif">
                                     Uraian
                                 </th>
-                                <th className="border border-black px-2 py-3 font-serif">
+                                <th className="border border-black px-2 py-2 font-serif">
                                     Penerimaan
                                     <br />
                                     (Rp)
                                 </th>
-                                <th className="border border-black px-2 py-3 font-serif">
+                                <th className="border border-black px-2 py-2 font-serif">
                                     Pengeluaran
                                     <br />
                                     (Rp)
                                 </th>
-                                <th className="border border-black px-2 py-3 font-serif">
+                                <th className="border border-black px-2 py-2 font-serif">
                                     Saldo
                                     <br />
                                     (Rp)
@@ -215,11 +218,11 @@ export default function BkuTable() {
                         </thead>
                         <tbody className="border-b-2 border-double border-black">
                             <tr>
-                                <td className="border border-black px-2 py-1"></td>
-                                <td className="border border-black px-2 py-1"></td>
-                                <td className="border border-black px-2 py-1"></td>
-                                <td className="border border-black px-2 py-1"></td>
-                                <td className="border border-black px-2 py-1 font-serif">
+                                <td className="border border-black px-2 py-0.5"></td>
+                                <td className="border border-black px-2 py-0.5"></td>
+                                <td className="border border-black px-2 py-0.5"></td>
+                                <td className="border border-black px-2 py-0.5"></td>
+                                <td className="border border-black px-2 py-0.5 font-serif">
                                     Sisa kas yang lalu (Per tanggal{' '}
                                     {Intl.DateTimeFormat('id-ID', {
                                         day: '2-digit',
@@ -234,13 +237,13 @@ export default function BkuTable() {
                                     )}
                                     )
                                 </td>
-                                <td className="border border-black px-2 py-1 text-right font-serif">
+                                <td className="border border-black px-2 py-0.5 text-right font-serif">
                                     {formatAngka(0)}
                                 </td>
-                                <td className="border border-black px-2 py-1 text-right font-serif">
+                                <td className="border border-black px-2 py-0.5 text-right font-serif">
                                     {formatAngka(0)}
                                 </td>
-                                <td className="border border-black px-2 py-1 text-right font-serif">
+                                <td className="border border-black px-2 py-0.5 text-right font-serif">
                                     {formatAngka(
                                         (saldo +=
                                             jurnal.meta.totalLastPeriode
@@ -266,10 +269,10 @@ export default function BkuTable() {
                                                 pageBreakAfter: 'auto',
                                             }}
                                         >
-                                            <td className="border-l border-r border-black px-2 py-1 text-center font-serif">
+                                            <td className="border-l border-r border-black px-2 py-0.5 text-center font-serif">
                                                 {index + 1}
                                             </td>
-                                            <td className="border-r border-black px-2 py-1 text-center font-serif">
+                                            <td className="border-r border-black px-2 py-0.5 text-center font-serif">
                                                 {item.tgl &&
                                                     Intl.DateTimeFormat(
                                                         'id-ID',
@@ -280,28 +283,28 @@ export default function BkuTable() {
                                                         }
                                                     ).format(item.tgl!)}
                                             </td>
-                                            <td className="border-r border-black px-2 py-1 text-center font-serif">
+                                            <td className="border-r border-black px-2 py-0.5 text-center font-serif">
                                                 {item.noDokumen}
                                             </td>
-                                            <td className="border-r border-black px-2 py-1 text-center font-serif">
+                                            <td className="border-r border-black px-2 py-0.5 text-center font-serif">
                                                 {item.kodeRekening}
                                             </td>
-                                            <td className="border-r border-black px-2 py-1 font-serif">
+                                            <td className="border-r border-black px-2 py-0.5 font-serif">
                                                 {item.uraian}
                                             </td>
-                                            <td className="border-r border-black px-2 py-1 text-right font-serif">
+                                            <td className="border-r border-black px-2 py-0.5 text-right font-serif">
                                                 {item.penerimaan !== null &&
                                                     formatAngka(
                                                         item.penerimaan
                                                     )}
                                             </td>
-                                            <td className="border-r border-black px-2 py-1 text-right font-serif">
+                                            <td className="border-r border-black px-2 py-0.5 text-right font-serif">
                                                 {item.pengeluaran !== null &&
                                                     formatAngka(
                                                         item.pengeluaran
                                                     )}
                                             </td>
-                                            <td className="border-r border-black px-2 py-1 text-right font-serif">
+                                            <td className="border-r border-black px-2 py-0.5 text-right font-serif">
                                                 {formatAngka(
                                                     (saldo +=
                                                         Number(
@@ -324,10 +327,10 @@ export default function BkuTable() {
                                                             pageBreakAfter:
                                                                 'auto',
                                                         }}
-                                                        className="border-t border-dotted border-slate-400"
+                                                        className="border-t border-dotted border-neutral-400"
                                                     >
-                                                        <td className="border-l border-r border-black px-2 py-1 text-center font-serif"></td>
-                                                        <td className="border-r border-black px-2 py-1 text-center font-serif">
+                                                        <td className="border-l border-r border-black px-2 py-0.5 text-center font-serif"></td>
+                                                        <td className="border-r border-black px-2 py-0.5 text-center font-serif">
                                                             {item.tgl &&
                                                                 Intl.DateTimeFormat(
                                                                     'id-ID',
@@ -340,30 +343,30 @@ export default function BkuTable() {
                                                                     item.tgl!
                                                                 )}
                                                         </td>
-                                                        <td className="border-r border-black px-2 py-1 text-center font-serif">
+                                                        <td className="border-r border-black px-2 py-0.5 text-center font-serif">
                                                             {item.noDokumen}
                                                         </td>
-                                                        <td className="border-r border-black px-2 py-1 text-center font-serif">
+                                                        <td className="border-r border-black px-2 py-0.5 text-center font-serif">
                                                             {item.kodeRekening}
                                                         </td>
-                                                        <td className="border-r border-black px-2 py-1 font-serif">
+                                                        <td className="border-r border-black px-2 py-0.5 font-serif">
                                                             {item.uraian}
                                                         </td>
-                                                        <td className="border-r border-black px-2 py-1 text-right font-serif">
+                                                        <td className="border-r border-black px-2 py-0.5 text-right font-serif">
                                                             {item.penerimaan !==
                                                                 null &&
                                                                 formatAngka(
                                                                     item.penerimaan
                                                                 )}
                                                         </td>
-                                                        <td className="border-r border-black px-2 py-1 text-right font-serif">
+                                                        <td className="border-r border-black px-2 py-0.5 text-right font-serif">
                                                             {item.pengeluaran !==
                                                                 null &&
                                                                 formatAngka(
                                                                     item.pengeluaran
                                                                 )}
                                                         </td>
-                                                        <td className="border-r border-black px-2 py-1 text-right font-serif">
+                                                        <td className="border-r border-black px-2 py-0.5 text-right font-serif">
                                                             {formatAngka(
                                                                 (saldo +=
                                                                     Number(
@@ -401,14 +404,14 @@ export default function BkuTable() {
                             <tr>
                                 <td
                                     colSpan={5}
-                                    className="border-l border-black px-2 py-1 text-left font-serif"
+                                    className="border-l border-black px-2 py-0.5 text-left font-serif"
                                 >
                                     Jumlah periode Ini
                                 </td>
-                                <td className="px-2 py-1 text-right font-serif">
+                                <td className="px-2 py-0.5 text-right font-serif">
                                     {formatAngka(saldoPenerimaan)}
                                 </td>
-                                <td className="px-2 py-1 text-right font-serif">
+                                <td className="px-2 py-0.5 text-right font-serif">
                                     {formatAngka(saldoPengeluaran)}
                                 </td>
                                 <td className="border-r border-black"></td>
@@ -416,7 +419,7 @@ export default function BkuTable() {
                             <tr>
                                 <td
                                     colSpan={5}
-                                    className="border-l border-black px-2 py-1 text-left font-serif"
+                                    className="border-l border-black px-2 py-0.5 text-left font-serif"
                                 >
                                     Jumlah yang lalu (per tanggal{' '}
                                     {Intl.DateTimeFormat('id-ID', {
@@ -432,7 +435,7 @@ export default function BkuTable() {
                                     )}
                                     )
                                 </td>
-                                <td className="px-2 py-1 text-right font-serif">
+                                <td className="px-2 py-0.5 text-right font-serif">
                                     {formatAngka(
                                         jurnal.meta.totalLastPeriode
                                             .penerimaan +
@@ -440,7 +443,7 @@ export default function BkuTable() {
                                                 .potongan
                                     )}
                                 </td>
-                                <td className="px-2 py-1 text-right font-serif">
+                                <td className="px-2 py-0.5 text-right font-serif">
                                     {formatAngka(
                                         jurnal.meta.totalLastPeriode
                                             .pengeluaran +
@@ -453,11 +456,11 @@ export default function BkuTable() {
                             <tr>
                                 <td
                                     colSpan={5}
-                                    className="border-l border-black px-2 py-1 text-left font-serif"
+                                    className="border-l border-black px-2 py-0.5 text-left font-serif"
                                 >
                                     Jumlah sampai dengan saat ini
                                 </td>
-                                <td className="border-b border-black px-2 py-1 text-right font-serif">
+                                <td className="border-b border-black px-2 py-0.5 text-right font-serif">
                                     {formatAngka(
                                         saldoPenerimaan +
                                             jurnal.meta.totalLastPeriode
@@ -466,7 +469,7 @@ export default function BkuTable() {
                                                 .potongan
                                     )}
                                 </td>
-                                <td className="border-b border-black px-2 py-1 text-right font-serif">
+                                <td className="border-b border-black px-2 py-0.5 text-right font-serif">
                                     {formatAngka(
                                         saldoPengeluaran +
                                             jurnal.meta.totalLastPeriode
@@ -480,11 +483,11 @@ export default function BkuTable() {
                             <tr>
                                 <td
                                     colSpan={5}
-                                    className="border-l border-black px-2 py-1 text-left font-serif"
+                                    className="border-l border-black px-2 py-0.5 text-left font-serif"
                                 >
                                     Sisa kas
                                 </td>
-                                <td className="px-2 py-1 text-right font-serif">
+                                <td className="px-2 py-0.5 text-right font-serif">
                                     {formatAngka(
                                         saldoPenerimaan +
                                             jurnal.meta.totalLastPeriode
@@ -512,16 +515,16 @@ export default function BkuTable() {
                             <tr>
                                 <td
                                     colSpan={5}
-                                    className="border-l border-black px-2 py-1 text-left font-serif"
+                                    className="border-l border-black px-2 py-0.5 text-left font-serif"
                                 >
                                     Jumlah pemotongan/penyetoran periode ini
                                 </td>
-                                <td className="px-2 py-1 text-right font-serif">
+                                <td className="px-2 py-0.5 text-right font-serif">
                                     {formatAngka(
                                         jurnal.meta.totalThisPeriode.potongan
                                     )}
                                 </td>
-                                <td className="px-2 py-1 text-right font-serif">
+                                <td className="px-2 py-0.5 text-right font-serif">
                                     {formatAngka(
                                         jurnal.meta.totalThisPeriode.potongan
                                     )}
@@ -531,18 +534,18 @@ export default function BkuTable() {
                             <tr>
                                 <td
                                     colSpan={5}
-                                    className="border-l border-black px-2 py-1 text-left font-serif"
+                                    className="border-l border-black px-2 py-0.5 text-left font-serif"
                                 >
                                     Jumlah periode Ini
                                 </td>
-                                <td className="px-2 py-1 text-right font-serif">
+                                <td className="px-2 py-0.5 text-right font-serif">
                                     {formatAngka(
                                         saldoPenerimaan -
                                             jurnal.meta.totalThisPeriode
                                                 .potongan
                                     )}
                                 </td>
-                                <td className="px-2 py-1 text-right font-serif">
+                                <td className="px-2 py-0.5 text-right font-serif">
                                     {formatAngka(
                                         saldoPengeluaran -
                                             jurnal.meta.totalThisPeriode
@@ -554,7 +557,7 @@ export default function BkuTable() {
                             <tr>
                                 <td
                                     colSpan={5}
-                                    className="border-l border-black px-2 py-1 text-left font-serif"
+                                    className="border-l border-black px-2 py-0.5 text-left font-serif"
                                 >
                                     Jumlah pemotongan/penyetoran yang lalu (per
                                     tanggal{' '}
@@ -571,12 +574,12 @@ export default function BkuTable() {
                                     )}
                                     )
                                 </td>
-                                <td className="px-2 py-1 text-right font-serif">
+                                <td className="px-2 py-0.5 text-right font-serif">
                                     {formatAngka(
                                         jurnal.meta.totalLastPeriode.potongan
                                     )}
                                 </td>
-                                <td className="px-2 py-1 text-right font-serif">
+                                <td className="px-2 py-0.5 text-right font-serif">
                                     {formatAngka(
                                         jurnal.meta.totalLastPeriode.potongan
                                     )}
@@ -586,7 +589,7 @@ export default function BkuTable() {
                             <tr>
                                 <td
                                     colSpan={5}
-                                    className="border-l border-black px-2 py-1 text-left font-serif"
+                                    className="border-l border-black px-2 py-0.5 text-left font-serif"
                                 >
                                     Jumlah yang lalu (per tanggal{' '}
                                     {Intl.DateTimeFormat('id-ID', {
@@ -602,12 +605,12 @@ export default function BkuTable() {
                                     )}
                                     )
                                 </td>
-                                <td className="px-2 py-1 text-right font-serif">
+                                <td className="px-2 py-0.5 text-right font-serif">
                                     {formatAngka(
                                         jurnal.meta.totalLastPeriode.penerimaan
                                     )}
                                 </td>
-                                <td className="px-2 py-1 text-right font-serif">
+                                <td className="px-2 py-0.5 text-right font-serif">
                                     {formatAngka(
                                         jurnal.meta.totalLastPeriode.pengeluaran
                                     )}
@@ -618,11 +621,11 @@ export default function BkuTable() {
                             <tr>
                                 <td
                                     colSpan={5}
-                                    className="border-l border-black px-2 py-1 text-left font-serif"
+                                    className="border-l border-black px-2 py-0.5 text-left font-serif"
                                 >
                                     Jumlah sampai dengan saat ini
                                 </td>
-                                <td className="border-b border-black px-2 py-1 text-right font-serif">
+                                <td className="border-b border-black px-2 py-0.5 text-right font-serif">
                                     {formatAngka(
                                         saldoPenerimaan +
                                             jurnal.meta.totalLastPeriode
@@ -631,7 +634,7 @@ export default function BkuTable() {
                                                 .potongan
                                     )}
                                 </td>
-                                <td className="border-b border-black px-2 py-1 text-right font-serif">
+                                <td className="border-b border-black px-2 py-0.5 text-right font-serif">
                                     {formatAngka(
                                         saldoPengeluaran +
                                             jurnal.meta.totalLastPeriode
@@ -645,11 +648,11 @@ export default function BkuTable() {
                             <tr>
                                 <td
                                     colSpan={5}
-                                    className="border-l border-black px-2 py-1 text-left font-serif"
+                                    className="border-l border-black px-2 py-0.5 text-left font-serif"
                                 >
                                     Sisa kas
                                 </td>
-                                <td className="px-2 py-1 text-right font-serif">
+                                <td className="px-2 py-0.5 text-right font-serif">
                                     {formatAngka(
                                         saldoPenerimaan +
                                             jurnal.meta.totalLastPeriode
