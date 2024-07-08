@@ -11,7 +11,8 @@ import { Link } from 'react-router-dom'
 
 export default function Page() {
     return (
-        <div className="grid grid-cols-5 gap-4">
+        <div className="grid grid-cols-5 gap-4 pb-5">
+            <CardTitle className="col-span-5">Pre-Requisite</CardTitle>
             <Card>
                 <CardHeader className="flex flex-row gap-4">
                     <div className="w-full">
@@ -31,6 +32,7 @@ export default function Page() {
                     </Button>
                 </CardFooter>
             </Card>
+            <CardTitle className="col-span-5">Operational</CardTitle>
             <Card>
                 <CardHeader className="flex flex-row gap-4">
                     <div className="w-full">
@@ -50,6 +52,26 @@ export default function Page() {
                     </Button>
                 </CardFooter>
             </Card>
+            <Card>
+                <CardHeader className="flex flex-row gap-4">
+                    <div className="w-full">
+                        <CardTitle className="mb-3">Buku Besar</CardTitle>
+                        <CardDescription>
+                            Buku Besar per Kode Rekening
+                        </CardDescription>
+                    </div>
+                    <HiOutlineDocumentText className="flex-shrink-0 flex-grow-0 text-5xl text-primary" />
+                </CardHeader>
+                <CardFooter>
+                    <Button asChild>
+                        <Link to="/akuntansi/buku-besar">
+                            Akses
+                            <HiOutlineArrowSmRight className="ml-2" />
+                        </Link>
+                    </Button>
+                </CardFooter>
+            </Card>
+            <CardTitle className="col-span-5">Financial Statement</CardTitle>
             <Card>
                 <CardHeader className="flex flex-row gap-4">
                     <div className="w-full">
@@ -89,16 +111,14 @@ export default function Page() {
             <Card>
                 <CardHeader className="flex flex-row gap-4">
                     <div className="w-full">
-                        <CardTitle className="mb-3">Buku Besar</CardTitle>
-                        <CardDescription>
-                            Buku Besar per Kode Rekening
-                        </CardDescription>
+                        <CardTitle className="mb-3">Neraca</CardTitle>
+                        <CardDescription>Laporan Keuangan</CardDescription>
                     </div>
                     <HiOutlineDocumentText className="flex-shrink-0 flex-grow-0 text-5xl text-primary" />
                 </CardHeader>
                 <CardFooter>
                     <Button asChild>
-                        <Link to="/akuntansi/buku-besar">
+                        <Link to="/akuntansi/lra">
                             Akses
                             <HiOutlineArrowSmRight className="ml-2" />
                         </Link>
