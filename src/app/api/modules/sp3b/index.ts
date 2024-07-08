@@ -7,7 +7,9 @@ import { TRPCError } from '@trpc/server'
 
 export const sp3bRouter = createTRPCRouter({
     getAll: userProcedure.query(async ({ ctx }) => {
-        return await ctx.db.query.sp3bTable.findMany()
+        return await ctx.db.query.sp3bTable.findMany({
+            orderBy: [desc(sp3bTable.tglMulai)],
+        })
     }),
 
     create: userProcedure.input(sp3bSchema).mutation(async ({ ctx, input }) => {
@@ -19,7 +21,6 @@ export const sp3bRouter = createTRPCRouter({
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {
         const sp3b = await ctx.db.query.sp3bTable.findFirst({
             where: eq(sp3bTable.id, input),
-            orderBy: [desc(sp3bTable.tglMulai)],
             with: {
                 penandatangan: true,
             },
