@@ -12,7 +12,11 @@ import Loading from '@/web/components/loading'
 import { useReactToPrint } from 'react-to-print'
 import React from 'react'
 import { Button } from '@/web/components/ui/button'
-import { formatAngkaDecimal, formatTanggal } from '@/web/lib/utils'
+import {
+    formatAngkaDecimal,
+    formatAngkaRomawi,
+    formatTanggal,
+} from '@/web/lib/utils'
 
 export default function Page() {
     const params = useParams<{ sp3bId: string }>()
@@ -133,6 +137,16 @@ export default function Page() {
                                                     }}
                                                 >
                                                     {sp3b.noDokumen}
+                                                    /RSJDAHM-BLUD/SP3B/
+                                                    {formatAngkaRomawi(
+                                                        new Date(
+                                                            sp3b.tglDokumen!
+                                                        ).getMonth() + 1
+                                                    )}
+                                                    /
+                                                    {new Date(
+                                                        sp3b.tglDokumen!
+                                                    ).getFullYear()}
                                                 </td>
                                             </tr>
                                             <tr>

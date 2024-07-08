@@ -118,7 +118,7 @@ export default function Page() {
                             Surat Pengantar
                         </h5>
                         <h4 className="mb-5 text-center font-serif">
-                            Nomor: {sp3b.noDokumen}
+                            Nomor: {sp3b.noDokumen}/SP3B-BLUD/RSJD.AHM-KEU
                         </h4>
                         <table className="mb-5 w-full">
                             <thead>

@@ -97,7 +97,7 @@ export default function Page() {
                             Surat Pernyataan Tanggung Jawab (SPTJB)
                         </h5>
                         <h4 className="mb-5 text-center font-serif">
-                            Nomor: {sp3b.noDokumen}
+                            Nomor: {sp3b.noDokumen}/SPTJB/RSJDAHM-BLUD
                         </h4>
                         <p className="mb-5 text-justify indent-10 font-serif leading-5">
                             Sehubungan dengan pendapatan BLUD RSJD Atma Husada
