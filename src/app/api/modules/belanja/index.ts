@@ -468,7 +468,7 @@ export const belanjaRouter = createTRPCRouter({
                 jurnal.push({
                     no: ++no,
                     tgl: new Date('2024-01-15'),
-                    noDokumen: '900.1.3.5/001/UP/SP2D/RSJD-AHM/BLUD',
+                    noDokumen: '900.1.3.5/001/UP /SP2D/RSJD-AHM/BLUD',
                     kodeRekening: null,
                     uraian: 'Terima Pencairan SP2D Uang Persediaan (UP) BLUD pada RSJD Atma Husada Mahakam Prov. Kaltim untuk Tahun Anggaran 2024',
                     penerimaan: 750_000_000,
@@ -491,7 +491,7 @@ export const belanjaRouter = createTRPCRouter({
                         jurnal.push({
                             no: ++no,
                             tgl: lpjSelected.tglDokumen,
-                            noDokumen: `900.1.3.5/${lpjSelected.noDokumen}/${lpjSelected.jenis}/SP2D/RSJD-AHM/BLUD`,
+                            noDokumen: `900.1.3.5/${lpjSelected.noDokumen}/${lpjSelected.jenis} /SP2D/RSJD-AHM/BLUD`,
                             kodeRekening: null,
                             uraian: `Terima Pencairan SP2D Pembayaran ${lpjSelected.uraian}`,
                             penerimaan: lpjSelected.belanja.reduce(
@@ -557,7 +557,7 @@ export const belanjaRouter = createTRPCRouter({
                 const jurnalGu = {
                     no: ++no,
                     tgl: lpj.tglDokumen,
-                    noDokumen: `900.1.3.5/${lpj.noDokumen}/${lpj.jenis}/SP2D/RSJD-AHM/BLUD`,
+                    noDokumen: `900.1.3.5/${lpj.noDokumen}/${lpj.jenis} /SP2D/RSJD-AHM/BLUD`,
                     kodeRekening: null,
                     uraian: `Terima Pencairan SP2D Pembayaran ${lpj.uraian}`,
                     penerimaan: lpj.belanja.reduce((acc, item) => {

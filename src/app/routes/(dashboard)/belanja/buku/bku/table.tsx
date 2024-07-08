@@ -83,18 +83,23 @@ export default function BkuTable() {
                     />
                 </div>
             </div>
-            <div className="rounded-md border shadow">
+            <div className="rounded-md border p-10 shadow">
                 <div
                     style={{
-                        fontSize: '8.5pt',
+                        fontSize: '8pt',
                     }}
-                    className="px-10 py-10 leading-4"
+                    className="leading-4"
                     ref={componentRef}
                 >
                     <style type="text/css" media="print">
                         {`
                             @page {
-                                size: landscape; 
+                                size: landscape;
+                                margin-top: 1cm;
+                                margin-left: 1cm;
+                                margin-right: 1cm;
+                                margin-bottom: 1cm;
+                                
                             }
                         `}
                     </style>
@@ -108,13 +113,13 @@ export default function BkuTable() {
                             </td>
                             <td className="text-center">
                                 <div
-                                    style={{ fontSize: '12pt' }}
+                                    style={{ fontSize: '11pt' }}
                                     className="font-serif font-bold uppercase"
                                 >
                                     Pemerintah Provinsi Kalimantan Timur
                                 </div>
                                 <div
-                                    style={{ fontSize: '14pt' }}
+                                    style={{ fontSize: '13pt' }}
                                     className="font-serif font-bold uppercase"
                                 >
                                     Dinas Kesehatan
@@ -161,8 +166,18 @@ export default function BkuTable() {
                             searchParams.get('endDate') || new Date()
                         )}
                     </h6>
-                    <table className="my-5 w-full">
-                        <thead className="border-b-2 border-double border-black">
+                    <table
+                        className="my-5 w-full"
+                        style={{
+                            pageBreakInside: 'auto',
+                        }}
+                    >
+                        <thead
+                            style={{
+                                display: 'table-header-group',
+                            }}
+                            className="border-b-2 border-double border-black"
+                        >
                             <tr>
                                 <th className="w-1 border border-black px-2 py-3 text-center font-serif">
                                     No
@@ -181,12 +196,18 @@ export default function BkuTable() {
                                 </th>
                                 <th className="border border-black px-2 py-3 font-serif">
                                     Penerimaan
+                                    <br />
+                                    (Rp)
                                 </th>
                                 <th className="border border-black px-2 py-3 font-serif">
                                     Pengeluaran
+                                    <br />
+                                    (Rp)
                                 </th>
                                 <th className="border border-black px-2 py-3 font-serif">
                                     Saldo
+                                    <br />
+                                    (Rp)
                                 </th>
                             </tr>
                         </thead>
@@ -196,7 +217,13 @@ export default function BkuTable() {
                                 saldoPengeluaran += item.pengeluaran || 0
                                 return (
                                     <>
-                                        <tr key={index}>
+                                        <tr
+                                            style={{
+                                                pageBreakInside: 'avoid',
+                                                pageBreakAfter: 'auto',
+                                            }}
+                                            key={index}
+                                        >
                                             <td className="border border-black px-2 py-1 text-center font-serif">
                                                 {item.no}
                                             </td>
