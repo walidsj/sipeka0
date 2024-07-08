@@ -75,17 +75,20 @@ export default function Page() {
                                     <td className="text-center">
                                         <div
                                             style={{ fontSize: '12pt' }}
-                                            className="font-serif font-bold uppercase"
+                                            className="font-serif font-bold uppercase leading-5"
                                         >
                                             Pemerintah Provinsi Kalimantan Timur
                                         </div>
                                         <div
                                             style={{ fontSize: '14pt' }}
-                                            className="font-serif font-bold uppercase"
+                                            className="font-serif font-bold uppercase leading-5"
                                         >
                                             Dinas Kesehatan
                                         </div>
-                                        <div className="font-serif text-lg font-bold uppercase">
+                                        <div
+                                            style={{ fontSize: '14pt' }}
+                                            className="font-serif font-bold uppercase leading-5"
+                                        >
                                             Rumah Sakit Jiwa Daerah Atma Husada
                                             Mahakam
                                         </div>
