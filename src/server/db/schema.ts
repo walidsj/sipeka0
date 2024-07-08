@@ -333,6 +333,15 @@ export const sp3bTable = mysqlTable('sp3b', {
         .onUpdateNow(),
 })
 
+export const pengembalianBelanjaTable = mysqlTable('pengembalian_belanja', {
+    id: serial('id').primaryKey(),
+    belanjaId: int('belanja_id', { unsigned: true }),
+    tglDokumen: timestamp('tgl_dokumen', { mode: 'date' }),
+    noDokumen: varchar('no_dokumen', { length: 256 }),
+    uraian: varchar('uraian', { length: 256 }),
+    jumlah: decimal('jumlah', { precision: 20, scale: 2 }),
+})
+
 export const userRelations = relations(user, ({ one }) => ({
     pegawai: one(pegawai, {
         fields: [user.pegawaiId],
@@ -477,6 +486,7 @@ export const belanjaRelations = relations(belanja, ({ one, many }) => ({
         fields: [belanja.lpjBelanjaId],
         references: [lpjBelanjaTable.id],
     }),
+    pengembalianBelanja: many(pengembalianBelanjaTable),
 }))
 
 export const potonganBelanjaRelations = relations(
@@ -484,6 +494,16 @@ export const potonganBelanjaRelations = relations(
     ({ one }) => ({
         belanja: one(belanja, {
             fields: [potonganBelanja.belanjaId],
+            references: [belanja.id],
+        }),
+    })
+)
+
+export const pengembalianBelanjaTableRelations = relations(
+    pengembalianBelanjaTable,
+    ({ one }) => ({
+        belanja: one(belanja, {
+            fields: [pengembalianBelanjaTable.belanjaId],
             references: [belanja.id],
         }),
     })

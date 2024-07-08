@@ -6,11 +6,25 @@ import {
     rba,
 } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { and, asc, count, desc, eq, gte, like, lte, or, sum } from 'drizzle-orm'
+import {
+    and,
+    asc,
+    count,
+    desc,
+    eq,
+    gte,
+    like,
+    lt,
+    lte,
+    or,
+    sum,
+} from 'drizzle-orm'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import { belanjaSchema, potonganBelanjaSchema } from './schema'
 import { rekeningLevel6 } from '@/data/rekening'
+import lodash from 'lodash'
+import { format } from 'date-fns'
 
 export const belanjaRouter = createTRPCRouter({
     getAll: userProcedure
@@ -329,4 +343,261 @@ export const belanjaRouter = createTRPCRouter({
                 ),
             }))
     }),
+
+    getBelanjaBku: userProcedure
+        .input(
+            z.object({
+                startDate: z.date().optional(),
+                endDate: z.date().optional(),
+            })
+        )
+        .query(async ({ ctx, input }) => {
+            const startDate =
+                input.startDate || new Date(format(new Date(), 'yyyy-MM-01'))
+            const endDate = input.endDate || new Date()
+
+            const filterDate = and(
+                startDate ? gte(belanja.tglDokumen, startDate) : undefined,
+                endDate ? lte(belanja.tglDokumen, endDate) : undefined
+            )
+
+            type JurnalType = {
+                id?: string | number
+                no: number | null
+                tgl: Date | null
+                noDokumen: string | null
+                kodeRekening?: string | null
+                uraian: string | null
+                penerimaan: number | null
+                pengeluaran: number | null
+                saldo?: number
+                type?:
+                    | 'belanja'
+                    | 'pendapatan'
+                    | 'saldo awal'
+                    | 'potongan belanja'
+            }
+
+            let jurnal: JurnalType[] = []
+
+            let no = 0
+            let saldo = 0
+
+            const belanjaBeforeList = await ctx.db.query.belanja.findMany({
+                where: lt(belanja.tglDokumen, startDate!),
+                with: {
+                    potonganBelanja: true,
+                },
+            })
+
+            const lpjBelanjaBeforeList =
+                await ctx.db.query.lpjBelanjaTable.findMany({
+                    where: lt(belanja.tglDokumen, startDate!),
+                    with: {
+                        belanja: true,
+                    },
+                })
+
+            const belanjaList = await ctx.db.query.belanja.findMany({
+                with: {
+                    rab: true,
+                    potonganBelanja: true,
+                },
+                where: filterDate,
+                orderBy: [asc(belanja.tglDokumen), asc(belanja.noDokumen)],
+            })
+
+            const lpjBelanjaList = await ctx.db.query.lpjBelanjaTable.findMany({
+                with: {
+                    belanja: true,
+                },
+                where: filterDate,
+                orderBy: [asc(belanja.tglDokumen), asc(belanja.noDokumen)],
+            })
+
+            let saldoAwalPengeluaran = belanjaBeforeList.reduce((acc, item) => {
+                return acc + Number(item.jumlah)
+            }, 0)
+
+            let saldoAwalPotongan = belanjaBeforeList.reduce((acc, item) => {
+                return (
+                    acc +
+                    item.potonganBelanja.reduce((acc, item) => {
+                        return acc + Number(item.jumlah)
+                    }, 0)
+                )
+            }, 0)
+
+            let saldoAwalPenerimaan = lpjBelanjaBeforeList.reduce(
+                (acc, item) => {
+                    return (
+                        acc +
+                        item.belanja.reduce((acc, item) => {
+                            return acc + Number(item.jumlah)
+                        }, 0)
+                    )
+                },
+                0
+            )
+
+            if (startDate && startDate >= new Date('2024-01-15')) {
+                saldoAwalPenerimaan = saldoAwalPenerimaan += 750_000_000
+                saldo = saldoAwalPenerimaan - saldoAwalPengeluaran
+            }
+
+            jurnal.push({
+                no: null,
+                tgl: null,
+                noDokumen: null,
+                kodeRekening: null,
+                uraian: `Sisa kas yang lalu (Per tanggal ${Intl.DateTimeFormat(
+                    'id-ID',
+                    {
+                        day: '2-digit',
+                        month: 'long',
+                        year: 'numeric',
+                    }
+                ).format(
+                    new Date(startDate!.getTime() - 24 * 60 * 60 * 1000)
+                )})`,
+                penerimaan: null,
+                pengeluaran: null,
+            })
+
+            if (startDate && startDate < new Date('2024-01-15')) {
+                jurnal.push({
+                    no: ++no,
+                    tgl: new Date('2024-01-15'),
+                    noDokumen: '900.1.3.5/001/UP/SP2D/RSJD-AHM/BLUD',
+                    kodeRekening: null,
+                    uraian: 'Terima Pencairan SP2D Uang Persediaan (UP) BLUD pada RSJD Atma Husada Mahakam Prov. Kaltim untuk Tahun Anggaran 2024',
+                    penerimaan: 750_000_000,
+                    pengeluaran: 0,
+                })
+            }
+
+            lodash
+                .sortBy(
+                    belanjaList,
+                    ['tglDokumen', 'noDokumen'],
+                    ['asc', 'asc']
+                )
+                .map((blj) => {
+                    const lpjSelected = lpjBelanjaList.find(
+                        (lpj) => blj.lpjBelanjaId === lpj.id
+                    )
+
+                    if (lpjSelected && lpjSelected.jenis !== 'GU') {
+                        jurnal.push({
+                            no: ++no,
+                            tgl: lpjSelected.tglDokumen,
+                            noDokumen: `900.1.3.5/${lpjSelected.noDokumen}/${lpjSelected.jenis}/SP2D/RSJD-AHM/BLUD`,
+                            kodeRekening: null,
+                            uraian: `Terima Pencairan SP2D Pembayaran ${lpjSelected.uraian}`,
+                            penerimaan: lpjSelected.belanja.reduce(
+                                (acc, item) => {
+                                    return acc + Number(item.jumlah)
+                                },
+                                0
+                            ),
+                            pengeluaran: 0,
+                        })
+                    }
+
+                    jurnal.push({
+                        id: blj.id,
+                        no: ++no,
+                        tgl: blj.tglDokumen,
+                        noDokumen: blj.noDokumen,
+                        kodeRekening: blj.rab?.kodeRekening,
+                        uraian: blj.uraian,
+                        penerimaan: 0,
+                        pengeluaran: Number(blj.jumlah),
+                    })
+
+                    blj.potonganBelanja.map((potongan) => {
+                        jurnal.push({
+                            no: null,
+                            tgl: null,
+                            noDokumen: null,
+                            kodeRekening: null,
+                            uraian: `Pemotongan dan penyetoran ${potongan.jenis}`,
+                            penerimaan: Number(potongan.jumlah),
+                            pengeluaran: Number(potongan.jumlah),
+                        })
+                    })
+                })
+
+            const lpjBelanjaGu = lpjBelanjaList.filter(
+                (lpj) => lpj.jenis === 'GU'
+            )
+            lpjBelanjaGu.map((lpj) => {
+                const belanja = lodash.sortBy(
+                    lpj.belanja,
+                    ['noDokumen', 'tglDokumen'],
+                    ['asc', 'asc']
+                )
+
+                const lastBelanja = belanja[belanja.length - 1]
+
+                const lastBelanjaIndex =
+                    lodash.lastIndexOf(
+                        jurnal,
+                        jurnal.find((item) => item.id === lastBelanja.id)
+                    ) +
+                    jurnal.filter((item) => item.id === lastBelanja.id).length -
+                    1
+
+                const spliceAtas = jurnal.splice(
+                    lastBelanjaIndex + 1,
+                    jurnal.length
+                )
+                const spliceBawah = jurnal.splice(0, lastBelanjaIndex + 1)
+
+                const jurnalGu = {
+                    no: ++no,
+                    tgl: lpj.tglDokumen,
+                    noDokumen: `900.1.3.5/${lpj.noDokumen}/${lpj.jenis}/SP2D/RSJD-AHM/BLUD`,
+                    kodeRekening: null,
+                    uraian: `Terima Pencairan SP2D Pembayaran ${lpj.uraian}`,
+                    penerimaan: lpj.belanja.reduce((acc, item) => {
+                        return acc + Number(item.jumlah)
+                    }, 0),
+                    pengeluaran: 0,
+                }
+
+                jurnal = [...spliceBawah, jurnalGu, ...spliceAtas]
+            })
+
+            jurnal = lodash.sortBy(jurnal, ['tanggal'], ['asc'])
+
+            jurnal = jurnal.map((item) => {
+                return {
+                    ...item,
+                    saldo: (saldo +=
+                        (item.penerimaan ?? 0) - (item.pengeluaran ?? 0)),
+                }
+            })
+
+            return {
+                data: jurnal,
+                meta: {
+                    totalThisPeriode: {
+                        potongan: belanjaList.reduce((acc, item) => {
+                            return (
+                                acc +
+                                item.potonganBelanja.reduce((acc, item) => {
+                                    return acc + Number(item.jumlah)
+                                }, 0)
+                            )
+                        }, 0),
+                    },
+                    totalLastPeriode: {
+                        penerimaan: saldoAwalPenerimaan,
+                        pengeluaran: saldoAwalPengeluaran,
+                        potongan: saldoAwalPotongan,
+                    },
+                },
+            }
+        }),
 })
