@@ -104,40 +104,43 @@ export default function BkuTable() {
                         `}
                     </style>
                     <table className="mt-3 w-full">
-                        <tr>
-                            <td className="w-16 font-serif">
-                                <img
-                                    src="/images/logo-kaltimprov.webp"
-                                    className="h-20 w-24"
-                                />
-                            </td>
-                            <td className="text-center">
-                                <div
-                                    style={{ fontSize: '11pt' }}
-                                    className="font-serif font-bold uppercase"
-                                >
-                                    Pemerintah Provinsi Kalimantan Timur
-                                </div>
-                                <div
-                                    style={{ fontSize: '13pt' }}
-                                    className="font-serif font-bold uppercase"
-                                >
-                                    Dinas Kesehatan
-                                </div>
-                                <div className="font-serif text-lg font-bold uppercase">
-                                    Rumah Sakit Jiwa Daerah Atma Husada Mahakam
-                                </div>
-                                <div className="font-serif">
-                                    Jl. Kakap No. 23 Samarinda Telp (0541)
-                                    743364 Fax 741035
-                                </div>
-                                <div className="font-serif">
-                                    Website: rsjdahm.kaltimprov.go.id | Posel:
-                                    rsjdahm@kaltimprov.go.id
-                                </div>
-                            </td>
-                            <td className="w-16"></td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <td className="w-16 font-serif">
+                                    <img
+                                        src="/images/logo-kaltimprov.webp"
+                                        className="h-20 w-24"
+                                    />
+                                </td>
+                                <td className="text-center">
+                                    <div
+                                        style={{ fontSize: '11pt' }}
+                                        className="font-serif font-bold uppercase"
+                                    >
+                                        Pemerintah Provinsi Kalimantan Timur
+                                    </div>
+                                    <div
+                                        style={{ fontSize: '13pt' }}
+                                        className="font-serif font-bold uppercase"
+                                    >
+                                        Dinas Kesehatan
+                                    </div>
+                                    <div className="font-serif text-lg font-bold uppercase">
+                                        Rumah Sakit Jiwa Daerah Atma Husada
+                                        Mahakam
+                                    </div>
+                                    <div className="font-serif">
+                                        Jl. Kakap No. 23 Samarinda Telp (0541)
+                                        743364 Fax 741035
+                                    </div>
+                                    <div className="font-serif">
+                                        Website: rsjdahm.kaltimprov.go.id |
+                                        Posel: rsjdahm@kaltimprov.go.id
+                                    </div>
+                                </td>
+                                <td className="w-16"></td>
+                            </tr>
+                        </tbody>
                     </table>
                     <hr className="mb-5 mt-3 border-b-4 border-double border-black" />
                     <h5
@@ -216,13 +219,12 @@ export default function BkuTable() {
                                 saldoPenerimaan += item.penerimaan || 0
                                 saldoPengeluaran += item.pengeluaran || 0
                                 return (
-                                    <>
+                                    <React.Fragment key={index}>
                                         <tr
                                             style={{
                                                 pageBreakInside: 'avoid',
                                                 pageBreakAfter: 'auto',
                                             }}
-                                            key={index}
                                         >
                                             <td className="border border-black px-2 py-1 text-center font-serif">
                                                 {item.no}
@@ -263,7 +265,7 @@ export default function BkuTable() {
                                                 {formatAngka(item.saldo)}
                                             </td>
                                         </tr>
-                                    </>
+                                    </React.Fragment>
                                 )
                             })}
                             {jurnal.data.length === 0 && (
@@ -564,12 +566,18 @@ export default function BkuTable() {
                                 )
                             )
                         )}{' '}
-                        bulan Februari tahun{' '}
+                        bulan{' '}
+                        {Intl.DateTimeFormat('id-ID', {
+                            month: 'long',
+                        }).format(
+                            new Date(searchParams.get('endDate') || new Date())
+                        )}{' '}
+                        tahun{' '}
                         {terbilang(
                             Number(
                                 format(
                                     searchParams.get('endDate') || new Date(),
-                                    'Y'
+                                    'y'
                                 )
                             )
                         )}
@@ -600,62 +608,58 @@ export default function BkuTable() {
                         )}{' '}
                         rupiah).
                     </p>
-                    <p className="mt-3 font-serif">
-                        Terdiri dari:
-                        <table className="w-1/3">
-                            <tbody>
-                                <tr>
-                                    <td className="w-5 font-serif">1.</td>
-                                    <td className="font-serif">Saldo Tunai</td>
-                                    <td className="w-5 font-serif">:</td>
-                                    <td className="font-serif">Rp</td>
-                                    <td className="text-right font-serif">
-                                        {formatAngkaDecimal(
-                                            saldoPenerimaan +
+                    <p className="mt-3 font-serif">Terdiri dari:</p>
+                    <table className="w-1/3">
+                        <tbody>
+                            <tr>
+                                <td className="w-5 font-serif">1.</td>
+                                <td className="font-serif">Saldo Tunai</td>
+                                <td className="w-5 font-serif">:</td>
+                                <td className="font-serif">Rp</td>
+                                <td className="text-right font-serif">
+                                    {formatAngkaDecimal(
+                                        saldoPenerimaan +
+                                            jurnal.meta.totalLastPeriode
+                                                .penerimaan +
+                                            jurnal.meta.totalLastPeriode
+                                                .potongan -
+                                            (saldoPengeluaran +
                                                 jurnal.meta.totalLastPeriode
-                                                    .penerimaan +
+                                                    .pengeluaran +
                                                 jurnal.meta.totalLastPeriode
-                                                    .potongan -
-                                                (saldoPengeluaran +
-                                                    jurnal.meta.totalLastPeriode
-                                                        .pengeluaran +
-                                                    jurnal.meta.totalLastPeriode
-                                                        .potongan)
-                                        )}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="w-5 font-serif">2.</td>
-                                    <td className="font-serif">Saldo Bank</td>
-                                    <td className="w-5 font-serif">:</td>
-                                    <td className="font-serif">Rp</td>
-                                    <td className="text-right font-serif">
-                                        {formatAngkaDecimal(0)}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="w-5 font-serif">3.</td>
-                                    <td className="font-serif">Panjar</td>
-                                    <td className="w-5 font-serif">:</td>
-                                    <td className="font-serif">Rp</td>
-                                    <td className="text-right font-serif">
-                                        {formatAngkaDecimal(0)}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="w-5 font-serif">4.</td>
-                                    <td className="font-serif">
-                                        Surat Berharga
-                                    </td>
-                                    <td className="w-5 font-serif">:</td>
-                                    <td className="font-serif">Rp</td>
-                                    <td className="text-right font-serif">
-                                        {formatAngkaDecimal(0)}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </p>
+                                                    .potongan)
+                                    )}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="w-5 font-serif">2.</td>
+                                <td className="font-serif">Saldo Bank</td>
+                                <td className="w-5 font-serif">:</td>
+                                <td className="font-serif">Rp</td>
+                                <td className="text-right font-serif">
+                                    {formatAngkaDecimal(0)}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="w-5 font-serif">3.</td>
+                                <td className="font-serif">Panjar</td>
+                                <td className="w-5 font-serif">:</td>
+                                <td className="font-serif">Rp</td>
+                                <td className="text-right font-serif">
+                                    {formatAngkaDecimal(0)}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="w-5 font-serif">4.</td>
+                                <td className="font-serif">Surat Berharga</td>
+                                <td className="w-5 font-serif">:</td>
+                                <td className="font-serif">Rp</td>
+                                <td className="text-right font-serif">
+                                    {formatAngkaDecimal(0)}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <p className="mt-5 font-serif">
                         Demikianlah Buku Kas Umum Bendahara Pengeluaran Pembantu
                         BLUD ini dibuat dengan sebenarnya untuk dipergunakan

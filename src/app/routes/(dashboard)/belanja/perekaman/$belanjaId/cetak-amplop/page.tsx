@@ -43,33 +43,45 @@ export default function EditPage() {
                 </CardDescription>
             </CardHeader>
             <CardContent className="flex gap-5">
-                <div className="w-full rounded-md border shadow">
-                    <div
-                        style={{ fontSize: '9pt' }}
-                        className="px-40 py-10"
-                        ref={componentRef}
-                    >
+                <div className="w-full rounded-md border p-10 shadow">
+                    <div style={{ fontSize: '9pt' }} ref={componentRef}>
+                        <style>
+                            {`
+                                @media print {
+                                    @page {
+                                        size: 241mm 105mm;
+                                        margin-top: 1cm;
+                                        margin-left: 3cm;
+                                        margin-right: 1.5cm;
+                                        margin-bottom: 1cm;
+                                   
+                                    }
+                                }
+                            `}
+                        </style>
                         <table className="mt-3 w-full">
-                            <tr>
-                                <td className="w-16 font-serif">
-                                    <img
-                                        src="/images/logo-kaltimprov.webp"
-                                        className="h-12 w-10"
-                                    />
-                                </td>
-                                <td>
-                                    <div className="-my-1 font-serif font-bold uppercase">
-                                        Pemerintah Provinsi Kalimantan Timur
-                                    </div>
-                                    <div
-                                        style={{ fontSize: '12pt' }}
-                                        className="-my-1 font-serif font-bold uppercase"
-                                    >
-                                        BLUD Rumah Sakit Jiwa Daerah Atma Husada
-                                        Mahakam
-                                    </div>
-                                </td>
-                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td className="w-16 font-serif">
+                                        <img
+                                            src="/images/logo-kaltimprov.webp"
+                                            className="h-12 w-10"
+                                        />
+                                    </td>
+                                    <td>
+                                        <div className="-my-1 font-serif font-bold uppercase">
+                                            Pemerintah Provinsi Kalimantan Timur
+                                        </div>
+                                        <div
+                                            style={{ fontSize: '12pt' }}
+                                            className="-my-1 font-serif font-bold uppercase"
+                                        >
+                                            BLUD Rumah Sakit Jiwa Daerah Atma
+                                            Husada Mahakam
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                         <table className="mt-5 w-full">
                             <tr>

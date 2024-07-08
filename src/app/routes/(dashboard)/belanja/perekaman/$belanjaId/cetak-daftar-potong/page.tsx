@@ -43,50 +43,64 @@ export default function Page() {
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <div className="rounded-md border shadow">
+                <div className="rounded-md border p-10 shadow">
                     <div
                         style={{
                             fontSize: '9pt',
                         }}
-                        className="px-14 py-10 leading-4"
+                        className="leading-4"
                         ref={componentRef}
                     >
+                        <style type="text/css" media="print">
+                            {`
+                                @page {
+                                    size: A4 portrait;
+                                    margin-top: 1cm;
+                                    margin-left: 1.5cm;
+                                    margin-right: 1.5cm;
+                                    margin-bottom: 1cm;
+                                    
+                                }
+                            `}
+                        </style>
                         <table className="mt-3 w-full">
-                            <tr>
-                                <td className="w-16 font-serif">
-                                    <img
-                                        src="/images/logo-kaltimprov.webp"
-                                        className="h-20 w-24"
-                                    />
-                                </td>
-                                <td className="text-center">
-                                    <div
-                                        style={{ fontSize: '12pt' }}
-                                        className="font-serif font-bold uppercase"
-                                    >
-                                        Pemerintah Provinsi Kalimantan Timur
-                                    </div>
-                                    <div
-                                        style={{ fontSize: '12pt' }}
-                                        className="font-serif font-bold uppercase"
-                                    >
-                                        Dinas Kesehatan
-                                    </div>
-                                    <div className="font-serif text-lg font-bold uppercase">
-                                        Rumah Sakit Jiwa Daerah Atma Husada
-                                        Mahakam
-                                    </div>
-                                    <div className="font-serif">
-                                        Jl. Kakap No. 23 Samarinda Telp (0541)
-                                        743364 Fax 741035
-                                    </div>
-                                    <div className="font-serif">
-                                        Website: rsjdahm.kaltimprov.go.id |
-                                        Posel: rsjdahm@kaltimprov.go.id
-                                    </div>
-                                </td>
-                                <td className="w-16"></td>
-                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td className="w-16 font-serif">
+                                        <img
+                                            src="/images/logo-kaltimprov.webp"
+                                            className="h-20 w-24"
+                                        />
+                                    </td>
+                                    <td className="text-center">
+                                        <div
+                                            style={{ fontSize: '12pt' }}
+                                            className="font-serif font-bold uppercase"
+                                        >
+                                            Pemerintah Provinsi Kalimantan Timur
+                                        </div>
+                                        <div
+                                            style={{ fontSize: '12pt' }}
+                                            className="font-serif font-bold uppercase"
+                                        >
+                                            Dinas Kesehatan
+                                        </div>
+                                        <div className="font-serif text-lg font-bold uppercase">
+                                            Rumah Sakit Jiwa Daerah Atma Husada
+                                            Mahakam
+                                        </div>
+                                        <div className="font-serif">
+                                            Jl. Kakap No. 23 Samarinda Telp
+                                            (0541) 743364 Fax 741035
+                                        </div>
+                                        <div className="font-serif">
+                                            Website: rsjdahm.kaltimprov.go.id |
+                                            Posel: rsjdahm@kaltimprov.go.id
+                                        </div>
+                                    </td>
+                                    <td className="w-16"></td>
+                                </tr>
+                            </tbody>
                         </table>
                         <hr className="mt-3 border-b-4 border-double border-black" />
                         <p

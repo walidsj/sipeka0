@@ -44,105 +44,124 @@ export default function EditPage() {
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <div className="rounded-md border shadow">
+                <div className="rounded-md border p-10 shadow">
                     <div
                         style={{
                             fontSize: '10pt',
                         }}
-                        className="px-14 py-10"
                         ref={componentRef}
                     >
+                        <style type="text/css" media="print">
+                            {`
+                                @page {
+                                    size: A4 portrait;
+                                    margin-top: 1cm;
+                                    margin-left: 1.5cm;
+                                    margin-right: 1.5cm;
+                                    margin-bottom: 1cm;
+                                    
+                                }
+                            `}
+                        </style>
                         <table className="w-full">
-                            <tr>
-                                <td className="w-1/3 align-top font-serif font-bold">
-                                    UNTUK DINAS
-                                    <br />
-                                    <i className="font-serif">
-                                        Lembar Ke 1 (Satu)
-                                    </i>
-                                </td>
-                                <td className="flex justify-end font-bold">
-                                    <table>
-                                        <tr>
-                                            <td className="min-w-36 py-0 font-serif">
-                                                Tahun Anggaran
-                                            </td>
-                                            <td className="min-w-4 py-0">:</td>
-                                            <td className="py-0 font-serif">
-                                                {format(
-                                                    new Date(
-                                                        belanja.tglDokumen!
-                                                    ),
-                                                    'yyyy'
-                                                )}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td className="py-0 font-serif">
-                                                Nomor BKU
-                                            </td>
-                                            <td className="py-0">:</td>
-                                            <td className="py-0 font-serif">
-                                                {belanja.noDokumen}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td className="py-0 font-serif">
-                                                Kode Rekening
-                                            </td>
-                                            <td className="py-0">:</td>
-                                            <td className="py-0 font-serif">
-                                                {belanja.rab?.kodeRekening}
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td className="w-1/3 align-top font-serif font-bold">
+                                        UNTUK DINAS
+                                        <br />
+                                        <i className="font-serif">
+                                            Lembar Ke 1 (Satu)
+                                        </i>
+                                    </td>
+                                    <td className="flex justify-end font-bold">
+                                        <table>
+                                            <tr>
+                                                <td className="min-w-36 py-0 font-serif">
+                                                    Tahun Anggaran
+                                                </td>
+                                                <td className="min-w-4 py-0">
+                                                    :
+                                                </td>
+                                                <td className="py-0 font-serif">
+                                                    {format(
+                                                        new Date(
+                                                            belanja.tglDokumen!
+                                                        ),
+                                                        'yyyy'
+                                                    )}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td className="py-0 font-serif">
+                                                    Nomor BKU
+                                                </td>
+                                                <td className="py-0">:</td>
+                                                <td className="py-0 font-serif">
+                                                    {belanja.noDokumen}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td className="py-0 font-serif">
+                                                    Kode Rekening
+                                                </td>
+                                                <td className="py-0">:</td>
+                                                <td className="py-0 font-serif">
+                                                    {belanja.rab?.kodeRekening}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                         <h4 className="mt-3 text-center font-serif text-xl font-bold italic underline">
                             KWITANSI / BUKTI PEMBAYARAN
                         </h4>
                         <table className="mt-3 w-full">
-                            <tr>
-                                <td className="w-36 font-serif">
-                                    Sudah terima dari
-                                </td>
-                                <td className="w-4">:</td>
-                                <td className="font-serif">
-                                    Kuasa Pengguna Anggaran BLUD RSJD Atma
-                                    Husada Mahakam
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="font-serif">Jumlah</td>
-                                <td>:</td>
-                                <td className="font-serif text-lg font-bold">
-                                    {Number(belanja.jumlah).toLocaleString(
-                                        'id-ID',
-                                        {
-                                            style: 'currency',
-                                            currency: 'IDR',
-                                        }
-                                    )}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="font-serif">Terbilang</td>
-                                <td>:</td>
-                                <td>
-                                    <div className="border border-black bg-gray-200 p-2 font-serif font-bold italic">
-                                        {terbilang(Number(belanja.jumlah))}{' '}
-                                        Rupiah
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="align-top font-serif">Untuk</td>
-                                <td className="align-top">:</td>
-                                <td className="align-top font-serif">
-                                    {belanja.uraian}
-                                </td>
-                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td className="w-36 font-serif">
+                                        Sudah terima dari
+                                    </td>
+                                    <td className="w-4">:</td>
+                                    <td className="font-serif">
+                                        Kuasa Pengguna Anggaran BLUD RSJD Atma
+                                        Husada Mahakam
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="font-serif">Jumlah</td>
+                                    <td>:</td>
+                                    <td className="font-serif text-lg font-bold">
+                                        {Number(belanja.jumlah).toLocaleString(
+                                            'id-ID',
+                                            {
+                                                style: 'currency',
+                                                currency: 'IDR',
+                                            }
+                                        )}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="font-serif">Terbilang</td>
+                                    <td>:</td>
+                                    <td>
+                                        <div className="border border-black bg-gray-200 p-2 font-serif font-bold italic">
+                                            {terbilang(Number(belanja.jumlah))}{' '}
+                                            Rupiah
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="align-top font-serif">
+                                        Untuk
+                                    </td>
+                                    <td className="align-top">:</td>
+                                    <td className="align-top font-serif">
+                                        {belanja.uraian}
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                         <div className="mt-3 flex">
                             <div className="w-3/5" />
