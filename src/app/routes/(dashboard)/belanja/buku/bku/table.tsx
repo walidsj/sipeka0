@@ -68,7 +68,6 @@ export default function BkuTable() {
                         value={searchParams.get('startDate') || ''}
                         type="date"
                         onChange={(e) => {
-                            searchParams.set('page', '1')
                             searchParams.set('startDate', e.target.value)
                             setSearchParams(searchParams)
                         }}
@@ -77,7 +76,6 @@ export default function BkuTable() {
                         type="date"
                         value={searchParams.get('endDate') || ''}
                         onChange={(e) => {
-                            searchParams.set('page', '1')
                             searchParams.set('endDate', e.target.value)
                             setSearchParams(searchParams)
                         }}
