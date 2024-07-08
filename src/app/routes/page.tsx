@@ -290,15 +290,17 @@ export default function Home() {
                                     <Card>
                                         <CardHeader className="flex gap-5">
                                             <p>
-                                                Aplikasi SIPEKA yang dikhususkan
-                                                untuk anggaran BLUD sangat kami
-                                                harapkan untuk membantu RS dalam
-                                                hal penggunaan aplikasi SIPD-RI
-                                                yang belum support ke anggaran
-                                                BLUD. Semoga Aplikasi SIPEKA
-                                                bisa menjawab kekosongan
-                                                Aplikasi SIPD-RI terhadap BLUD
-                                                RS.
+                                                Tampilan bagus, puas
+                                                hasilnya,sangat membantu proses
+                                                pembukuan dan Laporan Keuangan
+                                                BLUD tepat waktu, cepat
+                                                akselarasinya, output mudah
+                                                dibaca dan dimengerti, dan
+                                                membantu dalam pengambilan
+                                                keputusan serta diharapkan
+                                                aplikasi ini juga bisa diakses
+                                                oleh Inspektorat Daerah dalam
+                                                melakukan Reviu BLUD
                                             </p>
                                             <div className="flex items-center gap-5">
                                                 <Avatar className="h-16 w-16">

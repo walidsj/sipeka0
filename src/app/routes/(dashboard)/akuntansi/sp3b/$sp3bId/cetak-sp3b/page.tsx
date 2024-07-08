@@ -140,7 +140,7 @@ export default function Page() {
                                                     /RSJDAHM-BLUD/SP3B/
                                                     {formatAngkaRomawi(
                                                         new Date(
-                                                            sp3b.tglMulai!
+                                                            sp3b.tglSelesai!
                                                         ).getMonth() + 1
                                                     )}
                                                     /
