@@ -60,6 +60,8 @@ export const sp3bRouter = createTRPCRouter({
             where: lt(pendapatan.tglDokumen, sp3b?.tglMulai!),
         })
 
+        const saldoAwalRekeningKoran = 8_847_392_664.45
+
         return {
             ...sp3b,
             belanja: {
@@ -97,16 +99,16 @@ export const sp3bRouter = createTRPCRouter({
                     0
                 ),
             },
-            saldoAwal: {
-                belanja: belanjaBeforeList.reduce(
+            saldoAwal:
+                pendapatanBeforeList.reduce(
                     (acc, curr) => acc + Number(curr.jumlah),
                     0
-                ),
-                pendapatan: pendapatanBeforeList.reduce(
+                ) -
+                belanjaBeforeList.reduce(
                     (acc, curr) => acc + Number(curr.jumlah),
                     0
-                ),
-            },
+                ) +
+                saldoAwalRekeningKoran,
         }
     }),
 

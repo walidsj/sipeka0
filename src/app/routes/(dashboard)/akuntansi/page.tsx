@@ -15,6 +15,25 @@ export default function Page() {
             <Card>
                 <CardHeader className="flex flex-row gap-4">
                     <div className="w-full">
+                        <CardTitle className="mb-3">Saldo Awal</CardTitle>
+                        <CardDescription>
+                            Penginputan Saldo Awal Keuangan/Akuntansi
+                        </CardDescription>
+                    </div>
+                    <HiOutlineDocumentText className="flex-shrink-0 flex-grow-0 text-5xl text-primary" />
+                </CardHeader>
+                <CardFooter>
+                    <Button asChild>
+                        <Link to="/akuntansi/saldo-awal">
+                            Akses
+                            <HiOutlineArrowSmRight className="ml-2" />
+                        </Link>
+                    </Button>
+                </CardFooter>
+            </Card>
+            <Card>
+                <CardHeader className="flex flex-row gap-4">
+                    <div className="w-full">
                         <CardTitle className="mb-3">SP3B</CardTitle>
                         <CardDescription>
                             Surat Perintah Pengesahan Pendapatan dan Belanja

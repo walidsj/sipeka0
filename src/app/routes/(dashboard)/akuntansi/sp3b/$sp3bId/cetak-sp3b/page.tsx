@@ -216,9 +216,6 @@ export default function Page() {
                                                 >
                                                     {formatAngkaDecimal(
                                                         sp3b.saldoAwal
-                                                            .pendapatan -
-                                                            sp3b.saldoAwal
-                                                                .belanja
                                                     )}
                                                 </td>
                                             </tr>
@@ -427,10 +424,7 @@ export default function Page() {
                                                     className="text-right"
                                                 >
                                                     {formatAngkaDecimal(
-                                                        sp3b.saldoAwal
-                                                            .pendapatan -
-                                                            sp3b.saldoAwal
-                                                                .belanja +
+                                                        sp3b.saldoAwal +
                                                             sp3b.pendapatan
                                                                 .total -
                                                             (sp3b.belanja
