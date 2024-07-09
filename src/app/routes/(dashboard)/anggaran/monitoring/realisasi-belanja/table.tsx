@@ -21,6 +21,7 @@ import React from 'react'
 import { FiChevronsDown, FiEdit, FiList } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { Button } from '@/web/components/ui/button'
+import { Progress } from '@/web/components/ui/progress'
 
 export default function MonitoringTable() {
     const rbaMonitoring = api.dba.getRbaBelanjaMonitoring.useQuery()
@@ -516,6 +517,32 @@ export default function MonitoringTable() {
                                                                 }
                                                             </p>
                                                         )}
+                                                        <Progress
+                                                            className="mt-3 h-1"
+                                                            value={Number(
+                                                                (Number(
+                                                                    realisasiMonitoring.data?.find(
+                                                                        (
+                                                                            item
+                                                                        ) => {
+                                                                            return (
+                                                                                item.id ===
+                                                                                rincian.rabId
+                                                                            )
+                                                                        }
+                                                                    )?.jumlah
+                                                                ) /
+                                                                    Number(
+                                                                        Number(
+                                                                            rincian.volume
+                                                                        ) *
+                                                                            Number(
+                                                                                rincian.harga
+                                                                            )
+                                                                    )) *
+                                                                    100
+                                                            )}
+                                                        />
                                                     </TableCell>
                                                     <TableCell className="border text-center">
                                                         {Number(
