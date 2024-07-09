@@ -139,8 +139,9 @@ export function Header() {
                                                 >
                                                     <AvatarImage
                                                         className={cn(
+                                                            'transition-all',
                                                             !onlineUser.isActive &&
-                                                                'opacity-20 transition-all'
+                                                                'opacity-20'
                                                         )}
                                                         src={`https://ui-avatars.com/api/?name=${onlineUser.user}&background=${colorImg[index % 5]}&color=fff`}
                                                     />
@@ -166,8 +167,9 @@ export function Header() {
                                                 <Avatar className="mr-2 h-10 w-10">
                                                     <AvatarImage
                                                         className={cn(
+                                                            'transition-all',
                                                             !onlineUser.isActive &&
-                                                                'opacity-20 transition-all'
+                                                                'opacity-20'
                                                         )}
                                                         src={`https://ui-avatars.com/api/?name=${onlineUser.user}&background=${colorImg[index % 5]}&color=fff`}
                                                     />

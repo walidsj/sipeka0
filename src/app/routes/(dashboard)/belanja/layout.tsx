@@ -4,6 +4,7 @@ import { Link, Outlet, useLocation } from 'react-router-dom'
 import {
     HiOutlineBookmarkAlt,
     HiOutlineClipboardList,
+    HiOutlineDocumentText,
     // HiOutlineDocumentText,
     // HiOutlineSave,
     // HiOutlineSwitchHorizontal,
@@ -91,21 +92,22 @@ export default function Layout() {
                             </Link>
                         </Button>
                     </li>
-                    {/* <li>
+                    <li>
                         <Button
                             variant="ghost"
                             className={cn(
-                                pathname.startsWith('/belanja/laporan') &&
-                                    'text-primary'
+                                pathname.startsWith(
+                                    '/belanja/rekening-koran'
+                                ) && 'text-primary'
                             )}
                             asChild
                         >
-                            <Link to="/belanja/laporan">
+                            <Link to="/belanja/rekening-koran">
                                 <HiOutlineDocumentText className="mr-1 h-5 w-5" />
-                                <span>Laporan</span>
+                                <span>Rekening Koran</span>
                             </Link>
                         </Button>
-                    </li> */}
+                    </li>
                 </ul>
             </nav>
             <Outlet />

@@ -15,8 +15,11 @@ export default function Page() {
         <Card>
             <CardHeader className="flex flex-row items-center justify-between">
                 <div className="flex flex-col gap-1.5">
-                    <CardTitle>Rekening Koran</CardTitle>
-                    <CardDescription>Data rekening koran BLUD</CardDescription>
+                    <CardTitle>LPJ Belanja</CardTitle>
+                    <CardDescription>
+                        Daftar LPJ Belanja Bendahara Pengeluaran BLUD RSJD Atma
+                        Husada Mahakam
+                    </CardDescription>
                 </div>
                 <div>
                     <Button asChild>
