@@ -20,7 +20,7 @@ import { api } from '@/web/trpc/react'
 import { keepPreviousData } from '@tanstack/react-query'
 import { format } from 'date-fns'
 import React from 'react'
-import { HiOutlineChevronDown, HiOutlinePencil } from 'react-icons/hi'
+import { HiOutlineChevronDoubleDown, HiOutlinePencil } from 'react-icons/hi'
 import { Link, useSearchParams } from 'react-router-dom'
 
 export default function BkPajakTable() {
@@ -148,7 +148,7 @@ export default function BkPajakTable() {
                                                 <DropdownMenuTrigger asChild>
                                                     <Button variant="outline">
                                                         Aksi{' '}
-                                                        <HiOutlineChevronDown className="ml-2" />
+                                                        <HiOutlineChevronDoubleDown className="ml-2" />
                                                     </Button>
                                                 </DropdownMenuTrigger>
                                                 <DropdownMenuContent align="start">

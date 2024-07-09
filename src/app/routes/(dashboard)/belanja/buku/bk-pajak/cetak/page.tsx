@@ -11,9 +11,9 @@ export default function Page() {
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Buku Pembantu Pajak</CardTitle>
+                <CardTitle>Cetak Buku Pembantu Pajak</CardTitle>
                 <CardDescription>
-                    Daftar penerimaan dan penyetoran pajak yang telah dibuat
+                    Dokumen Buku Pembantu Pajak siap cetak
                 </CardDescription>
             </CardHeader>
             <CardContent>

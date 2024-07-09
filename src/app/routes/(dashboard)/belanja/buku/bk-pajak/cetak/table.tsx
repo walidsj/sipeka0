@@ -1,32 +1,24 @@
 import Loading from '@/web/components/loading'
 import { Button } from '@/web/components/ui/button'
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from '@/web/components/ui/dropdown-menu'
+import { CardFooter } from '@/web/components/ui/card'
 import { Input } from '@/web/components/ui/input'
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from '@/web/components/ui/table'
-import { formatAngka } from '@/web/lib/utils'
+import { formatAngka, formatTanggal } from '@/web/lib/utils'
 import { api } from '@/web/trpc/react'
 import { keepPreviousData } from '@tanstack/react-query'
 import { format } from 'date-fns'
 import React from 'react'
-import { HiOutlineChevronDown, HiOutlinePencil } from 'react-icons/hi'
-import { Link, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
+import { useReactToPrint } from 'react-to-print'
 
 export default function BkPajakTable() {
     const [searchParams, setSearchParams] = useSearchParams({
         startDate: '',
         endDate: '',
+    })
+
+    const componentRef = React.useRef(null)
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
     })
 
     const {
@@ -85,127 +77,298 @@ export default function BkPajakTable() {
                     />
                 </div>
             </div>
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead className="w-1">No.</TableHead>
-                        <TableHead className="text-center">
-                            Tanggal Dokumen
-                        </TableHead>
-                        <TableHead className="text-center">
-                            Nomor Dokumen
-                        </TableHead>
-                        <TableHead>Uraian</TableHead>
-                        <TableHead className="text-center">
-                            Kode Billing
-                        </TableHead>
-                        <TableHead>NTPN</TableHead>
-                        <TableHead>Penerimaan</TableHead>
-                        <TableHead>Pengeluaran</TableHead>
-                        <TableHead>Saldo</TableHead>
-                        <TableHead className="w-1" />
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {belanja.map((blj) => {
-                        return blj.potonganBelanja.map((item, index) => {
-                            return (
-                                <React.Fragment key={index}>
-                                    <TableRow>
-                                        <TableCell className="text-center">
-                                            {++no}.
-                                        </TableCell>
-                                        <TableCell className="text-center">
-                                            {Intl.DateTimeFormat('id-ID', {
-                                                day: '2-digit',
-                                                month: '2-digit',
-                                                year: 'numeric',
-                                            }).format(
-                                                blj.tglDokumen || new Date()
-                                            )}
-                                        </TableCell>
-                                        <TableCell className="text-center">
-                                            {blj.noDokumen}
-                                        </TableCell>
-                                        <TableCell>
-                                            Pemotongan {item.jenis} {blj.uraian}
-                                        </TableCell>
-                                        <TableCell className="text-center">
-                                            {item.billing}
-                                        </TableCell>
-                                        <TableCell className="text-center"></TableCell>
-                                        <TableCell className="text-right">
-                                            {formatAngka(item.jumlah)}
-                                        </TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell className="text-right">
-                                            {formatAngka(
-                                                (saldo += Number(item.jumlah))
-                                            )}
-                                        </TableCell>
-                                        <TableCell>
-                                            <DropdownMenu>
-                                                <DropdownMenuTrigger asChild>
-                                                    <Button variant="outline">
-                                                        Aksi{' '}
-                                                        <HiOutlineChevronDown className="ml-2" />
-                                                    </Button>
-                                                </DropdownMenuTrigger>
-                                                <DropdownMenuContent align="start">
-                                                    <Link
-                                                        to={`/belanja/perekaman/${blj.id}/potongan/${item.id}/edit`}
-                                                    >
-                                                        <DropdownMenuItem>
-                                                            <HiOutlinePencil className="mr-2" />
-                                                            Edit
-                                                        </DropdownMenuItem>
-                                                    </Link>
-                                                </DropdownMenuContent>
-                                            </DropdownMenu>
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell className="text-center"></TableCell>
-                                        <TableCell className="text-center"></TableCell>
-                                        <TableCell className="text-center"></TableCell>
-                                        <TableCell>
-                                            Penyetoran {item.jenis} a.n.{' '}
-                                            {blj.rekanan &&
-                                                `${blj.rekanan.nama} ${blj.rekanan.npwp && `(${blj.rekanan.npwp})`}`}
-                                            {blj.pegawai &&
-                                                `${blj.pegawai.gelarDepan && `${blj.pegawai.gelarDepan} `}${blj.pegawai.nama}${
-                                                    blj.pegawai.gelarBelakang &&
-                                                    `, ${blj.pegawai.gelarBelakang}`
-                                                } ${blj.pegawai.npwp && `(${blj.pegawai.npwp})`}`}
-                                        </TableCell>
-                                        <TableCell className="text-center"></TableCell>
-                                        <TableCell className="text-center">
-                                            {item.ntpn}
-                                        </TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell className="text-right">
-                                            {formatAngka(item.jumlah)}
-                                        </TableCell>
-                                        <TableCell className="text-right">
-                                            {formatAngka(
-                                                (saldo -= Number(item.jumlah))
-                                            )}
-                                        </TableCell>
-                                        <TableCell></TableCell>
-                                    </TableRow>
-                                </React.Fragment>
-                            )
-                        })
-                    })}
-                    {belanja.length === 0 && (
-                        <TableRow>
-                            <TableCell colSpan={6} className="text-center">
-                                Tidak ada data
-                            </TableCell>
-                        </TableRow>
-                    )}
-                </TableBody>
-            </Table>
+            <div className="rounded-md border p-10 shadow">
+                <div
+                    style={{
+                        fontSize: '8pt',
+                    }}
+                    className="leading-4"
+                    ref={componentRef}
+                >
+                    <style type="text/css" media="print">
+                        {`
+                            @page {
+                                size: landscape;
+                                margin-top: 1cm;
+                                margin-left: 1.5cm;
+                                margin-right: 1.5cm;
+                                margin-bottom: 1cm;
+                                
+                            }
+                        `}
+                    </style>
+                    <table className="mt-3 w-full">
+                        <tbody>
+                            <tr>
+                                <td className="w-16 font-serif">
+                                    <img
+                                        src="/images/logo-kaltimprov.webp"
+                                        className="h-20 w-24"
+                                    />
+                                </td>
+                                <td className="text-center">
+                                    <div
+                                        style={{ fontSize: '10pt' }}
+                                        className="font-serif font-bold uppercase"
+                                    >
+                                        Pemerintah Provinsi Kalimantan Timur
+                                    </div>
+                                    <div
+                                        style={{ fontSize: '12pt' }}
+                                        className="font-serif font-bold uppercase"
+                                    >
+                                        Dinas Kesehatan
+                                    </div>
+                                    <div
+                                        style={{ fontSize: '12pt' }}
+                                        className="font-serif font-bold uppercase"
+                                    >
+                                        Rumah Sakit Jiwa Daerah Atma Husada
+                                        Mahakam
+                                    </div>
+                                    <div className="font-serif">
+                                        Jl. Kakap No. 23 Samarinda Telp (0541)
+                                        743364 Fax 741035
+                                    </div>
+                                    <div className="font-serif">
+                                        Website: rsjdahm.kaltimprov.go.id |
+                                        Posel: rsjdahm@kaltimprov.go.id
+                                    </div>
+                                </td>
+                                <td className="w-16"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr className="mb-5 mt-3 border-b-4 border-double border-black" />
+                    <h5
+                        style={{ fontSize: '11pt' }}
+                        className="text-center font-serif font-bold uppercase underline"
+                    >
+                        BUKU PEMBANTU PAJAK BLUD
+                    </h5>
+                    <h4
+                        style={{ fontSize: '9pt' }}
+                        className="mb-4 text-center font-serif font-bold uppercase"
+                    >
+                        BENDAHARA PENGELUARAN PEMBANTU
+                    </h4>
+                    <h6 className="text-center font-serif uppercase">
+                        Tahun Anggaran 2024
+                    </h6>
+                    <h6 className="mb-5 text-center font-serif">
+                        Periode{' '}
+                        {formatTanggal(
+                            searchParams.get('startDate') ||
+                                format(new Date(), 'yyyy-MM-01')
+                        )}{' '}
+                        s.d.{' '}
+                        {formatTanggal(
+                            searchParams.get('endDate') || new Date()
+                        )}
+                    </h6>
+                    <table className="w-full">
+                        <thead className="border-b-2 border-double border-black">
+                            <tr>
+                                <th className="w-1 border border-black px-2 py-1 font-serif">
+                                    No.
+                                </th>
+                                <th className="border border-black px-2 py-1 text-center font-serif">
+                                    Tanggal
+                                </th>
+                                <th className="border border-black px-2 py-1 text-center font-serif">
+                                    Nomor Bukti
+                                </th>
+                                <th className="border border-black px-2 py-1 text-center font-serif">
+                                    Uraian
+                                </th>
+                                <th className="border border-black px-2 py-1 text-center font-serif">
+                                    Kode Billing
+                                </th>
+                                <th className="border border-black px-2 py-1 text-center font-serif">
+                                    NTPN
+                                </th>
+                                <th className="border border-black px-2 py-1 text-center font-serif">
+                                    Penerimaan
+                                    <br />
+                                    (Rp)
+                                </th>
+                                <th className="border border-black px-2 py-1 text-center font-serif">
+                                    Pengeluaran
+                                    <br />
+                                    (Rp)
+                                </th>
+                                <th className="border border-black px-2 py-1 text-center font-serif">
+                                    Saldo
+                                    <br />
+                                    (Rp)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody className="border-b-2 border-double border-black">
+                            {belanja.map((blj) => {
+                                return blj.potonganBelanja.map(
+                                    (item, index) => {
+                                        return (
+                                            <React.Fragment key={index}>
+                                                <tr className="border-t border-black">
+                                                    <td className="border-x border-black px-2 py-0.5 text-center font-serif">
+                                                        {++no}.
+                                                    </td>
+                                                    <td className="border-x border-black px-2 py-0.5 text-center font-serif">
+                                                        {Intl.DateTimeFormat(
+                                                            'id-ID',
+                                                            {
+                                                                day: '2-digit',
+                                                                month: '2-digit',
+                                                                year: 'numeric',
+                                                            }
+                                                        ).format(
+                                                            blj.tglDokumen ||
+                                                                new Date()
+                                                        )}
+                                                    </td>
+                                                    <td className="border-x border-black px-2 py-0.5 text-center font-serif">
+                                                        {blj.noDokumen}
+                                                    </td>
+                                                    <td className="border-x border-black px-2 py-0.5 font-serif">
+                                                        Pemotongan {item.jenis}{' '}
+                                                        {blj.uraian}
+                                                    </td>
+                                                    <td className="border-x border-black px-2 py-0.5 text-center font-serif">
+                                                        {item.billing}
+                                                    </td>
+                                                    <td className="border-x border-black px-2 py-0.5 text-center font-serif"></td>
+                                                    <td className="border-x border-black px-2 py-0.5 text-right font-serif">
+                                                        {formatAngka(
+                                                            item.jumlah
+                                                        )}
+                                                    </td>
+                                                    <td className="border-x border-black px-2 py-0.5 font-serif"></td>
+                                                    <td className="border-x border-black px-2 py-0.5 text-right font-serif">
+                                                        {formatAngka(
+                                                            (saldo += Number(
+                                                                item.jumlah
+                                                            ))
+                                                        )}
+                                                    </td>
+                                                </tr>
+                                                <tr className="border-t border-dotted border-neutral-400">
+                                                    <td className="border-x border-black px-2 py-0.5 text-center font-serif"></td>
+                                                    <td className="border-x border-black px-2 py-0.5 text-center font-serif"></td>
+                                                    <td className="border-x border-black px-2 py-0.5 text-center font-serif"></td>
+                                                    <td className="border-x border-black px-2 py-0.5 font-serif">
+                                                        Penyetoran {item.jenis}{' '}
+                                                        a.n.{' '}
+                                                        {blj.rekanan &&
+                                                            `${blj.rekanan.nama} ${blj.rekanan.npwp && `(${blj.rekanan.npwp})`}`}
+                                                        {blj.pegawai &&
+                                                            `${blj.pegawai.gelarDepan && `${blj.pegawai.gelarDepan} `}${blj.pegawai.nama}${
+                                                                blj.pegawai
+                                                                    .gelarBelakang &&
+                                                                `, ${blj.pegawai.gelarBelakang}`
+                                                            } ${blj.pegawai.npwp && `(${blj.pegawai.npwp})`}`}
+                                                    </td>
+                                                    <td className="border-x border-black px-2 py-0.5 text-center font-serif"></td>
+                                                    <td className="border-x border-black px-2 py-0.5 text-center font-serif">
+                                                        {item.ntpn}
+                                                    </td>
+                                                    <td className="border-x border-black px-2 py-0.5 font-serif"></td>
+                                                    <td className="border-x border-black px-2 py-0.5 text-right font-serif">
+                                                        {formatAngka(
+                                                            item.jumlah
+                                                        )}
+                                                    </td>
+                                                    <td className="border-x border-black px-2 py-0.5 text-right font-serif">
+                                                        {formatAngka(
+                                                            (saldo -= Number(
+                                                                item.jumlah
+                                                            ))
+                                                        )}
+                                                    </td>
+                                                </tr>
+                                            </React.Fragment>
+                                        )
+                                    }
+                                )
+                            })}
+                            {belanja.length === 0 && (
+                                <tr>
+                                    <td colSpan={100} className="text-center">
+                                        Tidak ada data
+                                    </td>
+                                </tr>
+                            )}
+                            <tr className="border-t-2 border-double border-black">
+                                <th
+                                    colSpan={6}
+                                    className="border-x border-black px-2 py-1 font-serif"
+                                >
+                                    Total
+                                </th>
+                                <th className="border-x border-black px-2 py-1 text-right font-serif">
+                                    {formatAngka(
+                                        belanja.reduce(
+                                            (acc, curr) =>
+                                                acc +
+                                                curr.potonganBelanja.reduce(
+                                                    (acc, curr) =>
+                                                        acc +
+                                                        Number(curr.jumlah),
+                                                    0
+                                                ),
+                                            0
+                                        )
+                                    )}
+                                </th>
+                                <th className="border-x border-black px-2 py-1 text-right font-serif">
+                                    {formatAngka(
+                                        belanja.reduce(
+                                            (acc, curr) =>
+                                                acc +
+                                                curr.potonganBelanja.reduce(
+                                                    (acc, curr) =>
+                                                        acc +
+                                                        Number(curr.jumlah),
+
+                                                    0
+                                                ),
+                                            0
+                                        )
+                                    )}
+                                </th>
+                                <th className="border-x border-black px-2 py-1 text-right font-serif">
+                                    {formatAngka(saldo)}
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div className="mt-5 flex">
+                        <div className="w-1/3"></div>
+                        <div className="w-1/3"></div>
+                        <div className="w-1/3">
+                            <div className="font-serif">
+                                Samarinda,{' '}
+                                {formatTanggal(
+                                    searchParams.get('endDate') || new Date()
+                                )}
+                            </div>
+                            <div className="font-serif">
+                                Bendahara Pengeluaran Pembantu BLUD
+                            </div>
+                            <div className="mt-14 font-serif font-bold">
+                                Moh. Walid Arkham Sani, A.Md.Pnl
+                            </div>
+                            <div className="font-serif">Pengatur</div>
+                            <div className="font-serif">
+                                NIP. 200008062022011001
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <CardFooter>
+                <Button onClick={handlePrint}>Cetak</Button>
+            </CardFooter>
         </div>
     )
 }
