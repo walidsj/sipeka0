@@ -656,12 +656,28 @@ export const belanjaRouter = createTRPCRouter({
         }),
 
     getBelanjaLrabyKodeRekening: userProcedure
-        .input(z.string())
+        .input(
+            z.object({
+                kodeRekening: z.string(),
+                startDate: z.date().optional(),
+                endDate: z.date().optional(),
+            })
+        )
         .query(async ({ ctx, input }) => {
+            const startDate =
+                input.startDate || new Date(format(new Date(), 'yyyy-01-01'))
+            const endDate = input.endDate || new Date()
+
+            const filterDate = and(
+                startDate ? gte(belanja.tglDokumen, startDate) : undefined,
+                endDate ? lte(belanja.tglDokumen, endDate) : undefined
+            )
+
             const rabList = await ctx.db.query.rab.findMany({
-                where: eq(rab.kodeRekening, input),
+                where: eq(rab.kodeRekening, input.kodeRekening),
                 with: {
                     belanja: {
+                        where: filterDate,
                         with: {
                             lpjBelanja: true,
                         },

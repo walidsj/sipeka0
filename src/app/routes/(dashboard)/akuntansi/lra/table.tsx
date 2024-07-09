@@ -116,7 +116,23 @@ export default function LraTable() {
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent>
                                             <Link
-                                                to={`/akuntansi/lra/${item.kodeRekening}`}
+                                                to={`/akuntansi/lra/${item.kodeRekening}?startDate=${
+                                                    searchParams.get(
+                                                        'startDate'
+                                                    ) ||
+                                                    format(
+                                                        new Date(),
+                                                        'yyyy-01-01'
+                                                    )
+                                                }&endDate=${
+                                                    searchParams.get(
+                                                        'endDate'
+                                                    ) ||
+                                                    format(
+                                                        new Date(),
+                                                        'yyyy-MM-dd'
+                                                    )
+                                                }`}
                                             >
                                                 <DropdownMenuItem>
                                                     <HiOutlineEye className="mr-2" />
