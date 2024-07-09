@@ -3,6 +3,7 @@ import {
     belanja,
     dba,
     potonganBelanja,
+    rab,
     rba,
 } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
@@ -13,10 +14,12 @@ import {
     desc,
     eq,
     gte,
+    isNotNull,
     like,
     lt,
     lte,
     or,
+    sql,
     sum,
 } from 'drizzle-orm'
 import { TRPCError } from '@trpc/server'
@@ -588,5 +591,94 @@ export const belanjaRouter = createTRPCRouter({
             })
 
             return belanjaList
+        }),
+
+    getBelanjaLra: userProcedure
+        .input(
+            z.object({
+                startDate: z.date().optional(),
+                endDate: z.date().optional(),
+            })
+        )
+        .query(async ({ ctx, input }) => {
+            const startDate =
+                input.startDate || new Date(format(new Date(), 'yyyy-01-01'))
+            const endDate = input.endDate || new Date()
+
+            const filterDate = and(
+                startDate ? gte(belanja.tglDokumen, startDate) : undefined,
+                endDate ? lte(belanja.tglDokumen, endDate) : undefined
+            )
+
+            const rekapBelanja = ctx.db
+                .select({
+                    rabId: belanja.rabId,
+                    jumlah: sql`SUM(${belanja.jumlah})`.as('jumlah'),
+                })
+                .from(belanja)
+                .where(filterDate)
+                .groupBy(belanja.rabId)
+                .as('belanja')
+
+            const belanjaList = await ctx.db
+                .select({
+                    id: rab.id,
+                    kodeRekening: rab.kodeRekening,
+                    jumlah: rekapBelanja.jumlah,
+                })
+                .from(rab)
+                .leftJoin(rekapBelanja, eq(rab.id, rekapBelanja.rabId))
+                .where(isNotNull(rekapBelanja.jumlah))
+
+            const kodeRekening = [
+                ...new Set(belanjaList.map((item) => item.kodeRekening)),
+            ]
+
+            const rekeningLv6 = rekeningLevel6.filter((item) => {
+                return kodeRekening.includes(item.kode)
+            })
+
+            const data = rekeningLv6.map((item) => {
+                const belanja = belanjaList.filter(
+                    (belanja) => belanja.kodeRekening === item.kode
+                )
+
+                return {
+                    kodeRekening: item.kode,
+                    uraian: item.uraian,
+                    jumlah: belanja.reduce((acc, item) => {
+                        return acc + Number(item.jumlah)
+                    }, 0),
+                }
+            })
+
+            return data
+        }),
+
+    getBelanjaLrabyKodeRekening: userProcedure
+        .input(z.string())
+        .query(async ({ ctx, input }) => {
+            const rabList = await ctx.db.query.rab.findMany({
+                where: eq(rab.kodeRekening, input),
+                with: {
+                    belanja: {
+                        with: {
+                            lpjBelanja: true,
+                        },
+                    },
+                },
+            })
+
+            // belanja list dari rabList
+            const belanjaList = rabList.map((rab) => rab.belanja)
+
+            // flatten belanjaList
+            const belanjaListFlatten = belanjaList.flat()
+
+            return lodash.sortBy(
+                belanjaListFlatten,
+                ['tglDokumen', 'noDokumen'],
+                ['asc', 'asc']
+            )
         }),
 })

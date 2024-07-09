@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom'
 export default function Page() {
     return (
         <div className="grid grid-cols-5 gap-4 pb-5">
-            <CardTitle className="col-span-5">Pre-Requisite</CardTitle>
             <Card>
                 <CardHeader className="flex flex-row gap-4">
                     <div className="w-full">
@@ -32,7 +31,6 @@ export default function Page() {
                     </Button>
                 </CardFooter>
             </Card>
-            <CardTitle className="col-span-5">Operational</CardTitle>
             <Card>
                 <CardHeader className="flex flex-row gap-4">
                     <div className="w-full">
@@ -71,7 +69,6 @@ export default function Page() {
                     </Button>
                 </CardFooter>
             </Card>
-            <CardTitle className="col-span-5">Financial Statement</CardTitle>
             <Card>
                 <CardHeader className="flex flex-row gap-4">
                     <div className="w-full">
