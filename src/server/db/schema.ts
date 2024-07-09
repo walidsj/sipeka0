@@ -342,6 +342,18 @@ export const pengembalianBelanjaTable = mysqlTable('pengembalian_belanja', {
     jumlah: decimal('jumlah', { precision: 20, scale: 2 }),
 })
 
+export const rekeningKoran = mysqlTable('rekening_koran', {
+    id: serial('id').primaryKey(),
+    tglJurnal: timestamp('tgl_jurnal', { mode: 'date' }),
+    uraian: varchar('uraian', { length: 256 }),
+    debet: decimal('debet', { precision: 20, scale: 2 }),
+    kredit: decimal('kredit', { precision: 20, scale: 2 }),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
+})
+
 export const userRelations = relations(user, ({ one }) => ({
     pegawai: one(pegawai, {
         fields: [user.pegawaiId],

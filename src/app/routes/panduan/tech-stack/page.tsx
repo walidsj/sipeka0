@@ -63,17 +63,6 @@ export default function () {
                     <Card>
                         <CardHeader>
                             <img
-                                src="/images/icons/mysql.png"
-                                alt="MySQL"
-                                className="h-14 w-16"
-                            />
-                            <CardDescription>Database</CardDescription>
-                            <CardTitle>MySQL</CardTitle>
-                        </CardHeader>
-                    </Card>
-                    <Card>
-                        <CardHeader>
-                            <img
                                 src="/images/icons/drizzle.png"
                                 alt="Drizzle"
                                 className="h-14 w-14"
@@ -91,50 +80,6 @@ export default function () {
                             />
                             <CardDescription>API Driver</CardDescription>
                             <CardTitle>tRPC</CardTitle>
-                        </CardHeader>
-                    </Card>
-                    <Card>
-                        <CardHeader>
-                            <img
-                                src="/images/icons/vite.png"
-                                alt="Vite"
-                                className="h-14 w-14"
-                            />
-                            <CardDescription>Build Tool</CardDescription>
-                            <CardTitle>Vite</CardTitle>
-                        </CardHeader>
-                    </Card>
-                    <Card>
-                        <CardHeader>
-                            <img
-                                src="/images/icons/docker.png"
-                                alt="Docker"
-                                className="h-14 w-16"
-                            />
-                            <CardDescription>Container</CardDescription>
-                            <CardTitle>Docker</CardTitle>
-                        </CardHeader>
-                    </Card>
-                    <Card>
-                        <CardHeader>
-                            <img
-                                src="/images/icons/nginx.svg"
-                                alt="Nginx"
-                                className="h-14 w-14"
-                            />
-                            <CardDescription>Web Server</CardDescription>
-                            <CardTitle>Nginx</CardTitle>
-                        </CardHeader>
-                    </Card>
-                    <Card>
-                        <CardHeader>
-                            <img
-                                src="/images/icons/ubuntu.png"
-                                alt="Ubuntu"
-                                className="h-14 w-14"
-                            />
-                            <CardDescription>Operating System</CardDescription>
-                            <CardTitle>Ubuntu</CardTitle>
                         </CardHeader>
                     </Card>
                     <Card>
