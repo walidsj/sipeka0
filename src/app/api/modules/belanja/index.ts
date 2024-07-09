@@ -558,4 +558,35 @@ export const belanjaRouter = createTRPCRouter({
                 },
             }
         }),
+
+    getAllBkPajak: userProcedure
+        .input(
+            z.object({
+                startDate: z.date().optional(),
+                endDate: z.date().optional(),
+            })
+        )
+        .query(async ({ ctx, input }) => {
+            const startDate =
+                input.startDate || new Date(format(new Date(), 'yyyy-MM-01'))
+            const endDate = input.endDate || new Date()
+
+            const filterDate = and(
+                startDate ? gte(belanja.tglDokumen, startDate) : undefined,
+                endDate ? lte(belanja.tglDokumen, endDate) : undefined
+            )
+
+            const belanjaList = await ctx.db.query.belanja.findMany({
+                with: {
+                    rab: true,
+                    potonganBelanja: true,
+                    rekanan: true,
+                    pegawai: true,
+                },
+                where: filterDate,
+                orderBy: [asc(belanja.tglDokumen), asc(belanja.noDokumen)],
+            })
+
+            return belanjaList
+        }),
 })

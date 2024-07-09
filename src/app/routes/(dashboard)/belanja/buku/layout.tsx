@@ -45,6 +45,23 @@ export default function Layout() {
                                 </Card>
                             </Link>
                         </li>
+                        <li>
+                            <Link to="/belanja/buku/bk-pajak">
+                                <Card
+                                    className={cn(
+                                        'flex flex-col items-center gap-1 px-3 py-2 text-center font-semibold',
+                                        pathname.startsWith(
+                                            '/belanja/buku/bk-pajak'
+                                        ) && 'text-primary'
+                                    )}
+                                >
+                                    <HiOutlineBookOpen className="h-6 w-6" />
+                                    <span className="text-wrap text-xs">
+                                        Buku Pajak
+                                    </span>
+                                </Card>
+                            </Link>
+                        </li>
                     </ul>
                 </nav>
             </div>

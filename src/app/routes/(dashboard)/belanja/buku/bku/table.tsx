@@ -65,7 +65,10 @@ export default function BkuTable() {
             <div className="flex flex-row items-center gap-5">
                 <div className="flex gap-2">
                     <Input
-                        value={searchParams.get('startDate') || ''}
+                        value={
+                            searchParams.get('startDate') ||
+                            format(new Date(), 'yyyy-MM-01')
+                        }
                         type="date"
                         onChange={(e) => {
                             searchParams.set('startDate', e.target.value)
@@ -74,7 +77,10 @@ export default function BkuTable() {
                     />
                     <Input
                         type="date"
-                        value={searchParams.get('endDate') || ''}
+                        value={
+                            searchParams.get('endDate') ||
+                            format(new Date(), 'yyyy-MM-dd')
+                        }
                         onChange={(e) => {
                             searchParams.set('endDate', e.target.value)
                             setSearchParams(searchParams)

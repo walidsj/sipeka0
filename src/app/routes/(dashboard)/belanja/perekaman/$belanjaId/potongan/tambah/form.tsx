@@ -1,4 +1,3 @@
-import { belanja } from '@/server/db/schema'
 import { Button } from '@/web/components/ui/button'
 import {
     Form,
@@ -12,7 +11,7 @@ import { api } from '@/web/trpc/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
 import { potonganBelanjaSchema } from '@/app/api/modules/belanja/schema'
 import { Input } from '@/web/components/ui/input'
@@ -29,11 +28,9 @@ const createPotonganBelanjaSchema = potonganBelanjaSchema.omit({
     belanjaId: true,
 })
 
-export default function CreateForm({
-    data,
-}: {
-    data: typeof belanja.$inferSelect
-}) {
+export default function CreateForm() {
+    const params = useParams<{ belanjaId: string }>()
+
     const navigate = useNavigate()
     const utils = api.useUtils()
 
@@ -55,7 +52,7 @@ export default function CreateForm({
         onSuccess(res) {
             toast.dismiss()
             utils.belanja.invalidate()
-            navigate(`/belanja/perekaman/${data.id}`)
+            navigate(-1)
             toast.success(res.message)
         },
         onError(error) {
@@ -65,7 +62,7 @@ export default function CreateForm({
     })
 
     function onSubmit(val: z.infer<typeof createPotonganBelanjaSchema>) {
-        edit.mutate({ belanjaId: Number(data.id), ...val })
+        edit.mutate({ belanjaId: Number(params.belanjaId), ...val })
     }
 
     return (
