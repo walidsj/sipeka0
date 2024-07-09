@@ -258,11 +258,10 @@ export default function BkPajakTable() {
                                                     <td className="border-x border-black px-2 py-0.5 text-center font-serif"></td>
                                                     <td className="border-x border-black px-2 py-0.5 font-serif">
                                                         Penyetoran {item.jenis}{' '}
-                                                        a.n.{' '}
                                                         {blj.rekanan &&
-                                                            `${blj.rekanan.nama} ${blj.rekanan.npwp && `(${blj.rekanan.npwp})`}`}
+                                                            `a.n. ${blj.rekanan.nama} ${blj.rekanan.npwp && `(${blj.rekanan.npwp})`}`}
                                                         {blj.pegawai &&
-                                                            `${blj.pegawai.gelarDepan && `${blj.pegawai.gelarDepan} `}${blj.pegawai.nama}${
+                                                            `a.n. ${blj.pegawai.gelarDepan && `${blj.pegawai.gelarDepan} `}${blj.pegawai.nama}${
                                                                 blj.pegawai
                                                                     .gelarBelakang &&
                                                                 `, ${blj.pegawai.gelarBelakang}`

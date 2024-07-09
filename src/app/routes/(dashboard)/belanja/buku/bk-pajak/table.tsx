@@ -169,11 +169,11 @@ export default function BkPajakTable() {
                                         <TableCell className="text-center"></TableCell>
                                         <TableCell className="text-center"></TableCell>
                                         <TableCell>
-                                            Penyetoran {item.jenis} a.n.{' '}
+                                            Penyetoran {item.jenis}{' '}
                                             {blj.rekanan &&
-                                                `${blj.rekanan.nama} ${blj.rekanan.npwp && `(${blj.rekanan.npwp})`}`}
+                                                `a.n. ${blj.rekanan.nama} ${blj.rekanan.npwp && `(${blj.rekanan.npwp})`}`}
                                             {blj.pegawai &&
-                                                `${blj.pegawai.gelarDepan && `${blj.pegawai.gelarDepan} `}${blj.pegawai.nama}${
+                                                `a.n. ${blj.pegawai.gelarDepan && `${blj.pegawai.gelarDepan} `}${blj.pegawai.nama}${
                                                     blj.pegawai.gelarBelakang &&
                                                     `, ${blj.pegawai.gelarBelakang}`
                                                 } ${blj.pegawai.npwp && `(${blj.pegawai.npwp})`}`}
