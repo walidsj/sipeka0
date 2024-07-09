@@ -5,7 +5,7 @@ export default function Page() {
             <div className="py-8 text-justify">
                 <iframe
                     className="mx-auto mb-5 aspect-video w-full rounded-xl border"
-                    src="https://www.youtube.com/embed/XkaJ077WRsY?si=J_Hssu4NDV2sNZzl?enablejsapi=1&origin=https://sipeka.atmaku.com"
+                    src="https://www.youtube.com/embed/XPIGNGomekQ?si=Ep4dNeHerzEGXvEj?enablejsapi=1&origin=https://sipeka.atmaku.com"
                 ></iframe>
                 <p className="mb-5">
                     Rumah Sakit Jiwa Daerah Atma Husada Mahakam adalah salah

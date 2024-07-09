@@ -258,28 +258,36 @@ export default function Home() {
                                         </CardHeader>
                                     </Card>
                                 </CarouselItem>
+
                                 <CarouselItem className="lg:basis-1/2 xl:basis-1/3">
                                     <Card>
                                         <CardHeader className="flex gap-5">
                                             <p>
-                                                Saya sangat mendukung Aksi
-                                                Perubahan ini. Semoga dapat
-                                                bermanfaat terhadap organisasi
-                                                RSJD Atma Husada Mahakaam.
+                                                SIPEKA diharapkan sebagai
+                                                jembatan, pendukung atau
+                                                pendamping SIPD RI untuk
+                                                penatausahaan keuangan dalam
+                                                satu aplikasi khususnya di
+                                                RSJDAHM semoga aplikasi ini
+                                                bermanfaat tidak hanya di
+                                                RSJDAHM tetapi dapat
+                                                diaplikasikan atau
+                                                diimplementasikan di semua Rumah
+                                                Sakit Daerah lainnya Semoga
+                                                bermanfaat… Semoga sukses…
                                             </p>
                                             <div className="flex items-center gap-5">
                                                 <Avatar className="h-16 w-16">
-                                                    <AvatarImage src="/images/testimoni/drjaya.png" />
+                                                    <AvatarImage src="/images/testimoni/yudhis.png" />
                                                 </Avatar>
                                                 <div>
                                                     <CardTitle>
-                                                        Dr. dr. H. Jaya
-                                                        Mualimin, MARS, Sp.KJ,
-                                                        M.Kes, MARS
+                                                        Adji Yudhistira, SE,
+                                                        M.Si
                                                     </CardTitle>
                                                     <CardDescription>
-                                                        Kepala Dinas Kesehatan
-                                                        Prov. Kaltim
+                                                        Sekretaris BPKAD Prov.
+                                                        Kaltim
                                                     </CardDescription>
                                                 </div>
                                             </div>
@@ -312,6 +320,34 @@ export default function Home() {
                                                     </CardTitle>
                                                     <CardDescription>
                                                         Sekretaris Inspektorat
+                                                        Prov. Kaltim
+                                                    </CardDescription>
+                                                </div>
+                                            </div>
+                                        </CardHeader>
+                                    </Card>
+                                </CarouselItem>
+                                <CarouselItem className="lg:basis-1/2 xl:basis-1/3">
+                                    <Card>
+                                        <CardHeader className="flex gap-5">
+                                            <p>
+                                                Saya sangat mendukung Aksi
+                                                Perubahan ini. Semoga dapat
+                                                bermanfaat terhadap organisasi
+                                                RSJD Atma Husada Mahakaam.
+                                            </p>
+                                            <div className="flex items-center gap-5">
+                                                <Avatar className="h-16 w-16">
+                                                    <AvatarImage src="/images/testimoni/drjaya.png" />
+                                                </Avatar>
+                                                <div>
+                                                    <CardTitle>
+                                                        Dr. dr. H. Jaya
+                                                        Mualimin, MARS, Sp.KJ,
+                                                        M.Kes, MARS
+                                                    </CardTitle>
+                                                    <CardDescription>
+                                                        Kepala Dinas Kesehatan
                                                         Prov. Kaltim
                                                     </CardDescription>
                                                 </div>
