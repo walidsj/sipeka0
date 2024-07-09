@@ -114,7 +114,7 @@ export default function LpjBelanjaTable() {
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="start">
                                     <Link
-                                        to={`/belanja/buku/lpj-belanja/${item.id}`}
+                                        to={`/belanja/lpj-belanja/${item.id}`}
                                     >
                                         <DropdownMenuItem>
                                             <HiOutlineEye className="mr-2" />
@@ -122,7 +122,7 @@ export default function LpjBelanjaTable() {
                                         </DropdownMenuItem>
                                     </Link>
                                     <Link
-                                        to={`/belanja/buku/lpj-belanja/${item.id}/edit`}
+                                        to={`/belanja/lpj-belanja/${item.id}/edit`}
                                     >
                                         <DropdownMenuItem>
                                             <HiOutlinePencil className="mr-2" />
