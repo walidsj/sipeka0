@@ -65,12 +65,27 @@ export default function Layout() {
                         <Button
                             variant="ghost"
                             className={cn(
+                                pathname.startsWith('/belanja/lpj-belanja') &&
+                                    'text-primary'
+                            )}
+                            asChild
+                        >
+                            <Link to="/belanja/lpj-belanja">
+                                <HiOutlineBookmarkAlt className="mr-1 h-5 w-5" />
+                                <span>LPJ Belanja</span>
+                            </Link>
+                        </Button>
+                    </li>
+                    <li>
+                        <Button
+                            variant="ghost"
+                            className={cn(
                                 pathname.startsWith('/belanja/buku') &&
                                     'text-primary'
                             )}
                             asChild
                         >
-                            <Link to="/belanja/buku/lpj-belanja">
+                            <Link to="/belanja/buku/bku">
                                 <HiOutlineBookmarkAlt className="mr-1 h-5 w-5" />
                                 <span>Buku Bendahara</span>
                             </Link>

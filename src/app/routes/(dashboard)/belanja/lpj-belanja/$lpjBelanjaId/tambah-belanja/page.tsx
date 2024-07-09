@@ -23,10 +23,9 @@ export default function EditPage() {
 
     if (isLoading) return <Loading />
 
-    if (isError) return <Navigate to={`/belanja/buku/lpj-belanja`} replace />
+    if (isError) return <Navigate to={`/belanja/lpj-belanja`} replace />
 
-    if (!lpjBelanja)
-        return <Navigate to={`/belanja/buku/lpj-belanja`} replace />
+    if (!lpjBelanja) return <Navigate to={`/belanja/lpj-belanja`} replace />
 
     return (
         <Card>

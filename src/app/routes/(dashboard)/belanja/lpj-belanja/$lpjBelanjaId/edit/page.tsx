@@ -17,7 +17,7 @@ export default function EditPage() {
     )
 
     if ((lpjBelanja.isSuccess && !lpjBelanja.data) || lpjBelanja.isError)
-        return <Navigate to="/belanja/buku/lpj-belanja" replace />
+        return <Navigate to="/belanja/lpj-belanja" replace />
 
     return (
         <Card>

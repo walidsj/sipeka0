@@ -65,10 +65,10 @@ export default function LpjBelanjaTable() {
                 <TableRow>
                     <TableHead className="w-1">No.</TableHead>
                     <TableHead>Tanggal Dokumen</TableHead>
-                    <TableHead>Nomor Dokumen</TableHead>
+                    <TableHead className="text-center">Nomor Dokumen</TableHead>
                     <TableHead>Uraian</TableHead>
-                    <TableHead>Jenis</TableHead>
-                    <TableHead>Jumlah</TableHead>
+                    <TableHead className="text-center">Jenis</TableHead>
+                    <TableHead className="text-right">Jumlah</TableHead>
                     <TableHead className="w-1" />
                 </TableRow>
             </TableHeader>
@@ -78,9 +78,15 @@ export default function LpjBelanjaTable() {
                         <TableCell className="text-center">
                             {index + 1}.
                         </TableCell>
-                        <TableCell>{formatTanggal(item.tglDokumen)}</TableCell>
-                        <TableCell>{item.noDokumen}</TableCell>
-                        <TableCell>{item.uraian}</TableCell>
+                        <TableCell className="font-semibold">
+                            {formatTanggal(item.tglDokumen)}
+                        </TableCell>
+                        <TableCell className="text-center font-semibold">
+                            {item.noDokumen}
+                        </TableCell>
+                        <TableCell className="font-semibold">
+                            {item.uraian}
+                        </TableCell>
                         <TableCell className="text-center">
                             {item.jenis === 'GU' && <Badge>GU</Badge>}
                             {item.jenis === 'LS' && (
@@ -90,7 +96,7 @@ export default function LpjBelanjaTable() {
                                 <Badge className="bg-yellow-500">TU</Badge>
                             )}
                         </TableCell>
-                        <TableCell className="text-right">
+                        <TableCell className="text-right font-semibold">
                             {formatAngka(
                                 item.belanja.reduce(
                                     (acc, curr) => acc + Number(curr.jumlah),

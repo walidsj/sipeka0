@@ -45,7 +45,7 @@ export default function EditPage() {
         },
         onSuccess(data) {
             toast.dismiss()
-            navigate('/belanja/buku/lpj-belanja')
+            navigate('/belanja/lpj-belanja')
             utils.lpjBelanja.invalidate()
             toast.success(data.message)
         },
@@ -57,10 +57,9 @@ export default function EditPage() {
 
     if (isLoading) return <Loading />
 
-    if (isError) return <Navigate to={`/belanja/buku/lpj-belanja`} replace />
+    if (isError) return <Navigate to={`/belanja/lpj-belanja`} replace />
 
-    if (!lpjBelanja)
-        return <Navigate to={`/belanja/buku/lpj-belanja`} replace />
+    if (!lpjBelanja) return <Navigate to={`/belanja/lpj-belanja`} replace />
 
     return (
         <Card>
@@ -79,7 +78,7 @@ export default function EditPage() {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="start">
                         <Link
-                            to={`/belanja/buku/lpj-belanja/${params.lpjBelanjaId}/tambah-belanja`}
+                            to={`/belanja/lpj-belanja/${params.lpjBelanjaId}/tambah-belanja`}
                         >
                             <DropdownMenuItem>
                                 <HiOutlinePlus className="mr-2" />
@@ -87,7 +86,7 @@ export default function EditPage() {
                             </DropdownMenuItem>
                         </Link>
                         <Link
-                            to={`/belanja/buku/lpj-belanja/${params.lpjBelanjaId}/edit`}
+                            to={`/belanja/lpj-belanja/${params.lpjBelanjaId}/edit`}
                         >
                             <DropdownMenuItem>
                                 <HiOutlinePencil className="mr-2" />
@@ -96,7 +95,7 @@ export default function EditPage() {
                         </Link>
 
                         <Link
-                            to={`/belanja/buku/lpj-belanja/${params.lpjBelanjaId}/cetak`}
+                            to={`/belanja/lpj-belanja/${params.lpjBelanjaId}/cetak`}
                         >
                             <DropdownMenuItem>
                                 <HiOutlinePrinter className="mr-2" />
