@@ -85,7 +85,9 @@ export default function DetailTable() {
                         <TableHead className="text-center">
                             Tanggal Dokumen
                         </TableHead>
-                        <TableHead>Kode Rekening</TableHead>
+                        <TableHead className="text-center">
+                            Kode Rekening
+                        </TableHead>
                         <TableHead>Nomor Dokumen</TableHead>
                         <TableHead>Penerima</TableHead>
                         <TableHead>Uraian</TableHead>
@@ -108,18 +110,18 @@ export default function DetailTable() {
                                     }).format(new Date(item.tglDokumen || ''))}
                                 </TableCell>
                                 <TableCell className="text-center font-semibold">
-                                    {item.noDokumen}
+                                    {item.rab?.kodeRekening}
                                 </TableCell>
                                 <TableCell className="text-center font-semibold">
+                                    {item.noDokumen}
+                                </TableCell>
+                                <TableCell className="font-semibold">
                                     {item.rekanan && item.rekanan.nama}
                                     {item.pegawai &&
                                         `${item.pegawai.gelarDepan && `${item.pegawai.gelarDepan} `}${item.pegawai.nama}${
                                             item.pegawai.gelarBelakang &&
                                             `, ${item.pegawai.gelarBelakang}`
                                         }`}
-                                </TableCell>
-                                <TableCell className="font-semibold">
-                                    {item.rab?.kodeRekening}
                                 </TableCell>
                                 <TableCell className="font-semibold">
                                     {item.uraian}
