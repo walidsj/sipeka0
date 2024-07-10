@@ -679,6 +679,9 @@ export const belanjaRouter = createTRPCRouter({
                     belanja: {
                         where: filterDate,
                         with: {
+                            pegawai: true,
+                            rekanan: true,
+                            rab: true,
                             lpjBelanja: true,
                         },
                     },

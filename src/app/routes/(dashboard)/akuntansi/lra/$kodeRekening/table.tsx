@@ -85,7 +85,9 @@ export default function DetailTable() {
                         <TableHead className="text-center">
                             Tanggal Dokumen
                         </TableHead>
+                        <TableHead>Kode Rekening</TableHead>
                         <TableHead>Nomor Dokumen</TableHead>
+                        <TableHead>Penerima</TableHead>
                         <TableHead>Uraian</TableHead>
                         <TableHead>Jumlah</TableHead>
                         <TableHead>Dokumen LPJ</TableHead>
@@ -107,6 +109,17 @@ export default function DetailTable() {
                                 </TableCell>
                                 <TableCell className="text-center font-semibold">
                                     {item.noDokumen}
+                                </TableCell>
+                                <TableCell className="text-center font-semibold">
+                                    {item.rekanan && item.rekanan.nama}
+                                    {item.pegawai &&
+                                        `${item.pegawai.gelarDepan && `${item.pegawai.gelarDepan} `}${item.pegawai.nama}${
+                                            item.pegawai.gelarBelakang &&
+                                            `, ${item.pegawai.gelarBelakang}`
+                                        }`}
+                                </TableCell>
+                                <TableCell className="font-semibold">
+                                    {item.rab?.kodeRekening}
                                 </TableCell>
                                 <TableCell className="font-semibold">
                                     {item.uraian}
@@ -132,7 +145,7 @@ export default function DetailTable() {
                 <TableFooter>
                     <TableRow>
                         <TableCell
-                            colSpan={4}
+                            colSpan={6}
                             className="text-right font-semibold"
                         >
                             Total
