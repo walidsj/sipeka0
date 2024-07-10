@@ -14,6 +14,7 @@ import { api } from '@/web/trpc/react'
 import { keepPreviousData } from '@tanstack/react-query'
 import { format } from 'date-fns'
 import { useParams, useSearchParams } from 'react-router-dom'
+import ExcelExport from './excel-export'
 
 export default function DetailTable() {
     const params = useParams<{ kodeRekening: string }>()
@@ -75,6 +76,35 @@ export default function DetailTable() {
                             searchParams.set('endDate', e.target.value)
                             setSearchParams(searchParams)
                         }}
+                    />
+                    <ExcelExport
+                        data={belanja.map((item) => ({
+                            'Tanggal Dokumen': Intl.DateTimeFormat('id', {
+                                day: '2-digit',
+                                month: '2-digit',
+                                year: 'numeric',
+                            }).format(new Date(item.tglDokumen || '')),
+                            'Kode Rekening': item.rab?.kodeRekening,
+                            'Nomor Dokumen': item.noDokumen,
+                            Penerima:
+                                item.rekanan && item.rekanan.nama
+                                    ? item.rekanan.nama
+                                    : item.pegawai &&
+                                      `${item.pegawai.gelarDepan && `${item.pegawai.gelarDepan} `}${item.pegawai.nama}${
+                                          item.pegawai.gelarBelakang &&
+                                          `, ${item.pegawai.gelarBelakang}`
+                                      }`,
+                            Uraian: item.uraian,
+                            Jumlah: item.jumlah,
+                            'Dokumen LPJ':
+                                item.lpjBelanja?.jenis &&
+                                item.lpjBelanja?.noDokumen
+                                    ? `${item.lpjBelanja.jenis} ${item.lpjBelanja.noDokumen}`
+                                    : '',
+                        }))}
+                        kodeRekening={params.kodeRekening!}
+                        startDate={new Date(searchParams.get('startDate')!)}
+                        endDate={new Date(searchParams.get('endDate')!)}
                     />
                 </div>
             </div>
