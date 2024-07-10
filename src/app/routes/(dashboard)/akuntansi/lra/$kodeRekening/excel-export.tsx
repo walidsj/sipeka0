@@ -39,7 +39,7 @@ const ExcelExport = ({
 
     return (
         <Button className="bg-green-500" onClick={exportToExcel}>
-            <FaFileExcel /> Excel
+            <FaFileExcel className="mr-2" /> Excel
         </Button>
     )
 }
