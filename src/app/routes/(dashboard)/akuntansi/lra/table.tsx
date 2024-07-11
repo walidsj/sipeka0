@@ -16,7 +16,7 @@ import {
     TableHeader,
     TableRow,
 } from '@/web/components/ui/table'
-import { formatAngka } from '@/web/lib/utils'
+import { cn, formatAngka } from '@/web/lib/utils'
 import { api } from '@/web/trpc/react'
 import { keepPreviousData } from '@tanstack/react-query'
 import { format } from 'date-fns'
@@ -102,7 +102,14 @@ export default function LraTable() {
                 <TableBody>
                     {belanja.map((item, index) => {
                         return (
-                            <TableRow key={index}>
+                            <TableRow
+                                key={index}
+                                className={cn(
+                                    item.jumlah > item.anggaran &&
+                                        'text-red-500',
+                                    item.jumlah === 0 && 'text-gray-400'
+                                )}
+                            >
                                 <TableCell className="font-semibold">
                                     {item.kodeRekening}
                                 </TableCell>

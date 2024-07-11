@@ -676,12 +676,21 @@ export const belanjaRouter = createTRPCRouter({
                 .leftJoin(rekapBelanja, eq(rab.id, rekapBelanja.rabId))
                 .where(isNotNull(rekapBelanja.jumlah))
 
-            const kodeRekening = [
+            const kodeRekeningBelanja = [
                 ...new Set(belanjaList.map((item) => item.kodeRekening)),
             ]
 
+            const kodeRekeningAnggaran = [
+                ...new Set(
+                    anggaranBelanjaFlatten.map((item) => item.kodeRekening)
+                ),
+            ]
+
             const rekeningLv6 = rekeningLevel6.filter((item) => {
-                return kodeRekening.includes(item.kode)
+                return (
+                    kodeRekeningBelanja.includes(item.kode) ||
+                    kodeRekeningAnggaran.includes(item.kode)
+                )
             })
 
             const data = rekeningLv6.map((item) => {
