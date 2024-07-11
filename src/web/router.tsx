@@ -1,41 +1,39 @@
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import React from 'react'
-import { cn } from './lib/utils'
 import { AnimatePresence, motion } from 'framer-motion'
-import Loading from './components/loading'
+import Loading from '@/components/loading'
 
 export default function Router() {
-    const importedRoutes: any = import.meta.glob(
-        '@/app/routes/**/(layout|page|not-found).tsx'
+    const importedRoutes = import.meta.glob(
+        '@/app/**/(layout|page|not-found).tsx'
     )
 
-    const importedRoutesEager: any = import.meta.glob(
-        '@/app/routes/**/(middleware).tsx',
-        { eager: true }
-    )
+    const importedRoutesEager = import.meta.glob('@/app/**/(middleware).tsx', {
+        eager: true,
+    })
 
     type RouteType = {
         key: string
         path: string
         segments: string[]
         type: string
-        element: any
+        element: React.ElementType
     }
 
-    const routes: RouteType[] = Object.keys({
+    const routes = Object.keys({
         ...importedRoutes,
         ...importedRoutesEager,
     }).map((key) => {
-        const type = key.match(/\/([^\/]+)\.tsx$/)
+        const type = key.match(/\/([^/]+)\.tsx$/)
 
         const path = key
-            .replace(/[^\/]+\.tsx$/, '') // remove file name
-            .replace(/\.\.\/app\/routes/g, '') // remove ./routes
+            .replace(/[^/]+\.tsx$/, '') // remove file name
+            .replace(/\.\.\/app/g, '') // remove ./app
             .replace(/\/\(([^)]+)\)/g, '') // remove segment with /(segment)
-            .replace(/\$([^\/]+)/g, ':$1') // replace $segment with :segment
+            .replace(/\[([^/]+)\]/g, ':$1')
 
         const segments = key
-            .replace(/[^\/]+\.tsx$/, '')
+            .replace(/[^/]+\.tsx$/, '')
             .split('/')
             .filter(Boolean)
 
@@ -46,8 +44,10 @@ export default function Router() {
             type: type ? type[1] : '',
             element:
                 importedRoutes[key] instanceof Function
-                    ? React.lazy(importedRoutes[key] as any)
-                    : (importedRoutesEager[key].default as any),
+                    ? // @ts-expect-error TS2349: This expression is not callable.
+                      React.lazy(importedRoutes[key])
+                    : // @ts-expect-error TS2349: This expression is not callable.
+                      importedRoutesEager[key].default,
         }
     })
 
@@ -131,7 +131,7 @@ export default function Router() {
         key: string
         path: string
         type: string
-        element: any
+        element: React.ElementType
         parent: string | null | undefined
         children: RoutePagesType[]
         layout?: RouteType
@@ -254,134 +254,6 @@ export default function Router() {
             }
         })
     }
-
-    function simulatePagesRouter(routes: RoutePagesType[]) {
-        return routes.map((route) => {
-            if (route.type === 'middleware') {
-                if (route.children.length > 0) {
-                    return (
-                        <div
-                            className={cn(
-                                'm-5 border border-black p-5',
-                                route.type === 'middleware' && 'bg-red-100'
-                            )}
-                        >
-                            <span className="block font-bold">
-                                {route.path}
-                            </span>
-                            <span className="text-xs text-gray-500">
-                                {route.key}
-                            </span>
-                            <br />
-                            <br />
-                            <small className="text-gray-500">
-                                Middleware: {route.middleware?.key}
-                                <br />
-                                Layout: {route.layout?.key}
-                            </small>
-                            {simulatePagesRouter(route.children)}
-                        </div>
-                    )
-                }
-
-                return (
-                    <div
-                        className={cn(
-                            'm-5 border border-black p-5',
-                            route.type === 'middleware' && 'bg-red-100'
-                        )}
-                    >
-                        <span className="block font-bold">{route.path}</span>
-                        <span className="text-xs text-gray-500">
-                            {route.key}
-                        </span>
-                        <br />
-                        <br />
-                        <small className="text-gray-500">
-                            Middleware: {route.middleware?.key}
-                            <br />
-                            Layout: {route.layout?.key}
-                        </small>
-                    </div>
-                )
-            }
-
-            if (route.type === 'layout' || route.type === 'page') {
-                if (route.children.length > 0) {
-                    return (
-                        <div
-                            className={cn(
-                                'm-5 border border-black p-5',
-                                route.type === 'layout' && 'bg-yellow-100',
-                                route.type === 'page' && 'bg-background'
-                            )}
-                        >
-                            <span className="block font-bold">
-                                {route.path}
-                            </span>
-                            <span className="text-xs text-gray-500">
-                                {route.key}
-                            </span>
-                            <br />
-                            <br />
-                            <small className="text-gray-500">
-                                Middleware: {route.middleware?.key}
-                                <br />
-                                Layout: {route.layout?.key}
-                            </small>
-                            {simulatePagesRouter(route.children)}
-                        </div>
-                    )
-                }
-
-                return (
-                    <div
-                        className={cn(
-                            'm-5 border border-black p-5',
-                            route.type === 'layout' && 'bg-yellow-100',
-                            route.type === 'page' && 'bg-background'
-                        )}
-                    >
-                        <span className="block font-bold">{route.path}</span>
-                        <span className="text-xs text-gray-500">
-                            {route.key}
-                        </span>
-                        <br />
-                        <br />
-                        <small className="text-gray-500">
-                            Middleware: {route.middleware?.key}
-                            <br />
-                            Layout: {route.layout?.key}
-                        </small>
-                    </div>
-                )
-            }
-
-            if (route.type === 'not-found') {
-                return (
-                    <div
-                        className={cn(
-                            'm-5 border border-black p-5',
-                            route.type === 'not-found' && 'bg-gray-100'
-                        )}
-                    >
-                        <span className="block font-bold">{route.path}</span>
-                        <span className="text-xs text-gray-500">
-                            {route.key}
-                        </span>
-                        <br />
-                        <br />
-                        <small className="text-gray-500">
-                            Middleware: {route.middleware?.key}
-                            <br />
-                            Layout: {route.layout?.key}
-                        </small>
-                    </div>
-                )
-            }
-        })
-    }
-
     return (
         <AnimatePresence>
             <HashRouter>
@@ -389,6 +261,4 @@ export default function Router() {
             </HashRouter>
         </AnimatePresence>
     )
-
-    return <div>{simulatePagesRouter(nest)}</div>
 }

@@ -1,23 +1,23 @@
-import { env } from '@/env'
-import { SignJWT, jwtVerify } from 'jose'
+import { env } from '@/env.server'
+import { type JWTPayload, SignJWT, jwtVerify } from 'jose'
 
 const secret = env.JWT_SECRET_KEY ?? 'secret'
 const key = new TextEncoder().encode(secret)
 
-export async function encrypt(payload: any) {
-    return await new SignJWT(payload as any)
+export async function encrypt(payload: unknown) {
+    return await new SignJWT(payload as JWTPayload)
         .setProtectedHeader({ alg: 'HS256' })
         .setIssuedAt()
         .setExpirationTime('30d')
         .sign(key)
 }
 
-export async function decrypt(input: string): Promise<any> {
+export async function decrypt(input: string): Promise<unknown> {
     try {
         const { payload } = await jwtVerify(input, key, {
             algorithms: ['HS256'],
         })
-        return payload as any
+        return payload as unknown
     } catch (error) {
         return null
     }

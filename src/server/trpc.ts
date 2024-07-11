@@ -3,8 +3,8 @@ import superjson from 'superjson'
 import { ZodError } from 'zod'
 import { db } from '@/server/db'
 import { eq } from 'drizzle-orm'
-import { user } from './db/schema'
-import { getSession } from './auth'
+import { user } from '@/server/db/schema'
+import { getSession } from '@/server/auth'
 import { type CreateExpressContextOptions } from '@trpc/server/adapters/express'
 
 export const createTRPCContext = async ({

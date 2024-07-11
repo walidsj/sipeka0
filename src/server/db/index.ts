@@ -2,7 +2,7 @@ import { drizzle } from 'drizzle-orm/mysql2'
 import { createPool, type Pool } from 'mysql2/promise'
 import * as schema from './schema'
 import dotenv from 'dotenv'
-import { env } from '@/env'
+import { env } from '@/env.server'
 
 dotenv.config()
 

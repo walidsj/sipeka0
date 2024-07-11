@@ -1,5 +1,4 @@
-import { appRouter } from '@/app/api/root'
-import dotenv from 'dotenv'
+import { appRouter } from './api/root'
 import express from 'express'
 import { createServer } from 'node:http'
 import { Server } from 'socket.io'
@@ -8,9 +7,8 @@ import {
     type CreateExpressContextOptions,
 } from '@trpc/server/adapters/express'
 import { getSession } from './auth'
-import { db } from '@/server/db'
-
-dotenv.config()
+import { db } from './db'
+import { env } from '@/env.server'
 
 const app = express()
 
@@ -24,7 +22,7 @@ app.use(
             session: await getSession(req.headers.authorization ?? ''),
         }),
         onError:
-            process.env.NODE_ENV === 'development'
+            env.NODE_ENV === 'development'
                 ? ({ path, error }) => {
                       console.error(
                           `❌ tRPC failed on ${path ?? '<no-path>'}: ${
@@ -89,7 +87,7 @@ io.on('connection', (socket) => {
     )
 
     socket.on('logout', () => {
-        let user = tempOnlineUser.find((u) => u.socketId === socket.id)
+        const user = tempOnlineUser.find((u) => u.socketId === socket.id)
 
         tempOnlineUser = tempOnlineUser.filter(
             (tempUser) => tempUser.user !== user?.user
@@ -124,8 +122,6 @@ io.on('connection', (socket) => {
     })
 })
 
-server.listen(Number(process.env.PORT ?? 3000), () => {
-    console.log(
-        `Listening on http://localhost:${Number(process.env.PORT ?? 3000)}`
-    )
+server.listen(Number(env.PORT ?? 3000), () => {
+    console.log(`Listening on http://localhost:${Number(env.PORT ?? 3000)}`)
 })

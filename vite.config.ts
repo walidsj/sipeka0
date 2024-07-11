@@ -1,10 +1,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
-import dotenv from 'dotenv'
 import { VitePWA } from 'vite-plugin-pwa'
-
-dotenv.config()
+import { env } from './src/env.server'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,7 +13,7 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            '/api': `http://localhost:${process.env.PORT ? Number(process.env.PORT) : 3000}`,
+            '/api': `http://localhost:${env.PORT ? Number(env.PORT) : 3000}`,
         },
     },
     root: path.resolve(__dirname, 'src/web'),
