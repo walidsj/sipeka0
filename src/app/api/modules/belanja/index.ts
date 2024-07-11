@@ -601,6 +601,52 @@ export const belanjaRouter = createTRPCRouter({
             })
         )
         .query(async ({ ctx, input }) => {
+            const latestDba = await ctx.db.query.dba.findFirst({
+                orderBy: desc(dba.tglDokumen),
+            })
+
+            if (!latestDba) {
+                throw new TRPCError({
+                    code: 'NOT_FOUND',
+                    message: 'DBA belum tersedia',
+                })
+            }
+
+            const rbaByDba = await ctx.db.query.rba.findFirst({
+                where: eq(rba.id, latestDba.rbaId!),
+                with: {
+                    aktivitas: {
+                        where: eq(aktivitasRba.jenis, 'BELANJA'),
+                        with: {
+                            rincianRbaBelanja: {
+                                with: {
+                                    rab: true,
+                                },
+                            },
+                        },
+                    },
+                },
+            })
+
+            if (!rbaByDba) {
+                throw new TRPCError({
+                    code: 'NOT_FOUND',
+                    message: 'RBA belum tersedia',
+                })
+            }
+
+            /// buat array dengan format {kodeRekening: 'kode', jumlah: XXX}
+            const anggaranBelanja = rbaByDba.aktivitas.map((aktivitas) => {
+                return aktivitas.rincianRbaBelanja.map((rincian) => {
+                    return {
+                        kodeRekening: rincian.rab?.kodeRekening,
+                        jumlah: Number(rincian.harga) * Number(rincian.volume),
+                    }
+                })
+            })
+
+            const anggaranBelanjaFlatten = anggaranBelanja.flat()
+
             const startDate =
                 input.startDate || new Date(format(new Date(), 'yyyy-01-01'))
             const endDate = input.endDate || new Date()
@@ -646,6 +692,13 @@ export const belanjaRouter = createTRPCRouter({
                 return {
                     kodeRekening: item.kode,
                     uraian: item.uraian,
+                    anggaran: anggaranBelanjaFlatten
+                        .filter((anggaran) => {
+                            return anggaran.kodeRekening === item.kode
+                        })
+                        .reduce((acc, item) => {
+                            return acc + item.jumlah
+                        }, 0),
                     jumlah: belanja.reduce((acc, item) => {
                         return acc + Number(item.jumlah)
                     }, 0),

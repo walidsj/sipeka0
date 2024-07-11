@@ -88,7 +88,13 @@ export default function LraTable() {
                         <TableHead>Kode Rekening</TableHead>
                         <TableHead>Uraian</TableHead>
                         <TableHead className="text-right">
+                            Anggaran (Rp)
+                        </TableHead>
+                        <TableHead className="text-right">
                             Realisasi (Rp)
+                        </TableHead>
+                        <TableHead className="text-right">
+                            Sisa Anggaran (Rp)
                         </TableHead>
                         <TableHead className="w-1" />
                     </TableRow>
@@ -104,7 +110,13 @@ export default function LraTable() {
                                     {item.uraian}
                                 </TableCell>
                                 <TableCell className="text-right font-semibold">
+                                    {formatAngka(item.anggaran)}
+                                </TableCell>
+                                <TableCell className="text-right font-semibold">
                                     {formatAngka(item.jumlah)}
+                                </TableCell>
+                                <TableCell className="text-right font-semibold">
+                                    {formatAngka(item.anggaran - item.jumlah)}
                                 </TableCell>
                                 <TableCell>
                                     <DropdownMenu>
@@ -159,7 +171,24 @@ export default function LraTable() {
                         <TableHead className="text-right">
                             {formatAngka(
                                 belanja.reduce(
+                                    (acc, item) => acc + item.anggaran,
+                                    0
+                                )
+                            )}
+                        </TableHead>
+                        <TableHead className="text-right">
+                            {formatAngka(
+                                belanja.reduce(
                                     (acc, item) => acc + item.jumlah,
+                                    0
+                                )
+                            )}
+                        </TableHead>
+                        <TableHead className="text-right">
+                            {formatAngka(
+                                belanja.reduce(
+                                    (acc, item) =>
+                                        acc + item.anggaran - item.jumlah,
                                     0
                                 )
                             )}
