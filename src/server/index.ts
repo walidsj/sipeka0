@@ -1,7 +1,7 @@
 import { appRouter } from './api/root'
 import express from 'express'
 import { createServer } from 'node:http'
-import { Server } from 'socket.io'
+import { Server, Socket } from 'socket.io'
 import {
     createExpressMiddleware,
     type CreateExpressContextOptions,
@@ -56,7 +56,7 @@ type ITempOnlineUser = {
 let tempOnlineUser: ITempOnlineUser[] = []
 let onlineUsers: IOnlineUser[] = []
 
-io.on('connection', (socket) => {
+io.on('connection', (socket: Socket) => {
     console.log('a user connected')
 
     socket.on('connected', () => {
