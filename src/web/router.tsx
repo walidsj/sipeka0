@@ -1,4 +1,4 @@
-import { HashRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import React from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import Loading from '@/components/loading'
@@ -256,9 +256,9 @@ export default function Router() {
     }
     return (
         <AnimatePresence>
-            <HashRouter>
+            <BrowserRouter>
                 <Routes>{renderRoutes(nest)}</Routes>
-            </HashRouter>
+            </BrowserRouter>
         </AnimatePresence>
     )
 }
