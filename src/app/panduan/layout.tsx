@@ -86,7 +86,9 @@ export default function Layout() {
                     </Link>
                 </div>
             </div>
-            <Outlet />
+            <div className="w-full">
+                <Outlet />
+            </div>
             <footer className="flex w-96 flex-col gap-5 px-5 text-xs text-slate-500 md:pr-8 lg:pr-10 xl:pr-12">
                 <p>&copy;{new Date().getFullYear()} RSJD Atma Husada Mahakam</p>
                 <p>

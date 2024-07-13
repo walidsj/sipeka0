@@ -6,12 +6,10 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import React from 'react'
-import { FiLock, FiLogOut } from 'react-icons/fi'
 import Loading from '@/components/loading'
 import { socket } from '@/lib/socket'
 import { FaCircle, FaRegCircle } from 'react-icons/fa'
@@ -22,6 +20,12 @@ import {
 } from '@/components/ui/popover'
 import { CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
+import {
+    HiOutlineBookOpen,
+    HiOutlineHome,
+    HiOutlineLockClosed,
+    HiOutlineLogout,
+} from 'react-icons/hi'
 
 type IOnlineUser = {
     user: string
@@ -120,11 +124,11 @@ export function Header() {
                             className="block h-10 w-auto lg:hidden"
                         />
                     </Link>
-                    <ul className="flex items-center">
+                    <div className="flex items-center">
                         {isConnected && (
                             <Popover>
                                 <PopoverTrigger disabled={!isConnected}>
-                                    <li className="flex px-5">
+                                    <div className="flex px-5">
                                         {onlineUsers
                                             .filter(
                                                 (onlineUser) =>
@@ -147,7 +151,7 @@ export function Header() {
                                                     />
                                                 </Avatar>
                                             ))}
-                                    </li>
+                                    </div>
                                 </PopoverTrigger>
                                 <PopoverContent>
                                     <CardTitle className="mb-4">
@@ -200,118 +204,95 @@ export function Header() {
                                 </PopoverContent>
                             </Popover>
                         )}
-                        <li>
-                            <Button
-                                variant="ghost"
-                                asChild
-                                className="hidden h-20 rounded-none px-5 md:flex"
-                            >
-                                <Link to="/">Beranda</Link>
-                            </Button>
-                        </li>
-                        <li>
-                            <Button
-                                variant="ghost"
-                                asChild
-                                className="hidden h-20 rounded-none px-5 sm:flex"
-                            >
-                                <Link to="/panduan">Panduan</Link>
-                            </Button>
-                        </li>
+                        <Button
+                            variant="ghost"
+                            asChild
+                            className="hidden px-5 sm:flex"
+                        >
+                            <Link to="/panduan">
+                                <HiOutlineBookOpen className="h-6 w-6" />
+                            </Link>
+                        </Button>
 
                         {!auth.user ? (
                             <React.Fragment>
                                 {auth.isLoading ? (
                                     <Loading />
                                 ) : (
-                                    <li>
-                                        <Button
-                                            variant="ghost"
-                                            asChild
-                                            className="h-20 rounded-none px-5"
-                                        >
-                                            <Link to="/login">
-                                                <FiLock className="mr-2" />{' '}
-                                                Login
-                                            </Link>
-                                        </Button>
-                                    </li>
+                                    <Button
+                                        variant="ghost"
+                                        asChild
+                                        className="px-5"
+                                    >
+                                        <Link to="/login">
+                                            <HiOutlineLockClosed className="mr-2 h-6 w-6" />
+                                            Login
+                                        </Link>
+                                    </Button>
                                 )}
                             </React.Fragment>
                         ) : (
                             <React.Fragment>
-                                <li>
-                                    <Button
-                                        variant="ghost"
-                                        asChild
-                                        className="h-20 rounded-none px-5"
-                                    >
-                                        <Link to="/home">Dashboard</Link>
-                                    </Button>
-                                </li>
-                                <li>
-                                    <DropdownMenu>
-                                        <DropdownMenuTrigger asChild>
-                                            <Button
-                                                variant="ghost"
-                                                className="h-20 gap-3 rounded-none"
-                                            >
-                                                <Avatar>
-                                                    <AvatarImage
-                                                        src={`https://ui-avatars.com/api/?name=${auth.user?.nama}&background=3b82f6&color=fff`}
-                                                    />
-                                                    <AvatarFallback>
-                                                        CN
-                                                    </AvatarFallback>
-                                                </Avatar>
-                                                <div className="hidden text-left lg:block">
-                                                    <div className="block text-sm">
-                                                        {auth.user.nama}
-                                                    </div>
-                                                    <div className="block text-xs font-normal text-slate-400">
-                                                        {auth.user.instansi}
-                                                    </div>
-                                                </div>
-                                            </Button>
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent
-                                            className="-mt-3"
-                                            align="start"
+                                <Button
+                                    variant="ghost"
+                                    asChild
+                                    className="px-5"
+                                >
+                                    <Link to="/home">
+                                        <HiOutlineHome className="h-6 w-6" />
+                                    </Link>
+                                </Button>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <Button
+                                            variant="ghost"
+                                            className="gap-3"
                                         >
-                                            <DropdownMenuLabel>
-                                                My Profile
-                                            </DropdownMenuLabel>
-                                            <DropdownMenuSeparator />
-                                            <Link
-                                                to="/profil"
-                                                className="w-full"
-                                            >
-                                                <DropdownMenuItem>
-                                                    Profil Saya
-                                                </DropdownMenuItem>
-                                            </Link>
-                                            <Link
-                                                to="/profil/ganti-password"
-                                                className="w-full"
-                                            >
-                                                <DropdownMenuItem>
-                                                    Ganti Password
-                                                </DropdownMenuItem>
-                                            </Link>
-                                            <DropdownMenuSeparator />
-                                            <DropdownMenuItem
-                                                className="text-red-500"
-                                                onClick={() => auth.logout()}
-                                            >
-                                                <FiLogOut className="mr-2" />{' '}
-                                                Logout
+                                            <Avatar>
+                                                <AvatarImage
+                                                    src={`https://ui-avatars.com/api/?name=${auth.user?.nama}&background=3b82f6&color=fff`}
+                                                />
+                                                <AvatarFallback>
+                                                    CN
+                                                </AvatarFallback>
+                                            </Avatar>
+                                            <div className="hidden text-left lg:block">
+                                                <div className="block text-sm">
+                                                    {auth.user.nama}
+                                                </div>
+                                                <div className="block text-xs font-normal text-slate-400">
+                                                    {auth.user.instansi}
+                                                </div>
+                                            </div>
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="start">
+                                        <Link to="/profil" className="w-full">
+                                            <DropdownMenuItem>
+                                                Profil Saya
                                             </DropdownMenuItem>
-                                        </DropdownMenuContent>
-                                    </DropdownMenu>
-                                </li>
+                                        </Link>
+                                        <Link
+                                            to="/profil/ganti-password"
+                                            className="w-full"
+                                        >
+                                            <DropdownMenuItem>
+                                                Ganti Password
+                                            </DropdownMenuItem>
+                                        </Link>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem
+                                            className="text-red-500"
+                                            onClick={() => auth.logout()}
+                                        >
+                                            <HiOutlineLogout className="mr-2" />{' '}
+                                            Logout
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
                             </React.Fragment>
                         )}
-                    </ul>
+                    </div>
                 </div>
             </div>
         </header>
