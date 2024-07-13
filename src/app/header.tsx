@@ -138,7 +138,7 @@ export function Header() {
                                             .map((onlineUser, index) => (
                                                 <Avatar
                                                     className={cn(
-                                                        '-ml-3 h-7 w-7 bg-white'
+                                                        '-ml-3 h-6 w-6 bg-white'
                                                     )}
                                                 >
                                                     <AvatarImage
@@ -168,7 +168,7 @@ export function Header() {
                                                 key={onlineUser.user}
                                                 className="my-3 flex items-center"
                                             >
-                                                <Avatar className="mr-2 h-10 w-10">
+                                                <Avatar className="mr-2 h-8 w-8">
                                                     <AvatarImage
                                                         className={cn(
                                                             'transition-all',
@@ -248,7 +248,7 @@ export function Header() {
                                             variant="ghost"
                                             className="gap-3"
                                         >
-                                            <Avatar>
+                                            <Avatar className="h-8 w-8">
                                                 <AvatarImage
                                                     src={`https://ui-avatars.com/api/?name=${auth.user?.nama}&background=3b82f6&color=fff`}
                                                 />
