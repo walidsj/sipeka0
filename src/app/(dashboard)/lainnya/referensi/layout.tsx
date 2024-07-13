@@ -36,7 +36,9 @@ export default function Layout() {
                     </ul>
                 </nav>
             </div>
-            <Outlet />
+            <div className="w-full">
+                <Outlet />
+            </div>
         </div>
     )
 }

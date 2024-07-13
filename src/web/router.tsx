@@ -40,7 +40,7 @@ const routesList = Object.keys({
 
     return {
         key,
-        path: path ?? '/',
+        path: path || '/',
         segments,
         type: type ? type[1] : '',
         element:
@@ -164,11 +164,10 @@ const createRoutes = (routes: RoutePagesType[]): RouteObject[] =>
                 element: (
                     <React.Suspense>
                         <motion.div
-                            className="w-full"
                             key={route.key}
-                            initial={{ opacity: 0, y: 5 }}
+                            initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.08 }}
+                            transition={{ duration: 0.1 }}
                         >
                             <route.element />
                         </motion.div>
@@ -181,11 +180,10 @@ const createRoutes = (routes: RoutePagesType[]): RouteObject[] =>
             element: (
                 <React.Suspense fallback={<Loading />}>
                     <motion.div
-                        className="w-full"
                         key={route.key}
-                        initial={{ opacity: 0, y: 5 }}
+                        initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.08 }}
+                        transition={{ duration: 0.1 }}
                     >
                         <route.element />
                     </motion.div>
@@ -195,9 +193,7 @@ const createRoutes = (routes: RoutePagesType[]): RouteObject[] =>
         }
     })
 
-const nested = nestRoutes(orderedRoutes)
-
-const router = createBrowserRouter(createRoutes(nested))
+const router = createBrowserRouter(createRoutes(nestRoutes(orderedRoutes)))
 
 export default function Router() {
     return <RouterProvider router={router} />
