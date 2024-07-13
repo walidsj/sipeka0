@@ -29,6 +29,17 @@ import { rekeningLevel6 } from '@/data/rekening'
 import lodash from 'lodash'
 import { format } from 'date-fns'
 
+export type JurnalType = {
+    id?: string | number
+    tgl: Date | null
+    noDokumen: string | null
+    kodeRekening?: string | null
+    uraian: string | null
+    penerimaan: number | null
+    pengeluaran: number | null
+    potonganBelanja?: JurnalType[]
+}
+
 export const belanjaRouter = createTRPCRouter({
     getAll: userProcedure
         .input(
@@ -361,17 +372,6 @@ export const belanjaRouter = createTRPCRouter({
                 startDate ? gte(belanja.tglDokumen, startDate) : undefined,
                 endDate ? lte(belanja.tglDokumen, endDate) : undefined
             )
-
-            type JurnalType = {
-                id?: string | number
-                tgl: Date | null
-                noDokumen: string | null
-                kodeRekening?: string | null
-                uraian: string | null
-                penerimaan: number | null
-                pengeluaran: number | null
-                potonganBelanja?: JurnalType[]
-            }
 
             let jurnal: JurnalType[] = []
 
