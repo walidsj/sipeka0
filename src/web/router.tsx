@@ -1,4 +1,8 @@
-import { createHashRouter, RouteObject, RouterProvider } from 'react-router-dom'
+import {
+    createBrowserRouter,
+    type RouteObject,
+    RouterProvider,
+} from 'react-router-dom'
 import React from 'react'
 import { motion } from 'framer-motion'
 import Loading from '@/components/loading'
@@ -50,25 +54,23 @@ const routesList = Object.keys({
 
 function middlewareResolver(objRoute: RouteType) {
     const listOfMiddlewares = routesList
-        .filter((route: RouteType) => route.type === 'middleware')
+        .filter((route) => route.type === 'middleware')
         .filter(
-            (route: RouteType) =>
+            (route) =>
                 objRoute.segments
                     .join('/')
                     .includes(route.segments.join('/')) &&
                 objRoute.key !== route.key
         )
-        .sort((a, b) => {
-            return a.segments.length - b.segments.length
-        })
-    return listOfMiddlewares[listOfMiddlewares.length - 1] ?? null
+        .sort((a, b) => a.segments.length - b.segments.length)
+    return listOfMiddlewares[listOfMiddlewares.length - 1] || null
 }
 
 function layoutResolver(objRoute: RouteType) {
     const listOfLayouts = routesList
-        .filter((route: RouteType) => route.type === 'layout')
-        .filter((route: RouteType) => {
-            if (objRoute.type === 'middleware') {
+        .filter((route) => route.type === 'layout')
+        .filter((route) => {
+            if (objRoute.type === 'middleware')
                 return (
                     objRoute.segments
                         .slice(0, -1)
@@ -76,7 +78,6 @@ function layoutResolver(objRoute: RouteType) {
                         .includes(route.segments.join('/')) &&
                     objRoute.key !== route.key
                 )
-            }
 
             return (
                 objRoute.segments
@@ -85,27 +86,24 @@ function layoutResolver(objRoute: RouteType) {
                 objRoute.key !== route.key
             )
         })
-        .sort((a, b) => {
-            return a.segments.length - b.segments.length
-        })
-
-    return listOfLayouts[listOfLayouts.length - 1] ?? null
+        .sort((a, b) => a.segments.length - b.segments.length)
+    return listOfLayouts[listOfLayouts.length - 1] || null
 }
 
 const orderedRoutes = routesList.map((route) => {
     const layout = layoutResolver(route)
     const middleware = middlewareResolver(route)
 
-    let parent: string | null = null
+    let parentKey: string | null = null
 
     if (layout && middleware) {
         if (layout.segments.length >= middleware.segments.length) {
-            parent = layout.key
+            parentKey = layout.key
         } else {
-            parent = middleware.key
+            parentKey = middleware.key
         }
     } else {
-        parent = layout ? layout.key : middleware ? middleware.key : null
+        parentKey = layout ? layout.key : middleware ? middleware.key : null
     }
 
     return {
@@ -113,7 +111,7 @@ const orderedRoutes = routesList.map((route) => {
         path: route.path,
         type: route.type,
         element: route.element,
-        parent,
+        parentKey,
     }
 })
 
@@ -122,7 +120,7 @@ interface RoutePagesType {
     path: string
     type: string
     element: React.ElementType
-    parent: string | null | undefined
+    parentKey: string | null | undefined
     children: RoutePagesType[]
 }
 
@@ -136,10 +134,10 @@ function nestRoutes(data: typeof orderedRoutes) {
     const result: RoutePagesType[] = []
 
     for (const item of data) {
-        if (item.parent) {
-            map[item.parent].children.push({
+        if (item.parentKey) {
+            map[item.parentKey].children.push({
                 ...map[item.key],
-                parent: undefined,
+                parentKey: undefined,
             })
         } else {
             result.push(map[item.key])
@@ -149,18 +147,15 @@ function nestRoutes(data: typeof orderedRoutes) {
     return result
 }
 
-const nest = nestRoutes(orderedRoutes)
-
 const createRoutes = (routes: RoutePagesType[]): RouteObject[] =>
     routes.map((route) => {
         if (route.type === 'middleware')
             return {
                 path: route.path,
                 element: <route.element />,
-                children:
-                    route.children.length > 0
-                        ? createRoutes(route.children)
-                        : undefined,
+                children: route.children
+                    ? createRoutes(route.children)
+                    : undefined,
             }
 
         if (route.type === 'not-found')
@@ -173,7 +168,7 @@ const createRoutes = (routes: RoutePagesType[]): RouteObject[] =>
                             key={route.key}
                             initial={{ opacity: 0, y: 5 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.05 }}
+                            transition={{ duration: 0.08 }}
                         >
                             <route.element />
                         </motion.div>
@@ -190,20 +185,17 @@ const createRoutes = (routes: RoutePagesType[]): RouteObject[] =>
                         key={route.key}
                         initial={{ opacity: 0, y: 5 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.05 }}
+                        transition={{ duration: 0.08 }}
                     >
                         <route.element />
                     </motion.div>
                 </React.Suspense>
             ),
-            children:
-                route.children.length > 0
-                    ? createRoutes(route.children)
-                    : undefined,
+            children: route.children ? createRoutes(route.children) : undefined,
         }
     })
 
-const router = createHashRouter(createRoutes(nest))
+const router = createBrowserRouter(createRoutes(nestRoutes(orderedRoutes)))
 
 export default function Router() {
     return <RouterProvider router={router} />
