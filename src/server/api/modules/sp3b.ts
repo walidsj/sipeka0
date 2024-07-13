@@ -2,7 +2,7 @@ import { belanja, pendapatan, sp3bTable } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { and, desc, eq, gte, lt, lte } from 'drizzle-orm'
 import { z } from 'zod'
-import { sp3bSchema } from './schema'
+import { sp3bSchema } from './sp3b.schema'
 import { TRPCError } from '@trpc/server'
 
 export const sp3bRouter = createTRPCRouter({

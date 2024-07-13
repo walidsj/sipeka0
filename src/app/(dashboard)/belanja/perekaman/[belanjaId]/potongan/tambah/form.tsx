@@ -13,7 +13,7 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
-import { potonganBelanjaSchema } from '@/server/api/modules/belanja/schema'
+import { potonganBelanjaSchema } from '@/server/api/modules/belanja.schema'
 import { Input } from '@/components/ui/input'
 import { NumericFormat } from 'react-number-format'
 import {

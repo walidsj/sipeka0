@@ -24,7 +24,7 @@ import {
 } from 'drizzle-orm'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
-import { belanjaSchema, potonganBelanjaSchema } from './schema'
+import { belanjaSchema, potonganBelanjaSchema } from './belanja.schema'
 import { rekeningLevel6 } from '@/data/rekening'
 import lodash from 'lodash'
 import { format } from 'date-fns'

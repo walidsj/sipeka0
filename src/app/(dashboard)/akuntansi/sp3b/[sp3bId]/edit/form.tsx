@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { format } from 'date-fns'
 import PegawaiPicker from '@/components/pegawai-picker'
-import { sp3bSchema } from '@/server/api/modules/sp3b/schema'
+import { sp3bSchema } from '@/server/api/modules/sp3b.schema'
 
 export default function EditForm({
     data,
