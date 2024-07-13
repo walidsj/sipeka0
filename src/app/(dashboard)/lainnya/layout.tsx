@@ -7,10 +7,10 @@ export default function Layout() {
     const { pathname } = useLocation()
 
     return (
-        <div className="flex w-full flex-row gap-4">
-            <div className="flex min-h-[calc(100svh-138px)] w-28 flex-col">
+        <div className="flex w-full flex-col gap-4 lg:flex-row">
+            <div className="flex w-full flex-row overflow-x-auto lg:min-h-[calc(100svh-138px)] lg:w-28 lg:overflow-hidden">
                 <nav>
-                    <ul className="flex w-full flex-col gap-4">
+                    <ul className="flex flex-row gap-4 lg:flex-col">
                         <li>
                             <Link to="/lainnya/database/unit-kerja">
                                 <Card

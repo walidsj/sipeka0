@@ -7,8 +7,8 @@ export default function Layout() {
     const { pathname } = useLocation()
 
     return (
-        <div className="flex flex-row">
-            <div className="flex min-h-[calc(100svh-138px)] w-72 flex-col">
+        <div className="flex flex-col lg:flex-row">
+            <div className="flex w-full flex-col lg:min-h-[calc(100svh-138px)] lg:w-72">
                 <nav className="w-full">
                     <CardHeader>
                         <CardTitle>Referensi</CardTitle>
@@ -16,7 +16,7 @@ export default function Layout() {
                             Data master yang digunakan dalam aplikasi
                         </CardDescription>
                     </CardHeader>
-                    <ul className="flex flex-col">
+                    <ul className="flex w-full flex-row overflow-x-auto lg:flex-col">
                         <li>
                             <Button
                                 asChild
@@ -36,9 +36,7 @@ export default function Layout() {
                     </ul>
                 </nav>
             </div>
-            <div className="flex w-full flex-col gap-5 px-8 py-5">
-                <Outlet />
-            </div>
+            <Outlet />
         </div>
     )
 }
