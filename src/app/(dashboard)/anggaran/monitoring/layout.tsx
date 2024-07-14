@@ -37,7 +37,9 @@ export default function ProfilLayout() {
                     </ul>
                 </nav>
             </div>
-            <Outlet />
+            <div className="w-full">
+                <Outlet />
+            </div>
         </div>
     )
 }

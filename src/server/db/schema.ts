@@ -116,38 +116,6 @@ export const profilBlud = mysqlTable('profil_blud', {
         .onUpdateNow(),
 })
 
-export const programRka = mysqlTable('program_rka', {
-    id: serial('id').primaryKey(),
-    kode: varchar('kode', { length: 256 }),
-    nama: varchar('nama', { length: 256 }),
-    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
-})
-
-export const kegiatanRka = mysqlTable('kegiatan_rka', {
-    id: serial('id').primaryKey(),
-    kode: varchar('kode', { length: 256 }),
-    nama: varchar('nama', { length: 256 }),
-    programRkaId: int('program_rka_id', { unsigned: true }),
-    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
-})
-
-export const subKegiatanRka = mysqlTable('sub_kegiatan_rka', {
-    id: serial('id').primaryKey(),
-    kode: varchar('kode', { length: 256 }),
-    nama: varchar('nama', { length: 256 }),
-    kegiatanRkaId: int('kegiatan_rka_id', { unsigned: true }),
-    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
-})
-
 export const rba = mysqlTable('rba', {
     id: serial('id').primaryKey(),
     noDokumen: varchar('no_dokumen', { length: 256 }),
@@ -368,29 +336,6 @@ export const pengelolaBludRelations = relations(pengelolaBlud, ({ one }) => ({
     }),
 }))
 
-export const programRkaRelations = relations(programRka, ({ many }) => ({
-    kegiatan: many(kegiatanRka),
-}))
-
-export const kegiatanRkaRelations = relations(kegiatanRka, ({ one, many }) => ({
-    program: one(programRka, {
-        fields: [kegiatanRka.programRkaId],
-        references: [programRka.id],
-    }),
-    subKegiatanRka: many(subKegiatanRka),
-}))
-
-export const subKegiatanRkaRelations = relations(
-    subKegiatanRka,
-    ({ one, many }) => ({
-        kegiatan: one(kegiatanRka, {
-            fields: [subKegiatanRka.kegiatanRkaId],
-            references: [kegiatanRka.id],
-        }),
-        aktivitasRba: many(aktivitasRba),
-    })
-)
-
 export const rincianRbaBelanjaRelations = relations(
     rincianRbaBelanja,
     ({ one }) => ({
@@ -434,10 +379,6 @@ export const aktivitasRbaRelations = relations(
         }),
         rincianRbaBelanja: many(rincianRbaBelanja),
         rincianRbaPendapatan: many(rincianRbaPendapatan),
-        subKegiatanRka: one(subKegiatanRka, {
-            fields: [aktivitasRba.subKegiatanRkaId],
-            references: [subKegiatanRka.id],
-        }),
     })
 )
 

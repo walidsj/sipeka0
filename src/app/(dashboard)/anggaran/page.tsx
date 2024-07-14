@@ -9,7 +9,6 @@ import {
 import {
     HiOutlineArrowSmRight,
     HiOutlineBookOpen,
-    HiOutlineChartSquareBar,
     HiOutlineDocumentSearch,
     HiOutlineDocumentText,
 } from 'react-icons/hi'
@@ -33,28 +32,6 @@ export default function Page() {
                 <CardFooter>
                     <Button asChild>
                         <Link to="/anggaran/rba/daftar-rab">
-                            Akses
-                            <HiOutlineArrowSmRight className="ml-2" />
-                        </Link>
-                    </Button>
-                </CardFooter>
-            </Card>
-            <Card>
-                <CardHeader className="flex flex-row gap-4">
-                    <div>
-                        <CardTitle className="mb-3">
-                            Rencana Kerja Anggaran
-                        </CardTitle>
-                        <CardDescription>
-                            Dokumen perencanaan dan penganggaran program dan
-                            kegiatan SKPD
-                        </CardDescription>
-                    </div>
-                    <HiOutlineChartSquareBar className="flex-shrink-0 flex-grow-0 text-5xl text-primary" />
-                </CardHeader>
-                <CardFooter>
-                    <Button asChild>
-                        <Link to="/anggaran/rka/program-kegiatan/program">
                             Akses
                             <HiOutlineArrowSmRight className="ml-2" />
                         </Link>
