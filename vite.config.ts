@@ -3,6 +3,8 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 import { VitePWA } from 'vite-plugin-pwa'
 import { env } from './src/env.server'
+import replace from '@rollup/plugin-replace'
+import { version } from './package.json'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -24,6 +26,14 @@ export default defineConfig({
     publicDir: path.resolve(__dirname, 'public'),
     plugins: [
         react(),
+        replace({
+            preventAssignment: true,
+            __BUILDDATE__: Intl.DateTimeFormat('id-ID', {
+                dateStyle: 'full',
+                timeStyle: 'full',
+            }).format(new Date()),
+            __VERSION__: version,
+        }),
         VitePWA({
             includeAssets: [
                 '/images/**/*.png',

@@ -7,12 +7,13 @@ const ReloadButton = () => {
     return (
         <Button
             type="button"
+            size="sm"
             className="w-full"
             onClick={() => {
                 updateServiceWorker(true)
             }}
         >
-            Update Aplikasi
+            Cek Update
         </Button>
     )
 }

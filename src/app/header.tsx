@@ -116,12 +116,12 @@ export function Header() {
                         <img
                             src="/images/logo-sipeka-full-long.svg"
                             alt="Logo"
-                            className="hidden h-10 w-auto lg:block"
+                            className="hidden h-8 w-auto lg:block"
                         />
                         <img
                             src="/images/logo-sipeka-full.svg"
                             alt="Logo"
-                            className="block h-10 w-auto lg:hidden"
+                            className="block h-8 w-auto lg:hidden"
                         />
                     </Link>
                     <div className="flex items-center">
