@@ -65,9 +65,9 @@ export default function EditPage() {
         <Card>
             <div className="mb-5 flex flex-row items-center justify-between px-6 pt-6">
                 <CardHeader className="p-0">
-                    <CardTitle>Detail Lpj Belanja</CardTitle>
+                    <CardTitle>Detail LPJ Belanja</CardTitle>
                     <CardDescription>
-                        Data untuk detail lpj Belanja
+                        Data untuk detail LPJ Belanja
                     </CardDescription>
                 </CardHeader>
                 <DropdownMenu>

@@ -21,7 +21,7 @@ export default function Layout() {
                         >
                             <Link to="/pendapatan/perekaman">
                                 <HiOutlineClipboardList className="mr-1 h-5 w-5" />
-                                <span>Rekam Pendapatan</span>
+                                <span>Rekam</span>
                             </Link>
                         </Button>
                     </li>

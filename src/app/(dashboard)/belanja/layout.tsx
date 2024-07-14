@@ -21,7 +21,7 @@ export default function Layout() {
                         >
                             <Link to="/belanja/perekaman">
                                 <HiOutlineClipboardList className="mr-1 h-5 w-5" />
-                                <span>Rekam Belanja</span>
+                                <span>Rekam</span>
                             </Link>
                         </Button>
                     </li>
@@ -49,7 +49,7 @@ export default function Layout() {
                             )}
                             asChild
                         >
-                            <Link to="/belanja/buku/bku">
+                            <Link to="/belanja/buku/kas-umum">
                                 <HiOutlineBookmarkAlt className="mr-1 h-5 w-5" />
                                 <span>Buku Bendahara</span>
                             </Link>

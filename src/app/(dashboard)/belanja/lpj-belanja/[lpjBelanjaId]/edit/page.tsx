@@ -22,7 +22,7 @@ export default function EditPage() {
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Edit Dokumen Lpj Belanja</CardTitle>
+                <CardTitle>Edit Dokumen LPJ Belanja</CardTitle>
                 <CardDescription>Form untuk mengedit dokumen</CardDescription>
             </CardHeader>
             <CardContent>

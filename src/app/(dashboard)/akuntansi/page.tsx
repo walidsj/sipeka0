@@ -11,26 +11,7 @@ import { Link } from 'react-router-dom'
 
 export default function Page() {
     return (
-        <div className="grid grid-cols-1 gap-4 pb-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-            <Card>
-                <CardHeader className="flex flex-row gap-4">
-                    <div className="w-full">
-                        <CardTitle className="mb-3">Saldo Awal</CardTitle>
-                        <CardDescription>
-                            Penginputan Saldo Awal Keuangan/Akuntansi
-                        </CardDescription>
-                    </div>
-                    <HiOutlineDocumentText className="flex-shrink-0 flex-grow-0 text-5xl text-primary" />
-                </CardHeader>
-                <CardFooter>
-                    <Button asChild>
-                        <Link to="/akuntansi/saldo-awal">
-                            Akses
-                            <HiOutlineArrowSmRight className="ml-2" />
-                        </Link>
-                    </Button>
-                </CardFooter>
-            </Card>
+        <div className="grid grid-cols-1 gap-4 pb-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             <Card>
                 <CardHeader className="flex flex-row gap-4">
                     <div className="w-full">
@@ -76,40 +57,6 @@ export default function Page() {
                         <CardDescription>
                             Laporan Realisasi Anggaran
                         </CardDescription>
-                    </div>
-                    <HiOutlineDocumentText className="flex-shrink-0 flex-grow-0 text-5xl text-primary" />
-                </CardHeader>
-                <CardFooter>
-                    <Button asChild>
-                        <Link to="/akuntansi/lra">
-                            Akses
-                            <HiOutlineArrowSmRight className="ml-2" />
-                        </Link>
-                    </Button>
-                </CardFooter>
-            </Card>
-            <Card>
-                <CardHeader className="flex flex-row gap-4">
-                    <div className="w-full">
-                        <CardTitle className="mb-3">LO</CardTitle>
-                        <CardDescription>Laporan Operasional</CardDescription>
-                    </div>
-                    <HiOutlineDocumentText className="flex-shrink-0 flex-grow-0 text-5xl text-primary" />
-                </CardHeader>
-                <CardFooter>
-                    <Button asChild>
-                        <Link to="/akuntansi/lra">
-                            Akses
-                            <HiOutlineArrowSmRight className="ml-2" />
-                        </Link>
-                    </Button>
-                </CardFooter>
-            </Card>
-            <Card>
-                <CardHeader className="flex flex-row gap-4">
-                    <div className="w-full">
-                        <CardTitle className="mb-3">Neraca</CardTitle>
-                        <CardDescription>Laporan Keuangan</CardDescription>
                     </div>
                     <HiOutlineDocumentText className="flex-shrink-0 flex-grow-0 text-5xl text-primary" />
                 </CardHeader>

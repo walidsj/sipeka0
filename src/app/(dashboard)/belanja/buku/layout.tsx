@@ -12,29 +12,29 @@ export default function Layout() {
                 <nav>
                     <ul className="flex w-full flex-col gap-4">
                         <li>
-                            <Link to="/belanja/buku/bku">
+                            <Link to="/belanja/buku/kas-umum">
                                 <Card
                                     className={cn(
                                         'flex flex-col items-center gap-1 px-3 py-2 text-center font-semibold',
                                         pathname.startsWith(
-                                            '/belanja/buku/bku'
+                                            '/belanja/buku/kas-umum'
                                         ) && 'text-primary'
                                     )}
                                 >
                                     <HiOutlineBookOpen className="h-6 w-6" />
                                     <span className="text-wrap text-xs">
-                                        BKU
+                                        Buku Kas Umum
                                     </span>
                                 </Card>
                             </Link>
                         </li>
                         <li>
-                            <Link to="/belanja/buku/bk-pajak">
+                            <Link to="/belanja/buku/buku-pajak">
                                 <Card
                                     className={cn(
                                         'flex flex-col items-center gap-1 px-3 py-2 text-center font-semibold',
                                         pathname.startsWith(
-                                            '/belanja/buku/bk-pajak'
+                                            '/belanja/buku/buku-pajak'
                                         ) && 'text-primary'
                                     )}
                                 >

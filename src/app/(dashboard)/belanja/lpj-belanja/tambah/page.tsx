@@ -15,9 +15,9 @@ export default function Page() {
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Rekam Lpj Belanja Baru</CardTitle>
+                <CardTitle>Rekam LPJ Belanja Baru</CardTitle>
                 <CardDescription>
-                    Form untuk rekam realisasi lpj Belanja baru
+                    Form untuk rekam realisasi lPJ Belanja baru
                 </CardDescription>
             </CardHeader>
             <CardContent>
