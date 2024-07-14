@@ -7,10 +7,12 @@ export default function HomeLayout() {
     return (
         <React.Fragment>
             <Header />
-            <div className="min-h-svh w-full bg-slate-100 pt-20">
-                <Outlet />
+            <div className="flex min-h-svh w-full flex-col gap-5 bg-slate-100 pt-20">
+                <div className="flex-1">
+                    <Outlet />
+                </div>
+                <Footer />
             </div>
-            <Footer />
         </React.Fragment>
     )
 }

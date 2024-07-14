@@ -1,129 +1,129 @@
 import { Button } from '@/components/ui/button'
 import {
     Card,
-    CardDescription,
-    CardHeader,
-    CardTitle,
+    // CardDescription,
+    // CardHeader,
+    // CardTitle,
 } from '@/components/ui/card'
-import { cn } from '@/lib/utils'
-import React from 'react'
+// import { cn } from '@/lib/utils'
+// import React from 'react'
 import { FiArrowRight, FiExternalLink } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { FaBolt, FaLeaf, FaLock, FaShareAlt } from 'react-icons/fa'
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
-} from '@/components/ui/carousel'
-import { Avatar, AvatarImage } from '@/components/ui/avatar'
+// import {
+//     Carousel,
+//     CarouselContent,
+//     CarouselItem,
+//     CarouselNext,
+//     CarouselPrevious,
+// } from '@/components/ui/carousel'
+// import { Avatar, AvatarImage } from '@/components/ui/avatar'
 
-const list = [
-    {
-        name: 'Agus Sutrasno',
-        role: 'Pengadminstrasi Keuangan',
-        image: '/images/teams/agus.png',
-        team: ['Perbendaharaan'],
-    },
-    {
-        name: 'Aulan Nawal, A.Md.Ak',
-        role: 'Pengelola Akuntansi',
-        image: '/images/teams/aulan.png',
-        team: ['Akuntansi', 'Tim Efektif'],
-    },
-    {
-        name: 'Fitria Handayani, S.Si',
-        role: 'Analis Aplikasi dan Pengelola Data Keuangan',
-        image: '/images/teams/fitri.png',
-        team: ['Perbendaharaan', 'Tim Efektif'],
-    },
-    {
-        name: 'Ika Trisna Rahayu, SE',
-        role: 'Analis Laporan Keuangan',
-        image: '/images/teams/ika.png',
-        team: ['Akuntansi', 'Tim Efektif'],
-    },
-    {
-        name: 'Maya Lestari, SE',
-        role: 'Analis Aplikasi dan Pengelola Data Keuangan',
-        image: '/images/teams/maya.png',
-        team: ['Perbendaharaan', 'Tim Efektif'],
-    },
-    {
-        name: 'Milenia Febrianti, A.Md.Pnl',
-        role: 'Pengelola Data Transaksi',
-        image: '/images/teams/milenia.png',
-        team: ['Verifikasi'],
-    },
-    {
-        name: 'M. Wahid Arian, S.ST',
-        role: 'Analis Laporan Keuangan',
-        image: '/images/teams/wahid.png',
-        team: ['Akuntansi', 'Tim Efektif'],
-    },
-    {
-        name: 'Moh. Walid Arkham Sani, A.Md.Pnl.',
-        role: 'Pengelola Data Transaksi',
-        image: '/images/teams/walid.png',
-        team: ['Perbendaharaan', 'Tim Efektif'],
-    },
-    {
-        name: 'Riandy, S.Kep',
-        role: 'Bendahara Pengeluaran',
-        image: '/images/teams/riandy.png',
-        team: ['Perbendaharaan'],
-    },
-    {
-        name: 'Rajak',
-        role: 'Pengadministrasi Keuangan',
-        image: '/images/teams/rajak.png',
-        team: ['Perbendaharaan'],
-    },
-    {
-        name: 'Supriyatun',
-        role: 'Bendahara Penerimaan',
-        image: '/images/teams/supriyatun.png',
-        team: ['Perbendaharaan'],
-    },
-    {
-        name: 'Arif Mahar Setiabdi, S.Ak',
-        role: 'Pengadministrasi Sarana & Prasarana',
-        image: '/images/teams/arif.png',
-        team: ['Tim Efektif'],
-    },
-    {
-        name: 'Dhea Ananda Aryanti,SKM',
-        role: 'Pengadministrasi Umum',
-        image: '/images/teams/dhea.png',
-        team: ['Tim Efektif'],
-    },
-    {
-        name: 'M.Alfie Fadhillah Munanda',
-        role: 'Pranata Komputer',
-        image: '/images/teams/fadil.png',
-        team: ['Tim Efektif'],
-    },
-    {
-        name: 'Mardiyono, A.Md.Farm',
-        role: 'Asisten Apoteker',
-        image: '/images/teams/mardiyono.png',
-        team: ['Tim Efektif'],
-    },
-    {
-        name: 'Risca Eka Rahayu A.Md.AK.',
-        role: 'Pranata Lakber Mahir',
-        image: '/images/teams/risca.png',
-        team: ['Tim Efektif'],
-    },
-]
+// const list = [
+//     {
+//         name: 'Agus Sutrasno',
+//         role: 'Pengadminstrasi Keuangan',
+//         image: '/images/teams/agus.png',
+//         team: ['Perbendaharaan'],
+//     },
+//     {
+//         name: 'Aulan Nawal, A.Md.Ak',
+//         role: 'Pengelola Akuntansi',
+//         image: '/images/teams/aulan.png',
+//         team: ['Akuntansi', 'Tim Efektif'],
+//     },
+//     {
+//         name: 'Fitria Handayani, S.Si',
+//         role: 'Analis Aplikasi dan Pengelola Data Keuangan',
+//         image: '/images/teams/fitri.png',
+//         team: ['Perbendaharaan', 'Tim Efektif'],
+//     },
+//     {
+//         name: 'Ika Trisna Rahayu, SE',
+//         role: 'Analis Laporan Keuangan',
+//         image: '/images/teams/ika.png',
+//         team: ['Akuntansi', 'Tim Efektif'],
+//     },
+//     {
+//         name: 'Maya Lestari, SE',
+//         role: 'Analis Aplikasi dan Pengelola Data Keuangan',
+//         image: '/images/teams/maya.png',
+//         team: ['Perbendaharaan', 'Tim Efektif'],
+//     },
+//     {
+//         name: 'Milenia Febrianti, A.Md.Pnl',
+//         role: 'Pengelola Data Transaksi',
+//         image: '/images/teams/milenia.png',
+//         team: ['Verifikasi'],
+//     },
+//     {
+//         name: 'M. Wahid Arian, S.ST',
+//         role: 'Analis Laporan Keuangan',
+//         image: '/images/teams/wahid.png',
+//         team: ['Akuntansi', 'Tim Efektif'],
+//     },
+//     {
+//         name: 'Moh. Walid Arkham Sani, A.Md.Pnl.',
+//         role: 'Pengelola Data Transaksi',
+//         image: '/images/teams/walid.png',
+//         team: ['Perbendaharaan', 'Tim Efektif'],
+//     },
+//     {
+//         name: 'Riandy, S.Kep',
+//         role: 'Bendahara Pengeluaran',
+//         image: '/images/teams/riandy.png',
+//         team: ['Perbendaharaan'],
+//     },
+//     {
+//         name: 'Rajak',
+//         role: 'Pengadministrasi Keuangan',
+//         image: '/images/teams/rajak.png',
+//         team: ['Perbendaharaan'],
+//     },
+//     {
+//         name: 'Supriyatun',
+//         role: 'Bendahara Penerimaan',
+//         image: '/images/teams/supriyatun.png',
+//         team: ['Perbendaharaan'],
+//     },
+//     {
+//         name: 'Arif Mahar Setiabdi, S.Ak',
+//         role: 'Pengadministrasi Sarana & Prasarana',
+//         image: '/images/teams/arif.png',
+//         team: ['Tim Efektif'],
+//     },
+//     {
+//         name: 'Dhea Ananda Aryanti,SKM',
+//         role: 'Pengadministrasi Umum',
+//         image: '/images/teams/dhea.png',
+//         team: ['Tim Efektif'],
+//     },
+//     {
+//         name: 'M.Alfie Fadhillah Munanda',
+//         role: 'Pranata Komputer',
+//         image: '/images/teams/fadil.png',
+//         team: ['Tim Efektif'],
+//     },
+//     {
+//         name: 'Mardiyono, A.Md.Farm',
+//         role: 'Asisten Apoteker',
+//         image: '/images/teams/mardiyono.png',
+//         team: ['Tim Efektif'],
+//     },
+//     {
+//         name: 'Risca Eka Rahayu A.Md.AK.',
+//         role: 'Pranata Lakber Mahir',
+//         image: '/images/teams/risca.png',
+//         team: ['Tim Efektif'],
+//     },
+// ]
 
 export default function Home() {
-    const [team, setTeam] = React.useState('Semua')
+    // const [team, setTeam] = React.useState('Semua')
 
     return (
         <div className="flex w-full flex-col">
-            <div className="flex flex-col items-center justify-between gap-5 rounded-lg bg-white px-5 py-16 md:flex-row md:gap-16 md:px-8 lg:px-10 xl:px-12">
+            <div className="flex flex-col items-center justify-between gap-5 rounded-lg px-5 py-16 md:flex-row md:gap-16 md:px-8 lg:px-10 xl:px-12">
                 <div className="pb-0 md:pb-20">
                     <div className="mb-5 flex items-center justify-center gap-2 md:justify-start">
                         <div className="h-5 w-5 rounded-full bg-red-500" />
@@ -183,7 +183,7 @@ export default function Home() {
                     />
                 </div>
             </div>
-            <div className="flex flex-col-reverse gap-10 bg-secondary px-5 py-16 text-white md:px-8 lg:px-10 xl:px-12">
+            {/* <div className="flex flex-col-reverse gap-10 bg-secondary px-5 py-16 text-white md:px-8 lg:px-10 xl:px-12">
                 <div className="-mt-5 flex flex-row items-center justify-start gap-5 md:justify-center">
                     <img
                         src="/images/teams/bu-lena.png"
@@ -478,7 +478,7 @@ export default function Home() {
                             </div>
                         ))}
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }
