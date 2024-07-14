@@ -124,11 +124,11 @@ export function Header() {
                             className="block h-8 w-auto lg:hidden"
                         />
                     </Link>
-                    <div className="flex items-center">
+                    <div className="flex items-center gap-1">
                         {isConnected && (
                             <Popover>
                                 <PopoverTrigger disabled={!isConnected}>
-                                    <div className="flex px-5">
+                                    <div className="flex h-16 px-5">
                                         {onlineUsers
                                             .filter(
                                                 (onlineUser) =>
@@ -207,7 +207,7 @@ export function Header() {
                         <Button
                             variant="ghost"
                             asChild
-                            className="hidden px-5 sm:flex"
+                            className="hidden h-16 px-5 sm:flex"
                         >
                             <Link to="/panduan">
                                 <HiOutlineBookOpen className="h-6 w-6" />
@@ -236,7 +236,7 @@ export function Header() {
                                 <Button
                                     variant="ghost"
                                     asChild
-                                    className="px-5"
+                                    className="h-16 px-5"
                                 >
                                     <Link to="/home">
                                         <HiOutlineHome className="h-6 w-6" />
@@ -246,9 +246,9 @@ export function Header() {
                                     <DropdownMenuTrigger asChild>
                                         <Button
                                             variant="ghost"
-                                            className="gap-3"
+                                            className="h-16 gap-3"
                                         >
-                                            <Avatar className="h-8 w-8">
+                                            <Avatar>
                                                 <AvatarImage
                                                     src={`https://ui-avatars.com/api/?name=${auth.user?.nama}&background=3b82f6&color=fff`}
                                                 />
@@ -261,7 +261,16 @@ export function Header() {
                                                     {auth.user.nama}
                                                 </div>
                                                 <div className="block text-xs font-normal text-slate-400">
-                                                    {auth.user.instansi}
+                                                    {auth.user.pegawai
+                                                        ?.jabatan ||
+                                                        auth.user.instansi}
+                                                    {auth.user.pegawai?.pengelolaBlud.map(
+                                                        (blud) => (
+                                                            <div className="text-xs font-normal text-slate-400">
+                                                                {blud.role}
+                                                            </div>
+                                                        )
+                                                    )}
                                                 </div>
                                             </div>
                                         </Button>

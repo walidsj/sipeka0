@@ -106,6 +106,9 @@ export const userRouter = createTRPCRouter({
 
         const pegawaiData = await ctx.db.query.pegawai.findFirst({
             where: eq(pegawai.id, existedUser.pegawaiId!),
+            with: {
+                pengelolaBlud: true,
+            },
         })
 
         return { ...existedUser, password: undefined, pegawai: pegawaiData }

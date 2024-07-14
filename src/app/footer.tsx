@@ -10,7 +10,7 @@ export default function Footer() {
                 <FaHeart className="inline-block h-5 w-5 text-red-500" />
                 <br />
                 <span className="text-xs">
-                    Versi {'__VERSION__'} Buildtime {'__BUILDDATE__'}
+                    Versi {'__VERSION__'} Terakhir Update {'__BUILDDATE__'}
                 </span>
             </p>
             <div className="text-right">
