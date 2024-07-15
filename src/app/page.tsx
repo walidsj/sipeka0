@@ -36,7 +36,7 @@ export default function Home() {
                                     Prov. Kaltim dalam Satu Aplikasi
                                 </CardDescription>
                             </CardHeader>
-                            <CardContent className="flex flex-col gap-2 xl:flex-row">
+                            <CardContent className="grid grid-cols-1 gap-2 md:grid-cols-2">
                                 <Button asChild size="lg">
                                     <Link to="/login">
                                         SIPEKA
@@ -53,13 +53,15 @@ export default function Home() {
                         </Card>
                         <Card className="flex flex-col">
                             <CardHeader className="flex-1">
-                                <CardTitle>MyAtma</CardTitle>
+                                <CardTitle className="text-2xl">
+                                    MyAtma
+                                </CardTitle>
                                 <CardDescription>
                                     Sistem Informasi Keuangan Pegawai RSJD Atma
                                     Husada Mahakam Prov. Kaltim
                                 </CardDescription>
                             </CardHeader>
-                            <CardContent>
+                            <CardContent className="grid grid-cols-1 gap-2 md:grid-cols-2">
                                 <Button asChild size="lg">
                                     <Link to="/myatma">
                                         MyAtma

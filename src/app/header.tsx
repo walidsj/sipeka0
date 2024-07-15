@@ -275,6 +275,35 @@ export function Header() {
                                         </Button>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent align="start">
+                                        <DropdownMenuItem className="lg:hidden">
+                                            <div className="flex items-center">
+                                                <Avatar>
+                                                    <AvatarImage
+                                                        src={`https://ui-avatars.com/api/?name=${auth.user?.nama}&background=3b82f6&color=fff`}
+                                                    />
+                                                    <AvatarFallback>
+                                                        CN
+                                                    </AvatarFallback>
+                                                </Avatar>
+                                                <div className="ml-3">
+                                                    <div className="block text-sm">
+                                                        {auth.user.nama}
+                                                    </div>
+                                                    <div className="block text-xs font-normal text-slate-400">
+                                                        {auth.user.pegawai
+                                                            ?.jabatan ||
+                                                            auth.user.instansi}
+                                                        {auth.user.pegawai?.pengelolaBlud.map(
+                                                            (blud) => (
+                                                                <div className="text-xs font-normal text-slate-400">
+                                                                    {blud.role}
+                                                                </div>
+                                                            )
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </DropdownMenuItem>
                                         <Link to="/profil" className="w-full">
                                             <DropdownMenuItem>
                                                 Profil Saya
