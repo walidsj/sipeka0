@@ -36,7 +36,7 @@ export default function Home() {
                                     Prov. Kaltim dalam Satu Aplikasi
                                 </CardDescription>
                             </CardHeader>
-                            <CardContent className="flex gap-2">
+                            <CardContent className="flex flex-col gap-2 xl:flex-row">
                                 <Button asChild size="lg">
                                     <Link to="/login">
                                         SIPEKA
