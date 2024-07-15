@@ -1,18 +1,15 @@
-import React from 'react'
 import { Header } from './header'
 import { Outlet } from 'react-router-dom'
 import Footer from './footer'
 
 export default function HomeLayout() {
     return (
-        <React.Fragment>
+        <div className="flex h-svh w-full flex-col bg-slate-100">
             <Header />
-            <div className="flex min-h-svh w-full flex-col gap-5 bg-slate-100 pt-20">
-                <div className="flex-1">
-                    <Outlet />
-                </div>
-                <Footer />
+            <div className="flex-1 overflow-x-hidden overflow-y-scroll pb-5">
+                <Outlet />
             </div>
-        </React.Fragment>
+            <Footer />
+        </div>
     )
 }

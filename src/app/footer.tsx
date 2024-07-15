@@ -1,20 +1,18 @@
 import ReloadButton from '@/components/reload-button'
-import { FaHeart } from 'react-icons/fa6'
+import { HiHeart } from 'react-icons/hi'
 
 export default function Footer() {
     return (
-        <footer className="flex flex-col items-center justify-between gap-5 bg-background px-5 py-5 text-sm md:flex-row md:px-8 lg:px-10 xl:px-12">
-            <p className="text-left">
-                &copy;{new Date().getFullYear()} RSJD Atma Husada Mahakam. All
-                Rights Reserved. Build with{' '}
-                <FaHeart className="inline-block h-5 w-5 text-red-500" />
-                <br />
-                <span className="text-xs">
-                    Versi {'__VERSION__'} Terakhir Update {'__BUILDDATE__'}
-                </span>
-            </p>
-            <div className="text-right">
-                <ReloadButton />
+        <footer className="w-full bg-background">
+            <div className="mx-auto flex flex-col items-center justify-between px-5 py-2 md:flex-row md:px-8 md:pr-6 lg:px-8 lg:pr-6 xl:px-12">
+                <p className="text-left text-xs">
+                    <HiHeart className="mr-1 inline-block h-4 w-4 align-bottom text-red-500" />
+                    <strong>Versi {'__VERSION__'}</strong> Build{' '}
+                    {'__BUILDDATE__'}
+                </p>
+                <div className="text-right">
+                    <ReloadButton />
+                </div>
             </div>
         </footer>
     )

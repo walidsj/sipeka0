@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { useAuth } from '@/lib/auth'
@@ -22,10 +22,10 @@ import { CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import {
     HiOutlineBookOpen,
-    HiOutlineHome,
     HiOutlineLockClosed,
     HiOutlineLogout,
 } from 'react-icons/hi'
+import { motion } from 'framer-motion'
 
 type IOnlineUser = {
     user: string
@@ -36,6 +36,8 @@ const colorImg = ['0ea5e9', '6366f1', '14b8a6', 'eab308', 'ec4899']
 
 export function Header() {
     const auth = useAuth()
+    const { pathname } = useLocation()
+
     const [isConnected, setIsConnected] = React.useState(socket.connected)
     const [onlineUsers, setOnlineUsers] = React.useState<IOnlineUser[]>([])
 
@@ -106,23 +108,57 @@ export function Header() {
     }, [])
 
     return (
-        <header className="fixed z-50 h-20 w-full bg-background">
-            <div className="mx-auto px-5 pr-1 md:px-8 md:pr-6 lg:px-10 lg:pr-6 xl:px-12">
+        <header className="h-20 w-full bg-background">
+            <div className="mx-auto px-5 md:px-8 md:pr-6 lg:px-8 lg:pr-6 xl:px-12">
                 <div className="flex w-full items-center justify-between">
                     <Link
                         to="/"
-                        className="flex h-20 flex-shrink-0 items-center"
+                        className="flex h-20 flex-shrink-0 items-center gap-4"
                     >
                         <img
-                            src="/images/logo-sipeka-full-long.svg"
-                            alt="Logo"
-                            className="hidden h-8 w-auto lg:block"
+                            src="/images/atmaku.svg"
+                            alt="Logo Atmaku"
+                            className={cn(
+                                'block h-9 w-auto transition-all md:block',
+                                pathname.startsWith('__DASHBOARD_PREFIX__') &&
+                                    'hidden h-6',
+                                pathname.startsWith('__CLIENT_PREFIX__') &&
+                                    'hidden h-6'
+                            )}
                         />
-                        <img
-                            src="/images/logo-sipeka-full.svg"
-                            alt="Logo"
-                            className="block h-8 w-auto lg:hidden"
-                        />
+                        {pathname.startsWith('__DASHBOARD_PREFIX__') && (
+                            <motion.div
+                                initial={{ opacity: 0, x: 10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.1 }}
+                                className="flex h-8 items-center md:border-l md:px-4"
+                            >
+                                <img
+                                    src="/images/logo-sipeka-full-long.svg"
+                                    alt="Logo SIPEKA"
+                                    className="hidden h-9 w-auto md:block"
+                                />
+                                <img
+                                    src="/images/logo-sipeka-full.svg"
+                                    alt="Logo SIPEKA"
+                                    className="block h-9 w-auto md:hidden"
+                                />
+                            </motion.div>
+                        )}
+                        {pathname.startsWith('__CLIENT_PREFIX__') && (
+                            <motion.div
+                                initial={{ opacity: 0, x: 10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.1 }}
+                                className="flex h-8 items-center md:border-l md:px-4"
+                            >
+                                <img
+                                    src="/images/logo-myatma.svg"
+                                    alt="Logo MyAtma"
+                                    className="block h-9 w-auto"
+                                />
+                            </motion.div>
+                        )}
                     </Link>
                     <div className="flex items-center">
                         {isConnected && (
@@ -232,15 +268,6 @@ export function Header() {
                             </React.Fragment>
                         ) : (
                             <React.Fragment>
-                                <Button
-                                    variant="ghost"
-                                    asChild
-                                    className="h-16"
-                                >
-                                    <Link to="/home">
-                                        <HiOutlineHome className="h-6 w-6" />
-                                    </Link>
-                                </Button>
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
                                         <Button

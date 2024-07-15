@@ -28,11 +28,13 @@ export default defineConfig({
         react(),
         replace({
             preventAssignment: true,
-            __BUILDDATE__: Intl.DateTimeFormat('id-ID', {
-                dateStyle: 'full',
-                timeStyle: 'full',
+            __BUILDDATE__: Intl.DateTimeFormat('id', {
+                dateStyle: 'long',
+                timeStyle: 'long',
             }).format(new Date()),
             __VERSION__: version,
+            __DASHBOARD_PREFIX__: '/sipeka',
+            __CLIENT_PREFIX__: '/myatma',
         }),
         VitePWA({
             includeAssets: [

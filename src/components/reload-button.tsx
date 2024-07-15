@@ -8,7 +8,8 @@ const ReloadButton = () => {
         <Button
             type="button"
             size="sm"
-            className="w-full"
+            className="h-auto w-full"
+            variant="link"
             onClick={() => {
                 updateServiceWorker(true)
             }}
