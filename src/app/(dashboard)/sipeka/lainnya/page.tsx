@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom'
 
 export default function Page() {
-    return <Navigate to="database/bank" replace />
+    return <Navigate to="database/unit-kerja" replace />
 }
