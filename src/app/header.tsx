@@ -124,11 +124,11 @@ export function Header() {
                             className="block h-8 w-auto lg:hidden"
                         />
                     </Link>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center">
                         {isConnected && (
                             <Popover>
                                 <PopoverTrigger disabled={!isConnected}>
-                                    <div className="flex h-16 px-5">
+                                    <div className="flex px-5">
                                         {onlineUsers
                                             .filter(
                                                 (onlineUser) =>
@@ -207,23 +207,18 @@ export function Header() {
                         <Button
                             variant="ghost"
                             asChild
-                            className="hidden h-16 px-5 sm:flex"
+                            className="hidden h-16 sm:flex"
                         >
                             <Link to="/panduan">
                                 <HiOutlineBookOpen className="h-6 w-6" />
                             </Link>
                         </Button>
-
                         {!auth.user ? (
                             <React.Fragment>
                                 {auth.isLoading ? (
                                     <Loading />
                                 ) : (
-                                    <Button
-                                        variant="ghost"
-                                        asChild
-                                        className="px-5"
-                                    >
+                                    <Button variant="ghost" asChild>
                                         <Link to="/login">
                                             <HiOutlineLockClosed className="mr-2 h-6 w-6" />
                                             Login
@@ -236,7 +231,7 @@ export function Header() {
                                 <Button
                                     variant="ghost"
                                     asChild
-                                    className="h-16 px-5"
+                                    className="h-16"
                                 >
                                     <Link to="/home">
                                         <HiOutlineHome className="h-6 w-6" />
