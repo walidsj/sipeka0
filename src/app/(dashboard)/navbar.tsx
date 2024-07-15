@@ -14,7 +14,7 @@ export default function Navbar() {
     const { pathname } = useLocation()
 
     return (
-        <nav className="mx-auto w-full overflow-x-auto py-4 md:px-8 lg:px-10 xl:px-12">
+        <nav className="mx-auto w-full overflow-x-auto px-5 py-4 md:px-8 lg:px-10 xl:px-12">
             <ul className="flex gap-3">
                 <li>
                     <Link to="/home">
