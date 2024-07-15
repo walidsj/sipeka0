@@ -5,7 +5,7 @@ export default function Protected() {
     const { token } = useAuth()
 
     if (token) {
-        return <Navigate to="/home" replace />
+        return <Navigate to="/" replace />
     }
 
     return <Outlet />

@@ -45,7 +45,7 @@ export default function Login() {
             toast.dismiss()
             auth.login(data.token)
             toast.success(data.message)
-            navigate('/home')
+            navigate('/')
         },
         onError(error) {
             toast.dismiss()
