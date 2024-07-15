@@ -218,7 +218,11 @@ export function Header() {
                                 {auth.isLoading ? (
                                     <Loading />
                                 ) : (
-                                    <Button variant="ghost" asChild>
+                                    <Button
+                                        variant="ghost"
+                                        asChild
+                                        className="h-16"
+                                    >
                                         <Link to="/login">
                                             <HiOutlineLockClosed className="mr-2 h-6 w-6" />
                                             Login
