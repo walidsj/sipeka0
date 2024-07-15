@@ -1,7 +1,7 @@
 import { useAuth } from '@/lib/auth'
 import { Navigate, Outlet } from 'react-router-dom'
 
-export default function Protected() {
+export default function Middleware() {
     const { token } = useAuth()
 
     if (token) {

@@ -20,7 +20,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import toast from 'react-hot-toast'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { api } from '@/trpc/react'
 import { useAuth } from '@/lib/auth'
 import { FiEye, FiEyeOff, FiLock, FiUser } from 'react-icons/fi'
@@ -33,6 +33,8 @@ const schema = z.object({
 
 export default function Login() {
     const navigate = useNavigate()
+    const [searchParams] = useSearchParams()
+
     const auth = useAuth()
 
     const [showPassword, setShowPassword] = React.useState(false)
@@ -45,7 +47,10 @@ export default function Login() {
             toast.dismiss()
             auth.login(data.token)
             toast.success(data.message)
-            navigate('/')
+            if (searchParams.get('redirect')) {
+                navigate(searchParams.get('redirect') ?? '/')
+                return
+            }
         },
         onError(error) {
             toast.dismiss()
