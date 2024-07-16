@@ -44,7 +44,7 @@ export default function SppPicker({
     const [searchValue] = useDebounce(search, 300)
 
     const spp = api.spp.getAll.useQuery(
-        { search: searchValue },
+        { search: searchValue, haveSpm: false },
         { placeholderData: keepPreviousData }
     )
 
@@ -64,7 +64,7 @@ export default function SppPicker({
                             {sppSelected.isSuccess && sppSelected.data && (
                                 <div className="flex items-center gap-3">
                                     <img
-                                        src="/images/icons/spp.png"
+                                        src="/images/icons/research.png"
                                         alt="spp"
                                         className="h-10 w-10"
                                     />
@@ -102,10 +102,9 @@ export default function SppPicker({
                         <TableHeader>
                             <TableRow>
                                 <TableHead className="w-1">No.</TableHead>
+                                <TableHead>Tanggal SPP</TableHead>
                                 <TableHead>Nomor SPP</TableHead>
-                                <TableHead className="text-center">
-                                    Tanggal SPP
-                                </TableHead>
+                                <TableHead>Uraian</TableHead>
                                 <TableHead className="w-1">Aksi</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -122,9 +121,14 @@ export default function SppPicker({
                                         <TableCell className="text-center">
                                             {index + 1}.
                                         </TableCell>
-                                        <TableCell>{item.noDokumen}</TableCell>
-                                        <TableCell className="text-center">
+                                        <TableCell className="font-semibold">
                                             {formatTanggal(item.tglDokumen)}
+                                        </TableCell>
+                                        <TableCell className="font-semibold">
+                                            {item.noDokumen}
+                                        </TableCell>
+                                        <TableCell className="font-semibold">
+                                            {item.lpjBelanja?.uraian}
                                         </TableCell>
                                         <TableCell>
                                             {selected === item.id ? (

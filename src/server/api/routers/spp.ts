@@ -10,18 +10,30 @@ export const sppRouter = createTRPCRouter({
         .input(
             z.object({
                 search: z.string().optional(),
+                haveSpm: z.boolean().optional(),
             })
         )
         .query(async ({ ctx, input }) => {
-            return await ctx.db.query.sppTable.findMany({
+            let spp = await ctx.db.query.sppTable.findMany({
                 orderBy: [desc(sppTable.tglDokumen), desc(sppTable.noDokumen)],
                 with: {
                     lpjBelanja: true,
+                    spm: true,
                 },
                 where: input.search
                     ? or(like(sppTable.noDokumen, `%${input.search}%`))
                     : undefined,
             })
+
+            if (input.haveSpm === true) {
+                spp = spp.filter((item) => item.spm)
+            }
+
+            if (input.haveSpm === false) {
+                spp = spp.filter((item) => !item.spm)
+            }
+
+            return spp
         }),
 
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {
