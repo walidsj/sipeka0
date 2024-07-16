@@ -35,11 +35,11 @@ export default function Page() {
 
     if (!spp) return <NotFound />
 
-    const uniqueRekening = [
+    const uniqueRekening = Array(
         ...new Set(
             spp.lpjBelanja?.belanja?.map((item) => item.rab?.kodeRekening)
-        ),
-    ]
+        )
+    ).sort()
 
     return (
         <Card>
