@@ -16,7 +16,7 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import React from 'react'
-import { cn, formatTanggal } from '@/lib/utils'
+import { cn, formatAngka, formatTanggal } from '@/lib/utils'
 import { useDebounce } from 'use-debounce'
 import { Input } from '@/components/ui/input'
 import { keepPreviousData } from '@tanstack/react-query'
@@ -94,7 +94,7 @@ export default function LpjBelanjaPicker({
                     )}
                 </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl">
+            <DialogContent className="max-w-5xl">
                 <DialogHeader>
                     <DialogTitle>Pilih LPJ Belanja</DialogTitle>
                 </DialogHeader>
@@ -102,7 +102,7 @@ export default function LpjBelanjaPicker({
                     placeholder="Cari LPJ Belanja..."
                     onChange={(e) => setSearch(e.target.value)}
                 />
-                <div className="max-h-96 overflow-y-auto">
+                <div className="max-h-[calc(75svh)] overflow-y-auto">
                     <Table>
                         <TableHeader>
                             <TableRow>
@@ -110,6 +110,9 @@ export default function LpjBelanjaPicker({
                                 <TableHead>Tanggal</TableHead>
                                 <TableHead>Nomor LPJ</TableHead>
                                 <TableHead>Uraian</TableHead>
+                                <TableHead className="text-right">
+                                    Jumlah (Rp)
+                                </TableHead>
                                 <TableHead className="w-1">Aksi</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -134,6 +137,9 @@ export default function LpjBelanjaPicker({
                                         </TableCell>
                                         <TableCell className="font-semibold">
                                             {item.uraian}
+                                        </TableCell>
+                                        <TableCell className="text-right font-semibold">
+                                            {formatAngka(item.jumlah)}
                                         </TableCell>
                                         <TableCell>
                                             {selected === item.id ? (
