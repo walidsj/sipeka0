@@ -43,7 +43,6 @@ export default defineConfig({
                 '/images/**/*.jpeg',
                 '/images/**/*.webp',
                 '/images/**/*.svg',
-                '/images/**/*.gif',
                 'favicon.png',
             ],
             registerType: 'prompt',
