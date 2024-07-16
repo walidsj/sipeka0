@@ -98,8 +98,28 @@ export default function Page() {
                                                 (item) => (
                                                     <>
                                                         {item.rab?.kodeRekening?.startsWith(
-                                                            '5.1'
+                                                            '5.1.01'
                                                         ) && 'Pegawai'}
+                                                    </>
+                                                )
+                                            )}
+                                        {spp.lpjBelanja?.jenis === 'LS' &&
+                                            spp.lpjBelanja?.belanja.map(
+                                                (item) => (
+                                                    <>
+                                                        {item.rab?.kodeRekening?.startsWith(
+                                                            '5.1.02'
+                                                        ) && 'Barang dan Jasa'}
+                                                    </>
+                                                )
+                                            )}
+                                        {spp.lpjBelanja?.jenis === 'LS' &&
+                                            spp.lpjBelanja?.belanja.map(
+                                                (item) => (
+                                                    <>
+                                                        {item.rab?.kodeRekening?.startsWith(
+                                                            '5.2'
+                                                        ) && 'Modal'}
                                                     </>
                                                 )
                                             )}
