@@ -13,7 +13,7 @@ import { useReactToPrint } from 'react-to-print'
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import NotFound from '@/app/not-found'
-import { formatAngkaDecimal, formatTanggal } from '@/lib/utils'
+import { formatAngkaDecimal, formatTanggal, terbilang } from '@/lib/utils'
 
 export default function Page() {
     const params = useParams<{ sppId: string }>()
@@ -270,6 +270,31 @@ export default function Page() {
                                         DPA/A.1/1.02.0.00.0.00.01.0000/002/2024
                                         <br />
                                         Tanggal: 04 Februari 2024
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top"></td>
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top"></td>
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top"></td>
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                        Sebesar: Rp{' '}
+                                        {formatAngkaDecimal(
+                                            spp.lpjBelanja?.belanja.reduce(
+                                                (acc, item) =>
+                                                    acc + Number(item.jumlah),
+                                                0
+                                            )
+                                        )}
+                                        <br />
+                                        (terbilang:{' '}
+                                        {terbilang(
+                                            spp.lpjBelanja?.belanja.reduce(
+                                                (acc, item) =>
+                                                    acc + Number(item.jumlah),
+                                                0
+                                            ) || 0
+                                        )}{' '}
+                                        Rupiah)
                                     </td>
                                 </tr>
                             </tbody>
