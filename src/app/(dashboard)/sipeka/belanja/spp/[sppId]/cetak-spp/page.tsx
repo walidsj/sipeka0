@@ -116,167 +116,167 @@ export default function Page() {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td className="font-arial w-1 border-[0.5pt] border-black px-3 py-1 text-center align-top">
+                                    <td className="font-arial w-1 border-[0.5pt] border-black px-3 py-0.5 text-center align-top">
                                         1.
                                     </td>
-                                    <td className="font-arial w-1/4 border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial w-1/4 border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         SKPD
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top">
                                         :
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         Dinas Kesehatan
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top">
                                         2.
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         Unit SKPD
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top">
                                         :
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         RSJD Atma Husada Mahakam
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top">
                                         3.
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         Pengguna Anggaran
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top">
                                         :
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         Dr. dr. H. Jaya Mualimin, Sp.KJ, M.Kes,
                                         MARS
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top">
                                         4.
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         Kuasa Pengguna Anggaran
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top">
                                         :
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         dr. Indah Puspitasari, MARS
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top">
                                         5.
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         Bendahara Pengeluaran Pembantu BLUD
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top">
                                         :
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         Moh. Walid Arkham Sani, A.Md.Pnl
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top">
                                         6.
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         NPWP Bendahara Pengeluaran Pembantu BLUD
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top">
                                         :
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         953350162722000
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top">
                                         7.
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         Nama Bank
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top">
                                         :
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         BANK KALTIMTARA
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top">
                                         8.
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         Nomor Rekening Bank
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top">
                                         :
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         0011445004
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top">
                                         9.
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         Nama di Rekening Bank
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top">
                                         :
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         BP BLUD RSJD AHM
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top">
                                         10.
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         Untuk Keperluan
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top">
                                         :
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         {spp.lpjBelanja?.uraian}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top">
                                         11.
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         Dasar Pengeluaran
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top">
                                         :
                                     </td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         DPA/A.1/1.02.0.00.0.00.01.0000/002/2024
                                         <br />
                                         Tanggal: 04 Februari 2024
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top"></td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top"></td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top"></td>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 align-top">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top"></td>
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top"></td>
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top"></td>
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top">
                                         Sebesar: Rp{' '}
                                         {formatAngkaDecimal(
                                             spp.lpjBelanja?.belanja.reduce(
@@ -300,12 +300,12 @@ export default function Page() {
                             </tbody>
                             <tbody>
                                 <tr>
-                                    <td className="font-arial border-[0.5pt] border-black px-3 py-1 text-center">
+                                    <td className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center">
                                         No
                                     </td>
                                     <td
                                         colSpan={3}
-                                        className="font-arial border-[0.5pt] border-black px-3 py-1 text-center"
+                                        className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center"
                                     >
                                         Uraian
                                     </td>
@@ -313,13 +313,13 @@ export default function Page() {
                                 <tr>
                                     <td
                                         rowSpan={2}
-                                        className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top"
+                                        className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top"
                                     >
                                         I
                                     </td>
                                     <td
                                         colSpan={3}
-                                        className="font-arial border-[0.5pt] border-black px-3 py-1 align-top"
+                                        className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top"
                                     >
                                         SPD
                                     </td>
@@ -332,15 +332,15 @@ export default function Page() {
                                         <table className="w-full border-collapse">
                                             <tbody>
                                                 <tr>
-                                                    <td className="font-arial w-[25%] border-r border-black px-3 py-1">
+                                                    <td className="font-arial w-[25%] border-r border-black px-3 py-0.5">
                                                         Tanggal: 04 Februari
                                                         2024
                                                     </td>
-                                                    <td className="font-arial w-[50%] border-r border-black px-3 py-1">
+                                                    <td className="font-arial w-[50%] border-r border-black px-3 py-0.5">
                                                         Nomor:
                                                         DPA/A.1/1.02.0.00.0.00.01.0000/002/2024
                                                     </td>
-                                                    <td className="font-arial w-[25%] px-3 py-1 text-right">
+                                                    <td className="font-arial w-[25%] px-3 py-0.5 text-right">
                                                         Rp{' '}
                                                         {formatAngkaDecimal(
                                                             22_000_000_000
@@ -354,13 +354,13 @@ export default function Page() {
                                 <tr>
                                     <td
                                         rowSpan={2}
-                                        className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top"
+                                        className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top"
                                     >
                                         II
                                     </td>
                                     <td
                                         colSpan={3}
-                                        className="font-arial border-[0.5pt] border-black px-3 py-1 align-top"
+                                        className="font-arial border-[0.5pt] border-black px-3 py-0.5 align-top"
                                     >
                                         SP2D Sebelumnya
                                     </td>
@@ -373,13 +373,13 @@ export default function Page() {
                                         <table className="w-full">
                                             <tbody>
                                                 <tr>
-                                                    <td className="font-arial w-[25%] border-r border-black px-3 py-1">
+                                                    <td className="font-arial w-[25%] border-r border-black px-3 py-0.5">
                                                         Tanggal: -
                                                     </td>
-                                                    <td className="font-arial w-[50%] border-r border-black px-3 py-1">
+                                                    <td className="font-arial w-[50%] border-r border-black px-3 py-0.5">
                                                         Nomor: -
                                                     </td>
-                                                    <td className="font-arial w-[25%] px-3 py-1 text-right"></td>
+                                                    <td className="font-arial w-[25%] px-3 py-0.5 text-right"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -389,7 +389,7 @@ export default function Page() {
                                     <td
                                         colSpan={4}
                                         style={{ fontSize: '7pt' }}
-                                        className="font-arial border-[0.5pt] border-black px-3 py-1 text-center align-top"
+                                        className="font-arial border-[0.5pt] border-black px-3 py-0.5 text-center align-top"
                                     >
                                         Pada SPP ini ditetapkan
                                         lampiran-lampiran yang diperlukan
@@ -408,7 +408,7 @@ export default function Page() {
                                                     Pejabat Pelaksana Teknis
                                                     Kegiatan BLUD,
                                                 </div>
-                                                <div className="font-arial mt-14 underline">
+                                                <div className="font-arial mt-12 underline">
                                                     Hadi Machbudiansyah, SE, MM.
                                                 </div>
                                                 <div className="font-arial">
@@ -429,7 +429,7 @@ export default function Page() {
                                                     Bendahara Pengeluaran
                                                     Pembantu BLUD,
                                                 </div>
-                                                <div className="font-arial mt-14 underline">
+                                                <div className="font-arial mt-12 underline">
                                                     Moh. Walid Arkham Sani,
                                                     A.Md.Pnl
                                                 </div>
