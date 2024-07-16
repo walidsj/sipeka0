@@ -69,7 +69,7 @@ export default function Page() {
                                 Rumah Sakit Jiwa Daerah Atma Husada Mahakam
                             </div>
 
-                            <div className="font-arial mt-2 text-center text-lg font-semibold uppercase">
+                            <div className="font-arial mt-2 text-center text-[13pt] font-semibold uppercase leading-[15pt]">
                                 Surat Permintaan Pembayaran (SPP) BLUD
                             </div>
 
