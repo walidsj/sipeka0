@@ -99,13 +99,13 @@ export default function Page() {
                                     <th className="font-arial w-[1%] border-[0.5pt] border-black px-3 py-2">
                                         No
                                     </th>
-                                    <th className="font-arial w-[20%] border-[0.5pt] border-black px-3 py-2">
+                                    <th className="font-arial w-[15%] border-[0.5pt] border-black px-3 py-2">
                                         Kode Rekening
                                     </th>
-                                    <th className="font-arial w-[54%] border-[0.5pt] border-black px-3 py-2">
+                                    <th className="font-arial w-[64%] border-[0.5pt] border-black px-3 py-2">
                                         Uraian
                                     </th>
-                                    <th className="font-arial w-[25%] border-[0.5pt] border-black px-3 py-2">
+                                    <th className="font-arial w-[20%] border-[0.5pt] border-black px-3 py-2">
                                         Jumlah
                                     </th>
                                 </tr>
