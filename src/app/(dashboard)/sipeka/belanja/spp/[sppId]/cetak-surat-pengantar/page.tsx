@@ -183,7 +183,7 @@ export default function Page() {
                                     <span className="font-serif font-semibold">
                                         Rp
                                         {formatAngkaDecimal(
-                                            spp.lpjBelanja?.belanja.reduce(
+                                            spp.lpjBelanja?.belanja?.reduce(
                                                 (acc, curr) =>
                                                     acc + Number(curr.jumlah),
                                                 0
@@ -192,7 +192,7 @@ export default function Page() {
                                     </span>{' '}
                                     (
                                     {terbilang(
-                                        spp.lpjBelanja?.belanja.reduce(
+                                        spp.lpjBelanja?.belanja?.reduce(
                                             (acc, curr) =>
                                                 acc + Number(curr.jumlah),
                                             0

@@ -76,6 +76,16 @@ export default function EditPage() {
                                 </Button>
                             </TableCell>
                         </TableRow>
+                        <TableRow>
+                            <TableHead>
+                                Surat Permintaan Pembayaran (SPP) Rincian
+                            </TableHead>
+                            <TableCell>
+                                <Button asChild>
+                                    <Link to={`cetak-spp-rincian`}>Lihat</Link>
+                                </Button>
+                            </TableCell>
+                        </TableRow>
                     </TableBody>
                 </Table>
             </CardContent>

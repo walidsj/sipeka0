@@ -38,8 +38,8 @@ export default function Page() {
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Cetak Surat Pengantar</CardTitle>
-                <CardDescription>Dokumen Surat Pengantar SPP</CardDescription>
+                <CardTitle>Cetak SPP</CardTitle>
+                <CardDescription>Dokumen SPP</CardDescription>
             </CardHeader>
             <CardContent>
                 <div className="rounded-md border p-10 shadow">
@@ -72,11 +72,16 @@ export default function Page() {
                             <div className="font-arial mt-2 text-center text-[13pt] font-semibold uppercase leading-[15pt]">
                                 Surat Permintaan Pembayaran (SPP) BLUD
                             </div>
-
                             <div className="font-arial text-center text-[10pt]">
                                 Nomor: 900.1.3.5/{spp.noDokumen}/
                                 {spp.lpjBelanja?.jenis}
                                 /SPP/RSJD-AHM/BLUD
+                            </div>
+                            <div className="font-arial mt-2 text-center text-[10pt]">
+                                Tahun Anggaran{' '}
+                                {Intl.DateTimeFormat('id-ID', {
+                                    year: 'numeric',
+                                }).format(spp.tglDokumen || new Date())}
                             </div>
                         </div>
                         <table className="mb-5 w-[calc(100%-2px)] border-collapse">

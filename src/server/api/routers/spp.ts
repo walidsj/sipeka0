@@ -3,6 +3,7 @@ import { sppTable } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { desc, eq, like, or } from 'drizzle-orm'
 import { z } from 'zod'
+import { rekeningLevel6 } from '@/data/rekening'
 
 export const sppRouter = createTRPCRouter({
     getAll: userProcedure
@@ -24,7 +25,7 @@ export const sppRouter = createTRPCRouter({
         }),
 
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {
-        return await ctx.db.query.sppTable.findFirst({
+        const sppData = await ctx.db.query.sppTable.findFirst({
             where: eq(sppTable.id, input),
             with: {
                 lpjBelanja: {
@@ -38,6 +39,29 @@ export const sppRouter = createTRPCRouter({
                 },
             },
         })
+
+        if (!sppData) {
+            return null
+        }
+
+        // add kode and uraian to kodeRekening rab
+        return {
+            ...sppData,
+            lpjBelanja: {
+                ...sppData.lpjBelanja,
+                belanja:
+                    sppData.lpjBelanja?.belanja.map((item) => ({
+                        ...item,
+                        rab: {
+                            ...item.rab,
+                            rekening: rekeningLevel6.find(
+                                (rekening) =>
+                                    rekening.kode === item.rab?.kodeRekening
+                            ),
+                        },
+                    })) || [],
+            },
+        }
     }),
 
     create: userProcedure.input(sppSchema).mutation(async ({ ctx, input }) => {

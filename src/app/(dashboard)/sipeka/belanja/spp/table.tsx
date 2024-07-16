@@ -72,8 +72,8 @@ export default function SppTable() {
                             {index + 1}.
                         </TableCell>
                         <TableCell className="w-1">
-                            <div className="h-10 w-10 rounded-full bg-blue-100 p-2">
-                                <HiOutlineDocumentReport className="h-6 w-6 text-blue-500" />
+                            <div className="h-10 w-10 rounded-full bg-blue-50 p-2">
+                                <HiOutlineDocumentReport className="h-6 w-6 -rotate-12 text-blue-500" />
                             </div>
                         </TableCell>
                         <TableCell className="text-center font-semibold">

@@ -11,6 +11,7 @@ import {
     Table,
     TableBody,
     TableCell,
+    TableFooter,
     TableHead,
     TableHeader,
     TableRow,
@@ -24,6 +25,7 @@ import {
     HiOutlinePencil,
     HiOutlineTrash,
 } from 'react-icons/hi'
+import { LuBookMarked } from 'react-icons/lu'
 import { Link } from 'react-router-dom'
 
 export default function LpjBelanjaTable() {
@@ -64,8 +66,8 @@ export default function LpjBelanjaTable() {
             <TableHeader>
                 <TableRow>
                     <TableHead className="w-1">No.</TableHead>
+                    <TableHead colSpan={2}>Nomor Dokumen</TableHead>
                     <TableHead>Tanggal Dokumen</TableHead>
-                    <TableHead className="text-center">Nomor Dokumen</TableHead>
                     <TableHead>Uraian</TableHead>
                     <TableHead className="text-center">Jenis</TableHead>
                     <TableHead className="text-right">Jumlah</TableHead>
@@ -78,11 +80,16 @@ export default function LpjBelanjaTable() {
                         <TableCell className="text-center">
                             {index + 1}.
                         </TableCell>
-                        <TableCell className="font-semibold">
-                            {formatTanggal(item.tglDokumen)}
+                        <TableCell className="w-1">
+                            <div className="h-10 w-10 rounded-full bg-blue-50 p-2">
+                                <LuBookMarked className="h-6 w-6 -rotate-12 text-blue-500" />
+                            </div>
                         </TableCell>
                         <TableCell className="text-center font-semibold">
                             {item.noDokumen}
+                        </TableCell>
+                        <TableCell className="font-semibold">
+                            {formatTanggal(item.tglDokumen)}
                         </TableCell>
                         <TableCell className="font-semibold">
                             {item.uraian}
@@ -148,6 +155,22 @@ export default function LpjBelanjaTable() {
                     </TableRow>
                 )}
             </TableBody>
+            <TableFooter>
+                <TableRow>
+                    <TableHead colSpan={6} className="text-center">
+                        Total
+                    </TableHead>
+                    <TableHead>
+                        {formatAngka(
+                            lpjBelanja.reduce(
+                                (acc, curr) => acc + Number(curr.jumlah),
+                                0
+                            )
+                        )}
+                    </TableHead>
+                    <TableHead />
+                </TableRow>
+            </TableFooter>
         </Table>
     )
 }
