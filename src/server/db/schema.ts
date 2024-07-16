@@ -310,12 +310,11 @@ export const pengembalianBelanjaTable = mysqlTable('pengembalian_belanja', {
     jumlah: decimal('jumlah', { precision: 20, scale: 2 }),
 })
 
-export const rekeningKoran = mysqlTable('rekening_koran', {
+export const sppTable = mysqlTable('spp', {
     id: serial('id').primaryKey(),
-    tglJurnal: timestamp('tgl_jurnal', { mode: 'date' }),
-    uraian: varchar('uraian', { length: 256 }),
-    debet: decimal('debet', { precision: 20, scale: 2 }),
-    kredit: decimal('kredit', { precision: 20, scale: 2 }),
+    tglDokumen: timestamp('tgl_dokumen', { mode: 'date' }),
+    noDokumen: varchar('no_dokumen', { length: 256 }),
+    lpjBelanjaId: int('lpj_belanja_id', { unsigned: true }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { mode: 'date' })
         .defaultNow()
@@ -464,8 +463,9 @@ export const pengembalianBelanjaTableRelations = relations(
 
 export const lpjBelanjaTableRelations = relations(
     lpjBelanjaTable,
-    ({ many }) => ({
+    ({ many, one }) => ({
         belanja: many(belanja),
+        spp: one(sppTable),
     })
 )
 
@@ -493,4 +493,8 @@ export const sp3bTableRelations = relations(sp3bTable, ({ one }) => ({
         fields: [sp3bTable.penandatanganId],
         references: [pegawai.id],
     }),
+}))
+
+export const sppTableRelations = relations(sppTable, ({ one }) => ({
+    lpjBelanja: one(lpjBelanjaTable),
 }))
