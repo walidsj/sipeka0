@@ -34,7 +34,7 @@ export default function LpjBelanjaTable() {
         isError,
         error,
         data: lpjBelanja,
-    } = api.lpjBelanja.getAll.useQuery()
+    } = api.lpjBelanja.getAll.useQuery({})
 
     const deleteItem = api.lpjBelanja.deleteById.useMutation({
         onMutate() {

@@ -141,7 +141,6 @@ export const aktivitasRba = mysqlTable('aktivitas_rba', {
     kode: varchar('kode', { length: 256 }),
     nama: varchar('nama', { length: 256 }),
     rbaId: int('rba_id', { unsigned: true }),
-    subKegiatanRkaId: int('sub_kegiatan_rka_id', { unsigned: true }),
     jenis: mysqlEnum('jenis', ['BELANJA', 'PENDAPATAN', 'PEMBIAYAAN']),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { mode: 'date' })
@@ -215,22 +214,10 @@ export const pendapatan = mysqlTable('pendapatan', {
         .onUpdateNow(),
 })
 
-export const rka = mysqlTable('rka', {
-    id: serial('id').primaryKey(),
-    rbaId: int('rba_id', { unsigned: true }),
-    noDokumen: varchar('no_dokumen', { length: 256 }),
-    uraian: varchar('uraian', { length: 256 }),
-    tglDokumen: timestamp('tgl_dokumen', { mode: 'date' }),
-    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
-})
-
 export const dba = mysqlTable('dba', {
     id: serial('id').primaryKey(),
     noDokumen: varchar('no_dokumen', { length: 256 }),
-    rbaId: int('rka_id', { unsigned: true }),
+    rbaId: int('rba_id', { unsigned: true }),
     uraian: varchar('uraian', { length: 256 }),
     tglDokumen: timestamp('tgl_dokumen', { mode: 'date' }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
@@ -301,15 +288,6 @@ export const sp3bTable = mysqlTable('sp3b', {
         .onUpdateNow(),
 })
 
-export const pengembalianBelanjaTable = mysqlTable('pengembalian_belanja', {
-    id: serial('id').primaryKey(),
-    belanjaId: int('belanja_id', { unsigned: true }),
-    tglDokumen: timestamp('tgl_dokumen', { mode: 'date' }),
-    noDokumen: varchar('no_dokumen', { length: 256 }),
-    uraian: varchar('uraian', { length: 256 }),
-    jumlah: decimal('jumlah', { precision: 20, scale: 2 }),
-})
-
 export const sppTable = mysqlTable('spp', {
     id: serial('id').primaryKey(),
     tglDokumen: timestamp('tgl_dokumen', { mode: 'date' }),
@@ -365,7 +343,6 @@ export const rincianRbaPendapatanRelations = relations(
 
 export const rbaRelations = relations(rba, ({ many, one }) => ({
     aktivitas: many(aktivitasRba),
-    rka: one(rka),
     dba: one(dba),
 }))
 
@@ -406,13 +383,6 @@ export const pendapatanRelations = relations(pendapatan, ({ one }) => ({
     }),
 }))
 
-export const rkaRelations = relations(rka, ({ one }) => ({
-    rba: one(rba, {
-        fields: [rka.rbaId],
-        references: [rba.id],
-    }),
-}))
-
 export const dbaRelations = relations(dba, ({ one }) => ({
     rba: one(rba, {
         fields: [dba.rbaId],
@@ -438,7 +408,6 @@ export const belanjaRelations = relations(belanja, ({ one, many }) => ({
         fields: [belanja.lpjBelanjaId],
         references: [lpjBelanjaTable.id],
     }),
-    pengembalianBelanja: many(pengembalianBelanjaTable),
 }))
 
 export const potonganBelanjaRelations = relations(
@@ -451,21 +420,14 @@ export const potonganBelanjaRelations = relations(
     })
 )
 
-export const pengembalianBelanjaTableRelations = relations(
-    pengembalianBelanjaTable,
-    ({ one }) => ({
-        belanja: one(belanja, {
-            fields: [pengembalianBelanjaTable.belanjaId],
-            references: [belanja.id],
-        }),
-    })
-)
-
 export const lpjBelanjaTableRelations = relations(
     lpjBelanjaTable,
     ({ many, one }) => ({
         belanja: many(belanja),
-        spp: one(sppTable),
+        spp: one(sppTable, {
+            fields: [lpjBelanjaTable.id],
+            references: [sppTable.lpjBelanjaId],
+        }),
     })
 )
 
@@ -496,5 +458,8 @@ export const sp3bTableRelations = relations(sp3bTable, ({ one }) => ({
 }))
 
 export const sppTableRelations = relations(sppTable, ({ one }) => ({
-    lpjBelanja: one(lpjBelanjaTable),
+    lpjBelanja: one(lpjBelanjaTable, {
+        fields: [sppTable.lpjBelanjaId],
+        references: [lpjBelanjaTable.id],
+    }),
 }))

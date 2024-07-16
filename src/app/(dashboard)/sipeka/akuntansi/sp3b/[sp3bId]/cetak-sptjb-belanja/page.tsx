@@ -64,7 +64,7 @@ export default function Page() {
                                 }
                             `}
                         </style>
-                        <table className="mt-3 w-full">
+                        <table className="mt-3 w-[calc(100%-2px)]">
                             <tbody>
                                 <tr>
                                     <td className="w-16 font-serif">

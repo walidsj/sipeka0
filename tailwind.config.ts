@@ -15,6 +15,7 @@ const config = {
         extend: {
             fontFamily: {
                 serif: ['Cambria', 'serif'],
+                arial: ['Arial', 'sans-serif'],
             },
             colors: {
                 border: 'hsl(var(--border))',

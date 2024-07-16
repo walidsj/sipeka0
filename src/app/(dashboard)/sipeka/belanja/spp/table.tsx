@@ -19,6 +19,7 @@ import { api } from '@/trpc/react'
 import toast from 'react-hot-toast'
 import {
     HiOutlineChevronDown,
+    HiOutlineDocumentReport,
     HiOutlineEye,
     HiOutlinePencil,
     HiOutlineTrash,
@@ -28,7 +29,7 @@ import { Link } from 'react-router-dom'
 export default function SppTable() {
     const utils = api.useUtils()
 
-    const { isLoading, isError, error, data: spp } = api.spp.getAll.useQuery()
+    const { isLoading, isError, error, data: spp } = api.spp.getAll.useQuery({})
 
     const deleteItem = api.spp.deleteById.useMutation({
         onMutate() {
@@ -58,8 +59,9 @@ export default function SppTable() {
             <TableHeader>
                 <TableRow>
                     <TableHead className="w-1">No.</TableHead>
+                    <TableHead colSpan={2}>Nomor Dokumen</TableHead>
                     <TableHead>Tanggal Dokumen</TableHead>
-                    <TableHead className="text-center">Nomor Dokumen</TableHead>
+                    <TableHead>Uraian Dokumen</TableHead>
                     <TableHead className="w-1" />
                 </TableRow>
             </TableHeader>
@@ -69,11 +71,19 @@ export default function SppTable() {
                         <TableCell className="text-center">
                             {index + 1}.
                         </TableCell>
-                        <TableCell className="font-semibold">
-                            {formatTanggal(item.tglDokumen)}
+                        <TableCell className="w-1">
+                            <div className="h-10 w-10 rounded-full bg-blue-100 p-2">
+                                <HiOutlineDocumentReport className="h-6 w-6 text-blue-500" />
+                            </div>
                         </TableCell>
                         <TableCell className="text-center font-semibold">
                             {item.noDokumen}
+                        </TableCell>
+                        <TableCell className="font-semibold">
+                            {formatTanggal(item.tglDokumen)}
+                        </TableCell>
+                        <TableCell className="font-semibold">
+                            {item.lpjBelanja?.uraian}
                         </TableCell>
                         <TableCell>
                             <DropdownMenu>

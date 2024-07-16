@@ -1,4 +1,4 @@
-import { lpjBelanjaTable } from '@/server/db/schema'
+import { sppTable } from '@/server/db/schema'
 import { Button } from '@/components/ui/button'
 import {
     Form,
@@ -16,42 +16,34 @@ import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { format } from 'date-fns'
-import { lpjBelanjaSchema } from '@/server/api/schema/lpj_belanja'
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select'
-import { Textarea } from '@/components/ui/textarea'
+import { sppSchema } from '@/server/api/schema/spp'
+import LpjBelanjaPicker from '@/components/lpj-belanja-picker'
 
 export default function EditForm({
     data,
 }: {
-    data: typeof lpjBelanjaTable.$inferSelect
+    data: typeof sppTable.$inferSelect
 }) {
     const navigate = useNavigate()
     const utils = api.useUtils()
 
-    const form = useForm<z.infer<typeof lpjBelanjaSchema>>({
-        resolver: zodResolver(lpjBelanjaSchema),
+    const form = useForm<z.infer<typeof sppSchema>>({
+        resolver: zodResolver(sppSchema),
         mode: 'onTouched',
         defaultValues: {
-            jenis: data.jenis || undefined,
+            lpjBelanjaId: data.lpjBelanjaId || undefined,
             noDokumen: data.noDokumen || '',
             tglDokumen: data.tglDokumen || undefined,
-            uraian: data.uraian || '',
         },
     })
 
-    const edit = api.lpjBelanja.updateById.useMutation({
+    const edit = api.spp.updateById.useMutation({
         onMutate() {
             toast.loading('Menyimpan data...')
         },
         onSuccess(data) {
             toast.dismiss()
-            utils.lpjBelanja.getById.invalidate()
+            utils.spp.getById.invalidate()
             navigate(-1)
             toast.success(data.message)
         },
@@ -61,7 +53,7 @@ export default function EditForm({
         },
     })
 
-    function onSubmit(val: z.infer<typeof lpjBelanjaSchema>) {
+    function onSubmit(val: z.infer<typeof sppSchema>) {
         edit.mutate({ id: data.id, ...val })
     }
 
@@ -73,36 +65,23 @@ export default function EditForm({
                     className="flex max-w-96 flex-col gap-2"
                 >
                     <FormField
-                        control={form.control}
-                        name="jenis"
+                        name="lpjBelanjaId"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Jenis</FormLabel>
+                                <FormLabel>LPJ Belanja</FormLabel>
                                 <FormControl>
-                                    <Select
-                                        onValueChange={field.onChange}
+                                    <LpjBelanjaPicker
                                         value={field.value}
-                                    >
-                                        <SelectTrigger>
-                                            <SelectValue />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="GU">
-                                                GU
-                                            </SelectItem>
-                                            <SelectItem value="LS">
-                                                LS
-                                            </SelectItem>
-                                            <SelectItem value="TU">
-                                                TU
-                                            </SelectItem>
-                                        </SelectContent>
-                                    </Select>
+                                        onValueChange={(val) =>
+                                            field.onChange(val)
+                                        }
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
+
                     <FormField
                         name="noDokumen"
                         render={({ field }) => (
@@ -138,22 +117,6 @@ export default function EditForm({
                                                   )
                                                 : undefined
                                         }
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        name="uraian"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Uraian</FormLabel>
-                                <FormControl>
-                                    <Textarea
-                                        value={field.value}
-                                        onChange={field.onChange}
-                                        rows={4}
                                     />
                                 </FormControl>
                                 <FormMessage />

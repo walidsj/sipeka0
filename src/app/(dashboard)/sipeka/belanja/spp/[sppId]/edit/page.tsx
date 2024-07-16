@@ -11,25 +11,20 @@ import { api } from '@/trpc/react'
 import NotFound from '@/app/not-found'
 
 export default function EditPage() {
-    const params = useParams<{ lpjBelanjaId: string }>()
+    const params = useParams<{ sppId: string }>()
 
-    const lpjBelanja = api.lpjBelanja.getById.useQuery(
-        parseInt(params.lpjBelanjaId!)
-    )
+    const spp = api.spp.getById.useQuery(parseInt(params.sppId!))
 
-    if ((lpjBelanja.isSuccess && !lpjBelanja.data) || lpjBelanja.isError)
-        return <NotFound />
+    if ((spp.isSuccess && !spp.data) || spp.isError) return <NotFound />
 
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Edit Dokumen LPJ Belanja</CardTitle>
+                <CardTitle>Edit Dokumen SPP</CardTitle>
                 <CardDescription>Form untuk mengedit dokumen</CardDescription>
             </CardHeader>
             <CardContent>
-                {lpjBelanja.isSuccess && lpjBelanja.data && (
-                    <EditForm data={lpjBelanja.data} />
-                )}
+                {spp.isSuccess && spp.data && <EditForm data={spp.data} />}
             </CardContent>
         </Card>
     )

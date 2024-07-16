@@ -14,40 +14,32 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
-import { Textarea } from '@/components/ui/textarea'
 import { format } from 'date-fns'
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select'
-import { lpjBelanjaSchema } from '@/server/api/schema/lpj_belanja'
+import { sppSchema } from '@/server/api/schema/spp'
+import LpjBelanjaPicker from '@/components/lpj-belanja-picker'
 
 export default function CreateForm() {
     const navigate = useNavigate()
 
     const utils = api.useUtils()
 
-    const form = useForm<z.infer<typeof lpjBelanjaSchema>>({
-        resolver: zodResolver(lpjBelanjaSchema),
+    const form = useForm<z.infer<typeof sppSchema>>({
+        resolver: zodResolver(sppSchema),
         mode: 'onTouched',
         defaultValues: {
-            jenis: undefined,
+            lpjBelanjaId: undefined,
             noDokumen: '',
             tglDokumen: undefined,
-            uraian: '',
         },
     })
 
-    const create = api.lpjBelanja.create.useMutation({
+    const create = api.spp.create.useMutation({
         onMutate() {
             toast.loading('Menyimpan data...')
         },
         onSuccess(data) {
             toast.dismiss()
-            utils.lpjBelanja.invalidate()
+            utils.spp.invalidate()
             navigate(-1)
             toast.success(data.message)
         },
@@ -57,7 +49,7 @@ export default function CreateForm() {
         },
     })
 
-    function onSubmit(data: z.infer<typeof lpjBelanjaSchema>) {
+    function onSubmit(data: z.infer<typeof sppSchema>) {
         create.mutate(data)
     }
 
@@ -69,36 +61,23 @@ export default function CreateForm() {
                     className="flex flex-col gap-2"
                 >
                     <FormField
-                        control={form.control}
-                        name="jenis"
+                        name="lpjBelanjaId"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Jenis</FormLabel>
+                                <FormLabel>LPJ Belanja</FormLabel>
                                 <FormControl>
-                                    <Select
-                                        onValueChange={field.onChange}
+                                    <LpjBelanjaPicker
                                         value={field.value}
-                                    >
-                                        <SelectTrigger>
-                                            <SelectValue />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="GU">
-                                                GU
-                                            </SelectItem>
-                                            <SelectItem value="LS">
-                                                LS
-                                            </SelectItem>
-                                            <SelectItem value="TU">
-                                                TU
-                                            </SelectItem>
-                                        </SelectContent>
-                                    </Select>
+                                        onValueChange={(val) =>
+                                            field.onChange(val)
+                                        }
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
+
                     <FormField
                         name="noDokumen"
                         render={({ field }) => (
@@ -140,22 +119,7 @@ export default function CreateForm() {
                             </FormItem>
                         )}
                     />
-                    <FormField
-                        name="uraian"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Uraian</FormLabel>
-                                <FormControl>
-                                    <Textarea
-                                        value={field.value}
-                                        onChange={field.onChange}
-                                        rows={4}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+
                     <div className="mt-3">
                         <Button type="submit">
                             {create.isPending ? 'Menyimpan...' : 'Simpan'}

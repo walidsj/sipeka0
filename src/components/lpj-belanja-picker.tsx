@@ -1,4 +1,3 @@
-import { FiCommand } from 'react-icons/fi'
 import { Button } from '@/components/ui/button'
 import { api } from '@/trpc/react'
 import {
@@ -17,13 +16,13 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import React from 'react'
-import { cn } from '@/lib/utils'
+import { cn, formatTanggal } from '@/lib/utils'
 import { useDebounce } from 'use-debounce'
 import { Input } from '@/components/ui/input'
 import { keepPreviousData } from '@tanstack/react-query'
 import Loading from '@/components/loading'
 
-export default function ProgramRkaPicker({
+export default function LpjBelanjaPicker({
     value,
     onValueChange,
     defaultValue,
@@ -36,7 +35,7 @@ export default function ProgramRkaPicker({
         value ?? defaultValue ?? 0
     )
 
-    const programRkaSelected = api.programRka.getById.useQuery(selected!, {
+    const lpjBelanjaSelected = api.lpjBelanja.getById.useQuery(selected!, {
         enabled: !!selected,
         placeholderData: keepPreviousData,
     })
@@ -44,8 +43,8 @@ export default function ProgramRkaPicker({
     const [search, setSearch] = React.useState<string>('')
     const [searchValue] = useDebounce(search, 300)
 
-    const programRka = api.programRka.getAll.useQuery(
-        { search: searchValue },
+    const lpjBelanja = api.lpjBelanja.getAll.useQuery(
+        { search: searchValue, haveSpp: false },
         { placeholderData: keepPreviousData }
     )
 
@@ -62,21 +61,31 @@ export default function ProgramRkaPicker({
                 >
                     {selected !== undefined && (
                         <div>
-                            {programRkaSelected.isSuccess &&
-                                programRkaSelected.data && (
+                            {lpjBelanjaSelected.isSuccess &&
+                                lpjBelanjaSelected.data && (
                                     <div className="flex items-center gap-3">
-                                        <FiCommand className="h-5 w-5 text-primary" />
+                                        <img
+                                            src="/images/icons/research.png"
+                                            alt="lpjBelanja"
+                                            className="h-10 w-10"
+                                        />
                                         <div className="flex flex-col text-left">
                                             <span className="line-clamp-1">
-                                                {programRkaSelected.data.nama}
+                                                {
+                                                    lpjBelanjaSelected.data
+                                                        .noDokumen
+                                                }
                                             </span>
                                             <span className="line-clamp-1 text-xs text-slate-500">
-                                                {programRkaSelected.data.kode}
+                                                {formatTanggal(
+                                                    lpjBelanjaSelected.data
+                                                        .tglDokumen
+                                                )}
                                             </span>
                                         </div>
                                     </div>
                                 )}
-                            {programRkaSelected.isLoading && (
+                            {lpjBelanjaSelected.isLoading && (
                                 <div className="flex items-center gap-3">
                                     <Loading />
                                 </div>
@@ -85,12 +94,12 @@ export default function ProgramRkaPicker({
                     )}
                 </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl">
+            <DialogContent className="max-w-4xl">
                 <DialogHeader>
-                    <DialogTitle>Pilih Program RKA</DialogTitle>
+                    <DialogTitle>Pilih LPJ Belanja</DialogTitle>
                 </DialogHeader>
                 <Input
-                    placeholder="Cari program..."
+                    placeholder="Cari LPJ Belanja..."
                     onChange={(e) => setSearch(e.target.value)}
                 />
                 <div className="max-h-96 overflow-y-auto">
@@ -98,16 +107,15 @@ export default function ProgramRkaPicker({
                         <TableHeader>
                             <TableRow>
                                 <TableHead className="w-1">No.</TableHead>
-                                <TableHead>Nama Program</TableHead>
-                                <TableHead className="text-center">
-                                    Kode Program
-                                </TableHead>
+                                <TableHead>Tanggal</TableHead>
+                                <TableHead>Nomor LPJ</TableHead>
+                                <TableHead>Uraian</TableHead>
                                 <TableHead className="w-1">Aksi</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {programRka.isSuccess &&
-                                programRka.data?.map((item, index) => (
+                            {lpjBelanja.isSuccess &&
+                                lpjBelanja.data?.map((item, index) => (
                                     <TableRow
                                         key={index}
                                         className={cn(
@@ -116,11 +124,16 @@ export default function ProgramRkaPicker({
                                         )}
                                     >
                                         <TableCell className="text-center">
-                                            {index + 1}
+                                            {index + 1}.
                                         </TableCell>
-                                        <TableCell>{item.nama}</TableCell>
-                                        <TableCell className="text-center">
-                                            {item.kode}
+                                        <TableCell className="font-semibold">
+                                            {formatTanggal(item.tglDokumen)}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold">
+                                            {item.noDokumen}
+                                        </TableCell>
+                                        <TableCell className="font-semibold">
+                                            {item.uraian}
                                         </TableCell>
                                         <TableCell>
                                             {selected === item.id ? (
@@ -149,11 +162,11 @@ export default function ProgramRkaPicker({
                                         </TableCell>
                                     </TableRow>
                                 ))}
-                            {programRka.isSuccess &&
-                                programRka.data?.length === 0 && (
+                            {lpjBelanja.isSuccess &&
+                                lpjBelanja.data?.length === 0 && (
                                     <TableRow>
                                         <TableCell
-                                            colSpan={4}
+                                            colSpan={100}
                                             className="text-center"
                                         >
                                             Tidak ada data

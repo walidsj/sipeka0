@@ -1,22 +1,51 @@
 import { belanja, lpjBelanjaTable } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { desc, eq, isNull } from 'drizzle-orm'
+import { and, desc, eq, isNull, like, or } from 'drizzle-orm'
 import { z } from 'zod'
 import { lpjBelanjaSchema } from '../schema/lpj_belanja'
 
 export const lpjBelanjaRouter = createTRPCRouter({
-    getAll: userProcedure.query(async ({ ctx }) => {
-        return await ctx.db.query.lpjBelanjaTable.findMany({
-            orderBy: [
-                desc(lpjBelanjaTable.tglDokumen),
-                desc(lpjBelanjaTable.noDokumen),
-                desc(lpjBelanjaTable.createdAt),
-            ],
-            with: {
-                belanja: true,
-            },
-        })
-    }),
+    getAll: userProcedure
+        .input(
+            z.object({
+                search: z.string().optional(),
+                haveSpp: z.boolean().optional(),
+            })
+        )
+        .query(async ({ ctx, input }) => {
+            const lpjBelanja = await ctx.db.query.lpjBelanjaTable.findMany({
+                orderBy: [
+                    desc(lpjBelanjaTable.tglDokumen),
+                    desc(lpjBelanjaTable.noDokumen),
+                    desc(lpjBelanjaTable.createdAt),
+                ],
+                with: {
+                    belanja: true,
+                    spp: true,
+                },
+                where: and(
+                    input.search
+                        ? or(
+                              like(
+                                  lpjBelanjaTable.noDokumen,
+                                  `%${input.search}%`
+                              ),
+                              like(lpjBelanjaTable.uraian, `%${input.search}%`)
+                          )
+                        : undefined
+                ),
+            })
+
+            if (input.haveSpp === true) {
+                return lpjBelanja.filter((item) => item.spp)
+            }
+
+            if (input.haveSpp === false) {
+                return lpjBelanja.filter((item) => !item.spp)
+            }
+
+            return lpjBelanja
+        }),
 
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {
         return await ctx.db.query.lpjBelanjaTable.findFirst({

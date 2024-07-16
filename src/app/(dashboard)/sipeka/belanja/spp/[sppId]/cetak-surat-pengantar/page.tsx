@@ -12,17 +12,17 @@ import Loading from '@/components/loading'
 import { useReactToPrint } from 'react-to-print'
 import React from 'react'
 import { Button } from '@/components/ui/button'
-import { formatTanggal } from '@/lib/utils'
+import { formatAngkaDecimal, formatTanggal, terbilang } from '@/lib/utils'
 import NotFound from '@/app/not-found'
 
 export default function Page() {
-    const params = useParams<{ sp3bId: string }>()
+    const params = useParams<{ sppId: string }>()
 
     const {
-        data: sp3b,
+        data: spp,
         isError,
         isLoading,
-    } = api.sp3b.getById.useQuery(Number(params.sp3bId))
+    } = api.spp.getById.useQuery(Number(params.sppId))
 
     const componentRef = React.useRef(null)
     const handlePrint = useReactToPrint({
@@ -33,13 +33,13 @@ export default function Page() {
 
     if (isError) return <NotFound />
 
-    if (!sp3b) return <NotFound />
+    if (!spp) return <NotFound />
 
     return (
         <Card>
             <CardHeader>
                 <CardTitle>Cetak Surat Pengantar</CardTitle>
-                <CardDescription>Dokumen Surat Pengantar SP3B</CardDescription>
+                <CardDescription>Dokumen Surat Pengantar SPP</CardDescription>
             </CardHeader>
             <CardContent>
                 <div className="rounded-md border p-10 shadow">
@@ -106,27 +106,20 @@ export default function Page() {
                         </table>
                         <hr className="mb-5 mt-3 border-b-4 border-double border-black" />
                         <div className="mb-5 flex w-full flex-row">
-                            <div className="w-full" />
-                            <div className="w-3/5 text-justify font-serif">
-                                Samarinda, {formatTanggal(sp3b.tglDokumen)}
+                            <div className="w-full font-serif">
                                 <br />
+                                Yth. Kuasa Pengguna Anggaran
                                 <br />
-                                Kepada
+                                RSJD Atma Husada Mahakam
                                 <br />
-                                <span className="-ml-6 font-serif">
-                                    Yth. Pj. Gubernur Kalimantan Timur
-                                </span>
-                                <br />
-                                c.q. Kepala Badan Pengelolaan Keuangan dan Aset
-                                Daerah
-                                <br />
-                                Provinsi Kalimantan Timur
-                                <br />
-                                di -
+                                di —
                                 <br />
                                 <span className="ml-6 font-serif underline">
                                     Samarinda
                                 </span>
+                            </div>
+                            <div className="w-3/5 text-justify font-serif">
+                                Samarinda, {formatTanggal(spp.tglDokumen)}
                             </div>
                         </div>
                         <h5
@@ -136,7 +129,8 @@ export default function Page() {
                             Surat Pengantar
                         </h5>
                         <h4 className="mb-5 text-center font-serif">
-                            Nomor: {sp3b.noDokumen}/SP3B-BLUD/RSJD.AHM-KEU
+                            Nomor: 900.1.3.5/{spp.noDokumen}/
+                            {spp.lpjBelanja?.jenis}/SPP/RSJD-AHM/BLUD
                         </h4>
                         <table className="mb-5 w-[calc(100%-2px)]">
                             <thead>
@@ -174,20 +168,45 @@ export default function Page() {
                                     1.
                                 </td>
                                 <td className="border border-black px-3 pb-5 pt-2 text-justify align-top font-serif">
-                                    Bersama ini terlampir Surat Perintah
-                                    Pengesahan Pendapatan dan Belanja (SP3B)
-                                    BLUD Rumah Sakit Jiwa Daerah Atma Husada
-                                    Mahakam untuk {formatTanggal(sp3b.tglMulai)}{' '}
-                                    s.d. {formatTanggal(sp3b.tglSelesai)} Tahun
-                                    Anggaran 2024
+                                    Surat Permintaan Pembayaran{' '}
+                                    {spp.lpjBelanja?.jenis === 'LS'
+                                        ? 'Langsung'
+                                        : spp.lpjBelanja?.jenis === 'GU'
+                                          ? 'Ganti Uang Persediaan'
+                                          : spp.lpjBelanja?.jenis === 'TU'
+                                            ? 'Tambah Uang Persediaan'
+                                            : ''}{' '}
+                                    (SPP-
+                                    {spp.lpjBelanja?.jenis}) BLUD Rumah Sakit
+                                    Jiwa Daerah Atma Husada Mahakam Prov. Kaltim
+                                    untuk Tahun Anggaran 2024 senilai{' '}
+                                    <span className="font-serif font-semibold">
+                                        Rp
+                                        {formatAngkaDecimal(
+                                            spp.lpjBelanja?.belanja.reduce(
+                                                (acc, curr) =>
+                                                    acc + Number(curr.jumlah),
+                                                0
+                                            )
+                                        )}
+                                    </span>{' '}
+                                    (
+                                    {terbilang(
+                                        spp.lpjBelanja?.belanja.reduce(
+                                            (acc, curr) =>
+                                                acc + Number(curr.jumlah),
+                                            0
+                                        ) || 0
+                                    )}{' '}
+                                    Rupiah )
                                 </td>
                                 <td className="border border-black px-3 pb-5 pt-2 text-center align-top font-serif">
                                     1 (satu) berkas
                                 </td>
                                 <td className="border border-black px-3 pb-5 pt-2 text-justify align-top font-serif">
                                     Disampaikan dengan hormat untuk dapat
-                                    diproses penerbitan Surat Pengesahan
-                                    Pendapatan dan Belanja (SP3B)
+                                    diproses penerbitan Surat Perintah Membayar
+                                    (SPM) BLUD
                                 </td>
                             </tbody>
                         </table>
@@ -199,20 +218,14 @@ export default function Page() {
                             <div className="w-full" />
                             <div className="w-3/5 text-justify font-serif">
                                 <div className="font-serif">
-                                    {sp3b.penandatangan?.jabatan},
+                                    Bendahara Pengeluaran Pembantu BLUD,
                                 </div>
                                 <div className="mt-14 font-serif underline">
-                                    {sp3b.penandatangan?.gelarDepan &&
-                                        `${sp3b.penandatangan?.gelarDepan} `}
-                                    {sp3b.penandatangan?.nama}
-                                    {sp3b.penandatangan?.gelarBelakang &&
-                                        `, ${sp3b.penandatangan?.gelarBelakang}`}
+                                    Moh. Walid Arkham Sani, A.Md.Pnl
                                 </div>
+                                <div className="font-serif">Pengatur</div>
                                 <div className="font-serif">
-                                    Pembina Utama Muda
-                                </div>
-                                <div className="font-serif">
-                                    NIP. {sp3b.penandatangan?.nip}
+                                    NIP. 200008062022011001
                                 </div>
                             </div>
                         </div>

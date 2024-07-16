@@ -66,7 +66,7 @@ export default function Page() {
                                 }
                             `}
                         </style>
-                        <table className="mt-3 w-full">
+                        <table className="mt-3 w-[calc(100%-2px)]">
                             <tbody>
                                 <tr>
                                     <td className="w-2/12 border border-black px-3 py-2 font-serif">

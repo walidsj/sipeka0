@@ -3,7 +3,6 @@ import { api } from '@/trpc/react'
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -17,12 +16,13 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import React from 'react'
-import { cn } from '@/lib/utils'
+import { cn, formatTanggal } from '@/lib/utils'
+import { useDebounce } from 'use-debounce'
+import { Input } from '@/components/ui/input'
 import { keepPreviousData } from '@tanstack/react-query'
 import Loading from '@/components/loading'
-import { useParams } from 'react-router-dom'
 
-export default function AktivitasByRbaPicker({
+export default function SppPicker({
     value,
     onValueChange,
     defaultValue,
@@ -31,19 +31,20 @@ export default function AktivitasByRbaPicker({
     onValueChange?: (value: number | undefined) => void
     defaultValue?: number
 }) {
-    const params = useParams<{ rkaId: string }>()
-
     const [selected, setSelected] = React.useState<number | undefined>(
         value ?? defaultValue ?? 0
     )
 
-    const aktivitasRbaSelected = api.aktivitasRba.getById.useQuery(selected!, {
+    const sppSelected = api.spp.getById.useQuery(selected!, {
         enabled: !!selected,
         placeholderData: keepPreviousData,
     })
 
-    const aktivitasRba = api.aktivitasRba.getByRkaId.useQuery(
-        parseInt(params.rkaId ?? ''),
+    const [search, setSearch] = React.useState<string>('')
+    const [searchValue] = useDebounce(search, 300)
+
+    const spp = api.spp.getAll.useQuery(
+        { search: searchValue },
         { placeholderData: keepPreviousData }
     )
 
@@ -54,31 +55,32 @@ export default function AktivitasByRbaPicker({
                     type="button"
                     variant="outline"
                     className={cn(
-                        'w-full justify-start rounded-lg text-sm font-normal',
+                        'w-full justify-start bg-slate-100 text-sm font-normal',
                         selected && 'h-auto min-h-12'
                     )}
                 >
                     {selected !== undefined && (
                         <div>
-                            {aktivitasRbaSelected.isSuccess &&
-                                aktivitasRbaSelected.data && (
-                                    <div className="flex items-center gap-3">
-                                        <img
-                                            src="/images/icons/sell.png"
-                                            alt="sell"
-                                            className="h-10 w-10"
-                                        />
-                                        <div className="flex flex-col text-left">
-                                            <span className="line-clamp-1">
-                                                {aktivitasRbaSelected.data.nama}
-                                            </span>
-                                            <span className="line-clamp-1 text-xs text-slate-500">
-                                                {aktivitasRbaSelected.data.kode}
-                                            </span>
-                                        </div>
+                            {sppSelected.isSuccess && sppSelected.data && (
+                                <div className="flex items-center gap-3">
+                                    <img
+                                        src="/images/icons/spp.png"
+                                        alt="spp"
+                                        className="h-10 w-10"
+                                    />
+                                    <div className="flex flex-col text-left">
+                                        <span className="line-clamp-1">
+                                            {sppSelected.data.noDokumen}
+                                        </span>
+                                        <span className="line-clamp-1 text-xs text-slate-500">
+                                            {formatTanggal(
+                                                sppSelected.data.tglDokumen
+                                            )}
+                                        </span>
                                     </div>
-                                )}
-                            {aktivitasRbaSelected.isLoading && (
+                                </div>
+                            )}
+                            {sppSelected.isLoading && (
                                 <div className="flex items-center gap-3">
                                     <Loading />
                                 </div>
@@ -87,26 +89,29 @@ export default function AktivitasByRbaPicker({
                     )}
                 </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-3xl">
+            <DialogContent className="max-w-2xl">
                 <DialogHeader>
-                    <DialogTitle>Pilih Aktivitas RBA</DialogTitle>
-                    <DialogDescription>
-                        Referensi aktivitas untuk transaksi
-                    </DialogDescription>
+                    <DialogTitle>Pilih SPP</DialogTitle>
                 </DialogHeader>
+                <Input
+                    placeholder="Cari spp..."
+                    onChange={(e) => setSearch(e.target.value)}
+                />
                 <div className="max-h-96 overflow-y-auto">
                     <Table>
                         <TableHeader>
                             <TableRow>
                                 <TableHead className="w-1">No.</TableHead>
-                                <TableHead className="w-48">Kode</TableHead>
-                                <TableHead>Uraian</TableHead>
+                                <TableHead>Nomor SPP</TableHead>
+                                <TableHead className="text-center">
+                                    Tanggal SPP
+                                </TableHead>
                                 <TableHead className="w-1">Aksi</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {aktivitasRba.isSuccess &&
-                                aktivitasRba.data?.map((item, index) => (
+                            {spp.isSuccess &&
+                                spp.data?.map((item, index) => (
                                     <TableRow
                                         key={index}
                                         className={cn(
@@ -117,9 +122,9 @@ export default function AktivitasByRbaPicker({
                                         <TableCell className="text-center">
                                             {index + 1}.
                                         </TableCell>
-                                        <TableCell>{item.kode}</TableCell>
-                                        <TableCell className="font-semibold">
-                                            {item.nama}
+                                        <TableCell>{item.noDokumen}</TableCell>
+                                        <TableCell className="text-center">
+                                            {formatTanggal(item.tglDokumen)}
                                         </TableCell>
                                         <TableCell>
                                             {selected === item.id ? (
@@ -148,27 +153,16 @@ export default function AktivitasByRbaPicker({
                                         </TableCell>
                                     </TableRow>
                                 ))}
-                            {aktivitasRba.isLoading && (
+                            {spp.isSuccess && spp.data?.length === 0 && (
                                 <TableRow>
                                     <TableCell
-                                        colSpan={4}
+                                        colSpan={100}
                                         className="text-center"
                                     >
-                                        <Loading />
+                                        Tidak ada data
                                     </TableCell>
                                 </TableRow>
                             )}
-                            {aktivitasRba.isSuccess &&
-                                aktivitasRba.data?.length === 0 && (
-                                    <TableRow>
-                                        <TableCell
-                                            colSpan={4}
-                                            className="text-center"
-                                        >
-                                            Tidak ada data
-                                        </TableCell>
-                                    </TableRow>
-                                )}
                         </TableBody>
                     </Table>
                 </div>
