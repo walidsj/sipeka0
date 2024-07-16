@@ -187,16 +187,16 @@ export default function Page() {
                                 <div className="font-serif">
                                     Samarinda, {formatTanggal(spm.tglDokumen)}
                                 </div>
-                                <div className="font-serif">
+                                <div className="font-serif leading-4">
                                     Kuasa Pengguna Anggaran
                                 </div>
-                                <div className="mt-12 font-serif underline">
+                                <div className="mt-12 font-serif leading-4 underline">
                                     dr. Indah Puspitasari, MARS
                                 </div>
-                                <div className="font-serif">
+                                <div className="font-serif leading-4">
                                     Pembina Utama Muda
                                 </div>
-                                <div className="font-serif">
+                                <div className="font-serif leading-4">
                                     NIP. 196705301998032003
                                 </div>
                             </div>
