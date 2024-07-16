@@ -13,7 +13,7 @@ export const lpjBelanjaRouter = createTRPCRouter({
             })
         )
         .query(async ({ ctx, input }) => {
-            const lpjBelanja = await ctx.db.query.lpjBelanjaTable.findMany({
+            let lpjBelanja = await ctx.db.query.lpjBelanjaTable.findMany({
                 orderBy: [
                     desc(lpjBelanjaTable.tglDokumen),
                     desc(lpjBelanjaTable.noDokumen),
@@ -37,14 +37,26 @@ export const lpjBelanjaRouter = createTRPCRouter({
             })
 
             if (input.haveSpp === true) {
-                return lpjBelanja.filter((item) => item.spp)
+                lpjBelanja = lpjBelanja.filter((item) => item.spp)
             }
 
             if (input.haveSpp === false) {
-                return lpjBelanja.filter((item) => !item.spp)
+                lpjBelanja = lpjBelanja.filter((item) => !item.spp)
             }
 
-            return lpjBelanja
+            return lpjBelanja.map((item) => ({
+                id: item.id,
+                tglDokumen: item.tglDokumen,
+                noDokumen: item.noDokumen,
+                uraian: item.uraian,
+                jumlah: item.belanja.reduce(
+                    (acc, curr) => acc + Number(curr.jumlah),
+                    0
+                ),
+                jenis: item.jenis,
+                createdAt: item.createdAt,
+                updatedAt: item.updatedAt,
+            }))
         }),
 
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {

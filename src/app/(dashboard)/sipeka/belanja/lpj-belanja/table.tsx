@@ -97,12 +97,7 @@ export default function LpjBelanjaTable() {
                             )}
                         </TableCell>
                         <TableCell className="text-right font-semibold">
-                            {formatAngka(
-                                item.belanja.reduce(
-                                    (acc, curr) => acc + Number(curr.jumlah),
-                                    0
-                                )
-                            )}
+                            {formatAngka(item.jumlah)}
                         </TableCell>
                         <TableCell>
                             <DropdownMenu>
