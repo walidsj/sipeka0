@@ -19,7 +19,11 @@ export const spmRouter = createTRPCRouter({
                 with: {
                     spp: {
                         with: {
-                            lpjBelanja: true,
+                            lpjBelanja: {
+                                with: {
+                                    belanja: true,
+                                },
+                            },
                         },
                     },
                     sp2d: true,
@@ -37,7 +41,18 @@ export const spmRouter = createTRPCRouter({
                 spm = spm.filter((item) => !item.sp2d)
             }
 
-            return spm
+            return spm.map((item) => ({
+                id: item.id,
+                tglDokumen: item.tglDokumen,
+                noDokumen: item.noDokumen,
+                uraian: item.spp?.lpjBelanja?.uraian,
+                jumlah: item.spp?.lpjBelanja?.belanja.reduce(
+                    (acc, curr) => acc + Number(curr.jumlah),
+                    0
+                ),
+                createdAt: item.createdAt,
+                updatedAt: item.updatedAt,
+            }))
         }),
 
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {

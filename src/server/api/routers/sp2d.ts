@@ -13,7 +13,7 @@ export const sp2dRouter = createTRPCRouter({
             })
         )
         .query(async ({ ctx, input }) => {
-            return await ctx.db.query.sp2dTable.findMany({
+            const sp2d = await ctx.db.query.sp2dTable.findMany({
                 orderBy: [
                     desc(sp2dTable.tglDokumen),
                     desc(sp2dTable.noDokumen),
@@ -23,7 +23,11 @@ export const sp2dRouter = createTRPCRouter({
                         with: {
                             spp: {
                                 with: {
-                                    lpjBelanja: true,
+                                    lpjBelanja: {
+                                        with: {
+                                            belanja: true,
+                                        },
+                                    },
                                 },
                             },
                         },
@@ -33,6 +37,20 @@ export const sp2dRouter = createTRPCRouter({
                     ? or(like(sp2dTable.noDokumen, `%${input.search}%`))
                     : undefined,
             })
+
+            return sp2d.map((item) => ({
+                id: item.id,
+                tglDokumen: item.tglDokumen,
+                noDokumen: item.noDokumen,
+                uraian: item.spm?.spp?.lpjBelanja?.uraian,
+                jumlah: item.spm?.spp?.lpjBelanja?.belanja.reduce(
+                    (acc, curr) => acc + Number(curr.jumlah),
+                    0
+                ),
+                noCek: item.noCek,
+                createdAt: item.createdAt,
+                updatedAt: item.updatedAt,
+            }))
         }),
 
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {

@@ -17,7 +17,11 @@ export const sppRouter = createTRPCRouter({
             let spp = await ctx.db.query.sppTable.findMany({
                 orderBy: [desc(sppTable.tglDokumen), desc(sppTable.noDokumen)],
                 with: {
-                    lpjBelanja: true,
+                    lpjBelanja: {
+                        with: {
+                            belanja: true,
+                        },
+                    },
                     spm: true,
                 },
                 where: input.search
@@ -33,7 +37,18 @@ export const sppRouter = createTRPCRouter({
                 spp = spp.filter((item) => !item.spm)
             }
 
-            return spp
+            return spp.map((item) => ({
+                id: item.id,
+                tglDokumen: item.tglDokumen,
+                noDokumen: item.noDokumen,
+                uraian: item.lpjBelanja?.uraian,
+                jumlah: item.lpjBelanja?.belanja.reduce(
+                    (acc, curr) => acc + Number(curr.jumlah),
+                    0
+                ),
+                createdAt: item.createdAt,
+                updatedAt: item.updatedAt,
+            }))
         }),
 
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {

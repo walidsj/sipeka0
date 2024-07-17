@@ -16,7 +16,7 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import React from 'react'
-import { cn, formatTanggal } from '@/lib/utils'
+import { cn, formatAngka, formatTanggal } from '@/lib/utils'
 import { useDebounce } from 'use-debounce'
 import { Input } from '@/components/ui/input'
 import { keepPreviousData } from '@tanstack/react-query'
@@ -105,6 +105,9 @@ export default function SpmPicker({
                                 <TableHead>Tanggal SPM</TableHead>
                                 <TableHead>Nomor SPM</TableHead>
                                 <TableHead>Uraian</TableHead>
+                                <TableHead className="text-right">
+                                    Jumlah (Rp)
+                                </TableHead>
                                 <TableHead className="w-1">Aksi</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -128,7 +131,10 @@ export default function SpmPicker({
                                             {item.noDokumen}
                                         </TableCell>
                                         <TableCell className="font-semibold">
-                                            {item.spp?.lpjBelanja?.uraian}
+                                            {item.uraian}
+                                        </TableCell>
+                                        <TableCell className="text-right font-semibold">
+                                            {formatAngka(item.jumlah)}
                                         </TableCell>
                                         <TableCell>
                                             {selected === item.id ? (

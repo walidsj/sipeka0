@@ -14,7 +14,7 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table'
-import { formatTanggal } from '@/lib/utils'
+import { formatAngka, formatTanggal } from '@/lib/utils'
 import { api } from '@/trpc/react'
 import toast from 'react-hot-toast'
 import {
@@ -62,6 +62,7 @@ export default function SppTable() {
                     <TableHead colSpan={2}>Nomor Dokumen</TableHead>
                     <TableHead>Tanggal Dokumen</TableHead>
                     <TableHead>Uraian Dokumen</TableHead>
+                    <TableHead className="text-right">Jumlah</TableHead>
                     <TableHead className="w-1" />
                 </TableRow>
             </TableHeader>
@@ -83,7 +84,10 @@ export default function SppTable() {
                             {formatTanggal(item.tglDokumen)}
                         </TableCell>
                         <TableCell className="font-semibold">
-                            {item.lpjBelanja?.uraian}
+                            {item.uraian}
+                        </TableCell>
+                        <TableCell className="text-right font-semibold">
+                            {formatAngka(item.jumlah)}
                         </TableCell>
                         <TableCell>
                             <DropdownMenu>

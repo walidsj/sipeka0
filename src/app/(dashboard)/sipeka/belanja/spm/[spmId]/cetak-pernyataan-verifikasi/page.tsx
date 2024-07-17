@@ -12,7 +12,7 @@ import Loading from '@/components/loading'
 import { useReactToPrint } from 'react-to-print'
 import React from 'react'
 import { Button } from '@/components/ui/button'
-import { formatAngkaDecimal, formatTanggal, terbilang } from '@/lib/utils'
+import { formatTanggal } from '@/lib/utils'
 import NotFound from '@/app/not-found'
 
 export default function Page() {
