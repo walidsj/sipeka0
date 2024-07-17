@@ -450,7 +450,7 @@ export default function Page() {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr className="bg-orange-50 font-semibold">
+                                                <tr className="bg-orange-100 font-semibold">
                                                     <td
                                                         colSpan={3}
                                                         className="border-[0.5pt] border-black px-2 align-top font-serif"
@@ -524,7 +524,7 @@ export default function Page() {
                                                 )}
                                             </tbody>
                                             <tfoot>
-                                                <tr className="bg-neutral-100">
+                                                <tr className="bg-neutral-200">
                                                     <td
                                                         colSpan={2}
                                                         className="border-[0.5pt] border-black px-2 font-serif font-semibold"
@@ -679,7 +679,7 @@ export default function Page() {
                                                     )}
                                             </tbody>
                                             <tfoot>
-                                                <tr className="bg-neutral-100">
+                                                <tr className="bg-neutral-200">
                                                     <td
                                                         colSpan={
                                                             spm.spp.lpjBelanja
@@ -806,7 +806,7 @@ export default function Page() {
                                                 </tr>
                                             </tbody>
                                             <tfoot>
-                                                <tr className="bg-neutral-100">
+                                                <tr className="bg-neutral-200">
                                                     <td className="border-[0.5pt] border-black px-2 font-serif font-semibold">
                                                         Jumlah
                                                     </td>
