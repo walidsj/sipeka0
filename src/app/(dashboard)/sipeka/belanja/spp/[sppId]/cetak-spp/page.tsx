@@ -233,7 +233,7 @@ export default function Page() {
                                         :
                                     </td>
                                     <td className="border-[0.5pt] border-black px-3 py-0.5 align-top font-serif">
-                                        BANK KALTIMTARA
+                                        PT BPD KALTIM KALTARA
                                     </td>
                                 </tr>
                                 <tr>
