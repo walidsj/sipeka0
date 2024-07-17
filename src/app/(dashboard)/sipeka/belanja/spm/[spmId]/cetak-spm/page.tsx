@@ -425,7 +425,7 @@ export default function Page() {
                                         <p className="font-serif">
                                             Pembebanan pada:
                                         </p>
-                                        <table className="mb-2">
+                                        <table className="mb-2 w-full">
                                             <thead>
                                                 <tr>
                                                     <th className="w-[15%] border-[0.5pt] border-black px-2 font-serif uppercase">
