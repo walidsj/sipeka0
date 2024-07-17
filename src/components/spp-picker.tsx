@@ -89,7 +89,7 @@ export default function SppPicker({
                     )}
                 </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl">
+            <DialogContent className="max-w-5xl">
                 <DialogHeader>
                     <DialogTitle>Pilih SPP</DialogTitle>
                 </DialogHeader>
@@ -97,7 +97,7 @@ export default function SppPicker({
                     placeholder="Cari spp..."
                     onChange={(e) => setSearch(e.target.value)}
                 />
-                <div className="max-h-96 overflow-y-auto">
+                <div className="max-h-[calc(75svh)] overflow-y-auto">
                     <Table>
                         <TableHeader>
                             <TableRow>
