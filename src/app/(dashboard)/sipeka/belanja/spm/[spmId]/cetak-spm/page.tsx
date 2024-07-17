@@ -13,7 +13,7 @@ import { useReactToPrint } from 'react-to-print'
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import NotFound from '@/app/not-found'
-import { formatAngkaDecimal, formatTanggal, terbilang } from '@/lib/utils'
+import { cn, formatAngkaDecimal, formatTanggal, terbilang } from '@/lib/utils'
 
 export default function Page() {
     const params = useParams<{ spmId: string }>()
@@ -40,6 +40,16 @@ export default function Page() {
             spm.spp.lpjBelanja?.belanja?.map((item) => item.rab?.kodeRekening)
         )
     ).sort()
+
+    const uniquePotongan = Array(
+        ...new Set(
+            spm.spp.lpjBelanja?.belanja
+                ?.map((item) =>
+                    item.potonganBelanja.map((potongan) => potongan.jenis)
+                )
+                .flat()
+        )
+    )
 
     return (
         <Card>
@@ -547,56 +557,136 @@ export default function Page() {
                                                     <th className="w-[5%] border-[0.5pt] border-black px-2 font-serif">
                                                         No
                                                     </th>
-                                                    <th className="w-[35%] border-[0.5pt] border-black px-2 font-serif">
+                                                    <th
+                                                        className={cn(
+                                                            'border-[0.5pt] border-black px-2 font-serif',
+                                                            spm.spp.lpjBelanja
+                                                                .jenis ===
+                                                                'LS' &&
+                                                                'w-[35%]'
+                                                        )}
+                                                    >
                                                         Uraian
                                                     </th>
-                                                    <th className="w-[35%] border-[0.5pt] border-black px-2 font-serif">
-                                                        Kode Billing
-                                                    </th>
+                                                    {spm.spp.lpjBelanja
+                                                        .jenis === 'LS' && (
+                                                        <th className="w-[35%] border-[0.5pt] border-black px-2 font-serif">
+                                                            Kode Billing
+                                                        </th>
+                                                    )}
                                                     <th className="w-[25%] border-[0.5pt] border-black px-2 font-serif">
                                                         Jumlah
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {spm.spp.lpjBelanja.belanja.map(
-                                                    (belanja, bi) => {
-                                                        return belanja.potonganBelanja.map(
-                                                            (
-                                                                potongan,
-                                                                index
-                                                            ) => (
+                                                {spm.spp.lpjBelanja.jenis ===
+                                                    'LS' &&
+                                                    spm.spp.lpjBelanja.belanja.map(
+                                                        (belanja, bi) => {
+                                                            return belanja.potonganBelanja.map(
+                                                                (
+                                                                    potongan,
+                                                                    index
+                                                                ) => (
+                                                                    <tr
+                                                                        key={
+                                                                            index
+                                                                        }
+                                                                    >
+                                                                        <td className="border-[0.5pt] border-black px-2 text-center align-top font-serif">
+                                                                            {bi +
+                                                                                1 +
+                                                                                index}
+                                                                        </td>
+                                                                        <td className="border-[0.5pt] border-black px-2 align-top font-serif">
+                                                                            {
+                                                                                potongan.jenis
+                                                                            }
+                                                                        </td>
+                                                                        <td className="border-[0.5pt] border-black px-2 text-center align-top font-serif">
+                                                                            {
+                                                                                potongan.billing
+                                                                            }
+                                                                        </td>
+                                                                        <td className="border-[0.5pt] border-black px-2 text-right align-top font-serif">
+                                                                            {formatAngkaDecimal(
+                                                                                potongan.jumlah
+                                                                            )}
+                                                                        </td>
+                                                                    </tr>
+                                                                )
+                                                            )
+                                                        }
+                                                    )}
+                                                {spm.spp.lpjBelanja.jenis ===
+                                                    'GU' &&
+                                                    uniquePotongan.map(
+                                                        (potongan, index) => {
+                                                            const filtered =
+                                                                spm.spp.lpjBelanja?.belanja?.map(
+                                                                    (item) =>
+                                                                        item.potonganBelanja.filter(
+                                                                            (
+                                                                                potonganItem
+                                                                            ) =>
+                                                                                potonganItem.jenis ===
+                                                                                potongan
+                                                                        )
+                                                                )
+                                                            const total =
+                                                                filtered.reduce(
+                                                                    (
+                                                                        acc,
+                                                                        item
+                                                                    ) =>
+                                                                        acc +
+                                                                        Number(
+                                                                            item.reduce(
+                                                                                (
+                                                                                    acc,
+                                                                                    item
+                                                                                ) =>
+                                                                                    acc +
+                                                                                    Number(
+                                                                                        item.jumlah
+                                                                                    ),
+                                                                                0
+                                                                            )
+                                                                        ),
+                                                                    0
+                                                                )
+
+                                                            return (
                                                                 <tr key={index}>
                                                                     <td className="border-[0.5pt] border-black px-2 text-center align-top font-serif">
-                                                                        {bi +
-                                                                            1 +
-                                                                            index}
+                                                                        {index +
+                                                                            1}
                                                                     </td>
                                                                     <td className="border-[0.5pt] border-black px-2 align-top font-serif">
                                                                         {
-                                                                            potongan.jenis
-                                                                        }
-                                                                    </td>
-                                                                    <td className="border-[0.5pt] border-black px-2 text-center align-top font-serif">
-                                                                        {
-                                                                            potongan.billing
+                                                                            potongan
                                                                         }
                                                                     </td>
                                                                     <td className="border-[0.5pt] border-black px-2 text-right align-top font-serif">
                                                                         {formatAngkaDecimal(
-                                                                            potongan.jumlah
+                                                                            total
                                                                         )}
                                                                     </td>
                                                                 </tr>
                                                             )
-                                                        )
-                                                    }
-                                                )}
+                                                        }
+                                                    )}
                                             </tbody>
                                             <tfoot>
                                                 <tr className="bg-neutral-100">
                                                     <td
-                                                        colSpan={3}
+                                                        colSpan={
+                                                            spm.spp.lpjBelanja
+                                                                .jenis === 'LS'
+                                                                ? 3
+                                                                : 2
+                                                        }
                                                         className="border-[0.5pt] border-black px-2 font-serif font-semibold"
                                                     >
                                                         Jumlah
