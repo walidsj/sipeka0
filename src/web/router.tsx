@@ -6,7 +6,7 @@ import {
 import React from 'react'
 import { motion } from 'framer-motion'
 import Loading from '@/components/loading'
-import Maintenance from '@/app/maintenance'
+// import Maintenance from '@/app/maintenance'
 
 const importedRoutes = import.meta.glob('@/app/**/(layout|page|not-found).tsx')
 
@@ -197,6 +197,6 @@ const createRoutes = (routes: RoutePagesType[]): RouteObject[] =>
 const router = createBrowserRouter(createRoutes(nestRoutes(orderedRoutes)))
 
 export default function Router() {
-    return <Maintenance />
+    // return <Maintenance />
     return <RouterProvider router={router} />
 }
