@@ -38,8 +38,10 @@ export default function Page() {
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Cetak SP2D</CardTitle>
-                <CardDescription>Dokumen SP2D</CardDescription>
+                <CardTitle>Cetak Lembar Kendali Permintaan Cek</CardTitle>
+                <CardDescription>
+                    Dokumen Lembar Kendali Permintaan Cek
+                </CardDescription>
             </CardHeader>
             <CardContent>
                 <div className="rounded-md border p-10 shadow">
