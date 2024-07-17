@@ -74,6 +74,16 @@ export default function EditPage() {
                                 </Button>
                             </TableCell>
                         </TableRow>
+                        <TableRow>
+                            <TableHead>Surat Pernyataan Verifikasi</TableHead>
+                            <TableCell>
+                                <Button asChild>
+                                    <Link to={`cetak-pernyataan-verifikasi`}>
+                                        Lihat
+                                    </Link>
+                                </Button>
+                            </TableCell>
+                        </TableRow>
                     </TableBody>
                 </Table>
             </CardContent>
