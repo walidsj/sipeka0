@@ -310,6 +310,18 @@ export const spmTable = mysqlTable('spm', {
         .onUpdateNow(),
 })
 
+export const sp2dTable = mysqlTable('sp2d', {
+    id: serial('id').primaryKey(),
+    tglDokumen: timestamp('tgl_dokumen', { mode: 'date' }),
+    noDokumen: varchar('no_dokumen', { length: 256 }),
+    spmId: int('spm_id', { unsigned: true }),
+    noCek: varchar('no_cek', { length: 256 }),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
+})
+
 export const userRelations = relations(user, ({ one }) => ({
     pegawai: one(pegawai, {
         fields: [user.pegawaiId],
@@ -483,5 +495,16 @@ export const spmTableRelations = relations(spmTable, ({ one }) => ({
     spp: one(sppTable, {
         fields: [spmTable.sppId],
         references: [sppTable.id],
+    }),
+    sp2d: one(sp2dTable, {
+        fields: [spmTable.id],
+        references: [sp2dTable.spmId],
+    }),
+}))
+
+export const sp2dTableRelations = relations(sp2dTable, ({ one }) => ({
+    spm: one(spmTable, {
+        fields: [sp2dTable.spmId],
+        references: [spmTable.id],
     }),
 }))

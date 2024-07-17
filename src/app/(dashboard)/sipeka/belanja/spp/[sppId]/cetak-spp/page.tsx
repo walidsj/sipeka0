@@ -351,7 +351,7 @@ export default function Page() {
                                         colSpan={3}
                                         className="border-[0.5pt] border-black font-serif"
                                     >
-                                        <table className="w-full border-collapse">
+                                        <table className="-m-[1pt] w-full">
                                             <tbody>
                                                 <tr>
                                                     <td className="w-[25%] border-r border-black px-3 py-0.5 font-serif">
@@ -392,7 +392,7 @@ export default function Page() {
                                         colSpan={3}
                                         className="border-[0.5pt] border-black font-serif"
                                     >
-                                        <table className="w-full">
+                                        <table className="-m-[1pt] w-full">
                                             <tbody>
                                                 <tr>
                                                     <td className="w-[25%] border-r border-black px-3 py-0.5 font-serif">

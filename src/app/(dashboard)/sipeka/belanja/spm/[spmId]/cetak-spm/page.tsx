@@ -346,10 +346,10 @@ export default function Page() {
                                                                             ?.nama
                                                                 )
                                                                 .join(', ') &&
-                                                            'BANK KALTIMTARA'}
+                                                            'PT. BPD KALTIM KALTARA'}
                                                         {spm.spp.lpjBelanja
                                                             ?.jenis === 'GU' &&
-                                                            'BANK KALTIMTARA'}
+                                                            'PT. BPD KALTIM KALTARA'}
                                                     </td>
                                                 </tr>
                                                 <tr>

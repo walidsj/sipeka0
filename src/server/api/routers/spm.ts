@@ -10,10 +10,11 @@ export const spmRouter = createTRPCRouter({
         .input(
             z.object({
                 search: z.string().optional(),
+                haveSp2d: z.boolean().optional(),
             })
         )
         .query(async ({ ctx, input }) => {
-            return await ctx.db.query.spmTable.findMany({
+            let spm = await ctx.db.query.spmTable.findMany({
                 orderBy: [desc(spmTable.tglDokumen), desc(spmTable.noDokumen)],
                 with: {
                     spp: {
@@ -21,11 +22,22 @@ export const spmRouter = createTRPCRouter({
                             lpjBelanja: true,
                         },
                     },
+                    sp2d: true,
                 },
                 where: input.search
                     ? or(like(spmTable.noDokumen, `%${input.search}%`))
                     : undefined,
             })
+
+            if (input.haveSp2d === true) {
+                spm = spm.filter((item) => item.sp2d)
+            }
+
+            if (input.haveSp2d === false) {
+                spm = spm.filter((item) => !item.sp2d)
+            }
+
+            return spm
         }),
 
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {

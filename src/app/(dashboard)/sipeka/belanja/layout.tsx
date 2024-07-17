@@ -31,6 +31,12 @@ export default function Layout() {
                     </NavLink>
                 </Button>
                 <Button variant="ghost" asChild>
+                    <NavLink to="sp2d">
+                        <HiOutlineBookmarkAlt className="mr-1 h-5 w-5" />
+                        <span>SP2D</span>
+                    </NavLink>
+                </Button>
+                <Button variant="ghost" asChild>
                     <NavLink to="buku/kas-umum">
                         <HiOutlineBookmarkAlt className="mr-1 h-5 w-5" />
                         <span>Buku Bendahara</span>
