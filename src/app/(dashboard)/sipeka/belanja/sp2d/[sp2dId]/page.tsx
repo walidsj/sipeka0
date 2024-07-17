@@ -57,6 +57,14 @@ export default function Page() {
                 <Table>
                     <TableBody>
                         <TableRow>
+                            <TableHead>Lembar Kendali Permintaan Cek</TableHead>
+                            <TableCell>
+                                <Button asChild>
+                                    <Link to={`cetak-kendali-cek`}>Lihat</Link>
+                                </Button>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
                             <TableHead>
                                 Surat Perintah Pencairan Dana (SP2D)
                             </TableHead>
