@@ -91,21 +91,13 @@ export default function EditForm({
                                             <SelectValue />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="PPH 21">
-                                                PPH 21
-                                            </SelectItem>
-                                            <SelectItem value="PPH 22">
-                                                PPH 22
-                                            </SelectItem>
-                                            <SelectItem value="PPH 23">
-                                                PPH 23
-                                            </SelectItem>
-                                            <SelectItem value="PPH 4(2)">
-                                                PPH 4(2)
-                                            </SelectItem>
-                                            <SelectItem value="PPN">
-                                                PPN
-                                            </SelectItem>
+                                            {potonganBelanjaSchema.shape.jenis.options.map(
+                                                (item) => (
+                                                    <SelectItem value={item}>
+                                                        {item}
+                                                    </SelectItem>
+                                                )
+                                            )}
                                         </SelectContent>
                                     </Select>
                                 </FormControl>
