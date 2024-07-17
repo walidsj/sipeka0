@@ -141,39 +141,39 @@ export default function Page() {
                         <table className="mb-5 w-[calc(100%-2px)]">
                             <thead>
                                 <tr>
-                                    <td className="w-10 border border-black px-3 py-3 text-center font-serif uppercase">
+                                    <td className="w-10 border-[0.5pt] border-black px-3 py-3 text-center font-serif uppercase">
                                         No
                                     </td>
-                                    <td className="w-auto border border-black px-3 py-3 text-center font-serif uppercase">
+                                    <td className="w-auto border-[0.5pt] border-black px-3 py-3 text-center font-serif uppercase">
                                         Uraian
                                     </td>
-                                    <td className="w-1/4 border border-black px-3 py-3 text-center font-serif uppercase">
+                                    <td className="w-1/4 border-[0.5pt] border-black px-3 py-3 text-center font-serif uppercase">
                                         Banyaknya
                                     </td>
-                                    <td className="w-auto border border-black px-3 py-3 text-center font-serif uppercase">
+                                    <td className="w-auto border-[0.5pt] border-black px-3 py-3 text-center font-serif uppercase">
                                         Keterangan
                                     </td>
                                 </tr>
                                 <tr className="italic">
-                                    <td className="border border-black px-3 text-center font-serif uppercase">
+                                    <td className="border-[0.5pt] border-black px-3 text-center font-serif uppercase">
                                         1
                                     </td>
-                                    <td className="border border-black px-3 text-center font-serif uppercase">
+                                    <td className="border-[0.5pt] border-black px-3 text-center font-serif uppercase">
                                         2
                                     </td>
-                                    <td className="border border-black px-3 text-center font-serif uppercase">
+                                    <td className="border-[0.5pt] border-black px-3 text-center font-serif uppercase">
                                         3
                                     </td>
-                                    <td className="border border-black px-3 text-center font-serif uppercase">
+                                    <td className="border-[0.5pt] border-black px-3 text-center font-serif uppercase">
                                         4
                                     </td>
                                 </tr>
                             </thead>
                             <tbody>
-                                <td className="border border-black px-3 pb-5 pt-2 text-center align-top font-serif">
+                                <td className="border-[0.5pt] border-black px-3 pb-5 pt-2 text-center align-top font-serif">
                                     1.
                                 </td>
-                                <td className="border border-black px-3 pb-5 pt-2 text-justify align-top font-serif">
+                                <td className="border-[0.5pt] border-black px-3 pb-5 pt-2 text-justify align-top font-serif">
                                     Bersama ini terlampir Surat Perintah
                                     Pengesahan Pendapatan dan Belanja (SP3B)
                                     BLUD Rumah Sakit Jiwa Daerah Atma Husada
@@ -181,10 +181,10 @@ export default function Page() {
                                     s.d. {formatTanggal(sp3b.tglSelesai)} Tahun
                                     Anggaran 2024
                                 </td>
-                                <td className="border border-black px-3 pb-5 pt-2 text-center align-top font-serif">
+                                <td className="border-[0.5pt] border-black px-3 pb-5 pt-2 text-center align-top font-serif">
                                     1 (satu) berkas
                                 </td>
-                                <td className="border border-black px-3 pb-5 pt-2 text-justify align-top font-serif">
+                                <td className="border-[0.5pt] border-black px-3 pb-5 pt-2 text-justify align-top font-serif">
                                     Disampaikan dengan hormat untuk dapat
                                     diproses penerbitan Surat Pengesahan
                                     Pendapatan dan Belanja (SP3B)

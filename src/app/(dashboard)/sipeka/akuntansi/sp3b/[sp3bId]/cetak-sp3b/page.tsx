@@ -69,13 +69,13 @@ export default function Page() {
                         <table className="mt-3 w-[calc(100%-2px)]">
                             <tbody>
                                 <tr>
-                                    <td className="w-2/12 border border-black px-3 py-2 font-serif">
+                                    <td className="w-2/12 border-[0.5pt] border-black px-3 py-2 font-serif">
                                         <img
                                             src="/images/logo-kaltimprov.webp"
                                             className="mx-auto h-20 w-16"
                                         />
                                     </td>
-                                    <td className="w-10/12 border border-black px-3 py-2 align-top">
+                                    <td className="w-10/12 border-[0.5pt] border-black px-3 py-2 align-top">
                                         <div
                                             style={{
                                                 fontSize: '11pt',
@@ -194,7 +194,7 @@ export default function Page() {
                                 <tr>
                                     <td
                                         colSpan={2}
-                                        className="border border-black px-3 py-2 align-top"
+                                        className="border-[0.5pt] border-black px-3 py-2 align-top"
                                     >
                                         <p
                                             className="mb-4 text-justify"
@@ -475,7 +475,7 @@ export default function Page() {
                                 <tr>
                                     <td
                                         colSpan={2}
-                                        className="border border-black px-3 py-2"
+                                        className="border-[0.5pt] border-black px-3 py-2"
                                     >
                                         <div className="flex w-full">
                                             <div className="w-2/3"></div>

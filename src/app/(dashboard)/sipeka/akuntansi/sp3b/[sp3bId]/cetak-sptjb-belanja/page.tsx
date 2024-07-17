@@ -148,54 +148,54 @@ export default function Page() {
                                 <tr>
                                     <th
                                         rowSpan={2}
-                                        className="w-10 border border-black px-3 py-2 font-serif"
+                                        className="w-10 border-[0.5pt] border-black px-3 py-2 font-serif"
                                     >
                                         No
                                     </th>
                                     <th
                                         colSpan={3}
-                                        className="border border-black px-3 py-2 font-serif"
+                                        className="border-[0.5pt] border-black px-3 py-2 font-serif"
                                     >
                                         Uraian
                                     </th>
                                     <th
                                         rowSpan={2}
-                                        className="border border-black px-3 py-2 font-serif"
+                                        className="border-[0.5pt] border-black px-3 py-2 font-serif"
                                     >
                                         Jumlah
                                     </th>
                                 </tr>
                                 <tr>
-                                    <th className="w-1/4 border border-black px-3 py-2 font-serif">
+                                    <th className="w-1/4 border-[0.5pt] border-black px-3 py-2 font-serif">
                                         Belanja Pegawai
                                     </th>
-                                    <th className="w-1/4 border border-black px-3 py-2 font-serif">
+                                    <th className="w-1/4 border-[0.5pt] border-black px-3 py-2 font-serif">
                                         Belanja Barang dan Jasa
                                     </th>
-                                    <th className="w-1/4 border border-black px-3 py-2 font-serif">
+                                    <th className="w-1/4 border-[0.5pt] border-black px-3 py-2 font-serif">
                                         Belanja Modal
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td className="border border-black px-3 py-2 text-center font-serif">
+                                    <td className="border-[0.5pt] border-black px-3 py-2 text-center font-serif">
                                         1.
                                     </td>
-                                    <td className="border border-black px-3 py-2 text-right font-serif">
+                                    <td className="border-[0.5pt] border-black px-3 py-2 text-right font-serif">
                                         {formatAngkaDecimal(
                                             sp3b.belanja.pegawai
                                         )}
                                     </td>
-                                    <td className="border border-black px-3 py-2 text-right font-serif">
+                                    <td className="border-[0.5pt] border-black px-3 py-2 text-right font-serif">
                                         {formatAngkaDecimal(
                                             sp3b.belanja.barjas
                                         )}
                                     </td>
-                                    <td className="border border-black px-3 py-2 text-right font-serif">
+                                    <td className="border-[0.5pt] border-black px-3 py-2 text-right font-serif">
                                         {formatAngkaDecimal(sp3b.belanja.modal)}
                                     </td>
-                                    <td className="border border-black px-3 py-2 text-right font-serif">
+                                    <td className="border-[0.5pt] border-black px-3 py-2 text-right font-serif">
                                         {formatAngkaDecimal(
                                             Number(
                                                 sp3b.belanja.modal +

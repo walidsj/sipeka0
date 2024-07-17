@@ -131,19 +131,19 @@ export default function Page() {
                                 <tr>
                                     <th
                                         rowSpan={2}
-                                        className="w-10 border border-black px-3 py-2 font-serif"
+                                        className="w-10 border-[0.5pt] border-black px-3 py-2 font-serif"
                                     >
                                         No
                                     </th>
                                     <th
                                         colSpan={sp3b.pendapatan.rincian.length}
-                                        className="border border-black px-3 py-2 font-serif"
+                                        className="border-[0.5pt] border-black px-3 py-2 font-serif"
                                     >
                                         Uraian
                                     </th>
                                     <th
                                         rowSpan={2}
-                                        className="border border-black px-3 py-2 font-serif"
+                                        className="border-[0.5pt] border-black px-3 py-2 font-serif"
                                     >
                                         Jumlah
                                     </th>
@@ -153,7 +153,7 @@ export default function Page() {
                                         (item, index) => (
                                             <th
                                                 key={index}
-                                                className="border border-black px-3 py-2 font-serif"
+                                                className="border-[0.5pt] border-black px-3 py-2 font-serif"
                                             >
                                                 {item.uraian}
                                             </th>
@@ -163,18 +163,18 @@ export default function Page() {
                             </thead>
                             <tbody></tbody>
                             <tr>
-                                <td className="border border-black px-3 py-2 text-center font-serif">
+                                <td className="border-[0.5pt] border-black px-3 py-2 text-center font-serif">
                                     1.
                                 </td>
                                 {sp3b.pendapatan.rincian.map((item, index) => (
                                     <td
                                         key={index}
-                                        className="border border-black px-3 py-2 text-right font-serif"
+                                        className="border-[0.5pt] border-black px-3 py-2 text-right font-serif"
                                     >
                                         {formatAngkaDecimal(item.jumlah)}
                                     </td>
                                 ))}
-                                <td className="border border-black px-3 py-2 text-right font-serif">
+                                <td className="border-[0.5pt] border-black px-3 py-2 text-right font-serif">
                                     {formatAngkaDecimal(sp3b.pendapatan.total)}
                                 </td>
                             </tr>
