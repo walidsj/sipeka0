@@ -124,6 +124,10 @@ export const lpjBelanjaRouter = createTRPCRouter({
                     desc(belanja.noDokumen),
                     desc(belanja.createdAt),
                 ],
+                with: {
+                    rab: true,
+                    potonganBelanja: true,
+                },
             })
         }),
 
