@@ -12,7 +12,6 @@ import bcryptjs from 'bcryptjs'
 import { type JWTPayload, SignJWT } from 'jose'
 import { env } from '@/env.server'
 import { userSchema } from '@/server/api/schema/user'
-import { version } from '@/../package.json'
 
 const secret = env.JWT_SECRET_KEY ?? 'secret'
 const key = new TextEncoder().encode(secret)
@@ -262,8 +261,4 @@ export const userRouter = createTRPCRouter({
 
             return { message: 'User berhasil dihapus' }
         }),
-
-    getVersion: publicProcedure.query(async () => {
-        return version
-    }),
 })
