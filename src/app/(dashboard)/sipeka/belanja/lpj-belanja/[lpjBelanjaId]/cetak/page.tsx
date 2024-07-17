@@ -63,7 +63,7 @@ export default function Page() {
                                     margin-top: 1cm;
                                     margin-left: 1cm;
                                     margin-right: 1cm;
-                                    margin-bottom: 0.5cm;
+                                    margin-bottom: 1cm;
                                     
                                 }
                             `}
