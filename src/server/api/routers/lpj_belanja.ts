@@ -1,6 +1,6 @@
 import { belanja, lpjBelanjaTable } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { and, desc, eq, isNull, like, or } from 'drizzle-orm'
+import { and, asc, desc, eq, isNull, like, or } from 'drizzle-orm'
 import { z } from 'zod'
 import { lpjBelanjaSchema } from '../schema/lpj_belanja'
 
@@ -120,9 +120,9 @@ export const lpjBelanjaRouter = createTRPCRouter({
             return await ctx.db.query.belanja.findMany({
                 where: eq(belanja.lpjBelanjaId, input),
                 orderBy: [
-                    desc(belanja.tglDokumen),
-                    desc(belanja.noDokumen),
-                    desc(belanja.createdAt),
+                    asc(belanja.tglDokumen),
+                    asc(belanja.noDokumen),
+                    asc(belanja.createdAt),
                 ],
                 with: {
                     rab: true,
