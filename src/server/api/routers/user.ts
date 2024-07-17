@@ -6,7 +6,7 @@ import {
     userProcedure,
 } from '@/server/trpc'
 import { TRPCError } from '@trpc/server'
-import { eq } from 'drizzle-orm'
+import { asc, eq } from 'drizzle-orm'
 import { z } from 'zod'
 import bcryptjs from 'bcryptjs'
 import { type JWTPayload, SignJWT } from 'jose'
@@ -174,6 +174,7 @@ export const userRouter = createTRPCRouter({
             with: {
                 pegawai: true,
             },
+            orderBy: [asc(user.nama)],
         })
     }),
 
