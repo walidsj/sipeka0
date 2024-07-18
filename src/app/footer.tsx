@@ -1,4 +1,3 @@
-import ReloadButton from '@/components/reload-button'
 import { HiHeart } from 'react-icons/hi'
 
 export default function Footer() {
@@ -12,9 +11,6 @@ export default function Footer() {
                     </strong>{' '}
                     Build {'__BUILDDATE__'}
                 </p>
-                <div className="text-right">
-                    <ReloadButton />
-                </div>
             </div>
         </footer>
     )

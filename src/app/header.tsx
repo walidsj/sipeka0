@@ -176,6 +176,7 @@ export function Header() {
                                                     className={cn(
                                                         '-ml-3 h-6 w-6 bg-white'
                                                     )}
+                                                    key={index}
                                                 >
                                                     <AvatarImage
                                                         className={cn(
@@ -201,7 +202,7 @@ export function Header() {
                                         )
                                         .map((onlineUser, index) => (
                                             <div
-                                                key={onlineUser.user}
+                                                key={index}
                                                 className="my-3 flex items-center"
                                             >
                                                 <Avatar className="mr-2 h-8 w-8">
@@ -291,8 +292,11 @@ export function Header() {
                                                         ?.jabatan ||
                                                         auth.user.instansi}
                                                     {auth.user.pegawai?.pengelolaBlud.map(
-                                                        (blud) => (
-                                                            <div className="text-xs font-normal text-slate-400">
+                                                        (blud, index) => (
+                                                            <div
+                                                                className="text-xs font-normal text-slate-400"
+                                                                key={index}
+                                                            >
                                                                 {blud.role}
                                                             </div>
                                                         )
@@ -321,8 +325,11 @@ export function Header() {
                                                             ?.jabatan ||
                                                             auth.user.instansi}
                                                         {auth.user.pegawai?.pengelolaBlud.map(
-                                                            (blud) => (
-                                                                <div className="text-xs font-normal text-slate-400">
+                                                            (blud, index) => (
+                                                                <div
+                                                                    className="text-xs font-normal text-slate-400"
+                                                                    key={index}
+                                                                >
                                                                     {blud.role}
                                                                 </div>
                                                             )
