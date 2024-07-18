@@ -17,6 +17,7 @@ import {
 import { formatAngka, formatTanggal } from '@/lib/utils'
 import { api } from '@/trpc/react'
 import toast from 'react-hot-toast'
+import { FaCheckCircle } from 'react-icons/fa'
 import {
     HiOutlineChevronDown,
     HiOutlineDocumentReport,
@@ -61,7 +62,7 @@ export default function SpmTable() {
                     <TableHead className="w-1">No.</TableHead>
                     <TableHead colSpan={2}>Nomor Dokumen</TableHead>
                     <TableHead>Tanggal Dokumen</TableHead>
-                    <TableHead>Uraian Dokumen</TableHead>
+                    <TableHead colSpan={2}>Uraian Dokumen</TableHead>
                     <TableHead className="text-right">Jumlah</TableHead>
                     <TableHead className="w-1" />
                 </TableRow>
@@ -85,6 +86,14 @@ export default function SpmTable() {
                         </TableCell>
                         <TableCell className="font-semibold">
                             {item.uraian}
+                        </TableCell>
+                        <TableCell>
+                            {item.sp2d && (
+                                <span className="text-nowrap text-xs font-medium text-neutral-400">
+                                    <FaCheckCircle className="mr-0.5 inline-flex text-green-500" />
+                                    SP2D{' '}
+                                </span>
+                            )}
                         </TableCell>
                         <TableCell className="text-right font-semibold">
                             {formatAngka(item.jumlah)}

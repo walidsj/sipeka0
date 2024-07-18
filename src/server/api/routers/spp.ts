@@ -22,7 +22,11 @@ export const sppRouter = createTRPCRouter({
                             belanja: true,
                         },
                     },
-                    spm: true,
+                    spm: {
+                        with: {
+                            sp2d: true,
+                        },
+                    },
                 },
                 where: input.search
                     ? or(like(sppTable.noDokumen, `%${input.search}%`))
@@ -46,6 +50,18 @@ export const sppRouter = createTRPCRouter({
                     (acc, curr) => acc + Number(curr.jumlah),
                     0
                 ),
+                spm: item.spm
+                    ? {
+                          noDokumen: item.spm.noDokumen,
+                          tglDokumen: item.spm.tglDokumen,
+                      }
+                    : null,
+                sp2d: item.spm.sp2d
+                    ? {
+                          noDokumen: item.spm.sp2d.noDokumen,
+                          tglDokumen: item.spm.sp2d.tglDokumen,
+                      }
+                    : null,
                 createdAt: item.createdAt,
                 updatedAt: item.updatedAt,
             }))

@@ -50,6 +50,12 @@ export const spmRouter = createTRPCRouter({
                     (acc, curr) => acc + Number(curr.jumlah),
                     0
                 ),
+                sp2d: item.sp2d
+                    ? {
+                          noDokumen: item.sp2d.noDokumen,
+                          tglDokumen: item.sp2d.tglDokumen,
+                      }
+                    : null,
                 createdAt: item.createdAt,
                 updatedAt: item.updatedAt,
             }))
