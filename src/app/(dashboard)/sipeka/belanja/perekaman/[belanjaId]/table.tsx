@@ -92,9 +92,7 @@ export default function PotonganTable() {
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="start">
-                                    <Link
-                                        to={`${params.belanjaId}/potongan/${item.id}/edit`}
-                                    >
+                                    <Link to={`potongan/${item.id}/edit`}>
                                         <DropdownMenuItem>
                                             <FiEdit className="mr-2" />
                                             Edit
