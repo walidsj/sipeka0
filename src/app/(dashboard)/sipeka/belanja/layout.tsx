@@ -1,9 +1,11 @@
 import { Button } from '@/components/ui/button'
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { HiOutlineBookmarkAlt, HiOutlineClipboardList } from 'react-icons/hi'
 import { cn } from '@/lib/utils'
 
 export default function Layout() {
+    const { pathname } = useLocation()
+
     return (
         <div className="flex w-full flex-col gap-4">
             <nav className="mx-auto flex w-full overflow-x-auto">
@@ -104,21 +106,19 @@ export default function Layout() {
                 </Button>
                 <Button variant="ghost" asChild>
                     <NavLink to="buku/kas-umum">
-                        {({ isActive }) => (
-                            <>
-                                <HiOutlineBookmarkAlt
-                                    className={cn(
-                                        'mr-1 h-5 w-5',
-                                        isActive && 'text-primary'
-                                    )}
-                                />
-                                <span
-                                    className={cn(isActive && 'text-primary')}
-                                >
-                                    Buku Bendahara
-                                </span>
-                            </>
-                        )}
+                        <HiOutlineBookmarkAlt
+                            className={cn(
+                                'mr-1 h-5 w-5',
+                                pathname.includes('buku') && 'text-primary'
+                            )}
+                        />
+                        <span
+                            className={cn(
+                                pathname.includes('buku') && 'text-primary'
+                            )}
+                        >
+                            Buku Bendahara
+                        </span>
                     </NavLink>
                 </Button>
             </nav>

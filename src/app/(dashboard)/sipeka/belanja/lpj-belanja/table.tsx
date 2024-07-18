@@ -95,12 +95,20 @@ export default function LpjBelanjaTable() {
                             {item.uraian}
                         </TableCell>
                         <TableCell className="text-center">
-                            {item.jenis === 'GU' && <Badge>GU</Badge>}
+                            {item.jenis === 'GU' && (
+                                <Badge className="h-8 w-10 justify-center">
+                                    GU
+                                </Badge>
+                            )}
                             {item.jenis === 'LS' && (
-                                <Badge className="bg-green-500">LS</Badge>
+                                <Badge className="h-8 w-10 justify-center bg-green-500">
+                                    LS
+                                </Badge>
                             )}
                             {item.jenis === 'TU' && (
-                                <Badge className="bg-yellow-500">TU</Badge>
+                                <Badge className="h-8 w-10 justify-center bg-yellow-500">
+                                    TU
+                                </Badge>
                             )}
                         </TableCell>
                         <TableCell className="text-right font-semibold">
