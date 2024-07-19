@@ -8,11 +8,14 @@ import { motion } from 'framer-motion'
 import Loading from '@/components/loading'
 // import Maintenance from '@/app/maintenance'
 
-const importedRoutes = import.meta.glob('@/app/**/(layout|page|not-found).tsx')
+const importedRoutes = import.meta.glob('@/app/**/(page).tsx')
 
-const importedRoutesEager = import.meta.glob('@/app/**/(middleware).tsx', {
-    eager: true,
-})
+const importedRoutesEager = import.meta.glob(
+    '@/app/**/(layout|not-found|middleware).tsx',
+    {
+        eager: true,
+    }
+)
 
 type RouteType = {
     key: string
