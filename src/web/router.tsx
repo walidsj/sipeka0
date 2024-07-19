@@ -6,7 +6,6 @@ import {
 import React from 'react'
 import { motion } from 'framer-motion'
 import Loading from '@/components/loading'
-// import Maintenance from '@/app/maintenance'
 
 const importedRoutes = import.meta.glob('@/app/**/(page).tsx')
 
