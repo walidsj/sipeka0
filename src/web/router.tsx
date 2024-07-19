@@ -12,9 +12,7 @@ const importedRoutes = import.meta.glob('@/app/**/(page).tsx')
 
 const importedRoutesEager = import.meta.glob(
     '@/app/**/(layout|not-found|middleware).tsx',
-    {
-        eager: true,
-    }
+    { eager: true }
 )
 
 type RouteType = {
