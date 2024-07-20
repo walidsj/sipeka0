@@ -109,7 +109,7 @@ export function Header() {
     }, [])
 
     return (
-        <header className="h-20 w-full bg-background">
+        <header className="h-20 w-full border-b bg-background shadow-sm">
             <div className="mx-auto px-5 md:px-8 md:pr-6 lg:px-8 lg:pr-6 xl:px-12">
                 <div className="flex w-full items-center justify-between">
                     <Link
