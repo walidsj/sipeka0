@@ -10,7 +10,6 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import React from 'react'
-import Loading from '@/components/loading'
 import { socket } from '@/lib/socket'
 import { FaCircle, FaRegCircle } from 'react-icons/fa'
 import {
@@ -26,6 +25,7 @@ import {
     HiOutlineLogout,
 } from 'react-icons/hi'
 import { motion } from 'framer-motion'
+import { Skeleton } from '@/components/ui/skeleton'
 
 type IOnlineUser = {
     user: string
@@ -253,7 +253,17 @@ export function Header() {
                         {!auth.user ? (
                             <React.Fragment>
                                 {auth.isLoading ? (
-                                    <Loading />
+                                    <Button
+                                        disabled
+                                        variant="ghost"
+                                        className="h-16 gap-3"
+                                    >
+                                        <Skeleton className="h-10 w-10 rounded-full" />
+                                        <div className="hidden lg:block">
+                                            <Skeleton className="mb-2 block h-5 w-36" />
+                                            <Skeleton className="block h-4 w-28" />
+                                        </div>
+                                    </Button>
                                 ) : (
                                     <Button
                                         variant="ghost"
