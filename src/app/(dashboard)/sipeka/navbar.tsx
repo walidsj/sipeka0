@@ -21,7 +21,7 @@ export default function Navbar() {
                         <div
                             className={cn(
                                 'mr-2 flex items-center justify-center rounded-full p-2 text-primary transition-all',
-                                isActive && 'bg-primary text-background'
+                                isActive && 'bg-primary text-primary-foreground'
                             )}
                         >
                             <FiHome />
@@ -36,7 +36,7 @@ export default function Navbar() {
                         <div
                             className={cn(
                                 'mr-2 flex items-center justify-center rounded-full p-2 text-primary transition-all',
-                                isActive && 'bg-primary text-background'
+                                isActive && 'bg-primary text-primary-foreground'
                             )}
                         >
                             <FiEdit />
@@ -51,7 +51,7 @@ export default function Navbar() {
                         className={cn(
                             'mr-2 flex items-center justify-center rounded-full p-2 text-primary transition-all',
                             pathname.includes('pendapatan') &&
-                                'bg-primary text-background'
+                                'bg-primary text-primary-foreground'
                         )}
                     >
                         <FiPocket />
@@ -65,7 +65,7 @@ export default function Navbar() {
                         className={cn(
                             'mr-2 flex items-center justify-center rounded-full p-2 text-primary transition-all',
                             pathname.includes('belanja') &&
-                                'bg-primary text-background'
+                                'bg-primary text-primary-foreground'
                         )}
                     >
                         <FiShoppingCart />
@@ -79,7 +79,7 @@ export default function Navbar() {
                         <div
                             className={cn(
                                 'mr-2 flex items-center justify-center rounded-full p-2 text-primary transition-all',
-                                isActive && 'bg-primary text-background'
+                                isActive && 'bg-primary text-primary-foreground'
                             )}
                         >
                             <FiFileText />
@@ -94,7 +94,7 @@ export default function Navbar() {
                         <div
                             className={cn(
                                 'mr-2 flex items-center justify-center rounded-full p-2 text-primary transition-all',
-                                isActive && 'bg-primary text-background'
+                                isActive && 'bg-primary text-primary-foreground'
                             )}
                         >
                             <FiTool />

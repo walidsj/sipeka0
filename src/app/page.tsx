@@ -1,15 +1,15 @@
 import { Button } from '@/components/ui/button'
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card'
+import { Card, CardDescription } from '@/components/ui/card'
 import { FiArrowRight } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { FaBolt, FaLeaf, FaLock, FaShareAlt } from 'react-icons/fa'
 import { FlipWords } from '@/components/ui/flip-words'
+import {
+    Card3dContent,
+    Card3d,
+    Card3dItem,
+    Card3dHeader,
+} from '@/components/ui/card-3d'
 
 export default function Home() {
     const words = ['newest', 'secure', 'modern']
@@ -35,55 +35,62 @@ export default function Home() {
                         RSJD Atma Husada Mahakam
                     </h1> */}
                     <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-                        <Card className="flex flex-col">
-                            <CardHeader className="flex-1">
-                                <div className="mb-3">
-                                    <img
-                                        src="/images/logo-sipeka-full-long.svg"
-                                        className="h-10"
-                                    />
-                                </div>
-                                <CardTitle>
-                                    Sistem Informasi Pengelolaan Keuangan
-                                    (SIPEKA)
-                                </CardTitle>
-                                <CardDescription>
-                                    Manajemen Keuangan BLUD RSJD Atma Husada
-                                    Mahakam
-                                </CardDescription>
-                            </CardHeader>
-                            <CardContent className="grid grid-cols-1 gap-2 md:grid-cols-2">
-                                <Button asChild size="lg">
-                                    <Link to="__DASHBOARD_PREFIX__">
-                                        Akses
-                                        <FiArrowRight className="ml-3 h-5 w-5 shrink-0" />
-                                    </Link>
-                                </Button>
-                            </CardContent>
-                        </Card>
-                        <Card className="flex flex-col">
-                            <CardHeader className="flex-1">
-                                <div className="mb-3">
-                                    <img
-                                        src="/images/logo-myatma.svg"
-                                        className="h-10"
-                                    />
-                                </div>
-                                <CardTitle>MyAtma</CardTitle>
-                                <CardDescription>
-                                    Sistem Informasi Keuangan Pegawai RSJD Atma
-                                    Husada Mahakam
-                                </CardDescription>
-                            </CardHeader>
-                            <CardContent className="grid grid-cols-1 gap-2 md:grid-cols-2">
-                                <Button asChild size="lg">
-                                    <Link to="__CLIENT_PREFIX__">
-                                        Akses
-                                        <FiArrowRight className="ml-3 h-5 w-5 shrink-0" />
-                                    </Link>
-                                </Button>
-                            </CardContent>
-                        </Card>
+                        <Card3d>
+                            <Card3dHeader>
+                                <Card3dItem translateZ={30}>
+                                    <div>
+                                        <img
+                                            src="/images/logo-sipeka-full-long.svg"
+                                            className="h-10"
+                                        />
+                                    </div>
+                                </Card3dItem>
+                                <Card3dItem translateZ={40}>
+                                    <CardDescription>
+                                        Manajemen Keuangan BLUD RSJD Atma Husada
+                                        Mahakam
+                                    </CardDescription>
+                                </Card3dItem>
+                            </Card3dHeader>
+                            <Card3dContent>
+                                <Card3dItem translateZ={30}>
+                                    <Button asChild size="lg">
+                                        <Link to="__DASHBOARD_PREFIX__">
+                                            Akses
+                                            <FiArrowRight className="ml-3 h-5 w-5 shrink-0" />
+                                        </Link>
+                                    </Button>
+                                </Card3dItem>
+                            </Card3dContent>
+                        </Card3d>
+                        <Card3d>
+                            <Card3dHeader>
+                                <Card3dItem translateZ={30}>
+                                    <div>
+                                        <img
+                                            src="/images/logo-myatma.svg"
+                                            className="h-10"
+                                        />
+                                    </div>
+                                </Card3dItem>
+                                <Card3dItem translateZ={40}>
+                                    <CardDescription>
+                                        Sistem Informasi Keuangan Pegawai RSJD
+                                        Atma Husada Mahakam
+                                    </CardDescription>
+                                </Card3dItem>
+                            </Card3dHeader>
+                            <Card3dContent>
+                                <Card3dItem translateZ={30}>
+                                    <Button asChild size="lg">
+                                        <Link to="__CLIENT_PREFIX__">
+                                            Akses
+                                            <FiArrowRight className="ml-3 h-5 w-5 shrink-0" />
+                                        </Link>
+                                    </Button>
+                                </Card3dItem>
+                            </Card3dContent>
+                        </Card3d>
                     </div>
                 </div>
                 <div className="relative flex-shrink-0 md:max-w-md lg:max-w-lg">
