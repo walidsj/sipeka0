@@ -194,6 +194,5 @@ const createRoutes = (routes: RoutePagesType[]): RouteObject[] =>
 const router = createBrowserRouter(createRoutes(nestRoutes(orderedRoutes)))
 
 export default function Router() {
-    // return <Maintenance />
     return <RouterProvider router={router} />
 }
