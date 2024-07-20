@@ -23,6 +23,7 @@ import {
     HiOutlineBookOpen,
     HiOutlineLockClosed,
     HiOutlineLogout,
+    HiOutlineUser,
 } from 'react-icons/hi'
 import { motion } from 'framer-motion'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -290,7 +291,7 @@ export function Header() {
                                                     src={`https://ui-avatars.com/api/?name=${auth.user?.nama}&background=3b82f6&color=fff`}
                                                 />
                                                 <AvatarFallback>
-                                                    CN
+                                                    <HiOutlineUser />
                                                 </AvatarFallback>
                                             </Avatar>
                                             <div className="hidden text-left lg:block">
