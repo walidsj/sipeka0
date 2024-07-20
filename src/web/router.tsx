@@ -150,7 +150,7 @@ function nestRoutes(data: typeof orderedRoutes) {
 
 const createRoutes = (routes: RoutePagesType[]): RouteObject[] =>
     routes.map((route) => {
-        if (route.type === 'middleware')
+        if (route.type === 'middleware' || route.type === 'layout')
             return {
                 path: route.path,
                 element: <route.element />,
@@ -163,16 +163,14 @@ const createRoutes = (routes: RoutePagesType[]): RouteObject[] =>
             return {
                 path: '*',
                 element: (
-                    <React.Suspense>
-                        <motion.div
-                            key={route.key}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.1 }}
-                        >
-                            <route.element />
-                        </motion.div>
-                    </React.Suspense>
+                    <motion.div
+                        key={route.key}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.1 }}
+                    >
+                        <route.element />
+                    </motion.div>
                 ),
             }
 
@@ -190,7 +188,6 @@ const createRoutes = (routes: RoutePagesType[]): RouteObject[] =>
                     </motion.div>
                 </React.Suspense>
             ),
-            children: route.children ? createRoutes(route.children) : undefined,
         }
     })
 
