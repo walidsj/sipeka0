@@ -5,10 +5,10 @@ import { NavLink, Outlet } from 'react-router-dom'
 
 export default function Layout() {
     return (
-        <div className="flex w-full flex-row gap-4">
-            <div className="flex min-h-[calc(100svh-138px)] w-28 flex-col">
+        <div className="flex w-full flex-col gap-4 md:flex-row">
+            <div className="flex flex-col md:min-h-[calc(100svh-138px)] md:w-28">
                 <nav>
-                    <ul className="flex w-full flex-col gap-4">
+                    <ul className="flex w-full flex-row gap-4 md:flex-col">
                         <li>
                             <NavLink to="kas-umum">
                                 {({ isActive }) => (
