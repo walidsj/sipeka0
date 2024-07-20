@@ -34,25 +34,6 @@ export default function Page() {
             <Card>
                 <CardHeader className="flex flex-row gap-4">
                     <div className="w-full">
-                        <CardTitle className="mb-3">Buku Besar</CardTitle>
-                        <CardDescription>
-                            Buku Besar per Kode Rekening
-                        </CardDescription>
-                    </div>
-                    <HiOutlineDocumentText className="flex-shrink-0 flex-grow-0 text-5xl text-primary" />
-                </CardHeader>
-                <CardFooter>
-                    <Button asChild>
-                        <Link to="buku-besar">
-                            Akses
-                            <HiOutlineArrowSmRight className="ml-2" />
-                        </Link>
-                    </Button>
-                </CardFooter>
-            </Card>
-            <Card>
-                <CardHeader className="flex flex-row gap-4">
-                    <div className="w-full">
                         <CardTitle className="mb-3">LRA</CardTitle>
                         <CardDescription>
                             Laporan Realisasi Anggaran
