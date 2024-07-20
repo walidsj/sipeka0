@@ -9,7 +9,7 @@ export default function ProfilLayout() {
                 <Card>
                     <CardHeader>
                         <div className="flex">
-                            <nav className="mb-3 flex gap-1 rounded-2xl bg-slate-100 p-1.5">
+                            <nav className="mb-3 flex gap-1 rounded-2xl bg-accent p-1.5">
                                 <NavLink
                                     to="."
                                     end

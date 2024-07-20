@@ -29,11 +29,6 @@ export default function Home() {
                             financial information system for you
                         </div>
                     </div>
-                    {/* <h1 className="mb-10 text-center text-2xl font-extrabold md:text-left md:text-3xl lg:text-4xl">
-                        Sistem Informasi Keuangan
-                        <br />
-                        RSJD Atma Husada Mahakam
-                    </h1> */}
                     <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                         <Card3d>
                             <Card3dHeader>
@@ -54,7 +49,11 @@ export default function Home() {
                             </Card3dHeader>
                             <Card3dContent>
                                 <Card3dItem translateZ={30}>
-                                    <Button asChild size="lg">
+                                    <Button
+                                        asChild
+                                        size="lg"
+                                        className="w-full md:w-auto"
+                                    >
                                         <Link to="__DASHBOARD_PREFIX__">
                                             Akses
                                             <FiArrowRight className="ml-3 h-5 w-5 shrink-0" />
@@ -82,7 +81,11 @@ export default function Home() {
                             </Card3dHeader>
                             <Card3dContent>
                                 <Card3dItem translateZ={30}>
-                                    <Button asChild size="lg">
+                                    <Button
+                                        asChild
+                                        size="lg"
+                                        className="w-full md:w-auto"
+                                    >
                                         <Link to="__CLIENT_PREFIX__">
                                             Akses
                                             <FiArrowRight className="ml-3 h-5 w-5 shrink-0" />
