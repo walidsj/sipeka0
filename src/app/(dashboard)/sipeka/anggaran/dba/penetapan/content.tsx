@@ -43,7 +43,7 @@ export default function DbaContentList() {
     })
 
     return (
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
             {dba.isLoading && (
                 <div className="col-span-3">
                     <Loading />
