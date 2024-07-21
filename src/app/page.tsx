@@ -124,15 +124,7 @@ export default function Home() {
                                         formatter: (value: number) =>
                                             `Rp${Intl.NumberFormat('id').format(
                                                 value
-                                            )} (${(
-                                                (value /
-                                                    chartData.reduce(
-                                                        (acc, cur) =>
-                                                            acc + cur.realisasi,
-                                                        0
-                                                    )) *
-                                                100
-                                            ).toFixed(2)}%)`,
+                                            )}`,
                                     }}
                                 />
                                 <Legend />
