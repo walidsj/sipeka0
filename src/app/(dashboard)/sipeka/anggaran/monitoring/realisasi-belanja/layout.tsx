@@ -1,4 +1,4 @@
-import { Link, Outlet, useLocation } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import {
     Card,
     CardContent,
@@ -16,8 +16,6 @@ export default function Layout() {
     const rbaMonitoring = api.dba.getRbaBelanjaMonitoring.useQuery()
     const unclassifiedBelanja =
         api.belanja.getUnclassifiedBelanjaByRba.useQuery()
-
-    const { pathname } = useLocation()
 
     return (
         <div className="flex flex-col gap-5">
@@ -65,30 +63,18 @@ export default function Layout() {
                             <Button
                                 asChild
                                 variant="ghost"
-                                className={cn(
-                                    'h-12 rounded-none',
-                                    pathname ===
-                                        '/anggaran/monitoring/realisasi-belanja' &&
-                                        'border-b-4 border-primary text-primary'
-                                )}
+                                className={cn('h-12 rounded-none')}
                             >
-                                <Link to="/anggaran/monitoring/realisasi-belanja">
-                                    Realisasi
-                                </Link>
+                                <Link to="realisasi-belanja">Realisasi</Link>
                             </Button>
                         </li>
                         <li>
                             <Button
                                 asChild
                                 variant="ghost"
-                                className={cn(
-                                    'h-12 rounded-none',
-                                    pathname ===
-                                        '/anggaran/monitoring/realisasi-belanja/tidak-terklasifikasi' &&
-                                        'border-b-4 border-primary text-primary'
-                                )}
+                                className={cn('h-12 rounded-none')}
                             >
-                                <Link to="/anggaran/monitoring/realisasi-belanja/tidak-terklasifikasi">
+                                <Link to="realisasi-belanja/tidak-terklasifikasi">
                                     Belanja Tidak Terklasifikasi
                                     {unclassifiedBelanja.data &&
                                         unclassifiedBelanja.data?.length >
