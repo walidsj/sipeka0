@@ -11,6 +11,7 @@ import {
     Table,
     TableBody,
     TableCell,
+    TableFooter,
     TableHead,
     TableHeader,
     TableRow,
@@ -56,6 +57,8 @@ export default function BkPajakTable() {
 
     let no = 0
     let saldo = 0
+    let totalPenerimaan = 0
+    let totalPengeluaran = 0
 
     return (
         <div className="flex flex-col gap-5">
@@ -109,6 +112,12 @@ export default function BkPajakTable() {
                 <TableBody>
                     {belanja.map((blj) => {
                         return blj.potonganBelanja.map((item, index) => {
+                            totalPenerimaan += Number(item.jumlah)
+
+                            if (item.ntpn) {
+                                totalPengeluaran += Number(item.jumlah)
+                            }
+
                             return (
                                 <React.Fragment key={index}>
                                     <TableRow>
@@ -184,11 +193,17 @@ export default function BkPajakTable() {
                                         </TableCell>
                                         <TableCell></TableCell>
                                         <TableCell className="text-right">
-                                            {formatAngka(item.jumlah)}
+                                            {formatAngka(
+                                                item.ntpn ? item.jumlah : 0
+                                            )}
                                         </TableCell>
                                         <TableCell className="text-right">
                                             {formatAngka(
-                                                (saldo -= Number(item.jumlah))
+                                                item.ntpn
+                                                    ? (saldo -= Number(
+                                                          item.jumlah
+                                                      ))
+                                                    : saldo
                                             )}
                                         </TableCell>
                                         <TableCell></TableCell>
@@ -205,6 +220,21 @@ export default function BkPajakTable() {
                         </TableRow>
                     )}
                 </TableBody>
+                <TableFooter>
+                    <TableRow>
+                        <TableHead colSpan={6}>Total</TableHead>
+                        <TableHead className="text-right">
+                            {formatAngka(totalPenerimaan)}
+                        </TableHead>
+                        <TableHead className="text-right">
+                            {formatAngka(totalPengeluaran)}
+                        </TableHead>
+                        <TableHead className="text-right">
+                            {formatAngka(saldo)}
+                        </TableHead>
+                        <TableHead />
+                    </TableRow>
+                </TableFooter>
             </Table>
         </div>
     )

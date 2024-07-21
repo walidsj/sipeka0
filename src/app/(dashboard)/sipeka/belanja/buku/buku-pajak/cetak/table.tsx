@@ -48,6 +48,8 @@ export default function BkPajakTable() {
 
     let no = 0
     let saldo = 0
+    let totalPenerimaan = 0
+    let totalPengeluaran = 0
 
     return (
         <div className="flex flex-col gap-5">
@@ -208,6 +210,14 @@ export default function BkPajakTable() {
                             {belanja.map((blj) => {
                                 return blj.potonganBelanja.map(
                                     (item, index) => {
+                                        totalPenerimaan += Number(item.jumlah)
+
+                                        if (item.ntpn) {
+                                            totalPengeluaran += Number(
+                                                item.jumlah
+                                            )
+                                        }
+
                                         return (
                                             <React.Fragment key={index}>
                                                 <tr className="border-t border-black">
@@ -274,14 +284,19 @@ export default function BkPajakTable() {
                                                     <td className="border-x border-black px-2 py-0.5 font-serif"></td>
                                                     <td className="border-x border-black px-2 py-0.5 text-right font-serif">
                                                         {formatAngka(
-                                                            item.jumlah
+                                                            item.ntpn
+                                                                ? item.jumlah
+                                                                : 0
                                                         )}
                                                     </td>
                                                     <td className="border-x border-black px-2 py-0.5 text-right font-serif">
                                                         {formatAngka(
-                                                            (saldo -= Number(
-                                                                item.jumlah
-                                                            ))
+                                                            item.ntpn
+                                                                ? (saldo -=
+                                                                      Number(
+                                                                          item.jumlah
+                                                                      ))
+                                                                : saldo
                                                         )}
                                                     </td>
                                                 </tr>
@@ -305,35 +320,10 @@ export default function BkPajakTable() {
                                     Total
                                 </th>
                                 <th className="border-x border-black px-2 py-1 text-right font-serif">
-                                    {formatAngka(
-                                        belanja.reduce(
-                                            (acc, curr) =>
-                                                acc +
-                                                curr.potonganBelanja.reduce(
-                                                    (acc, curr) =>
-                                                        acc +
-                                                        Number(curr.jumlah),
-                                                    0
-                                                ),
-                                            0
-                                        )
-                                    )}
+                                    {formatAngka(totalPenerimaan)}
                                 </th>
                                 <th className="border-x border-black px-2 py-1 text-right font-serif">
-                                    {formatAngka(
-                                        belanja.reduce(
-                                            (acc, curr) =>
-                                                acc +
-                                                curr.potonganBelanja.reduce(
-                                                    (acc, curr) =>
-                                                        acc +
-                                                        Number(curr.jumlah),
-
-                                                    0
-                                                ),
-                                            0
-                                        )
-                                    )}
+                                    {formatAngka(totalPengeluaran)}
                                 </th>
                                 <th className="border-x border-black px-2 py-1 text-right font-serif">
                                     {formatAngka(saldo)}

@@ -200,6 +200,7 @@ export default function LraTable() {
                                 )
                             )}
                         </TableHead>
+                        <TableHead />
                     </TableRow>
                 </TableFooter>
             </Table>
