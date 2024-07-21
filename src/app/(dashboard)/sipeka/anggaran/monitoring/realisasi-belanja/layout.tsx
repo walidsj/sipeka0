@@ -65,7 +65,7 @@ export default function Layout() {
                                 variant="ghost"
                                 className={cn('h-12 rounded-none')}
                             >
-                                <Link to="realisasi-belanja">Realisasi</Link>
+                                <Link to=".">Realisasi</Link>
                             </Button>
                         </li>
                         <li>
@@ -74,7 +74,7 @@ export default function Layout() {
                                 variant="ghost"
                                 className={cn('h-12 rounded-none')}
                             >
-                                <Link to="realisasi-belanja/tidak-terklasifikasi">
+                                <Link to="tidak-terklasifikasi">
                                     Belanja Tidak Terklasifikasi
                                     {unclassifiedBelanja.data &&
                                         unclassifiedBelanja.data?.length >
