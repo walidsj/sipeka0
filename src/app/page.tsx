@@ -1,8 +1,7 @@
 import { Button } from '@/components/ui/button'
-import { Card, CardDescription } from '@/components/ui/card'
+import { CardDescription } from '@/components/ui/card'
 import { FiArrowRight } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
-import { FaBolt, FaLeaf, FaLock, FaShareAlt } from 'react-icons/fa'
 import { FlipWords } from '@/components/ui/flip-words'
 import {
     Card3dContent,
@@ -10,9 +9,14 @@ import {
     Card3dItem,
     Card3dHeader,
 } from '@/components/ui/card-3d'
+import { ChartContainer } from '@/components/ui/chart'
+import { Bar, BarChart, CartesianGrid, Legend, XAxis } from 'recharts'
+import { api } from '@/trpc/react'
 
 export default function Home() {
     const words = ['newest', 'secure', 'modern']
+
+    const { data: chartData } = api.belanja.getRealisasiHome.useQuery()
 
     return (
         <div className="flex w-full flex-col">
@@ -96,34 +100,45 @@ export default function Home() {
                         </Card3d>
                     </div>
                 </div>
-                <div className="relative flex-shrink-0 md:max-w-md lg:max-w-lg">
-                    <Card className="absolute left-5 top-20 flex flex-row items-center gap-1 px-2 py-1 text-xs font-semibold sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
-                        <FaBolt className="h-4 w-4 text-primary sm:h-5 sm:w-5" />{' '}
-                        Akses Mudah
-                    </Card>
-                    <Card className="absolute left-0 top-56 flex h-12 w-12 flex-row items-center p-3 md:h-14 md:w-14 lg:h-16 lg:w-16">
-                        <img src="/images/logo-sipeka.svg" />
-                    </Card>
-                    <Card className="md:2-12 absolute left-20 top-48 flex h-10 w-10 flex-row items-center p-2 md:h-12 lg:h-14 lg:w-14">
-                        <img src="/images/logo-rsjdahm.webp" />
-                    </Card>
-                    <Card className="absolute bottom-10 left-10 flex flex-row items-center gap-1 px-2 py-1 text-xs font-semibold sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
-                        <FaLock className="h-3 w-3 text-primary sm:h-4 sm:w-4" />{' '}
-                        Aman dan Terstandar
-                    </Card>
-                    <Card className="absolute bottom-48 right-0 flex flex-row items-center gap-1 px-2 py-1 text-xs font-semibold sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
-                        <FaLeaf className="h-4 w-4 text-primary sm:h-5 sm:w-5" />
-                        Ramah Lingkungan
-                    </Card>
-                    <Card className="absolute bottom-24 right-14 flex flex-row items-center gap-1 px-2 py-1 text-xs font-semibold sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
-                        <FaShareAlt className="h-4 w-4 text-primary sm:h-5 sm:w-5" />
-                        Integrasi Data
-                    </Card>
-                    <img
-                        src="/images/hero-bu.png"
-                        alt="Hero Image - Sopia Lena"
-                        className="h-auto"
-                    />
+                <div className="w-full flex-shrink-0 md:max-w-md lg:max-w-lg">
+                    {chartData && (
+                        <ChartContainer
+                            className="h-full min-h-[60svh] w-full"
+                            config={{
+                                realisasi: {
+                                    label: 'Realisasi',
+                                    color: '#3c83f6',
+                                },
+                            }}
+                        >
+                            <BarChart accessibilityLayer data={chartData}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <Bar
+                                    dataKey="realisasi"
+                                    fill="var(--color-realisasi)"
+                                    radius={10}
+                                    maxBarSize={110}
+                                    label={{
+                                        position: 'top',
+                                        formatter: (value: number) =>
+                                            `Rp${Intl.NumberFormat('id').format(
+                                                value
+                                            )} (${(
+                                                (value /
+                                                    chartData.reduce(
+                                                        (acc, cur) =>
+                                                            acc + cur.realisasi,
+                                                        0
+                                                    )) *
+                                                100
+                                            ).toFixed(2)}%)`,
+                                    }}
+                                />
+                                <Legend />
+                            </BarChart>
+                        </ChartContainer>
+                    )}
                 </div>
             </div>
         </div>

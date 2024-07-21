@@ -7,23 +7,8 @@ import {
 } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table'
 import { useAuth } from '@/lib/auth'
-import { ChartContainer, type ChartConfig } from '@/components/ui/chart'
+import { ChartContainer } from '@/components/ui/chart'
 import { Bar, BarChart, Legend, XAxis, YAxis } from 'recharts'
-
-const chartConfig = {
-    gaji: {
-        label: 'Gaji',
-        color: '#22c55e',
-    },
-    tunjangan: {
-        label: 'Tunjangan',
-        color: '#60a5fa',
-    },
-    jasaPelayanan: {
-        label: 'Jasa Pelayanan',
-        color: '#eab308',
-    },
-} satisfies ChartConfig
 
 export default function Page() {
     const auth = useAuth()
@@ -138,7 +123,23 @@ export default function Page() {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <ChartContainer config={chartConfig} className="w-full">
+                    <ChartContainer
+                        config={{
+                            gaji: {
+                                label: 'Gaji',
+                                color: '#22c55e',
+                            },
+                            tunjangan: {
+                                label: 'Tunjangan',
+                                color: '#60a5fa',
+                            },
+                            jasaPelayanan: {
+                                label: 'Jasa Pelayanan',
+                                color: '#eab308',
+                            },
+                        }}
+                        className="w-full"
+                    >
                         <BarChart accessibilityLayer data={chartData}>
                             <YAxis />
                             <XAxis dataKey="month" />

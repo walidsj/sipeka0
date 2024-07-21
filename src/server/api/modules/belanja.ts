@@ -6,7 +6,7 @@ import {
     rab,
     rba,
 } from '@/server/db/schema'
-import { createTRPCRouter, userProcedure } from '@/server/trpc'
+import { createTRPCRouter, publicProcedure, userProcedure } from '@/server/trpc'
 import {
     and,
     asc,
@@ -763,4 +763,42 @@ export const belanjaRouter = createTRPCRouter({
                 ['asc', 'asc']
             )
         }),
+
+    getRealisasiHome: publicProcedure.query(async ({ ctx }) => {
+        const realisasi = await ctx.db.query.belanja.findMany({
+            with: {
+                rab: true,
+            },
+        })
+
+        return [
+            {
+                name: 'Belanja Pegawai',
+                realisasi: realisasi.reduce((acc, item) => {
+                    if (item.rab?.kodeRekening?.startsWith('5.1.01')) {
+                        return acc + Number(item.jumlah)
+                    }
+                    return acc + 0
+                }, 0),
+            },
+            {
+                name: 'Belanja Barang dan Jasa',
+                realisasi: realisasi.reduce((acc, item) => {
+                    if (item.rab?.kodeRekening?.startsWith('5.1.02')) {
+                        return acc + Number(item.jumlah)
+                    }
+                    return acc + 0
+                }, 0),
+            },
+            {
+                name: 'Belanja Modal',
+                realisasi: realisasi.reduce((acc, item) => {
+                    if (item.rab?.kodeRekening?.startsWith('5.2')) {
+                        return acc + Number(item.jumlah)
+                    }
+                    return acc + 0
+                }, 0),
+            },
+        ]
+    }),
 })
