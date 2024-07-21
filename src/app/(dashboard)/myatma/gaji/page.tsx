@@ -9,7 +9,7 @@ import { HiOutlineArrowRight } from 'react-icons/hi'
 
 export default function Page() {
     return (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-6">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
             {Array.from({ length: 7 }).map((_, i) => (
                 <Card key={i}>
                     <CardHeader className="flex flex-row items-center justify-between p-3">
