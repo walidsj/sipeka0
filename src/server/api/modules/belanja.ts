@@ -771,34 +771,61 @@ export const belanjaRouter = createTRPCRouter({
             },
         })
 
-        return [
-            {
-                name: 'Belanja Pegawai',
-                realisasi: realisasi.reduce((acc, item) => {
+        // return [
+        //     {
+        //         name: '',
+        //         belanjaPegawai: realisasi.reduce((acc, item) => {
+        //             if (item.rab?.kodeRekening?.startsWith('5.1.01')) {
+        //                 return acc + Number(item.jumlah)
+        //             }
+        //             return acc + 0
+        //         }, 0),
+        //         belanjaBarangJasa: realisasi.reduce((acc, item) => {
+        //             if (item.rab?.kodeRekening?.startsWith('5.1.02')) {
+        //                 return acc + Number(item.jumlah)
+        //             }
+        //             return acc + 0
+        //         }, 0),
+        //         belanjaModal: realisasi.reduce((acc, item) => {
+        //             if (item.rab?.kodeRekening?.startsWith('5.2')) {
+        //                 return acc + Number(item.jumlah)
+        //             }
+        //             return acc + 0
+        //         }, 0),
+        //     },
+        // ]
+
+        // format seperti di atas namun dengan data segmentasi perbulan (grouping)
+        const realisasiGroupByMonth = lodash.groupBy(realisasi, (item) => {
+            return format(new Date(item.tglDokumen!), 'yyyy-MM')
+        })
+
+        const data = Object.keys(realisasiGroupByMonth).map((key) => {
+            const realisasi = realisasiGroupByMonth[key]
+
+            return {
+                name: key,
+                'Belanja Pegawai': realisasi.reduce((acc, item) => {
                     if (item.rab?.kodeRekening?.startsWith('5.1.01')) {
                         return acc + Number(item.jumlah)
                     }
                     return acc + 0
                 }, 0),
-            },
-            {
-                name: 'Belanja Barang dan Jasa',
-                realisasi: realisasi.reduce((acc, item) => {
+                'Belanja Barang Jasa': realisasi.reduce((acc, item) => {
                     if (item.rab?.kodeRekening?.startsWith('5.1.02')) {
                         return acc + Number(item.jumlah)
                     }
                     return acc + 0
                 }, 0),
-            },
-            {
-                name: 'Belanja Modal',
-                realisasi: realisasi.reduce((acc, item) => {
+                'Belanja Modal': realisasi.reduce((acc, item) => {
                     if (item.rab?.kodeRekening?.startsWith('5.2')) {
                         return acc + Number(item.jumlah)
                     }
                     return acc + 0
                 }, 0),
-            },
-        ]
+            }
+        })
+
+        return data
     }),
 })

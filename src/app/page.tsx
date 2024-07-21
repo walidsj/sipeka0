@@ -10,7 +10,7 @@ import {
     Card3dHeader,
 } from '@/components/ui/card-3d'
 import { ChartContainer } from '@/components/ui/chart'
-import { Bar, BarChart, CartesianGrid, Legend, XAxis } from 'recharts'
+import { Bar, BarChart, CartesianGrid, Legend, Tooltip, XAxis } from 'recharts'
 import { api } from '@/trpc/react'
 
 export default function Home() {
@@ -24,13 +24,13 @@ export default function Home() {
                 <div className="w-full">
                     <div className="mb-10 flex">
                         <div className="text-4xl font-extrabold">
-                            We've built <span className="text-blue-500">a</span>
+                            Bring you <span className="text-blue-500">a</span>
                             <FlipWords
                                 className="text-blue-500"
                                 words={words}
                             />{' '}
                             <br />
-                            financial information system for you
+                            financial information system
                         </div>
                     </div>
                     <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -103,30 +103,43 @@ export default function Home() {
                 <div className="w-full flex-shrink-0 md:max-w-md lg:max-w-lg">
                     {chartData && (
                         <ChartContainer
-                            className="w-full md:min-h-[70svh] lg:min-h-[65svh] xl:min-h-[60svh]"
+                            className="w-full md:min-h-[70svh] lg:min-h-[60svh]"
                             config={{
-                                realisasi: {
-                                    label: 'Realisasi',
-                                    color: '#3c83f6',
+                                'Belanja Pegawai': {
+                                    label: 'Belanja Pegawai',
+                                },
+                                'Belanja Barang Jasa': {
+                                    label: 'Belanja Barang dan Jasa',
+                                },
+                                'Belanja Modal': {
+                                    label: 'Belanja Modal',
                                 },
                             }}
                         >
                             <BarChart accessibilityLayer data={chartData}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
-                                <Bar
-                                    dataKey="realisasi"
-                                    fill="var(--color-realisasi)"
-                                    radius={10}
-                                    maxBarSize={110}
-                                    label={{
-                                        position: 'top',
-                                        formatter: (value: number) =>
-                                            `Rp${Intl.NumberFormat('id').format(
-                                                value
-                                            )}`,
-                                    }}
+                                <Tooltip
+                                    formatter={(value) =>
+                                        `Rp ${Intl.NumberFormat('id').format(Number(value))}`
+                                    }
                                 />
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" stroke="0" />
+                                <Bar
+                                    dataKey="Belanja Pegawai"
+                                    fill="#3c83f6"
+                                    stackId="a"
+                                />
+                                <Bar
+                                    dataKey="Belanja Barang Jasa"
+                                    fill="#10b981"
+                                    stackId="a"
+                                />
+                                <Bar
+                                    dataKey="Belanja Modal"
+                                    fill="#eab308"
+                                    stackId="a"
+                                />
+
                                 <Legend />
                             </BarChart>
                         </ChartContainer>
