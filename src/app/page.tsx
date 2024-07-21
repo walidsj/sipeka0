@@ -14,7 +14,7 @@ import { Bar, BarChart, CartesianGrid, Legend, Tooltip, XAxis } from 'recharts'
 import { api } from '@/trpc/react'
 
 export default function Home() {
-    const words = ['newest', 'secure', 'modern']
+    const words = ['latest', 'secure', 'modern']
 
     const { data: chartData } = api.belanja.getRealisasiHome.useQuery()
 
