@@ -38,7 +38,7 @@ export default function Page() {
     ]
 
     return (
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <Card>
                 <CardHeader>
                     <CardTitle>Data Pegawai</CardTitle>
@@ -49,6 +49,18 @@ export default function Page() {
                         ((
                             <Table className="w-full">
                                 <TableBody>
+                                    <TableRow>
+                                        <TableCell className="font-bold">
+                                            Nama
+                                        </TableCell>
+                                        <TableCell>
+                                            {auth.user.pegawai.gelarDepan &&
+                                                `${auth.user.pegawai.gelarDepan} `}
+                                            {auth.user.pegawai.nama}
+                                            {auth.user.pegawai.gelarBelakang &&
+                                                `, ${auth.user.pegawai.gelarBelakang}`}
+                                        </TableCell>
+                                    </TableRow>
                                     <TableRow>
                                         <TableCell className="font-bold">
                                             NIP
@@ -87,6 +99,14 @@ export default function Page() {
                                         </TableCell>
                                         <TableCell>
                                             {auth.user.pegawai.jenisKelamin}
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell className="font-bold">
+                                            Bank Rekening
+                                        </TableCell>
+                                        <TableCell>
+                                            {auth.user.pegawai.bank?.nama}
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>

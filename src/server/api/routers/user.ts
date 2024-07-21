@@ -108,6 +108,7 @@ export const userRouter = createTRPCRouter({
             where: eq(pegawai.id, existedUser.pegawaiId!),
             with: {
                 pengelolaBlud: true,
+                bank: true,
             },
         })
 

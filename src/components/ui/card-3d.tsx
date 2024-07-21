@@ -15,10 +15,12 @@ export const Card3d = ({
     children,
     className,
     containerClassName,
+    perspective,
 }: {
     children?: React.ReactNode
     className?: string
     containerClassName?: string
+    perspective?: number
 }) => {
     const containerRef = useRef<HTMLDivElement>(null)
     const [isMouseEntered, setIsMouseEntered] = useState(false)
@@ -50,7 +52,7 @@ export const Card3d = ({
                     containerClassName
                 )}
                 style={{
-                    perspective: '450px',
+                    perspective: perspective || 450,
                 }}
             >
                 <div
