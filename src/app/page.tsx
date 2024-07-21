@@ -103,7 +103,7 @@ export default function Home() {
                 <div className="w-full flex-shrink-0 md:max-w-md lg:max-w-lg">
                     {chartData && (
                         <ChartContainer
-                            className="min-h-[75svh] w-full md:min-h-[70svh] lg:min-h-[65svh] xl:min-h-[60svh]"
+                            className="w-full md:min-h-[70svh] lg:min-h-[65svh] xl:min-h-[60svh]"
                             config={{
                                 realisasi: {
                                     label: 'Realisasi',
