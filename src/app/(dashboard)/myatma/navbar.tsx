@@ -10,7 +10,7 @@ export default function Navbar() {
                 {({ isActive }) => (
                     <Card3d
                         perspective={50}
-                        className="flex flex-row items-center py-2 pl-3 pr-5 font-semibold"
+                        className="flex flex-row items-center text-nowrap py-2 pl-3 pr-5 font-semibold"
                     >
                         <Card3dItem
                             translateZ={4}
@@ -30,7 +30,7 @@ export default function Navbar() {
                 {({ isActive }) => (
                     <Card3d
                         perspective={50}
-                        className="flex flex-row items-center py-2 pl-3 pr-5 font-semibold"
+                        className="flex flex-row items-center text-nowrap py-2 pl-3 pr-5 font-semibold"
                     >
                         <Card3dItem
                             translateZ={4}
@@ -50,7 +50,7 @@ export default function Navbar() {
                 {({ isActive }) => (
                     <Card3d
                         perspective={50}
-                        className="flex flex-row items-center py-2 pl-3 pr-5 font-semibold"
+                        className="flex flex-row items-center text-nowrap py-2 pl-3 pr-5 font-semibold"
                     >
                         <Card3dItem
                             translateZ={4}
@@ -70,7 +70,7 @@ export default function Navbar() {
                 {({ isActive }) => (
                     <Card3d
                         perspective={50}
-                        className="flex flex-row items-center py-2 pl-3 pr-5 font-semibold"
+                        className="flex flex-row items-center text-nowrap py-2 pl-3 pr-5 font-semibold"
                     >
                         <Card3dItem
                             translateZ={4}
