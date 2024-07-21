@@ -25,6 +25,7 @@ import { api } from '@/trpc/react'
 import { useAuth } from '@/lib/auth'
 import { FiEye, FiEyeOff, FiLock, FiUser } from 'react-icons/fi'
 import React from 'react'
+import { Helmet } from 'react-helmet'
 
 const schema = z.object({
     username: z.string().min(1),
@@ -73,6 +74,9 @@ export default function Login() {
 
     return (
         <Card className="mx-auto w-full max-w-xs items-center justify-center border-0 p-0 shadow-none">
+            <Helmet>
+                <title>Login - Atmaku</title>
+            </Helmet>
             <CardHeader className="px-0">
                 <CardTitle className="text-2xl">Selamat Datang!</CardTitle>
                 <CardDescription>

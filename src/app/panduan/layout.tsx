@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils'
+import { Helmet } from 'react-helmet'
 import { FaHeart } from 'react-icons/fa6'
 import { FiArrowRight } from 'react-icons/fi'
 import { Link, Outlet, useLocation } from 'react-router-dom'
@@ -8,6 +9,9 @@ export default function Layout() {
 
     return (
         <div className="flex flex-row gap-5 py-8">
+            <Helmet>
+                <title>Panduan - Atmaku</title>
+            </Helmet>
             <div className="w-96 px-5 md:pl-8 lg:pl-10 xl:pl-12">
                 <div className="flex flex-col gap-3 font-semibold">
                     <h2 className="text-xl font-extrabold">Dasar</h2>

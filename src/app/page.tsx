@@ -12,6 +12,7 @@ import {
 import { ChartContainer } from '@/components/ui/chart'
 import { Bar, BarChart, CartesianGrid, Legend, Tooltip, XAxis } from 'recharts'
 import { api } from '@/trpc/react'
+import { Helmet } from 'react-helmet'
 
 export default function Home() {
     const words = ['latest', 'secure', 'modern']
@@ -20,6 +21,9 @@ export default function Home() {
 
     return (
         <div className="flex w-full flex-col">
+            <Helmet>
+                <title>Atmaku - Sistem Informasi Keuangan</title>
+            </Helmet>
             <div className="flex flex-col items-center justify-between gap-5 rounded-lg px-5 py-14 md:flex-row md:gap-16 md:px-8 lg:px-10 xl:px-12">
                 <div className="w-full">
                     <div className="mb-10 flex">

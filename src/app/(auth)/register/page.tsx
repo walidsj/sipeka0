@@ -33,6 +33,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select'
+import { Helmet } from 'react-helmet'
 
 const schema = z.object({
     nama: z.string().min(1),
@@ -80,6 +81,9 @@ export default function Login() {
 
     return (
         <Card className="mx-auto w-full max-w-xs items-center justify-center border-0 p-0 shadow-none">
+            <Helmet>
+                <title>Register - Atmaku</title>
+            </Helmet>
             <CardHeader className="px-0">
                 <CardTitle>Register</CardTitle>
                 <CardDescription>Silakan registrasi akun</CardDescription>
