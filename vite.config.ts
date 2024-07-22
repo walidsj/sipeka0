@@ -13,12 +13,7 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            '/api': {
-                target: `http://localhost:8989`,
-                changeOrigin: true,
-                secure: false,
-                ws: true,
-            },
+            '/api': `http://localhost:8989`,
         },
     },
     root: path.resolve(__dirname, 'src/web'),

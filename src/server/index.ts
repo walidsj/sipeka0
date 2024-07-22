@@ -85,6 +85,15 @@ io.on('connection', (socket: Socket) => {
         }
     )
 
+    socket.on('say-hi', (user: string, from: string) => {
+        const userSocket = tempOnlineUser.find((u) => u.user === user)
+        const fromSocket = onlineUsers.find((u) => u.user === from)
+
+        if (userSocket) {
+            io.to(userSocket.socketId).emit('incoming-hi', fromSocket)
+        }
+    })
+
     socket.on('logout', () => {
         const user = tempOnlineUser.find((u) => u.socketId === socket.id)
 
