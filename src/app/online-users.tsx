@@ -12,6 +12,7 @@ import { CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import { HiOutlineUser } from 'react-icons/hi'
 import { Button } from '@/components/ui/button'
+import toast from 'react-hot-toast'
 
 type IOnlineUser = {
     user: string
@@ -100,7 +101,7 @@ export default function OnlineUsers() {
         socket.on(
             'incoming-hi',
             (fromSocket: { user: string; isActive: boolean }) => {
-                alert('Halo dari ' + fromSocket.user)
+                toast.success('Halo dari ' + fromSocket.user)
             }
         )
     }, [])
