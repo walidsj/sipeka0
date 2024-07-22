@@ -43,12 +43,14 @@ const io = new Server(server, {
 })
 
 type IOnlineUser = {
-    user: string
+    userId: number
+    nama: string
     isActive: boolean
 }
 type ITempOnlineUser = {
     socketId: string
-    user: string
+    userId: number
+    nama: string
     isActive: boolean
 }
 
@@ -64,18 +66,34 @@ io.on('connection', (socket: Socket) => {
 
     socket.on(
         'online',
-        ({ user, isActive }: { user: string; isActive: boolean }) => {
+        ({
+            user,
+            isActive,
+        }: {
+            user: { id: number; nama: string }
+            isActive: boolean
+        }) => {
             tempOnlineUser = tempOnlineUser.filter(
                 (tempUser) => tempUser.socketId !== socket.id
             )
-            tempOnlineUser.push({ socketId: socket.id, user, isActive })
+            tempOnlineUser.push({
+                socketId: socket.id,
+                userId: user.id,
+                nama: user.nama,
+                isActive,
+            })
 
             onlineUsers = Array.from(
-                new Set(tempOnlineUser.map((u) => u.user))
+                new Set(
+                    tempOnlineUser.map((u) => ({
+                        userId: u.userId,
+                        nama: u.nama,
+                    }))
+                )
             ).map((user) => ({
-                user,
+                ...user,
                 isActive: tempOnlineUser.find(
-                    (u) => u.user === user && u.isActive
+                    (u) => u.userId === user.userId && u.isActive
                 )
                     ? true
                     : false,
@@ -85,12 +103,18 @@ io.on('connection', (socket: Socket) => {
         }
     )
 
-    socket.on('say-hi', (user: string, from: string) => {
-        const userSocket = tempOnlineUser.find((u) => u.user === user)
-        const fromSocket = onlineUsers.find((u) => u.user === from)
+    socket.on('say-hi', (toUserId: number) => {
+        const toUserSocket = tempOnlineUser.filter((u) => u.userId === toUserId)
+        const getFromUser = tempOnlineUser.find((u) => u.socketId === socket.id)
 
-        if (userSocket) {
-            io.to(userSocket.socketId).emit('incoming-hi', fromSocket)
+        const fromUser = onlineUsers.find(
+            (u) => u.userId === getFromUser?.userId
+        )
+
+        if (toUserSocket && fromUser) {
+            toUserSocket.forEach((u) => {
+                io.to(u.socketId).emit('incoming-hi', fromUser)
+            })
         }
     })
 
@@ -98,14 +122,21 @@ io.on('connection', (socket: Socket) => {
         const user = tempOnlineUser.find((u) => u.socketId === socket.id)
 
         tempOnlineUser = tempOnlineUser.filter(
-            (tempUser) => tempUser.user !== user?.user
+            (tempUser) => tempUser.userId !== user?.userId
         )
 
         onlineUsers = Array.from(
-            new Set(tempOnlineUser.map((u) => u.user))
+            new Set(
+                tempOnlineUser.map((u) => ({
+                    userId: u.userId,
+                    nama: u.nama,
+                }))
+            )
         ).map((user) => ({
-            user,
-            isActive: tempOnlineUser.find((u) => u.user === user && u.isActive)
+            ...user,
+            isActive: tempOnlineUser.find(
+                (u) => u.userId === user.userId && u.isActive
+            )
                 ? true
                 : false,
         }))
@@ -118,10 +149,17 @@ io.on('connection', (socket: Socket) => {
             (user) => user.socketId !== socket.id
         )
         onlineUsers = Array.from(
-            new Set(tempOnlineUser.map((u) => u.user))
+            new Set(
+                tempOnlineUser.map((u) => ({
+                    userId: u.userId,
+                    nama: u.nama,
+                }))
+            )
         ).map((user) => ({
-            user,
-            isActive: tempOnlineUser.find((u) => u.user === user && u.isActive)
+            ...user,
+            isActive: tempOnlineUser.find(
+                (u) => u.userId === user.userId && u.isActive
+            )
                 ? true
                 : false,
         }))

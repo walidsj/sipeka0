@@ -15,7 +15,8 @@ import { Button } from '@/components/ui/button'
 import toast from 'react-hot-toast'
 
 type IOnlineUser = {
-    user: string
+    userId: number
+    nama: string
     isActive: boolean
 }
 
@@ -32,10 +33,13 @@ export default function OnlineUsers() {
             if (auth.user) {
                 socket.connect()
                 if (
-                    !onlineUsers.find((user) => user.user === auth.user?.nama)
+                    !onlineUsers.find((user) => user.userId === auth.user?.id)
                 ) {
                     socket.emit('online', {
-                        user: auth.user.nama,
+                        user: {
+                            id: auth.user.id,
+                            nama: auth.user.nama,
+                        },
                         isActive: true,
                     })
                 }
@@ -49,7 +53,10 @@ export default function OnlineUsers() {
         window.onfocus = () => {
             if (auth.user) {
                 socket.emit('online', {
-                    user: auth.user.nama,
+                    user: {
+                        id: auth.user.id,
+                        nama: auth.user.nama,
+                    },
                     isActive: true,
                 })
             }
@@ -58,7 +65,10 @@ export default function OnlineUsers() {
         window.onblur = () => {
             if (auth.user) {
                 socket.emit('online', {
-                    user: auth.user.nama,
+                    user: {
+                        id: auth.user.id,
+                        nama: auth.user.nama,
+                    },
                     isActive: false,
                 })
             }
@@ -93,17 +103,35 @@ export default function OnlineUsers() {
         }
     }, [])
 
-    const handleSayHi = (user: string, from: string) => {
-        socket.emit('say-hi', user, from)
+    const handleSayHi = (userId: number) => {
+        socket.emit('say-hi', userId)
     }
 
     React.useEffect(() => {
-        socket.on(
-            'incoming-hi',
-            (fromSocket: { user: string; isActive: boolean }) => {
-                toast.success('Halo dari ' + fromSocket.user)
-            }
-        )
+        socket.on('incoming-hi', (fromSocket: IOnlineUser) => {
+            toast(() => (
+                <div className="flex items-center">
+                    <div className="mr-2">
+                        <Avatar className="h-8 w-8">
+                            <AvatarImage
+                                src={`https://ui-avatars.com/api/?name=${fromSocket.nama}&background=${colorImg[fromSocket.userId % 5]}&color=fff`}
+                            />
+                            <AvatarFallback>
+                                <HiOutlineUser />
+                            </AvatarFallback>
+                        </Avatar>
+                    </div>
+                    <div>
+                        <div className="font-semibold">{fromSocket.nama}</div>
+                        <div className="text-xs text-slate-500">Halo 👋👋</div>
+                    </div>
+                </div>
+            ))
+        })
+
+        return () => {
+            socket.off('incoming-hi')
+        }
     }, [])
 
     if (!isConnected) return null
@@ -114,7 +142,7 @@ export default function OnlineUsers() {
                 <div className="flex px-5">
                     {onlineUsers
                         .filter(
-                            (onlineUser) => onlineUser.user !== auth.user?.nama
+                            (onlineUser) => onlineUser.userId !== auth.user?.id
                         )
                         .map((onlineUser, index) => (
                             <Avatar
@@ -126,7 +154,7 @@ export default function OnlineUsers() {
                                         'transition-all',
                                         !onlineUser.isActive && 'opacity-20'
                                     )}
-                                    src={`https://ui-avatars.com/api/?name=${onlineUser.user}&background=${colorImg[index % 5]}&color=fff`}
+                                    src={`https://ui-avatars.com/api/?name=${onlineUser.nama}&background=${colorImg[index % 5]}&color=fff`}
                                 />
                                 <AvatarFallback>
                                     <HiOutlineUser />
@@ -138,7 +166,7 @@ export default function OnlineUsers() {
             <PopoverContent className="min-w-fit">
                 <CardTitle className="mb-4">User Online Lainnya</CardTitle>
                 {onlineUsers
-                    .filter((onlineUser) => onlineUser.user !== auth.user?.nama)
+                    .filter((onlineUser) => onlineUser.userId !== auth.user?.id)
                     .map((onlineUser, index) => (
                         <div
                             key={index}
@@ -151,7 +179,7 @@ export default function OnlineUsers() {
                                             'transition-all',
                                             !onlineUser.isActive && 'opacity-20'
                                         )}
-                                        src={`https://ui-avatars.com/api/?name=${onlineUser.user}&background=${colorImg[index % 5]}&color=fff`}
+                                        src={`https://ui-avatars.com/api/?name=${onlineUser.nama}&background=${colorImg[index % 5]}&color=fff`}
                                     />
                                     <AvatarFallback>
                                         <HiOutlineUser />
@@ -159,7 +187,7 @@ export default function OnlineUsers() {
                                 </Avatar>
                                 <div>
                                     <div className="block truncate text-sm font-semibold">
-                                        {onlineUser.user}
+                                        {onlineUser.nama}
                                     </div>
                                     <div className="flex items-center text-xs font-normal text-slate-500">
                                         {onlineUser.isActive ? (
@@ -174,12 +202,7 @@ export default function OnlineUsers() {
                             <Button
                                 size="sm"
                                 variant="outline"
-                                onClick={() =>
-                                    handleSayHi(
-                                        onlineUser.user,
-                                        auth.user?.nama || ''
-                                    )
-                                }
+                                onClick={() => handleSayHi(onlineUser.userId)}
                             >
                                 👋 Say Hi
                             </Button>
