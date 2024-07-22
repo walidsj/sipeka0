@@ -10,7 +10,4 @@ export const env = {
     DB_PORT: process.env.DB_PORT as string,
 
     JWT_SECRET_KEY: process.env.JWT_SECRET_KEY as string,
-    PORT: Number(process.env.PORT) as number,
-
-    NODE_ENV: process.env.NODE_ENV as 'development' | 'production',
 }

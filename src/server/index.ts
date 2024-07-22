@@ -8,7 +8,6 @@ import {
 } from '@trpc/server/adapters/express'
 import { getSession } from './auth'
 import { db } from './db'
-import { env } from '@/env.server'
 
 const app = express()
 
@@ -22,7 +21,7 @@ app.use(
             session: await getSession(req.headers.authorization ?? ''),
         }),
         onError:
-            env.NODE_ENV === 'development'
+            process.env.NODE_ENV === 'development'
                 ? ({ path, error }) => {
                       console.error(
                           `❌ tRPC failed on ${path ?? '<no-path>'}: ${
@@ -122,9 +121,8 @@ io.on('connection', (socket: Socket) => {
     })
 })
 
-let port = Number(env.PORT || 3000)
-
-if (env.NODE_ENV === 'development') port = 8989
+let port = 3000
+if (process.env.NODE_ENV === 'development') port = 8989
 
 server.listen(port, () => {
     console.log(`Listening on http://localhost:${port}`)
