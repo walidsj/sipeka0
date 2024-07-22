@@ -31,7 +31,6 @@ export const Card3d = ({
             containerRef.current.getBoundingClientRect()
         const x = (e.clientX - left - width / 2) / 25
         const y = (e.clientY - top - height / 2) / 25
-        console.log(`rotateY(${x}deg) rotateX(${y}deg)`)
         containerRef.current.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`
     }
 
