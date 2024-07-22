@@ -19,8 +19,8 @@ jobs:
                  cd /home/sipeka0
                  git pull origin main
                  pnpm install
-                 pnpm build:server
                  pnpm build:web
+                 pnpm build:server
                  pm2 restart sipeka0
 
               #  sudo ln -s "$NVM_DIR/versions/node/v20.13.1/bin/pm2" "/usr/local/bin/pm2"
