@@ -322,6 +322,17 @@ export const sp2dTable = mysqlTable('sp2d', {
         .onUpdateNow(),
 })
 
+export const rekeningBankTable = mysqlTable('rekening_bank', {
+    id: serial('id').primaryKey(),
+    bankId: int('bank_id', { unsigned: true }),
+    namaRekening: varchar('nama_rekening', { length: 256 }),
+    noRekening: varchar('no_rekening', { length: 256 }),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
+})
+
 export const userRelations = relations(user, ({ one }) => ({
     pegawai: one(pegawai, {
         fields: [user.pegawaiId],
@@ -508,3 +519,13 @@ export const sp2dTableRelations = relations(sp2dTable, ({ one }) => ({
         references: [spmTable.id],
     }),
 }))
+
+export const rekeningBankTableRelations = relations(
+    rekeningBankTable,
+    ({ one }) => ({
+        bank: one(bank, {
+            fields: [rekeningBankTable.bankId],
+            references: [bank.id],
+        }),
+    })
+)

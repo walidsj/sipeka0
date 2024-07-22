@@ -21,6 +21,7 @@ import { lpjBelanjaRouter } from './routers/lpj_belanja'
 import { sppRouter } from './routers/spp'
 import { spmRouter } from './routers/spm'
 import { sp2dRouter } from './routers/sp2d'
+import { rekeningBankRouter } from './routers/rekening-bank'
 
 export const appRouter = createTRPCRouter({
     user: userRouter,
@@ -45,6 +46,7 @@ export const appRouter = createTRPCRouter({
     spp: sppRouter,
     spm: spmRouter,
     sp2d: sp2dRouter,
+    rekeningBank: rekeningBankRouter,
 })
 
 export type AppRouter = typeof appRouter

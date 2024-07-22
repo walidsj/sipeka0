@@ -30,6 +30,17 @@ export default function ProfilLayout() {
                                     </Link>
                                 </Button>
                             </li>
+                            <li>
+                                <Button
+                                    asChild
+                                    variant="ghost"
+                                    className={cn('h-12 rounded-none')}
+                                >
+                                    <Link to="rekening-bank">
+                                        Rekening Bank
+                                    </Link>
+                                </Button>
+                            </li>
                         </ul>
                     </nav>
                     <Outlet />
