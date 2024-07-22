@@ -771,31 +771,6 @@ export const belanjaRouter = createTRPCRouter({
             },
         })
 
-        // return [
-        //     {
-        //         name: '',
-        //         belanjaPegawai: realisasi.reduce((acc, item) => {
-        //             if (item.rab?.kodeRekening?.startsWith('5.1.01')) {
-        //                 return acc + Number(item.jumlah)
-        //             }
-        //             return acc + 0
-        //         }, 0),
-        //         belanjaBarangJasa: realisasi.reduce((acc, item) => {
-        //             if (item.rab?.kodeRekening?.startsWith('5.1.02')) {
-        //                 return acc + Number(item.jumlah)
-        //             }
-        //             return acc + 0
-        //         }, 0),
-        //         belanjaModal: realisasi.reduce((acc, item) => {
-        //             if (item.rab?.kodeRekening?.startsWith('5.2')) {
-        //                 return acc + Number(item.jumlah)
-        //             }
-        //             return acc + 0
-        //         }, 0),
-        //     },
-        // ]
-
-        // format seperti di atas namun dengan data segmentasi perbulan (grouping)
         const realisasiGroupByMonth = lodash.groupBy(realisasi, (item) => {
             return format(new Date(item.tglDokumen!), 'yyyy-MM')
         })

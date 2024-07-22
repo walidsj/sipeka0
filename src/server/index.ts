@@ -122,6 +122,10 @@ io.on('connection', (socket: Socket) => {
     })
 })
 
-server.listen(Number(env.PORT ?? 3000), () => {
-    console.log(`Listening on http://localhost:${Number(env.PORT ?? 3000)}`)
+let port = Number(env.PORT || 3000)
+
+if (env.NODE_ENV === 'development') port = 8989
+
+server.listen(port, () => {
+    console.log(`Listening on http://localhost:${port}`)
 })

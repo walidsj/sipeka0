@@ -12,7 +12,7 @@ import { api } from '@/trpc/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { potonganBelanjaSchema } from '@/server/api/modules/belanja.schema'
 import { Input } from '@/components/ui/input'
@@ -34,7 +34,6 @@ export default function EditForm({
 }: {
     data: typeof potonganBelanja.$inferSelect
 }) {
-    const params = useParams<{ belanjaId: string }>()
     const navigate = useNavigate()
     const utils = api.useUtils()
 
@@ -56,7 +55,7 @@ export default function EditForm({
         onSuccess(res) {
             toast.dismiss()
             utils.belanja.invalidate()
-            navigate(`/belanja/perekaman/${params.belanjaId}`)
+            navigate(-1)
             toast.success(res.message)
         },
         onError(error) {

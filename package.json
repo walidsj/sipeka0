@@ -1,17 +1,17 @@
 {
     "name": "sipeka-bun",
     "private": true,
-    "version": "0.0.2-beta",
+    "version": "0.0.21",
     "type": "module",
     "scripts": {
         "dev": "concurrently -k \"pnpm dev:server\" \"pnpm dev:web\"",
-        "dev:server": "tsx watch src/server/index.ts",
+        "dev:server": "cross-env NODE_ENV=development tsx watch src/server/index.ts",
         "dev:web": "vite --host 0.0.0.0",
         "build:web": "vite build",
         "build:server": "tsup src/server/index.ts",
         "start": "node build/index.js",
-        "dbg": "drizzle-kit generate",
-        "dbp": "drizzle-kit push",
+        "db:generate": "drizzle-kit generate",
+        "db:push": "drizzle-kit push",
         "lint": "eslint --ext .ts,.tsx ."
     },
     "dependencies": {

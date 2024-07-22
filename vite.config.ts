@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
-import { env } from './src/env.server'
 import replace from '@rollup/plugin-replace'
 import { version } from './package.json'
 
@@ -14,7 +13,12 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            '/api': `http://localhost:${env.PORT ? Number(env.PORT) : 3000}`,
+            '/api': {
+                target: `http://localhost:8989`,
+                changeOrigin: true,
+                secure: false,
+                ws: true,
+            },
         },
     },
     root: path.resolve(__dirname, 'src/web'),
