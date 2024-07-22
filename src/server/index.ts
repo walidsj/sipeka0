@@ -121,7 +121,7 @@ io.on('connection', (socket: Socket) => {
     })
 })
 
-let port = 3000
+let port = 8080
 if (process.env.NODE_ENV === 'development') port = 8989
 
 server.listen(port, () => {
