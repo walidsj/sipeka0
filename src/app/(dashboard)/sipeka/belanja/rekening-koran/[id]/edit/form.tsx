@@ -16,37 +16,41 @@ import { z } from 'zod'
 import { format } from 'date-fns'
 import { rekeningKoranSchema } from '@/server/api/schema/rekening-koran'
 import { NumericFormat } from 'react-number-format'
+import { rekeningKoranTable } from '@/server/db/schema'
+import { useNavigate } from 'react-router-dom'
 
-const createRekeningKoranSchema = rekeningKoranSchema.omit({
+const editRekeningKoranSchema = rekeningKoranSchema.omit({
     rekeningBankId: true,
 })
 
-export default function CreateForm({
-    rekeningBankId,
+export default function EditForm({
+    data,
 }: {
-    rekeningBankId: number
+    data: typeof rekeningKoranTable.$inferSelect
 }) {
     const utils = api.useUtils()
+    const navigate = useNavigate()
 
-    const form = useForm<z.infer<typeof createRekeningKoranSchema>>({
-        resolver: zodResolver(createRekeningKoranSchema),
+    const form = useForm<z.infer<typeof editRekeningKoranSchema>>({
+        resolver: zodResolver(editRekeningKoranSchema),
         mode: 'onTouched',
         defaultValues: {
-            tglTransaksi: undefined,
-            keterangan: undefined,
-            noReferensi: undefined,
-            debet: undefined,
-            kredit: undefined,
+            tglTransaksi: data.tglTransaksi || undefined,
+            keterangan: data.keterangan || undefined,
+            noReferensi: data.noReferensi || undefined,
+            debet: Number(data.debet) || undefined,
+            kredit: Number(data.kredit) || undefined,
         },
     })
 
-    const create = api.rekeningKoran.create.useMutation({
+    const edit = api.rekeningKoran.updateById.useMutation({
         onMutate() {
             toast.loading('Menyimpan data...')
         },
         onSuccess(data) {
             toast.dismiss()
             utils.rekeningKoran.invalidate()
+            navigate(-1)
             toast.success(data.message)
         },
         onError(error) {
@@ -55,15 +59,19 @@ export default function CreateForm({
         },
     })
 
-    function onSubmit(val: z.infer<typeof createRekeningKoranSchema>) {
-        create.mutate({ rekeningBankId: rekeningBankId, ...val })
+    function onSubmit(val: z.infer<typeof editRekeningKoranSchema>) {
+        edit.mutate({
+            id: data.id,
+            rekeningBankId: data.rekeningBankId!,
+            ...val,
+        })
     }
 
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
                 <fieldset
-                    disabled={create.isPending}
+                    disabled={edit.isPending}
                     className="flex flex-row items-end gap-2"
                 >
                     <FormField
@@ -182,7 +190,7 @@ export default function CreateForm({
                     />
                     <div className="mt-3">
                         <Button type="submit">
-                            {create.isPending ? 'Menyimpan...' : 'Tambah'}
+                            {edit.isPending ? 'Menyimpan...' : 'Simpan'}
                         </Button>
                     </div>
                 </fieldset>

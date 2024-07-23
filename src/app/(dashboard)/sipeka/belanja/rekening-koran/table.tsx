@@ -19,9 +19,10 @@ import { formatAngkaDecimal } from '@/lib/utils'
 import { api } from '@/trpc/react'
 import toast from 'react-hot-toast'
 import { HiOutlineChevronDown, HiOutlineTrash } from 'react-icons/hi'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import CreateForm from './form'
 import { keepPreviousData } from '@tanstack/react-query'
+import { FiEdit } from 'react-icons/fi'
 
 export default function RekeningKoranTable() {
     const utils = api.useUtils()
@@ -140,6 +141,12 @@ export default function RekeningKoranTable() {
                                         </Button>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent align="start">
+                                        <Link to={`${item.id}/edit`}>
+                                            <DropdownMenuItem>
+                                                <FiEdit className="mr-2" />
+                                                Edit
+                                            </DropdownMenuItem>
+                                        </Link>
                                         <DropdownMenuItem
                                             onClick={() => {
                                                 if (
