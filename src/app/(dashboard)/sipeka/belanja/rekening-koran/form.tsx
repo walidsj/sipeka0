@@ -47,7 +47,6 @@ export default function CreateForm({
         onSuccess(data) {
             toast.dismiss()
             utils.rekeningKoran.invalidate()
-            form.reset()
             toast.success(data.message)
         },
         onError(error) {

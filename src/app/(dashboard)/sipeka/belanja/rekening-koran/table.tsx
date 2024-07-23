@@ -70,6 +70,7 @@ export default function RekeningKoranTable() {
         <div>
             <select
                 value={searchParams.get('rekeningBankId') || ''}
+                className="font-semibold"
                 onChange={(e) => {
                     searchParams.set('rekeningBankId', e.target.value)
                     setSearchParams(searchParams)
@@ -87,9 +88,7 @@ export default function RekeningKoranTable() {
                         <TableHead className="w-1">No.</TableHead>
                         <TableHead>Tanggal Dokumen</TableHead>
                         <TableHead>Keterangan Mutasi</TableHead>
-                        <TableHead className="text-center">
-                            No. Referensi
-                        </TableHead>
+                        <TableHead>No. Referensi</TableHead>
                         <TableHead className="text-right">Debet</TableHead>
                         <TableHead className="text-right">Kredit</TableHead>
                         <TableHead className="text-right">Saldo</TableHead>
@@ -112,7 +111,7 @@ export default function RekeningKoranTable() {
                             <TableCell className="font-semibold">
                                 {item.keterangan}
                             </TableCell>
-                            <TableCell className="text-center font-semibold">
+                            <TableCell className="font-semibold">
                                 {item.noReferensi}
                             </TableCell>
                             <TableCell className="text-right font-semibold">
