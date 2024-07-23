@@ -1,7 +1,7 @@
 import { rekeningBankSchema } from '../schema/rekening-bank'
 import { rekeningBankTable } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { eq } from 'drizzle-orm'
+import { desc, eq } from 'drizzle-orm'
 import { z } from 'zod'
 
 export const rekeningBankRouter = createTRPCRouter({
@@ -45,4 +45,10 @@ export const rekeningBankRouter = createTRPCRouter({
 
             return { message: 'Data berhasil dihapus' }
         }),
+
+    getLatest: userProcedure.query(async ({ ctx }) => {
+        return await ctx.db.query.rekeningBankTable.findFirst({
+            orderBy: [desc(rekeningBankTable.createdAt)],
+        })
+    }),
 })
