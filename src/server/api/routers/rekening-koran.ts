@@ -1,6 +1,6 @@
 import { rekeningKoranTable } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { eq } from 'drizzle-orm'
+import { asc, eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { rekeningKoranSchema } from '../schema/rekening-koran'
 
@@ -8,10 +8,10 @@ export const rekeningKoranRouter = createTRPCRouter({
     getAllByRekeningBankId: userProcedure
         .input(z.number())
         .query(async ({ ctx, input }) => {
-            return await ctx.db
-                .select()
-                .from(rekeningKoranTable)
-                .where(eq(rekeningKoranTable.rekeningBankId, input))
+            return await ctx.db.query.rekeningKoranTable.findMany({
+                where: eq(rekeningKoranTable.rekeningBankId, input),
+                orderBy: [asc(rekeningKoranTable.tglTransaksi)],
+            })
         }),
 
     getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {

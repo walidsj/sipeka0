@@ -10,32 +10,25 @@ import {
     Table,
     TableBody,
     TableCell,
+    TableFooter,
     TableHead,
     TableHeader,
     TableRow,
 } from '@/components/ui/table'
-import { formatAngka } from '@/lib/utils'
+import { formatAngkaDecimal } from '@/lib/utils'
 import { api } from '@/trpc/react'
 import toast from 'react-hot-toast'
-import {
-    HiOutlineChevronDown,
-    HiOutlineEye,
-    HiOutlinePencil,
-    HiOutlineTrash,
-} from 'react-icons/hi'
-import { Link, useSearchParams } from 'react-router-dom'
+import { HiOutlineChevronDown, HiOutlineTrash } from 'react-icons/hi'
+import { useSearchParams } from 'react-router-dom'
+import CreateForm from './form'
 
 export default function RekeningKoranTable() {
     const utils = api.useUtils()
 
     const { data: rekeningBank } = api.rekeningBank.getAll.useQuery()
 
-    const { data: latestRekeningBank } = api.rekeningBank.getLatest.useQuery()
-
     const [searchParams, setSearchParams] = useSearchParams({
-        rekeningBank: latestRekeningBank?.id
-            ? String(latestRekeningBank.id)
-            : '1',
+        rekeningBankId: '1',
     })
 
     const {
@@ -44,7 +37,8 @@ export default function RekeningKoranTable() {
         error,
         data: rekeningKoran,
     } = api.rekeningKoran.getAllByRekeningBankId.useQuery(
-        Number(searchParams.get('rekeningBank')) || 1
+        Number(searchParams.get('rekeningBankId')),
+        { enabled: !!searchParams.get('rekeningBankId') }
     )
 
     const deleteItem = api.rekeningKoran.deleteById.useMutation({
@@ -70,12 +64,14 @@ export default function RekeningKoranTable() {
 
     if (!rekeningKoran) return <div>Data tidak dapat dimuat.</div>
 
+    let saldo = 0
+
     return (
         <div>
             <select
-                value={searchParams.get('rekeningBank') || ''}
+                value={searchParams.get('rekeningBankId') || ''}
                 onChange={(e) => {
-                    searchParams.set('rekeningBank', e.target.value)
+                    searchParams.set('rekeningBankId', e.target.value)
                     setSearchParams(searchParams)
                 }}
             >
@@ -120,13 +116,17 @@ export default function RekeningKoranTable() {
                                 {item.noReferensi}
                             </TableCell>
                             <TableCell className="text-right font-semibold">
-                                {formatAngka(item.debet)}
+                                {formatAngkaDecimal(item.debet)}
                             </TableCell>
                             <TableCell className="text-right font-semibold">
-                                {formatAngka(item.kredit)}
+                                {formatAngkaDecimal(item.kredit)}
                             </TableCell>
                             <TableCell className="text-right font-semibold">
-                                {formatAngka(item.kredit)}
+                                {formatAngkaDecimal(
+                                    (saldo +=
+                                        Number(item.kredit) -
+                                        Number(item.debet))
+                                )}
                             </TableCell>
                             <TableCell>
                                 <DropdownMenu>
@@ -137,18 +137,6 @@ export default function RekeningKoranTable() {
                                         </Button>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent align="start">
-                                        <Link to={`${item.id}`}>
-                                            <DropdownMenuItem>
-                                                <HiOutlineEye className="mr-2" />
-                                                Detail
-                                            </DropdownMenuItem>
-                                        </Link>
-                                        <Link to={`${item.id}/edit`}>
-                                            <DropdownMenuItem>
-                                                <HiOutlinePencil className="mr-2" />
-                                                Edit
-                                            </DropdownMenuItem>
-                                        </Link>
                                         <DropdownMenuItem
                                             onClick={() => {
                                                 if (
@@ -177,6 +165,34 @@ export default function RekeningKoranTable() {
                         </TableRow>
                     )}
                 </TableBody>
+                <TableFooter>
+                    <TableRow>
+                        <TableCell colSpan={4}>Total</TableCell>
+                        <TableCell className="text-right">
+                            {formatAngkaDecimal(0)}
+                        </TableCell>
+                        <TableCell className="text-right">
+                            {formatAngkaDecimal(0)}
+                        </TableCell>
+                        <TableCell className="text-right">
+                            {formatAngkaDecimal(saldo)}
+                        </TableCell>
+                        <TableCell />
+                    </TableRow>
+                    <TableRow>
+                        <TableCell className="bg-card" colSpan={100}>
+                            <CreateForm
+                                rekeningBankId={
+                                    searchParams.get('rekeningBankId')
+                                        ? Number(
+                                              searchParams.get('rekeningBankId')
+                                          )
+                                        : 1
+                                }
+                            />
+                        </TableCell>
+                    </TableRow>
+                </TableFooter>
             </Table>
         </div>
     )
