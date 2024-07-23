@@ -168,10 +168,20 @@ export default function RekeningKoranTable() {
                     <TableRow>
                         <TableCell colSpan={4}>Total</TableCell>
                         <TableCell className="text-right">
-                            {formatAngkaDecimal(0)}
+                            {formatAngkaDecimal(
+                                rekeningKoran.reduce(
+                                    (acc, item) => acc + Number(item.debet),
+                                    0
+                                )
+                            )}
                         </TableCell>
                         <TableCell className="text-right">
-                            {formatAngkaDecimal(0)}
+                            {formatAngkaDecimal(
+                                rekeningKoran.reduce(
+                                    (acc, item) => acc + Number(item.kredit),
+                                    0
+                                )
+                            )}
                         </TableCell>
                         <TableCell className="text-right">
                             {formatAngkaDecimal(saldo)}
