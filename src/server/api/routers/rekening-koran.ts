@@ -10,7 +10,10 @@ export const rekeningKoranRouter = createTRPCRouter({
         .query(async ({ ctx, input }) => {
             return await ctx.db.query.rekeningKoranTable.findMany({
                 where: eq(rekeningKoranTable.rekeningBankId, input),
-                orderBy: [asc(rekeningKoranTable.tglTransaksi)],
+                orderBy: [
+                    asc(rekeningKoranTable.tglTransaksi),
+                    asc(rekeningKoranTable.createdAt),
+                ],
             })
         }),
 
