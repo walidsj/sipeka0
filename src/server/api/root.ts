@@ -22,6 +22,7 @@ import { sppRouter } from './routers/spp'
 import { spmRouter } from './routers/spm'
 import { sp2dRouter } from './routers/sp2d'
 import { rekeningBankRouter } from './routers/rekening-bank'
+import { rekeningKoranRouter } from './routers/rekening-koran'
 
 export const appRouter = createTRPCRouter({
     user: userRouter,
@@ -47,6 +48,7 @@ export const appRouter = createTRPCRouter({
     spm: spmRouter,
     sp2d: sp2dRouter,
     rekeningBank: rekeningBankRouter,
+    rekeningKoran: rekeningKoranRouter,
 })
 
 export type AppRouter = typeof appRouter

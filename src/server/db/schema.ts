@@ -333,6 +333,20 @@ export const rekeningBankTable = mysqlTable('rekening_bank', {
         .onUpdateNow(),
 })
 
+export const rekeningKoranTable = mysqlTable('rekening_koran', {
+    id: serial('id').primaryKey(),
+    rekeningBankId: int('rekening_bank_id', { unsigned: true }),
+    tglTransaksi: timestamp('tgl_transaksi', { mode: 'date' }),
+    keterangan: varchar('keterangan', { length: 256 }),
+    noReferensi: varchar('no_referensi', { length: 256 }),
+    debet: decimal('debet', { precision: 20, scale: 2 }),
+    kredit: decimal('kredit', { precision: 20, scale: 2 }),
+    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' })
+        .defaultNow()
+        .onUpdateNow(),
+})
+
 export const userRelations = relations(user, ({ one }) => ({
     pegawai: one(pegawai, {
         fields: [user.pegawaiId],
@@ -526,6 +540,16 @@ export const rekeningBankTableRelations = relations(
         bank: one(bank, {
             fields: [rekeningBankTable.bankId],
             references: [bank.id],
+        }),
+    })
+)
+
+export const rekeningKoranTableRelations = relations(
+    rekeningKoranTable,
+    ({ one }) => ({
+        rekeningBank: one(rekeningBankTable, {
+            fields: [rekeningKoranTable.rekeningBankId],
+            references: [rekeningBankTable.id],
         }),
     })
 )
