@@ -21,6 +21,7 @@ import toast from 'react-hot-toast'
 import { HiOutlineChevronDown, HiOutlineTrash } from 'react-icons/hi'
 import { useSearchParams } from 'react-router-dom'
 import CreateForm from './form'
+import { keepPreviousData } from '@tanstack/react-query'
 
 export default function RekeningKoranTable() {
     const utils = api.useUtils()
@@ -38,7 +39,10 @@ export default function RekeningKoranTable() {
         data: rekeningKoran,
     } = api.rekeningKoran.getAllByRekeningBankId.useQuery(
         Number(searchParams.get('rekeningBankId')),
-        { enabled: !!searchParams.get('rekeningBankId') }
+        {
+            placeholderData: keepPreviousData,
+            enabled: !!searchParams.get('rekeningBankId'),
+        }
     )
 
     const deleteItem = api.rekeningKoran.deleteById.useMutation({
