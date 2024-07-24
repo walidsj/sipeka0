@@ -11,9 +11,11 @@ import { api } from '@/trpc/react'
 import NotFound from '@/app/not-found'
 
 export default function EditPage() {
-    const params = useParams<{ id: string }>()
+    const params = useParams<{ rekeningKoranId: string }>()
 
-    const rekeningKoran = api.rekeningKoran.getById.useQuery(Number(params.id))
+    const rekeningKoran = api.rekeningKoran.getById.useQuery(
+        Number(params.rekeningKoranId)
+    )
 
     if (
         (rekeningKoran.isSuccess && !rekeningKoran.data) ||
