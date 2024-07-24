@@ -133,27 +133,6 @@ export default function Navbar() {
                             </span>
                         </NavLink>
                     </Button>
-                    <Button variant="ghost" asChild>
-                        <NavLink to="rekening-koran">
-                            {({ isActive }) => (
-                                <>
-                                    <HiOutlineBookmarkAlt
-                                        className={cn(
-                                            'mr-1 h-5 w-5',
-                                            isActive && 'text-primary'
-                                        )}
-                                    />
-                                    <span
-                                        className={cn(
-                                            isActive && 'text-primary'
-                                        )}
-                                    >
-                                        Rekening Koran
-                                    </span>
-                                </>
-                            )}
-                        </NavLink>
-                    </Button>
                 </nav>
             </CardContent>
         </Card>
