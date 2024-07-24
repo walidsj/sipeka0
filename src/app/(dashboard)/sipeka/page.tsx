@@ -7,10 +7,8 @@ import {
 } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import { useAuth } from '@/lib/auth'
-import { cn, formatAngkaDecimal, formatTanggal } from '@/lib/utils'
+import { cn, formatAngka, formatAngkaDecimal, formatTanggal } from '@/lib/utils'
 import { api } from '@/trpc/react'
-import { format } from 'date-fns'
-import { id } from 'date-fns/locale'
 import React from 'react'
 
 export default function Dashboard() {
@@ -75,30 +73,6 @@ export default function Dashboard() {
             <Card>
                 <CardHeader className="flex flex-row items-center gap-4">
                     <img
-                        src="/images/icons/document.png"
-                        alt="Tanggal DBA"
-                        className="h-14 w-14"
-                    />
-                    <div className="flex w-full flex-col">
-                        <CardDescription>DBA Sedang Aktif</CardDescription>
-                        <CardTitle>
-                            {latestDba.data && latestDba.data.uraian}
-                        </CardTitle>
-                        <CardDescription className="text-xs">
-                            Tanggal{' '}
-                            {latestDba.data &&
-                                format(
-                                    String(latestDba.data.tglDokumen),
-                                    'dd MMMM yyyy',
-                                    { locale: id }
-                                )}
-                        </CardDescription>
-                    </div>
-                </CardHeader>
-            </Card>
-            <Card>
-                <CardHeader className="flex flex-row items-center gap-4">
-                    <img
                         src="/images/icons/compliant.png"
                         alt="Tanggal DBA"
                         className="h-14 w-14"
@@ -116,6 +90,58 @@ export default function Dashboard() {
                     </div>
                 </CardHeader>
             </Card>
+            <Card className="md:col-span-2">
+                <CardHeader className="flex items-center gap-4 md:flex-row">
+                    <img
+                        src="/images/icons/salary.png"
+                        alt="Saldo Rekening Bank"
+                        className="h-14 w-14"
+                    />
+                    <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
+                        {latestSaldoRekeningBank.isSuccess &&
+                            latestSaldoRekeningBank.data &&
+                            latestSaldoRekeningBank.data.map((item) => (
+                                <Card>
+                                    <CardHeader className="space-y-0 p-3">
+                                        <CardDescription className="text-neutral-500">
+                                            {item.noRekening}
+                                        </CardDescription>
+                                        <CardDescription>
+                                            {item.namaRekening}
+                                        </CardDescription>
+                                        <CardTitle>
+                                            {formatAngkaDecimal(item.saldo)}
+                                        </CardTitle>
+                                        <CardDescription className="text-xs">
+                                            Saldo Bank per{' '}
+                                            {formatTanggal(item.lastDate)}
+                                        </CardDescription>
+                                    </CardHeader>
+                                </Card>
+                            ))}
+                    </div>
+                </CardHeader>
+            </Card>
+            <Card>
+                <CardHeader className="flex flex-row items-center gap-4">
+                    <img
+                        src="/images/icons/document.png"
+                        alt="Tanggal DBA"
+                        className="h-14 w-14"
+                    />
+                    <div className="flex w-full flex-col">
+                        <CardDescription>DBA Sedang Aktif</CardDescription>
+                        <CardTitle>
+                            {latestDba.data && latestDba.data.uraian}
+                        </CardTitle>
+                        <CardDescription className="text-xs">
+                            Tanggal{' '}
+                            {latestDba.data &&
+                                formatTanggal(latestDba.data.tglDokumen)}
+                        </CardDescription>
+                    </div>
+                </CardHeader>
+            </Card>
             <Card>
                 <CardHeader className="flex flex-row items-center gap-4">
                     <img
@@ -127,48 +153,12 @@ export default function Dashboard() {
                         <CardDescription>Pagu Belanja</CardDescription>
                         <CardTitle>
                             {targetBelanja.data &&
-                                Number(targetBelanja.data).toLocaleString(
-                                    'id-ID'
-                                )}
+                                formatAngka(targetBelanja.data)}
                         </CardTitle>
                     </div>
                 </CardHeader>
             </Card>
-            <Card className="col-span-2 row-span-2">
-                <CardHeader className="flex flex-row items-center gap-4">
-                    <img
-                        src="/images/icons/salary.png"
-                        alt="Saldo Rekening Bank"
-                        className="h-14 w-14"
-                    />
-                    <div className="flex w-full flex-col">
-                        <CardDescription>Saldo Rekening Bank</CardDescription>
-                        <div className="grid grid-rows-2 gap-2">
-                            {latestSaldoRekeningBank.isSuccess &&
-                                latestSaldoRekeningBank.data &&
-                                latestSaldoRekeningBank.data.map((item) => (
-                                    <Card>
-                                        <CardHeader className="space-y-0 p-3">
-                                            <CardDescription className="text-neutral-500">
-                                                {item.noRekening}
-                                            </CardDescription>
-                                            <CardDescription>
-                                                {item.namaRekening}
-                                            </CardDescription>
-                                            <CardTitle>
-                                                {formatAngkaDecimal(item.saldo)}
-                                            </CardTitle>
-                                            <CardDescription className="text-xs">
-                                                Per{' '}
-                                                {formatTanggal(item.lastDate)}
-                                            </CardDescription>
-                                        </CardHeader>
-                                    </Card>
-                                ))}
-                        </div>
-                    </div>
-                </CardHeader>
-            </Card>
+
             <Card>
                 <CardHeader className="flex flex-row items-center gap-4">
                     <img
@@ -180,9 +170,7 @@ export default function Dashboard() {
                         <CardDescription>Target Pendapatan</CardDescription>
                         <CardTitle>
                             {targetPendapatan.data &&
-                                Number(targetPendapatan.data).toLocaleString(
-                                    'id-ID'
-                                )}
+                                formatAngka(targetPendapatan.data)}
                         </CardTitle>
                     </div>
                 </CardHeader>
@@ -205,41 +193,35 @@ export default function Dashboard() {
                         <CardDescription className="text-xs">
                             {targetBelanja.data &&
                                 realisasiBelanja.data &&
-                                (
-                                    Number(
-                                        Number(realisasiBelanja.data) /
-                                            Number(targetBelanja.data)
-                                    ) * 100
-                                ).toLocaleString('id-ID', {
-                                    maximumFractionDigits: 2,
-                                })}
+                                formatAngka(
+                                    (Number(realisasiBelanja.data) /
+                                        Number(targetBelanja.data)) *
+                                        100
+                                )}
                             %
                         </CardDescription>
                         <Progress
                             value={
-                                Number(
-                                    Number(realisasiBelanja.data) /
-                                        Number(targetBelanja.data)
-                                ) * 100
+                                (Number(realisasiBelanja.data) /
+                                    Number(targetBelanja.data)) *
+                                100
                             }
                         />
                         <CardDescription className="text-xs">
                             Sisa Pagu:{' '}
                             {targetBelanja.data &&
                                 realisasiBelanja.data &&
-                                Number(
+                                formatAngka(
                                     Number(targetBelanja.data) -
                                         Number(realisasiBelanja.data)
-                                ).toLocaleString('id-ID')}
+                                )}
                         </CardDescription>
                         <CardDescription className="text-xs">
                             {latestBelanja.data && (
                                 <React.Fragment>
                                     Per{' '}
-                                    {format(
-                                        String(latestBelanja.data?.tglDokumen),
-                                        'dd MMMM yyyy',
-                                        { locale: id }
+                                    {formatTanggal(
+                                        latestBelanja.data?.tglDokumen
                                     )}
                                 </React.Fragment>
                             )}
@@ -258,50 +240,40 @@ export default function Dashboard() {
                         <CardDescription>Realisasi Pendapatan</CardDescription>
                         <CardTitle>
                             {realisasiPendapatan.data &&
-                                Number(realisasiPendapatan.data).toLocaleString(
-                                    'id-ID'
-                                )}
+                                formatAngka(realisasiPendapatan.data)}
                         </CardTitle>
                         <CardDescription className="text-xs">
                             {targetPendapatan.data &&
                                 realisasiPendapatan.data &&
-                                (
-                                    Number(
-                                        Number(realisasiPendapatan.data) /
-                                            Number(targetPendapatan.data)
-                                    ) * 100
-                                ).toLocaleString('id-ID', {
-                                    maximumFractionDigits: 2,
-                                })}
+                                formatAngka(
+                                    (Number(realisasiPendapatan.data) /
+                                        Number(targetPendapatan.data)) *
+                                        100
+                                )}
                             %
                         </CardDescription>
                         <Progress
                             value={
-                                Number(
-                                    Number(realisasiPendapatan.data) /
-                                        Number(targetPendapatan.data)
-                                ) * 100
+                                (Number(realisasiPendapatan.data) /
+                                    Number(targetPendapatan.data)) *
+                                100
                             }
                         />
                         <CardDescription className="text-xs">
                             Sisa Target:{' '}
                             {targetPendapatan.data &&
                                 realisasiPendapatan.data &&
-                                Number(
+                                formatAngka(
                                     Number(targetPendapatan.data) -
                                         Number(realisasiPendapatan.data)
-                                ).toLocaleString('id-ID')}
+                                )}
                         </CardDescription>
                         <CardDescription className="text-xs">
                             {latestPendapatan.data && (
                                 <React.Fragment>
                                     Per{' '}
-                                    {format(
-                                        String(
-                                            latestPendapatan.data?.tglDokumen
-                                        ),
-                                        'dd MMMM yyyy',
-                                        { locale: id }
+                                    {formatTanggal(
+                                        latestPendapatan.data?.tglDokumen
                                     )}
                                 </React.Fragment>
                             )}
