@@ -66,17 +66,20 @@ export const rekeningBankRouter = createTRPCRouter({
                 saldo += Number(rk.kredit) - Number(rk.debet)
             })
 
-            const lastDate = item.rekeningKoran.reduce((prev, current) =>
-                new Date(prev.tglTransaksi!) > new Date(current.tglTransaksi!)
-                    ? prev
-                    : current
-            )
+            const lastDate = item.rekeningKoran
+                .sort((a, b) => {
+                    return (
+                        new Date(a.tglTransaksi!).getTime() -
+                        new Date(b.tglTransaksi!).getTime()
+                    )
+                })
+                .pop()
 
             return {
                 noRekening: item.noRekening,
                 namaRekening: item.namaRekening,
                 saldo,
-                lastDate: lastDate.tglTransaksi,
+                lastDate: lastDate?.tglTransaksi,
             }
         })
     }),
