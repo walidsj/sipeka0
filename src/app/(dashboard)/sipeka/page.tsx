@@ -114,7 +114,7 @@ export default function Dashboard() {
                                         </CardTitle>
                                         <CardDescription className="text-xs">
                                             Saldo Bank per{' '}
-                                            {formatTanggal(item.lastDate)}
+                                            {formatTanggal(item.lastDate!)}
                                         </CardDescription>
                                     </CardHeader>
                                 </Card>

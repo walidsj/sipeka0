@@ -6,12 +6,34 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card'
-import { HiOutlineArrowSmRight, HiOutlineDocumentText } from 'react-icons/hi'
+import {
+    HiOutlineArchive,
+    HiOutlineArrowSmRight,
+    HiOutlineDocumentReport,
+    HiOutlineDocumentText,
+} from 'react-icons/hi'
 import { Link } from 'react-router-dom'
 
 export default function Page() {
     return (
         <div className="grid grid-cols-1 gap-4 pb-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <Card>
+                <CardHeader className="flex flex-row gap-4">
+                    <div className="w-full">
+                        <CardTitle className="mb-3">Rekening Koran</CardTitle>
+                        <CardDescription>Mutasi Rekening Bank</CardDescription>
+                    </div>
+                    <HiOutlineArchive className="flex-shrink-0 flex-grow-0 text-5xl text-primary" />
+                </CardHeader>
+                <CardFooter>
+                    <Button asChild>
+                        <Link to="rekening-koran">
+                            Akses
+                            <HiOutlineArrowSmRight className="ml-2" />
+                        </Link>
+                    </Button>
+                </CardFooter>
+            </Card>
             <Card>
                 <CardHeader className="flex flex-row gap-4">
                     <div className="w-full">
@@ -39,7 +61,7 @@ export default function Page() {
                             Laporan Realisasi Anggaran
                         </CardDescription>
                     </div>
-                    <HiOutlineDocumentText className="flex-shrink-0 flex-grow-0 text-5xl text-primary" />
+                    <HiOutlineDocumentReport className="flex-shrink-0 flex-grow-0 text-5xl text-primary" />
                 </CardHeader>
                 <CardFooter>
                     <Button asChild>
