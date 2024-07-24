@@ -536,11 +536,12 @@ export const sp2dTableRelations = relations(sp2dTable, ({ one }) => ({
 
 export const rekeningBankTableRelations = relations(
     rekeningBankTable,
-    ({ one }) => ({
+    ({ one, many }) => ({
         bank: one(bank, {
             fields: [rekeningBankTable.bankId],
             references: [bank.id],
         }),
+        rekeningKoran: many(rekeningKoranTable),
     })
 )
 

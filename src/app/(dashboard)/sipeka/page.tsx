@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import { useAuth } from '@/lib/auth'
-import { cn } from '@/lib/utils'
+import { cn, formatAngkaDecimal, formatTanggal } from '@/lib/utils'
 import { api } from '@/trpc/react'
 import { format } from 'date-fns'
 import { id } from 'date-fns/locale'
@@ -33,6 +33,9 @@ export default function Dashboard() {
     const latestBelanja = api.belanja.getLatest.useQuery()
 
     const countDba = api.dba.count.useQuery()
+
+    const latestSaldoRekeningBank =
+        api.rekeningBank.getAllLatestSaldo.useQuery()
 
     return (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -128,6 +131,41 @@ export default function Dashboard() {
                                     'id-ID'
                                 )}
                         </CardTitle>
+                    </div>
+                </CardHeader>
+            </Card>
+            <Card className="col-span-2 row-span-2">
+                <CardHeader className="flex flex-row items-center gap-4">
+                    <img
+                        src="/images/icons/salary.png"
+                        alt="Saldo Rekening Bank"
+                        className="h-14 w-14"
+                    />
+                    <div className="flex w-full flex-col">
+                        <CardDescription>Saldo Rekening Bank</CardDescription>
+                        <div className="grid grid-rows-2 gap-2">
+                            {latestSaldoRekeningBank.isSuccess &&
+                                latestSaldoRekeningBank.data &&
+                                latestSaldoRekeningBank.data.map((item) => (
+                                    <Card>
+                                        <CardHeader className="space-y-0 p-3">
+                                            <CardDescription className="text-neutral-500">
+                                                {item.noRekening}
+                                            </CardDescription>
+                                            <CardDescription>
+                                                {item.namaRekening}
+                                            </CardDescription>
+                                            <CardTitle>
+                                                {formatAngkaDecimal(item.saldo)}
+                                            </CardTitle>
+                                            <CardDescription className="text-xs">
+                                                Per{' '}
+                                                {formatTanggal(item.lastDate)}
+                                            </CardDescription>
+                                        </CardHeader>
+                                    </Card>
+                                ))}
+                        </div>
                     </div>
                 </CardHeader>
             </Card>
@@ -271,6 +309,7 @@ export default function Dashboard() {
                     </div>
                 </CardHeader>
             </Card>
+
             <Card>
                 <CardHeader className="flex flex-row items-start justify-between">
                     <div>

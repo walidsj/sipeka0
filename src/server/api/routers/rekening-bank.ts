@@ -51,4 +51,33 @@ export const rekeningBankRouter = createTRPCRouter({
             orderBy: [desc(rekeningBankTable.createdAt)],
         })
     }),
+
+    getAllLatestSaldo: userProcedure.query(async ({ ctx }) => {
+        const rekeningBank = await ctx.db.query.rekeningBankTable.findMany({
+            with: {
+                rekeningKoran: true,
+            },
+        })
+
+        return rekeningBank.map((item) => {
+            let saldo = 0
+
+            item.rekeningKoran.forEach((rk) => {
+                saldo += Number(rk.kredit) - Number(rk.debet)
+            })
+
+            const lastDate = item.rekeningKoran.reduce((prev, current) =>
+                new Date(prev.tglTransaksi!) > new Date(current.tglTransaksi!)
+                    ? prev
+                    : current
+            )
+
+            return {
+                noRekening: item.noRekening,
+                namaRekening: item.namaRekening,
+                saldo,
+                lastDate: lastDate.tglTransaksi,
+            }
+        })
+    }),
 })
