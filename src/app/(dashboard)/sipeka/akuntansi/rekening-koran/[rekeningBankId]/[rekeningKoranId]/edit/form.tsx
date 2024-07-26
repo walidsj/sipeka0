@@ -40,6 +40,7 @@ export default function EditForm({
             noReferensi: data.noReferensi || undefined,
             debet: Number(data.debet) || undefined,
             kredit: Number(data.kredit) || undefined,
+            keteranganTambahan: data.keteranganTambahan || undefined,
         },
     })
 
