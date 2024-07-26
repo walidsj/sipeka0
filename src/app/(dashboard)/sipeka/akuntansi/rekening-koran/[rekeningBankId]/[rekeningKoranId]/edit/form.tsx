@@ -188,6 +188,24 @@ export default function EditForm({
                             </FormItem>
                         )}
                     />
+                    <FormField
+                        name="keteranganTambahan"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel className="normal-case">
+                                    Keterangan Tambahan
+                                </FormLabel>
+                                <FormControl>
+                                    <Input
+                                        className="font-normal"
+                                        value={field.value}
+                                        onChange={field.onChange}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
                     <div className="mt-3">
                         <Button type="submit">
                             {edit.isPending ? 'Menyimpan...' : 'Simpan'}

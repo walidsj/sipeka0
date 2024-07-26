@@ -77,6 +77,7 @@ export default function RekeningKoranTable() {
                     <TableHead className="text-right">Debet</TableHead>
                     <TableHead className="text-right">Kredit</TableHead>
                     <TableHead className="text-right">Saldo</TableHead>
+                    <TableHead>Keterangan Tambahan</TableHead>
                     <TableHead className="w-1" />
                 </TableRow>
             </TableHeader>
@@ -110,6 +111,9 @@ export default function RekeningKoranTable() {
                                 (saldo +=
                                     Number(item.kredit) - Number(item.debet))
                             )}
+                        </TableCell>
+                        <TableCell className="font-semibold">
+                            {item.keteranganTambahan}
                         </TableCell>
                         <TableCell>
                             <DropdownMenu>
@@ -156,7 +160,7 @@ export default function RekeningKoranTable() {
             </TableBody>
             <TableFooter>
                 <TableRow>
-                    <TableCell colSpan={4}>Total</TableCell>
+                    <TableCell colSpan={5}>Total</TableCell>
                     <TableCell className="text-right">
                         {formatAngkaDecimal(
                             rekeningKoran.reduce(
