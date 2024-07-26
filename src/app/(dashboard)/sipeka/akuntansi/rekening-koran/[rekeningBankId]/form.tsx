@@ -37,6 +37,7 @@ export default function CreateForm({
             noReferensi: undefined,
             debet: undefined,
             kredit: undefined,
+            keteranganTambahan: undefined,
         },
     })
 
@@ -174,6 +175,24 @@ export default function CreateForm({
                                         decimalSeparator=","
                                         decimalScale={2}
                                         prefix={'Rp '}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        name="keteranganTambahan"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel className="normal-case">
+                                    Keterangan Tambahan
+                                </FormLabel>
+                                <FormControl>
+                                    <Input
+                                        className="font-normal"
+                                        value={field.value}
+                                        onChange={field.onChange}
                                     />
                                 </FormControl>
                                 <FormMessage />

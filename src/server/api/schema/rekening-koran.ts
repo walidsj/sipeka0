@@ -7,4 +7,5 @@ export const rekeningKoranSchema = z.object({
     noReferensi: z.string(),
     debet: z.number(),
     kredit: z.number(),
+    keteranganTambahan: z.string().optional(),
 })
