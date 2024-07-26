@@ -341,6 +341,7 @@ export const rekeningKoranTable = mysqlTable('rekening_koran', {
     noReferensi: varchar('no_referensi', { length: 256 }),
     debet: decimal('debet', { precision: 20, scale: 2 }),
     kredit: decimal('kredit', { precision: 20, scale: 2 }),
+    keteranganTambahan: varchar('keterangan', { length: 256 }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { mode: 'date' })
         .defaultNow()
