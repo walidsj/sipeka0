@@ -168,7 +168,7 @@ io.on('connection', (socket: Socket) => {
     })
 })
 
-let port = 8080
+let port = 8089
 if (process.env.NODE_ENV === 'development') port = 8989
 
 server.listen(port, () => {
