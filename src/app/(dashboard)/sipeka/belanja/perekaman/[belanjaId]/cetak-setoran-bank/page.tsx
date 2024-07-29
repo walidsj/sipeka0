@@ -200,7 +200,7 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border py-0 align-top font-arial text-[5pt] leading-[5pt]">
+                                                        <td className="h-[4mm] border py-0 align-top font-arial text-[6pt] leading-[5pt]">
                                                             {
                                                                 belanja.rekanan
                                                                     ?.alamat
@@ -253,7 +253,7 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border py-0 align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="h-[4mm] border py-0 align-top font-arial text-[7pt] leading-[8pt]">
                                                             Jl. Kakap No. 23
                                                         </td>
                                                     </tr>
@@ -270,7 +270,7 @@ export default function Page() {
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            <table className="text-black-500 mt-[5mm] w-[100%] border-separate border-spacing-[0.25mm]">
+                                            <table className="text-black-500 mt-[6mm] w-[100%] border-separate border-spacing-[0.25mm]">
                                                 <tbody>
                                                     <tr>
                                                         <td className="h-[4mm] border py-0 pl-[1.25cm] align-top font-arial text-[8pt] leading-[9pt]">
@@ -284,7 +284,7 @@ export default function Page() {
                                             <table className="text-black-500 w-[100%] border-separate border-spacing-[0.25mm]">
                                                 <tbody>
                                                     <tr>
-                                                        <td className="h-[4mm] border py-0 pl-[7.7mm] align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="h-[4mm] border py-0 pl-[7.85mm] align-top font-arial text-[8pt] leading-[9pt]">
                                                             <FaCheck />
                                                         </td>
                                                     </tr>
