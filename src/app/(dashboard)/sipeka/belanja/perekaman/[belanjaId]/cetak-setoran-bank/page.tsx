@@ -192,7 +192,7 @@ export default function Page() {
                                             <table className="text-black-500 mt-[4mm] w-[100%] border-separate border-spacing-[0.3mm]">
                                                 <tbody>
                                                     <tr>
-                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[9pt] leading-[10pt]">
+                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
                                                             {
                                                                 belanja.rekanan
                                                                     ?.namaRekening
