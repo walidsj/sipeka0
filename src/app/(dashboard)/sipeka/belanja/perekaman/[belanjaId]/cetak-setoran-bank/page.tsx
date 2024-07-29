@@ -200,7 +200,7 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border py-0 align-top font-arial text-[6pt] leading-[7pt]">
+                                                        <td className="h-[4mm] border py-0 align-top font-arial text-[5pt] leading-[5pt]">
                                                             {
                                                                 belanja.rekanan
                                                                     ?.alamat
