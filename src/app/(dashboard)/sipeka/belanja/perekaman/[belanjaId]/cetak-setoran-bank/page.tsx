@@ -6,7 +6,7 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card'
-import { useParams } from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router-dom'
 import { api } from '@/trpc/react'
 import Loading from '@/components/loading'
 import { useReactToPrint } from 'react-to-print'
@@ -15,9 +15,21 @@ import { Button } from '@/components/ui/button'
 import { terbilang, formatAngkaDecimal, ucFirst } from '@/lib/utils'
 import NotFound from '@/app/not-found'
 import { FaCheck } from 'react-icons/fa'
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select'
 
 export default function Page() {
     const params = useParams<{ belanjaId: string }>()
+
+    const [searchParams, setSearchParams] = useSearchParams({
+        includeAdminBank: 'false',
+        penyetorId: 'null',
+    })
 
     const {
         data: belanja,
@@ -42,6 +54,29 @@ export default function Page() {
             ? 0
             : 2900
 
+    const penyetorList = [
+        {
+            id: 'agus',
+            nama: 'AGUS SUTRASNO',
+            noTelp: '082157614881',
+        },
+        {
+            id: 'walid',
+            nama: 'MOH. WALID',
+            noTelp: '085172277277',
+        },
+        {
+            id: 'arian',
+            nama: 'M. WAHID ARIAN',
+            noTelp: '085347488136',
+        },
+        {
+            id: 'null',
+            nama: '',
+            noTelp: '',
+        },
+    ]
+
     return (
         <Card>
             <CardHeader>
@@ -51,6 +86,48 @@ export default function Page() {
                 </CardDescription>
             </CardHeader>
             <CardContent>
+                <div className="flex flex-col gap-3 md:flex-row md:items-center">
+                    <Select
+                        value={searchParams.get('penyetorId') || 'null'}
+                        onValueChange={(val) => {
+                            searchParams.set('penyetorId', val)
+                            setSearchParams(searchParams)
+                        }}
+                    >
+                        <SelectTrigger className="mb-5 w-fit font-semibold">
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {penyetorList.map((item) => (
+                                <SelectItem key={item.id} value={item.id}>
+                                    Penyetor:{' '}
+                                    {item.nama
+                                        ? `${item.nama} (${item.noTelp})`
+                                        : 'Kosong'}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                    <Select
+                        value={searchParams.get('includeAdminBank') || 'false'}
+                        onValueChange={(val) => {
+                            searchParams.set('includeAdminBank', val)
+                            setSearchParams(searchParams)
+                        }}
+                    >
+                        <SelectTrigger className="mb-5 w-fit font-semibold">
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="false">
+                                TF dikurangi Admin Bank
+                            </SelectItem>
+                            <SelectItem value="true">
+                                TF tidak dikurangi Admin Bank
+                            </SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
                 <div className="rounded-md border p-10 shadow">
                     {biayaAdmin == 0 && (
                         <div ref={componentRef}>
@@ -142,7 +219,16 @@ export default function Page() {
                                                     </tr>
                                                     <tr>
                                                         <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
-                                                            RSJD AHM /
+                                                            RSJD AHM /{' '}
+                                                            {
+                                                                penyetorList.find(
+                                                                    (item) =>
+                                                                        item.id ===
+                                                                        searchParams.get(
+                                                                            'penyetorId'
+                                                                        )
+                                                                )?.nama
+                                                            }
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -152,7 +238,15 @@ export default function Page() {
                                                     </tr>
                                                     <tr>
                                                         <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
-                                                            085172277277
+                                                            {
+                                                                penyetorList.find(
+                                                                    (item) =>
+                                                                        item.id ===
+                                                                        searchParams.get(
+                                                                            'penyetorId'
+                                                                        )
+                                                                )?.noTelp
+                                                            }
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -249,7 +343,16 @@ export default function Page() {
                                                 <tbody>
                                                     <tr>
                                                         <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
-                                                            RSJD AHM /
+                                                            RSJD AHM /{' '}
+                                                            {
+                                                                penyetorList.find(
+                                                                    (item) =>
+                                                                        item.id ===
+                                                                        searchParams.get(
+                                                                            'penyetorId'
+                                                                        )
+                                                                )?.nama
+                                                            }
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -262,7 +365,14 @@ export default function Page() {
                                                     </tr>
                                                     <tr>
                                                         <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
-                                                            085172277277
+                                                            {penyetorList.find(
+                                                                (item) =>
+                                                                    item.id ===
+                                                                    searchParams.get(
+                                                                        'penyetorId'
+                                                                    )
+                                                            )?.noTelp ||
+                                                                '085172277277'}
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -316,7 +426,11 @@ export default function Page() {
                                                                             ),
                                                                         0
                                                                     ) -
-                                                                    biayaAdmin
+                                                                    (searchParams.get(
+                                                                        'includeAdminBank'
+                                                                    ) === 'true'
+                                                                        ? 0
+                                                                        : biayaAdmin)
                                                             )}
                                                         </td>
                                                     </tr>
@@ -330,9 +444,14 @@ export default function Page() {
                                                     <tr>
                                                         <td className="h-[4.5mm] border border-transparent py-0 text-right align-bottom font-arial text-[9pt] leading-[10pt]">
                                                             {formatAngkaDecimal(
-                                                                Number(
-                                                                    belanja.jumlah
-                                                                ) -
+                                                                (searchParams.get(
+                                                                    'includeAdminBank'
+                                                                ) === 'true'
+                                                                    ? biayaAdmin
+                                                                    : 0) +
+                                                                    Number(
+                                                                        belanja.jumlah
+                                                                    ) -
                                                                     belanja.potonganBelanja.reduce(
                                                                         (
                                                                             acc,
@@ -351,9 +470,14 @@ export default function Page() {
                                                         <td className="h-[2cm] border border-transparent py-0 pt-[8mm] align-top font-arial text-[7pt] leading-[8pt]">
                                                             {ucFirst(
                                                                 terbilang(
-                                                                    Number(
-                                                                        belanja.jumlah
-                                                                    ) -
+                                                                    (searchParams.get(
+                                                                        'includeAdminBank'
+                                                                    ) === 'true'
+                                                                        ? biayaAdmin
+                                                                        : 0) +
+                                                                        Number(
+                                                                            belanja.jumlah
+                                                                        ) -
                                                                         belanja.potonganBelanja.reduce(
                                                                             (
                                                                                 acc,
