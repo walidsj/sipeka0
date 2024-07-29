@@ -1,3 +1,4 @@
+import NotFound from '@/app/not-found'
 import {
     Table,
     TableBody,
@@ -10,7 +11,7 @@ import {
 import { api } from '@/trpc/react'
 import { format } from 'date-fns'
 import { id } from 'date-fns/locale'
-import { Navigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 export default function DetailTable() {
     const params = useParams<{
@@ -22,9 +23,7 @@ export default function DetailTable() {
     )
 
     if ((belanja.isSuccess && !belanja.data) || belanja.isError)
-        return (
-            <Navigate to={`/anggaran/monitoring/realisasi-belanja`} replace />
-        )
+        return <NotFound />
 
     return (
         <Table>

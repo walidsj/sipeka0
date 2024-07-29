@@ -49,7 +49,7 @@ export default function EditForm({
         onSuccess(res) {
             toast.dismiss()
             utils.rincianRbaBelanja.getById.invalidate()
-            navigate(`/anggaran/monitoring/realisasi-belanja`)
+            navigate(-1)
             toast.success(res.message)
         },
         onError(error) {

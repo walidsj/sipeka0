@@ -4,12 +4,13 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card'
-import { Navigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import EditForm from './form'
 import { api } from '@/trpc/react'
 import { FiChevronsRight } from 'react-icons/fi'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
+import NotFound from '@/app/not-found'
 
 export default function EditPage() {
     const params = useParams<{
@@ -24,9 +25,7 @@ export default function EditPage() {
         (rincianRbaBelanja.isSuccess && !rincianRbaBelanja.data) ||
         rincianRbaBelanja.isError
     )
-        return (
-            <Navigate to={`/anggaran/monitoring/realisasi-belanja`} replace />
-        )
+        return <NotFound />
 
     return (
         <div className="flex flex-col gap-5">
