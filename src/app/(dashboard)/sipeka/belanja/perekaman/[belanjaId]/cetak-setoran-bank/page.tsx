@@ -100,7 +100,7 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[5mm] border border-transparent py-0 align-top font-arial text-[9pt] leading-[9pt]">
+                                                        <td className="h-[5mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
                                                             {formatAngkaDecimal(
                                                                 belanja.jumlah
                                                             )}
@@ -200,7 +200,7 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border py-0 align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="h-[4mm] border py-0 align-top font-arial text-[6pt] leading-[7pt]">
                                                             {
                                                                 belanja.rekanan
                                                                     ?.alamat
