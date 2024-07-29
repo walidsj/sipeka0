@@ -99,30 +99,38 @@ export default function EditPage() {
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="start">
-                        <Link to={`edit`}>
+                        <Link to="edit">
                             <DropdownMenuItem>
                                 <FiEdit className="mr-2" />
                                 Edit
                             </DropdownMenuItem>
                         </Link>
-                        <Link to={`cetak-kwitansi`}>
+                        <Link to="cetak-kwitansi">
                             <DropdownMenuItem>
                                 <FiPrinter className="mr-2" />
                                 Cetak Kwitansi
                             </DropdownMenuItem>
                         </Link>
-                        <Link to={`cetak-amplop`}>
+                        <Link to="cetak-amplop">
                             <DropdownMenuItem>
                                 <FiPrinter className="mr-2" />
                                 Cetak Amplop
                             </DropdownMenuItem>
                         </Link>
-                        <Link to={`cetak-daftar-potong`}>
+                        <Link to="cetak-daftar-potong">
                             <DropdownMenuItem>
                                 <FiPrinter className="mr-2" />
                                 Cetak Daftar Potong
                             </DropdownMenuItem>
                         </Link>
+                        {belanja.metodePembayaran === 'TRANSFER' && (
+                            <Link to="cetak-setoran-bank">
+                                <DropdownMenuItem>
+                                    <FiPrinter className="mr-2" />
+                                    Cetak Setoran Bank
+                                </DropdownMenuItem>
+                            </Link>
+                        )}
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
                             onClick={() => {
@@ -461,7 +469,7 @@ export default function EditPage() {
                     </CardDescription>
                 </CardHeader>
                 <Button asChild>
-                    <Link to={`potongan/tambah`}>
+                    <Link to="potongan/tambah">
                         <FiPlus className="mr-2" />
                         Tambah
                     </Link>

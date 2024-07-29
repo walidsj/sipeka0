@@ -224,3 +224,9 @@ export function formatAngkaRomawi(num: number) {
         roman = (key[parseInt(digits.pop() || '0') + i * 10] || '') + roman
     return Array(+digits.join('') + 1).join('M') + roman
 }
+
+export function ucFirst(text: string) {
+    return text.replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
+        letter.toUpperCase()
+    )
+}
