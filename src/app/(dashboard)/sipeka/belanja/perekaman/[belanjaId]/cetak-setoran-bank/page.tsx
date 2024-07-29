@@ -182,17 +182,17 @@ export default function Page() {
                                     <tr>
                                         <td
                                             colSpan={2}
-                                            className="h-[5mm] border pl-[5.8cm] align-top text-[10pt] leading-[11pt]"
+                                            className="h-[5mm] border border-transparent pl-[5.8cm] align-top text-[10pt] leading-[11pt]"
                                         >
                                             <FaCheck />
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td className="w-auto border align-top">
+                                        <td className="w-auto border border-transparent align-top">
                                             <table className="text-black-500 mt-[4mm] w-[100%] border-separate border-spacing-[0.3mm]">
                                                 <tbody>
                                                     <tr>
-                                                        <td className="h-[4mm] border py-0 align-top font-arial text-[9pt] leading-[10pt]">
+                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[9pt] leading-[10pt]">
                                                             {
                                                                 belanja.rekanan
                                                                     ?.namaRekening
@@ -200,7 +200,7 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border py-0 align-top font-arial text-[6pt] leading-[5pt]">
+                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[6pt] leading-[5pt]">
                                                             {
                                                                 belanja.rekanan
                                                                     ?.alamat
@@ -208,10 +208,10 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border py-0 align-top font-arial text-[8pt] leading-[9pt]"></td>
+                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border py-0 align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
                                                             {
                                                                 belanja.rekanan
                                                                     ?.noTelp
@@ -219,7 +219,7 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border py-0 align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
                                                             {
                                                                 belanja.rekanan
                                                                     ?.bank?.nama
@@ -233,10 +233,10 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border py-0 align-top font-arial text-[8pt] leading-[9pt]"></td>
+                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border py-0 pl-[2mm] align-top font-arial text-[9pt] leading-[10pt]">
+                                                        <td className="h-[4mm] border border-transparent py-0 pl-[2mm] align-top font-arial text-[9pt] leading-[10pt]">
                                                             {
                                                                 belanja.rekanan
                                                                     ?.noRekening
@@ -248,43 +248,43 @@ export default function Page() {
                                             <table className="text-black-500 mt-[5mm] w-[100%] border-separate border-spacing-[0.25mm]">
                                                 <tbody>
                                                     <tr>
-                                                        <td className="h-[4mm] border py-0 align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
                                                             RSJD AHM /
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border py-0 align-top font-arial text-[7pt] leading-[8pt]">
+                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[7pt] leading-[8pt]">
                                                             Jl. Kakap No. 23
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border py-0 align-top font-arial text-[8pt] leading-[9pt]"></td>
+                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border py-0 align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
                                                             085172277277
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border py-0 align-top font-arial text-[8pt] leading-[9pt]"></td>
+                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]"></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                             <table className="text-black-500 mt-[6mm] w-[100%] border-separate border-spacing-[0.25mm]">
                                                 <tbody>
                                                     <tr>
-                                                        <td className="h-[4mm] border py-0 pl-[1.25cm] align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="h-[4mm] border border-transparent py-0 pl-[1.25cm] align-top font-arial text-[8pt] leading-[9pt]">
                                                             BLUD RSJD AHM
                                                         </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </td>
-                                        <td className="w-[7.5cm] border align-top">
+                                        <td className="w-[7.5cm] border border-transparent align-top">
                                             <table className="text-black-500 w-[100%] border-separate border-spacing-[0.25mm]">
                                                 <tbody>
                                                     <tr>
-                                                        <td className="h-[4mm] border py-0 pl-[7.85mm] align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="h-[4mm] border border-transparent py-0 pl-[7.85mm] align-top font-arial text-[8pt] leading-[9pt]">
                                                             <FaCheck />
                                                         </td>
                                                     </tr>
@@ -294,13 +294,13 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border py-0 align-top font-arial text-[8pt] leading-[9pt]"></td>
+                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4.5mm] border py-0 align-top font-arial text-[8pt] leading-[9pt]"></td>
+                                                        <td className="h-[4.5mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4.5mm] border py-0 text-right align-bottom font-arial text-[9pt] leading-[10pt]">
+                                                        <td className="h-[4.5mm] border border-transparent py-0 text-right align-bottom font-arial text-[9pt] leading-[10pt]">
                                                             {formatAngkaDecimal(
                                                                 Number(
                                                                     belanja.jumlah
@@ -321,14 +321,14 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4.5mm] border py-0 text-right align-bottom font-arial text-[9pt] leading-[10pt]">
+                                                        <td className="h-[4.5mm] border border-transparent py-0 text-right align-bottom font-arial text-[9pt] leading-[10pt]">
                                                             {formatAngkaDecimal(
                                                                 biayaAdmin
                                                             )}
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4.5mm] border py-0 text-right align-bottom font-arial text-[9pt] leading-[10pt]">
+                                                        <td className="h-[4.5mm] border border-transparent py-0 text-right align-bottom font-arial text-[9pt] leading-[10pt]">
                                                             {formatAngkaDecimal(
                                                                 Number(
                                                                     belanja.jumlah
@@ -348,7 +348,7 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[2cm] border py-0 pt-[8mm] align-top font-arial text-[7pt] leading-[8pt]">
+                                                        <td className="h-[2cm] border border-transparent py-0 pt-[8mm] align-top font-arial text-[7pt] leading-[8pt]">
                                                             {ucFirst(
                                                                 terbilang(
                                                                     Number(
@@ -371,7 +371,7 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[1cm] border py-0 pt-[5mm] align-top font-arial text-[7pt] leading-[8pt]">
+                                                        <td className="h-[1cm] border border-transparent py-0 pt-[5mm] align-top font-arial text-[7pt] leading-[8pt]">
                                                             {belanja.uraian}
                                                         </td>
                                                     </tr>
