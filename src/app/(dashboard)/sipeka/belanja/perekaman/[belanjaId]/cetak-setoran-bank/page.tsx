@@ -289,7 +289,7 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="border py-2 align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="border border-transparent py-2 align-top font-arial text-[8pt] leading-[9pt]">
                                                             <FaCheck />
                                                         </td>
                                                     </tr>
