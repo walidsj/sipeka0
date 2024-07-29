@@ -481,7 +481,7 @@ export default function MonitoringTable() {
                                                             </DropdownMenuTrigger>
                                                             <DropdownMenuContent align="start">
                                                                 <Link
-                                                                    to={`/anggaran/monitoring/realisasi-belanja/${rincian.id}/detail-belanja`}
+                                                                    to={`${rincian.id}/detail-belanja`}
                                                                 >
                                                                     <DropdownMenuItem>
                                                                         <FiList className="mr-2" />
@@ -490,7 +490,7 @@ export default function MonitoringTable() {
                                                                     </DropdownMenuItem>
                                                                 </Link>
                                                                 <Link
-                                                                    to={`/anggaran/monitoring/realisasi-belanja/${rincian.id}/edit`}
+                                                                    to={`${rincian.id}/edit`}
                                                                 >
                                                                     <DropdownMenuItem>
                                                                         <FiEdit className="mr-2" />
