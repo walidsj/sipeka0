@@ -300,7 +300,7 @@ export default function Page() {
                                                         <td className="h-[4.5mm] border py-0 align-top font-arial text-[8pt] leading-[9pt]"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4.5mm] border py-0 text-right align-top font-arial text-[9pt] leading-[10pt]">
+                                                        <td className="h-[4.5mm] border py-0 text-right align-bottom font-arial text-[9pt] leading-[10pt]">
                                                             {formatAngkaDecimal(
                                                                 Number(
                                                                     belanja.jumlah
@@ -321,14 +321,14 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4.5mm] border py-0 text-right align-top font-arial text-[9pt] leading-[10pt]">
+                                                        <td className="h-[4.5mm] border py-0 text-right align-bottom font-arial text-[9pt] leading-[10pt]">
                                                             {formatAngkaDecimal(
                                                                 biayaAdmin
                                                             )}
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4.5mm] border py-0 text-right align-top font-arial text-[9pt] leading-[10pt]">
+                                                        <td className="h-[4.5mm] border py-0 text-right align-bottom font-arial text-[9pt] leading-[10pt]">
                                                             {formatAngkaDecimal(
                                                                 Number(
                                                                     belanja.jumlah
