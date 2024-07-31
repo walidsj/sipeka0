@@ -1,5 +1,9 @@
 import { rekeningBankTable, rekeningKoranTable } from '@/server/db/schema'
-import { createTRPCRouter, userProcedure } from '@/server/trpc'
+import {
+    createTRPCRouter,
+    pengelolaProcedure,
+    userProcedure,
+} from '@/server/trpc'
 import { asc, eq, inArray } from 'drizzle-orm'
 import { z } from 'zod'
 import { rekeningKoranSchema } from '../schema/rekening-koran'
@@ -51,7 +55,10 @@ export const rekeningKoranRouter = createTRPCRouter({
             return { message: 'Data berhasil diupdate' }
         }),
 
-    deleteById: userProcedure
+    deleteById: pengelolaProcedure([
+        'BENDAHARA PENGELUARAN',
+        'BENDAHARA PENERIMAAN',
+    ])
         .input(z.number())
         .mutation(async ({ ctx, input }) => {
             await ctx.db
@@ -61,7 +68,10 @@ export const rekeningKoranRouter = createTRPCRouter({
             return { message: 'Data berhasil dihapus' }
         }),
 
-    importCsv: userProcedure
+    importCsv: pengelolaProcedure([
+        'BENDAHARA PENGELUARAN',
+        'BENDAHARA PENERIMAAN',
+    ])
         .input(z.object({ fileCsv: z.string().refine(Base64.isValid) }))
         .mutation(async ({ ctx, input }) => {
             const csv = Base64.decode(input.fileCsv)
