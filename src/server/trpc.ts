@@ -108,18 +108,22 @@ export const pengelolaProcedure = (jabatanList: JabatanListType[]) =>
             return next()
         }
 
+        let hasAccess = false
+
         if (ctx.user?.pegawai?.pengelolaBlud) {
             ctx.user.pegawai.pengelolaBlud.forEach((pengelola) => {
-                if (!pengelola.role) return
-
-                if (jabatanList.includes(pengelola.role)) {
-                    return next()
+                if (pengelola.role && jabatanList.includes(pengelola.role)) {
+                    hasAccess = true
                 }
             })
         }
 
-        throw new TRPCError({
-            code: 'UNAUTHORIZED',
-            message: `Anda tidak memiliki salah satu hak akses ${jabatanList.join(', ')} (illegal access)`,
-        })
+        if (hasAccess) {
+            return next()
+        } else {
+            throw new TRPCError({
+                code: 'UNAUTHORIZED',
+                message: `Anda tidak memiliki salah satu hak akses ${jabatanList.join(', ')} (illegal access)`,
+            })
+        }
     })
