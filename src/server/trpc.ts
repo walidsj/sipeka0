@@ -96,6 +96,14 @@ type JabatanListType =
 
 export const pengelolaProcedure = (jabatanList: JabatanListType[]) =>
     userProcedure.use(async ({ ctx, next }) => {
+        if (!ctx.user?.pegawai?.pengelolaBlud) {
+            throw new TRPCError({
+                code: 'UNAUTHORIZED',
+                message:
+                    'Anda tidak memiliki hak akses Pengelola BLUD (illegal access)',
+            })
+        }
+
         if (!jabatanList) {
             return next()
         }
@@ -112,7 +120,6 @@ export const pengelolaProcedure = (jabatanList: JabatanListType[]) =>
 
         throw new TRPCError({
             code: 'UNAUTHORIZED',
-            message:
-                'Anda tidak memiliki hak akses Pengelola BLUD (illegal access)',
+            message: `Anda tidak memiliki salah satu hak akses ${jabatanList.join(', ')} (illegal access)`,
         })
     })
