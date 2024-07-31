@@ -1,5 +1,6 @@
 import { env } from '@/env.server'
 import { type JWTPayload, SignJWT, jwtVerify } from 'jose'
+import { user } from '@/server/db/schema'
 
 const secret = env.JWT_SECRET_KEY ?? 'secret'
 const key = new TextEncoder().encode(secret)
@@ -25,5 +26,5 @@ export async function decrypt(input: string): Promise<unknown> {
 
 export async function getSession(token: string) {
     if (!token) return null
-    return await decrypt(token)
+    return (await decrypt(token)) as typeof user.$inferSelect
 }

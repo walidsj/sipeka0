@@ -55,7 +55,14 @@ export const userProcedure = publicProcedure.use(async ({ ctx, next }) => {
     }
 
     const existedUser = await ctx.db.query.user.findFirst({
-        where: eq(user.id, parseInt(ctx.session.id)),
+        where: eq(user.id, Number(ctx.session.id)),
+        with: {
+            pegawai: {
+                with: {
+                    pengelolaBlud: true,
+                },
+            },
+        },
     })
 
     return next({
@@ -75,3 +82,37 @@ export const adminProcedure = userProcedure.use(async ({ ctx, next }) => {
 
     return next()
 })
+
+// jabatanList bisa berisi satu atau lebih dari item string array berikut: ["KUASA PENGGUNA ANGGARAN" | "PEJABAT PELAKSANA TEKNIS KEGIATAN" | "PEJABAT PEMBUAT KOMITMEN" | "BENDAHARA PENGELUARAN" | "BENDAHARA PENERIMAAN" | "PEJABAT PENATAUSAHAAN KEUANGAN" | "PENGURUS BARANG" | "PEJABAT PENGADAAN"]
+type JabatanListType =
+    | 'KUASA PENGGUNA ANGGARAN'
+    | 'PEJABAT PELAKSANA TEKNIS KEGIATAN'
+    | 'PEJABAT PEMBUAT KOMITMEN'
+    | 'BENDAHARA PENGELUARAN'
+    | 'BENDAHARA PENERIMAAN'
+    | 'PEJABAT PENATAUSAHAAN KEUANGAN'
+    | 'PENGURUS BARANG'
+    | 'PEJABAT PENGADAAN'
+
+export const pengelolaProcedure = (jabatanList: JabatanListType[]) =>
+    userProcedure.use(async ({ ctx, next }) => {
+        if (!jabatanList) {
+            return next()
+        }
+
+        if (ctx.user?.pegawai?.pengelolaBlud) {
+            ctx.user.pegawai.pengelolaBlud.forEach((pengelola) => {
+                if (!pengelola.role) return
+
+                if (jabatanList.includes(pengelola.role)) {
+                    return next()
+                }
+            })
+        }
+
+        throw new TRPCError({
+            code: 'UNAUTHORIZED',
+            message:
+                'Anda tidak memiliki hak akses Pengelola BLUD (illegal access)',
+        })
+    })

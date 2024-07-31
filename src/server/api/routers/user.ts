@@ -95,7 +95,7 @@ export const userRouter = createTRPCRouter({
         }),
 
     getProfile: userProcedure.query(async ({ ctx }) => {
-        const existedUser = ctx.user!
+        const existedUser = ctx.user
 
         if (!existedUser) {
             throw new TRPCError({
@@ -104,15 +104,7 @@ export const userRouter = createTRPCRouter({
             })
         }
 
-        const pegawaiData = await ctx.db.query.pegawai.findFirst({
-            where: eq(pegawai.id, existedUser.pegawaiId!),
-            with: {
-                pengelolaBlud: true,
-                bank: true,
-            },
-        })
-
-        return { ...existedUser, password: undefined, pegawai: pegawaiData }
+        return { ...existedUser, password: undefined }
     }),
 
     updateProfile: userProcedure

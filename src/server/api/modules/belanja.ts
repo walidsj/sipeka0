@@ -6,7 +6,12 @@ import {
     rab,
     rba,
 } from '@/server/db/schema'
-import { createTRPCRouter, publicProcedure, userProcedure } from '@/server/trpc'
+import {
+    createTRPCRouter,
+    pengelolaProcedure,
+    publicProcedure,
+    userProcedure,
+} from '@/server/trpc'
 import {
     and,
     asc,
@@ -165,7 +170,7 @@ export const belanjaRouter = createTRPCRouter({
         })
     }),
 
-    create: userProcedure
+    create: pengelolaProcedure(['BENDAHARA PENGELUARAN'])
         .input(belanjaSchema)
         .mutation(async ({ ctx, input }) => {
             await ctx.db.insert(belanja).values({
@@ -176,7 +181,7 @@ export const belanjaRouter = createTRPCRouter({
             return { message: 'Data berhasil ditambahkan' }
         }),
 
-    updateById: userProcedure
+    updateById: pengelolaProcedure(['BENDAHARA PENGELUARAN'])
         .input(z.object({ id: z.number() }).merge(belanjaSchema))
         .mutation(async ({ ctx, input }) => {
             await ctx.db
@@ -190,7 +195,7 @@ export const belanjaRouter = createTRPCRouter({
             return { message: 'Data berhasil diupdate' }
         }),
 
-    deleteById: userProcedure
+    deleteById: pengelolaProcedure(['BENDAHARA PENGELUARAN'])
         .input(z.number())
         .mutation(async ({ ctx, input }) => {
             await ctx.db.delete(belanja).where(eq(belanja.id, input))
