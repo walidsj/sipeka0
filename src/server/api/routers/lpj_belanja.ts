@@ -1,5 +1,9 @@
 import { belanja, lpjBelanjaTable } from '@/server/db/schema'
-import { createTRPCRouter, userProcedure } from '@/server/trpc'
+import {
+    createTRPCRouter,
+    pengelolaProcedure,
+    userProcedure,
+} from '@/server/trpc'
 import { and, asc, desc, eq, isNull, like, or } from 'drizzle-orm'
 import { z } from 'zod'
 import { lpjBelanjaSchema } from '../schema/lpj_belanja'
@@ -65,7 +69,7 @@ export const lpjBelanjaRouter = createTRPCRouter({
         })
     }),
 
-    create: userProcedure
+    create: pengelolaProcedure(['BENDAHARA PENGELUARAN'])
         .input(lpjBelanjaSchema)
         .mutation(async ({ ctx, input }) => {
             await ctx.db.insert(lpjBelanjaTable).values(input)
@@ -73,7 +77,7 @@ export const lpjBelanjaRouter = createTRPCRouter({
             return { message: 'Data berhasil ditambahkan' }
         }),
 
-    updateById: userProcedure
+    updateById: pengelolaProcedure(['BENDAHARA PENGELUARAN'])
         .input(z.object({ id: z.number() }).merge(lpjBelanjaSchema))
         .mutation(async ({ ctx, input }) => {
             await ctx.db
@@ -84,7 +88,7 @@ export const lpjBelanjaRouter = createTRPCRouter({
             return { message: 'Data berhasil diupdate' }
         }),
 
-    deleteById: userProcedure
+    deleteById: pengelolaProcedure(['BENDAHARA PENGELUARAN'])
         .input(z.number())
         .mutation(async ({ ctx, input }) => {
             await ctx.db

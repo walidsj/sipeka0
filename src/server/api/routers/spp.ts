@@ -1,6 +1,10 @@
 import { sppSchema } from '../schema/spp'
 import { sppTable } from '@/server/db/schema'
-import { createTRPCRouter, userProcedure } from '@/server/trpc'
+import {
+    createTRPCRouter,
+    pengelolaProcedure,
+    userProcedure,
+} from '@/server/trpc'
 import { desc, eq, like, or } from 'drizzle-orm'
 import { z } from 'zod'
 import { rekeningLevel6 } from '@/data/rekening'
@@ -107,13 +111,15 @@ export const sppRouter = createTRPCRouter({
         }
     }),
 
-    create: userProcedure.input(sppSchema).mutation(async ({ ctx, input }) => {
-        await ctx.db.insert(sppTable).values(input)
+    create: pengelolaProcedure(['BENDAHARA PENGELUARAN'])
+        .input(sppSchema)
+        .mutation(async ({ ctx, input }) => {
+            await ctx.db.insert(sppTable).values(input)
 
-        return { message: 'Data berhasil ditambahkan' }
-    }),
+            return { message: 'Data berhasil ditambahkan' }
+        }),
 
-    updateById: userProcedure
+    updateById: pengelolaProcedure(['BENDAHARA PENGELUARAN'])
         .input(z.object({ id: z.number() }).merge(sppSchema))
         .mutation(async ({ ctx, input }) => {
             await ctx.db
@@ -124,7 +130,7 @@ export const sppRouter = createTRPCRouter({
             return { message: 'Data berhasil diupdate' }
         }),
 
-    deleteById: userProcedure
+    deleteById: pengelolaProcedure(['BENDAHARA PENGELUARAN'])
         .input(z.number())
         .mutation(async ({ ctx, input }) => {
             await ctx.db.delete(sppTable).where(eq(sppTable.id, input))
