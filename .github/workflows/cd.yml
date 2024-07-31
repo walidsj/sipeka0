@@ -19,6 +19,7 @@ jobs:
                  cd /home/sipeka0
                  git pull origin main
                  pnpm install
+                 pm2 stop sipeka0
                  pnpm build:web
                  pnpm build:server
                  pm2 restart sipeka0
