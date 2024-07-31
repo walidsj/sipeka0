@@ -12,6 +12,7 @@ import { api } from '@/trpc/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 
 const uploadSchema = z.object({
@@ -20,6 +21,7 @@ const uploadSchema = z.object({
 
 export default function CreateForm() {
     const utils = api.useUtils()
+    const navigate = useNavigate()
 
     const form = useForm<z.infer<typeof uploadSchema>>({
         resolver: zodResolver(uploadSchema),
@@ -36,6 +38,7 @@ export default function CreateForm() {
         onSuccess(data) {
             toast.dismiss()
             utils.rekeningKoran.invalidate()
+            navigate(-1)
             toast.success(data.message)
         },
         onError(error) {
@@ -47,7 +50,7 @@ export default function CreateForm() {
     function onSubmit(val: z.infer<typeof uploadSchema>) {
         console.log(val)
 
-        let reader = new FileReader()
+        const reader = new FileReader()
 
         reader.readAsDataURL(val.fileCsv)
         reader.onload = function () {
