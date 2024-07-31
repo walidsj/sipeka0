@@ -11,6 +11,7 @@ import {
     HiOutlineArrowSmRight,
     HiOutlineDocumentReport,
     HiOutlineDocumentText,
+    HiOutlineUpload,
 } from 'react-icons/hi'
 import { Link } from 'react-router-dom'
 
@@ -25,11 +26,17 @@ export default function Page() {
                     </div>
                     <HiOutlineArchive className="flex-shrink-0 flex-grow-0 text-5xl text-primary" />
                 </CardHeader>
-                <CardFooter>
+                <CardFooter className="gap-2">
                     <Button asChild>
                         <Link to="rekening-koran">
                             Akses
                             <HiOutlineArrowSmRight className="ml-2" />
+                        </Link>
+                    </Button>
+                    <Button className="bg-secondary" asChild>
+                        <Link to="rekening-koran/import">
+                            Import
+                            <HiOutlineUpload className="ml-2" />
                         </Link>
                     </Button>
                 </CardFooter>

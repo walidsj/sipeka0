@@ -1,8 +1,9 @@
-import { rekeningKoranTable } from '@/server/db/schema'
+import { rekeningBankTable, rekeningKoranTable } from '@/server/db/schema'
 import { createTRPCRouter, userProcedure } from '@/server/trpc'
-import { asc, eq } from 'drizzle-orm'
+import { asc, eq, inArray } from 'drizzle-orm'
 import { z } from 'zod'
 import { rekeningKoranSchema } from '../schema/rekening-koran'
+import { Base64 } from 'js-base64'
 
 export const rekeningKoranRouter = createTRPCRouter({
     getAllByRekeningBankId: userProcedure
@@ -58,5 +59,83 @@ export const rekeningKoranRouter = createTRPCRouter({
                 .where(eq(rekeningKoranTable.id, input))
 
             return { message: 'Data berhasil dihapus' }
+        }),
+
+    importCsv: userProcedure
+        .input(z.object({ fileCsv: z.string().refine(Base64.isValid) }))
+        .mutation(async ({ ctx, input }) => {
+            const csv = Base64.decode(input.fileCsv)
+
+            const lines = csv.split(/\r?\n/)
+            const data = lines.map((line) => {
+                const [
+                    noRekening,
+                    rupiah,
+                    tglTransaksiRaw,
+                    keterangan,
+                    noReferensi,
+                    kredit,
+                    debet,
+                    saldo,
+                ] = line.split(';')
+
+                return {
+                    noRekening,
+                    rupiah,
+                    tglTransaksiRaw,
+                    keterangan,
+                    noReferensi,
+                    kredit,
+                    debet,
+                    saldo,
+                }
+            })
+
+            const noRekeningListUnique = Array.from(
+                new Set(data.map((item) => item.noRekening))
+            )
+
+            const rekeningBankIds = await ctx.db
+                .select()
+                .from(rekeningBankTable)
+                .where(
+                    inArray(rekeningBankTable.noRekening, noRekeningListUnique)
+                )
+
+            const inputData = data.map((item) => {
+                const rekeningBankId = rekeningBankIds.find(
+                    (rekeningBank) =>
+                        rekeningBank.noRekening === item.noRekening
+                )?.id
+                if (rekeningBankId) {
+                    return {
+                        rekeningBankId,
+                        tglTransaksi: new Date(item.tglTransaksiRaw),
+                        keterangan: item.keterangan,
+                        noReferensi: item.noReferensi,
+                        debet: String(
+                            Number(
+                                item.debet.replace(/\./g, '').replace(/,/g, '.')
+                            ).toFixed(2)
+                        ),
+                        kredit: String(
+                            Number(
+                                item.kredit
+                                    .replace(/\./g, '')
+                                    .replace(/,/g, '.')
+                            ).toFixed(2)
+                        ),
+                        keteranganTambahan: null,
+                    }
+                } else {
+                    return
+                }
+            })
+
+            await ctx.db
+                .insert(rekeningKoranTable)
+                .values(inputData.filter((item) => item !== undefined))
+
+            return { message: 'Data berhasil diimport' }
         }),
 })
