@@ -10,7 +10,6 @@ import {
 import { Input } from '@/components/ui/input'
 import { api } from '@/trpc/react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Base64 } from 'js-base64'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { z } from 'zod'
