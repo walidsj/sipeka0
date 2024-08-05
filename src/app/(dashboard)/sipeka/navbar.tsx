@@ -3,7 +3,7 @@ import {
     FiFileText,
     FiHome,
     FiPocket,
-    FiShare,
+    FiShare2,
     FiShoppingCart,
     FiTool,
 } from 'react-icons/fi'
@@ -148,7 +148,7 @@ export default function Navbar() {
                                 isActive && 'bg-primary text-primary-foreground'
                             )}
                         >
-                            <FiShare />
+                            <FiShare2 />
                         </Card3dItem>
                         <Card3dItem translateZ={2}>Integrasi</Card3dItem>
                     </Card3d>

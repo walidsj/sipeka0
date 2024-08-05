@@ -9,15 +9,8 @@ import { Input } from '@/components/ui/input'
 import { api } from '@/trpc/react'
 import React from 'react'
 import { jwtDecode } from 'jwt-decode'
-import { Textarea } from '@/components/ui/textarea'
 import { useCookies } from 'react-cookie'
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-} from '@/components/ui/table'
+import { useNavigate } from 'react-router-dom'
 
 type PreLoginSipdResponse = {
     id_pegawai: number
@@ -32,6 +25,7 @@ type PreLoginSipdResponse = {
 
 export default function Page() {
     const utils = api.useUtils()
+    const navigate = useNavigate()
 
     const [cookie, setCookie] = useCookies(['sipd_token', 'sipd_refresh_token'])
 
@@ -95,15 +89,12 @@ export default function Page() {
                     ),
                     path: '/',
                 })
+                navigate('/sipeka/integrasi/sipd/profil')
             }
         },
         onError: (error) => {
             alert(error.message)
         },
-    })
-
-    const profileSipd = api.tool.getSipdProfile.useQuery(undefined, {
-        enabled: !!token.token && !!token.refresh_token,
     })
 
     return (
@@ -158,34 +149,6 @@ export default function Page() {
                                     : 'Login'}
                             </Button>
                         </form>
-                    </CardHeader>
-                </Card>
-                <Card className="mt-5">
-                    <CardHeader>
-                        {profileSipd.data && (
-                            <Table>
-                                <TableBody>
-                                    <TableRow>
-                                        <TableHead>Nama User</TableHead>
-                                        <TableCell>
-                                            {profileSipd.data.nama_user}
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableHead>NIP User</TableHead>
-                                        <TableCell>
-                                            {profileSipd.data.nip_user}
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableHead>NPWP User</TableHead>
-                                        <TableCell>
-                                            {profileSipd.data.npwp_user}
-                                        </TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            </Table>
-                        )}
                     </CardHeader>
                 </Card>
             </div>
@@ -256,72 +219,6 @@ export default function Page() {
                         </CardHeader>
                     </Card>
                 ))}
-            </div>
-            <div>
-                {token && (
-                    <div className="text-wrap rounded-2xl bg-green-200 p-3 text-xs">
-                        {token.token && (
-                            <div>
-                                <strong>
-                                    Token: Valid sampai{' '}
-                                    {Intl.DateTimeFormat('id', {
-                                        dateStyle: 'full',
-                                        timeStyle: 'long',
-                                    }).format(
-                                        new Date(
-                                            Number(jwtDecode(token.token).exp) *
-                                                1000
-                                        )
-                                    )}
-                                </strong>
-                                <Textarea
-                                    readOnly
-                                    value={token.token}
-                                    rows={10}
-                                />
-                                <strong>Data Token</strong>
-                                <Textarea
-                                    readOnly
-                                    value={JSON.stringify(
-                                        jwtDecode(token.token)
-                                    )}
-                                    rows={5}
-                                />
-                            </div>
-                        )}
-                        {token.refresh_token && (
-                            <div>
-                                <strong>
-                                    Refresh Token: Valid sampai{' '}
-                                    {Intl.DateTimeFormat('id', {
-                                        dateStyle: 'full',
-                                        timeStyle: 'long',
-                                    }).format(
-                                        new Date(
-                                            Number(
-                                                jwtDecode(token.refresh_token)
-                                                    .exp
-                                            ) * 1000
-                                        )
-                                    )}
-                                </strong>
-                                <Textarea
-                                    readOnly
-                                    value={token.refresh_token}
-                                    rows={10}
-                                />
-                                <strong>Data Refresh Token</strong>
-                                <Textarea
-                                    readOnly
-                                    value={JSON.stringify(
-                                        jwtDecode(token.refresh_token)
-                                    )}
-                                    rows={5}
-                                />
-                            </div>
-                        )}
-                    </div>
-                )}
             </div>
         </div>
     )

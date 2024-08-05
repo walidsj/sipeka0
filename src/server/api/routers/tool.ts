@@ -4,6 +4,7 @@ import axios from 'axios'
 import { TRPCError } from '@trpc/server'
 import https from 'https'
 import cookie from 'cookie'
+import { format } from 'date-fns'
 
 export const toolRouter = createTRPCRouter({
     preLoginSipd: userProcedure
@@ -185,6 +186,41 @@ export const toolRouter = createTRPCRouter({
                 alamat: string
                 lahir_user: string
             }
+        } catch (error) {
+            console.log(error)
+
+            if (axios.isAxiosError(error)) {
+                throw new TRPCError({
+                    code: 'BAD_REQUEST',
+                    message: JSON.stringify(error.response?.data),
+                })
+            }
+        }
+    }),
+
+    getCetakLraSipd: userProcedure.query(async ({ ctx }) => {
+        const { sipd_token }: { sipd_token: string } = cookie.parse(
+            ctx.headers.cookie
+        )
+
+        // const now = format(new Date(), 'y-m-d')
+        // now with format YYYY-MM-DD
+        const now = format(new Date(), 'yyyy-MM-dd')
+
+        try {
+            const response = await axios.get(
+                `https://service.sipd.kemendagri.go.id/aklap/api/report/cetaklra?searchparams=%7B%22tanggalFrom%22:%222024-01-01%22,%22tanggalTo%22:%22${now}%22,%22formatFile%22:%22preview%22,%22tahun%22:%222024%22,%22level%22:null,%22previewLaporan%22:null,%22is_combine%22:%22skpd_unit%22,%22skpd%22:479%7D`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${sipd_token}`,
+                    },
+                    httpsAgent: new https.Agent({
+                        rejectUnauthorized: false,
+                    }),
+                }
+            )
+
+            return response.data as Document
         } catch (error) {
             console.log(error)
 
