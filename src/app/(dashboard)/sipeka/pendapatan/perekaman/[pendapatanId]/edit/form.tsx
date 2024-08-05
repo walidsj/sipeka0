@@ -47,7 +47,7 @@ export default function EditForm({
         onSuccess(res) {
             toast.dismiss()
             utils.pendapatan.invalidate()
-            navigate(`/pendapatan/perekaman`)
+            navigate(-1)
             toast.success(res.message)
         },
         onError(error) {

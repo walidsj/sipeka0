@@ -43,7 +43,7 @@ export default function CreateForm() {
         onSuccess(data) {
             toast.dismiss()
             utils.pendapatan.invalidate()
-            navigate('/pendapatan/perekaman')
+            navigate(-1)
             toast.success(data.message)
         },
         onError(error) {
