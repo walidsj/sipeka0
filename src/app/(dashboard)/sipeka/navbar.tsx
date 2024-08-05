@@ -133,6 +133,26 @@ export default function Navbar() {
                     </Card3d>
                 )}
             </NavLink>
+            <NavLink to="tool/sipd/login">
+                {({ isActive }) => (
+                    <Card3d
+                        perspective={50}
+                        className="flex flex-row items-center text-nowrap py-2 pl-3 pr-5 font-semibold"
+                    >
+                        <Card3dItem
+                            translateZ={4}
+                            rotateZ={15}
+                            className={cn(
+                                'mr-2 flex items-center justify-center rounded-full p-2 text-primary transition-all',
+                                isActive && 'bg-primary text-primary-foreground'
+                            )}
+                        >
+                            <FiTool />
+                        </Card3dItem>
+                        <Card3dItem translateZ={2}>Tool</Card3dItem>
+                    </Card3d>
+                )}
+            </NavLink>
         </nav>
     )
 }
