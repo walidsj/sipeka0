@@ -4,7 +4,7 @@ import {
     pengelolaProcedure,
     userProcedure,
 } from '@/server/trpc'
-import { asc, eq, inArray } from 'drizzle-orm'
+import { and, asc, eq, inArray, lte } from 'drizzle-orm'
 import { z } from 'zod'
 import { rekeningKoranSchema } from '../schema/rekening-koran'
 import { Base64 } from 'js-base64'
@@ -147,5 +147,32 @@ export const rekeningKoranRouter = createTRPCRouter({
                 .values(inputData.filter((item) => item !== undefined))
 
             return { message: 'Data berhasil diimport' }
+        }),
+
+    getSaldoByDate: userProcedure
+        .input(z.object({ rekeningBankId: z.number(), tglTransaksi: z.date() }))
+        .query(async ({ ctx, input }) => {
+            const jurnal = await ctx.db.query.rekeningKoranTable.findMany({
+                where: and(
+                    eq(rekeningKoranTable.rekeningBankId, input.rekeningBankId),
+                    lte(rekeningKoranTable.tglTransaksi, input.tglTransaksi)
+                ),
+                orderBy: [
+                    asc(rekeningKoranTable.tglTransaksi),
+                    asc(rekeningKoranTable.createdAt),
+                ],
+            })
+
+            return {
+                saldo: jurnal.reduce((acc, item) => {
+                    return acc - Number(item.debet) + Number(item.kredit)
+                }, 0),
+                debet: jurnal.reduce((acc, item) => {
+                    return acc + Number(item.debet)
+                }, 0),
+                kredit: jurnal.reduce((acc, item) => {
+                    return acc + Number(item.kredit)
+                }, 0),
+            }
         }),
 })
