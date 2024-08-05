@@ -179,7 +179,18 @@ export default function Page() {
                                                     <tr>
                                                         <td className="h-[5mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
                                                             {formatAngkaDecimal(
-                                                                belanja.jumlah
+                                                                belanja.jumlah -
+                                                                    belanja.potonganBelanja.reduce(
+                                                                        (
+                                                                            acc,
+                                                                            item
+                                                                        ) =>
+                                                                            acc +
+                                                                            Number(
+                                                                                item.jumlah
+                                                                            ),
+                                                                        0
+                                                                    )
                                                             )}
                                                         </td>
                                                     </tr>
@@ -188,7 +199,18 @@ export default function Page() {
                                                             {ucFirst(
                                                                 terbilang(
                                                                     Number(
-                                                                        belanja.jumlah
+                                                                        belanja.jumlah -
+                                                                            belanja.potonganBelanja.reduce(
+                                                                                (
+                                                                                    acc,
+                                                                                    item
+                                                                                ) =>
+                                                                                    acc +
+                                                                                    Number(
+                                                                                        item.jumlah
+                                                                                    ),
+                                                                                0
+                                                                            )
                                                                     )
                                                                 )
                                                             )}{' '}
