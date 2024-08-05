@@ -342,15 +342,17 @@ export default function Page() {
                                                     </tr>
                                                     <tr>
                                                         <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
-                                                            {
-                                                                belanja.rekanan
-                                                                    ?.bank?.nama
-                                                            }{' '}
+                                                            {belanja.rekanan
+                                                                ?.bank?.nama ||
+                                                                belanja.pegawai
+                                                                    ?.bank
+                                                                    ?.nama}
                                                             (
-                                                            {
-                                                                belanja.rekanan
-                                                                    ?.bank?.kode
-                                                            }
+                                                            {belanja.rekanan
+                                                                ?.bank?.kode ||
+                                                                belanja.pegawai
+                                                                    ?.bank
+                                                                    ?.kode}
                                                             )
                                                         </td>
                                                     </tr>
