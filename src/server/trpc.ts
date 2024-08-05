@@ -105,7 +105,7 @@ export const pengelolaProcedure = (jabatanList: JabatanListType[]) =>
         }
 
         if (!jabatanList) {
-            return next()
+            return next({ ctx })
         }
 
         let hasAccess = false
@@ -119,7 +119,7 @@ export const pengelolaProcedure = (jabatanList: JabatanListType[]) =>
         }
 
         if (hasAccess) {
-            return next()
+            return next({ ctx })
         } else {
             throw new TRPCError({
                 code: 'UNAUTHORIZED',
