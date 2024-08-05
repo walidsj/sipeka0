@@ -3,18 +3,20 @@ import { z } from 'zod'
 import axios from 'axios'
 import { TRPCError } from '@trpc/server'
 import https from 'https'
+import cookie from 'cookie'
 
 export const toolRouter = createTRPCRouter({
     preLoginSipd: userProcedure
         .input(
             z.object({
+                tahun: z.number(),
                 username: z.string(),
                 password: z.string(),
             })
         )
         .mutation(async ({ input }) => {
             const data = {
-                tahun: 2024,
+                tahun: input.tahun,
                 username: input.username,
                 password: input.password,
                 remember_me: true,
@@ -77,6 +79,7 @@ export const toolRouter = createTRPCRouter({
     loginSipd: userProcedure
         .input(
             z.object({
+                tahun: z.number(),
                 captcha_id: z.string(),
                 captcha_solution: z.string(),
                 id_pegawai: z.number(),
@@ -115,7 +118,7 @@ export const toolRouter = createTRPCRouter({
         )
         .mutation(async ({ input }) => {
             const payload = {
-                tahun: 2024,
+                tahun: input.tahun,
                 username: input.username,
                 password: input.password,
                 id_daerah: input.id_daerah,
@@ -152,4 +155,45 @@ export const toolRouter = createTRPCRouter({
                 }
             }
         }),
+
+    getSipdProfile: userProcedure.query(async ({ ctx }) => {
+        const { sipd_token }: { sipd_token: string } = cookie.parse(
+            ctx.headers.cookie
+        )
+
+        try {
+            const response = await axios.get(
+                'https://service.sipd.kemendagri.go.id/auth/strict/user/profile',
+                {
+                    headers: {
+                        Authorization: `Bearer ${sipd_token}`,
+                    },
+                    httpsAgent: new https.Agent({
+                        rejectUnauthorized: false,
+                    }),
+                }
+            )
+
+            return response.data as {
+                id_user: number
+                id_daerah: number
+                nip_user: string
+                nama_user: string
+                id_pang_gol: number
+                nik_user: string
+                npwp_user: string
+                alamat: string
+                lahir_user: string
+            }
+        } catch (error) {
+            console.log(error)
+
+            if (axios.isAxiosError(error)) {
+                throw new TRPCError({
+                    code: 'BAD_REQUEST',
+                    message: JSON.stringify(error.response?.data),
+                })
+            }
+        }
+    }),
 })

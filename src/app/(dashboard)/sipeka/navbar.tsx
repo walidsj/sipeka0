@@ -3,6 +3,7 @@ import {
     FiFileText,
     FiHome,
     FiPocket,
+    FiShare,
     FiShoppingCart,
     FiTool,
 } from 'react-icons/fi'
@@ -133,7 +134,7 @@ export default function Navbar() {
                     </Card3d>
                 )}
             </NavLink>
-            <NavLink to="tool/sipd/login">
+            <NavLink to="integrasi/sipd/login">
                 {({ isActive }) => (
                     <Card3d
                         perspective={50}
@@ -147,9 +148,9 @@ export default function Navbar() {
                                 isActive && 'bg-primary text-primary-foreground'
                             )}
                         >
-                            <FiTool />
+                            <FiShare />
                         </Card3dItem>
-                        <Card3dItem translateZ={2}>Tool</Card3dItem>
+                        <Card3dItem translateZ={2}>Integrasi</Card3dItem>
                     </Card3d>
                 )}
             </NavLink>
