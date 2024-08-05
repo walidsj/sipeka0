@@ -162,35 +162,39 @@ export default function Page() {
                                                     </tr>
                                                     <tr>
                                                         <td className="h-[5mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
-                                                            {
-                                                                belanja.rekanan
-                                                                    ?.noRekening
-                                                            }
+                                                            {belanja.rekanan
+                                                                ?.noRekening ||
+                                                                belanja.pegawai
+                                                                    ?.noRekening}
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td className="h-[5mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
-                                                            {
-                                                                belanja.rekanan
-                                                                    ?.namaRekening
-                                                            }
+                                                            {belanja.rekanan
+                                                                ?.namaRekening ||
+                                                                belanja.pegawai
+                                                                    ?.namaRekening}
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td className="h-[5mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
                                                             {formatAngkaDecimal(
-                                                                belanja.jumlah -
-                                                                    belanja.potonganBelanja.reduce(
-                                                                        (
-                                                                            acc,
-                                                                            item
-                                                                        ) =>
-                                                                            acc +
-                                                                            Number(
-                                                                                item.jumlah
-                                                                            ),
-                                                                        0
-                                                                    )
+                                                                Number(
+                                                                    Number(
+                                                                        belanja.jumlah
+                                                                    ) -
+                                                                        belanja.potonganBelanja.reduce(
+                                                                            (
+                                                                                acc,
+                                                                                item
+                                                                            ) =>
+                                                                                acc +
+                                                                                Number(
+                                                                                    item.jumlah
+                                                                                ),
+                                                                            0
+                                                                        )
+                                                                )
                                                             )}
                                                         </td>
                                                     </tr>
@@ -199,7 +203,9 @@ export default function Page() {
                                                             {ucFirst(
                                                                 terbilang(
                                                                     Number(
-                                                                        belanja.jumlah -
+                                                                        Number(
+                                                                            belanja.jumlah
+                                                                        ) -
                                                                             belanja.potonganBelanja.reduce(
                                                                                 (
                                                                                     acc,
@@ -309,10 +315,10 @@ export default function Page() {
                                                 <tbody>
                                                     <tr>
                                                         <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
-                                                            {
-                                                                belanja.rekanan
-                                                                    ?.namaRekening
-                                                            }
+                                                            {belanja.rekanan
+                                                                ?.namaRekening ||
+                                                                belanja.pegawai
+                                                                    ?.namaRekening}
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -353,10 +359,10 @@ export default function Page() {
                                                     </tr>
                                                     <tr>
                                                         <td className="h-[4mm] border border-transparent py-0 pl-[2mm] align-top font-arial text-[9pt] leading-[10pt]">
-                                                            {
-                                                                belanja.rekanan
-                                                                    ?.noRekening
-                                                            }
+                                                            {belanja.rekanan
+                                                                ?.noRekening ||
+                                                                belanja.pegawai
+                                                                    ?.noRekening}
                                                         </td>
                                                     </tr>
                                                 </tbody>
