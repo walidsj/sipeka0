@@ -28,43 +28,11 @@ export default function Page() {
         isLoading,
     } = api.sp3b.getById.useQuery(Number(params.sp3bId))
 
-    const { data: saldoAwalRekeningBankPenerimaan } =
-        api.rekeningKoran.getSaldoByDate.useQuery(
-            {
-                // tglTransaksi: new Date(sp3b?.tglMulai ?? new Date()),
-                // sp3b.tglMulai minus 1 day
-                tglTransaksi: new Date(
-                    new Date(sp3b?.tglMulai ?? new Date()).setDate(
-                        new Date(sp3b?.tglMulai ?? new Date()).getDate() - 1
-                    )
-                ),
-                rekeningBankId: 1,
-            },
-            {
-                enabled: !!sp3b,
-            }
-        )
-
     const { data: saldoAkhirRekeningBankPenerimaan } =
         api.rekeningKoran.getSaldoByDate.useQuery(
             {
                 tglTransaksi: new Date(sp3b?.tglSelesai ?? new Date()),
                 rekeningBankId: 1,
-            },
-            {
-                enabled: !!sp3b,
-            }
-        )
-
-    const { data: saldoAwalRekeningBankPengeluaran } =
-        api.rekeningKoran.getSaldoByDate.useQuery(
-            {
-                tglTransaksi: new Date(
-                    new Date(sp3b?.tglMulai ?? new Date()).setDate(
-                        new Date(sp3b?.tglMulai ?? new Date()).getDate() - 1
-                    )
-                ),
-                rekeningBankId: 2,
             },
             {
                 enabled: !!sp3b,
@@ -120,64 +88,45 @@ export default function Page() {
                             </TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableHead colSpan={2}>
+                            <TableHead>
                                 Saldo Bank Bendahara Penerimaan
                             </TableHead>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Saldo Awal</TableCell>
-                            <TableCell className="text-right">
-                                {formatAngkaDecimal(
-                                    saldoAwalRekeningBankPenerimaan?.saldo ?? 0
-                                )}
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Perubahan Saldo</TableCell>
-                            <TableCell className="text-right">
-                                {formatAngkaDecimal(
-                                    (saldoAkhirRekeningBankPenerimaan?.saldo ??
-                                        0) -
-                                        (saldoAwalRekeningBankPenerimaan?.saldo ??
-                                            0)
-                                )}
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Saldo Akhir</TableCell>
                             <TableCell className="text-right">
                                 {formatAngkaDecimal(
                                     saldoAkhirRekeningBankPenerimaan?.saldo ?? 0
                                 )}
                             </TableCell>
                         </TableRow>
-
                         <TableRow>
-                            <TableHead colSpan={2}>
+                            <TableHead>Saldo SP3B</TableHead>
+                            <TableCell className="text-right">
+                                {formatAngkaDecimal(
+                                    sp3b.saldoAwal +
+                                        sp3b.pendapatan.total -
+                                        (sp3b.belanja.pegawai +
+                                            sp3b.belanja.barjas +
+                                            sp3b.belanja.modal)
+                                )}
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableHead>Selisih Saldo</TableHead>
+                            <TableCell className="text-right">
+                                {formatAngkaDecimal(
+                                    (saldoAkhirRekeningBankPenerimaan?.saldo ??
+                                        0) -
+                                        sp3b.saldoAwal +
+                                        sp3b.pendapatan.total -
+                                        (sp3b.belanja.pegawai +
+                                            sp3b.belanja.barjas +
+                                            sp3b.belanja.modal)
+                                )}
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableHead>
                                 Saldo Bank Bendahara Pengeluaran
                             </TableHead>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Saldo Awal</TableCell>
-                            <TableCell className="text-right">
-                                {formatAngkaDecimal(
-                                    saldoAwalRekeningBankPengeluaran?.saldo ?? 0
-                                )}
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Perubahan Saldo</TableCell>
-                            <TableCell className="text-right">
-                                {formatAngkaDecimal(
-                                    (saldoAkhirRekeningBankPengeluaran?.saldo ??
-                                        0) -
-                                        (saldoAwalRekeningBankPengeluaran?.saldo ??
-                                            0)
-                                )}
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Saldo Akhir</TableCell>
                             <TableCell className="text-right">
                                 {formatAngkaDecimal(
                                     saldoAkhirRekeningBankPengeluaran?.saldo ??
@@ -186,34 +135,18 @@ export default function Page() {
                             </TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableHead colSpan={2}>Saldo SP3B</TableHead>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Saldo Awal</TableCell>
-                            <TableCell className="text-right">
-                                {formatAngkaDecimal(sp3b.saldoAwal)}
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Perubahan Saldo</TableCell>
+                            <TableHead>Kas Bendahara Pengeluaran</TableHead>
                             <TableCell className="text-right">
                                 {formatAngkaDecimal(
-                                    sp3b.pendapatan.total -
-                                        (sp3b.belanja.pegawai +
-                                            sp3b.belanja.barjas +
-                                            sp3b.belanja.modal)
-                                )}
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Saldo Akhir</TableCell>
-                            <TableCell className="text-right">
-                                {formatAngkaDecimal(
-                                    sp3b.saldoAwal +
+                                    (saldoAkhirRekeningBankPenerimaan?.saldo ??
+                                        0) -
+                                        sp3b.saldoAwal +
                                         sp3b.pendapatan.total -
                                         (sp3b.belanja.pegawai +
                                             sp3b.belanja.barjas +
-                                            sp3b.belanja.modal)
+                                            sp3b.belanja.modal) -
+                                        (saldoAkhirRekeningBankPengeluaran?.saldo ??
+                                            0)
                                 )}
                             </TableCell>
                         </TableRow>
