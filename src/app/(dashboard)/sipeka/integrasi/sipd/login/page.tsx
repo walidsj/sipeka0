@@ -44,7 +44,7 @@ export default function Page() {
 
     const [userList, setUserList] = React.useState<PreLoginSipdResponse[]>([])
 
-    const [token, setToken] = React.useState<{
+    const [, setToken] = React.useState<{
         token: string
         refresh_token: string
     }>({
