@@ -45,12 +45,12 @@ export default function Page() {
     const belanja = api.belanja.getAll.useQuery({
         page: 1,
         pageSize: 999999,
-        startDate: searchParams.get('tglStart')
-            ? new Date(searchParams.get('tglStart')!)
-            : undefined,
-        endDate: searchParams.get('tglEnd')
-            ? new Date(searchParams.get('tglEnd')!)
-            : undefined,
+        startDate: new Date(
+            searchParams.get('tglStart') || format(new Date(), 'yyyy-MM-01')
+        ),
+        endDate: new Date(
+            searchParams.get('tglEnd') || format(new Date(), 'yyyy-MM-dd')
+        ),
     })
 
     function handleCopy(text: string | null | undefined) {
