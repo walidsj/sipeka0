@@ -72,6 +72,27 @@ export default function Navbar() {
                             )}
                         </NavLink>
                     </Button>
+                    <Button variant="ghost" asChild>
+                        <NavLink to="tna">
+                            {({ isActive }) => (
+                                <>
+                                    <HiOutlineBookmarkAlt
+                                        className={cn(
+                                            'mr-1 h-5 w-5',
+                                            isActive && 'text-primary'
+                                        )}
+                                    />
+                                    <span
+                                        className={cn(
+                                            isActive && 'text-primary'
+                                        )}
+                                    >
+                                        TNA
+                                    </span>
+                                </>
+                            )}
+                        </NavLink>
+                    </Button>
                 </nav>
             </CardContent>
         </Card>

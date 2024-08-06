@@ -47,6 +47,7 @@ export const toolRouter = createTRPCRouter({
 
                 return response.data as PreLoginSipdResponse[]
             } catch (error) {
+                console.log(error)
                 if (axios.isAxiosError(error)) {
                     throw new TRPCError({
                         code: 'UNAUTHORIZED',
@@ -68,6 +69,7 @@ export const toolRouter = createTRPCRouter({
                 id: string
             }
         } catch (error) {
+            console.log(error)
             if (axios.isAxiosError(error)) {
                 throw new TRPCError({
                     code: 'UNAUTHORIZED',
@@ -221,6 +223,59 @@ export const toolRouter = createTRPCRouter({
             )
 
             return response.data as Document
+        } catch (error) {
+            console.log(error)
+
+            if (axios.isAxiosError(error)) {
+                throw new TRPCError({
+                    code: 'BAD_REQUEST',
+                    message: JSON.stringify(error.response?.data),
+                })
+            }
+        }
+    }),
+
+    getTransaksiNonAnggaranSipd: userProcedure.query(async ({ ctx }) => {
+        type TransaksiNonAnggaranType = {
+            id: number
+            created_at: string
+            journal_number: string
+            journal_date: string
+            journal_status_id: number
+            nama_jurnal_status: string
+            journal_types_id: number
+            description: string
+            scenario_non_anggaran_id: number
+            detail: {
+                id: number
+                is_main_account: boolean
+                journal_id: number
+                account_id: number
+                name: string
+                code: string
+                position: string
+                amount: number
+            }[]
+        }
+
+        const { sipd_token }: { sipd_token: string } = cookie.parse(
+            ctx.headers.cookie
+        )
+
+        try {
+            const response = await axios.get(
+                'https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/approval-list?skpd=479&length=99999&journal_status=0&page=1&tanggalFrom=2024-01-01&tanggalTo=2024-09-06&order=tanggal&direction=DESC',
+                {
+                    headers: {
+                        Authorization: `Bearer ${sipd_token}`,
+                    },
+                    httpsAgent: new https.Agent({
+                        rejectUnauthorized: false,
+                    }),
+                }
+            )
+
+            return response.data?.data?.list as TransaksiNonAnggaranType[]
         } catch (error) {
             console.log(error)
 

@@ -187,7 +187,7 @@ export default function Page() {
                                 <td className="border-[0.5pt] border-black px-3 pb-5 pt-2 text-justify align-top font-serif">
                                     Disampaikan dengan hormat untuk dapat
                                     diproses penerbitan Surat Pengesahan
-                                    Pendapatan dan Belanja (SP3B)
+                                    Pendapatan dan Belanja (SP2B)
                                 </td>
                             </tbody>
                         </table>
