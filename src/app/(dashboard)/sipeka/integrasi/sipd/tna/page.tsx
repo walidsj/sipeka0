@@ -46,11 +46,11 @@ export default function Page() {
         page: 1,
         pageSize: 999999,
         startDate: searchParams.get('tglStart')
-            ? new Date(searchParams.get('tglStart') || '')
-            : new Date(format(new Date(), 'yyyy-MM-01')),
+            ? new Date(searchParams.get('tglStart')!)
+            : undefined,
         endDate: searchParams.get('tglEnd')
-            ? new Date(searchParams.get('tglEnd') || '')
-            : new Date(),
+            ? new Date(searchParams.get('tglEnd')!)
+            : undefined,
     })
 
     function handleCopy(text: string | null | undefined) {
@@ -642,11 +642,6 @@ export default function Page() {
                                 )}
                             </Table>
                         </CardContent>
-                    </Card>
-                    <Card className="mt-5">
-                        <CardHeader>
-                            <p>TNA Tidak Ada Pasangan</p>
-                        </CardHeader>
                     </Card>
                 </React.Fragment>
             )}
