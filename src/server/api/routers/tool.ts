@@ -2,7 +2,6 @@ import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { z } from 'zod'
 import axios from 'axios'
 import { TRPCError } from '@trpc/server'
-import { compress } from 'compress-pdf'
 import cookie from 'cookie'
 import { format } from 'date-fns'
 import { eq } from 'drizzle-orm'
@@ -31,14 +30,12 @@ const compressPdf = async (base64: string): Promise<string> => {
 
     const os = process.platform
 
+    const command = `-sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dDownsampleColorImages=true -dColorImageResolution=72 -dNOPAUSE -dQUIET -dBATCH -sOutputFile="${compressFilePath}" ${originalFilePath}`
+
     if (os === 'win32') {
-        await execPromise(
-            `gswin64c.exe -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile="${compressFilePath}" ${originalFilePath}`
-        )
+        await execPromise('gswin64c.exe ' + command)
     } else {
-        await execPromise(
-            `gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile="${compressFilePath}" ${originalFilePath}`
-        )
+        await execPromise('gs ' + command)
     }
 
     const compressFileBase64 = fs.readFileSync(compressFilePath, 'base64')
@@ -498,7 +495,6 @@ export const toolRouter = createTRPCRouter({
 
             const base64FileCompressed = await compressPdf(base64File)
 
-        
             let nomorJournal = ''
 
             try {
