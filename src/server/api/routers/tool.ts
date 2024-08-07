@@ -10,6 +10,31 @@ import fs from 'fs'
 import { exec } from 'child_process'
 import { promisify } from 'util'
 import path from 'path'
+import https from 'https'
+
+const getSkpdId = async (token: string): Promise<number> => {
+    const skpdKode = '1.02.0.00.0.00.01.0011'
+    const skpdNama = 'Rumah Sakit Jiwa Daerah Atma Husada Mahakam'
+
+    type ItemSkpdType = {
+        id: number
+        kode_skpd: string
+        nama_skpd: string
+        is_skpd: boolean
+    }
+
+    return axios
+        .get(
+            'https://service.sipd.kemendagri.go.id/aklap/api/common/list-skpd',
+            { headers: { Authorization: `Bearer ${token}` } }
+        )
+        .then((data) => {
+            return data?.data?.data?.find(
+                (item: ItemSkpdType) =>
+                    item.kode_skpd === skpdKode && item.nama_skpd === skpdNama
+            )?.id
+        })
+}
 
 const execPromise = promisify(exec)
 
@@ -45,6 +70,10 @@ const compressPdf = async (base64: string): Promise<string> => {
 
     return compressFileBase64
 }
+
+const httpsAgent = new https.Agent({
+    keepAlive: true,
+})
 
 export const toolRouter = createTRPCRouter({
     preLoginSipd: userProcedure
@@ -190,17 +219,14 @@ export const toolRouter = createTRPCRouter({
         }),
 
     getSipdProfile: userProcedure.query(async ({ ctx }) => {
-        const { sipd_token }: { sipd_token: string } = cookie.parse(
-            ctx.headers.cookie
-        )
+        const { sipd_token } = cookie.parse(ctx.headers.cookie!)
 
         try {
             const response = await axios.get(
                 'https://service.sipd.kemendagri.go.id/auth/strict/user/profile',
                 {
-                    headers: {
-                        Authorization: `Bearer ${sipd_token}`,
-                    },
+                    headers: { Authorization: `Bearer ${sipd_token}` },
+                    httpsAgent,
                 }
             )
 
@@ -228,19 +254,18 @@ export const toolRouter = createTRPCRouter({
     }),
 
     getCetakLraSipd: userProcedure.query(async ({ ctx }) => {
-        const { sipd_token }: { sipd_token: string } = cookie.parse(
-            ctx.headers.cookie
-        )
+        const { sipd_token } = cookie.parse(ctx.headers.cookie!)
+
+        const skpdId = await getSkpdId(sipd_token)
 
         const now = format(new Date(), 'yyyy-MM-dd')
 
         try {
             const response = await axios.get(
-                `https://service.sipd.kemendagri.go.id/aklap/api/report/cetaklra?searchparams=%7B%22tanggalFrom%22:%222024-01-01%22,%22tanggalTo%22:%22${now}%22,%22formatFile%22:%22preview%22,%22tahun%22:%222024%22,%22level%22:null,%22previewLaporan%22:null,%22is_combine%22:%22skpd_unit%22,%22skpd%22:479%7D`,
+                `https://service.sipd.kemendagri.go.id/aklap/api/report/cetaklra?searchparams=%7B%22tanggalFrom%22:%222024-01-01%22,%22tanggalTo%22:%22${now}%22,%22formatFile%22:%22preview%22,%22tahun%22:%222024%22,%22level%22:null,%22previewLaporan%22:null,%22is_combine%22:%22skpd_unit%22,%22skpd%22:${skpdId}%7D`,
                 {
-                    headers: {
-                        Authorization: `Bearer ${sipd_token}`,
-                    },
+                    headers: { Authorization: `Bearer ${sipd_token}` },
+                    httpsAgent,
                 }
             )
 
@@ -265,6 +290,10 @@ export const toolRouter = createTRPCRouter({
             })
         )
         .query(async ({ ctx, input }) => {
+            const { sipd_token } = cookie.parse(ctx.headers.cookie!)
+
+            const skpdId = await getSkpdId(sipd_token)
+
             type TransaksiNonAnggaranType = {
                 id: number
                 created_at: string
@@ -287,17 +316,12 @@ export const toolRouter = createTRPCRouter({
                 }[]
             }
 
-            const { sipd_token }: { sipd_token: string } = cookie.parse(
-                ctx.headers.cookie
-            )
-
             try {
                 const response = await axios.get(
-                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/approval-list?skpd=479&length=999999&journal_status=0&page=1&tanggalFrom=${input.tglStart}&tanggalTo=${input.tglEnd}&order=tanggal&direction=DESC`,
+                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/approval-list?skpd=${skpdId}&length=999999&journal_status=0&page=1&tanggalFrom=${input.tglStart}&tanggalTo=${input.tglEnd}&order=tanggal&direction=DESC`,
                     {
-                        headers: {
-                            Authorization: `Bearer ${sipd_token}`,
-                        },
+                        headers: { Authorization: `Bearer ${sipd_token}` },
+                        httpsAgent,
                     }
                 )
 
@@ -321,6 +345,8 @@ export const toolRouter = createTRPCRouter({
             })
         )
         .mutation(async ({ ctx, input }) => {
+            const { sipd_token } = cookie.parse(ctx.headers.cookie!)
+
             const belanja = await ctx.db.query.belanja.findFirst({
                 where: eq(tables.belanja.id, input.belanjaId),
                 with: {
@@ -349,144 +375,20 @@ export const toolRouter = createTRPCRouter({
                 })
             }
 
-            type TransaksiDetailType = {
-                debit: number
-                kredit: number
-                akun: string
-                format: number
-                idPopulasi: number
-                idSkenario: number
-                kodeRekening: string
-                method: string
-                namaRekening: string
-                namaSkenario: string
-                position: string
-                satuanKerja: string
-            }
-
-            let nominalAnggaran = 0
-
-            let listTransaksi: {
-                'Belanja Barang dan Jasa BLUD'?: TransaksiDetailType[]
-                'Belanja Pegawai BLUD'?: TransaksiDetailType[]
-            } = {}
-
-            let listRekening: {
-                'Belanja Barang dan Jasa BLUD'?: TransaksiDetailType[]
-                'Belanja Pegawai BLUD'?: TransaksiDetailType[]
-            } = {}
+            let kodeRekening = ''
 
             if (belanja.rab.kodeRekening?.startsWith('5.1.01')) {
-                nominalAnggaran = 10609100672
-                listTransaksi = {
-                    'Belanja Pegawai BLUD': [
-                        {
-                            debit: Number(belanja.jumlah),
-                            kredit: 0,
-                            akun: 'LRA',
-                            format: 1,
-                            idPopulasi: 68267,
-                            idSkenario: 241,
-                            kodeRekening: '5.1.01.99.99.9999',
-                            method: 'lainnya',
-                            namaRekening: 'Belanja Pegawai BLUD',
-                            namaSkenario: 'Belanja BLUD',
-                            position: 'debet',
-                            satuanKerja: 'skpd',
-                        },
-                        {
-                            debit: 0,
-                            kredit: Number(belanja.jumlah),
-                            akun: 'NERACA',
-                            format: 1,
-                            idPopulasi: 68268,
-                            idSkenario: 241,
-                            kodeRekening: '3.1.02.05.01.0001',
-                            method: 'lainnya',
-                            namaRekening: 'Estimasi Perubahan SAL',
-                            namaSkenario: 'Belanja BLUD',
-                            position: 'kredit',
-                            satuanKerja: 'skpd',
-                        },
-                    ],
-                }
+                kodeRekening = '5.1.01.99.99.9999'
             } else if (belanja.rab.kodeRekening?.startsWith('5.1.02')) {
-                nominalAnggaran = 10609100672
-                listTransaksi = {
-                    'Belanja Barang dan Jasa BLUD': [
-                        {
-                            debit: Number(belanja.jumlah),
-                            kredit: 0,
-                            akun: 'LRA',
-                            format: 1,
-                            idPopulasi: 68265,
-                            idSkenario: 241,
-                            kodeRekening: '5.1.02.99.99.9999',
-                            method: 'lainnya',
-                            namaRekening: 'Belanja Barang dan Jasa BLUD',
-                            namaSkenario: 'Belanja BLUD',
-                            position: 'debet',
-                            satuanKerja: 'skpd',
-                        },
-                        {
-                            debit: 0,
-                            kredit: Number(belanja.jumlah),
-                            akun: 'NERACA',
-                            format: 1,
-                            idPopulasi: 68266,
-                            idSkenario: 241,
-                            kodeRekening: '3.1.02.05.01.0001',
-                            method: 'lainnya',
-                            namaRekening: 'Estimasi Perubahan SAL',
-                            namaSkenario: 'Belanja BLUD',
-                            position: 'kredit',
-                            satuanKerja: 'skpd',
-                        },
-                    ],
-                }
-
-                listRekening = {
-                    'Belanja Barang dan Jasa BLUD': [
-                        {
-                            debit: Number(belanja.jumlah),
-                            kredit: 0,
-                            akun: 'LO',
-                            format: 1,
-                            idPopulasi: 65331,
-                            idSkenario: 194,
-                            kodeRekening: '8.1.02.99.99.9999',
-                            method: 'lainnya',
-                            namaRekening: 'Beban Barang dan Jasa BLUD',
-                            namaSkenario: 'Belanja Barang dan Jasa BLUD',
-                            position: 'debet',
-                            satuanKerja: 'skpd',
-                        },
-                        {
-                            debit: 0,
-                            kredit: Number(belanja.jumlah),
-                            akun: 'NERACA',
-                            format: 1,
-                            idPopulasi: 65332,
-                            idSkenario: 194,
-                            kodeRekening: '1.1.01.04.01.0001',
-                            method: 'lainnya',
-                            namaRekening: 'Kas di BLUD',
-                            namaSkenario: 'Belanja Barang dan Jasa BLUD',
-                            position: 'kredit',
-                            satuanKerja: 'skpd',
-                        },
-                    ],
-                }
+                kodeRekening = '5.1.02.99.99.9999'
+            } else if (belanja.rab.kodeRekening?.startsWith('5.2.02')) {
+                kodeRekening = '5.2.02.99.99.9999'
             } else {
                 throw new TRPCError({
                     code: 'BAD_REQUEST',
                     message: 'Kode rekening tidak disupport',
                 })
             }
-
-            const { sipd_token }: { sipd_token: string } = cookie.parse(
-                ctx.headers.cookie
-            )
 
             const base64File = fs.readFileSync(
                 `./storage/files/belanja/${belanja.file}`,
@@ -496,16 +398,154 @@ export const toolRouter = createTRPCRouter({
             const base64FileCompressed = await compressPdf(base64File)
 
             let nomorJournal = ''
+            let nominalAnggaran = 0
+
+            const skpdId = await getSkpdId(sipd_token)
+
+            const namaSkenario = 'Belanja BLUD'
+
+            let mainAccountPrimary
+
+            // get main account rekening list
+            try {
+                const response = await axios.get(
+                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-transaksi-non-anggaran/main-account-list-urusan?keyword=&skenario[]=${namaSkenario}&page=1&urusan=11&bidang_urusan=202&program=1397&skpd=${skpdId}&kegiatan=9708&sub_kegiatan=24328`,
+                    {
+                        headers: { Authorization: `Bearer ${sipd_token}` },
+                        httpsAgent,
+                    }
+                )
+
+                mainAccountPrimary = response.data.list.find(
+                    (item: { kodeRekening: string }) =>
+                        item.kodeRekening === kodeRekening
+                )
+
+                if (!mainAccountPrimary) {
+                    throw new TRPCError({
+                        code: 'BAD_REQUEST',
+                        message: 'Main account primary tidak ditemukan',
+                    })
+                }
+            } catch (error) {
+                console.log(error)
+
+                if (axios.isAxiosError(error)) {
+                    throw new TRPCError({
+                        code: 'BAD_REQUEST',
+                        message: JSON.stringify(error.response?.data),
+                    })
+                }
+            }
+
+            let mainAccountPrimaryPaired
+
+            try {
+                const response = await axios.get(
+                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-transaksi-non-anggaran/paired-account-list?idPopulasi=${mainAccountPrimary.idPopulasi}`,
+                    {
+                        headers: { Authorization: `Bearer ${sipd_token}` },
+                        httpsAgent,
+                    }
+                )
+
+                mainAccountPrimaryPaired = response.data.data
+
+                if (!mainAccountPrimaryPaired) {
+                    throw new TRPCError({
+                        code: 'BAD_REQUEST',
+                        message: 'Main account primary paired tidak ditemukan',
+                    })
+                }
+            } catch (error) {
+                console.log(error)
+
+                if (axios.isAxiosError(error)) {
+                    throw new TRPCError({
+                        code: 'BAD_REQUEST',
+                        message: JSON.stringify(error.response?.data),
+                    })
+                }
+            }
+
+            let mainAccountSecondary
+
+            try {
+                const response = await axios.get(
+                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-transaksi-non-anggaran/main-account-list-rekening?keyword=&nama_rekening=${mainAccountPrimary.namaRekening}&page=1`,
+                    {
+                        headers: { Authorization: `Bearer ${sipd_token}` },
+                        httpsAgent,
+                    }
+                )
+
+                mainAccountSecondary = response.data.list.find(
+                    (item: { kodeRekening: string }) => {
+                        const belakangKodeRekening = kodeRekening.split('.')
+                        belakangKodeRekening.shift()
+
+                        return item.kodeRekening.endsWith(
+                            belakangKodeRekening.join('.')
+                        )
+                    }
+                )
+
+                if (!mainAccountSecondary) {
+                    throw new TRPCError({
+                        code: 'BAD_REQUEST',
+                        message: 'Main account secondary tidak ditemukan',
+                    })
+                }
+            } catch (error) {
+                console.log(error)
+
+                if (axios.isAxiosError(error)) {
+                    throw new TRPCError({
+                        code: 'BAD_REQUEST',
+                        message: JSON.stringify(error.response?.data),
+                    })
+                }
+            }
+
+            let mainAccountSecondaryPaired
+
+            try {
+                const response = await axios.get(
+                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-transaksi-non-anggaran/paired-account-list?idPopulasi=${mainAccountSecondary.idPopulasi}`,
+                    {
+                        headers: { Authorization: `Bearer ${sipd_token}` },
+                        httpsAgent,
+                    }
+                )
+
+                mainAccountSecondaryPaired = response.data.data
+
+                if (!mainAccountSecondaryPaired) {
+                    throw new TRPCError({
+                        code: 'BAD_REQUEST',
+                        message:
+                            'Main account secondary paired tidak ditemukan',
+                    })
+                }
+            } catch (error) {
+                console.log(error)
+
+                if (axios.isAxiosError(error)) {
+                    throw new TRPCError({
+                        code: 'BAD_REQUEST',
+                        message: JSON.stringify(error.response?.data),
+                    })
+                }
+            }
 
             try {
                 const res: {
                     data: { status: boolean; message: string; data: string }
                 } = await axios.get(
-                    'https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/generate-nomor-journal?skpd=479&scenario_id=19',
+                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/generate-nomor-journal?skpd=${skpdId}&scenario_id=19`,
                     {
-                        headers: {
-                            Authorization: `Bearer ${sipd_token}`,
-                        },
+                        headers: { Authorization: `Bearer ${sipd_token}` },
+                        httpsAgent,
                     }
                 )
 
@@ -528,15 +568,92 @@ export const toolRouter = createTRPCRouter({
                 }
             }
 
+            try {
+                const res: {
+                    data: { status: boolean; message: string; data: number }
+                } = await axios.get(
+                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/get-nominal-anggaran?skpd=${skpdId}&kode_rekening=${kodeRekening}`,
+                    {
+                        headers: { Authorization: `Bearer ${sipd_token}` },
+                        httpsAgent,
+                    }
+                )
+
+                nominalAnggaran = res.data.data
+
+                if (!nominalAnggaran) {
+                    throw new TRPCError({
+                        code: 'BAD_REQUEST',
+                        message: 'Nominal anggaran tidak ada',
+                    })
+                }
+            } catch (error) {
+                console.log(error)
+
+                if (axios.isAxiosError(error)) {
+                    throw new TRPCError({
+                        code: 'BAD_REQUEST',
+                        message: JSON.stringify(error.response?.data),
+                    })
+                }
+            }
+
+            type PairedAccountType = {
+                idPopulasi: number
+                id_pasangan: number
+                id_pasangan_jurnal: number
+                id_pasangan_jurnal2: number
+                kodeRekening: string
+                namaRekening: string
+                akun: string
+                method: string
+                position: string
+                idSkenario: number
+                namaSkenario: string
+                satuanKerja: string
+                format: number
+                urutan: number
+            }
+
             const body = {
-                skpd: 479,
+                skpd: skpdId,
                 tanggal_jurnal: format(
                     new Date(belanja.tglDokumen || ''),
                     'yyyy-MM-dd'
                 ),
-                list_transaksi: listTransaksi,
+                list_transaksi: {
+                    [mainAccountPrimary.namaRekening]:
+                        mainAccountPrimaryPaired.map(
+                            (item: PairedAccountType) => ({
+                                ...item,
+                                debit:
+                                    item.position === 'debet'
+                                        ? Number(belanja.jumlah)
+                                        : Number(0),
+                                kredit:
+                                    item.position === 'kredit'
+                                        ? Number(belanja.jumlah)
+                                        : Number(0),
+                            })
+                        ),
+                },
                 nominal_anggaran: nominalAnggaran,
-                list_rekening: listRekening,
+                list_rekening: {
+                    [mainAccountSecondary.namaRekening]:
+                        mainAccountSecondaryPaired.map(
+                            (item: PairedAccountType) => ({
+                                ...item,
+                                debit:
+                                    item.position === 'debet'
+                                        ? Number(belanja.jumlah)
+                                        : Number(0),
+                                kredit:
+                                    item.position === 'kredit'
+                                        ? Number(belanja.jumlah)
+                                        : Number(0),
+                            })
+                        ),
+                },
                 nominal_realisasi: 0,
                 dokumen: base64FileCompressed,
                 dokumen_name: belanja.file,
@@ -566,9 +683,8 @@ export const toolRouter = createTRPCRouter({
                     'https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/simpan-badan-layanan-umum-daerah',
                     body,
                     {
-                        headers: {
-                            Authorization: `Bearer ${sipd_token}`,
-                        },
+                        headers: { Authorization: `Bearer ${sipd_token}` },
+                        httpsAgent,
                     }
                 )
 
@@ -594,9 +710,7 @@ export const toolRouter = createTRPCRouter({
             })
         )
         .mutation(async ({ ctx, input }) => {
-            const { sipd_token }: { sipd_token: string } = cookie.parse(
-                ctx.headers.cookie
-            )
+            const { sipd_token } = cookie.parse(ctx.headers.cookie!)
 
             try {
                 const data = await axios.post(
@@ -607,9 +721,8 @@ export const toolRouter = createTRPCRouter({
                         reject_notes: 'jurnal salah',
                     },
                     {
-                        headers: {
-                            Authorization: `Bearer ${sipd_token}`,
-                        },
+                        headers: { Authorization: `Bearer ${sipd_token}` },
+                        httpsAgent,
                     }
                 )
 
@@ -635,18 +748,15 @@ export const toolRouter = createTRPCRouter({
             })
         )
         .mutation(async ({ ctx, input }) => {
-            const { sipd_token }: { sipd_token: string } = cookie.parse(
-                ctx.headers.cookie
-            )
+            const { sipd_token } = cookie.parse(ctx.headers.cookie!)
 
             try {
                 const data = await axios.post(
                     `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/delete-journal`,
                     { id: input.journalId },
                     {
-                        headers: {
-                            Authorization: `Bearer ${sipd_token}`,
-                        },
+                        headers: { Authorization: `Bearer ${sipd_token}` },
+                        httpsAgent,
                     }
                 )
 

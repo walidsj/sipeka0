@@ -156,10 +156,12 @@ export default function Page() {
                         </Button>
                         <span className="text-xs italic text-gray-500">
                             Terakhir fetch:{' '}
-                            {format(
-                                new Date(tna.dataUpdatedAt),
-                                'yyyy-MM-dd HH:mm:ss'
-                            )}
+                            {tna.dataUpdatedAt
+                                ? format(
+                                      new Date(tna.dataUpdatedAt),
+                                      'yyyy-MM-dd HH:mm:ss'
+                                  )
+                                : '-'}
                         </span>
                     </div>
                 </CardContent>

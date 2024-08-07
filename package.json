@@ -31,6 +31,7 @@
         "@trpc/client": "11.0.0-rc.390",
         "@trpc/react-query": "11.0.0-rc.390",
         "@trpc/server": "11.0.0-rc.390",
+        "@types/cookie": "^0.6.0",
         "@types/react-helmet": "^6.1.11",
         "axios": "^1.7.3",
         "bcryptjs": "^2.4.3",
