@@ -2,7 +2,7 @@ import { createTRPCRouter, userProcedure } from '@/server/trpc'
 import { z } from 'zod'
 import axios from 'axios'
 import { TRPCError } from '@trpc/server'
-import https from 'https'
+import { compress } from 'compress-pdf'
 import cookie from 'cookie'
 import { format } from 'date-fns'
 import { eq } from 'drizzle-orm'
@@ -451,10 +451,16 @@ export const toolRouter = createTRPCRouter({
                 ctx.headers.cookie
             )
 
-            const base64File = fs.readFileSync(
-                `./storage/files/belanja/${belanja.file}`,
-                'base64'
+            // const base64File = fs.readFileSync(
+            //     `./storage/files/belanja/${belanja.file}`,
+            //     'base64'
+            // )
+
+            const buffer = await compress(
+                `/storage/files/belanja/${belanja.file}`
             )
+
+            const base64File = buffer.toString('base64')
 
             let nomorJournal = ''
 
