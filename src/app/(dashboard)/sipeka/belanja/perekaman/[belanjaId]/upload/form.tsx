@@ -98,7 +98,7 @@ export default function CreateForm({ belanjaId }: { belanjaId: number }) {
 
                     <div className="mt-3">
                         <Button type="submit">
-                            {create.isPending ? 'Menyimpan...' : 'Import Data'}
+                            {create.isPending ? 'Uploading...' : 'Upload PDF'}
                         </Button>
                     </div>
                 </fieldset>
