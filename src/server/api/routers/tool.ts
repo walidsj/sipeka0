@@ -394,7 +394,6 @@ export const toolRouter = createTRPCRouter({
                 `./storage/files/belanja/${belanja.file}`,
                 'base64'
             )
-            const base64FileCompressed = await compressPdf(base64File)
 
             const skpdId = await getSkpdId(sipd_token)
 
@@ -402,10 +401,12 @@ export const toolRouter = createTRPCRouter({
 
             // Start multiple requests concurrently
             const [
+                base64FileCompressed,
                 mainAccountResponse,
                 nomorJournalResponse,
                 nominalAnggaranResponse,
             ] = await Promise.all([
+                compressPdf(base64File),
                 axios.get(
                     `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-transaksi-non-anggaran/main-account-list-urusan?keyword=&skenario[]=${namaSkenario}&page=1&urusan=11&bidang_urusan=202&program=1397&skpd=${skpdId}&kegiatan=9708&sub_kegiatan=24328`,
                     {
