@@ -15,6 +15,7 @@ import { keepPreviousData } from '@tanstack/react-query'
 import { format } from 'date-fns'
 import { useParams, useSearchParams } from 'react-router-dom'
 import ExcelExport from './excel-export'
+import { FiFile } from 'react-icons/fi'
 
 export default function DetailTable() {
     const params = useParams<{ kodeRekening: string }>()
@@ -100,6 +101,7 @@ export default function DetailTable() {
                         <TableHead>Uraian</TableHead>
                         <TableHead>Jumlah</TableHead>
                         <TableHead>Dokumen LPJ</TableHead>
+                        <TableHead>File</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -139,6 +141,17 @@ export default function DetailTable() {
                                 <TableCell className="font-semibold">
                                     {item.lpjBelanja?.jenis}{' '}
                                     {item.lpjBelanja?.noDokumen}
+                                </TableCell>
+                                <TableCell>
+                                    {item.file && (
+                                        <a
+                                            href={`/api/storage/files/belanja/${item.file}`}
+                                            target="_blank"
+                                        >
+                                            <FiFile className="inline h-5 w-5 text-primary" />
+                                            {item.file}
+                                        </a>
+                                    )}
                                 </TableCell>
                             </TableRow>
                         )
