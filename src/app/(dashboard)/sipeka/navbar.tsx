@@ -134,7 +134,7 @@ export default function Navbar() {
                     </Card3d>
                 )}
             </NavLink>
-            <NavLink to="integrasi/sipd/login">
+            <NavLink to="integrasi">
                 {({ isActive }) => (
                     <Card3d
                         perspective={50}

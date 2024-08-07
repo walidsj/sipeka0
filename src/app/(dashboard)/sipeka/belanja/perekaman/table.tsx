@@ -5,6 +5,7 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
+    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
@@ -38,11 +39,14 @@ import { keepPreviousData } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import {
+    FiCheckCircle,
     FiChevronsDown,
     FiEdit,
     FiEye,
+    FiFile,
     FiSearch,
     FiTrash,
+    FiUploadCloud,
 } from 'react-icons/fi'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useDebounce } from 'use-debounce'
@@ -233,8 +237,11 @@ export default function BelanjaTable() {
                                     className="h-10 w-10"
                                 />
                             </TableCell>
-                            <TableCell className="text-center font-semibold">
-                                {item.noDokumen}
+                            <TableCell className="font-semibold">
+                                {item.noDokumen}{' '}
+                                {item.file && (
+                                    <FiCheckCircle className="inline text-green-500" />
+                                )}
                             </TableCell>
                             <TableCell className="font-semibold">
                                 {formatTanggal(item.tglDokumen)}
@@ -399,6 +406,28 @@ export default function BelanjaTable() {
                                                 Edit
                                             </DropdownMenuItem>
                                         </Link>
+                                        {item.file && (
+                                            <a
+                                                href={
+                                                    `/api/storage/files/belanja/` +
+                                                    item.file
+                                                }
+                                                target="_blank"
+                                            >
+                                                <DropdownMenuItem>
+                                                    <FiFile className="mr-2" />
+                                                    Lihat File
+                                                </DropdownMenuItem>
+                                            </a>
+                                        )}
+                                        <DropdownMenuSeparator />
+                                        <Link to={`${item.id}/upload`}>
+                                            <DropdownMenuItem>
+                                                <FiUploadCloud className="mr-2" />
+                                                Upload File
+                                            </DropdownMenuItem>
+                                        </Link>
+                                        <DropdownMenuSeparator />
                                         <DropdownMenuItem
                                             onClick={() => {
                                                 if (

@@ -238,6 +238,7 @@ export const belanja = mysqlTable('belanja', {
     metodePembayaran: mysqlEnum('metode_pembayaran', ['TUNAI', 'TRANSFER']),
     buktiPembayaran: varchar('bukti_pembayaran', { length: 256 }),
     lpjBelanjaId: int('lpj_belanja_id', { unsigned: true }),
+    file: varchar('file', { length: 256 }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { mode: 'date' })
         .defaultNow()

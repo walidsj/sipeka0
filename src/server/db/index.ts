@@ -19,6 +19,8 @@ const conn =
         password: env.DB_PASSWORD ? env.DB_PASSWORD : 'S1nc3@2023',
         database: env.DB_NAME ? env.DB_NAME : 'sipeka_new',
     })
-if (env.NODE_ENV !== 'production') globalForDb.conn = conn
+if (process.env.NODE_ENV !== 'production') globalForDb.conn = conn
 
 export const db = drizzle(conn, { schema, mode: 'default' })
+
+export const tables = schema

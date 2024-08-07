@@ -105,9 +105,9 @@ export default function Page() {
                                 }}
                             >
                                 <option value="0">Semua</option>
-                                <option value="2">Belum Approve/Reject</option>
+                                {/* <option value="2">Belum Approve/Reject</option>
                                 <option value="3">Approved</option>
-                                <option value="4">Rejected</option>
+                                <option value="4">Rejected</option> */}
                             </select>
                         </div>
                     </div>
@@ -416,7 +416,7 @@ export default function Page() {
                                                         className="text-nowrap"
                                                         rowSpan={
                                                             tna.data &&
-                                                            tna.data.find(
+                                                            tna.data.filter(
                                                                 (t) =>
                                                                     t.journal_date ===
                                                                         format(
@@ -428,9 +428,7 @@ export default function Page() {
                                                                         ) &&
                                                                     t.description.trim() ===
                                                                         item.uraian?.trim()
-                                                            )
-                                                                ? 2
-                                                                : 1
+                                                            )?.length + 1
                                                         }
                                                     >
                                                         {format(
@@ -491,23 +489,40 @@ export default function Page() {
                                                     </TableCell>
                                                     <TableCell>
                                                         <div className="flex flex-col">
-                                                            <Button
-                                                                size="sm"
-                                                                onClick={() => {
-                                                                    if (
-                                                                        confirm(
-                                                                            'Yakin kirim SIPD?'
-                                                                        )
-                                                                    ) {
-                                                                        return toast.success(
-                                                                            'Berhasil kirim SIPD'
-                                                                        )
-                                                                    }
-                                                                }}
-                                                            >
-                                                                <FiSend className="mr-2" />{' '}
-                                                                Kirim SIPD
-                                                            </Button>
+                                                            {tna.data &&
+                                                                tna.data.filter(
+                                                                    (t) =>
+                                                                        t.journal_date ===
+                                                                            format(
+                                                                                new Date(
+                                                                                    item.tglDokumen ||
+                                                                                        ''
+                                                                                ),
+                                                                                'yyyy-MM-dd'
+                                                                            ) &&
+                                                                        t.description.trim() ===
+                                                                            item.uraian?.trim()
+                                                                )?.length ===
+                                                                    0 && (
+                                                                    <Button
+                                                                        size="sm"
+                                                                        onClick={() => {
+                                                                            if (
+                                                                                confirm(
+                                                                                    'Yakin kirim SIPD?'
+                                                                                )
+                                                                            ) {
+                                                                                return toast.success(
+                                                                                    'Berhasil kirim SIPD'
+                                                                                )
+                                                                            }
+                                                                        }}
+                                                                    >
+                                                                        <FiSend className="mr-2" />{' '}
+                                                                        Kirim
+                                                                        SIPD
+                                                                    </Button>
+                                                                )}
                                                         </div>
                                                     </TableCell>
                                                 </TableRow>

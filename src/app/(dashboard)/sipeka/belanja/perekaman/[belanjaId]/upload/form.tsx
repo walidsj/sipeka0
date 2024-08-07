@@ -16,10 +16,10 @@ import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 
 const uploadSchema = z.object({
-    fileCsv: z.instanceof(File),
+    filePdf: z.instanceof(File),
 })
 
-export default function CreateForm() {
+export default function CreateForm({ belanjaId }: { belanjaId: number }) {
     const utils = api.useUtils()
     const navigate = useNavigate()
 
@@ -27,11 +27,11 @@ export default function CreateForm() {
         resolver: zodResolver(uploadSchema),
         mode: 'onTouched',
         defaultValues: {
-            fileCsv: undefined,
+            filePdf: undefined,
         },
     })
 
-    const create = api.rekeningKoran.importCsv.useMutation({
+    const create = api.belanja.uploadFile.useMutation({
         onMutate() {
             toast.loading('Menyimpan data...')
         },
@@ -52,15 +52,13 @@ export default function CreateForm() {
 
         const reader = new FileReader()
 
-        reader.readAsDataURL(val.fileCsv)
+        reader.readAsDataURL(val.filePdf)
         reader.onload = function () {
             if (typeof reader.result !== 'string') return
 
-            // const base64Format = Base64.encode(reader.result)
-
             const base64Format = reader.result.split(',')[1]
 
-            create.mutate({ fileCsv: base64Format })
+            create.mutate({ belanjaId, filePdf: base64Format })
         }
     }
 
@@ -72,19 +70,19 @@ export default function CreateForm() {
                     className="flex flex-row items-end gap-2"
                 >
                     <FormField
-                        name="fileCsv"
+                        name="filePdf"
                         render={({
                             field: { value, onChange, ...fieldProps },
                         }) => (
                             <FormItem>
                                 <FormLabel className="normal-case">
-                                    File CSV
+                                    File PDF
                                 </FormLabel>
                                 <FormControl>
                                     <Input
                                         {...fieldProps}
                                         type="file"
-                                        accept="text/csv"
+                                        accept="application/pdf"
                                         onChange={(event) =>
                                             onChange(
                                                 event.target.files &&

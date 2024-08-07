@@ -9,12 +9,12 @@ import CreateForm from './form'
 import { api } from '@/trpc/react'
 import Loading from '@/components/loading'
 import NotFound from '@/app/not-found'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { formatAngka, formatTanggal } from '@/lib/utils'
+import { FiFile } from 'react-icons/fi'
 
 export default function Page() {
     const params = useParams<{ belanjaId: string }>()
-    const utils = api.useUtils()
-    const navigate = useNavigate()
 
     const {
         data: belanja,
@@ -32,11 +32,33 @@ export default function Page() {
         <Card>
             <CardHeader>
                 <CardTitle>Upload File Belanja</CardTitle>
-                <CardDescription>{belanja.uraian}</CardDescription>
             </CardHeader>
-
             <CardContent>
-                <CreateForm />
+                <CardTitle>{belanja.noDokumen}</CardTitle>
+                <CardDescription>{belanja.uraian}</CardDescription>
+                <CardDescription>
+                    tanggal {formatTanggal(belanja.tglDokumen)}
+                </CardDescription>
+                <CardDescription>
+                    Rp. {formatAngka(belanja.jumlah)}
+                </CardDescription>
+            </CardContent>
+            {belanja.file && (
+                <CardContent>
+                    <CardDescription>File yang sudah diupload:</CardDescription>
+                    <a
+                        href={'/api/storage/files/belanja/' + belanja.file}
+                        target="_blank"
+                    >
+                        <div className="flex flex-row items-center space-x-2 rounded-lg border p-2">
+                            <FiFile className="h-10 w-10 text-primary" />
+                            <span>{belanja.file}</span>
+                        </div>
+                    </a>
+                </CardContent>
+            )}
+            <CardContent>
+                <CreateForm belanjaId={belanja.id} />
             </CardContent>
         </Card>
     )

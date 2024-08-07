@@ -33,6 +33,12 @@ app.use(
     })
 )
 
+app.use('/api/storage/files/belanja/:file', (req, res) => {
+    res.sendFile(req.params.file, {
+        root: 'storage/files/belanja',
+    })
+})
+
 app.use(express.static('dist'))
 
 const server = createServer(app)

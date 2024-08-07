@@ -33,6 +33,9 @@ import { belanjaSchema, potonganBelanjaSchema } from './belanja.schema'
 import { rekeningLevel6 } from '@/data/rekening'
 import lodash from 'lodash'
 import { format } from 'date-fns'
+import { Base64 } from 'js-base64'
+import { tables } from '@/server/db'
+import fs from 'fs'
 
 export type JurnalType = {
     id?: string | number
@@ -808,6 +811,50 @@ export const belanjaRouter = createTRPCRouter({
 
         return data
     }),
- 
-        
+
+    uploadFile: userProcedure
+        .input(
+            z.object({
+                belanjaId: z.number(),
+                filePdf: z
+                    .string()
+                    .refine(Base64.isValid, { message: 'Invalid File' }),
+            })
+        )
+        .mutation(async ({ ctx, input }) => {
+            const pdfBuffer = Buffer.from(input.filePdf, 'base64')
+
+            const belanja = await ctx.db.query.belanja.findFirst({
+                where: eq(tables.belanja.id, input.belanjaId),
+            })
+
+            if (!belanja) {
+                throw new TRPCError({
+                    code: 'NOT_FOUND',
+                    message: 'Data belanja tidak ditemukan',
+                })
+            }
+
+            const fileName = `${belanja.noDokumen}.pdf`
+
+            fs.writeFileSync(`storage/files/belanja/${fileName}`, pdfBuffer)
+
+            // check if file exist
+            if (!fs.existsSync(`storage/files/belanja/${fileName}`)) {
+                throw new TRPCError({
+                    code: 'INTERNAL_SERVER_ERROR',
+                    message: 'File gagal diupload',
+                })
+            }
+
+            // update belanja
+            await ctx.db
+                .update(tables.belanja)
+                .set({
+                    file: fileName,
+                })
+                .where(eq(tables.belanja.id, input.belanjaId))
+
+            return { message: 'File berhasil diupload' }
+        }),
 })
