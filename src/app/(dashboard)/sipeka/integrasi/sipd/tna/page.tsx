@@ -20,20 +20,18 @@ import { api } from '@/trpc/react'
 import { format } from 'date-fns'
 import React from 'react'
 import toast from 'react-hot-toast'
-import { FiCheck, FiLoader, FiSend, FiX } from 'react-icons/fi'
+import { FiCheck, FiLoader, FiSend, FiTrash, FiX } from 'react-icons/fi'
 import { useSearchParams } from 'react-router-dom'
 
 export default function Page() {
+    const utils = api.useUtils()
+
     const [searchParams, setSearchParams] = useSearchParams({
-        jurnalStatus: '',
         tglStart: '',
         tglEnd: '',
     })
 
     const tna = api.tool.getTransaksiNonAnggaranSipd.useQuery({
-        jurnalStatus: searchParams.get('jurnalStatus')
-            ? Number(searchParams.get('jurnalStatus'))
-            : 2,
         tglStart: searchParams.get('tglStart')
             ? format(new Date(searchParams.get('tglStart') || ''), 'yyyy-MM-dd')
             : format(new Date(), 'yyyy-MM-01'),
@@ -51,6 +49,51 @@ export default function Page() {
         endDate: new Date(
             searchParams.get('tglEnd') || format(new Date(), 'yyyy-MM-dd')
         ),
+    })
+
+    const kirimSipd = api.tool.sendTransaksiNonAnggaranSipd.useMutation({
+        onMutate() {
+            toast.loading('Mengirim data...')
+        },
+        onSuccess: (data) => {
+            toast.dismiss()
+            utils.tool.getTransaksiNonAnggaranSipd.invalidate()
+            if (data) toast.success(data.message)
+        },
+        onError: (error) => {
+            toast.dismiss()
+            toast.error(error.message)
+        },
+    })
+
+    const rejectJurnalSipd = api.tool.rejectJournalSipd.useMutation({
+        onMutate() {
+            toast.loading('Mereject jurnal...')
+        },
+        onSuccess: (data) => {
+            toast.dismiss()
+            utils.tool.getTransaksiNonAnggaranSipd.invalidate()
+            if (data) toast.success(data.message)
+        },
+        onError: (error) => {
+            toast.dismiss()
+            toast.error(error.message)
+        },
+    })
+
+    const hapusJurnalSipd = api.tool.deleteJournalSipd.useMutation({
+        onMutate() {
+            toast.loading('Menghapus jurnal...')
+        },
+        onSuccess: (data) => {
+            toast.dismiss()
+            utils.tool.getTransaksiNonAnggaranSipd.invalidate()
+            if (data) toast.success(data.message)
+        },
+        onError: (error) => {
+            toast.dismiss()
+            toast.error(error.message)
+        },
     })
 
     function handleCopy(text: string | null | undefined) {
@@ -95,20 +138,6 @@ export default function Page() {
                                     setSearchParams(searchParams)
                                 }}
                             />
-                            <select
-                                onChange={(e) => {
-                                    searchParams.set(
-                                        'jurnalStatus',
-                                        e.target.value
-                                    )
-                                    setSearchParams(searchParams)
-                                }}
-                            >
-                                <option value="0">Semua</option>
-                                {/* <option value="2">Belum Approve/Reject</option>
-                                <option value="3">Approved</option>
-                                <option value="4">Rejected</option> */}
-                            </select>
                         </div>
                     </div>
                     <div className="flex flex-col">
@@ -385,9 +414,8 @@ export default function Page() {
                                                                         ) &&
                                                                     t.description.trim() ===
                                                                         item.uraian?.trim()
-                                                            ).length === 1
-                                                            ? 'bg-green-50'
-                                                            : 'bg-red-50',
+                                                            ).length === 1 &&
+                                                            'bg-green-50',
                                                         'font-semibold'
                                                     )}
                                                 >
@@ -505,6 +533,9 @@ export default function Page() {
                                                                 )?.length ===
                                                                     0 && (
                                                                     <Button
+                                                                        disabled={
+                                                                            kirimSipd.isPending
+                                                                        }
                                                                         size="sm"
                                                                         onClick={() => {
                                                                             if (
@@ -512,8 +543,11 @@ export default function Page() {
                                                                                     'Yakin kirim SIPD?'
                                                                                 )
                                                                             ) {
-                                                                                return toast.success(
-                                                                                    'Berhasil kirim SIPD'
+                                                                                kirimSipd.mutate(
+                                                                                    {
+                                                                                        belanjaId:
+                                                                                            item.id,
+                                                                                    }
                                                                                 )
                                                                             }
                                                                         }}
@@ -611,42 +645,75 @@ export default function Page() {
                                                                 </TableCell>
                                                                 <TableCell>
                                                                     <div className="flex flex-col gap-2">
-                                                                        <Button
-                                                                            size="sm"
-                                                                            className="h-5 bg-green-500"
-                                                                            onClick={() => {
-                                                                                if (
-                                                                                    confirm(
-                                                                                        'Yakin approve jurnal ini?'
-                                                                                    )
-                                                                                ) {
-                                                                                    return toast.success(
-                                                                                        'Berhasil approve'
-                                                                                    )
-                                                                                }
-                                                                            }}
-                                                                        >
-                                                                            <FiCheck className="mr-1" />
-                                                                            Approve
-                                                                        </Button>
-                                                                        <Button
-                                                                            size="sm"
-                                                                            className="h-5 bg-red-500"
-                                                                            onClick={() => {
-                                                                                if (
-                                                                                    confirm(
-                                                                                        'Yakin reject jurnal ini?'
-                                                                                    )
-                                                                                ) {
-                                                                                    return toast.success(
-                                                                                        'Berhasil reject'
-                                                                                    )
-                                                                                }
-                                                                            }}
-                                                                        >
-                                                                            <FiX className="mr-1" />
-                                                                            Reject
-                                                                        </Button>
+                                                                        {t.journal_status_id ===
+                                                                            2 && (
+                                                                            <Button
+                                                                                size="sm"
+                                                                                className="h-5 bg-green-500"
+                                                                                onClick={() => {
+                                                                                    if (
+                                                                                        confirm(
+                                                                                            'Yakin approve jurnal ini?'
+                                                                                        )
+                                                                                    ) {
+                                                                                        return toast.success(
+                                                                                            'Berhasil approve'
+                                                                                        )
+                                                                                    }
+                                                                                }}
+                                                                            >
+                                                                                <FiCheck className="mr-1" />
+                                                                                Approve
+                                                                            </Button>
+                                                                        )}
+                                                                        {t.journal_status_id ===
+                                                                            2 && (
+                                                                            <Button
+                                                                                size="sm"
+                                                                                className="h-5 bg-red-500"
+                                                                                onClick={() => {
+                                                                                    if (
+                                                                                        confirm(
+                                                                                            'Yakin reject jurnal ini?'
+                                                                                        )
+                                                                                    ) {
+                                                                                        rejectJurnalSipd.mutate(
+                                                                                            {
+                                                                                                journalId:
+                                                                                                    t.id,
+                                                                                            }
+                                                                                        )
+                                                                                    }
+                                                                                }}
+                                                                            >
+                                                                                <FiX className="mr-1" />
+                                                                                Reject
+                                                                            </Button>
+                                                                        )}
+                                                                        {t.journal_status_id ===
+                                                                            4 && (
+                                                                            <Button
+                                                                                size="sm"
+                                                                                className="h-5 bg-red-500"
+                                                                                onClick={() => {
+                                                                                    if (
+                                                                                        confirm(
+                                                                                            'Yakin hapus jurnal ini?'
+                                                                                        )
+                                                                                    ) {
+                                                                                        hapusJurnalSipd.mutate(
+                                                                                            {
+                                                                                                journalId:
+                                                                                                    t.id,
+                                                                                            }
+                                                                                        )
+                                                                                    }
+                                                                                }}
+                                                                            >
+                                                                                <FiTrash className="mr-1" />
+                                                                                Hapus
+                                                                            </Button>
+                                                                        )}
                                                                     </div>
                                                                 </TableCell>
                                                             </TableRow>
