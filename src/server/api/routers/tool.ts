@@ -55,7 +55,7 @@ const compressPdf = async (base64: string): Promise<string> => {
 
     const os = process.platform
 
-    const command = `-sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dDownsampleColorImages=true -dColorImageResolution=72 -dNOPAUSE -dQUIET -dBATCH -sOutputFile="${compressFilePath}" ${originalFilePath}`
+    const command = `-sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dDownsampleColorImages=true -dNOPAUSE -dQUIET -dBATCH -sOutputFile="${compressFilePath}" ${originalFilePath}`
 
     if (os === 'win32') {
         await execPromise('gswin64c.exe ' + command)
@@ -394,106 +394,124 @@ export const toolRouter = createTRPCRouter({
                 `./storage/files/belanja/${belanja.file}`,
                 'base64'
             )
-
             const base64FileCompressed = await compressPdf(base64File)
-
-            let nomorJournal = ''
-            let nominalAnggaran = 0
 
             const skpdId = await getSkpdId(sipd_token)
 
             const namaSkenario = 'Belanja BLUD'
 
-            let mainAccountPrimary
-
-            // get main account rekening list
-            try {
-                const response = await axios.get(
+            // Start multiple requests concurrently
+            const [
+                mainAccountResponse,
+                nomorJournalResponse,
+                nominalAnggaranResponse,
+            ] = await Promise.all([
+                axios.get(
                     `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-transaksi-non-anggaran/main-account-list-urusan?keyword=&skenario[]=${namaSkenario}&page=1&urusan=11&bidang_urusan=202&program=1397&skpd=${skpdId}&kegiatan=9708&sub_kegiatan=24328`,
                     {
                         headers: { Authorization: `Bearer ${sipd_token}` },
                         httpsAgent,
                     }
-                )
+                ),
+                axios.get(
+                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/generate-nomor-journal?skpd=${skpdId}&scenario_id=19`,
+                    {
+                        headers: { Authorization: `Bearer ${sipd_token}` },
+                        httpsAgent,
+                    }
+                ),
+                axios.get(
+                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/get-nominal-anggaran?skpd=${skpdId}&kode_rekening=${kodeRekening}`,
+                    {
+                        headers: { Authorization: `Bearer ${sipd_token}` },
+                        httpsAgent,
+                    }
+                ),
+            ])
 
-                mainAccountPrimary = response.data.list.find(
-                    (item: { kodeRekening: string }) =>
-                        item.kodeRekening === kodeRekening
-                )
+            const mainAccountPrimary = mainAccountResponse.data.list.find(
+                (item: { kodeRekening: string }) =>
+                    item.kodeRekening === kodeRekening
+            )
 
-                if (!mainAccountPrimary) {
-                    throw new TRPCError({
-                        code: 'BAD_REQUEST',
-                        message: 'Main account primary tidak ditemukan',
-                    })
-                }
-            } catch (error) {
-                console.log(error)
-
-                if (axios.isAxiosError(error)) {
-                    throw new TRPCError({
-                        code: 'BAD_REQUEST',
-                        message: JSON.stringify(error.response?.data),
-                    })
-                }
+            if (!mainAccountPrimary) {
+                throw new TRPCError({
+                    code: 'BAD_REQUEST',
+                    message: 'Main account primary tidak ditemukan',
+                })
             }
 
-            let mainAccountPrimaryPaired
+            const nomorJournal = nomorJournalResponse.data.data
 
-            try {
-                const response = await axios.get(
+            if (!nomorJournal) {
+                throw new TRPCError({
+                    code: 'BAD_REQUEST',
+                    message: 'Nomor jurnal tidak ditemukan',
+                })
+            }
+
+            const nominalAnggaran = nominalAnggaranResponse.data.data
+
+            if (!nominalAnggaran) {
+                throw new TRPCError({
+                    code: 'BAD_REQUEST',
+                    message: 'Nominal anggaran tidak ada',
+                })
+            }
+
+            let kodeRekeningKeyword = ''
+
+            // Fetch paired accounts concurrently
+            const [
+                mainAccountPrimaryPairedResponse,
+                mainAccountSecondaryResponse,
+            ] = await Promise.all([
+                axios.get(
                     `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-transaksi-non-anggaran/paired-account-list?idPopulasi=${mainAccountPrimary.idPopulasi}`,
                     {
                         headers: { Authorization: `Bearer ${sipd_token}` },
                         httpsAgent,
                     }
-                )
-
-                mainAccountPrimaryPaired = response.data.data
-
-                if (!mainAccountPrimaryPaired) {
-                    throw new TRPCError({
-                        code: 'BAD_REQUEST',
-                        message: 'Main account primary paired tidak ditemukan',
-                    })
-                }
-            } catch (error) {
-                console.log(error)
-
-                if (axios.isAxiosError(error)) {
-                    throw new TRPCError({
-                        code: 'BAD_REQUEST',
-                        message: JSON.stringify(error.response?.data),
-                    })
-                }
-            }
-
-            let mainAccountSecondary
-
-            let kodeRekeningKeyword = ''
-
-            if (kodeRekening.startsWith('5.2')) {
-                const arrayOfKodeRekeningKeyword =
-                    belanja.rab.kodeRekening.split('.')
-                arrayOfKodeRekeningKeyword.shift()
-                arrayOfKodeRekeningKeyword.shift()
-                kodeRekeningKeyword = '.' + arrayOfKodeRekeningKeyword.join('.')
-            }
-
-            try {
-                const response = await axios.get(
-                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-transaksi-non-anggaran/main-account-list-rekening?keyword=${kodeRekeningKeyword}&nama_rekening=${mainAccountPrimary.namaRekening}&page=1`,
-                    {
-                        headers: { Authorization: `Bearer ${sipd_token}` },
-                        httpsAgent,
+                ),
+                (async () => {
+                    if (kodeRekening.startsWith('5.2')) {
+                        if (belanja.rab && belanja.rab.kodeRekening) {
+                            const arrayOfKodeRekeningKeyword =
+                                belanja.rab.kodeRekening.split('.')
+                            arrayOfKodeRekeningKeyword.shift()
+                            arrayOfKodeRekeningKeyword.shift()
+                            kodeRekeningKeyword =
+                                '.' + arrayOfKodeRekeningKeyword.join('.')
+                        }
                     }
-                )
 
-                mainAccountSecondary = response.data.list.find(
+                    const response = await axios.get(
+                        `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-transaksi-non-anggaran/main-account-list-rekening?keyword=${kodeRekeningKeyword}&nama_rekening=${mainAccountPrimary.namaRekening}&page=1`,
+                        {
+                            headers: { Authorization: `Bearer ${sipd_token}` },
+                            httpsAgent,
+                        }
+                    )
+
+                    return response
+                })(),
+            ])
+
+            const mainAccountPrimaryPaired =
+                mainAccountPrimaryPairedResponse.data.data
+
+            if (!mainAccountPrimaryPaired) {
+                throw new TRPCError({
+                    code: 'BAD_REQUEST',
+                    message: 'Main account primary paired tidak ditemukan',
+                })
+            }
+
+            const mainAccountSecondary =
+                mainAccountSecondaryResponse.data.list.find(
                     (item: { kodeRekening: string }) => {
                         const belakangKodeRekening = kodeRekening.split('.')
                         belakangKodeRekening.shift()
-
                         return (
                             item.kodeRekening.endsWith(
                                 '.' + belakangKodeRekening.join('.')
@@ -502,112 +520,29 @@ export const toolRouter = createTRPCRouter({
                     }
                 )
 
-                if (!mainAccountSecondary) {
-                    throw new TRPCError({
-                        code: 'BAD_REQUEST',
-                        message: 'Main account secondary tidak ditemukan',
-                    })
-                }
-            } catch (error) {
-                console.log(error)
-
-                if (axios.isAxiosError(error)) {
-                    throw new TRPCError({
-                        code: 'BAD_REQUEST',
-                        message: JSON.stringify(error.response?.data),
-                    })
-                }
+            if (!mainAccountSecondary) {
+                throw new TRPCError({
+                    code: 'BAD_REQUEST',
+                    message: 'Main account secondary tidak ditemukan',
+                })
             }
 
-            let mainAccountSecondaryPaired
-
-            try {
-                const response = await axios.get(
-                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-transaksi-non-anggaran/paired-account-list?idPopulasi=${mainAccountSecondary.idPopulasi}`,
-                    {
-                        headers: { Authorization: `Bearer ${sipd_token}` },
-                        httpsAgent,
-                    }
-                )
-
-                mainAccountSecondaryPaired = response.data.data
-
-                if (!mainAccountSecondaryPaired) {
-                    throw new TRPCError({
-                        code: 'BAD_REQUEST',
-                        message:
-                            'Main account secondary paired tidak ditemukan',
-                    })
+            const mainAccountSecondaryPairedResponse = await axios.get(
+                `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-transaksi-non-anggaran/paired-account-list?idPopulasi=${mainAccountSecondary.idPopulasi}`,
+                {
+                    headers: { Authorization: `Bearer ${sipd_token}` },
+                    httpsAgent,
                 }
-            } catch (error) {
-                console.log(error)
+            )
 
-                if (axios.isAxiosError(error)) {
-                    throw new TRPCError({
-                        code: 'BAD_REQUEST',
-                        message: JSON.stringify(error.response?.data),
-                    })
-                }
-            }
+            const mainAccountSecondaryPaired =
+                mainAccountSecondaryPairedResponse.data.data
 
-            try {
-                const res: {
-                    data: { status: boolean; message: string; data: string }
-                } = await axios.get(
-                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/generate-nomor-journal?skpd=${skpdId}&scenario_id=19`,
-                    {
-                        headers: { Authorization: `Bearer ${sipd_token}` },
-                        httpsAgent,
-                    }
-                )
-
-                nomorJournal = res.data.data
-
-                if (!nomorJournal) {
-                    throw new TRPCError({
-                        code: 'BAD_REQUEST',
-                        message: 'Nomor jurnal tidak ditemukan',
-                    })
-                }
-            } catch (error) {
-                console.log(error)
-
-                if (axios.isAxiosError(error)) {
-                    throw new TRPCError({
-                        code: 'BAD_REQUEST',
-                        message: JSON.stringify(error.response?.data),
-                    })
-                }
-            }
-
-            try {
-                const res: {
-                    data: { status: boolean; message: string; data: number }
-                } = await axios.get(
-                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/get-nominal-anggaran?skpd=${skpdId}&kode_rekening=${kodeRekening}`,
-                    {
-                        headers: { Authorization: `Bearer ${sipd_token}` },
-                        httpsAgent,
-                    }
-                )
-
-                nominalAnggaran = res.data.data
-
-                if (!nominalAnggaran) {
-                    throw new TRPCError({
-                        code: 'BAD_REQUEST',
-                        message: 'Nominal anggaran tidak ada',
-                    })
-                }
-            } catch (error) {
-                console.log(error)
-
-                if (axios.isAxiosError(error)) {
-                    throw new TRPCError({
-                        code: 'BAD_REQUEST',
-                        message: JSON.stringify(error.response?.data),
-                    })
-                }
+            if (!mainAccountSecondaryPaired) {
+                throw new TRPCError({
+                    code: 'BAD_REQUEST',
+                    message: 'Main account secondary paired tidak ditemukan',
+                })
             }
 
             type PairedAccountType = {
