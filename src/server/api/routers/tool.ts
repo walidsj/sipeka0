@@ -8,6 +8,46 @@ import { format } from 'date-fns'
 import { eq } from 'drizzle-orm'
 import { tables } from '@/server/db'
 import fs from 'fs'
+import { exec } from 'child_process'
+import { promisify } from 'util'
+import path from 'path'
+
+const execPromise = promisify(exec)
+
+const cwd = process.cwd()
+
+const compressPdf = async (base64: string): Promise<string> => {
+    const tempFolder = path.join(cwd, 'temp')
+    const hasTempFolder = fs.existsSync(tempFolder)
+
+    if (!hasTempFolder) {
+        fs.mkdirSync(tempFolder)
+    }
+
+    const originalFilePath = path.join(cwd, 'temp', 'original.pdf')
+    const compressFilePath = path.join(cwd, 'temp', 'compress.pdf')
+
+    fs.writeFileSync(originalFilePath, base64, 'base64')
+
+    const os = process.platform
+
+    if (os === 'win32') {
+        await execPromise(
+            `gswin64c.exe -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile="${compressFilePath}" ${originalFilePath}`
+        )
+    } else {
+        await execPromise(
+            `gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile="${compressFilePath}" ${originalFilePath}`
+        )
+    }
+
+    const compressFileBase64 = fs.readFileSync(compressFilePath, 'base64')
+
+    fs.unlinkSync(originalFilePath)
+    fs.unlinkSync(compressFilePath)
+
+    return compressFileBase64
+}
 
 export const toolRouter = createTRPCRouter({
     preLoginSipd: userProcedure
@@ -451,17 +491,14 @@ export const toolRouter = createTRPCRouter({
                 ctx.headers.cookie
             )
 
-            // const base64File = fs.readFileSync(
-            //     `./storage/files/belanja/${belanja.file}`,
-            //     'base64'
-            // )
-
-            const buffer = await compress(
-                `/storage/files/belanja/${belanja.file}`
+            const base64File = fs.readFileSync(
+                `./storage/files/belanja/${belanja.file}`,
+                'base64'
             )
 
-            const base64File = buffer.toString('base64')
+            const base64FileCompressed = await compressPdf(base64File)
 
+        
             let nomorJournal = ''
 
             try {
@@ -505,7 +542,7 @@ export const toolRouter = createTRPCRouter({
                 nominal_anggaran: nominalAnggaran,
                 list_rekening: listRekening,
                 nominal_realisasi: 0,
-                dokumen: base64File,
+                dokumen: base64FileCompressed,
                 dokumen_name: belanja.file,
                 nomor_journal: nomorJournal,
                 id_urusan: 11,
