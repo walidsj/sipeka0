@@ -470,9 +470,19 @@ export const toolRouter = createTRPCRouter({
 
             let mainAccountSecondary
 
+            let kodeRekeningKeyword = ''
+
+            if (kodeRekening.startsWith('5.2')) {
+                const arrayOfKodeRekeningKeyword =
+                    belanja.rab.kodeRekening.split('.')
+                arrayOfKodeRekeningKeyword.shift()
+                arrayOfKodeRekeningKeyword.shift()
+                kodeRekeningKeyword = '.' + arrayOfKodeRekeningKeyword.join('.')
+            }
+
             try {
                 const response = await axios.get(
-                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-transaksi-non-anggaran/main-account-list-rekening?keyword=&nama_rekening=${mainAccountPrimary.namaRekening}&page=1`,
+                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-transaksi-non-anggaran/main-account-list-rekening?keyword=${kodeRekeningKeyword}&nama_rekening=${mainAccountPrimary.namaRekening}&page=1`,
                     {
                         headers: { Authorization: `Bearer ${sipd_token}` },
                         httpsAgent,
@@ -484,8 +494,10 @@ export const toolRouter = createTRPCRouter({
                         const belakangKodeRekening = kodeRekening.split('.')
                         belakangKodeRekening.shift()
 
-                        return item.kodeRekening.endsWith(
-                            belakangKodeRekening.join('.')
+                        return (
+                            item.kodeRekening.endsWith(
+                                '.' + belakangKodeRekening.join('.')
+                            ) || item.kodeRekening.endsWith(kodeRekeningKeyword)
                         )
                     }
                 )

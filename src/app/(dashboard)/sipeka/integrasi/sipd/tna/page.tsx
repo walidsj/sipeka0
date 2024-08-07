@@ -514,7 +514,18 @@ export default function Page() {
                                                         </button>
                                                     </TableCell>
                                                     <TableCell>
-                                                        {item.rab?.kodeRekening}
+                                                        <p>
+                                                            {
+                                                                item.rekening
+                                                                    ?.kode
+                                                            }
+                                                        </p>
+                                                        <p className="mt-3 italic">
+                                                            {
+                                                                item.rekening
+                                                                    ?.uraian
+                                                            }
+                                                        </p>
                                                     </TableCell>
                                                     <TableCell className="text-right">
                                                         <button
