@@ -414,9 +414,23 @@ export default function Page() {
                                                                         ) &&
                                                                     t.description.trim() ===
                                                                         item.uraian?.trim()
-                                                            ).length === 1
-                                                            ? 'bg-green-50'
-                                                            : 'bg-red-50',
+                                                            ).length === 1 &&
+                                                            'bg-green-50',
+                                                        tna.data &&
+                                                            tna.data.filter(
+                                                                (t) =>
+                                                                    t.journal_date ===
+                                                                        format(
+                                                                            new Date(
+                                                                                item.tglDokumen ||
+                                                                                    ''
+                                                                            ),
+                                                                            'yyyy-MM-dd'
+                                                                        ) &&
+                                                                    t.description.trim() ===
+                                                                        item.uraian?.trim()
+                                                            ).length > 1 &&
+                                                            'bg-red-50',
                                                         'font-semibold'
                                                     )}
                                                 >
