@@ -312,48 +312,6 @@ export const toolRouter = createTRPCRouter({
                 })
             }
 
-            const { sipd_token }: { sipd_token: string } = cookie.parse(
-                ctx.headers.cookie
-            )
-
-            const base64File = fs.readFileSync(
-                `./storage/files/belanja/${belanja.file}`,
-                'base64'
-            )
-
-            let nomorJournal = ''
-
-            try {
-                const res: {
-                    data: { status: boolean; message: string; data: string }
-                } = await axios.get(
-                    'https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/generate-nomor-journal?skpd=479&scenario_id=19',
-                    {
-                        headers: {
-                            Authorization: `Bearer ${sipd_token}`,
-                        },
-                    }
-                )
-
-                nomorJournal = res.data.data
-
-                if (!nomorJournal) {
-                    throw new TRPCError({
-                        code: 'BAD_REQUEST',
-                        message: 'Nomor jurnal tidak ditemukan',
-                    })
-                }
-            } catch (error) {
-                console.log(error)
-
-                if (axios.isAxiosError(error)) {
-                    throw new TRPCError({
-                        code: 'BAD_REQUEST',
-                        message: JSON.stringify(error.response?.data),
-                    })
-                }
-            }
-
             type TransaksiDetailType = {
                 debit: number
                 kredit: number
@@ -487,6 +445,48 @@ export const toolRouter = createTRPCRouter({
                     code: 'BAD_REQUEST',
                     message: 'Kode rekening tidak disupport',
                 })
+            }
+
+            const { sipd_token }: { sipd_token: string } = cookie.parse(
+                ctx.headers.cookie
+            )
+
+            const base64File = fs.readFileSync(
+                `./storage/files/belanja/${belanja.file}`,
+                'base64'
+            )
+
+            let nomorJournal = ''
+
+            try {
+                const res: {
+                    data: { status: boolean; message: string; data: string }
+                } = await axios.get(
+                    'https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/generate-nomor-journal?skpd=479&scenario_id=19',
+                    {
+                        headers: {
+                            Authorization: `Bearer ${sipd_token}`,
+                        },
+                    }
+                )
+
+                nomorJournal = res.data.data
+
+                if (!nomorJournal) {
+                    throw new TRPCError({
+                        code: 'BAD_REQUEST',
+                        message: 'Nomor jurnal tidak ditemukan',
+                    })
+                }
+            } catch (error) {
+                console.log(error)
+
+                if (axios.isAxiosError(error)) {
+                    throw new TRPCError({
+                        code: 'BAD_REQUEST',
+                        message: JSON.stringify(error.response?.data),
+                    })
+                }
             }
 
             const body = {

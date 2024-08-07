@@ -576,7 +576,16 @@ export default function Page() {
                                                                     item.uraian?.trim()
                                                         )
                                                         .map((t) => (
-                                                            <TableRow>
+                                                            <TableRow
+                                                                className={cn(
+                                                                    t.journal_status_id ===
+                                                                        3 &&
+                                                                        'bg-green-50',
+                                                                    t.journal_status_id ===
+                                                                        4 &&
+                                                                        'bg-red-50'
+                                                                )}
+                                                            >
                                                                 <TableCell>
                                                                     {
                                                                         t.journal_number
