@@ -22,6 +22,7 @@ import React from 'react'
 import toast from 'react-hot-toast'
 import { FiCheck, FiLoader, FiSend, FiTrash, FiX } from 'react-icons/fi'
 import { useSearchParams } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 export default function Page() {
     const utils = api.useUtils()
@@ -565,20 +566,79 @@ export default function Page() {
                                                                             kirimSipd.isPending
                                                                         }
                                                                         size="sm"
-                                                                        onClick={() => {
-                                                                            if (
-                                                                                confirm(
-                                                                                    'Yakin kirim SIPD?'
-                                                                                )
-                                                                            ) {
-                                                                                kirimSipd.mutate(
-                                                                                    {
-                                                                                        belanjaId:
-                                                                                            item.id,
+                                                                        onClick={() =>
+                                                                            Swal.fire(
+                                                                                {
+                                                                                    title: 'Kirim Data Ke SIPD?',
+                                                                                    text: 'Lampiran file PDF (Jika dikosongkan maka akan memakai file PDF yang sudah diupload di SIPEKA)',
+                                                                                    icon: 'question',
+                                                                                    showCancelButton:
+                                                                                        true,
+                                                                                    input: 'file',
+                                                                                    inputAttributes:
+                                                                                        {
+                                                                                            accept: 'application/pdf',
+                                                                                        },
+                                                                                }
+                                                                            ).then(
+                                                                                (
+                                                                                    result
+                                                                                ) => {
+                                                                                    if (
+                                                                                        result.isConfirmed
+                                                                                    ) {
+                                                                                        const file =
+                                                                                            Swal.getInput()
+
+                                                                                        if (
+                                                                                            file?.files &&
+                                                                                            file
+                                                                                                ?.files[0]
+                                                                                        ) {
+                                                                                            const reader =
+                                                                                                new FileReader()
+
+                                                                                            reader.readAsDataURL(
+                                                                                                file
+                                                                                                    ?.files[0]
+                                                                                            )
+
+                                                                                            reader.onload =
+                                                                                                function () {
+                                                                                                    if (
+                                                                                                        typeof reader.result !==
+                                                                                                        'string'
+                                                                                                    )
+                                                                                                        return
+
+                                                                                                    const filePdfBase64 =
+                                                                                                        reader.result.split(
+                                                                                                            ','
+                                                                                                        )[1]
+
+                                                                                                    kirimSipd.mutate(
+                                                                                                        {
+                                                                                                            belanjaId:
+                                                                                                                item.id,
+                                                                                                            filePdf:
+                                                                                                                filePdfBase64,
+                                                                                                        }
+                                                                                                    )
+                                                                                                }
+                                                                                        } else {
+                                                                                            kirimSipd.mutate(
+                                                                                                {
+                                                                                                    belanjaId:
+                                                                                                        item.id,
+                                                                                                    filePdf:
+                                                                                                        null,
+                                                                                                }
+                                                                                            )
+                                                                                        }
                                                                                     }
-                                                                                )
-                                                                            }
-                                                                        }}
+                                                                                }
+                                                                            )
+                                                                        }
                                                                     >
                                                                         <FiSend className="mr-2" />{' '}
                                                                         Kirim
@@ -605,6 +665,7 @@ export default function Page() {
                                                         )
                                                         .map((t) => (
                                                             <TableRow
+                                                                key={t.id}
                                                                 className={cn(
                                                                     t.journal_status_id ===
                                                                         3 &&

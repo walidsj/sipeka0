@@ -11,6 +11,7 @@ import { exec } from 'child_process'
 import { promisify } from 'util'
 import path from 'path'
 import https from 'https'
+import { Base64 } from 'js-base64'
 
 const getSkpdId = async (token: string): Promise<number> => {
     const skpdKode = '1.02.0.00.0.00.01.0011'
@@ -342,6 +343,7 @@ export const toolRouter = createTRPCRouter({
         .input(
             z.object({
                 belanjaId: z.number(),
+                filePdf: z.string().refine(Base64.isValid).nullable(),
             })
         )
         .mutation(async ({ ctx, input }) => {
@@ -361,7 +363,7 @@ export const toolRouter = createTRPCRouter({
                 })
             }
 
-            if (!belanja.file) {
+            if (!belanja.file && !input.filePdf) {
                 throw new TRPCError({
                     code: 'BAD_REQUEST',
                     message: 'File belanja tidak ditemukan (belum diupload)',
@@ -390,10 +392,12 @@ export const toolRouter = createTRPCRouter({
                 })
             }
 
-            const base64File = fs.readFileSync(
-                `./storage/files/belanja/${belanja.file}`,
-                'base64'
-            )
+            const base64File = input.filePdf
+                ? input.filePdf
+                : fs.readFileSync(
+                      `./storage/files/belanja/${belanja.file}`,
+                      'base64'
+                  )
 
             const skpdId = await getSkpdId(sipd_token)
 
@@ -604,7 +608,9 @@ export const toolRouter = createTRPCRouter({
                 },
                 nominal_realisasi: 0,
                 dokumen: base64FileCompressed,
-                dokumen_name: belanja.file,
+                dokumen_name: belanja.file
+                    ? belanja.file
+                    : belanja.noDokumen + '_' + Date.now() + '.pdf',
                 nomor_journal: nomorJournal,
                 id_urusan: 11,
                 kode_urusan: '1',
