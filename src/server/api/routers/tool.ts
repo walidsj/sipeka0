@@ -608,9 +608,9 @@ export const toolRouter = createTRPCRouter({
                 },
                 nominal_realisasi: 0,
                 dokumen: base64FileCompressed,
-                dokumen_name: belanja.file
-                    ? belanja.file
-                    : belanja.noDokumen + '_' + Date.now() + '.pdf',
+                dokumen_name: input.filePdf
+                    ? belanja.noDokumen + '_' + Date.now() + '.pdf'
+                    : belanja.file,
                 nomor_journal: nomorJournal,
                 id_urusan: 11,
                 kode_urusan: '1',
