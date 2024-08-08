@@ -53,8 +53,7 @@ export default function Page() {
             toast.dismiss()
             Swal.fire({
                 title: 'Gagal',
-                text: error.message,
-                html: `<pre>${JSON.stringify(error, null, 2)}</pre>`,
+                html: `<pre>${error.message}</pre>`,
                 icon: 'error',
             })
         },
@@ -78,8 +77,7 @@ export default function Page() {
             toast.dismiss()
             Swal.fire({
                 title: 'Gagal',
-                text: error.message,
-                html: `<pre>${JSON.stringify(error, null, 2)}</pre>`,
+                html: `<pre>${error.message}</pre>`,
                 icon: 'error',
             })
         },
@@ -103,8 +101,7 @@ export default function Page() {
             toast.dismiss()
             Swal.fire({
                 title: 'Gagal',
-                text: error.message,
-                html: `<pre>${JSON.stringify(error, null, 2)}</pre>`,
+                html: `<pre>${error.message}</pre>`,
                 icon: 'error',
             })
         },
