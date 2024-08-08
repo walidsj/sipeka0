@@ -112,7 +112,11 @@ export default function OnlineUsers() {
                     <div className="mr-2">
                         <Avatar className="h-8 w-8">
                             <AvatarImage
-                                src={`https://ui-avatars.com/api/?name=${fromSocket.nama}&background=${colorImg[fromSocket.userId % 5]}&color=fff`}
+                                src={
+                                    fromSocket.image
+                                        ? `/api/storage/files/user-image/${fromSocket.image}`
+                                        : `https://ui-avatars.com/api/?name=${fromSocket.nama}&background=${colorImg[fromSocket.userId % 5]}&color=fff`
+                                }
                             />
                             <AvatarFallback>
                                 <HiOutlineUser />
