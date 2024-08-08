@@ -92,7 +92,7 @@ io.on('connection', (socket: Socket) => {
         }
     )
 
-    socket.on('say-hi', (toUserId: number) => {
+    socket.on('say-hi', (toUserId: number, message: string) => {
         const toUserSocket = tempOnlineUser.filter((u) => u.userId === toUserId)
         const getFromUser = tempOnlineUser.find((u) => u.socketId === socket.id)
 
@@ -100,7 +100,7 @@ io.on('connection', (socket: Socket) => {
 
         if (toUserSocket && fromUser) {
             toUserSocket.forEach((u) => {
-                io.to(u.socketId).emit('incoming-hi', fromUser)
+                io.to(u.socketId).emit('incoming-hi', fromUser, message)
             })
         }
     })

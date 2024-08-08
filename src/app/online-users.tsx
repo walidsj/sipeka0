@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils'
 import { HiOutlineUser } from 'react-icons/hi'
 import { Button } from '@/components/ui/button'
 import toast from 'react-hot-toast'
+import { FiX } from 'react-icons/fi'
 
 type IOnlineUser = {
     userId: number
@@ -102,33 +103,53 @@ export default function OnlineUsers() {
     }, [])
 
     const handleSayHi = (userId: number) => {
-        socket.emit('say-hi', userId)
+        socket.emit('say-hi', userId, 'Halo 👋👋')
+    }
+
+    const handleSendMessage = (userId: number) => {
+        const promptMessage = prompt('Masukkan pesan yang ingin dikirim')
+        if (!promptMessage) return
+
+        socket.emit('say-hi', userId, promptMessage)
     }
 
     React.useEffect(() => {
-        socket.on('incoming-hi', (fromSocket: IOnlineUser) => {
-            toast(() => (
-                <div className="flex items-center">
-                    <div className="mr-2">
-                        <Avatar className="h-8 w-8">
-                            <AvatarImage
-                                src={
-                                    fromSocket.image
-                                        ? `/api/storage/files/user-image/${fromSocket.image}`
-                                        : `https://ui-avatars.com/api/?name=${fromSocket.nama}&background=${colorImg[fromSocket.userId % 5]}&color=fff`
-                                }
-                            />
-                            <AvatarFallback>
-                                <HiOutlineUser />
-                            </AvatarFallback>
-                        </Avatar>
+        socket.on('incoming-hi', (fromSocket: IOnlineUser, message: string) => {
+            toast(
+                (t) => (
+                    <div className="relative flex items-center">
+                        <div className="mr-2">
+                            <Avatar className="h-8 w-8">
+                                <AvatarImage
+                                    src={
+                                        fromSocket.image
+                                            ? `/api/storage/files/user-image/${fromSocket.image}`
+                                            : `https://ui-avatars.com/api/?name=${fromSocket.nama}&background=${colorImg[fromSocket.userId % 5]}&color=fff`
+                                    }
+                                />
+                                <AvatarFallback>
+                                    <HiOutlineUser />
+                                </AvatarFallback>
+                            </Avatar>
+                        </div>
+                        <div className="pr-10">
+                            <div className="font-semibold">{fromSocket.nama}</div>
+                            <div className="text-xs text-slate-500">{message}</div>
+                        </div>
+                        <Button
+                            size="icon"
+                            className="absolute right-0 top-0 h-5 w-5"
+                            variant="outline"
+                            onClick={() => toast.dismiss(t.id)}
+                        >
+                            <FiX />
+                        </Button>
                     </div>
-                    <div>
-                        <div className="font-semibold">{fromSocket.nama}</div>
-                        <div className="text-xs text-slate-500">Halo 👋👋</div>
-                    </div>
-                </div>
-            ))
+                ),
+                {
+                    duration: Infinity,
+                }
+            )
         })
 
         return () => {
@@ -161,7 +182,7 @@ export default function OnlineUsers() {
                         ))}
                 </div>
             </PopoverTrigger>
-            <PopoverContent className="min-w-fit">
+            <PopoverContent className="min-w-fit" align="end">
                 <CardTitle className="mb-4">User Online Lainnya</CardTitle>
                 {onlineUsers
                     .filter((onlineUser) => onlineUser.userId !== auth.user?.id)
@@ -193,9 +214,18 @@ export default function OnlineUsers() {
                                     </div>
                                 </div>
                             </div>
-                            <Button size="sm" variant="outline" onClick={() => handleSayHi(onlineUser.userId)}>
-                                👋 Say Hi
-                            </Button>
+                            <div className="flex flex-row gap-2">
+                                <Button size="sm" variant="outline" onClick={() => handleSayHi(onlineUser.userId)}>
+                                    👋 Say Hi
+                                </Button>
+                                <Button
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={() => handleSendMessage(onlineUser.userId)}
+                                >
+                                    Kirim Pesan
+                                </Button>
+                            </div>
                         </div>
                     ))}
                 {onlineUsers.length === 0 && <div className="text-sm text-slate-400">Tidak ada user online</div>}
