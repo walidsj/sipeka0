@@ -53,7 +53,7 @@ export default function Page() {
             toast.dismiss()
             Swal.fire({
                 title: 'Gagal',
-                html: `<pre>${error.message}</pre>`,
+                html: `<textarea>${error.message}</textarea>`,
                 icon: 'error',
             })
         },
@@ -77,7 +77,7 @@ export default function Page() {
             toast.dismiss()
             Swal.fire({
                 title: 'Gagal',
-                html: `<pre>${error.message}</pre>`,
+                html: `<textarea>${error.message}</textarea>`,
                 icon: 'error',
             })
         },
@@ -101,7 +101,7 @@ export default function Page() {
             toast.dismiss()
             Swal.fire({
                 title: 'Gagal',
-                html: `<pre>${error.message}</pre>`,
+                html: `<textarea>${error.message}</textarea>`,
                 icon: 'error',
             })
         },
