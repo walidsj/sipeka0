@@ -6,4 +6,5 @@ export const userSchema = z.object({
     instansi: z.string().min(1),
     role: z.enum(['USER', 'ADMIN']),
     pegawaiId: z.number().nullish(),
+    image: z.string().nullish(),
 })

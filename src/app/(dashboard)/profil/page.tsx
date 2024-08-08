@@ -1,13 +1,6 @@
 import { user } from '@/server/db/schema'
 import { Button } from '@/components/ui/button'
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from '@/components/ui/form'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import {
     Select,
@@ -28,23 +21,16 @@ import { z } from 'zod'
 const schema = z.object({
     nama: z.string().min(1),
     instansi: z.string().min(1),
+    fileImage: z.instanceof(File).nullish(),
 })
 
 export default function Dashboard() {
     const auth = useAuth()
 
-    return (
-        <div className="max-w-96">
-            {auth.user && <EditForm data={auth.user} />}
-        </div>
-    )
+    return <div className="max-w-96">{auth.user && <EditForm data={auth.user} />}</div>
 }
 
-function EditForm({
-    data,
-}: {
-    data: Omit<typeof user.$inferSelect, 'password'>
-}) {
+function EditForm({ data }: { data: Omit<typeof user.$inferSelect, 'password'> }) {
     const utils = api.useUtils()
 
     const editUser = api.user.updateProfile.useMutation({
@@ -72,16 +58,32 @@ function EditForm({
     })
 
     function onSubmit(input: z.infer<typeof schema>) {
-        editUser.mutate(input)
+        if (input.fileImage) {
+            const reader = new FileReader()
+
+            reader.readAsDataURL(input.fileImage)
+            reader.onload = function () {
+                if (typeof reader.result !== 'string') return
+
+                editUser.mutate({
+                    nama: input.nama,
+                    instansi: input.instansi,
+                    image: reader.result,
+                })
+            }
+        } else {
+            editUser.mutate({
+                nama: input.nama,
+                instansi: input.instansi,
+                image: null,
+            })
+        }
     }
 
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
-                <fieldset
-                    disabled={editUser.isPending}
-                    className="flex flex-col gap-4"
-                >
+                <fieldset disabled={editUser.isPending} className="flex flex-col gap-4">
                     <FormItem>
                         <FormLabel>Username</FormLabel>
                         <FormControl>
@@ -95,11 +97,7 @@ function EditForm({
                             <FormItem>
                                 <FormLabel>Nama Lengkap</FormLabel>
                                 <FormControl>
-                                    <Input
-                                        {...field}
-                                        className="input"
-                                        placeholder="Nama"
-                                    />
+                                    <Input {...field} className="input" placeholder="Nama" />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -111,10 +109,7 @@ function EditForm({
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Asal Instansi</FormLabel>
-                                <Select
-                                    onValueChange={field.onChange}
-                                    defaultValue={field.value}
-                                >
+                                <Select onValueChange={field.onChange} defaultValue={field.value}>
                                     <FormControl>
                                         <SelectTrigger>
                                             <SelectValue placeholder="Asal Instansi" />
@@ -129,25 +124,16 @@ function EditForm({
                                         </SelectGroup>
                                         <SelectGroup>
                                             <SelectLabel>Eksternal</SelectLabel>
-                                            <SelectItem value="BPKAD Prov. Kaltim">
-                                                BPKAD Prov. Kaltim
-                                            </SelectItem>
-                                            <SelectItem value="Bapenda Prov. Kaltim">
-                                                Bapenda Prov. Kaltim
-                                            </SelectItem>
-                                            <SelectItem value="BPK RI">
-                                                BPK RI
-                                            </SelectItem>
+                                            <SelectItem value="BPKAD Prov. Kaltim">BPKAD Prov. Kaltim</SelectItem>
+                                            <SelectItem value="Bapenda Prov. Kaltim">Bapenda Prov. Kaltim</SelectItem>
+                                            <SelectItem value="BPK RI">BPK RI</SelectItem>
                                             <SelectItem value="Biro Perekonomian Setda Prov. Kaltim">
-                                                Biro Perekonomian Setda Prov.
-                                                Kaltim
+                                                Biro Perekonomian Setda Prov. Kaltim
                                             </SelectItem>
                                             <SelectItem value="Inspektorat Prov. Kaltim">
                                                 Inspektorat Prov. Kaltim
                                             </SelectItem>
-                                            <SelectItem value="Lainnya">
-                                                Lainnya
-                                            </SelectItem>
+                                            <SelectItem value="Lainnya">Lainnya</SelectItem>
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
@@ -155,10 +141,25 @@ function EditForm({
                             </FormItem>
                         )}
                     />
+                    <FormField
+                        name="fileImage"
+                        render={({ field: { value, onChange, ...fieldProps } }) => (
+                            <FormItem>
+                                <FormLabel>Foto Profil</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        {...fieldProps}
+                                        type="file"
+                                        accept="image/png,image/jpeg,image/jpg"
+                                        onChange={(event) => onChange(event.target.files && event.target.files[0])}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
                     <div>
-                        <Button type="submit">
-                            {editUser.isPending ? 'Menyimpan...' : 'Simpan'}
-                        </Button>
+                        <Button type="submit">{editUser.isPending ? 'Menyimpan...' : 'Simpan'}</Button>
                     </div>
                 </fieldset>
             </form>

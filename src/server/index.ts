@@ -32,6 +32,11 @@ app.use('/api/storage/files/belanja/:file', (req, res) => {
         root: 'storage/files/belanja',
     })
 })
+app.use('/api/storage/files/user-image/:file', (req, res) => {
+    res.sendFile(req.params.file, {
+        root: 'storage/files/user-image',
+    })
+})
 
 app.use(express.static('dist'))
 
@@ -46,12 +51,14 @@ type IOnlineUser = {
     userId: number
     nama: string
     isActive: boolean
+    image: string
 }
 type ITempOnlineUser = {
     socketId: string
     userId: number
     nama: string
     isActive: boolean
+    image: string
 }
 
 let tempOnlineUser: ITempOnlineUser[] = []
@@ -64,22 +71,26 @@ io.on('connection', (socket: Socket) => {
         io.emit('get-users', onlineUsers)
     })
 
-    socket.on('online', ({ user, isActive }: { user: { id: number; nama: string }; isActive: boolean }) => {
-        tempOnlineUser = tempOnlineUser.filter((tempUser) => tempUser.socketId !== socket.id)
-        tempOnlineUser.push({
-            socketId: socket.id,
-            userId: user.id,
-            nama: user.nama,
-            isActive,
-        })
+    socket.on(
+        'online',
+        ({ user, isActive }: { user: { id: number; nama: string; image: string }; isActive: boolean }) => {
+            tempOnlineUser = tempOnlineUser.filter((tempUser) => tempUser.socketId !== socket.id)
+            tempOnlineUser.push({
+                socketId: socket.id,
+                userId: user.id,
+                nama: user.nama,
+                image: user.image,
+                isActive,
+            })
 
-        onlineUsers = _.uniqBy(tempOnlineUser, 'userId').map((user) => ({
-            ...user,
-            isActive: tempOnlineUser.find((u) => u.userId === user.userId && u.isActive) ? true : false,
-        }))
+            onlineUsers = _.uniqBy(tempOnlineUser, 'userId').map((user) => ({
+                ...user,
+                isActive: tempOnlineUser.find((u) => u.userId === user.userId && u.isActive) ? true : false,
+            }))
 
-        io.emit('get-users', onlineUsers)
-    })
+            io.emit('get-users', onlineUsers)
+        }
+    )
 
     socket.on('say-hi', (toUserId: number) => {
         const toUserSocket = tempOnlineUser.filter((u) => u.userId === toUserId)

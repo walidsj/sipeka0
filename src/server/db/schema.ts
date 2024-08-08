@@ -1,13 +1,5 @@
 import { relations } from 'drizzle-orm'
-import {
-    decimal,
-    int,
-    mysqlEnum,
-    mysqlTable,
-    serial,
-    timestamp,
-    varchar,
-} from 'drizzle-orm/mysql-core'
+import { decimal, int, mysqlEnum, mysqlTable, serial, timestamp, varchar } from 'drizzle-orm/mysql-core'
 
 export const user = mysqlTable('user', {
     id: serial('id').primaryKey(),
@@ -17,10 +9,9 @@ export const user = mysqlTable('user', {
     instansi: varchar('instansi', { length: 256 }),
     role: mysqlEnum('role', ['ADMIN', 'USER']),
     pegawaiId: int('pegawai_id', { unsigned: true }),
+    image: varchar('image', { length: 256 }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const bank = mysqlTable('bank', {
@@ -28,9 +19,7 @@ export const bank = mysqlTable('bank', {
     nama: varchar('nama', { length: 256 }),
     kode: varchar('kode', { length: 256 }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const pegawai = mysqlTable('pegawai', {
@@ -43,31 +32,19 @@ export const pegawai = mysqlTable('pegawai', {
     jabatan: varchar('jabatan', { length: 256 }),
     npwp: varchar('npwp', { length: 15 }),
     noTelp: varchar('no_telp', { length: 256 }),
-    statusPegawai: mysqlEnum('status_pegawai', [
-        'PNS',
-        'PPPK',
-        'NON ASN',
-        'MOU',
-    ]),
+    statusPegawai: mysqlEnum('status_pegawai', ['PNS', 'PPPK', 'NON ASN', 'MOU']),
     bankId: int('bank_id', { unsigned: true }),
     namaRekening: varchar('nama_rekening', { length: 256 }),
     noRekening: varchar('no_rekening', { length: 256 }),
     jenisKelamin: mysqlEnum('jenis_kelamin', ['LAKI-LAKI', 'PEREMPUAN']),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const rekanan = mysqlTable('rekanan', {
     id: serial('id').primaryKey(),
     nama: varchar('nama', { length: 256 }),
-    jenis: mysqlEnum('jenis', [
-        'PERORANGAN',
-        'SWASTA',
-        'BUMN/BUMD',
-        'PEMERINTAH',
-    ]),
+    jenis: mysqlEnum('jenis', ['PERORANGAN', 'SWASTA', 'BUMN/BUMD', 'PEMERINTAH']),
     alamat: varchar('alamat', { length: 256 }),
     npwp: varchar('npwp', { length: 15 }),
     noTelp: varchar('no_telp', { length: 256 }),
@@ -76,9 +53,7 @@ export const rekanan = mysqlTable('rekanan', {
     namaRekening: varchar('nama_rekening', { length: 256 }),
     noRekening: varchar('no_rekening', { length: 256 }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const pengelolaBlud = mysqlTable('pengelola_blud', {
@@ -97,9 +72,7 @@ export const pengelolaBlud = mysqlTable('pengelola_blud', {
     noSk: varchar('no_sk', { length: 256 }),
     tglSk: timestamp('tgl_sk', { mode: 'date' }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const profilBlud = mysqlTable('profil_blud', {
@@ -111,9 +84,7 @@ export const profilBlud = mysqlTable('profil_blud', {
     email: varchar('email', { length: 256 }),
     website: varchar('website', { length: 256 }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const rba = mysqlTable('rba', {
@@ -122,18 +93,14 @@ export const rba = mysqlTable('rba', {
     uraian: varchar('uraian', { length: 256 }),
     tglDokumen: timestamp('tgl_dokumen', { mode: 'date' }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const unitKerja = mysqlTable('unit_kerja', {
     id: serial('id').primaryKey(),
     nama: varchar('nama', { length: 256 }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const aktivitasRba = mysqlTable('aktivitas_rba', {
@@ -143,9 +110,7 @@ export const aktivitasRba = mysqlTable('aktivitas_rba', {
     rbaId: int('rba_id', { unsigned: true }),
     jenis: mysqlEnum('jenis', ['BELANJA', 'PENDAPATAN', 'PEMBIAYAAN']),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const rincianRbaBelanja = mysqlTable('rincian_rba_belanja', {
@@ -156,9 +121,7 @@ export const rincianRbaBelanja = mysqlTable('rincian_rba_belanja', {
     satuan: varchar('satuan', { length: 256 }),
     harga: decimal('harga', { precision: 20, scale: 2 }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const rincianRbaPendapatan = mysqlTable('rincian_rba_pendapatan', {
@@ -167,9 +130,7 @@ export const rincianRbaPendapatan = mysqlTable('rincian_rba_pendapatan', {
     rapId: int('rap_id', { unsigned: true }),
     jumlah: decimal('jumlah', { precision: 20, scale: 2 }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const rab = mysqlTable('rab', {
@@ -187,9 +148,7 @@ export const rab = mysqlTable('rab', {
     ]),
     unitKerjaId: int('unit_kerja_id', { unsigned: true }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const rap = mysqlTable('rap', {
@@ -197,9 +156,7 @@ export const rap = mysqlTable('rap', {
     kodeRekening: varchar('kode_rekening', { length: 256 }),
     uraian: varchar('uraian', { length: 256 }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const pendapatan = mysqlTable('pendapatan', {
@@ -209,9 +166,7 @@ export const pendapatan = mysqlTable('pendapatan', {
     jumlah: decimal('jumlah', { precision: 20, scale: 2 }),
     keterangan: varchar('keterangan', { length: 256 }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const dba = mysqlTable('dba', {
@@ -221,9 +176,7 @@ export const dba = mysqlTable('dba', {
     uraian: varchar('uraian', { length: 256 }),
     tglDokumen: timestamp('tgl_dokumen', { mode: 'date' }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const belanja = mysqlTable('belanja', {
@@ -240,9 +193,7 @@ export const belanja = mysqlTable('belanja', {
     lpjBelanjaId: int('lpj_belanja_id', { unsigned: true }),
     file: varchar('file', { length: 256 }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const lpjBelanjaTable = mysqlTable('lpj_belanja', {
@@ -252,28 +203,18 @@ export const lpjBelanjaTable = mysqlTable('lpj_belanja', {
     jenis: mysqlEnum('jenis', ['GU', 'LS', 'TU']),
     uraian: varchar('uraian', { length: 256 }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const potonganBelanja = mysqlTable('potongan_belanja', {
     id: serial('id').primaryKey(),
     belanjaId: int('belanja_id', { unsigned: true }),
-    jenis: mysqlEnum('jenis', [
-        'PPH 21',
-        'PPH 22',
-        'PPH 23',
-        'PPH 4(2)',
-        'PPN',
-    ]),
+    jenis: mysqlEnum('jenis', ['PPH 21', 'PPH 22', 'PPH 23', 'PPH 4(2)', 'PPN']),
     jumlah: decimal('jumlah', { precision: 20, scale: 2 }),
     billing: varchar('billing', { length: 256 }),
     ntpn: varchar('ntpn', { length: 256 }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const sp3bTable = mysqlTable('sp3b', {
@@ -284,9 +225,7 @@ export const sp3bTable = mysqlTable('sp3b', {
     tglDokumen: timestamp('tgl_dokumen', { mode: 'date' }),
     penandatanganId: int('penandatangan_id', { unsigned: true }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const sppTable = mysqlTable('spp', {
@@ -295,9 +234,7 @@ export const sppTable = mysqlTable('spp', {
     noDokumen: varchar('no_dokumen', { length: 256 }),
     lpjBelanjaId: int('lpj_belanja_id', { unsigned: true }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const spmTable = mysqlTable('spm', {
@@ -306,9 +243,7 @@ export const spmTable = mysqlTable('spm', {
     noDokumen: varchar('no_dokumen', { length: 256 }),
     sppId: int('spp_id', { unsigned: true }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const sp2dTable = mysqlTable('sp2d', {
@@ -318,9 +253,7 @@ export const sp2dTable = mysqlTable('sp2d', {
     spmId: int('spm_id', { unsigned: true }),
     noCek: varchar('no_cek', { length: 256 }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const rekeningBankTable = mysqlTable('rekening_bank', {
@@ -329,9 +262,7 @@ export const rekeningBankTable = mysqlTable('rekening_bank', {
     namaRekening: varchar('nama_rekening', { length: 256 }),
     noRekening: varchar('no_rekening', { length: 256 }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const rekeningKoranTable = mysqlTable('rekening_koran', {
@@ -344,9 +275,7 @@ export const rekeningKoranTable = mysqlTable('rekening_koran', {
     kredit: decimal('kredit', { precision: 20, scale: 2 }),
     keteranganTambahan: varchar('keterangan_tambahan', { length: 256 }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'date' })
-        .defaultNow()
-        .onUpdateNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().onUpdateNow(),
 })
 
 export const userRelations = relations(user, ({ one }) => ({
@@ -363,50 +292,41 @@ export const pengelolaBludRelations = relations(pengelolaBlud, ({ one }) => ({
     }),
 }))
 
-export const rincianRbaBelanjaRelations = relations(
-    rincianRbaBelanja,
-    ({ one }) => ({
-        aktivitas: one(aktivitasRba, {
-            fields: [rincianRbaBelanja.aktivitasRbaId],
-            references: [aktivitasRba.id],
-        }),
-        rab: one(rab, {
-            fields: [rincianRbaBelanja.rabId],
-            references: [rab.id],
-        }),
-    })
-)
+export const rincianRbaBelanjaRelations = relations(rincianRbaBelanja, ({ one }) => ({
+    aktivitas: one(aktivitasRba, {
+        fields: [rincianRbaBelanja.aktivitasRbaId],
+        references: [aktivitasRba.id],
+    }),
+    rab: one(rab, {
+        fields: [rincianRbaBelanja.rabId],
+        references: [rab.id],
+    }),
+}))
 
-export const rincianRbaPendapatanRelations = relations(
-    rincianRbaPendapatan,
-    ({ one }) => ({
-        aktivitas: one(aktivitasRba, {
-            fields: [rincianRbaPendapatan.aktivitasRbaId],
-            references: [aktivitasRba.id],
-        }),
-        rap: one(rap, {
-            fields: [rincianRbaPendapatan.rapId],
-            references: [rap.id],
-        }),
-    })
-)
+export const rincianRbaPendapatanRelations = relations(rincianRbaPendapatan, ({ one }) => ({
+    aktivitas: one(aktivitasRba, {
+        fields: [rincianRbaPendapatan.aktivitasRbaId],
+        references: [aktivitasRba.id],
+    }),
+    rap: one(rap, {
+        fields: [rincianRbaPendapatan.rapId],
+        references: [rap.id],
+    }),
+}))
 
 export const rbaRelations = relations(rba, ({ many, one }) => ({
     aktivitas: many(aktivitasRba),
     dba: one(dba),
 }))
 
-export const aktivitasRbaRelations = relations(
-    aktivitasRba,
-    ({ one, many }) => ({
-        rba: one(rba, {
-            fields: [aktivitasRba.rbaId],
-            references: [rba.id],
-        }),
-        rincianRbaBelanja: many(rincianRbaBelanja),
-        rincianRbaPendapatan: many(rincianRbaPendapatan),
-    })
-)
+export const aktivitasRbaRelations = relations(aktivitasRba, ({ one, many }) => ({
+    rba: one(rba, {
+        fields: [aktivitasRba.rbaId],
+        references: [rba.id],
+    }),
+    rincianRbaBelanja: many(rincianRbaBelanja),
+    rincianRbaPendapatan: many(rincianRbaPendapatan),
+}))
 
 export const rabRelations = relations(rab, ({ many, one }) => ({
     unitKerja: one(unitKerja, {
@@ -460,26 +380,20 @@ export const belanjaRelations = relations(belanja, ({ one, many }) => ({
     }),
 }))
 
-export const potonganBelanjaRelations = relations(
-    potonganBelanja,
-    ({ one }) => ({
-        belanja: one(belanja, {
-            fields: [potonganBelanja.belanjaId],
-            references: [belanja.id],
-        }),
-    })
-)
+export const potonganBelanjaRelations = relations(potonganBelanja, ({ one }) => ({
+    belanja: one(belanja, {
+        fields: [potonganBelanja.belanjaId],
+        references: [belanja.id],
+    }),
+}))
 
-export const lpjBelanjaTableRelations = relations(
-    lpjBelanjaTable,
-    ({ many, one }) => ({
-        belanja: many(belanja),
-        spp: one(sppTable, {
-            fields: [lpjBelanjaTable.id],
-            references: [sppTable.lpjBelanjaId],
-        }),
-    })
-)
+export const lpjBelanjaTableRelations = relations(lpjBelanjaTable, ({ many, one }) => ({
+    belanja: many(belanja),
+    spp: one(sppTable, {
+        fields: [lpjBelanjaTable.id],
+        references: [sppTable.lpjBelanjaId],
+    }),
+}))
 
 export const rekananRelations = relations(rekanan, ({ one, many }) => ({
     bank: one(bank, {
@@ -536,23 +450,17 @@ export const sp2dTableRelations = relations(sp2dTable, ({ one }) => ({
     }),
 }))
 
-export const rekeningBankTableRelations = relations(
-    rekeningBankTable,
-    ({ one, many }) => ({
-        bank: one(bank, {
-            fields: [rekeningBankTable.bankId],
-            references: [bank.id],
-        }),
-        rekeningKoran: many(rekeningKoranTable),
-    })
-)
+export const rekeningBankTableRelations = relations(rekeningBankTable, ({ one, many }) => ({
+    bank: one(bank, {
+        fields: [rekeningBankTable.bankId],
+        references: [bank.id],
+    }),
+    rekeningKoran: many(rekeningKoranTable),
+}))
 
-export const rekeningKoranTableRelations = relations(
-    rekeningKoranTable,
-    ({ one }) => ({
-        rekeningBank: one(rekeningBankTable, {
-            fields: [rekeningKoranTable.rekeningBankId],
-            references: [rekeningBankTable.id],
-        }),
-    })
-)
+export const rekeningKoranTableRelations = relations(rekeningKoranTable, ({ one }) => ({
+    rekeningBank: one(rekeningBankTable, {
+        fields: [rekeningKoranTable.rekeningBankId],
+        references: [rekeningBankTable.id],
+    }),
+}))

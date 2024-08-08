@@ -1,10 +1,5 @@
 import { pegawai, user } from '@/server/db/schema'
-import {
-    adminProcedure,
-    createTRPCRouter,
-    publicProcedure,
-    userProcedure,
-} from '@/server/trpc'
+import { adminProcedure, createTRPCRouter, publicProcedure, userProcedure } from '@/server/trpc'
 import { TRPCError } from '@trpc/server'
 import { asc, eq } from 'drizzle-orm'
 import { z } from 'zod'
@@ -12,17 +7,14 @@ import bcryptjs from 'bcryptjs'
 import { type JWTPayload, SignJWT } from 'jose'
 import { env } from '@/env.server'
 import { userSchema } from '@/server/api/schema/user'
+import fs from 'fs'
 
 const secret = env.JWT_SECRET_KEY ?? 'secret'
 const key = new TextEncoder().encode(secret)
 
 export const userRouter = createTRPCRouter({
     login: publicProcedure
-        .input(
-            userSchema
-                .pick({ username: true })
-                .merge(z.object({ password: z.string().min(1) }))
-        )
+        .input(userSchema.pick({ username: true }).merge(z.object({ password: z.string().min(1) })))
         .mutation(async ({ ctx, input }) => {
             const existedUser = await ctx.db.query.user.findFirst({
                 where: eq(user.username, input.username),
@@ -108,11 +100,27 @@ export const userRouter = createTRPCRouter({
     }),
 
     updateProfile: userProcedure
-        .input(userSchema.pick({ nama: true, instansi: true }))
+        .input(userSchema.pick({ nama: true, instansi: true, image: true }))
         .mutation(async ({ ctx, input }) => {
+            const base64Image = input.image?.split(',')[1]
+            const imageExtention = input.image?.split(';')[0].split('/')[1]
+            const fileName = `${ctx.user?.id}_${Date.now()}.${imageExtention}`
+
+            if (base64Image && imageExtention) {
+                if (ctx.user?.image) {
+                    fs.unlinkSync(`storage/files/user-image/${ctx.user?.image}`)
+                }
+
+                fs.writeFileSync(`storage/files/user-image/${fileName}`, base64Image, 'base64')
+            }
+
             await ctx.db
                 .update(user)
-                .set({ nama: input.nama, instansi: input.instansi })
+                .set({
+                    nama: input.nama,
+                    instansi: input.instansi,
+                    image: base64Image && imageExtention ? fileName : undefined,
+                })
                 .where(eq(user.id, ctx.user?.id ?? 0))
 
             return { message: 'Profile berhasil diupdate' }
@@ -237,9 +245,7 @@ export const userRouter = createTRPCRouter({
             await ctx.db
                 .update(user)
                 .set({
-                    password: password
-                        ? bcryptjs.hashSync(password, 10)
-                        : undefined,
+                    password: password ? bcryptjs.hashSync(password, 10) : undefined,
                     ...rest,
                 })
                 .where(eq(user.id, input.id))
@@ -247,11 +253,9 @@ export const userRouter = createTRPCRouter({
             return { message: 'User berhasil diupdate' }
         }),
 
-    deleteById: adminProcedure
-        .input(z.number())
-        .mutation(async ({ ctx, input }) => {
-            await ctx.db.delete(user).where(eq(user.id, input))
+    deleteById: adminProcedure.input(z.number()).mutation(async ({ ctx, input }) => {
+        await ctx.db.delete(user).where(eq(user.id, input))
 
-            return { message: 'User berhasil dihapus' }
-        }),
+        return { message: 'User berhasil dihapus' }
+    }),
 })
