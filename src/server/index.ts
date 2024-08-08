@@ -2,12 +2,10 @@ import { appRouter } from './api/root'
 import express from 'express'
 import { createServer } from 'node:http'
 import { Server, Socket } from 'socket.io'
-import {
-    createExpressMiddleware,
-    type CreateExpressContextOptions,
-} from '@trpc/server/adapters/express'
+import { createExpressMiddleware, type CreateExpressContextOptions } from '@trpc/server/adapters/express'
 import { getSession } from './auth'
 import { db } from './db'
+import _ from 'lodash'
 
 const app = express()
 
@@ -23,11 +21,7 @@ app.use(
         onError:
             process.env.NODE_ENV === 'development'
                 ? ({ path, error }) => {
-                      console.error(
-                          `❌ tRPC failed on ${path ?? '<no-path>'}: ${
-                              error.message
-                          }`
-                      )
+                      console.error(`❌ tRPC failed on ${path ?? '<no-path>'}: ${error.message}`)
                   }
                 : undefined,
     })
@@ -70,52 +64,28 @@ io.on('connection', (socket: Socket) => {
         io.emit('get-users', onlineUsers)
     })
 
-    socket.on(
-        'online',
-        ({
-            user,
+    socket.on('online', ({ user, isActive }: { user: { id: number; nama: string }; isActive: boolean }) => {
+        tempOnlineUser = tempOnlineUser.filter((tempUser) => tempUser.socketId !== socket.id)
+        tempOnlineUser.push({
+            socketId: socket.id,
+            userId: user.id,
+            nama: user.nama,
             isActive,
-        }: {
-            user: { id: number; nama: string }
-            isActive: boolean
-        }) => {
-            tempOnlineUser = tempOnlineUser.filter(
-                (tempUser) => tempUser.socketId !== socket.id
-            )
-            tempOnlineUser.push({
-                socketId: socket.id,
-                userId: user.id,
-                nama: user.nama,
-                isActive,
-            })
+        })
 
-            onlineUsers = Array.from(
-                new Set(
-                    tempOnlineUser.map((u) => ({
-                        userId: u.userId,
-                        nama: u.nama,
-                    }))
-                )
-            ).map((user) => ({
-                ...user,
-                isActive: tempOnlineUser.find(
-                    (u) => u.userId === user.userId && u.isActive
-                )
-                    ? true
-                    : false,
-            }))
+        onlineUsers = _.uniqBy(tempOnlineUser, 'userId').map((user) => ({
+            ...user,
+            isActive: tempOnlineUser.find((u) => u.userId === user.userId && u.isActive) ? true : false,
+        }))
 
-            io.emit('get-users', onlineUsers)
-        }
-    )
+        io.emit('get-users', onlineUsers)
+    })
 
     socket.on('say-hi', (toUserId: number) => {
         const toUserSocket = tempOnlineUser.filter((u) => u.userId === toUserId)
         const getFromUser = tempOnlineUser.find((u) => u.socketId === socket.id)
 
-        const fromUser = onlineUsers.find(
-            (u) => u.userId === getFromUser?.userId
-        )
+        const fromUser = onlineUsers.find((u) => u.userId === getFromUser?.userId)
 
         if (toUserSocket && fromUser) {
             toUserSocket.forEach((u) => {
@@ -127,47 +97,21 @@ io.on('connection', (socket: Socket) => {
     socket.on('logout', () => {
         const user = tempOnlineUser.find((u) => u.socketId === socket.id)
 
-        tempOnlineUser = tempOnlineUser.filter(
-            (tempUser) => tempUser.userId !== user?.userId
-        )
+        tempOnlineUser = tempOnlineUser.filter((tempUser) => tempUser.userId !== user?.userId)
 
-        onlineUsers = Array.from(
-            new Set(
-                tempOnlineUser.map((u) => ({
-                    userId: u.userId,
-                    nama: u.nama,
-                }))
-            )
-        ).map((user) => ({
+        onlineUsers = _.uniqBy(tempOnlineUser, 'userId').map((user) => ({
             ...user,
-            isActive: tempOnlineUser.find(
-                (u) => u.userId === user.userId && u.isActive
-            )
-                ? true
-                : false,
+            isActive: tempOnlineUser.find((u) => u.userId === user.userId && u.isActive) ? true : false,
         }))
 
         io.emit('get-users', onlineUsers)
     })
 
     socket.on('disconnect', () => {
-        tempOnlineUser = tempOnlineUser.filter(
-            (user) => user.socketId !== socket.id
-        )
-        onlineUsers = Array.from(
-            new Set(
-                tempOnlineUser.map((u) => ({
-                    userId: u.userId,
-                    nama: u.nama,
-                }))
-            )
-        ).map((user) => ({
+        tempOnlineUser = tempOnlineUser.filter((user) => user.socketId !== socket.id)
+        onlineUsers = _.uniqBy(tempOnlineUser, 'userId').map((user) => ({
             ...user,
-            isActive: tempOnlineUser.find(
-                (u) => u.userId === user.userId && u.isActive
-            )
-                ? true
-                : false,
+            isActive: tempOnlineUser.find((u) => u.userId === user.userId && u.isActive) ? true : false,
         }))
 
         io.emit('get-users', onlineUsers)
