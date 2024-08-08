@@ -45,7 +45,7 @@ export default function Page() {
             if (data)
                 Swal.fire({
                     title: 'Berhasil',
-                    text: escapeHtml(data.message),
+                    html: escapeHtml(data.message),
                     icon: 'success',
                 })
         },
@@ -53,7 +53,7 @@ export default function Page() {
             toast.dismiss()
             Swal.fire({
                 title: 'Gagal',
-                text: escapeHtml(error.message),
+                html: escapeHtml(error.message),
                 icon: 'error',
             })
         },
@@ -69,7 +69,7 @@ export default function Page() {
             if (data)
                 Swal.fire({
                     title: 'Berhasil',
-                    text: escapeHtml(data.message),
+                    html: escapeHtml(data.message),
                     icon: 'success',
                 })
         },
@@ -77,7 +77,7 @@ export default function Page() {
             toast.dismiss()
             Swal.fire({
                 title: 'Gagal',
-                text: escapeHtml(error.message),
+                html: escapeHtml(error.message),
                 icon: 'error',
             })
         },
@@ -93,7 +93,7 @@ export default function Page() {
             if (data)
                 Swal.fire({
                     title: 'Berhasil',
-                    text: escapeHtml(data.message),
+                    html: escapeHtml(data.message),
                     icon: 'success',
                 })
         },
@@ -101,7 +101,7 @@ export default function Page() {
             toast.dismiss()
             Swal.fire({
                 title: 'Gagal',
-                text: escapeHtml(error.message),
+                html: escapeHtml(error.message),
                 icon: 'error',
             })
         },
