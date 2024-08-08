@@ -21,10 +21,10 @@ export default function Page() {
 
     const tna = api.tool.getTransaksiNonAnggaranSipd.useQuery({
         tglStart: searchParams.get('tglStart')
-            ? format(new Date(searchParams.get('tglStart') || ''), 'yyyy-MM-dd')
+            ? format(new Date(searchParams.get('tglStart')!), 'yyyy-MM-dd')
             : format(new Date(), 'yyyy-MM-01'),
         tglEnd: searchParams.get('tglEnd')
-            ? format(new Date(searchParams.get('tglEnd') || ''), 'yyyy-MM-dd')
+            ? format(new Date(searchParams.get('tglEnd')!), 'yyyy-MM-dd')
             : format(new Date(), 'yyyy-MM-dd'),
     })
 
@@ -54,6 +54,7 @@ export default function Page() {
             Swal.fire({
                 title: 'Gagal',
                 text: error.message,
+                html: `<pre>${JSON.stringify(error, null, 2)}</pre>`,
                 icon: 'error',
             })
         },
@@ -78,6 +79,7 @@ export default function Page() {
             Swal.fire({
                 title: 'Gagal',
                 text: error.message,
+                html: `<pre>${JSON.stringify(error, null, 2)}</pre>`,
                 icon: 'error',
             })
         },
@@ -102,6 +104,7 @@ export default function Page() {
             Swal.fire({
                 title: 'Gagal',
                 text: error.message,
+                html: `<pre>${JSON.stringify(error, null, 2)}</pre>`,
                 icon: 'error',
             })
         },
