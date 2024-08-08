@@ -54,18 +54,7 @@ function digitToUnit(digit: number) {
     return curIndex <= maxIndex ? units[curIndex] : units[maxIndex]
 }
 
-const numbers = [
-    '',
-    'satu',
-    'dua',
-    'tiga',
-    'empat',
-    'lima',
-    'enam',
-    'tujuh',
-    'delapan',
-    'sembilan',
-]
+const numbers = ['', 'satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'delapan', 'sembilan']
 function numberToText(index: number) {
     return numbers[index] || ''
 }
@@ -92,9 +81,7 @@ export const terbilangin = (angka: number) => {
         if (
             digitCount === 3 &&
             curAngka === 1 &&
-            (i === 0 ||
-                (Number(angkaStr[i - 2]) === 0 &&
-                    Number(angkaStr[i - 1]) === 0))
+            (i === 0 || (Number(angkaStr[i - 2]) === 0 && Number(angkaStr[i - 1]) === 0))
         ) {
             /* Angka Seribu */
             result += `${space}seribu`
@@ -118,11 +105,7 @@ export const terbilangin = (angka: number) => {
                         if (nextAngka === 0) {
                             result += `${space}sepuluh`
                             /* Proses Next Angka Sekarang */
-                            if (
-                                digitCount !== 1 &&
-                                (Number(angkaStr[i - 2]) !== 0 ||
-                                    Number(angkaStr[i - 1]) !== 0)
-                            ) {
+                            if (digitCount !== 1 && (Number(angkaStr[i - 2]) !== 0 || Number(angkaStr[i - 1]) !== 0)) {
                                 result += ` ${digitToUnit(digitCount - 1)}`
                             }
                         } else {
@@ -145,8 +128,7 @@ export const terbilangin = (angka: number) => {
                 /* Angka Satuan Nol */
                 if (
                     modGroup === 0 &&
-                    (Number(angkaStr[i - 2]) !== 0 ||
-                        Number(angkaStr[i - 1]) !== 0) &&
+                    (Number(angkaStr[i - 2]) !== 0 || Number(angkaStr[i - 1]) !== 0) &&
                     digitCount !== 0
                 ) {
                     result += ` ${digitToUnit(digitCount)}`
@@ -220,13 +202,19 @@ export function formatAngkaRomawi(num: number) {
     ]
     let roman = ''
     let i = 3
-    while (i--)
-        roman = (key[parseInt(digits.pop() || '0') + i * 10] || '') + roman
+    while (i--) roman = (key[parseInt(digits.pop() || '0') + i * 10] || '') + roman
     return Array(+digits.join('') + 1).join('M') + roman
 }
 
 export function ucFirst(text: string) {
-    return text.replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
-        letter.toUpperCase()
-    )
+    return text.replace(/(^\w{1})|(\s+\w{1})/g, (letter) => letter.toUpperCase())
+}
+
+export function escapeHtml(unsafe: string) {
+    return unsafe
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;')
 }

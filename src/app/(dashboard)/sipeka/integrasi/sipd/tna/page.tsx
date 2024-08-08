@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { cn, formatAngka } from '@/lib/utils'
+import { cn, escapeHtml, formatAngka } from '@/lib/utils'
 import { api } from '@/trpc/react'
 import { format } from 'date-fns'
 import React from 'react'
@@ -45,7 +45,7 @@ export default function Page() {
             if (data)
                 Swal.fire({
                     title: 'Berhasil',
-                    text: data.message,
+                    text: escapeHtml(data.message),
                     icon: 'success',
                 })
         },
@@ -53,7 +53,7 @@ export default function Page() {
             toast.dismiss()
             Swal.fire({
                 title: 'Gagal',
-                html: `<textarea>${encodeURIComponent(error.message)}</textarea>`,
+                text: escapeHtml(error.message),
                 icon: 'error',
             })
         },
@@ -69,7 +69,7 @@ export default function Page() {
             if (data)
                 Swal.fire({
                     title: 'Berhasil',
-                    text: data.message,
+                    text: escapeHtml(data.message),
                     icon: 'success',
                 })
         },
@@ -77,7 +77,7 @@ export default function Page() {
             toast.dismiss()
             Swal.fire({
                 title: 'Gagal',
-                html: `<textarea>${encodeURIComponent(error.message)}</textarea>`,
+                text: escapeHtml(error.message),
                 icon: 'error',
             })
         },
@@ -93,7 +93,7 @@ export default function Page() {
             if (data)
                 Swal.fire({
                     title: 'Berhasil',
-                    text: data.message,
+                    text: escapeHtml(data.message),
                     icon: 'success',
                 })
         },
@@ -101,7 +101,7 @@ export default function Page() {
             toast.dismiss()
             Swal.fire({
                 title: 'Gagal',
-                html: `<textarea>${encodeURIComponent(error.message)}</textarea>`,
+                text: escapeHtml(error.message),
                 icon: 'error',
             })
         },
