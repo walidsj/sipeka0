@@ -1,20 +1,7 @@
 import { Button } from '@/components/ui/button'
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from '@/components/ui/table'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { cn, formatAngka } from '@/lib/utils'
 import { api } from '@/trpc/react'
 import { format } from 'date-fns'
@@ -44,12 +31,8 @@ export default function Page() {
     const belanja = api.belanja.getAll.useQuery({
         page: 1,
         pageSize: 999999,
-        startDate: new Date(
-            searchParams.get('tglStart') || format(new Date(), 'yyyy-MM-01')
-        ),
-        endDate: new Date(
-            searchParams.get('tglEnd') || format(new Date(), 'yyyy-MM-dd')
-        ),
+        startDate: new Date(searchParams.get('tglStart') || format(new Date(), 'yyyy-MM-01')),
+        endDate: new Date(searchParams.get('tglEnd') || format(new Date(), 'yyyy-MM-dd')),
     })
 
     const kirimSipd = api.tool.sendTransaksiNonAnggaranSipd.useMutation({
@@ -59,11 +42,20 @@ export default function Page() {
         onSuccess: (data) => {
             toast.dismiss()
             utils.tool.getTransaksiNonAnggaranSipd.invalidate()
-            if (data) toast.success(data.message)
+            if (data)
+                Swal.fire({
+                    title: 'Berhasil',
+                    text: data.message,
+                    icon: 'success',
+                })
         },
         onError: (error) => {
             toast.dismiss()
-            toast.error(error.message)
+            Swal.fire({
+                title: 'Gagal',
+                text: error.message,
+                icon: 'error',
+            })
         },
     })
 
@@ -74,11 +66,20 @@ export default function Page() {
         onSuccess: (data) => {
             toast.dismiss()
             utils.tool.getTransaksiNonAnggaranSipd.invalidate()
-            if (data) toast.success(data.message)
+            if (data)
+                Swal.fire({
+                    title: 'Berhasil',
+                    text: data.message,
+                    icon: 'success',
+                })
         },
         onError: (error) => {
             toast.dismiss()
-            toast.error(error.message)
+            Swal.fire({
+                title: 'Gagal',
+                text: error.message,
+                icon: 'error',
+            })
         },
     })
 
@@ -89,11 +90,20 @@ export default function Page() {
         onSuccess: (data) => {
             toast.dismiss()
             utils.tool.getTransaksiNonAnggaranSipd.invalidate()
-            if (data) toast.success(data.message)
+            if (data)
+                Swal.fire({
+                    title: 'Berhasil',
+                    text: data.message,
+                    icon: 'success',
+                })
         },
         onError: (error) => {
             toast.dismiss()
-            toast.error(error.message)
+            Swal.fire({
+                title: 'Gagal',
+                text: error.message,
+                icon: 'error',
+            })
         },
     })
 
@@ -110,18 +120,13 @@ export default function Page() {
             <Card>
                 <CardHeader>
                     <CardTitle>Daftar TNA</CardTitle>
-                    <CardDescription>
-                        Transaksi Non Anggaran yang sudah diinput
-                    </CardDescription>
+                    <CardDescription>Transaksi Non Anggaran yang sudah diinput</CardDescription>
                 </CardHeader>
                 <CardContent className="flex flex-row items-center justify-between">
                     <div className="flex flex-row items-center gap-5">
                         <div className="flex gap-2">
                             <Input
-                                value={
-                                    searchParams.get('tglStart') ||
-                                    format(new Date(), 'yyyy-MM-01')
-                                }
+                                value={searchParams.get('tglStart') || format(new Date(), 'yyyy-MM-01')}
                                 type="date"
                                 onChange={(e) => {
                                     searchParams.set('tglStart', e.target.value)
@@ -130,10 +135,7 @@ export default function Page() {
                             />
                             <Input
                                 type="date"
-                                value={
-                                    searchParams.get('tglEnd') ||
-                                    format(new Date(), 'yyyy-MM-dd')
-                                }
+                                value={searchParams.get('tglEnd') || format(new Date(), 'yyyy-MM-dd')}
                                 onChange={(e) => {
                                     searchParams.set('tglEnd', e.target.value)
                                     setSearchParams(searchParams)
@@ -142,14 +144,10 @@ export default function Page() {
                         </div>
                     </div>
                     <div className="flex flex-col">
-                        <Button
-                            onClick={() => tna.refetch()}
-                            disabled={tna.isFetching}
-                        >
+                        <Button onClick={() => tna.refetch()} disabled={tna.isFetching}>
                             {tna.isFetching ? (
                                 <React.Fragment>
-                                    <FiLoader className="mr-2 animate-spin" />{' '}
-                                    Refresh Data SIPD...
+                                    <FiLoader className="mr-2 animate-spin" /> Refresh Data SIPD...
                                 </React.Fragment>
                             ) : (
                                 'Refresh Data SIPD'
@@ -157,12 +155,7 @@ export default function Page() {
                         </Button>
                         <span className="text-xs italic text-gray-500">
                             Terakhir fetch:{' '}
-                            {tna.dataUpdatedAt
-                                ? format(
-                                      new Date(tna.dataUpdatedAt),
-                                      'yyyy-MM-dd HH:mm:ss'
-                                  )
-                                : '-'}
+                            {tna.dataUpdatedAt ? format(new Date(tna.dataUpdatedAt), 'yyyy-MM-dd HH:mm:ss') : '-'}
                         </span>
                     </div>
                 </CardContent>
@@ -182,10 +175,7 @@ export default function Page() {
                             <Table>
                                 <TableBody>
                                     <TableRow>
-                                        <TableHead colSpan={3}>
-                                            Rekapitulasi SIPD (Total:{' '}
-                                            {tna.data.length})
-                                        </TableHead>
+                                        <TableHead colSpan={3}>Rekapitulasi SIPD (Total: {tna.data.length})</TableHead>
                                     </TableRow>
                                     {Array.from(
                                         tna.data.reduce((acc, item) => {
@@ -204,22 +194,13 @@ export default function Page() {
                                                             .map((item) =>
                                                                 item.detail?.reduce(
                                                                     (acc, d) =>
-                                                                        d.name ===
-                                                                            name &&
-                                                                        d.position ===
-                                                                            'debet'
-                                                                            ? acc +
-                                                                              d.amount
+                                                                        d.name === name && d.position === 'debet'
+                                                                            ? acc + d.amount
                                                                             : acc,
                                                                     0
                                                                 )
                                                             )
-                                                            .reduce(
-                                                                (acc, amount) =>
-                                                                    acc +
-                                                                    amount,
-                                                                0
-                                                            )
+                                                            .reduce((acc, amount) => acc + amount, 0)
                                                     )}
                                             </TableCell>
                                             <TableCell className="text-right">
@@ -229,22 +210,13 @@ export default function Page() {
                                                             .map((item) =>
                                                                 item.detail?.reduce(
                                                                     (acc, d) =>
-                                                                        d.name ===
-                                                                            name &&
-                                                                        d.position ===
-                                                                            'kredit'
-                                                                            ? acc +
-                                                                              d.amount
+                                                                        d.name === name && d.position === 'kredit'
+                                                                            ? acc + d.amount
                                                                             : acc,
                                                                     0
                                                                 )
                                                             )
-                                                            .reduce(
-                                                                (acc, amount) =>
-                                                                    acc +
-                                                                    amount,
-                                                                0
-                                                            )
+                                                            .reduce((acc, amount) => acc + amount, 0)
                                                     )}
                                             </TableCell>
                                         </TableRow>
@@ -257,93 +229,49 @@ export default function Page() {
                                 <TableBody>
                                     <TableRow>
                                         <TableHead colSpan={3}>
-                                            Rekapitulasi BKU (Total:{' '}
-                                            {belanja.data?.data.length})
+                                            Rekapitulasi BKU (Total: {belanja.data?.data.length})
                                         </TableHead>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell>
-                                            Belanja Pegawai BLUD
-                                        </TableCell>
+                                        <TableCell>Belanja Pegawai BLUD</TableCell>
                                         <TableCell className="text-right">
                                             {belanja.data &&
                                                 formatAngka(
                                                     belanja.data.data
-                                                        .filter((item) =>
-                                                            item.rab?.kodeRekening?.startsWith(
-                                                                '5.1.01'
-                                                            )
-                                                        )
-                                                        .reduce(
-                                                            (acc, item) =>
-                                                                acc +
-                                                                Number(
-                                                                    item.jumlah
-                                                                ),
-                                                            0
-                                                        )
+                                                        .filter((item) => item.rab?.kodeRekening?.startsWith('5.1.01'))
+                                                        .reduce((acc, item) => acc + Number(item.jumlah), 0)
                                                 )}
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell>
-                                            Belanja Barang dan Jasa BLUD
-                                        </TableCell>
+                                        <TableCell>Belanja Barang dan Jasa BLUD</TableCell>
                                         <TableCell className="text-right">
                                             {belanja.data &&
                                                 formatAngka(
                                                     belanja.data.data
-                                                        .filter((item) =>
-                                                            item.rab?.kodeRekening?.startsWith(
-                                                                '5.1.02'
-                                                            )
-                                                        )
-                                                        .reduce(
-                                                            (acc, item) =>
-                                                                acc +
-                                                                Number(
-                                                                    item.jumlah
-                                                                ),
-                                                            0
-                                                        )
+                                                        .filter((item) => item.rab?.kodeRekening?.startsWith('5.1.02'))
+                                                        .reduce((acc, item) => acc + Number(item.jumlah), 0)
                                                 )}
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell>
-                                            Belanja Modal BLUD
-                                        </TableCell>
+                                        <TableCell>Belanja Modal BLUD</TableCell>
                                         <TableCell className="text-right">
                                             {belanja.data &&
                                                 formatAngka(
                                                     belanja.data.data
-                                                        .filter((item) =>
-                                                            item.rab?.kodeRekening?.startsWith(
-                                                                '5.2'
-                                                            )
-                                                        )
-                                                        .reduce(
-                                                            (acc, item) =>
-                                                                acc +
-                                                                Number(
-                                                                    item.jumlah
-                                                                ),
-                                                            0
-                                                        )
+                                                        .filter((item) => item.rab?.kodeRekening?.startsWith('5.2'))
+                                                        .reduce((acc, item) => acc + Number(item.jumlah), 0)
                                                 )}
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell className="font-semibold">
-                                            Total
-                                        </TableCell>
+                                        <TableCell className="font-semibold">Total</TableCell>
                                         <TableCell className="text-right font-semibold">
                                             {belanja.data &&
                                                 formatAngka(
                                                     belanja.data.data.reduce(
-                                                        (acc, item) =>
-                                                            acc +
-                                                            Number(item.jumlah),
+                                                        (acc, item) => acc + Number(item.jumlah),
                                                         0
                                                     )
                                                 )}
@@ -357,30 +285,20 @@ export default function Page() {
                         <CardHeader className="flex flex-row items-center justify-between">
                             <div>
                                 <CardTitle>Integrasi Data</CardTitle>
-                                <CardDescription>
-                                    Perbandingan Data SIPD dengan SIPEKA Atmaku
-                                </CardDescription>
+                                <CardDescription>Perbandingan Data SIPD dengan SIPEKA Atmaku</CardDescription>
                             </div>
                             <div className="flex flex-col">
-                                <Button
-                                    onClick={() => tna.refetch()}
-                                    disabled={tna.isFetching}
-                                >
+                                <Button onClick={() => tna.refetch()} disabled={tna.isFetching}>
                                     {tna.isFetching ? (
                                         <React.Fragment>
-                                            <FiLoader className="mr-2 animate-spin" />{' '}
-                                            Refresh Data SIPD...
+                                            <FiLoader className="mr-2 animate-spin" /> Refresh Data SIPD...
                                         </React.Fragment>
                                     ) : (
                                         'Refresh Data SIPD'
                                     )}
                                 </Button>
                                 <span className="text-xs italic text-gray-500">
-                                    Terakhir fetch:{' '}
-                                    {format(
-                                        new Date(tna.dataUpdatedAt),
-                                        'yyyy-MM-dd HH:mm:ss'
-                                    )}
+                                    Terakhir fetch: {format(new Date(tna.dataUpdatedAt), 'yyyy-MM-dd HH:mm:ss')}
                                 </span>
                             </div>
                         </CardHeader>
@@ -409,14 +327,10 @@ export default function Page() {
                                                                 (t) =>
                                                                     t.journal_date ===
                                                                         format(
-                                                                            new Date(
-                                                                                item.tglDokumen ||
-                                                                                    ''
-                                                                            ),
+                                                                            new Date(item.tglDokumen || ''),
                                                                             'yyyy-MM-dd'
                                                                         ) &&
-                                                                    t.description.trim() ===
-                                                                        item.uraian?.trim()
+                                                                    t.description.trim() === item.uraian?.trim()
                                                             ).length === 1 &&
                                                             'bg-green-50',
                                                         tna.data &&
@@ -424,14 +338,10 @@ export default function Page() {
                                                                 (t) =>
                                                                     t.journal_date ===
                                                                         format(
-                                                                            new Date(
-                                                                                item.tglDokumen ||
-                                                                                    ''
-                                                                            ),
+                                                                            new Date(item.tglDokumen || ''),
                                                                             'yyyy-MM-dd'
                                                                         ) &&
-                                                                    t.description.trim() ===
-                                                                        item.uraian?.trim()
+                                                                    t.description.trim() === item.uraian?.trim()
                                                             ).length > 1 &&
                                                             'bg-red-50',
                                                         'font-semibold'
@@ -445,14 +355,10 @@ export default function Page() {
                                                                 (t) =>
                                                                     t.journal_date ===
                                                                         format(
-                                                                            new Date(
-                                                                                item.tglDokumen ||
-                                                                                    ''
-                                                                            ),
+                                                                            new Date(item.tglDokumen || ''),
                                                                             'yyyy-MM-dd'
                                                                         ) &&
-                                                                    t.description.trim() ===
-                                                                        item.uraian?.trim()
+                                                                    t.description.trim() === item.uraian?.trim()
                                                             )?.length + 1
                                                         }
                                                     >
@@ -466,82 +372,44 @@ export default function Page() {
                                                                 (t) =>
                                                                     t.journal_date ===
                                                                         format(
-                                                                            new Date(
-                                                                                item.tglDokumen ||
-                                                                                    ''
-                                                                            ),
+                                                                            new Date(item.tglDokumen || ''),
                                                                             'yyyy-MM-dd'
                                                                         ) &&
-                                                                    t.description.trim() ===
-                                                                        item.uraian?.trim()
+                                                                    t.description.trim() === item.uraian?.trim()
                                                             )?.length + 1
                                                         }
                                                     >
-                                                        {format(
-                                                            new Date(
-                                                                item.tglDokumen ||
-                                                                    ''
-                                                            ),
-                                                            'yyyy-MM-dd'
-                                                        )}
+                                                        {format(new Date(item.tglDokumen || ''), 'yyyy-MM-dd')}
                                                     </TableCell>
                                                     <TableCell>
                                                         {item.noDokumen}
                                                         <p className="mt-3 italic">
-                                                            {item.rab?.kodeRekening?.startsWith(
-                                                                '5.1.01'
-                                                            ) &&
+                                                            {item.rab?.kodeRekening?.startsWith('5.1.01') &&
                                                                 'Belanja Pegawai BLUD'}
-                                                            {item.rab?.kodeRekening?.startsWith(
-                                                                '5.1.02'
-                                                            ) &&
+                                                            {item.rab?.kodeRekening?.startsWith('5.1.02') &&
                                                                 'Belanja Barang dan Jasa BLUD'}
-                                                            {item.rab?.kodeRekening?.startsWith(
-                                                                '5.2'
-                                                            ) &&
+                                                            {item.rab?.kodeRekening?.startsWith('5.2') &&
                                                                 'Belanja Modal BLUD'}
                                                         </p>
                                                     </TableCell>
                                                     <TableCell>
                                                         <button
                                                             className="text-left hover:underline"
-                                                            onClick={() =>
-                                                                handleCopy(
-                                                                    item.uraian
-                                                                )
-                                                            }
+                                                            onClick={() => handleCopy(item.uraian)}
                                                         >
                                                             {item.uraian}
                                                         </button>
                                                     </TableCell>
                                                     <TableCell>
-                                                        <p>
-                                                            {
-                                                                item.rekening
-                                                                    ?.kode
-                                                            }
-                                                        </p>
-                                                        <p className="mt-3 italic">
-                                                            {
-                                                                item.rekening
-                                                                    ?.uraian
-                                                            }
-                                                        </p>
+                                                        <p>{item.rekening?.kode}</p>
+                                                        <p className="mt-3 italic">{item.rekening?.uraian}</p>
                                                     </TableCell>
                                                     <TableCell className="text-right">
                                                         <button
                                                             className="text-left hover:underline"
-                                                            onClick={() =>
-                                                                handleCopy(
-                                                                    Number(
-                                                                        item.jumlah
-                                                                    ).toString()
-                                                                )
-                                                            }
+                                                            onClick={() => handleCopy(Number(item.jumlah).toString())}
                                                         >
-                                                            {formatAngka(
-                                                                item.jumlah
-                                                            )}
+                                                            {formatAngka(item.jumlah)}
                                                         </button>
                                                     </TableCell>
                                                     <TableCell>
@@ -551,98 +419,63 @@ export default function Page() {
                                                                     (t) =>
                                                                         t.journal_date ===
                                                                             format(
-                                                                                new Date(
-                                                                                    item.tglDokumen ||
-                                                                                        ''
-                                                                                ),
+                                                                                new Date(item.tglDokumen || ''),
                                                                                 'yyyy-MM-dd'
                                                                             ) &&
-                                                                        t.description.trim() ===
-                                                                            item.uraian?.trim()
-                                                                )?.length ===
-                                                                    0 && (
+                                                                        t.description.trim() === item.uraian?.trim()
+                                                                )?.length === 0 && (
                                                                     <Button
-                                                                        disabled={
-                                                                            kirimSipd.isPending
-                                                                        }
+                                                                        disabled={kirimSipd.isPending}
                                                                         size="sm"
                                                                         onClick={() =>
-                                                                            Swal.fire(
-                                                                                {
-                                                                                    title: 'Kirim Data Ke SIPD?',
-                                                                                    text: 'Lampiran file PDF (Jika dikosongkan maka akan memakai file PDF yang sudah diupload di SIPEKA)',
-                                                                                    icon: 'question',
-                                                                                    showCancelButton:
-                                                                                        true,
-                                                                                    input: 'file',
-                                                                                    inputAttributes:
-                                                                                        {
-                                                                                            accept: 'application/pdf',
-                                                                                        },
-                                                                                }
-                                                                            ).then(
-                                                                                (
-                                                                                    result
-                                                                                ) => {
-                                                                                    if (
-                                                                                        result.isConfirmed
-                                                                                    ) {
-                                                                                        const file =
-                                                                                            Swal.getInput()
+                                                                            Swal.fire({
+                                                                                title: 'Kirim Data Ke SIPD?',
+                                                                                text: 'Lampiran file PDF (Jika dikosongkan maka akan memakai file PDF yang sudah diupload di SIPEKA)',
+                                                                                icon: 'question',
+                                                                                showCancelButton: true,
+                                                                                input: 'file',
+                                                                                inputAttributes: {
+                                                                                    accept: 'application/pdf',
+                                                                                },
+                                                                            }).then((result) => {
+                                                                                if (result.isConfirmed) {
+                                                                                    const file = Swal.getInput()
 
-                                                                                        if (
-                                                                                            file?.files &&
-                                                                                            file
-                                                                                                ?.files[0]
-                                                                                        ) {
-                                                                                            const reader =
-                                                                                                new FileReader()
+                                                                                    if (file?.files && file?.files[0]) {
+                                                                                        const reader = new FileReader()
 
-                                                                                            reader.readAsDataURL(
-                                                                                                file
-                                                                                                    ?.files[0]
+                                                                                        reader.readAsDataURL(
+                                                                                            file?.files[0]
+                                                                                        )
+
+                                                                                        reader.onload = function () {
+                                                                                            if (
+                                                                                                typeof reader.result !==
+                                                                                                'string'
                                                                                             )
+                                                                                                return
 
-                                                                                            reader.onload =
-                                                                                                function () {
-                                                                                                    if (
-                                                                                                        typeof reader.result !==
-                                                                                                        'string'
-                                                                                                    )
-                                                                                                        return
+                                                                                            const filePdfBase64 =
+                                                                                                reader.result.split(
+                                                                                                    ','
+                                                                                                )[1]
 
-                                                                                                    const filePdfBase64 =
-                                                                                                        reader.result.split(
-                                                                                                            ','
-                                                                                                        )[1]
-
-                                                                                                    kirimSipd.mutate(
-                                                                                                        {
-                                                                                                            belanjaId:
-                                                                                                                item.id,
-                                                                                                            filePdf:
-                                                                                                                filePdfBase64,
-                                                                                                        }
-                                                                                                    )
-                                                                                                }
-                                                                                        } else {
-                                                                                            kirimSipd.mutate(
-                                                                                                {
-                                                                                                    belanjaId:
-                                                                                                        item.id,
-                                                                                                    filePdf:
-                                                                                                        null,
-                                                                                                }
-                                                                                            )
+                                                                                            kirimSipd.mutate({
+                                                                                                belanjaId: item.id,
+                                                                                                filePdf: filePdfBase64,
+                                                                                            })
                                                                                         }
+                                                                                    } else {
+                                                                                        kirimSipd.mutate({
+                                                                                            belanjaId: item.id,
+                                                                                            filePdf: null,
+                                                                                        })
                                                                                     }
                                                                                 }
-                                                                            )
+                                                                            })
                                                                         }
                                                                     >
-                                                                        <FiSend className="mr-2" />{' '}
-                                                                        Kirim
-                                                                        SIPD
+                                                                        <FiSend className="mr-2" /> Kirim SIPD
                                                                     </Button>
                                                                 )}
                                                         </div>
@@ -654,97 +487,54 @@ export default function Page() {
                                                             (t) =>
                                                                 t.journal_date ===
                                                                     format(
-                                                                        new Date(
-                                                                            item.tglDokumen ||
-                                                                                ''
-                                                                        ),
+                                                                        new Date(item.tglDokumen || ''),
                                                                         'yyyy-MM-dd'
-                                                                    ) &&
-                                                                t.description.trim() ===
-                                                                    item.uraian?.trim()
+                                                                    ) && t.description.trim() === item.uraian?.trim()
                                                         )
                                                         .map((t) => (
                                                             <TableRow
                                                                 key={t.id}
                                                                 className={cn(
-                                                                    t.journal_status_id ===
-                                                                        3 &&
-                                                                        'bg-green-50',
-                                                                    t.journal_status_id ===
-                                                                        4 &&
-                                                                        'bg-red-50'
+                                                                    t.journal_status_id === 3 && 'bg-green-50',
+                                                                    t.journal_status_id === 4 && 'bg-red-50'
                                                                 )}
                                                             >
                                                                 <TableCell>
-                                                                    {
-                                                                        t.journal_number
-                                                                    }
+                                                                    {t.journal_number}
                                                                     <p className="mt-3 italic">
-                                                                        {t.journal_status_id ===
-                                                                        2
+                                                                        {t.journal_status_id === 2
                                                                             ? ' (Belum Approve/Reject)'
-                                                                            : t.journal_status_id ===
-                                                                                3
+                                                                            : t.journal_status_id === 3
                                                                               ? ' (Approved)'
-                                                                              : t.journal_status_id ===
-                                                                                  4
+                                                                              : t.journal_status_id === 4
                                                                                 ? ' (Rejected)'
                                                                                 : ''}
                                                                     </p>
                                                                 </TableCell>
-                                                                <TableCell>
-                                                                    {
-                                                                        t.description
-                                                                    }
-                                                                </TableCell>
-                                                                <TableCell
-                                                                    colSpan={2}
-                                                                >
+                                                                <TableCell>{t.description}</TableCell>
+                                                                <TableCell colSpan={2}>
                                                                     <Table className="text-xs">
                                                                         <TableBody>
-                                                                            {t.detail.map(
-                                                                                (
-                                                                                    d
-                                                                                ) => (
-                                                                                    <TableRow
-                                                                                        key={
-                                                                                            d.id
-                                                                                        }
-                                                                                    >
-                                                                                        <TableCell>
-                                                                                            {
-                                                                                                d.code
-                                                                                            }
-                                                                                        </TableCell>
-                                                                                        <TableCell>
-                                                                                            {
-                                                                                                d.name
-                                                                                            }
-                                                                                        </TableCell>
-                                                                                        <TableCell className="text-right">
-                                                                                            {d.position ==
-                                                                                                'debet' &&
-                                                                                                formatAngka(
-                                                                                                    d.amount
-                                                                                                )}
-                                                                                        </TableCell>
-                                                                                        <TableCell className="text-right">
-                                                                                            {d.position ==
-                                                                                                'kredit' &&
-                                                                                                formatAngka(
-                                                                                                    d.amount
-                                                                                                )}
-                                                                                        </TableCell>
-                                                                                    </TableRow>
-                                                                                )
-                                                                            )}
+                                                                            {t.detail.map((d) => (
+                                                                                <TableRow key={d.id}>
+                                                                                    <TableCell>{d.code}</TableCell>
+                                                                                    <TableCell>{d.name}</TableCell>
+                                                                                    <TableCell className="text-right">
+                                                                                        {d.position == 'debet' &&
+                                                                                            formatAngka(d.amount)}
+                                                                                    </TableCell>
+                                                                                    <TableCell className="text-right">
+                                                                                        {d.position == 'kredit' &&
+                                                                                            formatAngka(d.amount)}
+                                                                                    </TableCell>
+                                                                                </TableRow>
+                                                                            ))}
                                                                         </TableBody>
                                                                     </Table>
                                                                 </TableCell>
                                                                 <TableCell>
                                                                     <div className="flex flex-col gap-2">
-                                                                        {t.journal_status_id ===
-                                                                            2 && (
+                                                                        {t.journal_status_id === 2 && (
                                                                             <Button
                                                                                 size="sm"
                                                                                 className="h-5 bg-green-500"
@@ -764,8 +554,7 @@ export default function Page() {
                                                                                 Approve
                                                                             </Button>
                                                                         )}
-                                                                        {t.journal_status_id ===
-                                                                            2 && (
+                                                                        {t.journal_status_id === 2 && (
                                                                             <Button
                                                                                 size="sm"
                                                                                 className="h-5 bg-red-500"
@@ -775,12 +564,9 @@ export default function Page() {
                                                                                             'Yakin reject jurnal ini?'
                                                                                         )
                                                                                     ) {
-                                                                                        rejectJurnalSipd.mutate(
-                                                                                            {
-                                                                                                journalId:
-                                                                                                    t.id,
-                                                                                            }
-                                                                                        )
+                                                                                        rejectJurnalSipd.mutate({
+                                                                                            journalId: t.id,
+                                                                                        })
                                                                                     }
                                                                                 }}
                                                                             >
@@ -788,8 +574,7 @@ export default function Page() {
                                                                                 Reject
                                                                             </Button>
                                                                         )}
-                                                                        {t.journal_status_id ===
-                                                                            4 && (
+                                                                        {t.journal_status_id === 4 && (
                                                                             <Button
                                                                                 size="sm"
                                                                                 className="h-5 bg-red-500"
@@ -799,12 +584,9 @@ export default function Page() {
                                                                                             'Yakin hapus jurnal ini?'
                                                                                         )
                                                                                     ) {
-                                                                                        hapusJurnalSipd.mutate(
-                                                                                            {
-                                                                                                journalId:
-                                                                                                    t.id,
-                                                                                            }
-                                                                                        )
+                                                                                        hapusJurnalSipd.mutate({
+                                                                                            journalId: t.id,
+                                                                                        })
                                                                                     }
                                                                                 }}
                                                                             >
