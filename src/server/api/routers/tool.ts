@@ -54,7 +54,7 @@ const compressPdf = async (base64: string): Promise<string> => {
 
     const os = process.platform
 
-    const command = `-sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dMaxFileSize=600000 -dNOPAUSE -dQUIET -dBATCH -sOutputFile="${compressFilePath}" ${originalFilePath}`
+    const command = `-sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile="${compressFilePath}" ${originalFilePath}`
 
     if (os === 'win32') {
         await execPromise('gswin64c.exe ' + command)
