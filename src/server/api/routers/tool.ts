@@ -25,14 +25,12 @@ const getSkpdId = async (token: string): Promise<number> => {
     }
 
     return axios
-        .get(
-            'https://service.sipd.kemendagri.go.id/aklap/api/common/list-skpd',
-            { headers: { Authorization: `Bearer ${token}` } }
-        )
+        .get('https://service.sipd.kemendagri.go.id/aklap/api/common/list-skpd', {
+            headers: { Authorization: `Bearer ${token}` },
+        })
         .then((data) => {
             return data?.data?.data?.find(
-                (item: ItemSkpdType) =>
-                    item.kode_skpd === skpdKode && item.nama_skpd === skpdNama
+                (item: ItemSkpdType) => item.kode_skpd === skpdKode && item.nama_skpd === skpdNama
             )?.id
         })
 }
@@ -56,7 +54,7 @@ const compressPdf = async (base64: string): Promise<string> => {
 
     const os = process.platform
 
-    const command = `-sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dDownsampleColorImages=true -dNOPAUSE -dQUIET -dBATCH -sOutputFile="${compressFilePath}" ${originalFilePath}`
+    const command = `-sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dMaxFileSize=600000 -dNOPAUSE -dQUIET -dBATCH -sOutputFile="${compressFilePath}" ${originalFilePath}`
 
     if (os === 'win32') {
         await execPromise('gswin64c.exe ' + command)
@@ -105,10 +103,7 @@ export const toolRouter = createTRPCRouter({
             }
 
             try {
-                const response = await axios.post(
-                    'https://service.sipd.kemendagri.go.id/auth/auth/pre-login',
-                    data
-                )
+                const response = await axios.post('https://service.sipd.kemendagri.go.id/auth/auth/pre-login', data)
 
                 return response.data as PreLoginSipdResponse[]
             } catch (error) {
@@ -124,9 +119,7 @@ export const toolRouter = createTRPCRouter({
 
     getCaptcha: userProcedure.mutation(async () => {
         try {
-            const response = await axios.get(
-                'https://service.sipd.kemendagri.go.id/auth/captcha/new'
-            )
+            const response = await axios.get('https://service.sipd.kemendagri.go.id/auth/captcha/new')
 
             return response.data as {
                 audio: string
@@ -201,10 +194,7 @@ export const toolRouter = createTRPCRouter({
             }
 
             try {
-                const response = await axios.post(
-                    'https://service.sipd.kemendagri.go.id/auth/auth/login',
-                    payload
-                )
+                const response = await axios.post('https://service.sipd.kemendagri.go.id/auth/auth/login', payload)
 
                 return response.data as { token: string; refresh_token: string }
             } catch (error) {
@@ -223,13 +213,10 @@ export const toolRouter = createTRPCRouter({
         const { sipd_token } = cookie.parse(ctx.headers.cookie!)
 
         try {
-            const response = await axios.get(
-                'https://service.sipd.kemendagri.go.id/auth/strict/user/profile',
-                {
-                    headers: { Authorization: `Bearer ${sipd_token}` },
-                    httpsAgent,
-                }
-            )
+            const response = await axios.get('https://service.sipd.kemendagri.go.id/auth/strict/user/profile', {
+                headers: { Authorization: `Bearer ${sipd_token}` },
+                httpsAgent,
+            })
 
             return response.data as {
                 id_user: number
@@ -394,49 +381,41 @@ export const toolRouter = createTRPCRouter({
 
             const base64File = input.filePdf
                 ? input.filePdf
-                : fs.readFileSync(
-                      `./storage/files/belanja/${belanja.file}`,
-                      'base64'
-                  )
+                : fs.readFileSync(`./storage/files/belanja/${belanja.file}`, 'base64')
 
             const skpdId = await getSkpdId(sipd_token)
 
             const namaSkenario = 'Belanja BLUD'
 
             // Start multiple requests concurrently
-            const [
-                base64FileCompressed,
-                mainAccountResponse,
-                nomorJournalResponse,
-                nominalAnggaranResponse,
-            ] = await Promise.all([
-                compressPdf(base64File),
-                axios.get(
-                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-transaksi-non-anggaran/main-account-list-urusan?keyword=&skenario[]=${namaSkenario}&page=1&urusan=11&bidang_urusan=202&program=1397&skpd=${skpdId}&kegiatan=9708&sub_kegiatan=24328`,
-                    {
-                        headers: { Authorization: `Bearer ${sipd_token}` },
-                        httpsAgent,
-                    }
-                ),
-                axios.get(
-                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/generate-nomor-journal?skpd=${skpdId}&scenario_id=19`,
-                    {
-                        headers: { Authorization: `Bearer ${sipd_token}` },
-                        httpsAgent,
-                    }
-                ),
-                axios.get(
-                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/get-nominal-anggaran?skpd=${skpdId}&kode_rekening=${kodeRekening}`,
-                    {
-                        headers: { Authorization: `Bearer ${sipd_token}` },
-                        httpsAgent,
-                    }
-                ),
-            ])
+            const [base64FileCompressed, mainAccountResponse, nomorJournalResponse, nominalAnggaranResponse] =
+                await Promise.all([
+                    compressPdf(base64File),
+                    axios.get(
+                        `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-transaksi-non-anggaran/main-account-list-urusan?keyword=&skenario[]=${namaSkenario}&page=1&urusan=11&bidang_urusan=202&program=1397&skpd=${skpdId}&kegiatan=9708&sub_kegiatan=24328`,
+                        {
+                            headers: { Authorization: `Bearer ${sipd_token}` },
+                            httpsAgent,
+                        }
+                    ),
+                    axios.get(
+                        `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/generate-nomor-journal?skpd=${skpdId}&scenario_id=19`,
+                        {
+                            headers: { Authorization: `Bearer ${sipd_token}` },
+                            httpsAgent,
+                        }
+                    ),
+                    axios.get(
+                        `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/get-nominal-anggaran?skpd=${skpdId}&kode_rekening=${kodeRekening}`,
+                        {
+                            headers: { Authorization: `Bearer ${sipd_token}` },
+                            httpsAgent,
+                        }
+                    ),
+                ])
 
             const mainAccountPrimary = mainAccountResponse.data.list.find(
-                (item: { kodeRekening: string }) =>
-                    item.kodeRekening === kodeRekening
+                (item: { kodeRekening: string }) => item.kodeRekening === kodeRekening
             )
 
             if (!mainAccountPrimary) {
@@ -467,10 +446,7 @@ export const toolRouter = createTRPCRouter({
             let kodeRekeningKeyword = ''
 
             // Fetch paired accounts concurrently
-            const [
-                mainAccountPrimaryPairedResponse,
-                mainAccountSecondaryResponse,
-            ] = await Promise.all([
+            const [mainAccountPrimaryPairedResponse, mainAccountSecondaryResponse] = await Promise.all([
                 axios.get(
                     `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-transaksi-non-anggaran/paired-account-list?idPopulasi=${mainAccountPrimary.idPopulasi}`,
                     {
@@ -481,12 +457,10 @@ export const toolRouter = createTRPCRouter({
                 (async () => {
                     if (kodeRekening.startsWith('5.2')) {
                         if (belanja.rab && belanja.rab.kodeRekening) {
-                            const arrayOfKodeRekeningKeyword =
-                                belanja.rab.kodeRekening.split('.')
+                            const arrayOfKodeRekeningKeyword = belanja.rab.kodeRekening.split('.')
                             arrayOfKodeRekeningKeyword.shift()
                             arrayOfKodeRekeningKeyword.shift()
-                            kodeRekeningKeyword =
-                                '.' + arrayOfKodeRekeningKeyword.join('.')
+                            kodeRekeningKeyword = '.' + arrayOfKodeRekeningKeyword.join('.')
                         }
                     }
 
@@ -502,8 +476,7 @@ export const toolRouter = createTRPCRouter({
                 })(),
             ])
 
-            const mainAccountPrimaryPaired =
-                mainAccountPrimaryPairedResponse.data.data
+            const mainAccountPrimaryPaired = mainAccountPrimaryPairedResponse.data.data
 
             if (!mainAccountPrimaryPaired) {
                 throw new TRPCError({
@@ -512,18 +485,16 @@ export const toolRouter = createTRPCRouter({
                 })
             }
 
-            const mainAccountSecondary =
-                mainAccountSecondaryResponse.data.list.find(
-                    (item: { kodeRekening: string }) => {
-                        const belakangKodeRekening = kodeRekening.split('.')
-                        belakangKodeRekening.shift()
-                        return (
-                            item.kodeRekening.endsWith(
-                                '.' + belakangKodeRekening.join('.')
-                            ) || item.kodeRekening.endsWith(kodeRekeningKeyword)
-                        )
-                    }
-                )
+            const mainAccountSecondary = mainAccountSecondaryResponse.data.list.find(
+                (item: { kodeRekening: string }) => {
+                    const belakangKodeRekening = kodeRekening.split('.')
+                    belakangKodeRekening.shift()
+                    return (
+                        item.kodeRekening.endsWith('.' + belakangKodeRekening.join('.')) ||
+                        item.kodeRekening.endsWith(kodeRekeningKeyword)
+                    )
+                }
+            )
 
             if (!mainAccountSecondary) {
                 throw new TRPCError({
@@ -540,8 +511,7 @@ export const toolRouter = createTRPCRouter({
                 }
             )
 
-            const mainAccountSecondaryPaired =
-                mainAccountSecondaryPairedResponse.data.data
+            const mainAccountSecondaryPaired = mainAccountSecondaryPairedResponse.data.data
 
             if (!mainAccountSecondaryPaired) {
                 throw new TRPCError({
@@ -569,60 +539,35 @@ export const toolRouter = createTRPCRouter({
 
             const body = {
                 skpd: skpdId,
-                tanggal_jurnal: format(
-                    new Date(belanja.tglDokumen || ''),
-                    'yyyy-MM-dd'
-                ),
+                tanggal_jurnal: format(new Date(belanja.tglDokumen || ''), 'yyyy-MM-dd'),
                 list_transaksi: {
-                    [mainAccountPrimary.namaRekening]:
-                        mainAccountPrimaryPaired.map(
-                            (item: PairedAccountType) => ({
-                                ...item,
-                                debit:
-                                    item.position === 'debet'
-                                        ? Number(belanja.jumlah)
-                                        : Number(0),
-                                kredit:
-                                    item.position === 'kredit'
-                                        ? Number(belanja.jumlah)
-                                        : Number(0),
-                            })
-                        ),
+                    [mainAccountPrimary.namaRekening]: mainAccountPrimaryPaired.map((item: PairedAccountType) => ({
+                        ...item,
+                        debit: item.position === 'debet' ? Number(belanja.jumlah) : Number(0),
+                        kredit: item.position === 'kredit' ? Number(belanja.jumlah) : Number(0),
+                    })),
                 },
                 nominal_anggaran: nominalAnggaran,
                 list_rekening: {
-                    [mainAccountSecondary.namaRekening]:
-                        mainAccountSecondaryPaired.map(
-                            (item: PairedAccountType) => ({
-                                ...item,
-                                debit:
-                                    item.position === 'debet'
-                                        ? Number(belanja.jumlah)
-                                        : Number(0),
-                                kredit:
-                                    item.position === 'kredit'
-                                        ? Number(belanja.jumlah)
-                                        : Number(0),
-                            })
-                        ),
+                    [mainAccountSecondary.namaRekening]: mainAccountSecondaryPaired.map((item: PairedAccountType) => ({
+                        ...item,
+                        debit: item.position === 'debet' ? Number(belanja.jumlah) : Number(0),
+                        kredit: item.position === 'kredit' ? Number(belanja.jumlah) : Number(0),
+                    })),
                 },
                 nominal_realisasi: 0,
                 dokumen: base64FileCompressed,
-                dokumen_name: input.filePdf
-                    ? belanja.noDokumen + '_' + Date.now() + '.pdf'
-                    : belanja.file,
+                dokumen_name: input.filePdf ? belanja.noDokumen + '_' + Date.now() + '.pdf' : belanja.file,
                 nomor_journal: nomorJournal,
                 id_urusan: 11,
                 kode_urusan: '1',
-                nama_urusan:
-                    'URUSAN PEMERINTAHAN WAJIB YANG BERKAITAN DENGAN PELAYANAN DASAR',
+                nama_urusan: 'URUSAN PEMERINTAHAN WAJIB YANG BERKAITAN DENGAN PELAYANAN DASAR',
                 id_bidang_urusan: 202,
                 kode_bidang_urusan: '1.02',
                 nama_bidang_urusan: 'URUSAN PEMERINTAHAN BIDANG KESEHATAN',
                 id_program: 1397,
                 kode_program: 'X.XX.01',
-                nama_program:
-                    'PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH PROVINSI',
+                nama_program: 'PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH PROVINSI',
                 id_kegiatan: 9708,
                 kode_kegiatan: 'X.XX.01.1.10',
                 nama_kegiatan: 'Peningkatan Pelayanan BLUD',
