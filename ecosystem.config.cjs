@@ -1,4 +1,4 @@
 module.exports = {
     name: 'sipeka0',
-    script: 'pnpm start',
+    script: 'bun run start',
 }

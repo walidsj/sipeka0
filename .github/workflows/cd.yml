@@ -18,10 +18,10 @@ jobs:
                  source ~/.nvm/nvm.sh
                  cd /home/sipeka0
                  git pull origin main
-                 pnpm install
+                 bun install
                  pm2 stop sipeka0
-                 pnpm build:web
-                 pnpm build:server
+                 bun run build:web
+                 bun run build:server
                  pm2 restart sipeka0
 
               #  sudo ln -s "$NVM_DIR/versions/node/v20.13.1/bin/pm2" "/usr/local/bin/pm2"

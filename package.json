@@ -4,11 +4,12 @@
     "version": "0.0.21",
     "type": "module",
     "scripts": {
+        "dev": "concurrently \"npm run dev:server\" \"npm run dev:web\"",
         "dev:server": "cross-env NODE_ENV=development tsx watch src/server/index.ts",
         "dev:web": "vite --host 0.0.0.0",
         "build:web": "vite build",
         "build:server": "cross-env NODE_ENV=production tsup src/server/index.ts",
-        "start": "node build/index.js",
+        "start": "bun build/index.js",
         "db:generate": "drizzle-kit generate",
         "db:push": "drizzle-kit push",
         "lint": "eslint --ext .ts,.tsx ."
@@ -37,6 +38,7 @@
         "bcryptjs": "^2.4.3",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.1",
+        "concurrently": "^8.2.2",
         "cookie": "^0.6.0",
         "date-fns": "^3.6.0",
         "dotenv": "^16.4.5",
