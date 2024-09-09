@@ -267,7 +267,8 @@ export const toolRouter = createTRPCRouter({
 
         try {
             const response = await axios.get(
-                `/aklap/api/report/cetaklra?searchparams=%7B%22tanggalFrom%22:%222024-01-01%22,%22tanggalTo%22:%22${now}%22,%22formatFile%22:%22preview%22,%22tahun%22:%222024%22,%22level%22:null,%22previewLaporan%22:null,%22is_combine%22:%22skpd_unit%22,%22skpd%22:${skpdId}%7D`,
+                env.SIPD_PROXY_URL +
+                    `/aklap/api/report/cetaklra?searchparams=%7B%22tanggalFrom%22:%222024-01-01%22,%22tanggalTo%22:%22${now}%22,%22formatFile%22:%22preview%22,%22tahun%22:%222024%22,%22level%22:null,%22previewLaporan%22:null,%22is_combine%22:%22skpd_unit%22,%22skpd%22:${skpdId}%7D`,
                 {
                     headers: {
                         Authorization: `Bearer ${sipd_token}`,
@@ -324,7 +325,8 @@ export const toolRouter = createTRPCRouter({
 
             try {
                 const response = await axios.get(
-                    `/aklap/api/jurnal-non-anggaran/approval-list?skpd=${skpdId}&length=999999&journal_status=0&page=1&tanggalFrom=${input.tglStart}&tanggalTo=${input.tglEnd}&order=tanggal&direction=DESC`,
+                    env.SIPD_PROXY_URL +
+                        `/aklap/api/jurnal-non-anggaran/approval-list?skpd=${skpdId}&length=999999&journal_status=0&page=1&tanggalFrom=${input.tglStart}&tanggalTo=${input.tglEnd}&order=tanggal&direction=DESC`,
                     {
                         headers: {
                             Authorization: `Bearer ${sipd_token}`,
@@ -411,7 +413,8 @@ export const toolRouter = createTRPCRouter({
                 await Promise.all([
                     compressPdf(base64File),
                     axios.get(
-                        `/aklap/api/jurnal-transaksi-non-anggaran/main-account-list-urusan?keyword=&skenario[]=${namaSkenario}&page=1&urusan=11&bidang_urusan=202&program=1397&skpd=${skpdId}&kegiatan=9708&sub_kegiatan=24328`,
+                        env.SIPD_PROXY_URL +
+                            `/aklap/api/jurnal-transaksi-non-anggaran/main-account-list-urusan?keyword=&skenario[]=${namaSkenario}&page=1&urusan=11&bidang_urusan=202&program=1397&skpd=${skpdId}&kegiatan=9708&sub_kegiatan=24328`,
                         {
                             headers: {
                                 Authorization: `Bearer ${sipd_token}`,
@@ -420,15 +423,20 @@ export const toolRouter = createTRPCRouter({
                             httpsAgent,
                         }
                     ),
-                    axios.get(`/aklap/api/jurnal-non-anggaran/generate-nomor-journal?skpd=${skpdId}&scenario_id=19`, {
-                        headers: {
-                            Authorization: `Bearer ${sipd_token}`,
-                            origin: PROXY_ORIGIN,
-                        },
-                        httpsAgent,
-                    }),
                     axios.get(
-                        `/aklap/api/jurnal-non-anggaran/get-nominal-anggaran?skpd=${skpdId}&kode_rekening=${kodeRekening}`,
+                        env.SIPD_PROXY_URL +
+                            `/aklap/api/jurnal-non-anggaran/generate-nomor-journal?skpd=${skpdId}&scenario_id=19`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${sipd_token}`,
+                                origin: PROXY_ORIGIN,
+                            },
+                            httpsAgent,
+                        }
+                    ),
+                    axios.get(
+                        env.SIPD_PROXY_URL +
+                            `/aklap/api/jurnal-non-anggaran/get-nominal-anggaran?skpd=${skpdId}&kode_rekening=${kodeRekening}`,
                         {
                             headers: {
                                 Authorization: `Bearer ${sipd_token}`,
@@ -473,7 +481,8 @@ export const toolRouter = createTRPCRouter({
             // Fetch paired accounts concurrently
             const [mainAccountPrimaryPairedResponse, mainAccountSecondaryResponse] = await Promise.all([
                 axios.get(
-                    `/aklap/api/jurnal-transaksi-non-anggaran/paired-account-list?idPopulasi=${mainAccountPrimary.idPopulasi}`,
+                    env.SIPD_PROXY_URL +
+                        `/aklap/api/jurnal-transaksi-non-anggaran/paired-account-list?idPopulasi=${mainAccountPrimary.idPopulasi}`,
                     {
                         headers: {
                             Authorization: `Bearer ${sipd_token}`,
@@ -493,7 +502,8 @@ export const toolRouter = createTRPCRouter({
                     }
 
                     const response = await axios.get(
-                        `/aklap/api/jurnal-transaksi-non-anggaran/main-account-list-rekening?keyword=${kodeRekeningKeyword}&nama_rekening=${mainAccountPrimary.namaRekening}&page=1`,
+                        env.SIPD_PROXY_URL +
+                            `/aklap/api/jurnal-transaksi-non-anggaran/main-account-list-rekening?keyword=${kodeRekeningKeyword}&nama_rekening=${mainAccountPrimary.namaRekening}&page=1`,
                         {
                             headers: {
                                 Authorization: `Bearer ${sipd_token}`,
@@ -535,7 +545,8 @@ export const toolRouter = createTRPCRouter({
             }
 
             const mainAccountSecondaryPairedResponse = await axios.get(
-                `/aklap/api/jurnal-transaksi-non-anggaran/paired-account-list?idPopulasi=${mainAccountSecondary.idPopulasi}`,
+                env.SIPD_PROXY_URL +
+                    `/aklap/api/jurnal-transaksi-non-anggaran/paired-account-list?idPopulasi=${mainAccountSecondary.idPopulasi}`,
                 {
                     headers: {
                         Authorization: `Bearer ${sipd_token}`,
@@ -648,7 +659,7 @@ export const toolRouter = createTRPCRouter({
 
             try {
                 const data = await axios.post(
-                    `/aklap/api/jurnal-non-anggaran/reject`,
+                    env.SIPD_PROXY_URL + `/aklap/api/jurnal-non-anggaran/reject`,
                     {
                         journal_id: input.journalId,
                         journal_reject_reason_id: 3,
@@ -687,7 +698,7 @@ export const toolRouter = createTRPCRouter({
 
             try {
                 const data = await axios.post(
-                    `/aklap/api/jurnal-non-anggaran/delete-journal`,
+                    env.SIPD_PROXY_URL + `/aklap/api/jurnal-non-anggaran/delete-journal`,
                     { id: input.journalId },
                     {
                         headers: {
