@@ -10,4 +10,5 @@ export const env = {
     DB_PORT: process.env.DB_PORT as string,
 
     JWT_SECRET_KEY: process.env.JWT_SECRET_KEY as string,
+    SIPD_PROXY_URL: process.env.SIPD_PROXY_URL as string,
 }

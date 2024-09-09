@@ -12,6 +12,12 @@ import { promisify } from 'util'
 import path from 'path'
 import https from 'https'
 import { Base64 } from 'js-base64'
+import { env } from '@/env.server'
+
+const PROXY_ORIGIN = 'https://sipd.kemendagri.go.id'
+const httpsAgent = new https.Agent({
+    keepAlive: true,
+})
 
 const getSkpdId = async (token: string): Promise<number> => {
     const skpdKode = '1.02.0.00.0.00.01.0011'
@@ -25,8 +31,12 @@ const getSkpdId = async (token: string): Promise<number> => {
     }
 
     return axios
-        .get('https://service.sipd.kemendagri.go.id/aklap/api/common/list-skpd', {
-            headers: { Authorization: `Bearer ${token}` },
+        .get(env.SIPD_PROXY_URL + '/aklap/api/common/list-skpd', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                origin: PROXY_ORIGIN,
+            },
+            httpsAgent,
         })
         .then((data) => {
             return data?.data?.data?.find(
@@ -70,10 +80,6 @@ const compressPdf = async (base64: string): Promise<string> => {
     return compressFileBase64
 }
 
-const httpsAgent = new https.Agent({
-    keepAlive: true,
-})
-
 export const toolRouter = createTRPCRouter({
     preLoginSipd: userProcedure
         .input(
@@ -103,11 +109,15 @@ export const toolRouter = createTRPCRouter({
             }
 
             try {
-                const response = await axios.post('https://service.sipd.kemendagri.go.id/auth/auth/pre-login', data)
+                const response = await axios.post(env.SIPD_PROXY_URL + '/auth/auth/pre-login', data, {
+                    headers: {
+                        origin: PROXY_ORIGIN,
+                    },
+                    httpsAgent,
+                })
 
                 return response.data as PreLoginSipdResponse[]
             } catch (error) {
-                console.log(error)
                 if (axios.isAxiosError(error)) {
                     throw new TRPCError({
                         code: 'UNAUTHORIZED',
@@ -119,7 +129,12 @@ export const toolRouter = createTRPCRouter({
 
     getCaptcha: userProcedure.mutation(async () => {
         try {
-            const response = await axios.get('https://service.sipd.kemendagri.go.id/auth/captcha/new')
+            const response = await axios.get(env.SIPD_PROXY_URL + '/auth/captcha/new', {
+                headers: {
+                    origin: PROXY_ORIGIN,
+                },
+                httpsAgent,
+            })
 
             return response.data as {
                 audio: string
@@ -127,7 +142,6 @@ export const toolRouter = createTRPCRouter({
                 id: string
             }
         } catch (error) {
-            console.log(error)
             if (axios.isAxiosError(error)) {
                 throw new TRPCError({
                     code: 'UNAUTHORIZED',
@@ -194,12 +208,14 @@ export const toolRouter = createTRPCRouter({
             }
 
             try {
-                const response = await axios.post('https://service.sipd.kemendagri.go.id/auth/auth/login', payload)
+                const response = await axios.post(env.SIPD_PROXY_URL + '/auth/auth/login', payload, {
+                    headers: {
+                        origin: PROXY_ORIGIN,
+                    },
+                })
 
                 return response.data as { token: string; refresh_token: string }
             } catch (error) {
-                console.log(error)
-
                 if (axios.isAxiosError(error)) {
                     throw new TRPCError({
                         code: 'UNAUTHORIZED',
@@ -213,8 +229,11 @@ export const toolRouter = createTRPCRouter({
         const { sipd_token } = cookie.parse(ctx.headers.cookie!)
 
         try {
-            const response = await axios.get('https://service.sipd.kemendagri.go.id/auth/strict/user/profile', {
-                headers: { Authorization: `Bearer ${sipd_token}` },
+            const response = await axios.get(env.SIPD_PROXY_URL + '/auth/strict/user/profile', {
+                headers: {
+                    Authorization: `Bearer ${sipd_token}`,
+                    origin: PROXY_ORIGIN,
+                },
                 httpsAgent,
             })
 
@@ -230,8 +249,6 @@ export const toolRouter = createTRPCRouter({
                 lahir_user: string
             }
         } catch (error) {
-            console.log(error)
-
             if (axios.isAxiosError(error)) {
                 throw new TRPCError({
                     code: 'BAD_REQUEST',
@@ -250,17 +267,18 @@ export const toolRouter = createTRPCRouter({
 
         try {
             const response = await axios.get(
-                `https://service.sipd.kemendagri.go.id/aklap/api/report/cetaklra?searchparams=%7B%22tanggalFrom%22:%222024-01-01%22,%22tanggalTo%22:%22${now}%22,%22formatFile%22:%22preview%22,%22tahun%22:%222024%22,%22level%22:null,%22previewLaporan%22:null,%22is_combine%22:%22skpd_unit%22,%22skpd%22:${skpdId}%7D`,
+                `/aklap/api/report/cetaklra?searchparams=%7B%22tanggalFrom%22:%222024-01-01%22,%22tanggalTo%22:%22${now}%22,%22formatFile%22:%22preview%22,%22tahun%22:%222024%22,%22level%22:null,%22previewLaporan%22:null,%22is_combine%22:%22skpd_unit%22,%22skpd%22:${skpdId}%7D`,
                 {
-                    headers: { Authorization: `Bearer ${sipd_token}` },
+                    headers: {
+                        Authorization: `Bearer ${sipd_token}`,
+                        origin: PROXY_ORIGIN,
+                    },
                     httpsAgent,
                 }
             )
 
             return response.data as Document
         } catch (error) {
-            console.log(error)
-
             if (axios.isAxiosError(error)) {
                 throw new TRPCError({
                     code: 'BAD_REQUEST',
@@ -306,17 +324,18 @@ export const toolRouter = createTRPCRouter({
 
             try {
                 const response = await axios.get(
-                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/approval-list?skpd=${skpdId}&length=999999&journal_status=0&page=1&tanggalFrom=${input.tglStart}&tanggalTo=${input.tglEnd}&order=tanggal&direction=DESC`,
+                    `/aklap/api/jurnal-non-anggaran/approval-list?skpd=${skpdId}&length=999999&journal_status=0&page=1&tanggalFrom=${input.tglStart}&tanggalTo=${input.tglEnd}&order=tanggal&direction=DESC`,
                     {
-                        headers: { Authorization: `Bearer ${sipd_token}` },
+                        headers: {
+                            Authorization: `Bearer ${sipd_token}`,
+                            origin: PROXY_ORIGIN,
+                        },
                         httpsAgent,
                     }
                 )
 
                 return response.data?.data?.list as TransaksiNonAnggaranType[]
             } catch (error) {
-                console.log(error)
-
                 if (axios.isAxiosError(error)) {
                     throw new TRPCError({
                         code: 'BAD_REQUEST',
@@ -392,23 +411,29 @@ export const toolRouter = createTRPCRouter({
                 await Promise.all([
                     compressPdf(base64File),
                     axios.get(
-                        `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-transaksi-non-anggaran/main-account-list-urusan?keyword=&skenario[]=${namaSkenario}&page=1&urusan=11&bidang_urusan=202&program=1397&skpd=${skpdId}&kegiatan=9708&sub_kegiatan=24328`,
+                        `/aklap/api/jurnal-transaksi-non-anggaran/main-account-list-urusan?keyword=&skenario[]=${namaSkenario}&page=1&urusan=11&bidang_urusan=202&program=1397&skpd=${skpdId}&kegiatan=9708&sub_kegiatan=24328`,
                         {
-                            headers: { Authorization: `Bearer ${sipd_token}` },
+                            headers: {
+                                Authorization: `Bearer ${sipd_token}`,
+                                origin: PROXY_ORIGIN,
+                            },
                             httpsAgent,
                         }
                     ),
+                    axios.get(`/aklap/api/jurnal-non-anggaran/generate-nomor-journal?skpd=${skpdId}&scenario_id=19`, {
+                        headers: {
+                            Authorization: `Bearer ${sipd_token}`,
+                            origin: PROXY_ORIGIN,
+                        },
+                        httpsAgent,
+                    }),
                     axios.get(
-                        `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/generate-nomor-journal?skpd=${skpdId}&scenario_id=19`,
+                        `/aklap/api/jurnal-non-anggaran/get-nominal-anggaran?skpd=${skpdId}&kode_rekening=${kodeRekening}`,
                         {
-                            headers: { Authorization: `Bearer ${sipd_token}` },
-                            httpsAgent,
-                        }
-                    ),
-                    axios.get(
-                        `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/get-nominal-anggaran?skpd=${skpdId}&kode_rekening=${kodeRekening}`,
-                        {
-                            headers: { Authorization: `Bearer ${sipd_token}` },
+                            headers: {
+                                Authorization: `Bearer ${sipd_token}`,
+                                origin: PROXY_ORIGIN,
+                            },
                             httpsAgent,
                         }
                     ),
@@ -448,9 +473,12 @@ export const toolRouter = createTRPCRouter({
             // Fetch paired accounts concurrently
             const [mainAccountPrimaryPairedResponse, mainAccountSecondaryResponse] = await Promise.all([
                 axios.get(
-                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-transaksi-non-anggaran/paired-account-list?idPopulasi=${mainAccountPrimary.idPopulasi}`,
+                    `/aklap/api/jurnal-transaksi-non-anggaran/paired-account-list?idPopulasi=${mainAccountPrimary.idPopulasi}`,
                     {
-                        headers: { Authorization: `Bearer ${sipd_token}` },
+                        headers: {
+                            Authorization: `Bearer ${sipd_token}`,
+                            origin: PROXY_ORIGIN,
+                        },
                         httpsAgent,
                     }
                 ),
@@ -465,9 +493,12 @@ export const toolRouter = createTRPCRouter({
                     }
 
                     const response = await axios.get(
-                        `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-transaksi-non-anggaran/main-account-list-rekening?keyword=${kodeRekeningKeyword}&nama_rekening=${mainAccountPrimary.namaRekening}&page=1`,
+                        `/aklap/api/jurnal-transaksi-non-anggaran/main-account-list-rekening?keyword=${kodeRekeningKeyword}&nama_rekening=${mainAccountPrimary.namaRekening}&page=1`,
                         {
-                            headers: { Authorization: `Bearer ${sipd_token}` },
+                            headers: {
+                                Authorization: `Bearer ${sipd_token}`,
+                                origin: PROXY_ORIGIN,
+                            },
                             httpsAgent,
                         }
                     )
@@ -504,9 +535,12 @@ export const toolRouter = createTRPCRouter({
             }
 
             const mainAccountSecondaryPairedResponse = await axios.get(
-                `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-transaksi-non-anggaran/paired-account-list?idPopulasi=${mainAccountSecondary.idPopulasi}`,
+                `/aklap/api/jurnal-transaksi-non-anggaran/paired-account-list?idPopulasi=${mainAccountSecondary.idPopulasi}`,
                 {
-                    headers: { Authorization: `Bearer ${sipd_token}` },
+                    headers: {
+                        Authorization: `Bearer ${sipd_token}`,
+                        origin: PROXY_ORIGIN,
+                    },
                     httpsAgent,
                 }
             )
@@ -579,10 +613,13 @@ export const toolRouter = createTRPCRouter({
 
             try {
                 const data = await axios.post(
-                    'https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/simpan-badan-layanan-umum-daerah',
+                    env.SIPD_PROXY_URL + '/aklap/api/jurnal-non-anggaran/simpan-badan-layanan-umum-daerah',
                     body,
                     {
-                        headers: { Authorization: `Bearer ${sipd_token}` },
+                        headers: {
+                            Authorization: `Bearer ${sipd_token}`,
+                            origin: PROXY_ORIGIN,
+                        },
                         httpsAgent,
                     }
                 )
@@ -591,8 +628,6 @@ export const toolRouter = createTRPCRouter({
                     message: JSON.stringify(data.data),
                 }
             } catch (error) {
-                console.log(error)
-
                 if (axios.isAxiosError(error)) {
                     throw new TRPCError({
                         code: 'BAD_REQUEST',
@@ -613,14 +648,17 @@ export const toolRouter = createTRPCRouter({
 
             try {
                 const data = await axios.post(
-                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/reject`,
+                    `/aklap/api/jurnal-non-anggaran/reject`,
                     {
                         journal_id: input.journalId,
                         journal_reject_reason_id: 3,
                         reject_notes: 'jurnal salah',
                     },
                     {
-                        headers: { Authorization: `Bearer ${sipd_token}` },
+                        headers: {
+                            Authorization: `Bearer ${sipd_token}`,
+                            origin: PROXY_ORIGIN,
+                        },
                         httpsAgent,
                     }
                 )
@@ -629,8 +667,6 @@ export const toolRouter = createTRPCRouter({
                     message: JSON.stringify(data.data),
                 }
             } catch (error) {
-                console.log(error)
-
                 if (axios.isAxiosError(error)) {
                     throw new TRPCError({
                         code: 'BAD_REQUEST',
@@ -651,10 +687,13 @@ export const toolRouter = createTRPCRouter({
 
             try {
                 const data = await axios.post(
-                    `https://service.sipd.kemendagri.go.id/aklap/api/jurnal-non-anggaran/delete-journal`,
+                    `/aklap/api/jurnal-non-anggaran/delete-journal`,
                     { id: input.journalId },
                     {
-                        headers: { Authorization: `Bearer ${sipd_token}` },
+                        headers: {
+                            Authorization: `Bearer ${sipd_token}`,
+                            origin: PROXY_ORIGIN,
+                        },
                         httpsAgent,
                     }
                 )
@@ -663,8 +702,6 @@ export const toolRouter = createTRPCRouter({
                     message: JSON.stringify(data.data),
                 }
             } catch (error) {
-                console.log(error)
-
                 if (axios.isAxiosError(error)) {
                     throw new TRPCError({
                         code: 'BAD_REQUEST',
