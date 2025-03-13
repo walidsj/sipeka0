@@ -116,10 +116,7 @@ export default function Page() {
                                         <td className="border-[0.5pt] border-black px-3 py-2 text-center font-serif">
                                             {index + 1}
                                         </td>
-                                        <td
-                                            key={index}
-                                            className="border-[0.5pt] border-black px-3 py-2 text-right font-serif"
-                                        >
+                                        <td key={index} className="border-[0.5pt] border-black px-3 py-2 font-serif">
                                             {item.uraian}
                                         </td>
                                         <td className="border-[0.5pt] border-black px-3 py-2 text-right font-serif">
