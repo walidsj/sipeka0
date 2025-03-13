@@ -1,11 +1,4 @@
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { useParams } from 'react-router-dom'
 import { api } from '@/trpc/react'
 import Loading from '@/components/loading'
@@ -18,11 +11,7 @@ import NotFound from '@/app/not-found'
 export default function Page() {
     const params = useParams<{ sp3bId: string }>()
 
-    const {
-        data: sp3b,
-        isError,
-        isLoading,
-    } = api.sp3b.getById.useQuery(Number(params.sp3bId))
+    const { data: sp3b, isError, isLoading } = api.sp3b.getById.useQuery(Number(params.sp3bId))
 
     const componentRef = React.useRef(null)
     const handlePrint = useReactToPrint({
@@ -39,9 +28,7 @@ export default function Page() {
         <Card>
             <CardHeader>
                 <CardTitle>Cetak SPTJB Pendapatan</CardTitle>
-                <CardDescription>
-                    Dokumen Surat Pertanggungjawaban Pendapatan
-                </CardDescription>
+                <CardDescription>Dokumen Surat Pertanggungjawaban Pendapatan</CardDescription>
             </CardHeader>
             <CardContent>
                 <div className="rounded-md border p-10 shadow">
@@ -68,10 +55,7 @@ export default function Page() {
                             <tbody>
                                 <tr>
                                     <td className="w-16 font-serif">
-                                        <img
-                                            src="/images/logo-kaltimprov.webp"
-                                            className="h-20 w-24"
-                                        />
+                                        <img src="/images/logo-kaltimprov.webp" className="h-20 w-24" />
                                     </td>
                                     <td className="text-center">
                                         <div
@@ -90,16 +74,13 @@ export default function Page() {
                                             style={{ fontSize: '14pt' }}
                                             className="font-serif font-bold uppercase leading-5"
                                         >
-                                            Rumah Sakit Jiwa Daerah Atma Husada
-                                            Mahakam
+                                            Rumah Sakit Jiwa Daerah Atma Husada Mahakam
                                         </div>
                                         <div className="font-serif">
-                                            Jl. Kakap No. 23 Samarinda Telp
-                                            (0541) 743364 Fax 741035
+                                            Jl. Kakap No. 23 Samarinda Telp (0541) 743364 Fax 741035
                                         </div>
                                         <div className="font-serif">
-                                            Website: rsjdahm.kaltimprov.go.id |
-                                            Posel: rsjdahm@kaltimprov.go.id
+                                            Website: rsjdahm.kaltimprov.go.id | Posel: rsjdahm@kaltimprov.go.id
                                         </div>
                                     </td>
                                     <td className="w-16"></td>
@@ -114,106 +95,74 @@ export default function Page() {
                         >
                             Surat Pernyataan Tanggung Jawab (SPTJB)
                         </h5>
-                        <h4 className="mb-5 text-center font-serif">
-                            Nomor: {sp3b.noDokumen}/SPTJB/RSJDAHM-BLUD
-                        </h4>
+                        <h4 className="mb-5 text-center font-serif">Nomor: {sp3b.noDokumen}/SPTJB/RSJDAHM-BLUD</h4>
                         <p className="mb-5 text-justify indent-10 font-serif leading-5">
-                            Sehubungan dengan pendapatan BLUD RSJD Atma Husada
-                            Mahakam pada periode {formatTanggal(sp3b.tglMulai)}{' '}
-                            s.d. {formatTanggal(sp3b.tglSelesai)} tahun 2024
-                            sebesar Rp.{' '}
-                            {formatAngkaDecimal(sp3b.pendapatan.total)} (
-                            {terbilang(sp3b.pendapatan.total)} rupiah) dengan
-                            rincian sebagai berikut:
+                            Sehubungan dengan pendapatan BLUD RSJD Atma Husada Mahakam pada periode{' '}
+                            {formatTanggal(sp3b.tglMulai)} s.d. {formatTanggal(sp3b.tglSelesai)} tahun 2024 sebesar Rp.{' '}
+                            {formatAngkaDecimal(sp3b.pendapatan.total)} ({terbilang(sp3b.pendapatan.total)} rupiah)
+                            dengan rincian sebagai berikut:
                         </p>
                         <table className="mb-5 w-full">
                             <thead>
                                 <tr>
-                                    <th
-                                        rowSpan={2}
-                                        className="w-10 border-[0.5pt] border-black px-3 py-2 font-serif"
-                                    >
-                                        No
-                                    </th>
-                                    <th
-                                        colSpan={sp3b.pendapatan.rincian.length}
-                                        className="border-[0.5pt] border-black px-3 py-2 font-serif"
-                                    >
-                                        Uraian
-                                    </th>
-                                    <th
-                                        rowSpan={2}
-                                        className="border-[0.5pt] border-black px-3 py-2 font-serif"
-                                    >
-                                        Jumlah
-                                    </th>
-                                </tr>
-                                <tr>
-                                    {sp3b.pendapatan.rincian.map(
-                                        (item, index) => (
-                                            <th
-                                                key={index}
-                                                className="border-[0.5pt] border-black px-3 py-2 font-serif"
-                                            >
-                                                {item.uraian}
-                                            </th>
-                                        )
-                                    )}
+                                    <th className="w-10 border-[0.5pt] border-black px-3 py-2 font-serif">No</th>
+                                    <th className="border-[0.5pt] border-black px-3 py-2 font-serif">Uraian</th>
+                                    <th className="border-[0.5pt] border-black px-3 py-2 font-serif">Jumlah</th>
                                 </tr>
                             </thead>
-                            <tbody></tbody>
-                            <tr>
-                                <td className="border-[0.5pt] border-black px-3 py-2 text-center font-serif">
-                                    1.
-                                </td>
+                            <tbody>
                                 {sp3b.pendapatan.rincian.map((item, index) => (
+                                    <tr>
+                                        <td className="border-[0.5pt] border-black px-3 py-2 text-center font-serif">
+                                            {index + 1}
+                                        </td>
+                                        <td
+                                            key={index}
+                                            className="border-[0.5pt] border-black px-3 py-2 text-right font-serif"
+                                        >
+                                            {item.uraian}
+                                        </td>
+                                        <td className="border-[0.5pt] border-black px-3 py-2 text-right font-serif">
+                                            {formatAngkaDecimal(item.jumlah)}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                            <tfoot>
+                                <tr>
                                     <td
-                                        key={index}
+                                        colSpan={2}
                                         className="border-[0.5pt] border-black px-3 py-2 text-right font-serif"
                                     >
-                                        {formatAngkaDecimal(item.jumlah)}
+                                        Total Pendapatan
                                     </td>
-                                ))}
-                                <td className="border-[0.5pt] border-black px-3 py-2 text-right font-serif">
-                                    {formatAngkaDecimal(sp3b.pendapatan.total)}
-                                </td>
-                            </tr>
+                                    <td className="border-[0.5pt] border-black px-3 py-2 text-right font-serif">
+                                        {formatAngkaDecimal(sp3b.pendapatan.total)}
+                                    </td>
+                                </tr>
+                            </tfoot>
                         </table>
                         <p className="mb-2 text-justify indent-10 font-serif leading-5">
-                            Pengeluaran biaya tersebut di atas telah
-                            dilaksanakan dan dikelola berdasarkan sistem
-                            pengendalian intern yang memadai dalam kerangka
-                            pelaksanaan DPA, dan dibukukan sesuai dengan Standar
-                            Akuntansi yang berlaku pada BLUD dan bukti-bukti
-                            pengeluaran yang ada pada kami.
+                            Pengeluaran biaya tersebut di atas telah dilaksanakan dan dikelola berdasarkan sistem
+                            pengendalian intern yang memadai dalam kerangka pelaksanaan DPA, dan dibukukan sesuai dengan
+                            Standar Akuntansi yang berlaku pada BLUD dan bukti-bukti pengeluaran yang ada pada kami.
                         </p>
                         <p className="mb-5 text-justify indent-10 font-serif leading-5">
-                            Demikian surat pernyataan ini dibuat untuk
-                            melengkapi persyaratan pengajuan SP3B RSJD Atma
+                            Demikian surat pernyataan ini dibuat untuk melengkapi persyaratan pengajuan SP3B RSJD Atma
                             Husada Mahakam.
                         </p>
                         <div className="mb-5 flex w-full flex-row">
                             <div className="w-full" />
                             <div className="w-3/5 text-justify font-serif">
-                                <div className="font-serif">
-                                    Samarinda, {formatTanggal(sp3b.tglDokumen)}
-                                </div>
-                                <div className="font-serif">
-                                    {sp3b.penandatangan?.jabatan},
-                                </div>
+                                <div className="font-serif">Samarinda, {formatTanggal(sp3b.tglDokumen)}</div>
+                                <div className="font-serif">{sp3b.penandatangan?.jabatan},</div>
                                 <div className="mt-14 font-serif underline">
-                                    {sp3b.penandatangan?.gelarDepan &&
-                                        `${sp3b.penandatangan?.gelarDepan} `}
+                                    {sp3b.penandatangan?.gelarDepan && `${sp3b.penandatangan?.gelarDepan} `}
                                     {sp3b.penandatangan?.nama}
-                                    {sp3b.penandatangan?.gelarBelakang &&
-                                        `, ${sp3b.penandatangan?.gelarBelakang}`}
+                                    {sp3b.penandatangan?.gelarBelakang && `, ${sp3b.penandatangan?.gelarBelakang}`}
                                 </div>
-                                <div className="font-serif">
-                                    Pembina Utama Muda
-                                </div>
-                                <div className="font-serif">
-                                    NIP. {sp3b.penandatangan?.nip}
-                                </div>
+                                <div className="font-serif">Pembina Utama Muda</div>
+                                <div className="font-serif">NIP. {sp3b.penandatangan?.nip}</div>
                             </div>
                         </div>
                     </div>
