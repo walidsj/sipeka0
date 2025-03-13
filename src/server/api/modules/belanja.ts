@@ -380,13 +380,13 @@ export const belanjaRouter = createTRPCRouter({
                 )
             }, 0)
 
-            if (startDate && startDate >= new Date('2025-01-15')) {
+            if (startDate && startDate >= new Date('2025-01-31')) {
                 saldoAwalPenerimaan = saldoAwalPenerimaan += 750_000_000
             }
 
-            if (startDate && startDate < new Date('2025-01-15')) {
+            if (startDate && startDate < new Date('2025-01-31')) {
                 jurnal.push({
-                    tgl: new Date('2025-01-15'),
+                    tgl: new Date('2025-01-31'),
                     noDokumen: '900.1.3.5/001/UP /SP2D/RSJD-AHM/BLUD',
                     kodeRekening: null,
                     uraian: 'Terima Pencairan SP2D Uang Persediaan (UP) BLUD pada RSJD Atma Husada Mahakam Prov. Kaltim untuk Tahun Anggaran 2025',
