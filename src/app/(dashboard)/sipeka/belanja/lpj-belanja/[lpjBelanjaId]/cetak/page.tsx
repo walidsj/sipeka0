@@ -1,11 +1,4 @@
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { useParams } from 'react-router-dom'
 import { api } from '@/trpc/react'
 import Loading from '@/components/loading'
@@ -19,17 +12,13 @@ import { potonganBelanjaSchema } from '@/server/api/modules/belanja.schema'
 export default function Page() {
     const params = useParams<{ lpjBelanjaId: string }>()
 
-    const { data: lpjBelanja } = api.lpjBelanja.getById.useQuery(
-        Number(params.lpjBelanjaId)
-    )
+    const { data: lpjBelanja } = api.lpjBelanja.getById.useQuery(Number(params.lpjBelanjaId))
 
     const {
         isLoading,
         isError,
         data: belanja,
-    } = api.lpjBelanja.getBelanjaByLpjBelanjaId.useQuery(
-        Number(params.lpjBelanjaId)
-    )
+    } = api.lpjBelanja.getBelanjaByLpjBelanjaId.useQuery(Number(params.lpjBelanjaId))
 
     const componentRef = React.useRef(null)
     const handlePrint = useReactToPrint({
@@ -52,10 +41,7 @@ export default function Page() {
             </CardHeader>
             <CardContent>
                 <div className="rounded-md border p-10 shadow">
-                    <div
-                        className="text-[7.5pt] leading-[10pt]"
-                        ref={componentRef}
-                    >
+                    <div className="text-[7.5pt] leading-[10pt]" ref={componentRef}>
                         <style type="text/css" media="print">
                             {`
                                 @page {
@@ -89,8 +75,7 @@ export default function Page() {
                                         : ''}{' '}
                             </div>
                             <div className="mb-5 text-center font-serif text-[10pt] leading-[12pt]">
-                                Nomor: 900.1.3.5/{lpjBelanja?.noDokumen}/
-                                {lpjBelanja?.jenis}
+                                Nomor: 900.1.3.5/{lpjBelanja?.noDokumen}/{lpjBelanja?.jenis}
                                 /LPJ/RSJD-AHM/BLUD
                             </div>
                         </div>
@@ -174,12 +159,7 @@ export default function Page() {
                                                 day: '2-digit',
                                                 month: '2-digit',
                                                 year: 'numeric',
-                                            }).format(
-                                                new Date(
-                                                    item.tglDokumen ||
-                                                        new Date()
-                                                )
-                                            )}
+                                            }).format(new Date(item.tglDokumen || new Date()))}
                                         </td>
                                         <td className="border-[0.5pt] border-black px-2 py-1 align-top font-serif">
                                             {item.uraian}
@@ -191,30 +171,14 @@ export default function Page() {
                                             <td className="border-[0.5pt] border-black px-2 py-1 text-right align-top font-serif">
                                                 {formatAngkaDecimal(
                                                     item.potonganBelanja
-                                                        .filter(
-                                                            (potonganBelanja) =>
-                                                                potonganBelanja.jenis ===
-                                                                potongan
-                                                        )
-                                                        .reduce(
-                                                            (acc, curr) =>
-                                                                acc +
-                                                                Number(
-                                                                    curr.jumlah
-                                                                ),
-                                                            0
-                                                        )
+                                                        .filter((potonganBelanja) => potonganBelanja.jenis === potongan)
+                                                        .reduce((acc, curr) => acc + Number(curr.jumlah), 0)
                                                 )}
                                             </td>
                                         ))}
                                         <td className="border-[0.5pt] border-black px-2 py-1 text-right align-top font-serif">
                                             {formatAngkaDecimal(
-                                                item.potonganBelanja.reduce(
-                                                    (acc, curr) =>
-                                                        acc +
-                                                        Number(curr.jumlah),
-                                                    0
-                                                )
+                                                item.potonganBelanja.reduce((acc, curr) => acc + Number(curr.jumlah), 0)
                                             )}
                                         </td>
                                     </tr>
@@ -228,11 +192,7 @@ export default function Page() {
                                     </th>
                                     <th className="border-[0.5pt] border-black px-2 py-2 text-right font-serif uppercase">
                                         {formatAngkaDecimal(
-                                            belanja.reduce(
-                                                (acc, curr) =>
-                                                    acc + Number(curr.jumlah),
-                                                0
-                                            )
+                                            belanja.reduce((acc, curr) => acc + Number(curr.jumlah), 0)
                                         )}
                                     </th>
                                     {potonganList.map((potongan) => (
@@ -240,26 +200,14 @@ export default function Page() {
                                             {formatAngkaDecimal(
                                                 belanja
                                                     .map((item) =>
-                                                        item.potonganBelanja.map(
-                                                            (
-                                                                potonganBelanja
-                                                            ) =>
-                                                                potonganBelanja.jenis ===
-                                                                potongan
-                                                                    ? Number(
-                                                                          potonganBelanja.jumlah
-                                                                      )
-                                                                    : 0
+                                                        item.potonganBelanja.map((potonganBelanja) =>
+                                                            potonganBelanja.jenis === potongan
+                                                                ? Number(potonganBelanja.jumlah)
+                                                                : 0
                                                         )
                                                     )
                                                     .reduce(
-                                                        (acc, curr) =>
-                                                            acc +
-                                                            curr.reduce(
-                                                                (acc, curr) =>
-                                                                    acc + curr,
-                                                                0
-                                                            ),
+                                                        (acc, curr) => acc + curr.reduce((acc, curr) => acc + curr, 0),
                                                         0
                                                     )
                                             )}
@@ -270,16 +218,11 @@ export default function Page() {
                                             belanja
                                                 .map((item) =>
                                                     item.potonganBelanja.reduce(
-                                                        (acc, curr) =>
-                                                            acc +
-                                                            Number(curr.jumlah),
+                                                        (acc, curr) => acc + Number(curr.jumlah),
                                                         0
                                                     )
                                                 )
-                                                .reduce(
-                                                    (acc, curr) => acc + curr,
-                                                    0
-                                                )
+                                                .reduce((acc, curr) => acc + curr, 0)
                                         )}
                                     </th>
                                 </tr>
@@ -288,47 +231,26 @@ export default function Page() {
                         <div className="mt-5 flex w-full flex-nowrap text-center">
                             <div className="w-1/3">
                                 <div className="font-serif">Menyetujui:</div>
-                                <div className="font-serif">
-                                    Kuasa Pengguna Anggaran BLUD
-                                </div>
-                                <div className="mt-14 font-serif font-bold">
-                                    dr. Indah Puspitasari, MARS
-                                </div>
-                                <div className="font-serif">
-                                    Pembina Utama Muda
-                                </div>
-                                <div className="font-serif">
-                                    NIP. 196705301998032003
-                                </div>
+                                <div className="font-serif">Kuasa Pengguna Anggaran</div>
+                                <div className="mt-14 font-serif font-bold">dr. Indah Puspitasari, MARS</div>
+                                <div className="font-serif">Pembina Utama Muda</div>
+                                <div className="font-serif">NIP. 196705301998032003</div>
                             </div>
                             <div className="w-1/3">
                                 <div className="font-serif">Mengetahui:</div>
                                 <div className="font-serif">PPTK BLUD</div>
-                                <div className="mt-14 font-serif font-bold">
-                                    Hadi Machbudiansyah, S.E., M.M
-                                </div>
+                                <div className="mt-14 font-serif font-bold">Sudoto, S.Kom</div>
                                 <div className="font-serif">Pembina</div>
-                                <div className="font-serif">
-                                    NIP. 197509111994021001
-                                </div>
+                                <div className="font-serif">NIP. 197407291994021002</div>
                             </div>
                             <div className="w-1/3">
                                 <div className="font-serif">
-                                    Samarinda,{' '}
-                                    {formatTanggal(
-                                        lpjBelanja?.tglDokumen || new Date()
-                                    )}
+                                    Samarinda, {formatTanggal(lpjBelanja?.tglDokumen || new Date())}
                                 </div>
-                                <div className="font-serif">
-                                    Bendahara Pengeluaran Pembantu BLUD
-                                </div>
-                                <div className="mt-14 font-serif font-bold">
-                                    Moh. Walid Arkham Sani, A.Md.Pnl
-                                </div>
-                                <div className="font-serif">Pengatur</div>
-                                <div className="font-serif">
-                                    NIP. 200008062022011001
-                                </div>
+                                <div className="font-serif">Bendahara Pengeluaran Pembantu BLUD</div>
+                                <div className="mt-14 font-serif font-bold">Riandy, S.Kep</div>
+                                <div className="font-serif">Penata Tk. I</div>
+                                <div className="font-serif">NIP. 197901281999031003</div>
                             </div>
                         </div>
                     </div>

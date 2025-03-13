@@ -1,32 +1,6 @@
-import {
-    aktivitasRba,
-    belanja,
-    dba,
-    potonganBelanja,
-    rab,
-    rba,
-} from '@/server/db/schema'
-import {
-    createTRPCRouter,
-    pengelolaProcedure,
-    publicProcedure,
-    userProcedure,
-} from '@/server/trpc'
-import {
-    and,
-    asc,
-    count,
-    desc,
-    eq,
-    gte,
-    isNotNull,
-    like,
-    lt,
-    lte,
-    or,
-    sql,
-    sum,
-} from 'drizzle-orm'
+import { aktivitasRba, belanja, dba, potonganBelanja, rab, rba } from '@/server/db/schema'
+import { createTRPCRouter, pengelolaProcedure, publicProcedure, userProcedure } from '@/server/trpc'
+import { and, asc, count, desc, eq, gte, isNotNull, like, lt, lte, or, sql, sum } from 'drizzle-orm'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import { belanjaSchema, potonganBelanjaSchema } from './belanja.schema'
@@ -87,13 +61,7 @@ export const belanjaRouter = createTRPCRouter({
                     },
                 },
                 where: search
-                    ? and(
-                          or(
-                              like(belanja.uraian, `%${search}%`),
-                              like(belanja.noDokumen, `%${search}%`)
-                          ),
-                          filterDate
-                      )
+                    ? and(or(like(belanja.uraian, `%${search}%`), like(belanja.noDokumen, `%${search}%`)), filterDate)
                     : filterDate,
                 orderBy: [desc(belanja.tglDokumen), desc(belanja.noDokumen)],
                 limit: pageSize ?? 10,
@@ -102,9 +70,7 @@ export const belanjaRouter = createTRPCRouter({
 
             const data = belanjaList.map((belanja) => ({
                 ...belanja,
-                rekening: rekeningLevel6.find(
-                    (rekening) => rekening.kode === belanja.rab?.kodeRekening
-                ),
+                rekening: rekeningLevel6.find((rekening) => rekening.kode === belanja.rab?.kodeRekening),
             }))
 
             const total = await ctx.db
@@ -120,10 +86,7 @@ export const belanjaRouter = createTRPCRouter({
                 .where(
                     search
                         ? and(
-                              or(
-                                  like(belanja.uraian, `%${search}%`),
-                                  like(belanja.noDokumen, `%${search}%`)
-                              ),
+                              or(like(belanja.uraian, `%${search}%`), like(belanja.noDokumen, `%${search}%`)),
                               filterDate
                           )
                         : filterDate
@@ -207,9 +170,7 @@ export const belanjaRouter = createTRPCRouter({
         }),
 
     getRealisasiAll: userProcedure.query(async ({ ctx }) => {
-        const realisasi = await ctx.db
-            .select({ sum: sum(belanja.jumlah) })
-            .from(belanja)
+        const realisasi = await ctx.db.select({ sum: sum(belanja.jumlah) }).from(belanja)
 
         return realisasi[0].sum
     }),
@@ -227,14 +188,10 @@ export const belanjaRouter = createTRPCRouter({
             })
         }
 
-        const aktivitasBelanjabelanja =
-            await ctx.db.query.aktivitasRba.findMany({
-                where: and(
-                    eq(aktivitasRba.rbaId, Number(currentDba.rbaId)),
-                    eq(aktivitasRba.jenis, 'BELANJA')
-                ),
-                with: { rincianRbaBelanja: true },
-            })
+        const aktivitasBelanjabelanja = await ctx.db.query.aktivitasRba.findMany({
+            where: and(eq(aktivitasRba.rbaId, Number(currentDba.rbaId)), eq(aktivitasRba.jenis, 'BELANJA')),
+            with: { rincianRbaBelanja: true },
+        })
 
         return aktivitasBelanjabelanja.reduce((acc, item) => {
             return (
@@ -254,46 +211,40 @@ export const belanjaRouter = createTRPCRouter({
         return lastData
     }),
 
-    createPotonganById: userProcedure
-        .input(potonganBelanjaSchema)
-        .mutation(async ({ ctx, input }) => {
-            const belanjaData = await ctx.db.query.belanja.findFirst({
-                where: eq(belanja.id, input.belanjaId),
+    createPotonganById: userProcedure.input(potonganBelanjaSchema).mutation(async ({ ctx, input }) => {
+        const belanjaData = await ctx.db.query.belanja.findFirst({
+            where: eq(belanja.id, input.belanjaId),
+        })
+
+        if (!belanjaData) {
+            throw new TRPCError({
+                code: 'NOT_FOUND',
+                message: 'Data belanja tidak ditemukan',
             })
+        }
 
-            if (!belanjaData) {
-                throw new TRPCError({
-                    code: 'NOT_FOUND',
-                    message: 'Data belanja tidak ditemukan',
-                })
-            }
+        await ctx.db.insert(potonganBelanja).values({
+            belanjaId: input.belanjaId,
+            jenis: input.jenis,
+            jumlah: String(input.jumlah),
+            billing: input.billing,
+            ntpn: input.ntpn,
+        })
 
-            await ctx.db.insert(potonganBelanja).values({
-                belanjaId: input.belanjaId,
-                jenis: input.jenis,
-                jumlah: String(input.jumlah),
-                billing: input.billing,
-                ntpn: input.ntpn,
-            })
+        return { message: 'Data berhasil ditambahkan' }
+    }),
 
-            return { message: 'Data berhasil ditambahkan' }
-        }),
+    getPotonganByBelanjaId: userProcedure.input(z.number()).query(async ({ ctx, input }) => {
+        return await ctx.db.query.potonganBelanja.findMany({
+            where: eq(potonganBelanja.belanjaId, input),
+        })
+    }),
 
-    getPotonganByBelanjaId: userProcedure
-        .input(z.number())
-        .query(async ({ ctx, input }) => {
-            return await ctx.db.query.potonganBelanja.findMany({
-                where: eq(potonganBelanja.belanjaId, input),
-            })
-        }),
-
-    getPotonganById: userProcedure
-        .input(z.number())
-        .query(async ({ ctx, input }) => {
-            return await ctx.db.query.potonganBelanja.findFirst({
-                where: eq(potonganBelanja.id, input),
-            })
-        }),
+    getPotonganById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {
+        return await ctx.db.query.potonganBelanja.findFirst({
+            where: eq(potonganBelanja.id, input),
+        })
+    }),
 
     updatePotonganById: userProcedure
         .input(z.object({ id: z.number() }).merge(potonganBelanjaSchema))
@@ -309,15 +260,11 @@ export const belanjaRouter = createTRPCRouter({
             return { message: 'Data berhasil diupdate' }
         }),
 
-    deletePotonganById: userProcedure
-        .input(z.number())
-        .mutation(async ({ ctx, input }) => {
-            await ctx.db
-                .delete(potonganBelanja)
-                .where(eq(potonganBelanja.id, input))
+    deletePotonganById: userProcedure.input(z.number()).mutation(async ({ ctx, input }) => {
+        await ctx.db.delete(potonganBelanja).where(eq(potonganBelanja.id, input))
 
-            return { message: 'Data berhasil dihapus' }
-        }),
+        return { message: 'Data berhasil dihapus' }
+    }),
 
     getUnclassifiedBelanjaByRba: userProcedure.query(async ({ ctx }) => {
         const latestDba = await ctx.db.query.dba.findFirst({
@@ -358,9 +305,7 @@ export const belanjaRouter = createTRPCRouter({
             })
             .map((item) => ({
                 ...item,
-                rekening: rekeningLevel6.find(
-                    (rekening) => rekening.kode === item.rab?.kodeRekening
-                ),
+                rekening: rekeningLevel6.find((rekening) => rekening.kode === item.rab?.kodeRekening),
             }))
     }),
 
@@ -372,8 +317,7 @@ export const belanjaRouter = createTRPCRouter({
             })
         )
         .query(async ({ ctx, input }) => {
-            const startDate =
-                input.startDate || new Date(format(new Date(), 'yyyy-MM-01'))
+            const startDate = input.startDate || new Date(format(new Date(), 'yyyy-MM-01'))
             const endDate = input.endDate || new Date()
 
             const filterDate = and(
@@ -390,13 +334,12 @@ export const belanjaRouter = createTRPCRouter({
                 },
             })
 
-            const lpjBelanjaBeforeList =
-                await ctx.db.query.lpjBelanjaTable.findMany({
-                    where: lt(belanja.tglDokumen, startDate!),
-                    with: {
-                        belanja: true,
-                    },
-                })
+            const lpjBelanjaBeforeList = await ctx.db.query.lpjBelanjaTable.findMany({
+                where: lt(belanja.tglDokumen, startDate!),
+                with: {
+                    belanja: true,
+                },
+            })
 
             const belanjaList = await ctx.db.query.belanja.findMany({
                 with: {
@@ -415,12 +358,9 @@ export const belanjaRouter = createTRPCRouter({
                 orderBy: [asc(belanja.tglDokumen), asc(belanja.noDokumen)],
             })
 
-            const saldoAwalPengeluaran = belanjaBeforeList.reduce(
-                (acc, item) => {
-                    return acc + Number(item.jumlah)
-                },
-                0
-            )
+            const saldoAwalPengeluaran = belanjaBeforeList.reduce((acc, item) => {
+                return acc + Number(item.jumlah)
+            }, 0)
 
             const saldoAwalPotongan = belanjaBeforeList.reduce((acc, item) => {
                 return (
@@ -431,91 +371,69 @@ export const belanjaRouter = createTRPCRouter({
                 )
             }, 0)
 
-            let saldoAwalPenerimaan = lpjBelanjaBeforeList.reduce(
-                (acc, item) => {
-                    return (
-                        acc +
-                        item.belanja.reduce((acc, item) => {
-                            return acc + Number(item.jumlah)
-                        }, 0)
-                    )
-                },
-                0
-            )
+            let saldoAwalPenerimaan = lpjBelanjaBeforeList.reduce((acc, item) => {
+                return (
+                    acc +
+                    item.belanja.reduce((acc, item) => {
+                        return acc + Number(item.jumlah)
+                    }, 0)
+                )
+            }, 0)
 
-            if (startDate && startDate >= new Date('2024-01-15')) {
+            if (startDate && startDate >= new Date('2025-01-15')) {
                 saldoAwalPenerimaan = saldoAwalPenerimaan += 750_000_000
             }
 
-            if (startDate && startDate < new Date('2024-01-15')) {
+            if (startDate && startDate < new Date('2025-01-15')) {
                 jurnal.push({
-                    tgl: new Date('2024-01-15'),
+                    tgl: new Date('2025-01-15'),
                     noDokumen: '900.1.3.5/001/UP /SP2D/RSJD-AHM/BLUD',
                     kodeRekening: null,
-                    uraian: 'Terima Pencairan SP2D Uang Persediaan (UP) BLUD pada RSJD Atma Husada Mahakam Prov. Kaltim untuk Tahun Anggaran 2024',
+                    uraian: 'Terima Pencairan SP2D Uang Persediaan (UP) BLUD pada RSJD Atma Husada Mahakam Prov. Kaltim untuk Tahun Anggaran 2025',
                     penerimaan: 750_000_000,
                     pengeluaran: 0,
                 })
             }
 
-            lodash
-                .sortBy(
-                    belanjaList,
-                    ['tglDokumen', 'noDokumen'],
-                    ['asc', 'asc']
-                )
-                .map((blj) => {
-                    const lpjSelected = lpjBelanjaList.find(
-                        (lpj) => blj.lpjBelanjaId === lpj.id
-                    )
+            lodash.sortBy(belanjaList, ['tglDokumen', 'noDokumen'], ['asc', 'asc']).map((blj) => {
+                const lpjSelected = lpjBelanjaList.find((lpj) => blj.lpjBelanjaId === lpj.id)
 
-                    if (lpjSelected && lpjSelected.jenis !== 'GU') {
-                        jurnal.push({
-                            tgl: lpjSelected.tglDokumen,
-                            noDokumen: `900.1.3.5/${lpjSelected.noDokumen}/${lpjSelected.jenis} /SP2D/RSJD-AHM/BLUD`,
-                            kodeRekening: null,
-                            uraian: `Terima Pencairan SP2D Pembayaran ${lpjSelected.uraian}`,
-                            penerimaan: lpjSelected.belanja.reduce(
-                                (acc, item) => {
-                                    return acc + Number(item.jumlah)
-                                },
-                                0
-                            ),
-                            pengeluaran: 0,
-                        })
-                    }
-
+                if (lpjSelected && lpjSelected.jenis !== 'GU') {
                     jurnal.push({
-                        id: blj.id,
-                        tgl: blj.tglDokumen,
-                        noDokumen: blj.noDokumen,
-                        kodeRekening: blj.rab?.kodeRekening,
-                        uraian: blj.uraian,
-                        penerimaan: 0,
-                        pengeluaran: Number(blj.jumlah),
-                        potonganBelanja: blj.potonganBelanja.map(
-                            (potongan) => ({
-                                tgl: null,
-                                id: blj.id,
-                                noDokumen: null,
-                                kodeRekening: null,
-                                uraian: `Pemotongan dan penyetoran ${potongan.jenis}`,
-                                penerimaan: Number(potongan.jumlah),
-                                pengeluaran: Number(potongan.jumlah),
-                            })
-                        ),
+                        tgl: lpjSelected.tglDokumen,
+                        noDokumen: `900.1.3.5/${lpjSelected.noDokumen}/${lpjSelected.jenis} /SP2D/RSJD-AHM/BLUD`,
+                        kodeRekening: null,
+                        uraian: `Terima Pencairan SP2D Pembayaran ${lpjSelected.uraian}`,
+                        penerimaan: lpjSelected.belanja.reduce((acc, item) => {
+                            return acc + Number(item.jumlah)
+                        }, 0),
+                        pengeluaran: 0,
                     })
-                })
+                }
 
-            const lpjBelanjaGu = lpjBelanjaList.filter(
-                (lpj) => lpj.jenis === 'GU'
-            )
+                jurnal.push({
+                    id: blj.id,
+                    tgl: blj.tglDokumen,
+                    noDokumen: blj.noDokumen,
+                    kodeRekening: blj.rab?.kodeRekening,
+                    uraian: blj.uraian,
+                    penerimaan: 0,
+                    pengeluaran: Number(blj.jumlah),
+                    potonganBelanja: blj.potonganBelanja.map((potongan) => ({
+                        tgl: null,
+                        id: blj.id,
+                        noDokumen: null,
+                        kodeRekening: null,
+                        uraian: `Pemotongan dan penyetoran ${potongan.jenis}`,
+                        penerimaan: Number(potongan.jumlah),
+                        pengeluaran: Number(potongan.jumlah),
+                    })),
+                })
+            })
+
+            const lpjBelanjaGu = lpjBelanjaList.filter((lpj) => lpj.jenis === 'GU')
             lpjBelanjaGu.map((lpj) => {
-                const belanja = lodash.sortBy(
-                    lpj.belanja,
-                    ['noDokumen', 'tglDokumen'],
-                    ['asc', 'asc']
-                )
+                const belanja = lodash.sortBy(lpj.belanja, ['noDokumen', 'tglDokumen'], ['asc', 'asc'])
 
                 const lastBelanja = belanja[belanja.length - 1]
 
@@ -527,10 +445,7 @@ export const belanjaRouter = createTRPCRouter({
                     jurnal.filter((item) => item.id === lastBelanja.id).length -
                     1
 
-                const spliceAtas = jurnal.splice(
-                    lastBelanjaIndex + 1,
-                    jurnal.length
-                )
+                const spliceAtas = jurnal.splice(lastBelanjaIndex + 1, jurnal.length)
                 const spliceBawah = jurnal.splice(0, lastBelanjaIndex + 1)
 
                 const jurnalGu = {
@@ -579,8 +494,7 @@ export const belanjaRouter = createTRPCRouter({
             })
         )
         .query(async ({ ctx, input }) => {
-            const startDate =
-                input.startDate || new Date(format(new Date(), 'yyyy-MM-01'))
+            const startDate = input.startDate || new Date(format(new Date(), 'yyyy-MM-01'))
             const endDate = input.endDate || new Date()
 
             const filterDate = and(
@@ -656,8 +570,7 @@ export const belanjaRouter = createTRPCRouter({
 
             const anggaranBelanjaFlatten = anggaranBelanja.flat()
 
-            const startDate =
-                input.startDate || new Date(format(new Date(), 'yyyy-01-01'))
+            const startDate = input.startDate || new Date(format(new Date(), 'yyyy-01-01'))
             const endDate = input.endDate || new Date()
 
             const filterDate = and(
@@ -685,27 +598,16 @@ export const belanjaRouter = createTRPCRouter({
                 .leftJoin(rekapBelanja, eq(rab.id, rekapBelanja.rabId))
                 .where(isNotNull(rekapBelanja.jumlah))
 
-            const kodeRekeningBelanja = [
-                ...new Set(belanjaList.map((item) => item.kodeRekening)),
-            ]
+            const kodeRekeningBelanja = [...new Set(belanjaList.map((item) => item.kodeRekening))]
 
-            const kodeRekeningAnggaran = [
-                ...new Set(
-                    anggaranBelanjaFlatten.map((item) => item.kodeRekening)
-                ),
-            ]
+            const kodeRekeningAnggaran = [...new Set(anggaranBelanjaFlatten.map((item) => item.kodeRekening))]
 
             const rekeningLv6 = rekeningLevel6.filter((item) => {
-                return (
-                    kodeRekeningBelanja.includes(item.kode) ||
-                    kodeRekeningAnggaran.includes(item.kode)
-                )
+                return kodeRekeningBelanja.includes(item.kode) || kodeRekeningAnggaran.includes(item.kode)
             })
 
             const data = rekeningLv6.map((item) => {
-                const belanja = belanjaList.filter(
-                    (belanja) => belanja.kodeRekening === item.kode
-                )
+                const belanja = belanjaList.filter((belanja) => belanja.kodeRekening === item.kode)
 
                 return {
                     kodeRekening: item.kode,
@@ -735,8 +637,7 @@ export const belanjaRouter = createTRPCRouter({
             })
         )
         .query(async ({ ctx, input }) => {
-            const startDate =
-                input.startDate || new Date(format(new Date(), 'yyyy-01-01'))
+            const startDate = input.startDate || new Date(format(new Date(), 'yyyy-01-01'))
             const endDate = input.endDate || new Date()
 
             const filterDate = and(
@@ -765,11 +666,7 @@ export const belanjaRouter = createTRPCRouter({
             // flatten belanjaList
             const belanjaListFlatten = belanjaList.flat()
 
-            return lodash.sortBy(
-                belanjaListFlatten,
-                ['tglDokumen', 'noDokumen'],
-                ['asc', 'asc']
-            )
+            return lodash.sortBy(belanjaListFlatten, ['tglDokumen', 'noDokumen'], ['asc', 'asc'])
         }),
 
     getRealisasiHome: publicProcedure.query(async ({ ctx }) => {
@@ -816,9 +713,7 @@ export const belanjaRouter = createTRPCRouter({
         .input(
             z.object({
                 belanjaId: z.number(),
-                filePdf: z
-                    .string()
-                    .refine(Base64.isValid, { message: 'Invalid File' }),
+                filePdf: z.string().refine(Base64.isValid, { message: 'Invalid File' }),
             })
         )
         .mutation(async ({ ctx, input }) => {

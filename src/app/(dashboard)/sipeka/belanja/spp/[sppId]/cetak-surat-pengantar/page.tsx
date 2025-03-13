@@ -1,11 +1,4 @@
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { useParams } from 'react-router-dom'
 import { api } from '@/trpc/react'
 import Loading from '@/components/loading'
@@ -18,11 +11,7 @@ import NotFound from '@/app/not-found'
 export default function Page() {
     const params = useParams<{ sppId: string }>()
 
-    const {
-        data: spp,
-        isError,
-        isLoading,
-    } = api.spp.getById.useQuery(Number(params.sppId))
+    const { data: spp, isError, isLoading } = api.spp.getById.useQuery(Number(params.sppId))
 
     const componentRef = React.useRef(null)
     const handlePrint = useReactToPrint({
@@ -66,10 +55,7 @@ export default function Page() {
                             <tbody>
                                 <tr>
                                     <td className="w-16 font-serif">
-                                        <img
-                                            src="/images/logo-kaltimprov.webp"
-                                            className="h-20 w-24"
-                                        />
+                                        <img src="/images/logo-kaltimprov.webp" className="h-20 w-24" />
                                     </td>
                                     <td className="text-center">
                                         <div
@@ -88,16 +74,13 @@ export default function Page() {
                                             style={{ fontSize: '14pt' }}
                                             className="font-serif font-bold uppercase leading-5"
                                         >
-                                            Rumah Sakit Jiwa Daerah Atma Husada
-                                            Mahakam
+                                            Rumah Sakit Jiwa Daerah Atma Husada Mahakam
                                         </div>
                                         <div className="font-serif">
-                                            Jl. Kakap No. 23 Samarinda Telp
-                                            (0541) 743364 Fax 741035
+                                            Jl. Kakap No. 23 Samarinda Telp (0541) 743364 Fax 741035
                                         </div>
                                         <div className="font-serif">
-                                            Website: rsjdahm.kaltimprov.go.id |
-                                            Posel: rsjdahm@kaltimprov.go.id
+                                            Website: rsjdahm.kaltimprov.go.id | Posel: rsjdahm@kaltimprov.go.id
                                         </div>
                                     </td>
                                     <td className="w-16"></td>
@@ -114,9 +97,7 @@ export default function Page() {
                                 <br />
                                 di —
                                 <br />
-                                <span className="ml-6 font-serif underline">
-                                    Samarinda
-                                </span>
+                                <span className="ml-6 font-serif underline">Samarinda</span>
                             </div>
                             <div className="w-3/5 text-justify font-serif">
                                 Samarinda, {formatTanggal(spp.tglDokumen)}
@@ -129,8 +110,7 @@ export default function Page() {
                             Surat Pengantar
                         </h5>
                         <h4 className="mb-5 text-center font-serif">
-                            Nomor: 900.1.3.5/{spp.noDokumen}/
-                            {spp.lpjBelanja?.jenis}/SPP/RSJD-AHM/BLUD
+                            Nomor: 900.1.3.5/{spp.noDokumen}/{spp.lpjBelanja?.jenis}/SPP/RSJD-AHM/BLUD
                         </h4>
                         <table className="mb-5 w-[calc(100%-2px)]">
                             <thead>
@@ -149,18 +129,10 @@ export default function Page() {
                                     </td>
                                 </tr>
                                 <tr className="italic">
-                                    <td className="border border-black px-3 text-center font-serif uppercase">
-                                        1
-                                    </td>
-                                    <td className="border border-black px-3 text-center font-serif uppercase">
-                                        2
-                                    </td>
-                                    <td className="border border-black px-3 text-center font-serif uppercase">
-                                        3
-                                    </td>
-                                    <td className="border border-black px-3 text-center font-serif uppercase">
-                                        4
-                                    </td>
+                                    <td className="border border-black px-3 text-center font-serif uppercase">1</td>
+                                    <td className="border border-black px-3 text-center font-serif uppercase">2</td>
+                                    <td className="border border-black px-3 text-center font-serif uppercase">3</td>
+                                    <td className="border border-black px-3 text-center font-serif uppercase">4</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -177,26 +149,18 @@ export default function Page() {
                                             ? 'Tambah Uang Persediaan'
                                             : ''}{' '}
                                     (SPP-
-                                    {spp.lpjBelanja?.jenis}) BLUD Rumah Sakit
-                                    Jiwa Daerah Atma Husada Mahakam Prov. Kaltim
-                                    untuk Tahun Anggaran 2024 senilai{' '}
+                                    {spp.lpjBelanja?.jenis}) BLUD Rumah Sakit Jiwa Daerah Atma Husada Mahakam Prov.
+                                    Kaltim untuk Tahun Anggaran 2024 senilai{' '}
                                     <span className="font-serif font-semibold">
                                         Rp
                                         {formatAngkaDecimal(
-                                            spp.lpjBelanja?.belanja?.reduce(
-                                                (acc, curr) =>
-                                                    acc + Number(curr.jumlah),
-                                                0
-                                            )
+                                            spp.lpjBelanja?.belanja?.reduce((acc, curr) => acc + Number(curr.jumlah), 0)
                                         )}
                                     </span>{' '}
                                     (
                                     {terbilang(
-                                        spp.lpjBelanja?.belanja?.reduce(
-                                            (acc, curr) =>
-                                                acc + Number(curr.jumlah),
+                                        spp.lpjBelanja?.belanja?.reduce((acc, curr) => acc + Number(curr.jumlah), 0) ||
                                             0
-                                        ) || 0
                                     )}{' '}
                                     Rupiah )
                                 </td>
@@ -204,29 +168,21 @@ export default function Page() {
                                     1 (satu) berkas
                                 </td>
                                 <td className="border border-black px-3 pb-5 pt-2 text-justify align-top font-serif">
-                                    Disampaikan dengan hormat untuk dapat
-                                    diproses penerbitan Surat Perintah Membayar
+                                    Disampaikan dengan hormat untuk dapat diproses penerbitan Surat Perintah Membayar
                                     (SPM) BLUD
                                 </td>
                             </tbody>
                         </table>
                         <p className="mb-5 font-serif">
-                            Demikian disampaikan, atas kerjasamanya diucapkan
-                            terima kasih.
+                            Demikian disampaikan, atas kerjasamanya diucapkan terima kasih.
                         </p>
                         <div className="mb-5 flex w-full flex-row">
                             <div className="w-full" />
                             <div className="w-3/5 text-justify font-serif">
-                                <div className="font-serif">
-                                    Bendahara Pengeluaran Pembantu BLUD,
-                                </div>
-                                <div className="mt-14 font-serif underline">
-                                    Moh. Walid Arkham Sani, A.Md.Pnl
-                                </div>
-                                <div className="font-serif">Pengatur</div>
-                                <div className="font-serif">
-                                    NIP. 200008062022011001
-                                </div>
+                                <div className="font-serif">Bendahara Pengeluaran Pembantu BLUD,</div>
+                                <div className="mt-14 font-serif underline">Riandy, S.Kep</div>
+                                <div className="font-serif">Penata Tk. I</div>
+                                <div className="font-serif">NIP. 197901281999031003</div>
                             </div>
                         </div>
                     </div>

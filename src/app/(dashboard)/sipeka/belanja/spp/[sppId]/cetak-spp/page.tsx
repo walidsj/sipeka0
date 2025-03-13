@@ -1,11 +1,4 @@
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { useParams } from 'react-router-dom'
 import { api } from '@/trpc/react'
 import Loading from '@/components/loading'
@@ -18,11 +11,7 @@ import { formatAngkaDecimal, formatTanggal, terbilang } from '@/lib/utils'
 export default function Page() {
     const params = useParams<{ sppId: string }>()
 
-    const {
-        data: spp,
-        isError,
-        isLoading,
-    } = api.spp.getById.useQuery(Number(params.sppId))
+    const { data: spp, isError, isLoading } = api.spp.getById.useQuery(Number(params.sppId))
 
     const componentRef = React.useRef(null)
     const handlePrint = useReactToPrint({
@@ -70,8 +59,7 @@ export default function Page() {
                                 Surat Permintaan Pembayaran (SPP)
                             </div>
                             <div className="text-center font-serif text-[10pt]">
-                                Nomor: 900.1.3.5/{spp.noDokumen}/
-                                {spp.lpjBelanja?.jenis}
+                                Nomor: 900.1.3.5/{spp.noDokumen}/{spp.lpjBelanja?.jenis}
                                 /SPP/RSJD-AHM/BLUD
                             </div>
                             <div className="mt-2 text-center font-serif text-[10pt]">
@@ -96,35 +84,17 @@ export default function Page() {
                                                 ? 'Tambah Uang Persediaan'
                                                 : ''}{' '}
                                         {spp.lpjBelanja?.jenis === 'LS' &&
-                                            spp.lpjBelanja?.belanja.map(
-                                                (item) => (
-                                                    <>
-                                                        {item.rab?.kodeRekening?.startsWith(
-                                                            '5.1.01'
-                                                        ) && 'Pegawai'}
-                                                    </>
-                                                )
-                                            )}
+                                            spp.lpjBelanja?.belanja.map((item) => (
+                                                <>{item.rab?.kodeRekening?.startsWith('5.1.01') && 'Pegawai'}</>
+                                            ))}
                                         {spp.lpjBelanja?.jenis === 'LS' &&
-                                            spp.lpjBelanja?.belanja.map(
-                                                (item) => (
-                                                    <>
-                                                        {item.rab?.kodeRekening?.startsWith(
-                                                            '5.1.02'
-                                                        ) && 'Barang dan Jasa'}
-                                                    </>
-                                                )
-                                            )}
+                                            spp.lpjBelanja?.belanja.map((item) => (
+                                                <>{item.rab?.kodeRekening?.startsWith('5.1.02') && 'Barang dan Jasa'}</>
+                                            ))}
                                         {spp.lpjBelanja?.jenis === 'LS' &&
-                                            spp.lpjBelanja?.belanja.map(
-                                                (item) => (
-                                                    <>
-                                                        {item.rab?.kodeRekening?.startsWith(
-                                                            '5.2'
-                                                        ) && 'Modal'}
-                                                    </>
-                                                )
-                                            )}
+                                            spp.lpjBelanja?.belanja.map((item) => (
+                                                <>{item.rab?.kodeRekening?.startsWith('5.2') && 'Modal'}</>
+                                            ))}
                                     </th>
                                 </tr>
                                 <tr>
@@ -176,8 +146,7 @@ export default function Page() {
                                         :
                                     </td>
                                     <td className="border-[0.5pt] border-black px-3 py-0.5 align-top font-serif">
-                                        Dr. dr. H. Jaya Mualimin, Sp.KJ, M.Kes,
-                                        MARS
+                                        Dr. dr. H. Jaya Mualimin, Sp.KJ, M.Kes, MARS
                                     </td>
                                 </tr>
                                 <tr>
@@ -205,7 +174,7 @@ export default function Page() {
                                         :
                                     </td>
                                     <td className="border-[0.5pt] border-black px-3 py-0.5 align-top font-serif">
-                                        Moh. Walid Arkham Sani, A.Md.Pnl
+                                        Riandy, S.Kep
                                     </td>
                                 </tr>
                                 <tr>
@@ -301,18 +270,13 @@ export default function Page() {
                                     <td className="border-[0.5pt] border-black px-3 py-0.5 align-top font-serif">
                                         Sebesar: Rp{' '}
                                         {formatAngkaDecimal(
-                                            spp.lpjBelanja?.belanja.reduce(
-                                                (acc, item) =>
-                                                    acc + Number(item.jumlah),
-                                                0
-                                            )
+                                            spp.lpjBelanja?.belanja.reduce((acc, item) => acc + Number(item.jumlah), 0)
                                         )}
                                         <br />
                                         (terbilang:{' '}
                                         {terbilang(
                                             spp.lpjBelanja?.belanja.reduce(
-                                                (acc, item) =>
-                                                    acc + Number(item.jumlah),
+                                                (acc, item) => acc + Number(item.jumlah),
                                                 0
                                             ) || 0
                                         )}{' '}
@@ -347,26 +311,18 @@ export default function Page() {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td
-                                        colSpan={3}
-                                        className="border-[0.5pt] border-black font-serif"
-                                    >
+                                    <td colSpan={3} className="border-[0.5pt] border-black font-serif">
                                         <table className="-m-[1pt] w-full">
                                             <tbody>
                                                 <tr>
                                                     <td className="w-[25%] border-r border-black px-3 py-0.5 font-serif">
-                                                        Tanggal: 04 Februari
-                                                        2024
+                                                        Tanggal: 04 Februari 2024
                                                     </td>
                                                     <td className="w-[50%] border-r border-black px-3 py-0.5 font-serif">
-                                                        Nomor:
-                                                        DPA/A.1/1.02.0.00.0.00.01.0000/002/2024
+                                                        Nomor: DPA/A.1/1.02.0.00.0.00.01.0000/002/2024
                                                     </td>
                                                     <td className="w-[25%] px-3 py-0.5 text-right font-serif">
-                                                        Rp{' '}
-                                                        {formatAngkaDecimal(
-                                                            22_000_000_000
-                                                        )}
+                                                        Rp {formatAngkaDecimal(22_000_000_000)}
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -388,10 +344,7 @@ export default function Page() {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td
-                                        colSpan={3}
-                                        className="border-[0.5pt] border-black font-serif"
-                                    >
+                                    <td colSpan={3} className="border-[0.5pt] border-black font-serif">
                                         <table className="-m-[1pt] w-full">
                                             <tbody>
                                                 <tr>
@@ -413,10 +366,8 @@ export default function Page() {
                                         style={{ fontSize: '7pt' }}
                                         className="border-[0.5pt] border-black px-3 py-0.5 text-center align-top font-serif"
                                     >
-                                        Pada SPP ini ditetapkan
-                                        lampiran-lampiran yang diperlukan
-                                        sebagaimana tertera pada daftar
-                                        kelengkapan dokumen SPP ini.
+                                        Pada SPP ini ditetapkan lampiran-lampiran yang diperlukan sebagaimana tertera
+                                        pada daftar kelengkapan dokumen SPP ini.
                                     </td>
                                 </tr>
                                 <tr>
@@ -427,40 +378,20 @@ export default function Page() {
                                         <div className="flex w-full flex-row">
                                             <div className="w-1/2 font-serif">
                                                 <div className="mt-4 font-serif">
-                                                    Pejabat Pelaksana Teknis
-                                                    Kegiatan BLUD,
+                                                    Pejabat Pelaksana Teknis Kegiatan BLUD,
                                                 </div>
-                                                <div className="mt-12 font-serif underline">
-                                                    Hadi Machbudiansyah, SE, MM.
-                                                </div>
-                                                <div className="font-serif">
-                                                    Pembina
-                                                </div>
-                                                <div className="font-serif">
-                                                    NIP. 197509111994021001
-                                                </div>
+                                                <div className="mt-12 font-serif underline">Sudoto, S.Kom</div>
+                                                <div className="font-serif">Pembina</div>
+                                                <div className="font-serif">NIP. 197407291994021002</div>
                                             </div>
                                             <div className="w-1/2 font-serif">
                                                 <div className="font-serif">
-                                                    Samarinda,{' '}
-                                                    {formatTanggal(
-                                                        spp.tglDokumen
-                                                    )}
+                                                    Samarinda, {formatTanggal(spp.tglDokumen)}
                                                 </div>
-                                                <div className="font-serif">
-                                                    Bendahara Pengeluaran
-                                                    Pembantu BLUD,
-                                                </div>
-                                                <div className="mt-12 font-serif underline">
-                                                    Moh. Walid Arkham Sani,
-                                                    A.Md.Pnl
-                                                </div>
-                                                <div className="font-serif">
-                                                    Pengatur
-                                                </div>
-                                                <div className="font-serif">
-                                                    NIP. 200008062022011001
-                                                </div>
+                                                <div className="font-serif">Bendahara Pengeluaran Pembantu BLUD,</div>
+                                                <div className="mt-12 font-serif underline">Riandy, S.Kep</div>
+                                                <div className="font-serif">Penata Tk. I</div>
+                                                <div className="font-serif">NIP. 197901281999031003</div>
                                             </div>
                                         </div>
                                     </td>

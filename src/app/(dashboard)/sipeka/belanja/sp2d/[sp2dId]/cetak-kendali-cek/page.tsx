@@ -1,11 +1,4 @@
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { useParams } from 'react-router-dom'
 import { api } from '@/trpc/react'
 import Loading from '@/components/loading'
@@ -18,11 +11,7 @@ import { formatAngkaDecimal, formatTanggal, terbilang } from '@/lib/utils'
 export default function Page() {
     const params = useParams<{ sp2dId: string }>()
 
-    const {
-        data: sp2d,
-        isError,
-        isLoading,
-    } = api.sp2d.getById.useQuery(Number(params.sp2dId))
+    const { data: sp2d, isError, isLoading } = api.sp2d.getById.useQuery(Number(params.sp2dId))
 
     const componentRef = React.useRef(null)
     const handlePrint = useReactToPrint({
@@ -39,16 +28,11 @@ export default function Page() {
         <Card>
             <CardHeader>
                 <CardTitle>Cetak Lembar Kendali Permintaan Cek</CardTitle>
-                <CardDescription>
-                    Dokumen Lembar Kendali Permintaan Cek
-                </CardDescription>
+                <CardDescription>Dokumen Lembar Kendali Permintaan Cek</CardDescription>
             </CardHeader>
             <CardContent>
                 <div className="rounded-md border p-10 shadow">
-                    <div
-                        className="text-[8pt] leading-[11pt]"
-                        ref={componentRef}
-                    >
+                    <div className="text-[8pt] leading-[11pt]" ref={componentRef}>
                         <style type="text/css" media="print">
                             {`
                                 @page {
@@ -65,10 +49,7 @@ export default function Page() {
                             <tbody>
                                 <tr>
                                     <td className="w-16 font-serif">
-                                        <img
-                                            src="/images/logo-kaltimprov.webp"
-                                            className="h-20 w-24"
-                                        />
+                                        <img src="/images/logo-kaltimprov.webp" className="h-20 w-24" />
                                     </td>
                                     <td className="text-center">
                                         <div
@@ -87,16 +68,13 @@ export default function Page() {
                                             style={{ fontSize: '14pt' }}
                                             className="font-serif font-bold uppercase leading-5"
                                         >
-                                            Rumah Sakit Jiwa Daerah Atma Husada
-                                            Mahakam
+                                            Rumah Sakit Jiwa Daerah Atma Husada Mahakam
                                         </div>
                                         <div className="font-serif">
-                                            Jl. Kakap No. 23 Samarinda Telp
-                                            (0541) 743364 Fax 741035
+                                            Jl. Kakap No. 23 Samarinda Telp (0541) 743364 Fax 741035
                                         </div>
                                         <div className="font-serif">
-                                            Website: rsjdahm.kaltimprov.go.id |
-                                            Posel: rsjdahm@kaltimprov.go.id
+                                            Website: rsjdahm.kaltimprov.go.id | Posel: rsjdahm@kaltimprov.go.id
                                         </div>
                                     </td>
                                     <td className="w-16"></td>
@@ -104,15 +82,11 @@ export default function Page() {
                             </tbody>
                         </table>
                         <hr className="mb-5 mt-3 border-b-4 border-double border-black" />
-                        <h5
-                            style={{ fontSize: '11pt' }}
-                            className="text-center font-serif font-bold uppercase"
-                        >
+                        <h5 style={{ fontSize: '11pt' }} className="text-center font-serif font-bold uppercase">
                             LEMBAR KENDALI PERMINTAAN CEK UNTUK PENGAMBILAN UANG
                         </h5>
                         <h4 className="mb-5 text-center font-serif">
-                            Pada Rekening BLUD RUMAH SAKIT JIWA DAERAH ATMA
-                            HUSADA MAHAKAM
+                            Pada Rekening BLUD RUMAH SAKIT JIWA DAERAH ATMA HUSADA MAHAKAM
                             <br />
                             Tahun Anggaran{' '}
                             {Intl.DateTimeFormat('id', {
@@ -122,15 +96,9 @@ export default function Page() {
                         <table className="mb-5 w-[calc(100%-2px)]">
                             <thead className="border-b-2 border-double border-black">
                                 <tr>
-                                    <th className="w-10 border border-black px-2 py-3 text-center font-serif">
-                                        No
-                                    </th>
-                                    <th className="border border-black px-2 py-3 text-center font-serif">
-                                        Tanggal
-                                    </th>
-                                    <th className="border border-black px-2 py-3 text-center font-serif">
-                                        Nomor Cek
-                                    </th>
+                                    <th className="w-10 border border-black px-2 py-3 text-center font-serif">No</th>
+                                    <th className="border border-black px-2 py-3 text-center font-serif">Tanggal</th>
+                                    <th className="border border-black px-2 py-3 text-center font-serif">Nomor Cek</th>
                                     <th className="border border-black px-2 py-3 text-center font-serif">
                                         Nomor Rekening
                                     </th>
@@ -152,9 +120,7 @@ export default function Page() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <td className="border border-black px-2 py-1 text-center align-top font-serif">
-                                    1.
-                                </td>
+                                <td className="border border-black px-2 py-1 text-center align-top font-serif">1.</td>
                                 <td className="border border-black px-2 py-1 text-center align-top font-serif">
                                     {Intl.DateTimeFormat('id', {
                                         day: '2-digit',
@@ -175,8 +141,7 @@ export default function Page() {
                                 <td className="border border-black px-2 py-1 text-right align-top font-serif">
                                     {formatAngkaDecimal(
                                         sp2d.spm.spp.lpjBelanja?.belanja?.reduce(
-                                            (acc, item) =>
-                                                acc + Number(item.jumlah),
+                                            (acc, item) => acc + Number(item.jumlah),
                                             0
                                         )
                                     )}
@@ -187,8 +152,7 @@ export default function Page() {
                                 <td className="border border-black px-2 py-1 text-right align-top font-serif">
                                     {formatAngkaDecimal(
                                         sp2d.spm.spp.lpjBelanja?.belanja?.reduce(
-                                            (acc, item) =>
-                                                acc + Number(item.jumlah),
+                                            (acc, item) => acc + Number(item.jumlah),
                                             0
                                         )
                                     )}
@@ -196,8 +160,7 @@ export default function Page() {
                                 <td className="border border-black px-2 py-1 text-right align-top font-serif">
                                     {formatAngkaDecimal(
                                         sp2d.spm.spp.lpjBelanja?.belanja?.reduce(
-                                            (acc, item) =>
-                                                acc + Number(item.jumlah),
+                                            (acc, item) => acc + Number(item.jumlah),
                                             0
                                         )
                                     )}
@@ -205,13 +168,11 @@ export default function Page() {
                                 <td className="border border-black px-2 py-1 text-right align-top font-serif">
                                     {formatAngkaDecimal(
                                         sp2d.spm.spp.lpjBelanja?.belanja?.reduce(
-                                            (acc, item) =>
-                                                acc + Number(item.jumlah),
+                                            (acc, item) => acc + Number(item.jumlah),
                                             0
                                         ) -
                                             sp2d.spm.spp.lpjBelanja?.belanja?.reduce(
-                                                (acc, item) =>
-                                                    acc + Number(item.jumlah),
+                                                (acc, item) => acc + Number(item.jumlah),
                                                 0
                                             )
                                     )}
@@ -229,8 +190,7 @@ export default function Page() {
                                     <th className="border border-black px-2 py-1 text-right font-serif">
                                         {formatAngkaDecimal(
                                             sp2d.spm.spp.lpjBelanja?.belanja?.reduce(
-                                                (acc, item) =>
-                                                    acc + Number(item.jumlah),
+                                                (acc, item) => acc + Number(item.jumlah),
                                                 0
                                             )
                                         )}
@@ -238,8 +198,7 @@ export default function Page() {
                                     <th className="border border-black px-2 py-1 text-right font-serif">
                                         {formatAngkaDecimal(
                                             sp2d.spm.spp.lpjBelanja?.belanja?.reduce(
-                                                (acc, item) =>
-                                                    acc + Number(item.jumlah),
+                                                (acc, item) => acc + Number(item.jumlah),
                                                 0
                                             )
                                         )}
@@ -247,29 +206,22 @@ export default function Page() {
                                     <th className="border border-black px-2 py-1 text-right font-serif">
                                         {formatAngkaDecimal(
                                             sp2d.spm.spp.lpjBelanja?.belanja?.reduce(
-                                                (acc, item) =>
-                                                    acc + Number(item.jumlah),
+                                                (acc, item) => acc + Number(item.jumlah),
                                                 0
                                             ) -
                                                 sp2d.spm.spp.lpjBelanja?.belanja?.reduce(
-                                                    (acc, item) =>
-                                                        acc +
-                                                        Number(item.jumlah),
+                                                    (acc, item) => acc + Number(item.jumlah),
                                                     0
                                                 )
                                         )}
                                     </th>
                                 </tr>
                                 <tr>
-                                    <td
-                                        colSpan={3}
-                                        className="border border-black px-2 py-1 font-serif italic"
-                                    >
+                                    <td colSpan={3} className="border border-black px-2 py-1 font-serif italic">
                                         Terbilang:{' '}
                                         {terbilang(
                                             sp2d.spm.spp.lpjBelanja?.belanja?.reduce(
-                                                (acc, item) =>
-                                                    acc + Number(item.jumlah),
+                                                (acc, item) => acc + Number(item.jumlah),
                                                 0
                                             )
                                         )}{' '}
@@ -281,44 +233,24 @@ export default function Page() {
                         <div className="mb-5 flex w-full flex-row">
                             <div className="w-1/3 text-center font-serif">
                                 <div className="font-serif">Menyetujui:</div>
-                                <div className="font-serif">
-                                    Kuasa Pengguna Anggaran
-                                </div>
-                                <div className="mt-12 font-serif underline">
-                                    dr. Indah Puspitasari, MARS
-                                </div>
-                                <div className="font-serif">
-                                    Pembina Utama Muda
-                                </div>
-                                <div className="font-serif">
-                                    NIP. 196705301998032003
-                                </div>
+                                <div className="font-serif">Kuasa Pengguna Anggaran</div>
+                                <div className="mt-12 font-serif underline">dr. Indah Puspitasari, MARS</div>
+                                <div className="font-serif">Pembina Utama Muda</div>
+                                <div className="font-serif">NIP. 196705301998032003</div>
                             </div>
                             <div className="w-1/3 text-center font-serif">
                                 <div className="font-serif">Mengetahui:</div>
                                 <div className="font-serif">PPTK BLUD</div>
-                                <div className="mt-12 font-serif underline">
-                                    Hadi Machbudiansyah, SE, MM
-                                </div>
+                                <div className="mt-12 font-serif underline">Sudoto, S.Kom</div>
                                 <div className="font-serif">Pembina</div>
-                                <div className="font-serif">
-                                    NIP. 197509111994021001
-                                </div>
+                                <div className="font-serif">NIP. 197407291994021002</div>
                             </div>
                             <div className="w-1/3 text-center font-serif">
-                                <div className="font-serif">
-                                    Samarinda, {formatTanggal(sp2d.tglDokumen)}
-                                </div>
-                                <div className="font-serif">
-                                    Bendahara Pengeluaran Pembantu BLUD
-                                </div>
-                                <div className="mt-12 font-serif underline">
-                                    Moh. Walid Arkham Sani, A.Md.Pnl
-                                </div>
-                                <div className="font-serif">Pengatur</div>
-                                <div className="font-serif">
-                                    NIP. 200008062022011001
-                                </div>
+                                <div className="font-serif">Samarinda, {formatTanggal(sp2d.tglDokumen)}</div>
+                                <div className="font-serif">Bendahara Pengeluaran Pembantu BLUD</div>
+                                <div className="mt-12 font-serif underline">Riandy, S.Kep</div>
+                                <div className="font-serif">Penata Tk. I</div>
+                                <div className="font-serif">NIP. 197901281999031003</div>
                             </div>
                         </div>
                     </div>

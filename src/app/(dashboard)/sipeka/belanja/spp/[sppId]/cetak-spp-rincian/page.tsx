@@ -1,11 +1,4 @@
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { useParams } from 'react-router-dom'
 import { api } from '@/trpc/react'
 import Loading from '@/components/loading'
@@ -18,11 +11,7 @@ import { formatAngkaDecimal, formatTanggal, terbilang } from '@/lib/utils'
 export default function Page() {
     const params = useParams<{ sppId: string }>()
 
-    const {
-        data: spp,
-        isError,
-        isLoading,
-    } = api.spp.getById.useQuery(Number(params.sppId))
+    const { data: spp, isError, isLoading } = api.spp.getById.useQuery(Number(params.sppId))
 
     const componentRef = React.useRef(null)
     const handlePrint = useReactToPrint({
@@ -35,11 +24,7 @@ export default function Page() {
 
     if (!spp) return <NotFound />
 
-    const uniqueRekening = Array(
-        ...new Set(
-            spp.lpjBelanja?.belanja?.map((item) => item.rab?.kodeRekening)
-        )
-    ).sort()
+    const uniqueRekening = Array(...new Set(spp.lpjBelanja?.belanja?.map((item) => item.rab?.kodeRekening))).sort()
 
     return (
         <Card>
@@ -76,8 +61,7 @@ export default function Page() {
                                 Surat Permintaan Pembayaran (SPP)
                             </div>
                             <div className="text-center font-serif text-[10pt]">
-                                Nomor: 900.1.3.5/{spp.noDokumen}/
-                                {spp.lpjBelanja?.jenis}
+                                Nomor: 900.1.3.5/{spp.noDokumen}/{spp.lpjBelanja?.jenis}
                                 /SPP/RSJD-AHM/BLUD
                             </div>
                             <div className="mt-2 text-center font-serif text-[10pt]">
@@ -93,18 +77,12 @@ export default function Page() {
                         <table className="mb-2 w-[calc(100%-2px)]">
                             <thead>
                                 <tr>
-                                    <th className="w-[1%] border-[0.5pt] border-black px-3 py-2 font-serif">
-                                        No
-                                    </th>
+                                    <th className="w-[1%] border-[0.5pt] border-black px-3 py-2 font-serif">No</th>
                                     <th className="w-[15%] border-[0.5pt] border-black px-3 py-2 font-serif">
                                         Kode Rekening
                                     </th>
-                                    <th className="w-[64%] border-[0.5pt] border-black px-3 py-2 font-serif">
-                                        Uraian
-                                    </th>
-                                    <th className="w-[20%] border-[0.5pt] border-black px-3 py-2 font-serif">
-                                        Jumlah
-                                    </th>
+                                    <th className="w-[64%] border-[0.5pt] border-black px-3 py-2 font-serif">Uraian</th>
+                                    <th className="w-[20%] border-[0.5pt] border-black px-3 py-2 font-serif">Jumlah</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -116,8 +94,7 @@ export default function Page() {
                                         colSpan={3}
                                         className="border-[0.5pt] border-black px-3 py-1 align-top font-serif"
                                     >
-                                        Nomor SPD:
-                                        DPA/A.1/1.02.0.00.0.00.01.0000/002/2024
+                                        Nomor SPD: DPA/A.1/1.02.0.00.0.00.01.0000/002/2024
                                     </td>
                                 </tr>
                                 <tr className="font-semibold">
@@ -139,23 +116,15 @@ export default function Page() {
                                         colSpan={3}
                                         className="border-[0.5pt] border-black px-3 py-1 align-top font-serif"
                                     >
-                                        1.02.01.1.10.0001 Pelayanan dan
-                                        Penunjang Pelayanan BLUD
+                                        1.02.01.1.10.0001 Pelayanan dan Penunjang Pelayanan BLUD
                                     </td>
                                 </tr>
 
                                 {uniqueRekening.map((kodeRekening, index) => {
-                                    const filtered =
-                                        spp.lpjBelanja?.belanja?.filter(
-                                            (item) =>
-                                                item.rab?.kodeRekening ===
-                                                kodeRekening
-                                        )
-                                    const total = filtered.reduce(
-                                        (acc, item) =>
-                                            acc + Number(item.jumlah),
-                                        0
+                                    const filtered = spp.lpjBelanja?.belanja?.filter(
+                                        (item) => item.rab?.kodeRekening === kodeRekening
                                     )
+                                    const total = filtered.reduce((acc, item) => acc + Number(item.jumlah), 0)
 
                                     return (
                                         <tr key={index}>
@@ -166,10 +135,7 @@ export default function Page() {
                                                 {kodeRekening}
                                             </td>
                                             <td className="border-[0.5pt] border-black px-3 py-1 align-top font-serif">
-                                                {
-                                                    filtered[0].rab.rekening
-                                                        ?.uraian
-                                                }
+                                                {filtered[0].rab.rekening?.uraian}
                                             </td>
                                             <td className="border-[0.5pt] border-black px-3 py-1 text-right align-top font-serif">
                                                 {formatAngkaDecimal(total)}
@@ -188,11 +154,7 @@ export default function Page() {
                                     </td>
                                     <td className="border-[0.5pt] border-black px-3 py-1 text-right font-serif font-semibold">
                                         {formatAngkaDecimal(
-                                            spp.lpjBelanja?.belanja?.reduce(
-                                                (acc, item) =>
-                                                    acc + Number(item.jumlah),
-                                                0
-                                            )
+                                            spp.lpjBelanja?.belanja?.reduce((acc, item) => acc + Number(item.jumlah), 0)
                                         )}
                                     </td>
                                 </tr>
@@ -200,46 +162,23 @@ export default function Page() {
                         </table>
                         <div className="mb-5 font-serif">
                             Terbilang:{' '}
-                            {terbilang(
-                                spp.lpjBelanja?.belanja?.reduce(
-                                    (acc, item) => acc + Number(item.jumlah),
-                                    0
-                                )
-                            )}{' '}
+                            {terbilang(spp.lpjBelanja?.belanja?.reduce((acc, item) => acc + Number(item.jumlah), 0))}{' '}
                             Rupiah
                         </div>
                         <div className="flex w-full flex-row text-center">
                             <div className="w-1/2 font-serif">
-                                <div className="font-serif">
-                                    Mengetahui/Menyetujui,
-                                </div>
-                                <div className="font-serif">
-                                    Kuasa Pengguna Anggaran
-                                </div>
-                                <div className="mt-12 font-serif underline">
-                                    dr. Indah Puspitasari, MARS
-                                </div>
-                                <div className="font-serif">
-                                    Pembina Utama Muda
-                                </div>
-                                <div className="font-serif">
-                                    NIP. 196705301998032003
-                                </div>
+                                <div className="font-serif">Mengetahui/Menyetujui,</div>
+                                <div className="font-serif">Kuasa Pengguna Anggaran</div>
+                                <div className="mt-12 font-serif underline">dr. Indah Puspitasari, MARS</div>
+                                <div className="font-serif">Pembina Utama Muda</div>
+                                <div className="font-serif">NIP. 196705301998032003</div>
                             </div>
                             <div className="w-1/2 font-serif">
-                                <div className="font-serif">
-                                    Samarinda, {formatTanggal(spp.tglDokumen)}
-                                </div>
-                                <div className="font-serif">
-                                    Bendahara Pengeluaran Pembantu BLUD,
-                                </div>
-                                <div className="mt-12 font-serif underline">
-                                    Moh. Walid Arkham Sani, A.Md.Pnl
-                                </div>
+                                <div className="font-serif">Samarinda, {formatTanggal(spp.tglDokumen)}</div>
+                                <div className="font-serif">Bendahara Pengeluaran Pembantu BLUD,</div>
+                                <div className="mt-12 font-serif underline">Riandy, S.Kep</div>
                                 <div className="font-serif">Pengatur</div>
-                                <div className="font-serif">
-                                    NIP. 200008062022011001
-                                </div>
+                                <div className="font-serif">NIP. 197901281999031003</div>
                             </div>
                         </div>
                     </div>

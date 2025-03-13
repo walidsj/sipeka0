@@ -1,11 +1,4 @@
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { useParams, useSearchParams } from 'react-router-dom'
 import { api } from '@/trpc/react'
 import Loading from '@/components/loading'
@@ -15,13 +8,7 @@ import { Button } from '@/components/ui/button'
 import { terbilang, formatAngkaDecimal, ucFirst } from '@/lib/utils'
 import NotFound from '@/app/not-found'
 import { FaCheck } from 'react-icons/fa'
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 export default function Page() {
     const params = useParams<{ belanjaId: string }>()
@@ -31,11 +18,7 @@ export default function Page() {
         penyetorId: 'null',
     })
 
-    const {
-        data: belanja,
-        isError,
-        isLoading,
-    } = api.belanja.getById.useQuery(Number(params.belanjaId))
+    const { data: belanja, isError, isLoading } = api.belanja.getById.useQuery(Number(params.belanjaId))
 
     const componentRef = React.useRef(null)
     const handlePrint = useReactToPrint({
@@ -48,11 +31,7 @@ export default function Page() {
 
     if (!belanja) return <NotFound />
 
-    const biayaAdmin =
-        belanja.rekanan?.bank?.kode == '124' ||
-        belanja.pegawai?.bank?.kode == '124'
-            ? 0
-            : 2900
+    const biayaAdmin = belanja.rekanan?.bank?.kode == '124' || belanja.pegawai?.bank?.kode == '124' ? 0 : 2900
 
     const penyetorList = [
         {
@@ -61,8 +40,8 @@ export default function Page() {
             noTelp: '082157614881',
         },
         {
-            id: 'walid',
-            nama: 'MOH. WALID',
+            id: 'riandy',
+            nama: 'RIANDY, S.KEP.',
             noTelp: '085172277277',
         },
         {
@@ -81,9 +60,7 @@ export default function Page() {
         <Card>
             <CardHeader>
                 <CardTitle>Cetak Setoran Bank</CardTitle>
-                <CardDescription>
-                    Dokumen ini digunakan untuk mencetak setoran bank
-                </CardDescription>
+                <CardDescription>Dokumen ini digunakan untuk mencetak setoran bank</CardDescription>
             </CardHeader>
             <CardContent>
                 <div className="flex flex-col gap-3 md:flex-row md:items-center">
@@ -100,10 +77,7 @@ export default function Page() {
                         <SelectContent>
                             {penyetorList.map((item) => (
                                 <SelectItem key={item.id} value={item.id}>
-                                    Penyetor:{' '}
-                                    {item.nama
-                                        ? `${item.nama} (${item.noTelp})`
-                                        : 'Kosong'}
+                                    Penyetor: {item.nama ? `${item.nama} (${item.noTelp})` : 'Kosong'}
                                 </SelectItem>
                             ))}
                         </SelectContent>
@@ -119,12 +93,8 @@ export default function Page() {
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="false">
-                                TF dikurangi Admin Bank
-                            </SelectItem>
-                            <SelectItem value="true">
-                                TF tidak dikurangi Admin Bank
-                            </SelectItem>
+                            <SelectItem value="false">TF dikurangi Admin Bank</SelectItem>
+                            <SelectItem value="true">TF tidak dikurangi Admin Bank</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>
@@ -162,36 +132,22 @@ export default function Page() {
                                                     </tr>
                                                     <tr>
                                                         <td className="h-[5mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
-                                                            {belanja.rekanan
-                                                                ?.noRekening ||
-                                                                belanja.pegawai
-                                                                    ?.noRekening}
+                                                            {belanja.rekanan?.noRekening || belanja.pegawai?.noRekening}
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td className="h-[5mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
-                                                            {belanja.rekanan
-                                                                ?.namaRekening ||
-                                                                belanja.pegawai
-                                                                    ?.namaRekening}
+                                                            {belanja.rekanan?.namaRekening ||
+                                                                belanja.pegawai?.namaRekening}
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td className="h-[5mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
                                                             {formatAngkaDecimal(
                                                                 Number(
-                                                                    Number(
-                                                                        belanja.jumlah
-                                                                    ) -
+                                                                    Number(belanja.jumlah) -
                                                                         belanja.potonganBelanja.reduce(
-                                                                            (
-                                                                                acc,
-                                                                                item
-                                                                            ) =>
-                                                                                acc +
-                                                                                Number(
-                                                                                    item.jumlah
-                                                                                ),
+                                                                            (acc, item) => acc + Number(item.jumlah),
                                                                             0
                                                                         )
                                                                 )
@@ -203,18 +159,10 @@ export default function Page() {
                                                             {ucFirst(
                                                                 terbilang(
                                                                     Number(
-                                                                        Number(
-                                                                            belanja.jumlah
-                                                                        ) -
+                                                                        Number(belanja.jumlah) -
                                                                             belanja.potonganBelanja.reduce(
-                                                                                (
-                                                                                    acc,
-                                                                                    item
-                                                                                ) =>
-                                                                                    acc +
-                                                                                    Number(
-                                                                                        item.jumlah
-                                                                                    ),
+                                                                                (acc, item) =>
+                                                                                    acc + Number(item.jumlah),
                                                                                 0
                                                                             )
                                                                     )
@@ -250,11 +198,7 @@ export default function Page() {
                                                             RSJD AHM /{' '}
                                                             {
                                                                 penyetorList.find(
-                                                                    (item) =>
-                                                                        item.id ===
-                                                                        searchParams.get(
-                                                                            'penyetorId'
-                                                                        )
+                                                                    (item) => item.id === searchParams.get('penyetorId')
                                                                 )?.nama
                                                             }
                                                         </td>
@@ -268,11 +212,7 @@ export default function Page() {
                                                         <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
                                                             {
                                                                 penyetorList.find(
-                                                                    (item) =>
-                                                                        item.id ===
-                                                                        searchParams.get(
-                                                                            'penyetorId'
-                                                                        )
+                                                                    (item) => item.id === searchParams.get('penyetorId')
                                                                 )?.noTelp
                                                             }
                                                         </td>
@@ -315,18 +255,13 @@ export default function Page() {
                                                 <tbody>
                                                     <tr>
                                                         <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
-                                                            {belanja.rekanan
-                                                                ?.namaRekening ||
-                                                                belanja.pegawai
-                                                                    ?.namaRekening}
+                                                            {belanja.rekanan?.namaRekening ||
+                                                                belanja.pegawai?.namaRekening}
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[6pt] leading-[5pt]">
-                                                            {
-                                                                belanja.rekanan
-                                                                    ?.alamat
-                                                            }
+                                                            {belanja.rekanan?.alamat}
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -334,25 +269,14 @@ export default function Page() {
                                                     </tr>
                                                     <tr>
                                                         <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
-                                                            {
-                                                                belanja.rekanan
-                                                                    ?.noTelp
-                                                            }
+                                                            {belanja.rekanan?.noTelp}
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
-                                                            {belanja.rekanan
-                                                                ?.bank?.nama ||
-                                                                belanja.pegawai
-                                                                    ?.bank
-                                                                    ?.nama}
+                                                            {belanja.rekanan?.bank?.nama || belanja.pegawai?.bank?.nama}
                                                             (
-                                                            {belanja.rekanan
-                                                                ?.bank?.kode ||
-                                                                belanja.pegawai
-                                                                    ?.bank
-                                                                    ?.kode}
+                                                            {belanja.rekanan?.bank?.kode || belanja.pegawai?.bank?.kode}
                                                             )
                                                         </td>
                                                     </tr>
@@ -361,10 +285,7 @@ export default function Page() {
                                                     </tr>
                                                     <tr>
                                                         <td className="h-[4mm] border border-transparent py-0 pl-[2mm] align-top font-arial text-[9pt] leading-[10pt]">
-                                                            {belanja.rekanan
-                                                                ?.noRekening ||
-                                                                belanja.pegawai
-                                                                    ?.noRekening}
+                                                            {belanja.rekanan?.noRekening || belanja.pegawai?.noRekening}
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -376,11 +297,7 @@ export default function Page() {
                                                             RSJD AHM /{' '}
                                                             {
                                                                 penyetorList.find(
-                                                                    (item) =>
-                                                                        item.id ===
-                                                                        searchParams.get(
-                                                                            'penyetorId'
-                                                                        )
+                                                                    (item) => item.id === searchParams.get('penyetorId')
                                                                 )?.nama
                                                             }
                                                         </td>
@@ -396,13 +313,8 @@ export default function Page() {
                                                     <tr>
                                                         <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
                                                             {penyetorList.find(
-                                                                (item) =>
-                                                                    item.id ===
-                                                                    searchParams.get(
-                                                                        'penyetorId'
-                                                                    )
-                                                            )?.noTelp ||
-                                                                '085172277277'}
+                                                                (item) => item.id === searchParams.get('penyetorId')
+                                                            )?.noTelp || '085172277277'}
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -442,23 +354,12 @@ export default function Page() {
                                                     <tr>
                                                         <td className="h-[4.5mm] border border-transparent py-0 text-right align-bottom font-arial text-[9pt] leading-[10pt]">
                                                             {formatAngkaDecimal(
-                                                                Number(
-                                                                    belanja.jumlah
-                                                                ) -
+                                                                Number(belanja.jumlah) -
                                                                     belanja.potonganBelanja.reduce(
-                                                                        (
-                                                                            acc,
-                                                                            item
-                                                                        ) =>
-                                                                            acc +
-                                                                            Number(
-                                                                                item.jumlah
-                                                                            ),
+                                                                        (acc, item) => acc + Number(item.jumlah),
                                                                         0
                                                                     ) -
-                                                                    (searchParams.get(
-                                                                        'includeAdminBank'
-                                                                    ) === 'true'
+                                                                    (searchParams.get('includeAdminBank') === 'true'
                                                                         ? 0
                                                                         : biayaAdmin)
                                                             )}
@@ -466,31 +367,18 @@ export default function Page() {
                                                     </tr>
                                                     <tr>
                                                         <td className="h-[4.5mm] border border-transparent py-0 text-right align-bottom font-arial text-[9pt] leading-[10pt]">
-                                                            {formatAngkaDecimal(
-                                                                biayaAdmin
-                                                            )}
+                                                            {formatAngkaDecimal(biayaAdmin)}
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td className="h-[4.5mm] border border-transparent py-0 text-right align-bottom font-arial text-[9pt] leading-[10pt]">
                                                             {formatAngkaDecimal(
-                                                                (searchParams.get(
-                                                                    'includeAdminBank'
-                                                                ) === 'true'
+                                                                (searchParams.get('includeAdminBank') === 'true'
                                                                     ? biayaAdmin
                                                                     : 0) +
-                                                                    Number(
-                                                                        belanja.jumlah
-                                                                    ) -
+                                                                    Number(belanja.jumlah) -
                                                                     belanja.potonganBelanja.reduce(
-                                                                        (
-                                                                            acc,
-                                                                            item
-                                                                        ) =>
-                                                                            acc +
-                                                                            Number(
-                                                                                item.jumlah
-                                                                            ),
+                                                                        (acc, item) => acc + Number(item.jumlah),
                                                                         0
                                                                     )
                                                             )}
@@ -500,23 +388,12 @@ export default function Page() {
                                                         <td className="h-[2cm] border border-transparent py-0 pt-[8mm] align-top font-arial text-[7pt] leading-[8pt]">
                                                             {ucFirst(
                                                                 terbilang(
-                                                                    (searchParams.get(
-                                                                        'includeAdminBank'
-                                                                    ) === 'true'
+                                                                    (searchParams.get('includeAdminBank') === 'true'
                                                                         ? biayaAdmin
                                                                         : 0) +
-                                                                        Number(
-                                                                            belanja.jumlah
-                                                                        ) -
+                                                                        Number(belanja.jumlah) -
                                                                         belanja.potonganBelanja.reduce(
-                                                                            (
-                                                                                acc,
-                                                                                item
-                                                                            ) =>
-                                                                                acc +
-                                                                                Number(
-                                                                                    item.jumlah
-                                                                                ),
+                                                                            (acc, item) => acc + Number(item.jumlah),
                                                                             0
                                                                         )
                                                                 )
