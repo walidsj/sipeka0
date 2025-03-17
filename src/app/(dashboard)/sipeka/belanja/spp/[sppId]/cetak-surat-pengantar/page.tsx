@@ -150,7 +150,11 @@ export default function Page() {
                                             : ''}{' '}
                                     (SPP-
                                     {spp.lpjBelanja?.jenis}) BLUD Rumah Sakit Jiwa Daerah Atma Husada Mahakam Prov.
-                                    Kaltim untuk Tahun Anggaran 2024 senilai{' '}
+                                    Kaltim untuk Tahun Anggaran{' '}
+                                    {Intl.DateTimeFormat('id-ID', { year: 'numeric' }).format(
+                                        new Date(spp.tglDokumen!)
+                                    )}{' '}
+                                    senilai{' '}
                                     <span className="font-serif font-semibold">
                                         Rp
                                         {formatAngkaDecimal(

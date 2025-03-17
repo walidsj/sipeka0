@@ -98,9 +98,10 @@ export default function Page() {
                         <h4 className="mb-5 text-center font-serif">Nomor: {sp3b.noDokumen}/SPTJB/RSJDAHM-BLUD</h4>
                         <p className="mb-5 text-justify indent-10 font-serif leading-5">
                             Sehubungan dengan pendapatan BLUD RSJD Atma Husada Mahakam pada periode{' '}
-                            {formatTanggal(sp3b.tglMulai)} s.d. {formatTanggal(sp3b.tglSelesai)} tahun 2024 sebesar Rp.{' '}
-                            {formatAngkaDecimal(sp3b.pendapatan.total)} ({terbilang(sp3b.pendapatan.total)} rupiah)
-                            dengan rincian sebagai berikut:
+                            {formatTanggal(sp3b.tglMulai)} s.d. {formatTanggal(sp3b.tglSelesai)} tahun{' '}
+                            {Intl.DateTimeFormat('id-ID', { year: 'numeric' }).format(new Date(sp3b.tglDokumen!))}{' '}
+                            sebesar Rp. {formatAngkaDecimal(sp3b.pendapatan.total)} ({terbilang(sp3b.pendapatan.total)}{' '}
+                            rupiah) dengan rincian sebagai berikut:
                         </p>
                         <table className="mb-5 w-full">
                             <thead>

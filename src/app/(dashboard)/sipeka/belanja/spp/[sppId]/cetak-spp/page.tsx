@@ -258,9 +258,9 @@ export default function Page() {
                                         :
                                     </td>
                                     <td className="border-[0.5pt] border-black px-3 py-0.5 align-top font-serif">
-                                        DPA/A.1/1.02.0.00.0.00.01.0000/002/2024
+                                        DPA/A.1/1.02.0.00.0.00.01.0000/001/2025
                                         <br />
-                                        Tanggal: 04 Februari 2024
+                                        Tanggal: 31 Desember 2024
                                     </td>
                                 </tr>
                                 <tr>
@@ -316,10 +316,10 @@ export default function Page() {
                                             <tbody>
                                                 <tr>
                                                     <td className="w-[25%] border-r border-black px-3 py-0.5 font-serif">
-                                                        Tanggal: 04 Februari 2024
+                                                        Tanggal: 31 Desember 2024
                                                     </td>
                                                     <td className="w-[50%] border-r border-black px-3 py-0.5 font-serif">
-                                                        Nomor: DPA/A.1/1.02.0.00.0.00.01.0000/002/2024
+                                                        Nomor: DPA/A.1/1.02.0.00.0.00.01.0000/001/2025
                                                     </td>
                                                     <td className="w-[25%] px-3 py-0.5 text-right font-serif">
                                                         Rp {formatAngkaDecimal(22_000_000_000)}

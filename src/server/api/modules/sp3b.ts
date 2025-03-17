@@ -62,20 +62,17 @@ export const sp3bRouter = createTRPCRouter({
             where: lt(pendapatan.tglDokumen, sp3b?.tglMulai as Date),
         })
 
-        const saldoAwalRekeningKoran = 8_847_392_664.45
+        // const saldoAwalRekeningKoran = 8_847_392_664.45
+        const saldoAwalRekeningKoran = 5_635_620_949.37
 
         return {
             ...sp3b,
             belanja: {
                 pegawai: belanjaList
-                    .filter((item) =>
-                        item.rab?.kodeRekening?.startsWith('5.1.01')
-                    )
+                    .filter((item) => item.rab?.kodeRekening?.startsWith('5.1.01'))
                     .reduce((acc, curr) => acc + Number(curr.jumlah), 0),
                 barjas: belanjaList
-                    .filter((item) =>
-                        item.rab?.kodeRekening?.startsWith('5.1.02')
-                    )
+                    .filter((item) => item.rab?.kodeRekening?.startsWith('5.1.02'))
                     .reduce((acc, curr) => acc + Number(curr.jumlah), 0),
                 modal: belanjaList
                     .filter((item) => item.rab?.kodeRekening?.startsWith('5.2'))
@@ -85,51 +82,30 @@ export const sp3bRouter = createTRPCRouter({
                 rincian: rapList.map((item) => {
                     return {
                         uraian: item.uraian,
-                        jumlah: item.pendapatan.reduce(
-                            (acc, curr) => acc + Number(curr.jumlah),
-                            0
-                        ),
+                        jumlah: item.pendapatan.reduce((acc, curr) => acc + Number(curr.jumlah), 0),
                     }
                 }),
                 total: rapList.reduce(
-                    (acc, curr) =>
-                        acc +
-                        curr.pendapatan.reduce(
-                            (acc, curr) => acc + Number(curr.jumlah),
-                            0
-                        ),
+                    (acc, curr) => acc + curr.pendapatan.reduce((acc, curr) => acc + Number(curr.jumlah), 0),
                     0
                 ),
             },
             saldoAwal:
-                pendapatanBeforeList.reduce(
-                    (acc, curr) => acc + Number(curr.jumlah),
-                    0
-                ) -
-                belanjaBeforeList.reduce(
-                    (acc, curr) => acc + Number(curr.jumlah),
-                    0
-                ) +
+                pendapatanBeforeList.reduce((acc, curr) => acc + Number(curr.jumlah), 0) -
+                belanjaBeforeList.reduce((acc, curr) => acc + Number(curr.jumlah), 0) +
                 saldoAwalRekeningKoran,
         }
     }),
 
-    updateById: userProcedure
-        .input(z.object({ id: z.number() }).merge(sp3bSchema))
-        .mutation(async ({ ctx, input }) => {
-            await ctx.db
-                .update(sp3bTable)
-                .set(input)
-                .where(eq(sp3bTable.id, input.id))
+    updateById: userProcedure.input(z.object({ id: z.number() }).merge(sp3bSchema)).mutation(async ({ ctx, input }) => {
+        await ctx.db.update(sp3bTable).set(input).where(eq(sp3bTable.id, input.id))
 
-            return { message: 'Data berhasil diupdate' }
-        }),
+        return { message: 'Data berhasil diupdate' }
+    }),
 
-    deleteById: userProcedure
-        .input(z.number())
-        .mutation(async ({ ctx, input }) => {
-            await ctx.db.delete(sp3bTable).where(eq(sp3bTable.id, input))
+    deleteById: userProcedure.input(z.number()).mutation(async ({ ctx, input }) => {
+        await ctx.db.delete(sp3bTable).where(eq(sp3bTable.id, input))
 
-            return { message: 'Data berhasil dihapus' }
-        }),
+        return { message: 'Data berhasil dihapus' }
+    }),
 })

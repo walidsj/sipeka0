@@ -94,7 +94,7 @@ export default function Page() {
                                         colSpan={3}
                                         className="border-[0.5pt] border-black px-3 py-1 align-top font-serif"
                                     >
-                                        Nomor SPD: DPA/A.1/1.02.0.00.0.00.01.0000/002/2024
+                                        Nomor SPD: DPA/A.1/1.02.0.00.0.00.01.0000/001/2025
                                     </td>
                                 </tr>
                                 <tr className="font-semibold">

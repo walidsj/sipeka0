@@ -127,7 +127,12 @@ export default function BkuTable() {
                     <h4 style={{ fontSize: '9pt' }} className="mb-4 text-center font-serif font-bold uppercase">
                         BENDAHARA PENGELUARAN PEMBANTU
                     </h4>
-                    <h6 className="text-center font-serif uppercase">Tahun Anggaran 2024</h6>
+                    <h6 className="text-center font-serif uppercase">
+                        Tahun Anggaran{' '}
+                        {Intl.DateTimeFormat('id-ID', { year: 'numeric' }).format(
+                            new Date(searchParams.get('startDate') || format(new Date(), 'yyyy-MM-01'))
+                        )}
+                    </h6>
                     <h6 className="mb-5 text-center font-serif">
                         Periode {formatTanggal(searchParams.get('startDate') || format(new Date(), 'yyyy-MM-01'))} s.d.{' '}
                         {formatTanggal(searchParams.get('endDate') || new Date())}
