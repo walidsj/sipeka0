@@ -1,10 +1,5 @@
 import { Button } from '@/components/ui/button'
-import {
-    Card,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card'
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { api } from '@/trpc/react'
 import React from 'react'
@@ -30,7 +25,7 @@ export default function Page() {
     const [cookie, setCookie] = useCookies(['sipd_token', 'sipd_refresh_token'])
 
     const [input, setInput] = React.useState({
-        tahun: 2024,
+        tahun: 2025,
         username: '',
         password: '',
         captcha_solution: '',
@@ -84,9 +79,7 @@ export default function Page() {
                     path: '/',
                 })
                 setCookie('sipd_refresh_token', data.refresh_token, {
-                    expires: new Date(
-                        Number(jwtDecode(data.refresh_token).exp) * 1000
-                    ),
+                    expires: new Date(Number(jwtDecode(data.refresh_token).exp) * 1000),
                     path: '/',
                 })
                 navigate('/sipeka/integrasi/sipd/profil')
@@ -111,11 +104,13 @@ export default function Page() {
                         >
                             <h1 className="text-xl font-bold">SIPD Login</h1>
                             <p className="text-sm">
-                                Autentikasi aplikasi untuk integrasi dengan SIPD
-                                Kemendagri dengan SIPEKA Atmaku
+                                Autentikasi aplikasi untuk integrasi dengan SIPD Kemendagri dengan SIPEKA Atmaku
                             </p>
                             <select value={input.tahun} className="font-bold">
                                 <option value="2024">TA 2024</option>
+                                <option value="2025" selected>
+                                    TA 2025
+                                </option>
                             </select>
                             <Input
                                 placeholder="Username"
@@ -140,13 +135,8 @@ export default function Page() {
                                     }))
                                 }
                             />
-                            <Button
-                                type="submit"
-                                disabled={preloginMutation.isPending}
-                            >
-                                {preloginMutation.isPending
-                                    ? 'Loading...'
-                                    : 'Login'}
+                            <Button type="submit" disabled={preloginMutation.isPending}>
+                                {preloginMutation.isPending ? 'Loading...' : 'Login'}
                             </Button>
                         </form>
                     </CardHeader>
@@ -157,13 +147,9 @@ export default function Page() {
                     <Card key={user.id_user}>
                         <CardHeader className="flex flex-row justify-between">
                             <div>
-                                <CardDescription>
-                                    {user.kode_skpd}
-                                </CardDescription>
+                                <CardDescription>{user.kode_skpd}</CardDescription>
                                 <CardTitle>{user.nama_role}</CardTitle>
-                                <CardDescription>
-                                    {user.nama_skpd}
-                                </CardDescription>
+                                <CardDescription>{user.nama_skpd}</CardDescription>
                             </div>
                             {captcha && (
                                 <form
@@ -185,34 +171,23 @@ export default function Page() {
                                             pegawai: userList,
                                             selected_pegawai: user,
                                             captcha_id: captcha.id,
-                                            captcha_solution:
-                                                input.captcha_solution,
+                                            captcha_solution: input.captcha_solution,
                                         })
                                     }}
                                 >
-                                    <img
-                                        src={`data:image/png;base64,${captcha.base64}`}
-                                        alt="captcha"
-                                    />
+                                    <img src={`data:image/png;base64,${captcha.base64}`} alt="captcha" />
                                     <Input
                                         placeholder="Captcha"
                                         value={input.captcha_solution}
                                         onChange={(e) =>
                                             setInput((prev) => ({
                                                 ...prev,
-                                                captcha_solution:
-                                                    e.target.value,
+                                                captcha_solution: e.target.value,
                                             }))
                                         }
                                     />
-                                    <Button
-                                        type="submit"
-                                        className="mt-3"
-                                        disabled={loginMutation.isPending}
-                                    >
-                                        {loginMutation.isPending
-                                            ? 'Loading...'
-                                            : 'Pilih'}
+                                    <Button type="submit" className="mt-3" disabled={loginMutation.isPending}>
+                                        {loginMutation.isPending ? 'Loading...' : 'Pilih'}
                                     </Button>
                                 </form>
                             )}
