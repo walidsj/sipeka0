@@ -96,7 +96,7 @@ export default function Page() {
                                 <br />
                                 Kepada
                                 <br />
-                                <span className="-ml-6 font-serif">Yth. Pj. Gubernur Kalimantan Timur</span>
+                                <span className="-ml-6 font-serif">Yth. Gubernur Kalimantan Timur</span>
                                 <br />
                                 c.q. Kepala Badan Pengelolaan Keuangan dan Aset Daerah
                                 <br />
