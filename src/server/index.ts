@@ -39,6 +39,11 @@ app.use('/api/storage/files/user-image/:file', (req, res) => {
     })
 })
 
+app.use('*', (_req, res) => {
+    //load dist/index.html
+    res.sendFile('index.html', { root: 'dist' })
+})
+
 // Proxy middleware configuration
 const proxyOptions = {
     target: 'https://service.sipd.kemendagri.go.id',
