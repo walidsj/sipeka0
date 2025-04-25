@@ -81,6 +81,8 @@
     },
     "devDependencies": {
         "@rollup/plugin-replace": "^6.0.2",
+        "@tailwindcss/postcss": "^4.1.4",
+        "@tailwindcss/vite": "^4.1.4",
         "@types/bcryptjs": "^3.0.0",
         "@types/express": "^5.0.1",
         "@types/file-saver": "^2.0.7",

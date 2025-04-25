@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 import replace from '@rollup/plugin-replace'
 import { version } from './package.json'
+import tailwindcss from "@tailwindcss/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -23,6 +24,7 @@ export default defineConfig({
     },
     publicDir: path.resolve(__dirname, 'public'),
     plugins: [
+        tailwindcss(),
         react(),
         replace({
             preventAssignment: true,
