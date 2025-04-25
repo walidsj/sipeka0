@@ -5,6 +5,7 @@ import { eq } from 'drizzle-orm'
 import { user } from '@/server/db/schema'
 import { getSession } from '@/server/auth'
 import { type CreateExpressContextOptions } from '@trpc/server/adapters/express'
+import SuperJSON from 'superjson'
 
 export const createTRPCContext = async ({ req }: CreateExpressContextOptions) => ({
     headers: req.headers,
@@ -13,6 +14,7 @@ export const createTRPCContext = async ({ req }: CreateExpressContextOptions) =>
 })
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
+    transformer: SuperJSON,
     errorFormatter({ shape, error }) {
         return {
             ...shape,
