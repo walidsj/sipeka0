@@ -1,5 +1,4 @@
 import { initTRPC, TRPCError } from '@trpc/server'
-import superjson from 'superjson'
 import { ZodError } from 'zod'
 import { db } from '@/server/db'
 import { eq } from 'drizzle-orm'
@@ -7,37 +6,24 @@ import { user } from '@/server/db/schema'
 import { getSession } from '@/server/auth'
 import { type CreateExpressContextOptions } from '@trpc/server/adapters/express'
 
-export const createTRPCContext = async ({
-    req,
-}: CreateExpressContextOptions) => ({
+export const createTRPCContext = async ({ req }: CreateExpressContextOptions) => ({
     headers: req.headers,
     db,
     session: await getSession(req.headers.authorization ?? ''),
 })
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
-    transformer: superjson,
     errorFormatter({ shape, error }) {
         return {
             ...shape,
             message:
                 error.cause instanceof ZodError
                     ? 'Validation error: ' +
-                      error.cause.errors
-                          .map(
-                              (e) =>
-                                  `${e.path.join('.').toUpperCase()}: ${
-                                      e.message
-                                  }`
-                          )
-                          .join(', ')
+                      error.cause.errors.map((e) => `${e.path.join('.').toUpperCase()}: ${e.message}`).join(', ')
                     : error.message,
             data: {
                 ...shape.data,
-                zodError:
-                    error.cause instanceof ZodError
-                        ? error.cause.flatten()
-                        : null,
+                zodError: error.cause instanceof ZodError ? error.cause.flatten() : null,
             },
         }
     },
@@ -99,8 +85,7 @@ export const pengelolaProcedure = (jabatanList: JabatanListType[]) =>
         if (!ctx.user?.pegawai?.pengelolaBlud) {
             throw new TRPCError({
                 code: 'UNAUTHORIZED',
-                message:
-                    'Anda tidak memiliki hak akses Pengelola BLUD (illegal access)',
+                message: 'Anda tidak memiliki hak akses Pengelola BLUD (illegal access)',
             })
         }
 
