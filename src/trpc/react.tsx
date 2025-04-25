@@ -4,7 +4,6 @@ import { createTRPCReact } from '@trpc/react-query'
 import { type inferRouterInputs, type inferRouterOutputs } from '@trpc/server'
 import { type AppRouter } from '@/server/api/root'
 import { useCookies } from 'react-cookie'
-import SuperJSON from 'superjson'
 
 const createQueryClient = () => new QueryClient()
 
@@ -33,7 +32,6 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
                 enabled: (op) => import.meta.env.DEV || (op.direction === 'down' && op.result instanceof Error),
             }),
             httpBatchLink({
-                transformer: SuperJSON,
                 url: '/api/trpc',
                 headers: () => {
                     const headers = new Headers()
