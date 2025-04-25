@@ -53,7 +53,7 @@ app.use('/api/proxy-sipd', proxyMiddleware)
 
 app.use(express.static('dist'))
 
-app.use('*', (_req, res) => {
+app.use('/{*splat}', (_req, res) => {
     //load dist/index.html
     res.sendFile('index.html', { root: 'dist' })
 })
