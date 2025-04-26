@@ -8,6 +8,8 @@ import { createProxyMiddleware } from 'http-proxy-middleware'
 
 const app = express()
 
+app.use(express.json())
+
 app.use(
     '/api/trpc',
     createExpressMiddleware({
