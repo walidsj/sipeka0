@@ -58,98 +58,9 @@ app.use('/{*splat}', (_req, res) => {
     res.sendFile('index.html', { root: 'dist' })
 })
 
-const server = createServer(app)
-const io = new Server(server, {
-    cors: {
-        origin: '*',
-    },
-})
-
-type IOnlineUser = {
-    userId: number
-    nama: string
-    isActive: boolean
-    image: string
-}
-type ITempOnlineUser = {
-    socketId: string
-    userId: number
-    nama: string
-    isActive: boolean
-    image: string
-}
-
-let tempOnlineUser: ITempOnlineUser[] = []
-let onlineUsers: IOnlineUser[] = []
-
-io.on('connection', (socket: Socket) => {
-    console.log('a user connected')
-
-    socket.on('connected', () => {
-        io.emit('get-users', onlineUsers)
-    })
-
-    socket.on(
-        'online',
-        ({ user, isActive }: { user: { id: number; nama: string; image: string }; isActive: boolean }) => {
-            tempOnlineUser = tempOnlineUser.filter((tempUser) => tempUser.socketId !== socket.id)
-            tempOnlineUser.push({
-                socketId: socket.id,
-                userId: user.id,
-                nama: user.nama,
-                image: user.image,
-                isActive,
-            })
-
-            onlineUsers = _.uniqBy(tempOnlineUser, 'userId').map((user) => ({
-                ...user,
-                isActive: tempOnlineUser.find((u) => u.userId === user.userId && u.isActive) ? true : false,
-            }))
-
-            io.emit('get-users', onlineUsers)
-        }
-    )
-
-    socket.on('say-hi', (toUserId: number, message: string) => {
-        const toUserSocket = tempOnlineUser.filter((u) => u.userId === toUserId)
-        const getFromUser = tempOnlineUser.find((u) => u.socketId === socket.id)
-
-        const fromUser = onlineUsers.find((u) => u.userId === getFromUser?.userId)
-
-        if (toUserSocket && fromUser) {
-            toUserSocket.forEach((u) => {
-                io.to(u.socketId).emit('incoming-hi', fromUser, message)
-            })
-        }
-    })
-
-    socket.on('logout', () => {
-        const user = tempOnlineUser.find((u) => u.socketId === socket.id)
-
-        tempOnlineUser = tempOnlineUser.filter((tempUser) => tempUser.userId !== user?.userId)
-
-        onlineUsers = _.uniqBy(tempOnlineUser, 'userId').map((user) => ({
-            ...user,
-            isActive: tempOnlineUser.find((u) => u.userId === user.userId && u.isActive) ? true : false,
-        }))
-
-        io.emit('get-users', onlineUsers)
-    })
-
-    socket.on('disconnect', () => {
-        tempOnlineUser = tempOnlineUser.filter((user) => user.socketId !== socket.id)
-        onlineUsers = _.uniqBy(tempOnlineUser, 'userId').map((user) => ({
-            ...user,
-            isActive: tempOnlineUser.find((u) => u.userId === user.userId && u.isActive) ? true : false,
-        }))
-
-        io.emit('get-users', onlineUsers)
-    })
-})
-
 let port = 8089
 if (process.env.NODE_ENV === 'development') port = 8989
 
-server.listen(port, () => {
+app.listen(port, () => {
     console.log(`Listening on http://localhost:${port}`)
 })

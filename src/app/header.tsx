@@ -14,14 +14,13 @@ import { cn } from '@/lib/utils'
 import { HiOutlineBookOpen, HiOutlineLockClosed, HiOutlineLogout, HiOutlineUser } from 'react-icons/hi'
 import { motion } from 'framer-motion'
 import { Skeleton } from '@/components/ui/skeleton'
-import OnlineUsers from './online-users'
 
 export function Header() {
     const auth = useAuth()
     const { pathname } = useLocation()
 
     return (
-        <header className="h-20 w-full border-b bg-background shadow-sm">
+        <header className="bg-background h-20 w-full border-b shadow-sm">
             <div className="mx-auto px-5 md:px-8 md:pr-6 lg:px-8 lg:pr-6 xl:px-12">
                 <div className="flex w-full items-center justify-between">
                     <Link to="/" className="flex h-20 flex-shrink-0 items-center gap-4">
@@ -65,7 +64,6 @@ export function Header() {
                         )}
                     </Link>
                     <div className="flex items-center">
-                        <OnlineUsers />
                         <Button variant="ghost" asChild className="hidden h-16 sm:flex">
                             <Link to="/panduan">
                                 <HiOutlineBookOpen className="h-6 w-6" />
