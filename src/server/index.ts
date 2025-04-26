@@ -1,7 +1,5 @@
 import { appRouter } from './api/root'
 import express from 'express'
-import { createServer } from 'node:http'
-import { Server, Socket } from 'socket.io'
 import { createExpressMiddleware, type CreateExpressContextOptions } from '@trpc/server/adapters/express'
 import { getSession } from './auth'
 import { db } from './db'
