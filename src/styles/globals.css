@@ -78,6 +78,11 @@
     --sidebar: hsl(240 5.9% 10%);
 }
 
+@theme {
+    --font-arial: 'Arial', sans-serif;
+    --font-cambria: 'Cambria', sans-serif;
+}
+
 @theme inline {
     --color-background: var(--background);
     --color-foreground: var(--foreground);
