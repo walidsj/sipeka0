@@ -13,7 +13,7 @@ const trpcHandler = async (req: Request) =>
 
 const server = serve({
     development: process.env.NODE_ENV !== 'production',
-    port: process.env.NODE_ENV !== 'production' ? 8089 : 8999,
+    port: process.env.NODE_ENV !== 'production' ? 3000 : 8089,
     routes: {
         '/*': async () => {
             const file = Bun.file('./dist/index.html')
