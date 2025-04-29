@@ -80,7 +80,7 @@
 
 @theme {
     --font-arial: 'Arial', sans-serif;
-    --font-cambria: 'Cambria', serif;
+    --font-serif: 'Cambria', serif;
 }
 
 @theme inline {
