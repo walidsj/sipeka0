@@ -17,9 +17,7 @@ export default function BkPajakTable() {
     })
 
     const componentRef = React.useRef(null)
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-    })
+    const handlePrint = useReactToPrint({ contentRef: componentRef })
 
     const {
         isLoading,
@@ -116,7 +114,7 @@ export default function BkPajakTable() {
                             </tr>
                         </tbody>
                     </table>
-                    <hr className="mb-5 mt-3 border-b-4 border-double border-black" />
+                    <hr className="mt-3 mb-5 border-b-4 border-double border-black" />
                     <h5 style={{ fontSize: '11pt' }} className="text-center font-serif font-bold uppercase underline">
                         BUKU PEMBANTU PAJAK BLUD
                     </h5>
@@ -268,7 +266,7 @@ export default function BkPajakTable() {
                 </div>
             </div>
             <CardFooter>
-                <Button onClick={handlePrint}>Cetak</Button>
+                <Button onClick={() => handlePrint()}>Cetak</Button>
             </CardFooter>
         </div>
     )

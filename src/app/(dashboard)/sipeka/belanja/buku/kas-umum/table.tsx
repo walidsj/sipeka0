@@ -18,9 +18,7 @@ export default function BkuTable() {
     })
 
     const componentRef = React.useRef(null)
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-    })
+    const handlePrint = useReactToPrint({ contentRef: componentRef })
 
     const {
         isLoading,
@@ -120,7 +118,7 @@ export default function BkuTable() {
                             </tr>
                         </tbody>
                     </table>
-                    <hr className="mb-5 mt-3 border-b-4 border-double border-black" />
+                    <hr className="mt-3 mb-5 border-b-4 border-double border-black" />
                     <h5 style={{ fontSize: '11pt' }} className="text-center font-serif font-bold uppercase underline">
                         BUKU KAS UMUM PENGELUARAN BLUD
                     </h5>
@@ -222,7 +220,7 @@ export default function BkuTable() {
                                                 pageBreakAfter: 'auto',
                                             }}
                                         >
-                                            <td className="border-l border-r border-black px-2 py-0.5 text-center font-serif">
+                                            <td className="border-r border-l border-black px-2 py-0.5 text-center font-serif">
                                                 {index + 1}
                                             </td>
                                             <td className="border-r border-black px-2 py-0.5 text-center font-serif">
@@ -267,7 +265,7 @@ export default function BkuTable() {
                                                         }}
                                                         className="border-t border-dotted border-neutral-400"
                                                     >
-                                                        <td className="border-l border-r border-black px-2 py-0.5 text-center font-serif"></td>
+                                                        <td className="border-r border-l border-black px-2 py-0.5 text-center font-serif"></td>
                                                         <td className="border-r border-black px-2 py-0.5 text-center font-serif">
                                                             {pot.tgl &&
                                                                 Intl.DateTimeFormat('id-ID', {
@@ -614,7 +612,7 @@ export default function BkuTable() {
                 </div>
             </div>
             <CardFooter>
-                <Button onClick={handlePrint}>Cetak</Button>
+                <Button onClick={() => handlePrint()}>Cetak</Button>
             </CardFooter>
         </div>
     )

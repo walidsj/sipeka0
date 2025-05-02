@@ -21,9 +21,7 @@ export default function Page() {
     } = api.lpjBelanja.getBelanjaByLpjBelanjaId.useQuery(Number(params.lpjBelanjaId))
 
     const componentRef = React.useRef(null)
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-    })
+    const handlePrint = useReactToPrint({ contentRef: componentRef })
 
     if (isLoading) return <Loading />
 
@@ -55,16 +53,16 @@ export default function Page() {
                             `}
                         </style>
                         <div className="mb-2 w-full">
-                            <div className="text-center font-serif text-[9pt] font-semibold uppercase leading-[11pt]">
+                            <div className="text-center font-serif text-[9pt] leading-[11pt] font-semibold uppercase">
                                 Provinsi Kalimantan Timur
                             </div>
-                            <div className="text-center font-serif text-[9pt] font-semibold uppercase leading-[11pt]">
+                            <div className="text-center font-serif text-[9pt] leading-[11pt] font-semibold uppercase">
                                 Dinas Kesehatan
                             </div>
-                            <div className="text-center font-serif text-[10pt] font-semibold uppercase leading-[12pt]">
+                            <div className="text-center font-serif text-[10pt] leading-[12pt] font-semibold uppercase">
                                 Rumah Sakit Jiwa Daerah Atma Husada Mahakam
                             </div>
-                            <div className="mt-5 text-center font-serif text-[10pt] font-semibold uppercase leading-[12pt]">
+                            <div className="mt-5 text-center font-serif text-[10pt] leading-[12pt] font-semibold uppercase">
                                 Laporan Pertanggungjawaban{' '}
                                 {lpjBelanja?.jenis === 'LS'
                                     ? 'Langsung'
@@ -135,7 +133,7 @@ export default function Page() {
                                     {potonganList.map((item) => (
                                         <th
                                             key={item}
-                                            className="w-[5%] text-nowrap border-[0.5pt] border-black px-2 py-2 font-serif uppercase"
+                                            className="w-[5%] border-[0.5pt] border-black px-2 py-2 font-serif text-nowrap uppercase"
                                         >
                                             {item}
                                         </th>
@@ -257,7 +255,7 @@ export default function Page() {
                 </div>
             </CardContent>
             <CardFooter>
-                <Button onClick={handlePrint}>Cetak</Button>
+                <Button onClick={() => handlePrint()}>Cetak</Button>
             </CardFooter>
         </Card>
     )

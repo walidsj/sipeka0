@@ -14,9 +14,7 @@ export default function Page() {
     const { data: spp, isError, isLoading } = api.spp.getById.useQuery(Number(params.sppId))
 
     const componentRef = React.useRef(null)
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-    })
+    const handlePrint = useReactToPrint({ contentRef: componentRef })
 
     if (isLoading) return <Loading />
 
@@ -48,16 +46,16 @@ export default function Page() {
                             `}
                         </style>
                         <div className="mb-5 w-full">
-                            <div className="text-center font-serif text-[11pt] font-semibold uppercase leading-[15pt]">
+                            <div className="text-center font-serif text-[11pt] leading-[15pt] font-semibold uppercase">
                                 Provinsi Kalimantan Timur
                             </div>
-                            <div className="text-center font-serif text-[11pt] font-semibold uppercase leading-[15pt]">
+                            <div className="text-center font-serif text-[11pt] leading-[15pt] font-semibold uppercase">
                                 Dinas Kesehatan
                             </div>
-                            <div className="text-center font-serif text-base font-semibold uppercase leading-[15pt]">
+                            <div className="text-center font-serif text-base leading-[15pt] font-semibold uppercase">
                                 Rumah Sakit Jiwa Daerah Atma Husada Mahakam
                             </div>
-                            <div className="mt-3 text-center font-serif text-[12pt] font-semibold uppercase leading-[15pt]">
+                            <div className="mt-3 text-center font-serif text-[12pt] leading-[15pt] font-semibold uppercase">
                                 Surat Permintaan Pembayaran (SPP)
                             </div>
                             <div className="text-center font-serif text-[10pt]">
@@ -71,7 +69,7 @@ export default function Page() {
                                 }).format(spp.tglDokumen || new Date())}
                             </div>
                         </div>
-                        <div className="mb-5 text-center font-serif text-[11pt] font-semibold uppercase leading-[15pt]">
+                        <div className="mb-5 text-center font-serif text-[11pt] leading-[15pt] font-semibold uppercase">
                             Rincian Rencana Penggunaan
                         </div>
                         <table className="mb-2 w-[calc(100%-2px)]">
@@ -185,7 +183,7 @@ export default function Page() {
                 </div>
             </CardContent>
             <CardFooter>
-                <Button onClick={handlePrint}>Cetak</Button>
+                <Button onClick={() => handlePrint()}>Cetak</Button>
             </CardFooter>
         </Card>
     )

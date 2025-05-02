@@ -1,11 +1,4 @@
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { useParams } from 'react-router-dom'
 import { api } from '@/trpc/react'
 import Loading from '@/components/loading'
@@ -18,16 +11,10 @@ import NotFound from '@/app/not-found'
 export default function Page() {
     const params = useParams<{ spmId: string }>()
 
-    const {
-        data: spm,
-        isError,
-        isLoading,
-    } = api.spm.getById.useQuery(Number(params.spmId))
+    const { data: spm, isError, isLoading } = api.spm.getById.useQuery(Number(params.spmId))
 
     const componentRef = React.useRef(null)
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-    })
+    const handlePrint = useReactToPrint({ contentRef: componentRef })
 
     if (isLoading) return <Loading />
 
@@ -43,10 +30,7 @@ export default function Page() {
             </CardHeader>
             <CardContent>
                 <div className="rounded-md border p-10 shadow">
-                    <div
-                        className="text-[10pt] leading-[14pt]"
-                        ref={componentRef}
-                    >
+                    <div className="text-[10pt] leading-[14pt]" ref={componentRef}>
                         <style type="text/css" media="print">
                             {`
                                 @page {
@@ -63,45 +47,39 @@ export default function Page() {
                             <tbody>
                                 <tr>
                                     <td className="w-16 font-serif">
-                                        <img
-                                            src="/images/logo-kaltimprov.webp"
-                                            className="h-20 w-24"
-                                        />
+                                        <img src="/images/logo-kaltimprov.webp" className="h-20 w-24" />
                                     </td>
                                     <td className="text-center">
                                         <div
                                             style={{ fontSize: '12pt' }}
-                                            className="font-serif font-bold uppercase leading-5"
+                                            className="font-serif leading-5 font-bold uppercase"
                                         >
                                             Pemerintah Provinsi Kalimantan Timur
                                         </div>
                                         <div
                                             style={{ fontSize: '14pt' }}
-                                            className="font-serif font-bold uppercase leading-5"
+                                            className="font-serif leading-5 font-bold uppercase"
                                         >
                                             Dinas Kesehatan
                                         </div>
                                         <div
                                             style={{ fontSize: '14pt' }}
-                                            className="font-serif font-bold uppercase leading-5"
+                                            className="font-serif leading-5 font-bold uppercase"
                                         >
-                                            Rumah Sakit Jiwa Daerah Atma Husada
-                                            Mahakam
+                                            Rumah Sakit Jiwa Daerah Atma Husada Mahakam
                                         </div>
                                         <div className="font-serif">
-                                            Jl. Kakap No. 23 Samarinda Telp
-                                            (0541) 743364 Fax 741035
+                                            Jl. Kakap No. 23 Samarinda Telp (0541) 743364 Fax 741035
                                         </div>
                                         <div className="font-serif">
-                                            Website: rsjdahm.kaltimprov.go.id |
-                                            Posel: rsjdahm@kaltimprov.go.id
+                                            Website: rsjdahm.kaltimprov.go.id | Posel: rsjdahm@kaltimprov.go.id
                                         </div>
                                     </td>
                                     <td className="w-16"></td>
                                 </tr>
                             </tbody>
                         </table>
-                        <hr className="mb-5 mt-3 border-b-4 border-double border-black" />
+                        <hr className="mt-3 mb-5 border-b-4 border-double border-black" />
                         <h5
                             style={{ fontSize: '12pt' }}
                             className="text-center font-serif font-bold uppercase underline"
@@ -110,8 +88,7 @@ export default function Page() {
                             {spm.spp.lpjBelanja?.jenis}
                         </h5>
                         <h4 className="mb-5 text-center font-serif">
-                            Nomor: 900.1.3.5/{spm.noDokumen}/
-                            {spm.spp.lpjBelanja?.jenis}/SPTJM-SPM/RSJD-AHM/BLUD
+                            Nomor: 900.1.3.5/{spm.noDokumen}/{spm.spp.lpjBelanja?.jenis}/SPTJM-SPM/RSJD-AHM/BLUD
                         </h4>
                         <p className="mb-2 text-justify indent-[1cm] font-serif">
                             Sehubungan dengan Surat Perintah Membayar{' '}
@@ -122,27 +99,15 @@ export default function Page() {
                                   : spm.spp.lpjBelanja?.jenis === 'TU'
                                     ? 'Tambah Uang Persediaan'
                                     : ''}{' '}
-                            (SPM-{spm.spp.lpjBelanja?.jenis}) BLUD Nomor
-                            900.1.3.5/{spm.noDokumen}/
+                            (SPM-{spm.spp.lpjBelanja?.jenis}) BLUD Nomor 900.1.3.5/{spm.noDokumen}/
                             {spm.spp.lpjBelanja?.jenis}
-                            /SPM/RSJD-AHM/BLUD tanggal{' '}
-                            {formatTanggal(spm.tglDokumen)} yang saya ajukan
-                            sebesar Rp{' '}
+                            /SPM/RSJD-AHM/BLUD tanggal {formatTanggal(spm.tglDokumen)} yang saya ajukan sebesar Rp{' '}
                             {formatAngkaDecimal(
-                                spm.spp.lpjBelanja?.belanja.reduce(
-                                    (acc, item) => acc + Number(item.jumlah),
-                                    0
-                                )
+                                spm.spp.lpjBelanja?.belanja.reduce((acc, item) => acc + Number(item.jumlah), 0)
                             )}{' '}
                             (terbilang{' '}
-                            {terbilang(
-                                spm.spp.lpjBelanja?.belanja.reduce(
-                                    (acc, item) => acc + Number(item.jumlah),
-                                    0
-                                )
-                            )}{' '}
-                            Rupiah) untuk keperluan RSJD Atma Husada Mahakam
-                            Prov. Kaltim Tahun Anggaran{' '}
+                            {terbilang(spm.spp.lpjBelanja?.belanja.reduce((acc, item) => acc + Number(item.jumlah), 0))}{' '}
+                            Rupiah) untuk keperluan RSJD Atma Husada Mahakam Prov. Kaltim Tahun Anggaran{' '}
                             {Intl.DateTimeFormat('id', {
                                 year: 'numeric',
                             }).format(spm.tglDokumen || new Date())}
@@ -158,54 +123,38 @@ export default function Page() {
                                       : spm.spp.lpjBelanja?.jenis === 'TU'
                                         ? 'Tambah Uang Persediaan'
                                         : ''}{' '}
-                                ({spm.spp.lpjBelanja?.jenis}) tersebut di atas
-                                akan dipergunakan untuk keperluan belanja
-                                kegiatan yang akan kami laksanakan sesuai
-                                DPA-SKPD BLUD.
+                                ({spm.spp.lpjBelanja?.jenis}) tersebut di atas akan dipergunakan untuk keperluan belanja
+                                kegiatan yang akan kami laksanakan sesuai DPA-SKPD BLUD.
                             </li>
                             <li className="text-justify font-serif">
-                                Bukti-bukti belanja tersebut disimpan di RSJD
-                                Atma Husada Mahakam Prov. Kaltim sesuai dengan
-                                ketentuan yang berlaku untuk keperluan
-                                pemeriksaan Internal/Eksternal sebagai Bukti
-                                Pertanggungjawaban Keuangan.
+                                Bukti-bukti belanja tersebut disimpan di RSJD Atma Husada Mahakam Prov. Kaltim sesuai
+                                dengan ketentuan yang berlaku untuk keperluan pemeriksaan Internal/Eksternal sebagai
+                                Bukti Pertanggungjawaban Keuangan.
                             </li>
                         </ol>
                         <p className="mb-2 text-justify indent-[1cm] font-serif">
-                            Dengan ini, saya menyatakan bertanggung jawab penuh
-                            atas segala pengeluaran yang dibayar lunas sesuai
-                            dengan ketentuan peraturan perundangan yang berlaku.
+                            Dengan ini, saya menyatakan bertanggung jawab penuh atas segala pengeluaran yang dibayar
+                            lunas sesuai dengan ketentuan peraturan perundangan yang berlaku.
                         </p>
                         <p className="mb-5 text-justify indent-[1cm] font-serif">
-                            Demikian surat pernyataan ini dibuat untuk
-                            melengkapi persyaratan pengajuan SPM-
+                            Demikian surat pernyataan ini dibuat untuk melengkapi persyaratan pengajuan SPM-
                             {spm.spp.lpjBelanja?.jenis} SKPD kami.
                         </p>
                         <div className="mb-5 flex w-full flex-row">
                             <div className="w-full" />
                             <div className="w-3/5 text-justify font-serif">
-                                <div className="font-serif">
-                                    Samarinda, {formatTanggal(spm.tglDokumen)}
-                                </div>
-                                <div className="font-serif leading-4">
-                                    Kuasa Pengguna Anggaran
-                                </div>
-                                <div className="mt-12 font-serif leading-4 underline">
-                                    dr. Indah Puspitasari, MARS
-                                </div>
-                                <div className="font-serif leading-4">
-                                    Pembina Utama Muda
-                                </div>
-                                <div className="font-serif leading-4">
-                                    NIP. 196705301998032003
-                                </div>
+                                <div className="font-serif">Samarinda, {formatTanggal(spm.tglDokumen)}</div>
+                                <div className="font-serif leading-4">Kuasa Pengguna Anggaran</div>
+                                <div className="mt-12 font-serif leading-4 underline">dr. Indah Puspitasari, MARS</div>
+                                <div className="font-serif leading-4">Pembina Utama Muda</div>
+                                <div className="font-serif leading-4">NIP. 196705301998032003</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </CardContent>
             <CardFooter>
-                <Button onClick={handlePrint}>Cetak</Button>
+                <Button onClick={() => handlePrint()}>Cetak</Button>
             </CardFooter>
         </Card>
     )

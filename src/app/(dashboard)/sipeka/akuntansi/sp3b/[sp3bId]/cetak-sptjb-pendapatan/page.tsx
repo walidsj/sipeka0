@@ -14,9 +14,7 @@ export default function Page() {
     const { data: sp3b, isError, isLoading } = api.sp3b.getById.useQuery(Number(params.sp3bId))
 
     const componentRef = React.useRef(null)
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-    })
+    const handlePrint = useReactToPrint({ contentRef: componentRef })
 
     if (isLoading) return <Loading />
 
@@ -60,19 +58,19 @@ export default function Page() {
                                     <td className="text-center">
                                         <div
                                             style={{ fontSize: '12pt' }}
-                                            className="font-serif font-bold uppercase leading-5"
+                                            className="font-serif leading-5 font-bold uppercase"
                                         >
                                             Pemerintah Provinsi Kalimantan Timur
                                         </div>
                                         <div
                                             style={{ fontSize: '14pt' }}
-                                            className="font-serif font-bold uppercase leading-5"
+                                            className="font-serif leading-5 font-bold uppercase"
                                         >
                                             Dinas Kesehatan
                                         </div>
                                         <div
                                             style={{ fontSize: '14pt' }}
-                                            className="font-serif font-bold uppercase leading-5"
+                                            className="font-serif leading-5 font-bold uppercase"
                                         >
                                             Rumah Sakit Jiwa Daerah Atma Husada Mahakam
                                         </div>
@@ -87,7 +85,7 @@ export default function Page() {
                                 </tr>
                             </tbody>
                         </table>
-                        <hr className="mb-5 mt-3 border-b-4 border-double border-black" />
+                        <hr className="mt-3 mb-5 border-b-4 border-double border-black" />
 
                         <h5
                             style={{ fontSize: '12pt' }}
@@ -167,7 +165,7 @@ export default function Page() {
                 </div>
             </CardContent>
             <CardFooter>
-                <Button onClick={handlePrint}>Cetak</Button>
+                <Button onClick={() => handlePrint()}>Cetak</Button>
             </CardFooter>
         </Card>
     )

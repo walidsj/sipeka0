@@ -14,9 +14,7 @@ export default function Page() {
     const { data: spm, isError, isLoading } = api.spm.getById.useQuery(Number(params.spmId))
 
     const componentRef = React.useRef(null)
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-    })
+    const handlePrint = useReactToPrint({ contentRef: componentRef })
 
     if (isLoading) return <Loading />
 
@@ -54,19 +52,19 @@ export default function Page() {
                             `}
                         </style>
                         <div className="mb-2 w-full">
-                            <div className="text-center font-serif text-[9pt] font-semibold uppercase leading-[11pt]">
+                            <div className="text-center font-serif text-[9pt] leading-[11pt] font-semibold uppercase">
                                 Provinsi Kalimantan Timur
                             </div>
-                            <div className="text-center font-serif text-[9pt] font-semibold uppercase leading-[11pt]">
+                            <div className="text-center font-serif text-[9pt] leading-[11pt] font-semibold uppercase">
                                 Dinas Kesehatan
                             </div>
-                            <div className="text-center font-serif text-[10pt] font-semibold uppercase leading-[12pt]">
+                            <div className="text-center font-serif text-[10pt] leading-[12pt] font-semibold uppercase">
                                 Rumah Sakit Jiwa Daerah Atma Husada Mahakam
                             </div>
-                            <div className="mt-1 text-center font-serif text-[10pt] font-semibold uppercase leading-[12pt]">
+                            <div className="mt-1 text-center font-serif text-[10pt] leading-[12pt] font-semibold uppercase">
                                 Surat Perintah Membayar (SPM)
                             </div>
-                            <div className="text-center font-serif text-[10pt] font-semibold uppercase leading-[12pt]">
+                            <div className="text-center font-serif text-[10pt] leading-[12pt] font-semibold uppercase">
                                 {spm.spp.lpjBelanja?.jenis === 'LS'
                                     ? 'Langsung'
                                     : spm.spp.lpjBelanja?.jenis === 'GU'
@@ -575,7 +573,7 @@ export default function Page() {
                 </div>
             </CardContent>
             <CardFooter>
-                <Button onClick={handlePrint}>Cetak</Button>
+                <Button onClick={() => handlePrint()}>Cetak</Button>
             </CardFooter>
         </Card>
     )

@@ -14,9 +14,7 @@ export default function Page() {
     const { data: sp2d, isError, isLoading } = api.sp2d.getById.useQuery(Number(params.sp2dId))
 
     const componentRef = React.useRef(null)
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-    })
+    const handlePrint = useReactToPrint({ contentRef: componentRef })
 
     if (isLoading) return <Loading />
 
@@ -65,13 +63,13 @@ export default function Page() {
                                         rowSpan={3}
                                         className="w-[55%] border-[0.5pt] border-black px-3 py-1 font-serif"
                                     >
-                                        <div className="text-center font-serif text-[9pt] font-semibold uppercase leading-[11pt]">
+                                        <div className="text-center font-serif text-[9pt] leading-[11pt] font-semibold uppercase">
                                             Provinsi Kalimantan Timur
                                         </div>
-                                        <div className="text-center font-serif text-[9pt] font-semibold uppercase leading-[11pt]">
+                                        <div className="text-center font-serif text-[9pt] leading-[11pt] font-semibold uppercase">
                                             Dinas Kesehatan
                                         </div>
-                                        <div className="text-center font-serif text-[10pt] font-semibold uppercase leading-[12pt]">
+                                        <div className="text-center font-serif text-[10pt] leading-[12pt] font-semibold uppercase">
                                             Rumah Sakit Jiwa Daerah Atma Husada Mahakam
                                         </div>
                                     </th>
@@ -680,7 +678,7 @@ export default function Page() {
                 </div>
             </CardContent>
             <CardFooter>
-                <Button onClick={handlePrint}>Cetak</Button>
+                <Button onClick={() => handlePrint()}>Cetak</Button>
             </CardFooter>
         </Card>
     )

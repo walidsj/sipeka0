@@ -14,9 +14,7 @@ export default function Page() {
     const { data: sp3b, isError, isLoading } = api.sp3b.getById.useQuery(Number(params.sp3bId))
 
     const componentRef = React.useRef(null)
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-    })
+    const handlePrint = useReactToPrint({ contentRef: componentRef })
 
     if (isLoading) return <Loading />
 
@@ -60,19 +58,19 @@ export default function Page() {
                                     <td className="text-center">
                                         <div
                                             style={{ fontSize: '12pt' }}
-                                            className="font-serif font-bold uppercase leading-5"
+                                            className="font-serif leading-5 font-bold uppercase"
                                         >
                                             Pemerintah Provinsi Kalimantan Timur
                                         </div>
                                         <div
                                             style={{ fontSize: '14pt' }}
-                                            className="font-serif font-bold uppercase leading-5"
+                                            className="font-serif leading-5 font-bold uppercase"
                                         >
                                             Dinas Kesehatan
                                         </div>
                                         <div
                                             style={{ fontSize: '14pt' }}
-                                            className="font-serif font-bold uppercase leading-5"
+                                            className="font-serif leading-5 font-bold uppercase"
                                         >
                                             Rumah Sakit Jiwa Daerah Atma Husada Mahakam
                                         </div>
@@ -87,7 +85,7 @@ export default function Page() {
                                 </tr>
                             </tbody>
                         </table>
-                        <hr className="mb-5 mt-3 border-b-4 border-double border-black" />
+                        <hr className="mt-3 mb-5 border-b-4 border-double border-black" />
                         <div className="mb-5 flex w-full flex-row">
                             <div className="w-full" />
                             <div className="w-3/5 text-justify font-serif">
@@ -146,10 +144,10 @@ export default function Page() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <td className="border-[0.5pt] border-black px-3 pb-5 pt-2 text-center align-top font-serif">
+                                <td className="border-[0.5pt] border-black px-3 pt-2 pb-5 text-center align-top font-serif">
                                     1.
                                 </td>
-                                <td className="border-[0.5pt] border-black px-3 pb-5 pt-2 text-justify align-top font-serif">
+                                <td className="border-[0.5pt] border-black px-3 pt-2 pb-5 text-justify align-top font-serif">
                                     Bersama ini terlampir Surat Perintah Pengesahan Pendapatan dan Belanja (SP3B) BLUD
                                     Rumah Sakit Jiwa Daerah Atma Husada Mahakam untuk {formatTanggal(sp3b.tglMulai)}{' '}
                                     s.d. {formatTanggal(sp3b.tglSelesai)} Tahun Anggaran{' '}
@@ -157,10 +155,10 @@ export default function Page() {
                                         new Date(sp3b.tglDokumen!)
                                     )}
                                 </td>
-                                <td className="border-[0.5pt] border-black px-3 pb-5 pt-2 text-center align-top font-serif">
+                                <td className="border-[0.5pt] border-black px-3 pt-2 pb-5 text-center align-top font-serif">
                                     1 (satu) berkas
                                 </td>
-                                <td className="border-[0.5pt] border-black px-3 pb-5 pt-2 text-justify align-top font-serif">
+                                <td className="border-[0.5pt] border-black px-3 pt-2 pb-5 text-justify align-top font-serif">
                                     Disampaikan dengan hormat untuk dapat diproses penerbitan Surat Pengesahan
                                     Pendapatan dan Belanja (SP2B)
                                 </td>
@@ -186,7 +184,7 @@ export default function Page() {
                 </div>
             </CardContent>
             <CardFooter>
-                <Button onClick={handlePrint}>Cetak</Button>
+                <Button onClick={() => handlePrint()}>Cetak</Button>
             </CardFooter>
         </Card>
     )

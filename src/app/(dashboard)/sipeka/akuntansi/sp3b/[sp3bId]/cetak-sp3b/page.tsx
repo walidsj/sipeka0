@@ -1,37 +1,20 @@
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { useParams } from 'react-router-dom'
 import { api } from '@/trpc/react'
 import Loading from '@/components/loading'
 import { useReactToPrint } from 'react-to-print'
 import React from 'react'
 import { Button } from '@/components/ui/button'
-import {
-    formatAngkaDecimal,
-    formatAngkaRomawi,
-    formatTanggal,
-} from '@/lib/utils'
+import { formatAngkaDecimal, formatAngkaRomawi, formatTanggal } from '@/lib/utils'
 import NotFound from '@/app/not-found'
 
 export default function Page() {
     const params = useParams<{ sp3bId: string }>()
 
-    const {
-        data: sp3b,
-        isError,
-        isLoading,
-    } = api.sp3b.getById.useQuery(Number(params.sp3bId))
+    const { data: sp3b, isError, isLoading } = api.sp3b.getById.useQuery(Number(params.sp3bId))
 
     const componentRef = React.useRef(null)
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-    })
+    const handlePrint = useReactToPrint({ contentRef: componentRef })
 
     if (isLoading) return <Loading />
 
@@ -70,10 +53,7 @@ export default function Page() {
                             <tbody>
                                 <tr>
                                     <td className="w-2/12 border-[0.5pt] border-black px-3 py-2 font-serif">
-                                        <img
-                                            src="/images/logo-kaltimprov.webp"
-                                            className="mx-auto h-20 w-16"
-                                        />
+                                        <img src="/images/logo-kaltimprov.webp" className="mx-auto h-20 w-16" />
                                     </td>
                                     <td className="w-10/12 border-[0.5pt] border-black px-3 py-2 align-top">
                                         <div
@@ -93,8 +73,7 @@ export default function Page() {
                                             }}
                                             className="mb-2 text-center font-bold uppercase"
                                         >
-                                            Surat Permintaan Pengesahan
-                                            Pendapatan dan Belanja (SP3B)
+                                            Surat Permintaan Pengesahan Pendapatan dan Belanja (SP3B)
                                         </div>
                                         <table className="w-full">
                                             <tbody>
@@ -113,8 +92,7 @@ export default function Page() {
                                                             fontFamily: 'Arial',
                                                         }}
                                                     >
-                                                        Rumah Sakit Jiwa Daerah
-                                                        Atma Husada Mahakam
+                                                        Rumah Sakit Jiwa Daerah Atma Husada Mahakam
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -131,9 +109,7 @@ export default function Page() {
                                                             fontFamily: 'Arial',
                                                         }}
                                                     >
-                                                        {formatTanggal(
-                                                            sp3b.tglDokumen
-                                                        )}
+                                                        {formatTanggal(sp3b.tglDokumen)}
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -152,15 +128,8 @@ export default function Page() {
                                                     >
                                                         {sp3b.noDokumen}
                                                         /RSJDAHM-BLUD/SP3B/
-                                                        {formatAngkaRomawi(
-                                                            new Date(
-                                                                sp3b.tglSelesai!
-                                                            ).getMonth() + 1
-                                                        )}
-                                                        /
-                                                        {new Date(
-                                                            sp3b.tglDokumen!
-                                                        ).getFullYear()}
+                                                        {formatAngkaRomawi(new Date(sp3b.tglSelesai!).getMonth() + 1)}/
+                                                        {new Date(sp3b.tglDokumen!).getFullYear()}
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -177,13 +146,8 @@ export default function Page() {
                                                             fontFamily: 'Arial',
                                                         }}
                                                     >
-                                                        {Intl.DateTimeFormat(
-                                                            'id-ID',
-                                                            { year: 'numeric' }
-                                                        ).format(
-                                                            new Date(
-                                                                sp3b.tglDokumen!
-                                                            )
+                                                        {Intl.DateTimeFormat('id-ID', { year: 'numeric' }).format(
+                                                            new Date(sp3b.tglDokumen!)
                                                         )}
                                                     </td>
                                                 </tr>
@@ -192,24 +156,17 @@ export default function Page() {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td
-                                        colSpan={2}
-                                        className="border-[0.5pt] border-black px-3 py-2 align-top"
-                                    >
+                                    <td colSpan={2} className="border-[0.5pt] border-black px-3 py-2 align-top">
                                         <p
                                             className="mb-4 text-justify"
                                             style={{
                                                 fontFamily: 'Arial',
                                             }}
                                         >
-                                            Kepala SKPD Rumah Sakit Jiwa Daerah
-                                            Atma Husada Mahakam memohon kepada
-                                            Bendahara Umum Daerah selaku PPKD
-                                            agar mengesahkan dan membukukan
-                                            pendapatan dan belanja periode{' '}
-                                            {formatTanggal(sp3b.tglMulai)} s.d.{' '}
-                                            {formatTanggal(sp3b.tglSelesai)}{' '}
-                                            sejumlah:
+                                            Kepala SKPD Rumah Sakit Jiwa Daerah Atma Husada Mahakam memohon kepada
+                                            Bendahara Umum Daerah selaku PPKD agar mengesahkan dan membukukan pendapatan
+                                            dan belanja periode {formatTanggal(sp3b.tglMulai)} s.d.{' '}
+                                            {formatTanggal(sp3b.tglSelesai)} sejumlah:
                                         </p>
                                         <table className="mb-5 w-2/3">
                                             <tbody>
@@ -243,9 +200,7 @@ export default function Page() {
                                                         }}
                                                         className="text-right"
                                                     >
-                                                        {formatAngkaDecimal(
-                                                            sp3b.saldoAwal
-                                                        )}
+                                                        {formatAngkaDecimal(sp3b.saldoAwal)}
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -277,10 +232,7 @@ export default function Page() {
                                                         }}
                                                         className="text-right"
                                                     >
-                                                        {formatAngkaDecimal(
-                                                            sp3b.pendapatan
-                                                                .total
-                                                        )}
+                                                        {formatAngkaDecimal(sp3b.pendapatan.total)}
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -313,12 +265,9 @@ export default function Page() {
                                                         className="text-right"
                                                     >
                                                         {formatAngkaDecimal(
-                                                            sp3b.belanja
-                                                                .pegawai +
-                                                                sp3b.belanja
-                                                                    .barjas +
-                                                                sp3b.belanja
-                                                                    .modal
+                                                            sp3b.belanja.pegawai +
+                                                                sp3b.belanja.barjas +
+                                                                sp3b.belanja.modal
                                                         )}
                                                     </td>
                                                 </tr>
@@ -352,9 +301,7 @@ export default function Page() {
                                                         }}
                                                         className="text-right"
                                                     >
-                                                        {formatAngkaDecimal(
-                                                            sp3b.belanja.pegawai
-                                                        )}
+                                                        {formatAngkaDecimal(sp3b.belanja.pegawai)}
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -386,9 +333,7 @@ export default function Page() {
                                                         }}
                                                         className="text-right"
                                                     >
-                                                        {formatAngkaDecimal(
-                                                            sp3b.belanja.barjas
-                                                        )}
+                                                        {formatAngkaDecimal(sp3b.belanja.barjas)}
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -405,8 +350,7 @@ export default function Page() {
                                                             fontFamily: 'Arial',
                                                         }}
                                                     >
-                                                        Belanja Modal Peralatan
-                                                        dan Mesin
+                                                        Belanja Modal Peralatan dan Mesin
                                                     </td>
                                                     <td
                                                         style={{
@@ -421,9 +365,7 @@ export default function Page() {
                                                         }}
                                                         className="text-right"
                                                     >
-                                                        {formatAngkaDecimal(
-                                                            sp3b.belanja.modal
-                                                        )}
+                                                        {formatAngkaDecimal(sp3b.belanja.modal)}
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -457,14 +399,10 @@ export default function Page() {
                                                     >
                                                         {formatAngkaDecimal(
                                                             sp3b.saldoAwal +
-                                                                sp3b.pendapatan
-                                                                    .total -
-                                                                (sp3b.belanja
-                                                                    .pegawai +
-                                                                    sp3b.belanja
-                                                                        .barjas +
-                                                                    sp3b.belanja
-                                                                        .modal)
+                                                                sp3b.pendapatan.total -
+                                                                (sp3b.belanja.pegawai +
+                                                                    sp3b.belanja.barjas +
+                                                                    sp3b.belanja.modal)
                                                         )}
                                                     </td>
                                                 </tr>
@@ -473,10 +411,7 @@ export default function Page() {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td
-                                        colSpan={2}
-                                        className="border-[0.5pt] border-black px-3 py-2"
-                                    >
+                                    <td colSpan={2} className="border-[0.5pt] border-black px-3 py-2">
                                         <div className="flex w-full">
                                             <div className="w-2/3"></div>
                                             <div className="w-1/3">
@@ -485,21 +420,14 @@ export default function Page() {
                                                         fontFamily: 'Arial',
                                                     }}
                                                 >
-                                                    Samarinda,{' '}
-                                                    {formatTanggal(
-                                                        sp3b.tglDokumen
-                                                    )}
+                                                    Samarinda, {formatTanggal(sp3b.tglDokumen)}
                                                 </div>
                                                 <div
                                                     style={{
                                                         fontFamily: 'Arial',
                                                     }}
                                                 >
-                                                    {
-                                                        sp3b.penandatangan
-                                                            ?.jabatan
-                                                    }
-                                                    ,
+                                                    {sp3b.penandatangan?.jabatan},
                                                 </div>
                                                 <div
                                                     style={{
@@ -507,12 +435,10 @@ export default function Page() {
                                                     }}
                                                     className="mt-14 underline"
                                                 >
-                                                    {sp3b.penandatangan
-                                                        ?.gelarDepan &&
+                                                    {sp3b.penandatangan?.gelarDepan &&
                                                         `${sp3b.penandatangan?.gelarDepan} `}
                                                     {sp3b.penandatangan?.nama}
-                                                    {sp3b.penandatangan
-                                                        ?.gelarBelakang &&
+                                                    {sp3b.penandatangan?.gelarBelakang &&
                                                         `, ${sp3b.penandatangan?.gelarBelakang}`}
                                                 </div>
                                                 <div
@@ -527,8 +453,7 @@ export default function Page() {
                                                         fontFamily: 'Arial',
                                                     }}
                                                 >
-                                                    NIP.{' '}
-                                                    {sp3b.penandatangan?.nip}
+                                                    NIP. {sp3b.penandatangan?.nip}
                                                 </div>
                                             </div>
                                         </div>
@@ -540,7 +465,7 @@ export default function Page() {
                 </div>
             </CardContent>
             <CardFooter>
-                <Button onClick={handlePrint}>Cetak</Button>
+                <Button onClick={() => handlePrint()}>Cetak</Button>
             </CardFooter>
         </Card>
     )
