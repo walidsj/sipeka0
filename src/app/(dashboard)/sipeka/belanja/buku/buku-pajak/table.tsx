@@ -1,21 +1,8 @@
 import Loading from '@/components/loading'
 import { Button } from '@/components/ui/button'
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableFooter,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from '@/components/ui/table'
+import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { formatAngka } from '@/lib/utils'
 import { api } from '@/trpc/react'
 import { keepPreviousData } from '@tanstack/react-query'
@@ -37,12 +24,8 @@ export default function BkPajakTable() {
         data: belanja,
     } = api.belanja.getAllBkPajak.useQuery(
         {
-            startDate: searchParams.get('startDate')
-                ? new Date(searchParams.get('startDate')!)
-                : undefined,
-            endDate: searchParams.get('endDate')
-                ? new Date(searchParams.get('endDate')!)
-                : undefined,
+            startDate: searchParams.get('startDate') ? new Date(searchParams.get('startDate')!) : undefined,
+            endDate: searchParams.get('endDate') ? new Date(searchParams.get('endDate')!) : undefined,
         },
         { placeholderData: keepPreviousData }
     )
@@ -65,10 +48,7 @@ export default function BkPajakTable() {
             <div className="flex flex-row items-center gap-5">
                 <div className="flex gap-2">
                     <Input
-                        value={
-                            searchParams.get('startDate') ||
-                            format(new Date(), 'yyyy-MM-01')
-                        }
+                        value={searchParams.get('startDate') || format(new Date(), 'yyyy-MM-01')}
                         type="date"
                         onChange={(e) => {
                             searchParams.set('startDate', e.target.value)
@@ -77,10 +57,7 @@ export default function BkPajakTable() {
                     />
                     <Input
                         type="date"
-                        value={
-                            searchParams.get('endDate') ||
-                            format(new Date(), 'yyyy-MM-dd')
-                        }
+                        value={searchParams.get('endDate') || format(new Date(), 'yyyy-MM-dd')}
                         onChange={(e) => {
                             searchParams.set('endDate', e.target.value)
                             setSearchParams(searchParams)
@@ -92,16 +69,10 @@ export default function BkPajakTable() {
                 <TableHeader>
                     <TableRow>
                         <TableHead className="w-1">No.</TableHead>
-                        <TableHead className="text-center">
-                            Tanggal Dokumen
-                        </TableHead>
-                        <TableHead className="text-center">
-                            Nomor Dokumen
-                        </TableHead>
+                        <TableHead className="text-center">Tanggal Dokumen</TableHead>
+                        <TableHead className="text-center">Nomor Dokumen</TableHead>
                         <TableHead>Uraian</TableHead>
-                        <TableHead className="text-center">
-                            Kode Billing
-                        </TableHead>
+                        <TableHead className="text-center">Kode Billing</TableHead>
                         <TableHead>NTPN</TableHead>
                         <TableHead>Penerimaan</TableHead>
                         <TableHead>Pengeluaran</TableHead>
@@ -121,48 +92,35 @@ export default function BkPajakTable() {
                             return (
                                 <React.Fragment key={index}>
                                     <TableRow>
-                                        <TableCell className="text-center">
-                                            {++no}.
-                                        </TableCell>
+                                        <TableCell className="text-center">{++no}.</TableCell>
                                         <TableCell className="text-center">
                                             {Intl.DateTimeFormat('id-ID', {
                                                 day: '2-digit',
                                                 month: '2-digit',
                                                 year: 'numeric',
-                                            }).format(
-                                                blj.tglDokumen || new Date()
-                                            )}
+                                            }).format(blj.tglDokumen || new Date())}
                                         </TableCell>
-                                        <TableCell className="text-center">
-                                            {blj.noDokumen}
-                                        </TableCell>
+                                        <TableCell className="text-center">{blj.noDokumen}</TableCell>
                                         <TableCell>
                                             Pemotongan {item.jenis} {blj.uraian}
                                         </TableCell>
-                                        <TableCell className="text-center">
-                                            {item.billing}
-                                        </TableCell>
+                                        <TableCell className="text-center">{item.billing}</TableCell>
                                         <TableCell className="text-center"></TableCell>
-                                        <TableCell className="text-right">
-                                            {formatAngka(item.jumlah)}
-                                        </TableCell>
+                                        <TableCell className="text-right">{formatAngka(item.jumlah)}</TableCell>
                                         <TableCell></TableCell>
                                         <TableCell className="text-right">
-                                            {formatAngka(
-                                                (saldo += Number(item.jumlah))
-                                            )}
+                                            {formatAngka((saldo += Number(item.jumlah)))}
                                         </TableCell>
                                         <TableCell>
                                             <DropdownMenu>
                                                 <DropdownMenuTrigger asChild>
                                                     <Button variant="outline">
-                                                        Aksi{' '}
-                                                        <HiOutlineChevronDoubleDown className="ml-2" />
+                                                        Aksi <HiOutlineChevronDoubleDown className="ml-2" />
                                                     </Button>
                                                 </DropdownMenuTrigger>
                                                 <DropdownMenuContent align="start">
                                                     <Link
-                                                        to={`__DASHBOARD_PREFIX__/belanja/perekaman/${blj.id}/potongan/${item.id}/edit`}
+                                                        to={`/sipeka/belanja/perekaman/${blj.id}/potongan/${item.id}/edit`}
                                                     >
                                                         <DropdownMenuItem>
                                                             <HiOutlinePencil className="mr-2" />
@@ -183,28 +141,17 @@ export default function BkPajakTable() {
                                                 `a.n. ${blj.rekanan.nama} ${blj.rekanan.npwp && `(${blj.rekanan.npwp})`}`}
                                             {blj.pegawai &&
                                                 `a.n. ${blj.pegawai.gelarDepan && `${blj.pegawai.gelarDepan} `}${blj.pegawai.nama}${
-                                                    blj.pegawai.gelarBelakang &&
-                                                    `, ${blj.pegawai.gelarBelakang}`
+                                                    blj.pegawai.gelarBelakang && `, ${blj.pegawai.gelarBelakang}`
                                                 } ${blj.pegawai.npwp && `(${blj.pegawai.npwp})`}`}
                                         </TableCell>
                                         <TableCell className="text-center"></TableCell>
-                                        <TableCell className="text-center">
-                                            {item.ntpn}
-                                        </TableCell>
+                                        <TableCell className="text-center">{item.ntpn}</TableCell>
                                         <TableCell></TableCell>
                                         <TableCell className="text-right">
-                                            {formatAngka(
-                                                item.ntpn ? item.jumlah : 0
-                                            )}
+                                            {formatAngka(item.ntpn ? item.jumlah : 0)}
                                         </TableCell>
                                         <TableCell className="text-right">
-                                            {formatAngka(
-                                                item.ntpn
-                                                    ? (saldo -= Number(
-                                                          item.jumlah
-                                                      ))
-                                                    : saldo
-                                            )}
+                                            {formatAngka(item.ntpn ? (saldo -= Number(item.jumlah)) : saldo)}
                                         </TableCell>
                                         <TableCell></TableCell>
                                     </TableRow>
@@ -223,15 +170,9 @@ export default function BkPajakTable() {
                 <TableFooter>
                     <TableRow>
                         <TableHead colSpan={6}>Total</TableHead>
-                        <TableHead className="text-right">
-                            {formatAngka(totalPenerimaan)}
-                        </TableHead>
-                        <TableHead className="text-right">
-                            {formatAngka(totalPengeluaran)}
-                        </TableHead>
-                        <TableHead className="text-right">
-                            {formatAngka(saldo)}
-                        </TableHead>
+                        <TableHead className="text-right">{formatAngka(totalPenerimaan)}</TableHead>
+                        <TableHead className="text-right">{formatAngka(totalPengeluaran)}</TableHead>
+                        <TableHead className="text-right">{formatAngka(saldo)}</TableHead>
                         <TableHead />
                     </TableRow>
                 </TableFooter>
