@@ -1,13 +1,6 @@
 import { dba } from '@/server/db/schema'
 import { Button } from '@/components/ui/button'
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from '@/components/ui/form'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { api } from '@/trpc/react'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -42,7 +35,7 @@ export default function EditForm({ data }: { data: typeof dba.$inferSelect }) {
         onSuccess(data) {
             toast.dismiss()
             utils.dba.getById.invalidate()
-            navigate('/anggaran/dba/penetapan')
+            navigate('/sipeka/anggaran/dba/penetapan')
             toast.success(data.message)
         },
         onError(error) {
@@ -58,22 +51,14 @@ export default function EditForm({ data }: { data: typeof dba.$inferSelect }) {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
-                <fieldset
-                    disabled={edit.isPending}
-                    className="flex max-w-96 flex-col gap-2"
-                >
+                <fieldset disabled={edit.isPending} className="flex max-w-96 flex-col gap-2">
                     <FormField
                         name="rbaId"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Dokumen RBA</FormLabel>
                                 <FormControl>
-                                    <RbaPicker
-                                        value={field.value}
-                                        onValueChange={(val) =>
-                                            field.onChange(val)
-                                        }
-                                    />
+                                    <RbaPicker value={field.value} onValueChange={(val) => field.onChange(val)} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -111,19 +96,8 @@ export default function EditForm({ data }: { data: typeof dba.$inferSelect }) {
                                 <FormControl>
                                     <Input
                                         type="date"
-                                        onChange={(e) =>
-                                            field.onChange(
-                                                new Date(e.target.value)
-                                            )
-                                        }
-                                        value={
-                                            field.value
-                                                ? format(
-                                                      new Date(field.value),
-                                                      'yyyy-MM-dd'
-                                                  )
-                                                : undefined
-                                        }
+                                        onChange={(e) => field.onChange(new Date(e.target.value))}
+                                        value={field.value ? format(new Date(field.value), 'yyyy-MM-dd') : undefined}
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -131,9 +105,7 @@ export default function EditForm({ data }: { data: typeof dba.$inferSelect }) {
                         )}
                     />
                     <div className="mt-3">
-                        <Button type="submit">
-                            {edit.isPending ? 'Menyimpan...' : 'Simpan'}
-                        </Button>
+                        <Button type="submit">{edit.isPending ? 'Menyimpan...' : 'Simpan'}</Button>
                     </div>
                 </fieldset>
             </form>

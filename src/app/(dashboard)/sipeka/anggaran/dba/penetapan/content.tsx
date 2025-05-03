@@ -1,10 +1,5 @@
 import { Button } from '@/components/ui/button'
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { api } from '@/trpc/react'
 import { keepPreviousData } from '@tanstack/react-query'
 import { format } from 'date-fns'
@@ -12,20 +7,11 @@ import toast from 'react-hot-toast'
 import { FiChevronsDown, FiEdit, FiTrash } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { id } from 'date-fns/locale'
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import Loading from '@/components/loading'
 
 export default function DbaContentList() {
-    const dba = api.dba.getAll.useQuery(
-        {},
-        { placeholderData: keepPreviousData }
-    )
+    const dba = api.dba.getAll.useQuery({}, { placeholderData: keepPreviousData })
 
     const deleteDba = api.dba.deleteById.useMutation({
         onMutate() {
@@ -54,32 +40,19 @@ export default function DbaContentList() {
                     <Card key={index}>
                         <CardHeader>
                             <div className="mb-2">
-                                <img
-                                    src="/images/icons/document.png"
-                                    className="h-14"
-                                    alt="DBA"
-                                />
+                                <img src="/images/icons/document.png" className="h-14" alt="DBA" />
                             </div>
                             <CardTitle>{item.uraian}</CardTitle>
                             <CardDescription>
                                 No. {item.noDokumen} tanggal{' '}
-                                {format(
-                                    String(item.tglDokumen),
-                                    'dd MMMM yyyy',
-                                    {
-                                        locale: id,
-                                    }
-                                )}
+                                {format(String(item.tglDokumen), 'dd MMMM yyyy', {
+                                    locale: id,
+                                })}
                             </CardDescription>
                             <p className="rounded-lg border border-yellow-300 bg-yellow-50 p-2 text-xs text-black">
                                 RBA: {item.rba?.noDokumen}
                                 <br />
-                                Tanggal:{' '}
-                                {format(
-                                    String(item.rba?.tglDokumen),
-                                    'dd MMMM yyyy',
-                                    { locale: id }
-                                )}
+                                Tanggal: {format(String(item.rba?.tglDokumen), 'dd MMMM yyyy', { locale: id })}
                             </p>
                         </CardHeader>
                         <CardContent>
@@ -87,14 +60,11 @@ export default function DbaContentList() {
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
                                         <Button variant="outline">
-                                            Aksi{' '}
-                                            <FiChevronsDown className="ml-2" />
+                                            Aksi <FiChevronsDown className="ml-2" />
                                         </Button>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent align="start">
-                                        <Link
-                                            to={`/anggaran/dba/penetapan/${item.id}/edit`}
-                                        >
+                                        <Link to={`/sipeka/anggaran/dba/penetapan/${item.id}/edit`}>
                                             <DropdownMenuItem>
                                                 <FiEdit className="mr-2" />
                                                 Edit
@@ -102,11 +72,7 @@ export default function DbaContentList() {
                                         </Link>
                                         <DropdownMenuItem
                                             onClick={() => {
-                                                if (
-                                                    confirm(
-                                                        'Apakah anda yakin menghapus data ini?'
-                                                    )
-                                                ) {
+                                                if (confirm('Apakah anda yakin menghapus data ini?')) {
                                                     deleteDba.mutate(item.id)
                                                 }
                                             }}
@@ -121,12 +87,8 @@ export default function DbaContentList() {
                         </CardContent>
                     </Card>
                 ))}
-            {dba.isSuccess && dba.data?.length === 0 && (
-                <div className="col-span-3">Tidak ada data</div>
-            )}
-            {dba.isError && (
-                <div className="col-span-3">{dba.error.message}</div>
-            )}
+            {dba.isSuccess && dba.data?.length === 0 && <div className="col-span-3">Tidak ada data</div>}
+            {dba.isError && <div className="col-span-3">{dba.error.message}</div>}
         </div>
     )
 }

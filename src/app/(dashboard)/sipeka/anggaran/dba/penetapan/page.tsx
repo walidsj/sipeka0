@@ -8,7 +8,7 @@ export default function Page() {
         <div className="flex flex-col gap-5">
             <div>
                 <Button asChild>
-                    <Link to="/anggaran/dba/penetapan/tambah">
+                    <Link to="/sipeka/anggaran/dba/penetapan/tambah">
                         <FiPlus className="mr-2" />
                         Buat Dokumen
                     </Link>

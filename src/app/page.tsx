@@ -3,12 +3,7 @@ import { CardDescription } from '@/components/ui/card'
 import { FiArrowRight } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { FlipWords } from '@/components/ui/flip-words'
-import {
-    Card3dContent,
-    Card3d,
-    Card3dItem,
-    Card3dHeader,
-} from '@/components/ui/card-3d'
+import { Card3dContent, Card3d, Card3dItem, Card3dHeader } from '@/components/ui/card-3d'
 import { ChartContainer } from '@/components/ui/chart'
 import { Bar, BarChart, CartesianGrid, Legend, Tooltip, XAxis } from 'recharts'
 import { api } from '@/trpc/react'
@@ -29,11 +24,7 @@ export default function Home() {
                     <div className="mb-10 flex">
                         <div className="text-4xl font-extrabold">
                             Bring you <span className="text-blue-500">a</span>
-                            <FlipWords
-                                className="text-blue-500"
-                                words={words}
-                            />{' '}
-                            <br />
+                            <FlipWords className="text-blue-500" words={words} /> <br />
                             financial information system
                         </div>
                     </div>
@@ -42,27 +33,17 @@ export default function Home() {
                             <Card3dHeader>
                                 <Card3dItem translateZ={30}>
                                     <div>
-                                        <img
-                                            src="/images/logo-sipeka-full-long.svg"
-                                            className="h-10"
-                                        />
+                                        <img src="/images/logo-sipeka-full-long.svg" className="h-10" />
                                     </div>
                                 </Card3dItem>
                                 <Card3dItem translateZ={40}>
-                                    <CardDescription>
-                                        Manajemen Keuangan BLUD RSJD Atma Husada
-                                        Mahakam
-                                    </CardDescription>
+                                    <CardDescription>Manajemen Keuangan BLUD RSJD Atma Husada Mahakam</CardDescription>
                                 </Card3dItem>
                             </Card3dHeader>
                             <Card3dContent>
                                 <Card3dItem translateZ={30}>
-                                    <Button
-                                        asChild
-                                        size="lg"
-                                        className="w-full md:w-auto"
-                                    >
-                                        <Link to="__DASHBOARD_PREFIX__">
+                                    <Button asChild size="lg" className="w-full md:w-auto">
+                                        <Link to="/sipeka">
                                             Akses
                                             <FiArrowRight className="ml-3 h-5 w-5 shrink-0" />
                                         </Link>
@@ -74,27 +55,19 @@ export default function Home() {
                             <Card3dHeader>
                                 <Card3dItem translateZ={30}>
                                     <div>
-                                        <img
-                                            src="/images/logo-myatma.svg"
-                                            className="h-10"
-                                        />
+                                        <img src="/images/logo-myatma.svg" className="h-10" />
                                     </div>
                                 </Card3dItem>
                                 <Card3dItem translateZ={40}>
                                     <CardDescription>
-                                        Sistem Informasi Keuangan Pegawai RSJD
-                                        Atma Husada Mahakam
+                                        Sistem Informasi Keuangan Pegawai RSJD Atma Husada Mahakam
                                     </CardDescription>
                                 </Card3dItem>
                             </Card3dHeader>
                             <Card3dContent>
                                 <Card3dItem translateZ={30}>
-                                    <Button
-                                        asChild
-                                        size="lg"
-                                        className="w-full md:w-auto"
-                                    >
-                                        <Link to="__CLIENT_PREFIX__">
+                                    <Button asChild size="lg" className="w-full md:w-auto">
+                                        <Link to="/myatma">
                                             Akses
                                             <FiArrowRight className="ml-3 h-5 w-5 shrink-0" />
                                         </Link>
@@ -121,28 +94,12 @@ export default function Home() {
                             }}
                         >
                             <BarChart accessibilityLayer data={chartData}>
-                                <Tooltip
-                                    formatter={(value) =>
-                                        `Rp ${Intl.NumberFormat('id').format(Number(value))}`
-                                    }
-                                />
+                                <Tooltip formatter={(value) => `Rp ${Intl.NumberFormat('id').format(Number(value))}`} />
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="name" stroke="0" />
-                                <Bar
-                                    dataKey="Belanja Pegawai"
-                                    fill="#3c83f6"
-                                    stackId="a"
-                                />
-                                <Bar
-                                    dataKey="Belanja Barang Jasa"
-                                    fill="#10b981"
-                                    stackId="a"
-                                />
-                                <Bar
-                                    dataKey="Belanja Modal"
-                                    fill="#eab308"
-                                    stackId="a"
-                                />
+                                <Bar dataKey="Belanja Pegawai" fill="#3c83f6" stackId="a" />
+                                <Bar dataKey="Belanja Barang Jasa" fill="#10b981" stackId="a" />
+                                <Bar dataKey="Belanja Modal" fill="#eab308" stackId="a" />
 
                                 <Legend />
                             </BarChart>
