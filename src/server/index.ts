@@ -64,6 +64,22 @@ const server = serve({
             }
             return new Response('File not found', { status: 404 })
         },
+        '/images/*': async (req) => {
+            const url = new URL(req.url)
+            const filePath = './public' + url.pathname
+            const file = Bun.file(filePath)
+            if (await file.exists()) {
+                const compressed = Bun.gzipSync(await file.arrayBuffer())
+                return new Response(compressed, {
+                    headers: {
+                        'Content-Type': file.type,
+                        'Content-Encoding': 'gzip',
+                        'Cache-Control': 'public, max-age=31536000, immutable',
+                    },
+                })
+            }
+            return new Response('File not found', { status: 404 })
+        },
         '/api/trpc/*': { POST: trpcHandler, GET: trpcHandler },
         '/api/storage/files/belanja/*': async (req) => {
             const url = new URL(req.url)
