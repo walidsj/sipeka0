@@ -18,19 +18,20 @@ const server = serve({
     development: isDev,
     port: isDev ? 3000 : 8089,
     routes: {
-        '/*': isDev
-            ? index
-            : async () => {
-                  const file = Bun.file('./.dist/index.html')
-                  const compressed = Bun.gzipSync(await file.text())
-                  return new Response(compressed, {
-                      headers: {
-                          'Content-Type': file.type,
-                          'Content-Encoding': 'gzip',
-                          'Cache-Control': 'private, max-age=86400, stale-while-revalidate=604800',
-                      },
-                  })
-              },
+        '/*':
+            // isDev ?
+            index,
+        // : async () => {
+        //       const file = Bun.file('./.dist/index.html')
+        //       const compressed = Bun.gzipSync(await file.text())
+        //       return new Response(compressed, {
+        //           headers: {
+        //               'Content-Type': file.type,
+        //               'Content-Encoding': 'gzip',
+        //               'Cache-Control': 'private, max-age=86400, stale-while-revalidate=604800',
+        //           },
+        //       })
+        //   }
         '/assets/*': async (req: Request) => {
             const url = new URL(req.url)
             const filePath = url.pathname.replace('/assets', './.dist')
