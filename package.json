@@ -4,17 +4,12 @@
     "version": "0.0.21",
     "type": "module",
     "scripts": {
-        "dev": "bun --hot src/server/index.ts",
-        "start": "NODE_ENV=production bun src/server/index.ts",
-        "old:dev": "concurrently \"npm run dev:server\" \"npm run dev:web\"",
-        "old:start": "bun src/server/index.ts",
-        "dev:server": "cross-env NODE_ENV=development tsx watch src/server/index.ts",
-        "dev:web": "vite --host 0.0.0.0",
-        "build:web": "vite build",
-        "build:server": "cross-env NODE_ENV=production tsup src/server/index.ts",
+        "dev": "bun run cli/dev.ts",
+        "start": "bun run cli/start.ts",
+        "build": "bun run cli/build.ts",
         "db:generate": "drizzle-kit generate",
-        "db:push": "drizzle-kit push",
-        "lint": "eslint --ext .ts,.tsx ."
+        "db:migrate": "drizzle-kit migrate",
+        "db:push": "drizzle-kit push"
     },
     "dependencies": {
         "@hookform/resolvers": "^5.0.1",
