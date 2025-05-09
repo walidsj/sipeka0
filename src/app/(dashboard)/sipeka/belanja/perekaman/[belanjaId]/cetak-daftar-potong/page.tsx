@@ -14,9 +14,7 @@ export default function Page() {
     const { data: belanja, isError, isLoading } = api.belanja.getById.useQuery(Number(params.belanjaId))
 
     const componentRef = React.useRef(null)
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-    })
+    const handlePrint = useReactToPrint({ contentRef: componentRef })
 
     if (isLoading) return <Loading />
 
@@ -224,7 +222,7 @@ export default function Page() {
                 </div>
             </CardContent>
             <CardFooter>
-                <Button onClick={handlePrint}>Cetak</Button>
+                <Button onClick={() => handlePrint()}>Cetak</Button>
             </CardFooter>
         </Card>
     )

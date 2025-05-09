@@ -21,9 +21,7 @@ export default function Page() {
     const { data: belanja, isError, isLoading } = api.belanja.getById.useQuery(Number(params.belanjaId))
 
     const componentRef = React.useRef(null)
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-    })
+    const handlePrint = useReactToPrint({ contentRef: componentRef })
 
     if (isLoading) return <Loading />
 
@@ -131,18 +129,18 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[5mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="font-arial h-[5mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]">
                                                             {belanja.rekanan?.noRekening || belanja.pegawai?.noRekening}
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[5mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="font-arial h-[5mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]">
                                                             {belanja.rekanan?.namaRekening ||
                                                                 belanja.pegawai?.namaRekening}
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[5mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="font-arial h-[5mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]">
                                                             {formatAngkaDecimal(
                                                                 Number(
                                                                     Number(belanja.jumlah) -
@@ -155,7 +153,7 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[8.5mm] border border-transparent py-0 align-top font-arial text-[7pt] leading-[8pt]">
+                                                        <td className="font-arial h-[8.5mm] border border-transparent py-0 align-top text-[7pt] leading-[8pt]">
                                                             {ucFirst(
                                                                 terbilang(
                                                                     Number(
@@ -172,13 +170,13 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[5mm] border border-transparent py-0 align-top font-arial text-[7pt] leading-[8pt]">
+                                                        <td className="font-arial h-[5mm] border border-transparent py-0 align-top text-[7pt] leading-[8pt]">
                                                             {belanja.uraian}
                                                         </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            <p className="ml-[1cm] mt-[5mm] font-arial text-[8pt] leading-[9pt]">
+                                            <p className="font-arial mt-[5mm] ml-[1cm] text-[8pt] leading-[9pt]">
                                                 BLUD RSJD AHM
                                             </p>
                                         </td>
@@ -186,7 +184,7 @@ export default function Page() {
                                             <table className="text-black-500 w-full border-separate border-spacing-[0.75mm]">
                                                 <tbody>
                                                     <tr>
-                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]"></td>
+                                                        <td className="font-arial h-[4mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]"></td>
                                                     </tr>
                                                     <tr>
                                                         <td className="h-[4mm] border border-transparent py-0 align-top text-[10pt] leading-[11pt]">
@@ -194,7 +192,7 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="font-arial h-[4mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]">
                                                             RSJD AHM /{' '}
                                                             {
                                                                 penyetorList.find(
@@ -204,12 +202,12 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="font-arial h-[4mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]">
                                                             Jl. Kakap No. 34
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="font-arial h-[4mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]">
                                                             {
                                                                 penyetorList.find(
                                                                     (item) => item.id === searchParams.get('penyetorId')
@@ -254,26 +252,26 @@ export default function Page() {
                                             <table className="text-black-500 mt-[4mm] w-[100%] border-separate border-spacing-[0.3mm]">
                                                 <tbody>
                                                     <tr>
-                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="font-arial h-[4mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]">
                                                             {belanja.rekanan?.namaRekening ||
                                                                 belanja.pegawai?.namaRekening}
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[6pt] leading-[5pt]">
+                                                        <td className="font-arial h-[4mm] border border-transparent py-0 align-top text-[6pt] leading-[5pt]">
                                                             {belanja.rekanan?.alamat}
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]"></td>
+                                                        <td className="font-arial h-[4mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="font-arial h-[4mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]">
                                                             {belanja.rekanan?.noTelp}
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="font-arial h-[4mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]">
                                                             {belanja.rekanan?.bank?.nama || belanja.pegawai?.bank?.nama}
                                                             (
                                                             {belanja.rekanan?.bank?.kode || belanja.pegawai?.bank?.kode}
@@ -281,10 +279,10 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]"></td>
+                                                        <td className="font-arial h-[4mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border border-transparent py-0 pl-[2mm] align-top font-arial text-[9pt] leading-[10pt]">
+                                                        <td className="font-arial h-[4mm] border border-transparent py-0 pl-[2mm] align-top text-[9pt] leading-[10pt]">
                                                             {belanja.rekanan?.noRekening || belanja.pegawai?.noRekening}
                                                         </td>
                                                     </tr>
@@ -293,7 +291,7 @@ export default function Page() {
                                             <table className="text-black-500 mt-[5mm] w-[100%] border-separate border-spacing-[0.25mm]">
                                                 <tbody>
                                                     <tr>
-                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="font-arial h-[4mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]">
                                                             RSJD AHM /{' '}
                                                             {
                                                                 penyetorList.find(
@@ -303,29 +301,29 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[7pt] leading-[8pt]">
+                                                        <td className="font-arial h-[4mm] border border-transparent py-0 align-top text-[7pt] leading-[8pt]">
                                                             Jl. Kakap No. 23
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]"></td>
+                                                        <td className="font-arial h-[4mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="font-arial h-[4mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]">
                                                             {penyetorList.find(
                                                                 (item) => item.id === searchParams.get('penyetorId')
                                                             )?.noTelp || '085172277277'}
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]"></td>
+                                                        <td className="font-arial h-[4mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]"></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                             <table className="text-black-500 mt-[6mm] w-[100%] border-separate border-spacing-[0.25mm]">
                                                 <tbody>
                                                     <tr>
-                                                        <td className="h-[4mm] border border-transparent py-0 pl-[1.25cm] align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="font-arial h-[4mm] border border-transparent py-0 pl-[1.25cm] align-top text-[8pt] leading-[9pt]">
                                                             BLUD RSJD AHM
                                                         </td>
                                                     </tr>
@@ -336,23 +334,23 @@ export default function Page() {
                                             <table className="text-black-500 w-[100%] border-separate border-spacing-[0.25mm]">
                                                 <tbody>
                                                     <tr>
-                                                        <td className="h-[4mm] border border-transparent py-0 pl-[1cm] align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="font-arial h-[4mm] border border-transparent py-0 pl-[1cm] align-top text-[8pt] leading-[9pt]">
                                                             <FaCheck />
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="border border-transparent py-2 align-top font-arial text-[8pt] leading-[9pt]">
+                                                        <td className="font-arial border border-transparent py-2 align-top text-[8pt] leading-[9pt]">
                                                             <FaCheck />
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]"></td>
+                                                        <td className="font-arial h-[4mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4.5mm] border border-transparent py-0 align-top font-arial text-[8pt] leading-[9pt]"></td>
+                                                        <td className="font-arial h-[4.5mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4.5mm] border border-transparent py-0 text-right align-bottom font-arial text-[9pt] leading-[10pt]">
+                                                        <td className="font-arial h-[4.5mm] border border-transparent py-0 text-right align-bottom text-[9pt] leading-[10pt]">
                                                             {formatAngkaDecimal(
                                                                 Number(belanja.jumlah) -
                                                                     belanja.potonganBelanja.reduce(
@@ -366,12 +364,12 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4.5mm] border border-transparent py-0 text-right align-bottom font-arial text-[9pt] leading-[10pt]">
+                                                        <td className="font-arial h-[4.5mm] border border-transparent py-0 text-right align-bottom text-[9pt] leading-[10pt]">
                                                             {formatAngkaDecimal(biayaAdmin)}
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[4.5mm] border border-transparent py-0 text-right align-bottom font-arial text-[9pt] leading-[10pt]">
+                                                        <td className="font-arial h-[4.5mm] border border-transparent py-0 text-right align-bottom text-[9pt] leading-[10pt]">
                                                             {formatAngkaDecimal(
                                                                 (searchParams.get('includeAdminBank') === 'true'
                                                                     ? biayaAdmin
@@ -385,7 +383,7 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[2cm] border border-transparent py-0 pt-[8mm] align-top font-arial text-[7pt] leading-[8pt]">
+                                                        <td className="font-arial h-[2cm] border border-transparent py-0 pt-[8mm] align-top text-[7pt] leading-[8pt]">
                                                             {ucFirst(
                                                                 terbilang(
                                                                     (searchParams.get('includeAdminBank') === 'true'
@@ -402,7 +400,7 @@ export default function Page() {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="h-[1cm] border border-transparent py-0 pt-[5mm] align-top font-arial text-[7pt] leading-[8pt]">
+                                                        <td className="font-arial h-[1cm] border border-transparent py-0 pt-[5mm] align-top text-[7pt] leading-[8pt]">
                                                             {belanja.uraian}
                                                         </td>
                                                     </tr>
@@ -417,7 +415,7 @@ export default function Page() {
                 </div>
             </CardContent>
             <CardFooter>
-                <Button onClick={handlePrint}>Cetak</Button>
+                <Button onClick={() => handlePrint()}>Cetak</Button>
             </CardFooter>
         </Card>
     )
