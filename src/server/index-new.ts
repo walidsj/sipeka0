@@ -1,23 +1,32 @@
-// import { appRouter } from './api/root'
+import { appRouter } from './api/root-new'
 import express from 'express'
-// import { createExpressMiddleware, type CreateExpressContextOptions } from '@trpc/server/adapters/express'
-// import { getSession } from './auth'
-// import { db } from './db'
+import { createExpressMiddleware, type CreateExpressContextOptions } from '@trpc/server/adapters/express'
+import { getSession } from './auth'
+import { db } from './db'
 import _ from 'lodash'
 import { createProxyMiddleware } from 'http-proxy-middleware'
-// import { createTRPCContext } from './trpc'
 
 const app = express()
 
 app.use(express.json())
 
-// app.use(
-//     '/api/trpc',
-//     createExpressMiddleware({
-//         router: appRouter,
-//         createContext: createTRPCContext,
-//     })
-// )
+app.use(
+    '/api/trpc',
+    createExpressMiddleware({
+        router: appRouter,
+        createContext: async ({ req }: CreateExpressContextOptions) => ({
+            headers: req.headers,
+            db,
+            session: await getSession(req.headers.authorization ?? ''),
+        }),
+        onError:
+            process.env.NODE_ENV === 'development'
+                ? ({ path, error }) => {
+                      console.error(`❌ tRPC failed on ${path ?? '<no-path>'}: ${error.message}`)
+                  }
+                : undefined,
+    })
+)
 
 app.use('/api/storage/files/belanja/:file', (req, res) => {
     res.sendFile(req.params.file, {

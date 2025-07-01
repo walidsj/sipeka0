@@ -2,7 +2,7 @@ import { serve } from 'bun'
 import { createTRPCContext } from './trpc'
 import { appRouter } from './api/root'
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
-import index from '@/web/index.html'
+import index from '@/web/index-bun.html'
 
 const trpcHandler = async (req: Request) =>
     fetchRequestHandler({
@@ -38,7 +38,10 @@ const server = serve({
             const file = Bun.file(filePath)
             if (await file.exists()) {
                 const compressed = Bun.gzipSync(await file.arrayBuffer())
-                return new Response(compressed, {
+
+                const uint8Array = new Uint8Array(compressed)
+
+                return new Response(uint8Array, {
                     headers: {
                         'Content-Type': file.type,
                         'Content-Encoding': 'gzip',
@@ -54,7 +57,10 @@ const server = serve({
             const file = Bun.file(filePath)
             if (await file.exists()) {
                 const compressed = Bun.gzipSync(await file.arrayBuffer())
-                return new Response(compressed, {
+
+                const uint8Array = new Uint8Array(compressed)
+
+                return new Response(uint8Array, {
                     headers: {
                         'Content-Type': file.type,
                         'Content-Encoding': 'gzip',
@@ -70,7 +76,10 @@ const server = serve({
             const file = Bun.file(filePath)
             if (await file.exists()) {
                 const compressed = Bun.gzipSync(await file.arrayBuffer())
-                return new Response(compressed, {
+
+                const uint8Array = new Uint8Array(compressed)
+
+                return new Response(uint8Array, {
                     headers: {
                         'Content-Type': file.type,
                         'Content-Encoding': 'gzip',

@@ -6,7 +6,9 @@
     "scripts": {
         "dev": "bun run cli/dev.ts",
         "start": "bun run cli/start.ts",
+        "start-new": "bun run cli/start-new.ts",
         "build": "bun run cli/build.ts",
+        "build-new": "vite build",
         "db:generate": "drizzle-kit generate",
         "db:migrate": "drizzle-kit migrate",
         "db:push": "drizzle-kit push"
