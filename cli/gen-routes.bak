@@ -686,7 +686,18 @@ async function build() {
 import React from "react"
 
 import {
+  Link as _Link,
+  NavLink as _NavLink,
+  Navigate as _Navigate,
+  generatePath,
+  useNavigate as _useNavigate,
+  useParams as _useParams,
+
   type DataRouteObject,
+  type LinkProps as _LinkProps,
+  type NavLinkProps as _NavLinkProps,
+  type NavigateProps as _ReactRouterNavigateProps,
+  type NavigateOptions as _NavigateOptions,
 } from "react-router"
 
 // ============================================================
@@ -709,6 +720,332 @@ export type Params = ${paramsType}
 export const routes: DataRouteObject[] = [
 ${generatedRoutes}
 ]
+
+// ============================================================
+// To
+// ============================================================
+
+export type To<Pathname = string> = {
+  pathname: Pathname
+  search?: string
+  hash?: string
+}
+
+// ============================================================
+// Route params helper
+// ============================================================
+
+type RouteParams<
+  Path,
+  ParamsMap extends Record<string, any>,
+> =
+  Path extends keyof ParamsMap
+    ? {
+        params: ParamsMap[Path]
+      }
+    : Path extends {
+          pathname: infer Pathname
+        }
+      ? Pathname extends keyof ParamsMap
+        ? {
+            params: ParamsMap[Pathname]
+          }
+        : {
+            params?: never
+          }
+      : {
+          params?: never
+        }
+
+// ============================================================
+// Link
+// ============================================================
+
+export type LinkProps<
+  Path extends string | To,
+  ParamsMap extends Record<string, any> = Params,
+> =
+  Omit<_LinkProps, "to"> &
+  {
+    to: Path
+  } &
+  RouteParams<Path, ParamsMap>
+
+type LinkComponent = <
+  P extends Paths | To<Paths>,
+>(
+  props: LinkProps<P> & {
+    ref?: React.ForwardedRef<HTMLAnchorElement>
+  },
+) => React.ReactElement
+
+function LinkImpl<
+  P extends Paths | To<Paths>,
+>(
+  {
+    to,
+    params,
+    ...props
+  }: LinkProps<P>,
+  ref: React.ForwardedRef<HTMLAnchorElement>,
+) {
+  const pathname =
+    typeof to === "string"
+      ? to
+      : to.pathname
+
+  const generatedPath = generatePath(
+    pathname,
+    (params ?? {}) as Record<string, string>,
+  )
+
+  const destination =
+    typeof to === "string"
+      ? generatedPath
+      : {
+          pathname: generatedPath,
+          search: to.search,
+          hash: to.hash,
+        }
+
+  return (
+    <_Link
+      ref={ref}
+      {...props}
+      to={destination}
+    />
+  )
+}
+
+export const Link = React.forwardRef(
+  LinkImpl,
+) as LinkComponent
+
+// ============================================================
+// NavLink
+// ============================================================
+
+export type NavLinkProps<
+  Path extends string | To,
+  ParamsMap extends Record<string, any> = Params,
+> =
+  Omit<_NavLinkProps, "to"> &
+  {
+    to: Path
+  } &
+  RouteParams<Path, ParamsMap>
+
+type NavLinkComponent = <
+  P extends Paths | To<Paths>,
+>(
+  props: NavLinkProps<P> & {
+    ref?: React.ForwardedRef<HTMLAnchorElement>
+  },
+) => React.ReactElement
+
+function NavLinkImpl<
+  P extends Paths | To<Paths>,
+>(
+  {
+    to,
+    params,
+    ...props
+  }: NavLinkProps<P>,
+  ref: React.ForwardedRef<HTMLAnchorElement>,
+) {
+  const pathname =
+    typeof to === "string"
+      ? to
+      : to.pathname
+
+  const generatedPath = generatePath(
+    pathname,
+    (params ?? {}) as Record<string, string>,
+  )
+
+  const destination =
+    typeof to === "string"
+      ? generatedPath
+      : {
+          pathname: generatedPath,
+          search: to.search,
+          hash: to.hash,
+        }
+
+  return (
+    <_NavLink
+      ref={ref}
+      {...props}
+      to={destination}
+    />
+  )
+}
+
+export const NavLink = React.forwardRef(
+  NavLinkImpl,
+) as NavLinkComponent
+
+// ============================================================
+// Navigate
+// ============================================================
+
+export type NavigateProps<
+  Path extends string | To,
+  ParamsMap extends Record<string, any> = Params,
+> =
+  Omit<_ReactRouterNavigateProps, "to"> &
+  {
+    to: Path
+  } &
+  RouteParams<Path, ParamsMap>
+
+export function Navigate<
+  P extends Paths | To<Paths>,
+>({
+  to,
+  params,
+  ...props
+}: NavigateProps<P>) {
+  const pathname =
+    typeof to === "string"
+      ? to
+      : to.pathname
+
+  const generatedPath = generatePath(
+    pathname,
+    (params ?? {}) as Record<string, string>,
+  )
+
+  const destination =
+    typeof to === "string"
+      ? generatedPath
+      : {
+          pathname: generatedPath,
+          search: to.search,
+          hash: to.hash,
+        }
+
+  return (
+    <_Navigate
+      {...props}
+      to={destination}
+    />
+  )
+}
+
+// ============================================================
+// useParams
+// ============================================================
+
+export function useParams<
+  P extends keyof Params,
+>(_path: P): Params[P] {
+  return _useParams() as Params[P]
+}
+
+// ============================================================
+// useNavigate
+// ============================================================
+
+export type TypedNavigateOptions<
+  Path extends
+    | Paths
+    | To<Paths>,
+> =
+  Path extends keyof Params
+    ? _NavigateOptions & {
+        params: Params[Path]
+      }
+    : Path extends {
+          pathname: infer Pathname
+        }
+      ? Pathname extends keyof Params
+        ? _NavigateOptions & {
+            params: Params[Pathname]
+          }
+        : _NavigateOptions & {
+            params?: never
+          }
+      : _NavigateOptions & {
+          params?: never
+        }
+
+type NavigateFunction = {
+  (
+    delta: number,
+  ): void | Promise<void>
+
+  <
+    P extends Paths | To<Paths>,
+  >(
+    to: P,
+    ...args:
+      P extends keyof Params
+        ? [
+            options: TypedNavigateOptions<P>,
+          ]
+        : P extends {
+              pathname: infer Pathname
+            }
+          ? Pathname extends keyof Params
+            ? [
+                options: TypedNavigateOptions<P>,
+              ]
+            : [
+                options?: TypedNavigateOptions<P>,
+              ]
+          : [
+              options?: TypedNavigateOptions<P>,
+            ]
+  ): void | Promise<void>
+}
+
+export function useNavigate(): NavigateFunction {
+  const navigate = _useNavigate()
+
+  return React.useCallback(
+    (
+      to: Paths | To<Paths> | number,
+      options?: _NavigateOptions & {
+        params?: Record<string, string>
+      },
+    ) => {
+      if (typeof to === "number") {
+        return navigate(to)
+      }
+
+      const pathname =
+        typeof to === "string"
+          ? to
+          : to.pathname
+
+      const generatedPath = generatePath(
+        pathname,
+        options?.params ?? {},
+      )
+
+      const {
+        params: _params,
+        ...navigateOptions
+      } = options ?? {}
+
+      const destination =
+        typeof to === "string"
+          ? generatedPath
+          : {
+              pathname: generatedPath,
+              search: to.search,
+              hash: to.hash,
+            }
+
+      return navigate(
+        destination,
+        navigateOptions,
+      )
+    },
+    [navigate],
+  ) as NavigateFunction
+}
 `
 
     await Bun.write(OUTPUT_FILE, output)
