@@ -1,1 +1,102 @@
-[{"kode":"1.1.01","uraian":"Kas dan Setara Kas"},{"kode":"1.1.02","uraian":"Investasi Jangka Pendek"},{"kode":"1.1.03","uraian":"Piutang Pajak Daerah"},{"kode":"1.1.04","uraian":"Piutang Retribusi Daerah"},{"kode":"1.1.05","uraian":"Piutang Hasil Pengelolaan Kekayaan Daerah yang Dipisahkan"},{"kode":"1.1.06","uraian":"Piutang Lain-lain PAD yang Sah"},{"kode":"1.1.07","uraian":"Piutang Transfer Pemerintah Pusat"},{"kode":"1.1.08","uraian":"Piutang Transfer Antar Daerah"},{"kode":"1.1.09","uraian":"Piutang Lainnya"},{"kode":"1.1.10","uraian":"Penyisihan Piutang"},{"kode":"1.1.11","uraian":"Beban Dibayar Dimuka"},{"kode":"1.1.12","uraian":"Persediaan"},{"kode":"1.1.13","uraian":"Aset Untuk Dikonsolidasikan"},{"kode":"1.2.01","uraian":"Investasi Jangka Panjang Non Permanen"},{"kode":"1.2.02","uraian":"Investasi Jangka Panjang Permanen"},{"kode":"1.3.01","uraian":"Tanah"},{"kode":"1.3.02","uraian":"Peralatan dan Mesin"},{"kode":"1.3.03","uraian":"Gedung dan Bangunan"},{"kode":"1.3.04","uraian":"Jalan, Jaringan, dan Irigasi"},{"kode":"1.3.05","uraian":"Aset Tetap Lainnya"},{"kode":"1.3.06","uraian":"Konstruksi Dalam Pengerjaan"},{"kode":"1.3.07","uraian":"Akumulasi Penyusutan"},{"kode":"1.3.08","uraian":"Aset Konsesi Jasa "},{"kode":"1.4.01","uraian":"Dana Cadangan"},{"kode":"1.5.01","uraian":"Tagihan Jangka Panjang"},{"kode":"1.5.02","uraian":"Kemitraan dengan Pihak Ketiga"},{"kode":"1.5.03","uraian":"Aset Tidak Berwujud"},{"kode":"1.5.04","uraian":"Aset Lain-lain"},{"kode":"1.5.05","uraian":"Akumulasi Amortisasi Aset Tidak Berwujud"},{"kode":"1.5.06","uraian":"Akumulasi Penyusutan Aset Lainnya"},{"kode":"1.5.07","uraian":"Dana Transfer Treasury Deposit Facility (TDF)"},{"kode":"1.5.08","uraian":"Dana Transfer Treasury Deposit Facility (TDF)"},{"kode":"1.6.01","uraian":"Properti Investasi Tanah"},{"kode":"1.6.02","uraian":"Properti Investasi Gedung dan Bangunan"},{"kode":"1.6.03","uraian":"Konstruksi Dalam Pengerjaan Properti Investasi  "},{"kode":"1.6.04","uraian":"Akumulasi Penyusutan Properti Investasi"},{"kode":"2.1.01","uraian":"Utang Perhitungan Pihak Ketiga (PFK)"},{"kode":"2.1.02","uraian":"Utang Bunga "},{"kode":"2.1.03","uraian":"Utang Pinjaman Jangka Pendek"},{"kode":"2.1.04","uraian":"Bagian Lancar Utang Jangka Panjang"},{"kode":"2.1.05","uraian":"Pendapatan Diterima Dimuka"},{"kode":"2.1.06","uraian":"Utang Belanja"},{"kode":"2.1.07","uraian":"Utang Jangka Pendek Lainnya"},{"kode":"2.2.01","uraian":"Utang kepada Pemerintah Pusat"},{"kode":"2.2.02","uraian":"Utang kepada Lembaga Keuangan Bank (LKB)"},{"kode":"2.2.03","uraian":"Utang kepada Lembaga Keuangan Bukan Bank (LKBB)"},{"kode":"2.2.04","uraian":"Utang kepada Masyarakat"},{"kode":"2.2.05","uraian":"Kewajiban Konsesi Jasa"},{"kode":"3.1.01","uraian":"Ekuitas"},{"kode":"3.1.02","uraian":"Ekuitas SAL"},{"kode":"3.1.03","uraian":"Ekuitas untuk Dikonsolidasikan"},{"kode":"4.1.01","uraian":"Pajak Daerah"},{"kode":"4.1.02","uraian":"Retribusi Daerah"},{"kode":"4.1.03","uraian":"Hasil Pengelolaan Kekayaan Daerah yang Dipisahkan"},{"kode":"4.1.04","uraian":"Lain-lain PAD yang Sah"},{"kode":"4.2.01","uraian":"Pendapatan Transfer Pemerintah Pusat"},{"kode":"4.2.02","uraian":"Pendapatan Transfer Antar Daerah"},{"kode":"4.3.01","uraian":"Pendapatan Hibah"},{"kode":"4.3.02","uraian":"Dana Darurat"},{"kode":"4.3.03","uraian":"Lain-lain Pendapatan Sesuai dengan Ketentuan Peraturan Perundang-Undangan"},{"kode":"5.1.01","uraian":"Belanja Pegawai"},{"kode":"5.1.02","uraian":"Belanja Barang dan Jasa"},{"kode":"5.1.03","uraian":"Belanja Bunga"},{"kode":"5.1.04","uraian":"Belanja Subsidi"},{"kode":"5.1.05","uraian":"Belanja Hibah"},{"kode":"5.1.06","uraian":"Belanja Bantuan Sosial"},{"kode":"5.2.01","uraian":"Belanja Modal Tanah"},{"kode":"5.2.02","uraian":"Belanja Modal Peralatan dan Mesin"},{"kode":"5.2.03","uraian":"Belanja Modal Gedung dan Bangunan"},{"kode":"5.2.04","uraian":"Belanja Modal Jalan, Jaringan, dan Irigasi"},{"kode":"5.2.05","uraian":"Belanja Modal Aset Tetap Lainnya"},{"kode":"5.2.06","uraian":"Belanja Modal Aset Lainnya"},{"kode":"5.3.01","uraian":"Belanja Tidak Terduga"},{"kode":"5.4.01","uraian":"Belanja Bagi Hasil"},{"kode":"5.4.02","uraian":"Belanja Bantuan Keuangan"},{"kode":"6.1.01","uraian":"Sisa Lebih Perhitungan Anggaran Tahun Sebelumnya"},{"kode":"6.1.02","uraian":"Pencairan Dana Cadangan"},{"kode":"6.1.03","uraian":"Hasil Penjualan Kekayaan Daerah yang Dipisahkan"},{"kode":"6.1.04","uraian":"Penerimaan Pinjaman Daerah"},{"kode":"6.1.05","uraian":"Penerimaan Kembali Pemberian Pinjaman Daerah"},{"kode":"6.1.06","uraian":"Penerimaan Pembiayaan Lainnya Sesuai dengan Ketentuan Peraturan Perundang-Undangan"},{"kode":"6.2.01","uraian":"Pembentukan Dana Cadangan"},{"kode":"6.2.02","uraian":"Penyertaan Modal Daerah"},{"kode":"6.2.03","uraian":"Pembayaran Cicilan Pokok Utang yang Jatuh Tempo"},{"kode":"6.2.04","uraian":"Pemberian Pinjaman Daerah"},{"kode":"6.2.05","uraian":"Pengeluaran Pembiayaan Lainnya sesuai dengan Ketentuan Peraturan Perundang-Undangan"},{"kode":"7.1.01","uraian":"Pajak Daerah-LO"},{"kode":"7.1.02","uraian":"Retribusi Daerah-LO  "},{"kode":"7.1.03","uraian":"Hasil Pengelolaan Kekayaan Daerah yang Dipisahkan-LO "},{"kode":"7.1.04","uraian":"Lain-lain PAD yang Sah-LO "},{"kode":"7.2.01","uraian":"Pendapatan Transfer Pemerintah Pusat-LO  "},{"kode":"7.2.02","uraian":"Pendapatan Transfer Antar Daerah-LO "},{"kode":"7.3.01","uraian":"Pendapatan Hibah-LO "},{"kode":"7.3.02","uraian":"Dana Darurat-LO "},{"kode":"7.3.03","uraian":"Lain-lain Pendapatan Sesuai dengan Ketentuan Peraturan Perundang-Undangan-LO "},{"kode":"7.4.01","uraian":"Surplus Penjualan/Pertukaran/Pelepasan Aset Non Lancar-LO"},{"kode":"7.4.02","uraian":"Surplus Penyelesaian Kewajiban Jangka Panjang-LO"},{"kode":"7.4.03","uraian":"Surplus dari Kegiatan Non Operasional Lainnya-LO"},{"kode":"7.5.01","uraian":"Pendapatan Luar Biasa-LO"},{"kode":"8.1.01","uraian":"Beban Pegawai"},{"kode":"8.1.02","uraian":"Beban Barang dan Jasa "},{"kode":"8.1.03","uraian":"Beban Bunga"},{"kode":"8.1.04","uraian":"Beban Subsidi "},{"kode":"8.1.05","uraian":"Beban Hibah "},{"kode":"8.1.06","uraian":"Beban Bantuan Sosial "},{"kode":"8.1.07","uraian":"Beban Penyisihan Piutang"},{"kode":"8.1.08","uraian":"Beban Penyusutan dan Amortisasi"},{"kode":"8.1.09","uraian":"Beban Penyisihan Investasi Non Permanen"},{"kode":"8.2.01","uraian":"Beban Tidak Terduga "},{"kode":"8.3.01","uraian":"Beban Bagi Hasil "},{"kode":"8.3.02","uraian":"Beban Bantuan Keuangan "},{"kode":"8.3.03","uraian":"Defisit dari Kegiatan Non Operasional Lainnya-LO"},{"kode":"8.4.01","uraian":"Defisit Penjualan/Pertukaran/Pelepasan Aset Non Lancar-LO"},{"kode":"8.4.02","uraian":"Defisit Penyelesaian Kewajiban Jangka Panjang-LO"},{"kode":"8.4.03","uraian":"Defisit dari Kegiatan Non Operasional Lainnya-LO"},{"kode":"8.5.01","uraian":"Beban Luar Biasa"}]
+[
+    {
+        "kode": "5.1.01",
+        "uraian": "Belanja Pegawai"
+    },
+    {
+        "kode": "5.1.02",
+        "uraian": "Belanja Barang dan Jasa"
+    },
+    {
+        "kode": "5.1.03",
+        "uraian": "Belanja Bunga"
+    },
+    {
+        "kode": "5.1.04",
+        "uraian": "Belanja Subsidi"
+    },
+    {
+        "kode": "5.1.05",
+        "uraian": "Belanja Hibah"
+    },
+    {
+        "kode": "5.1.06",
+        "uraian": "Belanja Bantuan Sosial"
+    },
+    {
+        "kode": "5.1.07",
+        "uraian": "Belanja Imbalan"
+    },
+    {
+        "kode": "5.2.01",
+        "uraian": "Belanja Modal Tanah"
+    },
+    {
+        "kode": "5.2.02",
+        "uraian": "Belanja Modal Peralatan dan Mesin"
+    },
+    {
+        "kode": "5.2.03",
+        "uraian": "Belanja Modal Gedung dan Bangunan"
+    },
+    {
+        "kode": "5.2.04",
+        "uraian": "Belanja Modal Jalan, Jaringan, dan Irigasi"
+    },
+    {
+        "kode": "5.2.05",
+        "uraian": "Belanja Modal Aset Tetap Lainnya"
+    },
+    {
+        "kode": "5.2.06",
+        "uraian": "Belanja Modal Aset Lainnya"
+    },
+    {
+        "kode": "5.3.01",
+        "uraian": "Belanja Tidak Terduga"
+    },
+    {
+        "kode": "5.4.01",
+        "uraian": "Belanja Bagi Hasil"
+    },
+    {
+        "kode": "5.4.02",
+        "uraian": "Belanja Bantuan Keuangan"
+    },
+    {
+        "kode": "4.1.01",
+        "uraian": "Pajak Daerah"
+    },
+    {
+        "kode": "4.1.02",
+        "uraian": "Retribusi Daerah"
+    },
+    {
+        "kode": "4.1.03",
+        "uraian": "Hasil Pengelolaan Kekayaan Daerah yang Dipisahkan"
+    },
+    {
+        "kode": "4.1.04",
+        "uraian": "Lain-lain PAD yang Sah"
+    },
+    {
+        "kode": "4.2.01",
+        "uraian": "Pendapatan Transfer Pemerintah Pusat"
+    },
+    {
+        "kode": "4.2.02",
+        "uraian": "Pendapatan Transfer Antar Daerah"
+    },
+    {
+        "kode": "4.3.01",
+        "uraian": "Pendapatan Hibah"
+    },
+    {
+        "kode": "4.3.02",
+        "uraian": "Dana Darurat"
+    },
+    {
+        "kode": "4.3.03",
+        "uraian": "Lain-lain Pendapatan Sesuai dengan Ketentuan Peraturan Perundang-Undangan"
+    }
+]

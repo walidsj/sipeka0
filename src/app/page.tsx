@@ -51,30 +51,6 @@ export default function Home() {
                                 </Card3dItem>
                             </Card3dContent>
                         </Card3d>
-                        <Card3d>
-                            <Card3dHeader>
-                                <Card3dItem translateZ={30}>
-                                    <div>
-                                        <img src="/images/logo-myatma.svg" className="h-10" />
-                                    </div>
-                                </Card3dItem>
-                                <Card3dItem translateZ={40}>
-                                    <CardDescription>
-                                        Sistem Informasi Keuangan Pegawai RSJD Atma Husada Mahakam
-                                    </CardDescription>
-                                </Card3dItem>
-                            </Card3dHeader>
-                            <Card3dContent>
-                                <Card3dItem translateZ={30}>
-                                    <Button asChild size="lg" className="w-full md:w-auto">
-                                        <Link to="/myatma">
-                                            Akses
-                                            <FiArrowRight className="ml-3 h-5 w-5 shrink-0" />
-                                        </Link>
-                                    </Button>
-                                </Card3dItem>
-                            </Card3dContent>
-                        </Card3d>
                     </div>
                 </div>
                 <div className="w-full flex-shrink-0 md:max-w-md lg:max-w-lg">

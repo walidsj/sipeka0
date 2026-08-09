@@ -31,11 +31,9 @@ const result = await Bun.build({
     outdir,
     entrypoints: ['src/web/index.html'],
     plugins: [plugin],
-    minify: true,
     splitting: true,
     target: 'browser',
     sourcemap: 'none',
-    footer: '// Made by Moh. Walid Arkham Sani (@walidassani) Github:walidsj',
     publicPath: '/assets/',
     define: {
         'process.env.NODE_ENV': JSON.stringify('production'),

@@ -1,1 +1,30 @@
-[{"kode":"1.1","uraian":"ASET LANCAR"},{"kode":"1.2","uraian":"INVESTASI JANGKA PANJANG"},{"kode":"1.3","uraian":"ASET TETAP"},{"kode":"1.4","uraian":"DANA CADANGAN"},{"kode":"1.5","uraian":"ASET LAINNYA"},{"kode":"1.6","uraian":"PROPERTI INVESTASI"},{"kode":"2.1","uraian":"KEWAJIBAN JANGKA PENDEK"},{"kode":"2.2","uraian":"KEWAJIBAN JANGKA PANJANG"},{"kode":"3.1","uraian":"EKUITAS"},{"kode":"4.1","uraian":"PENDAPATAN ASLI DAERAH (PAD)"},{"kode":"4.2","uraian":"PENDAPATAN TRANSFER"},{"kode":"4.3","uraian":"LAIN-LAIN PENDAPATAN DAERAH YANG SAH"},{"kode":"5.1","uraian":"BELANJA OPERASI"},{"kode":"5.2","uraian":"BELANJA MODAL"},{"kode":"5.3","uraian":"BELANJA TIDAK TERDUGA"},{"kode":"5.4","uraian":"BELANJA TRANSFER"},{"kode":"6.1","uraian":"PENERIMAAN PEMBIAYAAN"},{"kode":"6.2","uraian":"PENGELUARAN PEMBIAYAAN"},{"kode":"7.1","uraian":"PENDAPATAN ASLI DAERAH (PAD)-LO"},{"kode":"7.2","uraian":"PENDAPATAN TRANSFER-LO "},{"kode":"7.3","uraian":"LAIN-LAIN PENDAPATAN DAERAH YANG SAH-LO"},{"kode":"7.4","uraian":"SURPLUS NON OPERASIONAL-LO"},{"kode":"7.5","uraian":"PENDAPATAN LUAR BIASA-LO"},{"kode":"8.1","uraian":"BEBAN OPERASI "},{"kode":"8.2","uraian":"BEBAN TIDAK TERDUGA "},{"kode":"8.3","uraian":"BEBAN TRANSFER"},{"kode":"8.4","uraian":"DEFISIT NON OPERASIONAL-LO"},{"kode":"8.5","uraian":"BEBAN LUAR BIASA"}]
+[
+    {
+        "kode": "5.1",
+        "uraian": "BELANJA OPERASI"
+    },
+    {
+        "kode": "5.2",
+        "uraian": "BELANJA MODAL"
+    },
+    {
+        "kode": "5.3",
+        "uraian": "BELANJA TIDAK TERDUGA"
+    },
+    {
+        "kode": "5.4",
+        "uraian": "BELANJA TRANSFER"
+    },
+    {
+        "kode": "4.1",
+        "uraian": "PENDAPATAN ASLI DAERAH (PAD)"
+    },
+    {
+        "kode": "4.2",
+        "uraian": "PENDAPATAN TRANSFER"
+    },
+    {
+        "kode": "4.3",
+        "uraian": "LAIN-LAIN PENDAPATAN DAERAH YANG SAH"
+    }
+]

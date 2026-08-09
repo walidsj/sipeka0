@@ -3,7 +3,6 @@ import express from 'express'
 import { createExpressMiddleware, type CreateExpressContextOptions } from '@trpc/server/adapters/express'
 import { getSession } from './auth'
 import { db } from './db'
-import _ from 'lodash'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 
 const app = express()

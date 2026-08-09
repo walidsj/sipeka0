@@ -380,16 +380,16 @@ export const belanjaRouter = createTRPCRouter({
                 )
             }, 0)
 
-            if (startDate && startDate >= new Date('2025-01-31')) {
+            if (startDate && startDate >= new Date('2026-01-23')) {
                 saldoAwalPenerimaan = saldoAwalPenerimaan += 750_000_000
             }
 
-            if (startDate && startDate < new Date('2025-01-31')) {
+            if (startDate && startDate < new Date('2026-01-23')) {
                 jurnal.push({
-                    tgl: new Date('2025-01-31'),
-                    noDokumen: '900.1.3.5/00001/UP /SP2D/RSJD-AHM/BLUD',
+                    tgl: new Date('2026-01-23'),
+                    noDokumen: `001/SP2D-UP/BLUD/${new Date('2026-01-23').getFullYear()}`,
                     kodeRekening: null,
-                    uraian: 'Terima Pencairan SP2D Uang Persediaan (UP) BLUD pada RSJD Atma Husada Mahakam Prov. Kaltim untuk Tahun Anggaran 2025',
+                    uraian: `Terima Pencairan SP2D Uang Persediaan (UP) BLUD pada RSJD Atma Husada Mahakam Prov. Kaltim untuk Tahun Anggaran ${new Date('2026-01-23').getFullYear()}`,
                     penerimaan: 750_000_000,
                     pengeluaran: 0,
                 })
@@ -401,7 +401,7 @@ export const belanjaRouter = createTRPCRouter({
                 if (lpjSelected && lpjSelected.jenis !== 'GU') {
                     jurnal.push({
                         tgl: lpjSelected.tglDokumen,
-                        noDokumen: `900.1.3.5/${lpjSelected.noDokumen}/${lpjSelected.jenis} /SP2D/RSJD-AHM/BLUD`,
+                        noDokumen: `${lpjSelected.noDokumen}/SP2D-${lpjSelected.jenis}/BLUD/${new Date(lpjSelected.tglDokumen!).getFullYear()}`,
                         kodeRekening: null,
                         uraian: `Terima Pencairan SP2D Pembayaran ${lpjSelected.uraian}`,
                         penerimaan: lpjSelected.belanja.reduce((acc, item) => {
@@ -450,7 +450,7 @@ export const belanjaRouter = createTRPCRouter({
 
                 const jurnalGu = {
                     tgl: lpj.tglDokumen,
-                    noDokumen: `900.1.3.5/${lpj.noDokumen}/${lpj.jenis} /SP2D/RSJD-AHM/BLUD`,
+                    noDokumen: `${lpj.noDokumen}/SP2D-${lpj.jenis}/BLUD/${new Date(lpj.tglDokumen!).getFullYear()}`,
                     kodeRekening: null,
                     uraian: `Terima Pencairan SP2D Pembayaran ${lpj.uraian}`,
                     penerimaan: lpj.belanja.reduce((acc, item) => {

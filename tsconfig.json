@@ -8,7 +8,7 @@
         /* Path Aliases */
         "baseUrl": ".",
         "paths": {
-            "@/*": ["./src/*"]
+            "@/*": ["./src/*"],
         },
 
         /* hono */
@@ -33,7 +33,7 @@
         "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "noFallthroughCasesInSwitch": true
+        "noFallthroughCasesInSwitch": true,
     },
     "include": [
         "src",
@@ -43,8 +43,7 @@
         "**/*.tsx",
         "**/*.cjs",
         "**/*.mjs",
-        "**/*.js"
-        // ".next/types/**/*.ts"
+        "**/*.js",
     ],
-    "exclude": ["node_modules", "build", "dist", ".github"]
+    "exclude": ["node_modules", "build", "dist", ".github"],
 }

@@ -20,6 +20,7 @@ export async function decrypt(input: string): Promise<unknown> {
         })
         return payload as unknown
     } catch (error) {
+        console.log(error)
         return null
     }
 }
