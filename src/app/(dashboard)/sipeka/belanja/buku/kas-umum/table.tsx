@@ -91,34 +91,27 @@ export default function BkuTable() {
                             }
                         `}
                     </style>
-                    <table className="mt-3 w-full">
+                    <table className="my-3 w-full">
                         <tbody>
                             <tr>
-                                <td className="w-16 font-serif">
-                                    <img src="/images/logo-kaltimprov.webp" className="h-20 w-24" />
+                                <td className="w-20 font-serif">
+                                    <img src="/images/logo-kaltimprov.webp" className="h-16 w-auto" />
                                 </td>
-                                <td className="text-center">
+                                <td className="text-left">
                                     <div style={{ fontSize: '10pt' }} className="font-serif font-bold uppercase">
                                         Pemerintah Provinsi Kalimantan Timur
                                     </div>
-                                    <div style={{ fontSize: '12pt' }} className="font-serif font-bold uppercase">
-                                        Dinas Kesehatan
+                                    <div style={{ fontSize: '10pt' }} className="font-serif font-bold uppercase">
+                                        BLUD RSJD ATMA HUSADA MAHAKAM
                                     </div>
-                                    <div style={{ fontSize: '12pt' }} className="font-serif font-bold uppercase">
-                                        Rumah Sakit Jiwa Daerah Atma Husada Mahakam
-                                    </div>
-                                    <div className="font-serif">
-                                        Jl. Kakap No. 23 Samarinda Telp (0541) 743364 Fax 741035
-                                    </div>
-                                    <div className="font-serif">
-                                        Website: rsjdahm.kaltimprov.go.id | Posel: rsjdahm@kaltimprov.go.id
+                                    <div style={{ fontSize: '10pt' }} className="font-serif font-bold uppercase">
+                                        TAHUN ANGGARAN 2026
                                     </div>
                                 </td>
                                 <td className="w-16"></td>
                             </tr>
                         </tbody>
                     </table>
-                    <hr className="mt-3 mb-5 border-b-4 border-double border-black" />
                     <h5 style={{ fontSize: '11pt' }} className="text-center font-serif font-bold uppercase">
                         BUKU KAS UMUM
                     </h5>
@@ -164,7 +157,7 @@ export default function BkuTable() {
                             </tr>
                         </thead>
                         <tbody className="border-b-2 border-double border-black">
-                            <tr className="bg-yellow-100 font-semibold">
+                            <tr className="bg-amber-100 font-semibold">
                                 <td className="border border-black px-2 py-0.5"></td>
                                 <td className="border border-black px-2 py-0.5"></td>
                                 <td className="border border-black px-2 py-0.5"></td>
@@ -191,89 +184,41 @@ export default function BkuTable() {
                                 saldoPenerimaan += item.penerimaan || 0
                                 saldoPengeluaran += item.pengeluaran || 0
                                 return (
-                                    <React.Fragment key={index}>
-                                        <tr
-                                            className="border-t border-black"
-                                            style={{
-                                                pageBreakInside: 'avoid',
-                                                pageBreakAfter: 'auto',
-                                            }}
-                                        >
-                                            <td className="border-x border-black px-2 py-0.5 text-center font-serif">
-                                                {item.tgl &&
-                                                    Intl.DateTimeFormat('id-ID', {
-                                                        day: '2-digit',
-                                                        month: '2-digit',
-                                                        year: 'numeric',
-                                                    }).format(item.tgl!)}
-                                            </td>
-                                            <td className="border-r border-black px-2 py-0.5 text-center font-serif">
-                                                {item.noDokumen}
-                                            </td>
-                                            <td className="border-r border-black px-2 py-0.5 text-center font-serif">
-                                                {item.kodeRekening}
-                                            </td>
-                                            <td className="border-r border-black px-2 py-0.5 font-serif">
-                                                {item.uraian}
-                                            </td>
-                                            <td className="border-r border-black px-2 py-0.5 text-right font-serif">
-                                                {item.penerimaan !== null && formatAngka(item.penerimaan)}
-                                            </td>
-                                            <td className="border-r border-black px-2 py-0.5 text-right font-serif">
-                                                {item.pengeluaran !== null && formatAngka(item.pengeluaran)}
-                                            </td>
-                                            <td className="border-r border-black px-2 py-0.5 text-right font-serif">
-                                                {formatAngka(
-                                                    (saldo += Number(item.penerimaan) - Number(item.pengeluaran))
-                                                )}
-                                            </td>
-                                        </tr>
-                                        {item.potonganBelanja &&
-                                            item.potonganBelanja.map((pot, index) => {
-                                                saldoPenerimaan += pot.penerimaan || 0
-                                                saldoPengeluaran += pot.pengeluaran || 0
-                                                return (
-                                                    <tr
-                                                        key={index}
-                                                        style={{
-                                                            pageBreakInside: 'avoid',
-                                                            pageBreakAfter: 'auto',
-                                                        }}
-                                                        className="border-t border-dotted border-neutral-400"
-                                                    >
-                                                        <td className="border-x border-black px-2 py-0.5 text-center font-serif">
-                                                            {pot.tgl &&
-                                                                Intl.DateTimeFormat('id-ID', {
-                                                                    day: '2-digit',
-                                                                    month: '2-digit',
-                                                                    year: 'numeric',
-                                                                }).format(pot.tgl!)}
-                                                        </td>
-                                                        <td className="border-r border-black px-2 py-0.5 text-center font-serif">
-                                                            {pot.noDokumen}
-                                                        </td>
-                                                        <td className="border-r border-black px-2 py-0.5 text-center font-serif">
-                                                            {pot.kodeRekening}
-                                                        </td>
-                                                        <td className="border-r border-black px-2 py-0.5 font-serif">
-                                                            {pot.uraian}
-                                                        </td>
-                                                        <td className="border-r border-black px-2 py-0.5 text-right font-serif">
-                                                            {pot.penerimaan !== null && formatAngka(pot.penerimaan)}
-                                                        </td>
-                                                        <td className="border-r border-black px-2 py-0.5 text-right font-serif">
-                                                            {pot.pengeluaran !== null && formatAngka(pot.pengeluaran)}
-                                                        </td>
-                                                        <td className="border-r border-black px-2 py-0.5 text-right font-serif">
-                                                            {formatAngka(
-                                                                (saldo +=
-                                                                    Number(pot.penerimaan) - Number(pot.pengeluaran))
-                                                            )}
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            })}
-                                    </React.Fragment>
+                                    <tr
+                                        key={index}
+                                        className="border-t border-black"
+                                        style={{
+                                            pageBreakInside: 'avoid',
+                                            pageBreakAfter: 'auto',
+                                        }}
+                                    >
+                                        <td className="border-x border-black px-2 py-0.5 text-center align-top font-serif">
+                                            {item.tgl &&
+                                                Intl.DateTimeFormat('id-ID', {
+                                                    day: '2-digit',
+                                                    month: '2-digit',
+                                                    year: 'numeric',
+                                                }).format(item.tgl!)}
+                                        </td>
+                                        <td className="border-r border-black px-2 py-0.5 text-center align-top font-serif">
+                                            {item.noDokumen}
+                                        </td>
+                                        <td className="border-r border-black px-2 py-0.5 text-center align-top font-serif">
+                                            {item.kodeRekening}
+                                        </td>
+                                        <td className="border-r border-black px-2 py-0.5 align-top font-serif">
+                                            {item.uraian}
+                                        </td>
+                                        <td className="border-r border-black px-2 py-0.5 text-right align-top font-serif">
+                                            {item.penerimaan !== null && formatAngka(item.penerimaan)}
+                                        </td>
+                                        <td className="border-r border-black px-2 py-0.5 text-right align-top font-serif">
+                                            {item.pengeluaran !== null && formatAngka(item.pengeluaran)}
+                                        </td>
+                                        <td className="border-r border-black px-2 py-0.5 text-right align-top font-serif">
+                                            {formatAngka((saldo += Number(item.penerimaan) - Number(item.pengeluaran)))}
+                                        </td>
+                                    </tr>
                                 )
                             })}
                             {jurnal.data.length === 0 && (
