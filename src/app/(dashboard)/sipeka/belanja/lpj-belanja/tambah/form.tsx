@@ -1,12 +1,5 @@
 import { Button } from '@/components/ui/button'
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from '@/components/ui/form'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { api } from '@/trpc/react'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -16,13 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { Textarea } from '@/components/ui/textarea'
 import { format } from 'date-fns'
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { lpjBelanjaSchema } from '@/server/api/schema/lpj_belanja'
 
 export default function CreateForm() {
@@ -64,10 +51,7 @@ export default function CreateForm() {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
-                <fieldset
-                    disabled={create.isPending}
-                    className="flex flex-col gap-2"
-                >
+                <fieldset disabled={create.isPending} className="flex flex-col gap-2">
                     <FormField
                         control={form.control}
                         name="jenis"
@@ -75,23 +59,13 @@ export default function CreateForm() {
                             <FormItem>
                                 <FormLabel>Jenis</FormLabel>
                                 <FormControl>
-                                    <Select
-                                        onValueChange={field.onChange}
-                                        value={field.value}
-                                    >
+                                    <Select onValueChange={field.onChange} value={field.value}>
                                         <SelectTrigger>
                                             <SelectValue />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="GU">
-                                                GU
-                                            </SelectItem>
-                                            <SelectItem value="LS">
-                                                LS
-                                            </SelectItem>
-                                            <SelectItem value="TU">
-                                                TU
-                                            </SelectItem>
+                                            <SelectItem value="GU">GU</SelectItem>
+                                            <SelectItem value="LS">LS</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </FormControl>
@@ -123,17 +97,8 @@ export default function CreateForm() {
                                 <FormControl>
                                     <Input
                                         type="date"
-                                        onChange={(e) =>
-                                            field.onChange(e.target.valueAsDate)
-                                        }
-                                        value={
-                                            field.value
-                                                ? format(
-                                                      field.value,
-                                                      'yyyy-MM-dd'
-                                                  )
-                                                : undefined
-                                        }
+                                        onChange={(e) => field.onChange(e.target.valueAsDate)}
+                                        value={field.value ? format(field.value, 'yyyy-MM-dd') : undefined}
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -146,20 +111,14 @@ export default function CreateForm() {
                             <FormItem>
                                 <FormLabel>Uraian</FormLabel>
                                 <FormControl>
-                                    <Textarea
-                                        value={field.value}
-                                        onChange={field.onChange}
-                                        rows={4}
-                                    />
+                                    <Textarea value={field.value} onChange={field.onChange} rows={4} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
                     <div className="mt-3">
-                        <Button type="submit">
-                            {create.isPending ? 'Menyimpan...' : 'Simpan'}
-                        </Button>
+                        <Button type="submit">{create.isPending ? 'Menyimpan...' : 'Simpan'}</Button>
                     </div>
                 </fieldset>
             </form>

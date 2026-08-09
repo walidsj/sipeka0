@@ -21,6 +21,10 @@ import {
 export type Paths =
   "/login" |
   "/register" |
+  "/myatma/gaji" |
+  "/myatma/jasa-pelayanan" |
+  "/myatma" |
+  "/myatma/tunjangan" |
   "/profil/ganti-password" |
   "/profil" |
   "/sipeka/akuntansi/lra/:kodeRekening" |
@@ -248,6 +252,33 @@ export const routes: DataRouteObject[] = [
       Component: React.lazy(() => import("../app/(dashboard)/middleware")),
       children: [
        {
+         id: "src/app/(dashboard)/myatma/layout.tsx",
+        path: "myatma",
+        Component: React.lazy(() => import("../app/(dashboard)/myatma/layout")),
+        children: [
+         {
+           id: "src/app/(dashboard)/myatma/gaji/page.tsx",
+          path: "gaji",
+          Component: React.lazy(() => import("../app/(dashboard)/myatma/gaji/page"))
+         },
+        {
+           id: "src/app/(dashboard)/myatma/jasa-pelayanan/page.tsx",
+          path: "jasa-pelayanan",
+          Component: React.lazy(() => import("../app/(dashboard)/myatma/jasa-pelayanan/page"))
+         },
+        {
+           id: "src/app/(dashboard)/myatma/page.tsx",
+          index: true,
+          Component: React.lazy(() => import("../app/(dashboard)/myatma/page"))
+         },
+        {
+           id: "src/app/(dashboard)/myatma/tunjangan/page.tsx",
+          path: "tunjangan",
+          Component: React.lazy(() => import("../app/(dashboard)/myatma/tunjangan/page"))
+         }
+         ]
+       },
+      {
          id: "src/app/(dashboard)/profil/layout.tsx",
         path: "profil",
         Component: React.lazy(() => import("../app/(dashboard)/profil/layout")),

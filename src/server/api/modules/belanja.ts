@@ -1,4 +1,4 @@
-import { aktivitasRba, belanja, dba, potonganBelanja, rab, rba } from '@/server/db/schema'
+import { aktivitasRba, belanja, dba, lpjBelanjaTable, potonganBelanja, rab, rba } from '@/server/db/schema'
 import { createTRPCRouter, pengelolaProcedure, publicProcedure, userProcedure } from '@/server/trpc'
 import { and, asc, count, desc, eq, gte, isNotNull, like, lt, lte, or, sql, sum } from 'drizzle-orm'
 import { TRPCError } from '@trpc/server'
@@ -11,15 +11,35 @@ import { Base64 } from 'js-base64'
 import { tables } from '@/server/db'
 import fs from 'fs'
 
-export type JurnalType = {
+export type JurnalJenis = 'UP' | 'BELANJA' | 'LPJ_LS' | 'LPJ_GU'
+
+export type PotonganBelanjaType = {
     id?: string | number
     tgl: Date | null
     noDokumen: string | null
-    kodeRekening?: string | null
+    kodeRekening: string | null
     uraian: string | null
-    penerimaan: number | null
-    pengeluaran: number | null
-    potonganBelanja?: JurnalType[]
+    penerimaan: number
+    pengeluaran: number
+}
+
+export type JurnalType = {
+    id?: string | number
+    jenisJurnal: JurnalJenis
+    tgl: Date | null
+    noDokumen: string | null
+    kodeRekening: string | null
+    uraian: string | null
+    penerimaan: number
+    pengeluaran: number
+    potonganBelanja?: PotonganBelanjaType[]
+}
+
+type JurnalGroup = {
+    tgl: Date | null
+    jenis: 'UP' | 'BELANJA' | 'LPJ_LS' | 'LPJ_GU'
+    order: number
+    data: JurnalType[]
 }
 
 export const belanjaRouter = createTRPCRouter({
@@ -309,6 +329,231 @@ export const belanjaRouter = createTRPCRouter({
             }))
     }),
 
+    // getBelanjaBku: userProcedure
+    //     .input(
+    //         z.object({
+    //             startDate: z.date().optional(),
+    //             endDate: z.date().optional(),
+    //         })
+    //     )
+    //     .query(async ({ ctx, input }) => {
+    //         const startDate = input.startDate || new Date(format(new Date(), 'yyyy-MM-01'))
+    //         const endDate = input.endDate || new Date()
+
+    //         const filterDate = and(
+    //             startDate ? gte(belanja.tglDokumen, startDate) : undefined,
+    //             endDate ? lte(belanja.tglDokumen, endDate) : undefined
+    //         )
+
+    //         let jurnal: JurnalType[] = []
+
+    //         const belanjaBeforeList = await ctx.db.query.belanja.findMany({
+    //             where: lt(belanja.tglDokumen, startDate!),
+    //             with: {
+    //                 potonganBelanja: true,
+    //             },
+    //         })
+
+    //         const lpjBelanjaBeforeList = await ctx.db.query.lpjBelanjaTable.findMany({
+    //             where: lt(belanja.tglDokumen, startDate!),
+    //             with: {
+    //                 belanja: true,
+    //             },
+    //         })
+
+    //         const belanjaList = await ctx.db.query.belanja.findMany({
+    //             with: {
+    //                 rab: true,
+    //                 potonganBelanja: true,
+    //             },
+    //             where: filterDate,
+    //             orderBy: [asc(belanja.tglDokumen), asc(belanja.noDokumen)],
+    //         })
+
+    //         const lpjBelanjaList = await ctx.db.query.lpjBelanjaTable.findMany({
+    //             with: {
+    //                 belanja: true,
+    //                 spp: {
+    //                     with: {
+    //                         spm: {
+    //                             with: {
+    //                                 sp2d: true,
+    //                             },
+    //                         },
+    //                     },
+    //                 },
+    //             },
+    //             where: filterDate,
+    //             orderBy: [asc(belanja.tglDokumen), asc(belanja.noDokumen)],
+    //         })
+
+    //         const saldoAwalPengeluaran = belanjaBeforeList.reduce((acc, item) => {
+    //             return acc + Number(item.jumlah)
+    //         }, 0)
+
+    //         const saldoAwalPotongan = belanjaBeforeList.reduce((acc, item) => {
+    //             return (
+    //                 acc +
+    //                 item.potonganBelanja.reduce((acc, item) => {
+    //                     return acc + Number(item.jumlah)
+    //                 }, 0)
+    //             )
+    //         }, 0)
+
+    //         let saldoAwalPenerimaan = lpjBelanjaBeforeList.reduce((acc, item) => {
+    //             return (
+    //                 acc +
+    //                 item.belanja.reduce((acc, item) => {
+    //                     return acc + Number(item.jumlah)
+    //                 }, 0)
+    //             )
+    //         }, 0)
+
+    //         if (startDate && startDate >= new Date('2026-01-23')) {
+    //             saldoAwalPenerimaan = saldoAwalPenerimaan += 750_000_000
+    //         }
+
+    //         if (startDate && startDate < new Date('2026-01-23')) {
+    //             jurnal.push({
+    //                 tgl: new Date('2026-01-23'),
+    //                 // noDokumen: `UP-0001/SP2D/BLUD/${new Date('2026-01-23').getFullYear()}`,
+    //                 noDokumen: 'XAAB-873241',
+    //                 kodeRekening: null,
+    //                 uraian: `Peneriman UP secara Transfer dari Rekening Kas BLUD`,
+    //                 penerimaan: 750_000_000,
+    //                 pengeluaran: 0,
+    //             })
+    //         }
+
+    //         lodash.sortBy(belanjaList, ['tglDokumen', 'noDokumen'], ['asc', 'asc']).map((blj) => {
+    //             // const lpjSelected = lpjBelanjaList.find((lpj) => blj.lpjBelanjaId === lpj.id)
+
+    //             // if (lpjSelected && lpjSelected.jenis === 'LS') {
+    //             //     jurnal.push({
+    //             //         tgl: lpjSelected.tglDokumen,
+    //             //         // noDokumen: `${lpjSelected.noDokumen}/SP2D/BLUD/${new Date(lpjSelected.tglDokumen!).getFullYear()}`,
+    //             //         noDokumen: lpjSelected.spp.spm.sp2d.noCek,
+    //             //         kodeRekening: null,
+    //             //         // uraian: `Terima Pencairan SP2D Pembayaran ${lpjSelected.uraian}`,
+    //             //         uraian: `Penerimaan LS secara Transfer untuk: ${lpjSelected.uraian}`,
+    //             //         penerimaan: lpjSelected.belanja.reduce((acc, item) => {
+    //             //             return acc + Number(item.jumlah)
+    //             //         }, 0),
+    //             //         pengeluaran: 0,
+    //             //     })
+    //             // }
+
+    //             jurnal.push({
+    //                 id: blj.id,
+    //                 tgl: blj.tglDokumen,
+    //                 noDokumen: blj.noDokumen,
+    //                 kodeRekening: blj.rab?.kodeRekening,
+    //                 uraian: blj.uraian,
+    //                 penerimaan: 0,
+    //                 pengeluaran: Number(blj.jumlah),
+    //                 potonganBelanja: blj.potonganBelanja.map((potongan) => ({
+    //                     tgl: null,
+    //                     id: blj.id,
+    //                     noDokumen: null,
+    //                     kodeRekening: null,
+    //                     uraian: `Pemotongan dan penyetoran ${potongan.jenis}`,
+    //                     penerimaan: Number(potongan.jumlah),
+    //                     pengeluaran: Number(potongan.jumlah),
+    //                 })),
+    //             })
+    //         })
+
+    //         const lpjBelanjaLs = lpjBelanjaList.filter((lpj) => lpj.jenis === 'LS')
+    //         lpjBelanjaLs.map((lpj) => {
+    //             const belanja = lodash.sortBy(lpj.belanja, ['noDokumen', 'tglDokumen'], ['asc', 'asc'])
+
+    //             const lastBelanja = belanja[belanja.length - 1]
+
+    //             const lastBelanjaIndex =
+    //                 lodash.lastIndexOf(
+    //                     jurnal,
+    //                     jurnal.find((item) => item.id === lastBelanja.id)
+    //                 ) +
+    //                 jurnal.filter((item) => item.id === lastBelanja.id).length -
+    //                 1
+
+    //             const spliceAtas = jurnal.splice(lastBelanjaIndex + 1, jurnal.length)
+    //             const spliceBawah = jurnal.splice(0, lastBelanjaIndex + 1)
+
+    //             const jurnalLs = {
+    //                 tgl: lpj.tglDokumen,
+    //                 // noDokumen: `${lpj.noDokumen}/SP2D/BLUD/${new Date(lpj.tglDokumen!).getFullYear()}`,
+    //                 noDokumen: lpj.spp.spm.sp2d.noCek,
+    //                 kodeRekening: null,
+    //                 // uraian: `Terima Pencairan SP2D Pembayaran ${lpj.uraian}`,
+    //                 uraian: `Penerimaan LS secara Transfer untuk: ${lpj.uraian}`,
+    //                 penerimaan: lpj.belanja.reduce((acc, item) => {
+    //                     return acc + Number(item.jumlah)
+    //                 }, 0),
+    //                 pengeluaran: 0,
+    //             }
+
+    //             jurnal = [...spliceBawah, jurnalLs, ...spliceAtas]
+    //         })
+
+    //         const lpjBelanjaGu = lpjBelanjaList.filter((lpj) => lpj.jenis === 'GU')
+    //         lpjBelanjaGu.map((lpj) => {
+    //             const belanja = lodash.sortBy(lpj.belanja, ['noDokumen', 'tglDokumen'], ['asc', 'asc'])
+
+    //             const lastBelanja = belanja[belanja.length - 1]
+
+    //             const lastBelanjaIndex =
+    //                 lodash.lastIndexOf(
+    //                     jurnal,
+    //                     jurnal.find((item) => item.id === lastBelanja.id)
+    //                 ) +
+    //                 jurnal.filter((item) => item.id === lastBelanja.id).length -
+    //                 1
+
+    //             const spliceAtas = jurnal.splice(lastBelanjaIndex + 1, jurnal.length)
+    //             const spliceBawah = jurnal.splice(0, lastBelanjaIndex + 1)
+
+    //             const jurnalGu = {
+    //                 tgl: lpj.tglDokumen,
+    //                 // noDokumen: `${lpj.noDokumen}/SP2D/BLUD/${new Date(lpj.tglDokumen!).getFullYear()}`,
+    //                 noDokumen: lpj.spp.spm.sp2d.noCek,
+    //                 kodeRekening: null,
+    //                 // uraian: `Terima Pencairan SP2D Pembayaran ${lpj.uraian}`,
+    //                 uraian: 'Peneriman Ganti UP secara Transfer dari Rekening Kas BLUD',
+    //                 penerimaan: lpj.belanja.reduce((acc, item) => {
+    //                     return acc + Number(item.jumlah)
+    //                 }, 0),
+    //                 pengeluaran: 0,
+    //             }
+
+    //             jurnal = [...spliceBawah, jurnalGu, ...spliceAtas]
+    //         })
+
+    //         jurnal = lodash.sortBy(jurnal, ['tgl'], ['asc'])
+
+    //         return {
+    //             data: jurnal,
+    //             meta: {
+    //                 totalThisPeriode: {
+    //                     potongan: belanjaList.reduce((acc, item) => {
+    //                         return (
+    //                             acc +
+    //                             item.potonganBelanja.reduce((acc, item) => {
+    //                                 return acc + Number(item.jumlah)
+    //                             }, 0)
+    //                         )
+    //                     }, 0),
+    //                 },
+    //                 totalLastPeriode: {
+    //                     penerimaan: saldoAwalPenerimaan,
+    //                     pengeluaran: saldoAwalPengeluaran,
+    //                     potongan: saldoAwalPotongan,
+    //                 },
+    //             },
+    //         }
+    //     }),
+    //
+
     getBelanjaBku: userProcedure
         .input(
             z.object({
@@ -317,50 +562,96 @@ export const belanjaRouter = createTRPCRouter({
             })
         )
         .query(async ({ ctx, input }) => {
-            const startDate = input.startDate || new Date(format(new Date(), 'yyyy-MM-01'))
-            const endDate = input.endDate || new Date()
+            // ============================================================
+            // DATE
+            // ============================================================
+
+            const startDate = input.startDate ?? new Date(format(new Date(), 'yyyy-MM-01'))
+
+            const endDate = input.endDate ?? new Date()
 
             const filterDate = and(
                 startDate ? gte(belanja.tglDokumen, startDate) : undefined,
+
                 endDate ? lte(belanja.tglDokumen, endDate) : undefined
             )
 
-            let jurnal: JurnalType[] = []
+            // ============================================================
+            // GROUP
+            // ============================================================
+
+            const jurnalGroups: JurnalGroup[] = []
+
+            // ============================================================
+            // SALDO AWAL
+            // ============================================================
 
             const belanjaBeforeList = await ctx.db.query.belanja.findMany({
-                where: lt(belanja.tglDokumen, startDate!),
+                where: lt(belanja.tglDokumen, startDate),
+
                 with: {
                     potonganBelanja: true,
                 },
             })
 
             const lpjBelanjaBeforeList = await ctx.db.query.lpjBelanjaTable.findMany({
-                where: lt(belanja.tglDokumen, startDate!),
+                where: lt(belanja.tglDokumen, startDate),
+
                 with: {
                     belanja: true,
                 },
             })
+
+            // ============================================================
+            // BELANJA
+            // ============================================================
 
             const belanjaList = await ctx.db.query.belanja.findMany({
                 with: {
                     rab: true,
                     potonganBelanja: true,
                 },
+
                 where: filterDate,
+
                 orderBy: [asc(belanja.tglDokumen), asc(belanja.noDokumen)],
             })
+
+            // ============================================================
+            // LPJ
+            // ============================================================
 
             const lpjBelanjaList = await ctx.db.query.lpjBelanjaTable.findMany({
                 with: {
                     belanja: true,
+
+                    spp: {
+                        with: {
+                            spm: {
+                                with: {
+                                    sp2d: true,
+                                },
+                            },
+                        },
+                    },
                 },
+
                 where: filterDate,
+
                 orderBy: [asc(belanja.tglDokumen), asc(belanja.noDokumen)],
             })
+
+            // ============================================================
+            // SALDO AWAL PENGELUARAN
+            // ============================================================
 
             const saldoAwalPengeluaran = belanjaBeforeList.reduce((acc, item) => {
                 return acc + Number(item.jumlah)
             }, 0)
+
+            // ============================================================
+            // SALDO AWAL POTONGAN
+            // ============================================================
 
             const saldoAwalPotongan = belanjaBeforeList.reduce((acc, item) => {
                 return (
@@ -371,6 +662,10 @@ export const belanjaRouter = createTRPCRouter({
                 )
             }, 0)
 
+            // ============================================================
+            // SALDO AWAL PENERIMAAN
+            // ============================================================
+
             let saldoAwalPenerimaan = lpjBelanjaBeforeList.reduce((acc, item) => {
                 return (
                     acc +
@@ -380,106 +675,325 @@ export const belanjaRouter = createTRPCRouter({
                 )
             }, 0)
 
-            if (startDate && startDate >= new Date('2026-01-23')) {
-                saldoAwalPenerimaan = saldoAwalPenerimaan += 750_000_000
+            // ============================================================
+            // UP
+            // ============================================================
+
+            const tanggalUp = new Date('2026-01-23')
+
+            const jumlahUp = 750_000_000
+
+            if (startDate >= tanggalUp) {
+                saldoAwalPenerimaan += jumlahUp
             }
 
-            if (startDate && startDate < new Date('2026-01-23')) {
-                jurnal.push({
-                    tgl: new Date('2026-01-23'),
-                    noDokumen: `001/SP2D-UP/BLUD/${new Date('2026-01-23').getFullYear()}`,
-                    kodeRekening: null,
-                    uraian: `Terima Pencairan SP2D Uang Persediaan (UP) BLUD pada RSJD Atma Husada Mahakam Prov. Kaltim untuk Tahun Anggaran ${new Date('2026-01-23').getFullYear()}`,
-                    penerimaan: 750_000_000,
-                    pengeluaran: 0,
-                })
-            }
+            // ============================================================
+            // MAP BELANJA
+            // ============================================================
 
-            lodash.sortBy(belanjaList, ['tglDokumen', 'noDokumen'], ['asc', 'asc']).map((blj) => {
-                const lpjSelected = lpjBelanjaList.find((lpj) => blj.lpjBelanjaId === lpj.id)
+            const belanjaMap = new Map(belanjaList.map((item) => [item.id, item]))
 
-                if (lpjSelected && lpjSelected.jenis !== 'GU') {
-                    jurnal.push({
-                        tgl: lpjSelected.tglDokumen,
-                        noDokumen: `${lpjSelected.noDokumen}/SP2D-${lpjSelected.jenis}/BLUD/${new Date(lpjSelected.tglDokumen!).getFullYear()}`,
-                        kodeRekening: null,
-                        uraian: `Terima Pencairan SP2D Pembayaran ${lpjSelected.uraian}`,
-                        penerimaan: lpjSelected.belanja.reduce((acc, item) => {
-                            return acc + Number(item.jumlah)
-                        }, 0),
-                        pengeluaran: 0,
-                    })
-                }
+            // ============================================================
+            // BELANJA YANG SUDAH MASUK LPJ
+            // ============================================================
 
-                jurnal.push({
+            const usedBelanjaIds = new Set<(typeof belanjaList)[number]['id']>()
+
+            // ============================================================
+            // HELPER BELANJA
+            // ============================================================
+
+            const createJurnalBelanja = (blj: (typeof belanjaList)[number]): JurnalType => {
+                return {
                     id: blj.id,
+
+                    jenisJurnal: 'BELANJA',
+
                     tgl: blj.tglDokumen,
+
                     noDokumen: blj.noDokumen,
-                    kodeRekening: blj.rab?.kodeRekening,
+
+                    kodeRekening: blj.rab?.kodeRekening ?? null,
+
                     uraian: blj.uraian,
+
                     penerimaan: 0,
+
                     pengeluaran: Number(blj.jumlah),
+
                     potonganBelanja: blj.potonganBelanja.map((potongan) => ({
-                        tgl: null,
                         id: blj.id,
+
+                        tgl: null,
+
                         noDokumen: null,
+
                         kodeRekening: null,
+
                         uraian: `Pemotongan dan penyetoran ${potongan.jenis}`,
+
                         penerimaan: Number(potongan.jumlah),
+
                         pengeluaran: Number(potongan.jumlah),
                     })),
+                }
+            }
+
+            // ============================================================
+            // PENERIMAAN UP
+            // ============================================================
+
+            if (startDate < tanggalUp) {
+                jurnalGroups.push({
+                    tgl: tanggalUp,
+
+                    jenis: 'UP',
+
+                    // UP selalu paling atas pada tanggal yang sama
+                    order: 0,
+
+                    data: [
+                        {
+                            jenisJurnal: 'UP',
+
+                            tgl: tanggalUp,
+
+                            noDokumen: 'XAAB-873241',
+
+                            kodeRekening: null,
+
+                            uraian: 'Penerimaan UP secara Transfer dari Rekening Kas BLUD',
+
+                            penerimaan: jumlahUp,
+
+                            pengeluaran: 0,
+                        },
+                    ],
                 })
-            })
+            }
 
-            const lpjBelanjaGu = lpjBelanjaList.filter((lpj) => lpj.jenis === 'GU')
-            lpjBelanjaGu.map((lpj) => {
-                const belanja = lodash.sortBy(lpj.belanja, ['noDokumen', 'tglDokumen'], ['asc', 'asc'])
+            // ============================================================
+            // LPJ LS
+            //
+            // LPJ LS -> BELANJA LS
+            // ============================================================
 
-                const lastBelanja = belanja[belanja.length - 1]
+            const lpjBelanjaLs = lpjBelanjaList.filter((lpj) => lpj.jenis === 'LS')
 
-                const lastBelanjaIndex =
-                    lodash.lastIndexOf(
-                        jurnal,
-                        jurnal.find((item) => item.id === lastBelanja.id)
-                    ) +
-                    jurnal.filter((item) => item.id === lastBelanja.id).length -
-                    1
+            for (const lpj of lpjBelanjaLs) {
+                const belanjaLs = lpj.belanja
+                    .map((item) => belanjaMap.get(item.id))
+                    .filter((item): item is (typeof belanjaList)[number] => item !== undefined)
 
-                const spliceAtas = jurnal.splice(lastBelanjaIndex + 1, jurnal.length)
-                const spliceBawah = jurnal.splice(0, lastBelanjaIndex + 1)
+                const sortedBelanjaLs = lodash.sortBy(belanjaLs, ['tglDokumen', 'noDokumen'])
 
-                const jurnalGu = {
+                const group: JurnalType[] = []
+
+                // --------------------------------------------------------
+                // LPJ LS
+                // --------------------------------------------------------
+
+                group.push({
+                    jenisJurnal: 'LPJ_LS',
+
                     tgl: lpj.tglDokumen,
-                    noDokumen: `${lpj.noDokumen}/SP2D-${lpj.jenis}/BLUD/${new Date(lpj.tglDokumen!).getFullYear()}`,
+
+                    noDokumen: lpj.spp.spm.sp2d.noCek,
+
                     kodeRekening: null,
-                    uraian: `Terima Pencairan SP2D Pembayaran ${lpj.uraian}`,
-                    penerimaan: lpj.belanja.reduce((acc, item) => {
-                        return acc + Number(item.jumlah)
-                    }, 0),
+
+                    uraian: `Penerimaan LS secara Transfer untuk: ${lpj.uraian}`,
+
+                    penerimaan: lpj.belanja.reduce((acc, item) => acc + Number(item.jumlah), 0),
+
                     pengeluaran: 0,
+                })
+
+                // --------------------------------------------------------
+                // BELANJA LS
+                // --------------------------------------------------------
+
+                for (const blj of sortedBelanjaLs) {
+                    usedBelanjaIds.add(blj.id)
+
+                    group.push(createJurnalBelanja(blj))
                 }
 
-                jurnal = [...spliceBawah, jurnalGu, ...spliceAtas]
+                jurnalGroups.push({
+                    tgl: lpj.tglDokumen,
+
+                    jenis: 'LPJ_LS',
+
+                    // LPJ LS didahulukan daripada belanja biasa
+                    order: 1,
+
+                    data: group,
+                })
+            }
+
+            // ============================================================
+            // LPJ GU
+            //
+            // BELANJA GU -> LPJ GU
+            // ============================================================
+
+            const lpjBelanjaGu = lpjBelanjaList.filter((lpj) => lpj.jenis === 'GU')
+
+            for (const lpj of lpjBelanjaGu) {
+                const belanjaGu = lpj.belanja
+                    .map((item) => belanjaMap.get(item.id))
+                    .filter((item): item is (typeof belanjaList)[number] => item !== undefined)
+
+                const sortedBelanjaGu = lodash.sortBy(belanjaGu, ['tglDokumen', 'noDokumen'])
+
+                const group: JurnalType[] = []
+
+                // --------------------------------------------------------
+                // BELANJA GU
+                // --------------------------------------------------------
+
+                for (const blj of sortedBelanjaGu) {
+                    usedBelanjaIds.add(blj.id)
+
+                    group.push(createJurnalBelanja(blj))
+                }
+
+                // --------------------------------------------------------
+                // LPJ GU SEBAGAI PENUTUP
+                // --------------------------------------------------------
+
+                group.push({
+                    jenisJurnal: 'LPJ_GU',
+
+                    tgl: lpj.tglDokumen,
+
+                    noDokumen: lpj.spp.spm.sp2d.noCek,
+
+                    kodeRekening: null,
+
+                    uraian: 'Penerimaan Ganti UP secara Transfer dari Rekening Kas BLUD',
+
+                    penerimaan: lpj.belanja.reduce((acc, item) => acc + Number(item.jumlah), 0),
+
+                    pengeluaran: 0,
+                })
+
+                jurnalGroups.push({
+                    tgl: lpj.tglDokumen,
+
+                    jenis: 'LPJ_GU',
+
+                    // GU diletakkan setelah transaksi biasa
+                    order: 3,
+
+                    data: group,
+                })
+            }
+
+            // ============================================================
+            // BELANJA BIASA
+            // ============================================================
+
+            const belanjaTanpaLpj = lodash.sortBy(
+                belanjaList.filter((blj) => !usedBelanjaIds.has(blj.id)),
+                ['tglDokumen', 'noDokumen']
+            )
+
+            for (const blj of belanjaTanpaLpj) {
+                jurnalGroups.push({
+                    tgl: blj.tglDokumen,
+
+                    jenis: 'BELANJA',
+
+                    order: 2,
+
+                    data: [createJurnalBelanja(blj)],
+                })
+            }
+
+            // ============================================================
+            // SORT GROUP
+            //
+            // PRIORITAS HANYA BERLAKU PADA TANGGAL YANG SAMA
+            //
+            // tanggal berbeda:
+            //     tanggal ASC
+            //
+            // tanggal sama:
+            //     UP
+            //     LPJ LS
+            //     BELANJA
+            //     GU
+            // ============================================================
+
+            jurnalGroups.sort((a, b) => {
+                const dateA = a.tgl?.getTime() ?? 0
+
+                const dateB = b.tgl?.getTime() ?? 0
+
+                // ----------------------------------------------
+                // TANGGAL
+                // ----------------------------------------------
+
+                if (dateA !== dateB) {
+                    return dateA - dateB
+                }
+
+                // ----------------------------------------------
+                // PRIORITAS
+                // ----------------------------------------------
+
+                if (a.order !== b.order) {
+                    return a.order - b.order
+                }
+
+                // ----------------------------------------------
+                // NO DOKUMEN
+                // ----------------------------------------------
+
+                const noA = a.data[0]?.noDokumen ?? ''
+
+                const noB = b.data[0]?.noDokumen ?? ''
+
+                return noA.localeCompare(noB)
             })
 
-            jurnal = lodash.sortBy(jurnal, ['tgl'], ['asc'])
+            // ============================================================
+            // FLATTEN
+            // ============================================================
+
+            const jurnal = jurnalGroups.flatMap((group) => group.data)
+
+            // ============================================================
+            // TOTAL POTONGAN
+            // ============================================================
+
+            const totalPotongan = belanjaList.reduce((acc, item) => {
+                return (
+                    acc +
+                    item.potonganBelanja.reduce((acc, potongan) => {
+                        return acc + Number(potongan.jumlah)
+                    }, 0)
+                )
+            }, 0)
+
+            // ============================================================
+            // RETURN
+            // ============================================================
 
             return {
                 data: jurnal,
+
                 meta: {
                     totalThisPeriode: {
-                        potongan: belanjaList.reduce((acc, item) => {
-                            return (
-                                acc +
-                                item.potonganBelanja.reduce((acc, item) => {
-                                    return acc + Number(item.jumlah)
-                                }, 0)
-                            )
-                        }, 0),
+                        potongan: totalPotongan,
                     },
+
                     totalLastPeriode: {
                         penerimaan: saldoAwalPenerimaan,
+
                         pengeluaran: saldoAwalPengeluaran,
+
                         potongan: saldoAwalPotongan,
                     },
                 },
