@@ -87,7 +87,7 @@ export default function BkuTable() {
                                 margin-left: 1.5cm;
                                 margin-right: 1.5cm;
                                 margin-bottom: 1cm;
-                                
+
                             }
                         `}
                     </style>
@@ -119,18 +119,12 @@ export default function BkuTable() {
                         </tbody>
                     </table>
                     <hr className="mt-3 mb-5 border-b-4 border-double border-black" />
-                    <h5 style={{ fontSize: '11pt' }} className="text-center font-serif font-bold uppercase underline">
-                        BUKU KAS UMUM PENGELUARAN BLUD
+                    <h5 style={{ fontSize: '11pt' }} className="text-center font-serif font-bold uppercase">
+                        BUKU KAS UMUM
                     </h5>
-                    <h4 style={{ fontSize: '9pt' }} className="mb-4 text-center font-serif font-bold uppercase">
-                        BENDAHARA PENGELUARAN PEMBANTU
+                    <h4 style={{ fontSize: '9pt' }} className="text-center font-serif font-bold uppercase">
+                        BENDAHARA PENGELUARAN BLUD
                     </h4>
-                    <h6 className="text-center font-serif uppercase">
-                        Tahun Anggaran{' '}
-                        {Intl.DateTimeFormat('id-ID', { year: 'numeric' }).format(
-                            new Date(searchParams.get('startDate') || format(new Date(), 'yyyy-MM-01'))
-                        )}
-                    </h6>
                     <h6 className="mb-5 text-center font-serif">
                         Periode {formatTanggal(searchParams.get('startDate') || format(new Date(), 'yyyy-MM-01'))} s.d.{' '}
                         {formatTanggal(searchParams.get('endDate') || new Date())}
@@ -145,14 +139,11 @@ export default function BkuTable() {
                             style={{
                                 display: 'table-header-group',
                             }}
-                            className="border-b-2 border-double border-black"
+                            className="border-b-2 border-double border-black bg-black text-white"
                         >
                             <tr>
-                                <th className="w-1 border border-black px-2 py-1 text-center font-serif">No</th>
                                 <th className="border border-black px-2 py-1 text-center font-serif">Tanggal</th>
-                                <th className="w-10 border border-black px-2 py-1 text-center font-serif">
-                                    Nomor Bukti
-                                </th>
+                                <th className="w-10 border border-black px-2 py-1 text-center font-serif">No. Bukti</th>
                                 <th className="border border-black px-2 py-1 text-center font-serif">Kode Rekening</th>
                                 <th className="border border-black px-2 py-1 font-serif">Uraian</th>
                                 <th className="border border-black px-2 py-1 font-serif">
@@ -173,24 +164,12 @@ export default function BkuTable() {
                             </tr>
                         </thead>
                         <tbody className="border-b-2 border-double border-black">
-                            <tr>
+                            <tr className="bg-yellow-100 font-semibold">
                                 <td className="border border-black px-2 py-0.5"></td>
                                 <td className="border border-black px-2 py-0.5"></td>
                                 <td className="border border-black px-2 py-0.5"></td>
-                                <td className="border border-black px-2 py-0.5"></td>
-                                <td className="border border-black px-2 py-0.5 font-serif">
-                                    Sisa kas yang lalu (Per tanggal{' '}
-                                    {Intl.DateTimeFormat('id-ID', {
-                                        day: '2-digit',
-                                        month: 'long',
-                                        year: 'numeric',
-                                    }).format(
-                                        new Date(
-                                            searchParams.get('startDate') || format(new Date(), 'yyyy-MM-01')
-                                        ).getTime() -
-                                            24 * 60 * 60 * 1000
-                                    )}
-                                    )
+                                <td className="border border-black px-2 py-0.5 text-right font-serif">
+                                    Saldo Sebelumnya
                                 </td>
                                 <td className="border border-black px-2 py-0.5 text-right font-serif">
                                     {formatAngka(0)}
@@ -220,10 +199,7 @@ export default function BkuTable() {
                                                 pageBreakAfter: 'auto',
                                             }}
                                         >
-                                            <td className="border-r border-l border-black px-2 py-0.5 text-center font-serif">
-                                                {index + 1}
-                                            </td>
-                                            <td className="border-r border-black px-2 py-0.5 text-center font-serif">
+                                            <td className="border-x border-black px-2 py-0.5 text-center font-serif">
                                                 {item.tgl &&
                                                     Intl.DateTimeFormat('id-ID', {
                                                         day: '2-digit',
@@ -265,8 +241,7 @@ export default function BkuTable() {
                                                         }}
                                                         className="border-t border-dotted border-neutral-400"
                                                     >
-                                                        <td className="border-r border-l border-black px-2 py-0.5 text-center font-serif"></td>
-                                                        <td className="border-r border-black px-2 py-0.5 text-center font-serif">
+                                                        <td className="border-x border-black px-2 py-0.5 text-center font-serif">
                                                             {pot.tgl &&
                                                                 Intl.DateTimeFormat('id-ID', {
                                                                     day: '2-digit',

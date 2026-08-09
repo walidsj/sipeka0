@@ -1,4 +1,4 @@
-import { aktivitasRba, belanja, dba, lpjBelanjaTable, potonganBelanja, rab, rba } from '@/server/db/schema'
+import { aktivitasRba, belanja, dba, potonganBelanja, rab, rba } from '@/server/db/schema'
 import { createTRPCRouter, pengelolaProcedure, publicProcedure, userProcedure } from '@/server/trpc'
 import { and, asc, count, desc, eq, gte, isNotNull, like, lt, lte, or, sql, sum } from 'drizzle-orm'
 import { TRPCError } from '@trpc/server'
@@ -825,7 +825,7 @@ export const belanjaRouter = createTRPCRouter({
                     jenis: 'LPJ_LS',
 
                     // LPJ LS didahulukan daripada belanja biasa
-                    order: 1,
+                    order: 3,
 
                     data: group,
                 })
@@ -884,7 +884,7 @@ export const belanjaRouter = createTRPCRouter({
                     jenis: 'LPJ_GU',
 
                     // GU diletakkan setelah transaksi biasa
-                    order: 3,
+                    order: 2,
 
                     data: group,
                 })
@@ -905,7 +905,7 @@ export const belanjaRouter = createTRPCRouter({
 
                     jenis: 'BELANJA',
 
-                    order: 2,
+                    order: 1,
 
                     data: [createJurnalBelanja(blj)],
                 })
