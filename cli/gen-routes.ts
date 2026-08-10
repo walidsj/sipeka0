@@ -1,89 +1,89 @@
-import { Glob } from 'bun'
-import path from 'node:path'
+import { Glob } from "bun";
+import path from "node:path";
 
-const APP_FOLDER = 'src/app'
-const OUTPUT_FILE = 'src/web/router.tsx'
+const APP_FOLDER = "src/app";
+const OUTPUT_FILE = "src/router.tsx";
 
-const glob = new Glob('**/{page,layout,middleware}.tsx')
+const glob = new Glob("**/{page,layout,middleware}.tsx");
 
-type RouteType = 'page' | 'layout' | 'middleware'
+type RouteType = "page" | "layout" | "middleware";
 
 type RouteObj = {
-    type: RouteType
+  type: RouteType;
 
-    /**
-     * Path relatif dari src/app
-     *
-     * dashboard/users/page.tsx
-     */
-    relativeFilePath: string
+  /**
+   * Path relatif dari src/app
+   *
+   * dashboard/users/page.tsx
+   */
+  relativeFilePath: string;
 
-    /**
-     * Path file yang bisa dipakai sebagai ID.
-     *
-     * src/app/dashboard/users/page.tsx
-     */
-    filePath: string
+  /**
+   * Path file yang bisa dipakai sebagai ID.
+   *
+   * src/app/dashboard/users/page.tsx
+   */
+  filePath: string;
 
-    /**
-     * Import path relatif dari generated router.
-     *
-     * ../app/dashboard/users/page
-     */
-    importPath: string
+  /**
+   * Import path relatif dari generated router.
+   *
+   * ../app/dashboard/users/page
+   */
+  importPath: string;
 
-    /**
-     * Segment asli filesystem.
-     *
-     * ["(dashboard)", "users", "[id]"]
-     */
-    segments: string[]
+  /**
+   * Segment asli filesystem.
+   *
+   * ["(dashboard)", "users", "[id]"]
+   */
+  segments: string[];
 
-    /**
-     * Segment URL yang sudah dikonversi.
-     *
-     * ["users", ":id"]
-     */
-    urlSegments: string[]
+  /**
+   * Segment URL yang sudah dikonversi.
+   *
+   * ["users", ":id"]
+   */
+  urlSegments: string[];
 
-    /**
-     * Full URL.
-     *
-     * /users/:id
-     */
-    path: string
+  /**
+   * Full URL.
+   *
+   * /users/:id
+   */
+  path: string;
 
-    parentFilePath?: string
+  parentFilePath?: string;
 
-    children: RouteObj[]
-}
+  children: RouteObj[];
+};
 
 /**
  * Normalize Windows path menjadi POSIX path.
  */
 function normalizePath(value: string): string {
-    return value.replace(/\\/g, '/')
+  return value.replace(/\\/g, "/");
 }
 
 /**
  * Ambil tipe route berdasarkan nama file.
  */
 function getRouteType(filePath: string): RouteType {
-    const fileName = normalizePath(filePath).split('/').at(-1)
+  const fileName = normalizePath(filePath).split("/").at(-1);
 
-    switch (fileName) {
-        case 'layout.tsx':
-            return 'layout'
+  switch (fileName) {
+    case "layout.tsx":
+      return "layout";
 
-        case 'middleware.tsx':
-            return 'middleware'
+    case "middleware.tsx":
+      return "middleware";
 
-        case 'page.tsx':
-            return 'page'
+    case "page.tsx":
+      return "page";
 
-        default:
-            throw new Error(`Unknown route file: ${filePath}`)
-    }
+    default:
+      throw new Error(`Unknown route file: ${filePath}`);
+  }
 }
 
 /**
@@ -97,10 +97,10 @@ function getRouteType(filePath: string): RouteType {
  * ["dashboard", "users"]
  */
 function convertFilePathToSegments(filePath: string): string[] {
-    return normalizePath(filePath)
-        .replace(/\/?(page|layout|middleware)\.tsx$/, '')
-        .split('/')
-        .filter(Boolean)
+  return normalizePath(filePath)
+    .replace(/\/?(page|layout|middleware)\.tsx$/, "")
+    .split("/")
+    .filter(Boolean);
 }
 
 /**
@@ -110,7 +110,7 @@ function convertFilePathToSegments(filePath: string): string[] {
  * (dashboard)
  */
 function isRouteGroup(segment: string): boolean {
-    return /^\(.+\)$/.test(segment)
+  return /^\(.+\)$/.test(segment);
 }
 
 /**
@@ -121,41 +121,46 @@ function isRouteGroup(segment: string): boolean {
  * (dashboard) -> null
  */
 function convertSegmentToUrlSegment(segment: string): string | null {
-    if (isRouteGroup(segment)) {
-        return null
-    }
+  if (isRouteGroup(segment)) {
+    return null;
+  }
 
-    /**
-     * Dynamic route:
-     *
-     * [id] -> :id
-     */
-    const dynamicMatch = segment.match(/^\[([A-Za-z0-9_]+)\]$/)
+  /**
+   * Dynamic route:
+   *
+   * [id] -> :id
+   */
+  const dynamicMatch = segment.match(/^\[([A-Za-z0-9_]+)\]$/);
 
-    if (dynamicMatch) {
-        return `:${dynamicMatch[1]}`
-    }
+  if (dynamicMatch) {
+    return `:${dynamicMatch[1]}`;
+  }
 
-    /**
-     * Sengaja error dulu daripada menghasilkan route salah.
-     *
-     * Bisa ditambahkan nanti kalau ingin support:
-     *
-     * [...slug]
-     * [[...slug]]
-     */
-    if (segment.startsWith('[') || segment.endsWith(']')) {
-        throw new Error(`Unsupported dynamic route segment "${segment}". ` + `Currently only [param] is supported.`)
-    }
+  /**
+   * Sengaja error dulu daripada menghasilkan route salah.
+   *
+   * Bisa ditambahkan nanti kalau ingin support:
+   *
+   * [...slug]
+   * [[...slug]]
+   */
+  if (segment.startsWith("[") || segment.endsWith("]")) {
+    throw new Error(
+      `Unsupported dynamic route segment "${segment}". ` +
+        `Currently only [param] is supported.`,
+    );
+  }
 
-    return segment
+  return segment;
 }
 
 /**
  * Convert filesystem segments menjadi URL segments.
  */
 function convertSegmentsToUrlSegments(segments: string[]): string[] {
-    return segments.map(convertSegmentToUrlSegment).filter((segment): segment is string => segment !== null)
+  return segments
+    .map(convertSegmentToUrlSegment)
+    .filter((segment): segment is string => segment !== null);
 }
 
 /**
@@ -168,11 +173,11 @@ function convertSegmentsToUrlSegments(segments: string[]): string[] {
  * ["users", ":id"] -> /users/:id
  */
 function convertSegmentsToPath(segments: string[]): string {
-    if (segments.length === 0) {
-        return '/'
-    }
+  if (segments.length === 0) {
+    return "/";
+  }
 
-    return `/${segments.join('/')}`
+  return `/${segments.join("/")}`;
 }
 
 /**
@@ -184,12 +189,17 @@ function convertSegmentsToPath(segments: string[]): string {
  *
  * => true
  */
-function isAncestorSegments(parentSegments: string[], childSegments: string[]): boolean {
-    if (parentSegments.length > childSegments.length) {
-        return false
-    }
+function isAncestorSegments(
+  parentSegments: string[],
+  childSegments: string[],
+): boolean {
+  if (parentSegments.length > childSegments.length) {
+    return false;
+  }
 
-    return parentSegments.every((segment, index) => childSegments[index] === segment)
+  return parentSegments.every(
+    (segment, index) => childSegments[index] === segment,
+  );
 }
 
 /**
@@ -203,41 +213,47 @@ function isAncestorSegments(parentSegments: string[], childSegments: string[]): 
  * ../app/dashboard/page
  */
 function createImportPath(filePath: string): string {
-    const outputDirectory = path.dirname(OUTPUT_FILE)
+  const outputDirectory = path.dirname(OUTPUT_FILE);
 
-    let importPath = normalizePath(path.relative(outputDirectory, filePath))
+  let importPath = normalizePath(path.relative(outputDirectory, filePath));
 
-    importPath = importPath.replace(/\.(tsx|ts|jsx|js)$/, '')
+  importPath = importPath.replace(/\.(tsx|ts|jsx|js)$/, "");
 
-    if (!importPath.startsWith('.')) {
-        importPath = `./${importPath}`
-    }
+  if (!importPath.startsWith(".")) {
+    importPath = `./${importPath}`;
+  }
 
-    return importPath
+  return importPath;
 }
 
 /**
  * Cari middleware pada directory yang sama.
  */
-function findSameDirectoryMiddleware(route: RouteObj, routes: RouteObj[]): RouteObj | undefined {
-    return routes.find(
-        (candidate) =>
-            candidate.type === 'middleware' &&
-            candidate.filePath !== route.filePath &&
-            arraysEqual(candidate.segments, route.segments)
-    )
+function findSameDirectoryMiddleware(
+  route: RouteObj,
+  routes: RouteObj[],
+): RouteObj | undefined {
+  return routes.find(
+    (candidate) =>
+      candidate.type === "middleware" &&
+      candidate.filePath !== route.filePath &&
+      arraysEqual(candidate.segments, route.segments),
+  );
 }
 
 /**
  * Cari layout pada directory yang sama.
  */
-function findSameDirectoryLayout(route: RouteObj, routes: RouteObj[]): RouteObj | undefined {
-    return routes.find(
-        (candidate) =>
-            candidate.type === 'layout' &&
-            candidate.filePath !== route.filePath &&
-            arraysEqual(candidate.segments, route.segments)
-    )
+function findSameDirectoryLayout(
+  route: RouteObj,
+  routes: RouteObj[],
+): RouteObj | undefined {
+  return routes.find(
+    (candidate) =>
+      candidate.type === "layout" &&
+      candidate.filePath !== route.filePath &&
+      arraysEqual(candidate.segments, route.segments),
+  );
 }
 
 /**
@@ -263,49 +279,56 @@ function findSameDirectoryLayout(route: RouteObj, routes: RouteObj[]): RouteObj 
  *
  * Jadi layout adalah wrapper terdalam.
  */
-function findNearestAncestorWrapper(route: RouteObj, routes: RouteObj[]): RouteObj | undefined {
-    const candidates = routes.filter((candidate) => {
-        if (candidate.filePath === route.filePath) {
-            return false
-        }
+function findNearestAncestorWrapper(
+  route: RouteObj,
+  routes: RouteObj[],
+): RouteObj | undefined {
+  const candidates = routes.filter((candidate) => {
+    if (candidate.filePath === route.filePath) {
+      return false;
+    }
 
-        if (candidate.type !== 'layout' && candidate.type !== 'middleware') {
-            return false
-        }
-
-        /**
-         * Ancestor directory harus benar-benar lebih pendek.
-         */
-        if (candidate.segments.length >= route.segments.length) {
-            return false
-        }
-
-        return isAncestorSegments(candidate.segments, route.segments)
-    })
-
-    if (candidates.length === 0) {
-        return undefined
+    if (candidate.type !== "layout" && candidate.type !== "middleware") {
+      return false;
     }
 
     /**
-     * Cari directory ancestor terdalam.
+     * Ancestor directory harus benar-benar lebih pendek.
      */
-    const deepestLength = Math.max(...candidates.map((candidate) => candidate.segments.length))
+    if (candidate.segments.length >= route.segments.length) {
+      return false;
+    }
 
-    const deepestCandidates = candidates.filter((candidate) => candidate.segments.length === deepestLength)
+    return isAncestorSegments(candidate.segments, route.segments);
+  });
 
-    /**
-     * Kalau directory tersebut punya layout,
-     * layout adalah wrapper terdalam.
-     */
-    return (
-        deepestCandidates.find((candidate) => candidate.type === 'layout') ??
-        deepestCandidates.find((candidate) => candidate.type === 'middleware')
-    )
+  if (candidates.length === 0) {
+    return undefined;
+  }
+
+  /**
+   * Cari directory ancestor terdalam.
+   */
+  const deepestLength = Math.max(
+    ...candidates.map((candidate) => candidate.segments.length),
+  );
+
+  const deepestCandidates = candidates.filter(
+    (candidate) => candidate.segments.length === deepestLength,
+  );
+
+  /**
+   * Kalau directory tersebut punya layout,
+   * layout adalah wrapper terdalam.
+   */
+  return (
+    deepestCandidates.find((candidate) => candidate.type === "layout") ??
+    deepestCandidates.find((candidate) => candidate.type === "middleware")
+  );
 }
 
 function arraysEqual(a: string[], b: string[]): boolean {
-    return a.length === b.length && a.every((value, index) => value === b[index])
+  return a.length === b.length && a.every((value, index) => value === b[index]);
 }
 
 /**
@@ -335,131 +358,140 @@ function arraysEqual(a: string[], b: string[]): boolean {
  * layout
  *   users/page
  */
-function getParentRoute(route: RouteObj, routes: RouteObj[]): RouteObj | undefined {
-    /**
-     * middleware adalah wrapper paling luar
-     * pada directory tersebut.
-     */
-    if (route.type === 'middleware') {
-        return findNearestAncestorWrapper(route, routes)
-    }
+function getParentRoute(
+  route: RouteObj,
+  routes: RouteObj[],
+): RouteObj | undefined {
+  /**
+   * middleware adalah wrapper paling luar
+   * pada directory tersebut.
+   */
+  if (route.type === "middleware") {
+    return findNearestAncestorWrapper(route, routes);
+  }
 
-    /**
-     * layout berada di dalam middleware
-     * jika ada middleware pada directory yang sama.
-     */
-    if (route.type === 'layout') {
-        return findSameDirectoryMiddleware(route, routes) ?? findNearestAncestorWrapper(route, routes)
-    }
+  /**
+   * layout berada di dalam middleware
+   * jika ada middleware pada directory yang sama.
+   */
+  if (route.type === "layout") {
+    return (
+      findSameDirectoryMiddleware(route, routes) ??
+      findNearestAncestorWrapper(route, routes)
+    );
+  }
 
-    /**
-     * page:
-     *
-     * layout lebih dekat daripada middleware.
-     */
-    if (route.type === 'page') {
-        return (
-            findSameDirectoryLayout(route, routes) ??
-            findSameDirectoryMiddleware(route, routes) ??
-            findNearestAncestorWrapper(route, routes)
-        )
-    }
+  /**
+   * page:
+   *
+   * layout lebih dekat daripada middleware.
+   */
+  if (route.type === "page") {
+    return (
+      findSameDirectoryLayout(route, routes) ??
+      findSameDirectoryMiddleware(route, routes) ??
+      findNearestAncestorWrapper(route, routes)
+    );
+  }
 
-    return undefined
+  return undefined;
 }
 
 /**
  * Scan filesystem menjadi flat route list.
  */
 async function getFlatRoutes(appFolder: string): Promise<RouteObj[]> {
-    const scannedFilePaths: string[] = []
+  const scannedFilePaths: string[] = [];
 
-    for await (const file of glob.scan(appFolder)) {
-        scannedFilePaths.push(normalizePath(file))
+  for await (const file of glob.scan(appFolder)) {
+    scannedFilePaths.push(normalizePath(file));
+  }
+
+  /**
+   * Supaya output selalu deterministic.
+   */
+  scannedFilePaths.sort();
+
+  const routes: RouteObj[] = scannedFilePaths.map((relativeFilePath) => {
+    const segments = convertFilePathToSegments(relativeFilePath);
+
+    const urlSegments = convertSegmentsToUrlSegments(segments);
+
+    const filePath = normalizePath(`${APP_FOLDER}/${relativeFilePath}`);
+
+    return {
+      type: getRouteType(relativeFilePath),
+
+      relativeFilePath,
+
+      filePath,
+
+      importPath: createImportPath(filePath),
+
+      segments,
+
+      urlSegments,
+
+      path: convertSegmentsToPath(urlSegments),
+
+      children: [],
+    };
+  });
+
+  /**
+   * Tentukan parent.
+   */
+  for (const route of routes) {
+    const parent = getParentRoute(route, routes);
+
+    if (parent) {
+      route.parentFilePath = parent.filePath;
     }
+  }
 
-    /**
-     * Supaya output selalu deterministic.
-     */
-    scannedFilePaths.sort()
-
-    const routes: RouteObj[] = scannedFilePaths.map((relativeFilePath) => {
-        const segments = convertFilePathToSegments(relativeFilePath)
-
-        const urlSegments = convertSegmentsToUrlSegments(segments)
-
-        const filePath = normalizePath(`${APP_FOLDER}/${relativeFilePath}`)
-
-        return {
-            type: getRouteType(relativeFilePath),
-
-            relativeFilePath,
-
-            filePath,
-
-            importPath: createImportPath(filePath),
-
-            segments,
-
-            urlSegments,
-
-            path: convertSegmentsToPath(urlSegments),
-
-            children: [],
-        }
-    })
-
-    /**
-     * Tentukan parent.
-     */
-    for (const route of routes) {
-        const parent = getParentRoute(route, routes)
-
-        if (parent) {
-            route.parentFilePath = parent.filePath
-        }
-    }
-
-    return routes
+  return routes;
 }
 
 /**
  * Build tree dari flat routes.
  */
 function buildRouteTree(flatRoutes: RouteObj[]): RouteObj[] {
-    const routeMap = new Map<string, RouteObj>()
+  const routeMap = new Map<string, RouteObj>();
 
-    for (const route of flatRoutes) {
-        routeMap.set(route.filePath, {
-            ...route,
-            children: [],
-        })
+  for (const route of flatRoutes) {
+    routeMap.set(route.filePath, {
+      ...route,
+      children: [],
+    });
+  }
+
+  const routeTree: RouteObj[] = [];
+
+  for (const route of flatRoutes) {
+    const currentRoute = routeMap.get(route.filePath);
+
+    if (!currentRoute) {
+      continue;
     }
 
-    const routeTree: RouteObj[] = []
-
-    for (const route of flatRoutes) {
-        const currentRoute = routeMap.get(route.filePath)
-
-        if (!currentRoute) {
-            continue
-        }
-
-        if (!route.parentFilePath) {
-            routeTree.push(currentRoute)
-            continue
-        }
-
-        const parent = routeMap.get(route.parentFilePath)
-
-        if (!parent) {
-            throw new Error(`Parent route "${route.parentFilePath}" not found ` + `for "${route.filePath}".`)
-        }
-
-        parent.children.push(currentRoute)
+    if (!route.parentFilePath) {
+      routeTree.push(currentRoute);
+      continue;
     }
 
-    return routeTree
+    const parent = routeMap.get(route.parentFilePath);
+
+    if (!parent) {
+      throw new Error(
+        `Parent route "${route.parentFilePath}" not found ` +
+          `for "${route.filePath}".`,
+      );
+    }
+
+    parent.children.push(currentRoute);
+  }
+
+  return routeTree;
 }
 
 /**
@@ -487,70 +519,76 @@ function buildRouteTree(flatRoutes: RouteObj[]): RouteObj[] {
  * ""
  */
 function getRelativeRoutePath(route: RouteObj, parent?: RouteObj): string {
-    if (!parent) {
-        return route.urlSegments.join('/')
-    }
+  if (!parent) {
+    return route.urlSegments.join("/");
+  }
 
-    return route.urlSegments.slice(parent.urlSegments.length).join('/')
+  return route.urlSegments.slice(parent.urlSegments.length).join("/");
 }
 
 /**
  * Escape string agar aman dimasukkan ke generated TS.
  */
 function stringify(value: string): string {
-    return JSON.stringify(value)
+  return JSON.stringify(value);
 }
 
 /**
  * Generate satu React Router DataRouteObject.
  */
 function transformRoute(route: RouteObj, parent?: RouteObj, depth = 1): string {
-    const indent = '  '.repeat(depth)
-    const childIndent = '  '.repeat(depth + 1)
+  const indent = "  ".repeat(depth);
+  const childIndent = "  ".repeat(depth + 1);
 
-    const relativePath = getRelativeRoutePath(route, parent)
+  const relativePath = getRelativeRoutePath(route, parent);
 
-    const properties: string[] = []
+  const properties: string[] = [];
 
-    properties.push(`${childIndent}id: ${stringify(route.filePath)}`)
+  properties.push(`${childIndent}id: ${stringify(route.filePath)}`);
 
-    if (route.type === 'page') {
-        if (parent && relativePath === '') {
-            properties.push(`${childIndent}index: true`)
-        } else {
-            properties.push(`${childIndent}path: ${stringify(relativePath || '/')}`)
-        }
-
-        properties.push(`${childIndent}Component: React.lazy(() => import(${stringify(route.importPath)}))`)
+  if (route.type === "page") {
+    if (parent && relativePath === "") {
+      properties.push(`${childIndent}index: true`);
+    } else {
+      properties.push(`${childIndent}path: ${stringify(relativePath || "/")}`);
     }
 
-    if (route.type === 'layout' || route.type === 'middleware') {
-        /**
-         * Kalau wrapper berada pada URL yang sama
-         * dengan parent, jadikan pathless route.
-         */
-        if (relativePath !== '') {
-            properties.push(`${childIndent}path: ${stringify(relativePath)}`)
-        } else if (!parent) {
-            properties.push(`${childIndent}path: "/"`)
-        }
+    properties.push(
+      `${childIndent}Component: React.lazy(() => import(${stringify(route.importPath)}))`,
+    );
+  }
 
-        properties.push(`${childIndent}Component: React.lazy(() => import(${stringify(route.importPath)}))`)
+  if (route.type === "layout" || route.type === "middleware") {
+    /**
+     * Kalau wrapper berada pada URL yang sama
+     * dengan parent, jadikan pathless route.
+     */
+    if (relativePath !== "") {
+      properties.push(`${childIndent}path: ${stringify(relativePath)}`);
+    } else if (!parent) {
+      properties.push(`${childIndent}path: "/"`);
     }
 
-    if (route.children.length > 0) {
-        const children = route.children.map((child) => transformRoute(child, route, depth + 1)).join(',\n')
+    properties.push(
+      `${childIndent}Component: React.lazy(() => import(${stringify(route.importPath)}))`,
+    );
+  }
 
-        properties.push(
-            `${childIndent}children: [
+  if (route.children.length > 0) {
+    const children = route.children
+      .map((child) => transformRoute(child, route, depth + 1))
+      .join(",\n");
+
+    properties.push(
+      `${childIndent}children: [
  ${children}
- ${childIndent}]`
-        )
-    }
+ ${childIndent}]`,
+    );
+  }
 
-    return `${indent}{
- ${properties.join(',\n')}
- ${indent}}`
+  return `${indent}{
+ ${properties.join(",\n")}
+ ${indent}}`;
 }
 
 /**
@@ -569,31 +607,36 @@ function transformRoute(route: RouteObj, parent?: RouteObj, depth = 1): string {
  * dan akan ambigu.
  */
 function validateDuplicatePages(routes: RouteObj[]) {
-    const pages = routes.filter((route) => route.type === 'page')
+  const pages = routes.filter((route) => route.type === "page");
 
-    const pathMap = new Map<string, RouteObj[]>()
+  const pathMap = new Map<string, RouteObj[]>();
 
-    for (const page of pages) {
-        const existing = pathMap.get(page.path) ?? []
+  for (const page of pages) {
+    const existing = pathMap.get(page.path) ?? [];
 
-        existing.push(page)
+    existing.push(page);
 
-        pathMap.set(page.path, existing)
-    }
+    pathMap.set(page.path, existing);
+  }
 
-    const duplicates = [...pathMap.entries()].filter(([, routes]) => routes.length > 1)
+  const duplicates = [...pathMap.entries()].filter(
+    ([, routes]) => routes.length > 1,
+  );
 
-    if (duplicates.length === 0) {
-        return
-    }
+  if (duplicates.length === 0) {
+    return;
+  }
 
-    const description = duplicates
-        .map(([routePath, routes]) => {
-            return [`Duplicate route "${routePath}":`, ...routes.map((route) => `  - ${route.filePath}`)].join('\n')
-        })
-        .join('\n\n')
+  const description = duplicates
+    .map(([routePath, routes]) => {
+      return [
+        `Duplicate route "${routePath}":`,
+        ...routes.map((route) => `  - ${route.filePath}`),
+      ].join("\n");
+    })
+    .join("\n\n");
 
-    throw new Error(description)
+  throw new Error(description);
 }
 
 /**
@@ -602,13 +645,19 @@ function validateDuplicatePages(routes: RouteObj[]) {
  * Hanya page yang boleh menjadi navigation target.
  */
 function generatePathsType(routes: RouteObj[]): string {
-    const paths = [...new Set(routes.filter((route) => route.type === 'page').map((route) => route.path))]
+  const paths = [
+    ...new Set(
+      routes
+        .filter((route) => route.type === "page")
+        .map((route) => route.path),
+    ),
+  ];
 
-    if (paths.length === 0) {
-        return 'never'
-    }
+  if (paths.length === 0) {
+    return "never";
+  }
 
-    return paths.map(stringify).join(' |\n  ')
+  return paths.map(stringify).join(" |\n  ");
 }
 
 /**
@@ -621,7 +670,7 @@ function generatePathsType(routes: RouteObj[]): string {
  * id: string
  */
 function extractParams(routePath: string): string[] {
-    return [...routePath.matchAll(/:([A-Za-z0-9_]+)/g)].map((match) => match[1])
+  return [...routePath.matchAll(/:([A-Za-z0-9_]+)/g)].map((match) => match[1]);
 }
 
 /**
@@ -630,50 +679,54 @@ function extractParams(routePath: string): string[] {
  * Hanya route yang punya dynamic params yang dimasukkan.
  */
 function generateParamsType(routes: RouteObj[]): string {
-    const pages = routes.filter((route) => route.type === 'page')
+  const pages = routes.filter((route) => route.type === "page");
 
-    const entries = new Map<string, string[]>()
+  const entries = new Map<string, string[]>();
 
-    for (const page of pages) {
-        const params = extractParams(page.path)
+  for (const page of pages) {
+    const params = extractParams(page.path);
 
-        if (params.length === 0) {
-            continue
-        }
-
-        entries.set(page.path, params)
+    if (params.length === 0) {
+      continue;
     }
 
-    if (entries.size === 0) {
-        return '{}'
-    }
+    entries.set(page.path, params);
+  }
 
-    const properties = [...entries.entries()]
-        .map(([routePath, params]) => {
-            const paramsType = params.map((param) => `${stringify(param)}: string`).join('; ')
+  if (entries.size === 0) {
+    return "{}";
+  }
 
-            return `  ${stringify(routePath)}: { ${paramsType} }`
-        })
-        .join('\n')
+  const properties = [...entries.entries()]
+    .map(([routePath, params]) => {
+      const paramsType = params
+        .map((param) => `${stringify(param)}: string`)
+        .join("; ");
 
-    return `{
+      return `  ${stringify(routePath)}: { ${paramsType} }`;
+    })
+    .join("\n");
+
+  return `{
 ${properties}
-}`
+}`;
 }
 
 async function build() {
-    const flatRoutes = await getFlatRoutes(APP_FOLDER)
+  const flatRoutes = await getFlatRoutes(APP_FOLDER);
 
-    validateDuplicatePages(flatRoutes)
+  validateDuplicatePages(flatRoutes);
 
-    const routeTree = buildRouteTree(flatRoutes)
+  const routeTree = buildRouteTree(flatRoutes);
 
-    const pathsType = generatePathsType(flatRoutes)
-    const paramsType = generateParamsType(flatRoutes)
+  const pathsType = generatePathsType(flatRoutes);
+  const paramsType = generateParamsType(flatRoutes);
 
-    const generatedRoutes = routeTree.map((route) => transformRoute(route)).join(',\n')
+  const generatedRoutes = routeTree
+    .map((route) => transformRoute(route))
+    .join(",\n");
 
-    const output = `// ============================================================
+  const output = `// ============================================================
 // AUTO-GENERATED FILE
 //
 // DO NOT EDIT THIS FILE MANUALLY.
@@ -709,14 +762,16 @@ export type Params = ${paramsType}
 export const routes: DataRouteObject[] = [
 ${generatedRoutes}
 ]
-`
+`;
 
-    await Bun.write(OUTPUT_FILE, output)
+  await Bun.write(OUTPUT_FILE, output);
 
-    console.log(`Generated ${OUTPUT_FILE} with ${flatRoutes.length} route files.`)
+  console.log(
+    `Generated ${OUTPUT_FILE} with ${flatRoutes.length} route files.`,
+  );
 }
 
 build().catch((error) => {
-    console.error(error)
-    process.exit(1)
-})
+  console.error(error);
+  process.exit(1);
+});

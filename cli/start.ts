@@ -1,4 +1,6 @@
-import { $ } from 'bun'
+import { $ } from "bun";
 
-// await $`bun run cli/build.ts`
-await $`NODE_ENV=production bun src/server/index.ts`
+await Promise.all([
+  $`bun run build`,
+  $`NODE_ENV=production bun ./server/index.ts`,
+]);

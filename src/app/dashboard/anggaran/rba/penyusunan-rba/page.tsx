@@ -1,0 +1,20 @@
+import { Button } from "@/components/ui/button";
+import { FiPlus } from "react-icons/fi";
+import { Link } from "react-router-dom";
+import RbaContentList from "./content";
+
+export default function Page() {
+  return (
+    <div className="flex flex-col gap-5">
+      <div>
+        <Button asChild>
+          <Link to="tambah">
+            <FiPlus />
+            Buat Dokumen
+          </Link>
+        </Button>
+      </div>
+      <RbaContentList />
+    </div>
+  );
+}

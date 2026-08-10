@@ -1,3 +1,6 @@
-import { $ } from 'bun'
+import { $ } from "bun";
 
-await Promise.all([$`bun --hot src/server/index.ts`, $`bun --watch cli/gen-routes.ts`])
+await Promise.all([
+  $`bun --hot ./server/index.ts`,
+  $`bun --hot cli/gen-routes.ts`,
+]);

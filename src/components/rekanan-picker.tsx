@@ -8,21 +8,14 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog'
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from '@/components/ui/table'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import React from 'react'
 import { cn } from '@/lib/utils'
 import { useDebounce } from 'use-debounce'
 import { Input } from '@/components/ui/input'
 import { keepPreviousData } from '@tanstack/react-query'
 import Loading from '@/components/loading'
-import { rekanan as rekananSchema } from '@/server/db/schema'
+import { rekanan as rekananSchema } from 'server/db/schema'
 
 export default function RekananPicker({
     value,
@@ -30,15 +23,10 @@ export default function RekananPicker({
     defaultValue,
 }: {
     value?: number | undefined
-    onValueChange?: (
-        value: number | undefined,
-        rekanan: typeof rekananSchema.$inferSelect | undefined
-    ) => void
+    onValueChange?: (value: number | undefined, rekanan: typeof rekananSchema.$inferSelect | undefined) => void
     defaultValue?: number
 }) {
-    const [selected, setSelected] = React.useState<number | undefined>(
-        value ?? defaultValue ?? 0
-    )
+    const [selected, setSelected] = React.useState<number | undefined>(value ?? defaultValue ?? 0)
 
     const rekananSelected = api.rekanan.getById.useQuery(selected!, {
         enabled: !!selected,
@@ -48,10 +36,7 @@ export default function RekananPicker({
     const [search, setSearch] = React.useState<string>('')
     const [searchValue] = useDebounce(search, 300)
 
-    const rekanan = api.rekanan.getAll.useQuery(
-        { search: searchValue },
-        { placeholderData: keepPreviousData }
-    )
+    const rekanan = api.rekanan.getAll.useQuery({ search: searchValue }, { placeholderData: keepPreviousData })
 
     return (
         <Dialog>
@@ -66,24 +51,17 @@ export default function RekananPicker({
                 >
                     {selected !== undefined && (
                         <div>
-                            {rekananSelected.isSuccess &&
-                                rekananSelected.data && (
-                                    <div className="flex items-center gap-3">
-                                        <img
-                                            src="/images/icons/shop.png"
-                                            alt="rekanan"
-                                            className="h-10 w-10"
-                                        />
-                                        <div className="flex flex-col text-left">
-                                            <span className="line-clamp-1">
-                                                {rekananSelected.data.nama}
-                                            </span>
-                                            <span className="line-clamp-1 text-xs text-slate-500">
-                                                {rekananSelected.data.alamat}
-                                            </span>
-                                        </div>
+                            {rekananSelected.isSuccess && rekananSelected.data && (
+                                <div className="flex items-center gap-3">
+                                    <img src="/images/icons/shop.png" alt="rekanan" className="h-10 w-10" />
+                                    <div className="flex flex-col text-left">
+                                        <span className="line-clamp-1">{rekananSelected.data.nama}</span>
+                                        <span className="line-clamp-1 text-xs text-slate-500">
+                                            {rekananSelected.data.alamat}
+                                        </span>
                                     </div>
-                                )}
+                                </div>
+                            )}
                             {rekananSelected.isLoading && (
                                 <div className="flex items-center gap-3">
                                     <Loading />
@@ -96,14 +74,9 @@ export default function RekananPicker({
             <DialogContent className="max-w-2xl">
                 <DialogHeader>
                     <DialogTitle>Pilih Rekanan</DialogTitle>
-                    <DialogDescription>
-                        Data referensi rekanan
-                    </DialogDescription>
+                    <DialogDescription>Data referensi rekanan</DialogDescription>
                 </DialogHeader>
-                <Input
-                    placeholder="Cari rekanan..."
-                    onChange={(e) => setSearch(e.target.value)}
-                />
+                <Input placeholder="Cari rekanan..." onChange={(e) => setSearch(e.target.value)} />
                 <div className="max-h-96 overflow-y-auto">
                     <Table>
                         <TableHeader>
@@ -119,21 +92,12 @@ export default function RekananPicker({
                                 rekanan.data?.map((item, index) => (
                                     <TableRow
                                         key={index}
-                                        className={cn(
-                                            selected === item.id &&
-                                                'bg-yellow-100 hover:bg-yellow-200'
-                                        )}
+                                        className={cn(selected === item.id && 'bg-yellow-100 hover:bg-yellow-200')}
                                     >
-                                        <TableCell className="text-center">
-                                            {index + 1}.
-                                        </TableCell>
+                                        <TableCell className="text-center">{index + 1}.</TableCell>
                                         <TableCell>
-                                            <p className="block font-semibold">
-                                                {item.nama}
-                                            </p>
-                                            <span className="line-clamp-1 text-xs text-slate-500">
-                                                {item.alamat}
-                                            </span>
+                                            <p className="block font-semibold">{item.nama}</p>
+                                            <span className="line-clamp-1 text-xs text-slate-500">{item.alamat}</span>
                                         </TableCell>
                                         <TableCell>{item.jenis}</TableCell>
                                         <TableCell>
@@ -142,10 +106,7 @@ export default function RekananPicker({
                                                     variant="destructive"
                                                     onClick={() => {
                                                         setSelected(undefined)
-                                                        onValueChange?.(
-                                                            undefined,
-                                                            undefined
-                                                        )
+                                                        onValueChange?.(undefined, undefined)
                                                     }}
                                                 >
                                                     Batal
@@ -155,10 +116,7 @@ export default function RekananPicker({
                                                     variant="outline"
                                                     onClick={() => {
                                                         setSelected(item.id)
-                                                        onValueChange?.(
-                                                            item.id,
-                                                            item
-                                                        )
+                                                        onValueChange?.(item.id, item)
                                                     }}
                                                 >
                                                     Pilih
@@ -167,17 +125,13 @@ export default function RekananPicker({
                                         </TableCell>
                                     </TableRow>
                                 ))}
-                            {rekanan.isSuccess &&
-                                rekanan.data?.length === 0 && (
-                                    <TableRow>
-                                        <TableCell
-                                            colSpan={4}
-                                            className="text-center"
-                                        >
-                                            Tidak ada data
-                                        </TableCell>
-                                    </TableRow>
-                                )}
+                            {rekanan.isSuccess && rekanan.data?.length === 0 && (
+                                <TableRow>
+                                    <TableCell colSpan={4} className="text-center">
+                                        Tidak ada data
+                                    </TableCell>
+                                </TableRow>
+                            )}
                         </TableBody>
                     </Table>
                 </div>
