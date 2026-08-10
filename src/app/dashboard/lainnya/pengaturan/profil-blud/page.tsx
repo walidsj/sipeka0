@@ -6,27 +6,22 @@ export default function Page() {
 
   return (
     <div className="flex flex-row gap-5">
-      <div>
-        <img src="/images/icons/policy.png" className="h-36" />
-      </div>
-      <div className="w-96">
-        {profilBlud.isSuccess && (
-          <EditForm
-            data={
-              profilBlud.data
-                ? profilBlud.data
-                : {
-                    nama: "",
-                    alamat: "",
-                    noFax: "",
-                    noTelp: "",
-                    email: "",
-                    website: "",
-                  }
-            }
-          />
-        )}
-      </div>
+      {profilBlud.isSuccess && (
+        <EditForm
+          data={
+            profilBlud.data
+              ? profilBlud.data
+              : {
+                  nama: "",
+                  alamat: "",
+                  noFax: "",
+                  noTelp: "",
+                  email: "",
+                  website: "",
+                }
+          }
+        />
+      )}
     </div>
   );
 }

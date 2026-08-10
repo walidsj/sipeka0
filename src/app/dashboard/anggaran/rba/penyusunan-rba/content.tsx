@@ -53,13 +53,6 @@ export default function RbaContentList() {
         rba.data?.map((item, index) => (
           <Card key={index}>
             <CardHeader>
-              <div className="mb-2">
-                <img
-                  src="/images/icons/contract.png"
-                  className="h-14"
-                  alt="RBA"
-                />
-              </div>
               <CardTitle>{item.uraian}</CardTitle>
               <CardDescription>
                 No. {item.noDokumen} tanggal{" "}
@@ -73,19 +66,19 @@ export default function RbaContentList() {
                 <Button asChild>
                   <Link to={`${item.id}/aktivitas`}>
                     Rincian
-                    <FiArrowRight className="ml-2" />
+                    <FiArrowRight />
                   </Link>
                 </Button>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline">
-                      Aksi <FiChevronsDown className="ml-2" />
+                      Aksi <FiChevronsDown />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="start">
                     <Link to={`${item.id}/edit`}>
                       <DropdownMenuItem>
-                        <FiEdit className="mr-2" />
+                        <FiEdit />
                         Edit
                       </DropdownMenuItem>
                     </Link>
@@ -97,7 +90,7 @@ export default function RbaContentList() {
                       }}
                       className="text-red-500"
                     >
-                      <FiTrash className="mr-2" />
+                      <FiTrash />
                       Hapus
                     </DropdownMenuItem>
                   </DropdownMenuContent>

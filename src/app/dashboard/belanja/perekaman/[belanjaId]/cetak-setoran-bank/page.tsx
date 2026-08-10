@@ -51,29 +51,6 @@ export default function Page() {
       ? 0
       : 2900;
 
-  const penyetorList = [
-    {
-      id: "agus",
-      nama: "AGUS SUTRASNO",
-      noTelp: "082157614881",
-    },
-    {
-      id: "riandy",
-      nama: "RIANDY, S.KEP.",
-      noTelp: "085172277277",
-    },
-    {
-      id: "arian",
-      nama: "M. WAHID ARIAN",
-      noTelp: "085347488136",
-    },
-    {
-      id: "null",
-      nama: "",
-      noTelp: "",
-    },
-  ];
-
   return (
     <Card>
       <CardHeader>
@@ -84,25 +61,6 @@ export default function Page() {
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-3 md:flex-row md:items-center">
-          <Select
-            value={searchParams.get("penyetorId") || "null"}
-            onValueChange={(val) => {
-              searchParams.set("penyetorId", val);
-              setSearchParams(searchParams);
-            }}
-          >
-            <SelectTrigger className="mb-5 w-fit font-semibold">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {penyetorList.map((item) => (
-                <SelectItem key={item.id} value={item.id}>
-                  Penyetor:{" "}
-                  {item.nama ? `${item.nama} (${item.noTelp})` : "Kosong"}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
           <Select
             value={searchParams.get("includeAdminBank") || "false"}
             onValueChange={(val) => {
@@ -219,28 +177,17 @@ export default function Page() {
                           </tr>
                           <tr>
                             <td className="font-arial h-[4mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]">
-                              RSJD AHM /{" "}
-                              {
-                                penyetorList.find(
-                                  (item) =>
-                                    item.id === searchParams.get("penyetorId"),
-                                )?.nama
-                              }
+                              RSJD AHM
                             </td>
                           </tr>
                           <tr>
                             <td className="font-arial h-[4mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]">
-                              Jl. Kakap No. 34
+                              Jl. Kakap No. 23
                             </td>
                           </tr>
                           <tr>
                             <td className="font-arial h-[4mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]">
-                              {
-                                penyetorList.find(
-                                  (item) =>
-                                    item.id === searchParams.get("penyetorId"),
-                                )?.noTelp
-                              }
+                              0541-743364
                             </td>
                           </tr>
                         </tbody>
@@ -323,13 +270,7 @@ export default function Page() {
                         <tbody>
                           <tr>
                             <td className="font-arial h-[4mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]">
-                              RSJD AHM /{" "}
-                              {
-                                penyetorList.find(
-                                  (item) =>
-                                    item.id === searchParams.get("penyetorId"),
-                                )?.nama
-                              }
+                              RSJD AHM
                             </td>
                           </tr>
                           <tr>
@@ -342,10 +283,7 @@ export default function Page() {
                           </tr>
                           <tr>
                             <td className="font-arial h-[4mm] border border-transparent py-0 align-top text-[8pt] leading-[9pt]">
-                              {penyetorList.find(
-                                (item) =>
-                                  item.id === searchParams.get("penyetorId"),
-                              )?.noTelp || "085172277277"}
+                              0541-743364
                             </td>
                           </tr>
                           <tr>

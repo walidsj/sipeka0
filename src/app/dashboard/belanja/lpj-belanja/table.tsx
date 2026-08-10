@@ -16,8 +16,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { formatAngka, formatTanggal } from "@/lib/utils";
+import { formatAngka } from "@/lib/utils";
 import { api } from "@/trpc/react";
+import { format } from "date-fns";
 import toast from "react-hot-toast";
 import {
   HiOutlineChevronDown,
@@ -25,7 +26,6 @@ import {
   HiOutlinePencil,
   HiOutlineTrash,
 } from "react-icons/hi";
-import { LuBookMarked } from "react-icons/lu";
 import { Link } from "react-router-dom";
 
 export default function LpjBelanjaTable() {
@@ -66,8 +66,8 @@ export default function LpjBelanjaTable() {
       <TableHeader>
         <TableRow>
           <TableHead className="w-1">No.</TableHead>
-          <TableHead colSpan={2}>Nomor Dokumen</TableHead>
           <TableHead>Tanggal Dokumen</TableHead>
+          <TableHead>Nomor Dokumen</TableHead>
           <TableHead>Uraian</TableHead>
           <TableHead className="text-center">Jenis</TableHead>
           <TableHead className="text-right">Jumlah</TableHead>
@@ -78,31 +78,20 @@ export default function LpjBelanjaTable() {
         {lpjBelanja.map((item, index) => (
           <TableRow key={index}>
             <TableCell className="text-center">{index + 1}.</TableCell>
-            <TableCell className="w-1">
-              <div className="h-10 w-10 rounded-full bg-blue-50 p-2">
-                <LuBookMarked className="h-6 w-6 -rotate-12 text-blue-500" />
-              </div>
+            <TableCell className="text-center">
+              {format(item.tglDokumen!, "dd/MM/yyyy")}
             </TableCell>
             <TableCell className="text-center font-semibold">
               {item.noDokumen}
             </TableCell>
-            <TableCell className="font-semibold">
-              {formatTanggal(item.tglDokumen)}
-            </TableCell>
-            <TableCell className="font-semibold">{item.uraian}</TableCell>
+            <TableCell>{item.uraian}</TableCell>
             <TableCell className="text-center">
-              {item.jenis === "GU" && (
-                <Badge className="h-8 w-10 justify-center">GU</Badge>
-              )}
+              {item.jenis === "GU" && <Badge>GU</Badge>}
               {item.jenis === "LS" && (
-                <Badge className="h-8 w-10 justify-center bg-green-500">
-                  LS
-                </Badge>
+                <Badge className="bg-green-500">LS</Badge>
               )}
               {item.jenis === "TU" && (
-                <Badge className="h-8 w-10 justify-center bg-yellow-500">
-                  TU
-                </Badge>
+                <Badge className="bg-yellow-500">TU</Badge>
               )}
             </TableCell>
             <TableCell className="text-right font-semibold">
@@ -111,20 +100,20 @@ export default function LpjBelanjaTable() {
             <TableCell>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline">
-                    Aksi <HiOutlineChevronDown className="ml-2" />
+                  <Button size="sm" variant="outline">
+                    Aksi <HiOutlineChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
                   <Link to={`${item.id}`}>
                     <DropdownMenuItem>
-                      <HiOutlineEye className="mr-2" />
+                      <HiOutlineEye />
                       Detail
                     </DropdownMenuItem>
                   </Link>
                   <Link to={`${item.id}/edit`}>
                     <DropdownMenuItem>
-                      <HiOutlinePencil className="mr-2" />
+                      <HiOutlinePencil />
                       Edit
                     </DropdownMenuItem>
                   </Link>
@@ -136,7 +125,7 @@ export default function LpjBelanjaTable() {
                     }}
                     className="text-red-500"
                   >
-                    <HiOutlineTrash className="mr-2" />
+                    <HiOutlineTrash />
                     Hapus
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -146,7 +135,7 @@ export default function LpjBelanjaTable() {
         ))}
         {lpjBelanja.length === 0 && (
           <TableRow>
-            <TableCell colSpan={6} className="text-center">
+            <TableCell colSpan={5} className="text-center">
               Tidak ada data
             </TableCell>
           </TableRow>
@@ -154,7 +143,7 @@ export default function LpjBelanjaTable() {
       </TableBody>
       <TableFooter>
         <TableRow>
-          <TableHead colSpan={6} className="text-center">
+          <TableHead colSpan={5} className="text-center">
             Total
           </TableHead>
           <TableHead>

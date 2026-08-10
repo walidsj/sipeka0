@@ -27,7 +27,7 @@ export default function Page() {
           </div>
           <div className="w-1/2">
             {recentData.data && (
-              <Card className="flex flex-row">
+              <Card>
                 <CardHeader className="pr-0">
                   <img src="/images/icons/idea.png" />
                 </CardHeader>

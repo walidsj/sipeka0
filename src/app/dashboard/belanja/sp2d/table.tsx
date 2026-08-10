@@ -14,12 +14,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { formatAngka, formatTanggal } from "@/lib/utils";
+import { formatAngka } from "@/lib/utils";
 import { api } from "@/trpc/react";
+import { format } from "date-fns";
 import toast from "react-hot-toast";
 import {
   HiOutlineChevronDown,
-  HiOutlineDocumentReport,
   HiOutlineEye,
   HiOutlinePencil,
   HiOutlineTrash,
@@ -64,8 +64,8 @@ export default function Sp2dTable() {
       <TableHeader>
         <TableRow>
           <TableHead className="w-1">No.</TableHead>
-          <TableHead colSpan={2}>Nomor Dokumen</TableHead>
           <TableHead>Tanggal Dokumen</TableHead>
+          <TableHead>Nomor Dokumen</TableHead>
           <TableHead>Uraian Dokumen</TableHead>
           <TableHead className="text-center">Nomor Cek</TableHead>
           <TableHead className="text-right">Jumlah</TableHead>
@@ -76,41 +76,34 @@ export default function Sp2dTable() {
         {sp2d.map((item, index) => (
           <TableRow key={index}>
             <TableCell className="text-center">{index + 1}.</TableCell>
-            <TableCell className="w-1">
-              <div className="h-10 w-10 rounded-full bg-blue-50 p-2">
-                <HiOutlineDocumentReport className="h-6 w-6 -rotate-12 text-blue-500" />
-              </div>
+            <TableCell className="text-center">
+              {format(item.tglDokumen!, "dd/MM/yyyy")}
             </TableCell>
             <TableCell className="text-center font-semibold">
               {item.noDokumen}
             </TableCell>
-            <TableCell className="font-semibold">
-              {formatTanggal(item.tglDokumen)}
-            </TableCell>
-            <TableCell className="font-semibold">{item.uraian}</TableCell>
-            <TableCell className="text-center font-semibold">
-              {item.noCek}
-            </TableCell>
+            <TableCell>{item.uraian}</TableCell>
+            <TableCell className="text-center">{item.noCek}</TableCell>
             <TableCell className="text-right font-semibold">
               {formatAngka(item.jumlah)}
             </TableCell>
             <TableCell>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline">
-                    Aksi <HiOutlineChevronDown className="ml-2" />
+                  <Button size="sm" variant="outline">
+                    Aksi <HiOutlineChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
                   <Link to={`${item.id}`}>
                     <DropdownMenuItem>
-                      <HiOutlineEye className="mr-2" />
+                      <HiOutlineEye />
                       Detail
                     </DropdownMenuItem>
                   </Link>
                   <Link to={`${item.id}/edit`}>
                     <DropdownMenuItem>
-                      <HiOutlinePencil className="mr-2" />
+                      <HiOutlinePencil />
                       Edit
                     </DropdownMenuItem>
                   </Link>
@@ -122,7 +115,7 @@ export default function Sp2dTable() {
                     }}
                     className="text-red-500"
                   >
-                    <HiOutlineTrash className="mr-2" />
+                    <HiOutlineTrash />
                     Hapus
                   </DropdownMenuItem>
                 </DropdownMenuContent>

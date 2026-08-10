@@ -1,41 +1,38 @@
-import { appRouter } from "./router";
 import express from "express";
+import { createServer as createViteServer } from "vite";
 import {
   createExpressMiddleware,
   type CreateExpressContextOptions,
 } from "@trpc/server/adapters/express";
+
+import { appRouter } from "./router";
 import { getSession } from "./auth";
 import { db } from "./db";
-import { createServer } from "vite";
 
 const app = express();
-const port = process.env.PORT ?? 8089;
+const port = Number(process.env.PORT ?? 8089);
+const isDev = process.env.NODE_ENV === "development";
 
 app.use(express.json());
-app.use(express.static("dist"));
-
-const vite = await createServer({
-  appType: "spa",
-  server: { middlewareMode: true, hmr: true },
-});
 
 app.use(
   "/api/trpc",
   createExpressMiddleware({
     router: appRouter,
+
     createContext: async ({ req }: CreateExpressContextOptions) => ({
       headers: req.headers,
       db,
       session: await getSession(req.headers.authorization ?? ""),
     }),
-    onError:
-      process.env.NODE_ENV === "development"
-        ? ({ path, error }) => {
-            console.error(
-              `❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message}`,
-            );
-          }
-        : undefined,
+
+    onError: isDev
+      ? ({ path, error }) => {
+          console.error(
+            `tRPC failed on ${path ?? "<no-path>"}: ${error.message}`,
+          );
+        }
+      : undefined,
   }),
 );
 
@@ -44,18 +41,46 @@ app.use("/api/storage/files/belanja/:file", (req, res) => {
     root: "storage/files/belanja",
   });
 });
+
 app.use("/api/storage/files/user-image/:file", (req, res) => {
   res.sendFile(req.params.file, {
     root: "storage/files/user-image",
   });
 });
 
-app.use(vite.middlewares);
+if (isDev) {
+  // =========================
+  // DEVELOPMENT
+  // =========================
 
-app.use("/{*splat}", (_req, res) => {
-  res.sendFile("index.html", { root: "dist" });
-});
+  const vite = await createViteServer({
+    appType: "spa",
+
+    server: {
+      middlewareMode: true,
+      hmr: true,
+    },
+  });
+
+  app.use(vite.middlewares);
+} else {
+  // =========================
+  // PRODUCTION
+  // =========================
+
+  app.use(
+    express.static("dist", {
+      index: false,
+    }),
+  );
+
+  app.use("/{*splat}", (_req, res) => {
+    res.sendFile("index.html", {
+      root: "dist",
+    });
+  });
+}
 
 app.listen(port, () => {
-  console.log(`Listening on http://localhost:${port}`);
+  console.log(`🚀 Server running at http://localhost:${port}`);
 });

@@ -174,14 +174,14 @@ export default function PendapatanTable() {
               <TableCell>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="outline">
-                      Aksi <FiChevronsDown className="ml-2" />
+                    <Button size="sm" variant="outline">
+                      Aksi <FiChevronsDown />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="start">
                     <Link to={`${item.id}/edit`}>
                       <DropdownMenuItem>
-                        <FiEdit className="mr-2" />
+                        <FiEdit />
                         Edit
                       </DropdownMenuItem>
                     </Link>
@@ -193,7 +193,7 @@ export default function PendapatanTable() {
                       }}
                       className="text-red-500"
                     >
-                      <FiTrash className="mr-2" />
+                      <FiTrash />
                       Hapus
                     </DropdownMenuItem>
                   </DropdownMenuContent>

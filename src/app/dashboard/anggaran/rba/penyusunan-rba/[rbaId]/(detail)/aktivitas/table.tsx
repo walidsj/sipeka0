@@ -82,23 +82,23 @@ export default function AktivitasTable() {
                 </Badge>
               </TableCell>
               <TableCell>
-                <div className="flex gap-3">
+                <div className="flex gap-2">
                   <Button asChild>
                     <Link to={`${item.id}/rincian-rba`}>
                       Rincian RBA
-                      <FiArrowRight className="ml-2" />
+                      <FiArrowRight />
                     </Link>
                   </Button>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button variant="outline">
-                        Aksi <FiChevronsDown className="ml-2" />
+                        Aksi <FiChevronsDown />
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="start">
                       <Link to={`${item.id}/edit`}>
                         <DropdownMenuItem>
-                          <FiEdit className="mr-2" />
+                          <FiEdit />
                           Edit
                         </DropdownMenuItem>
                       </Link>
@@ -112,7 +112,7 @@ export default function AktivitasTable() {
                         }}
                         className="text-red-500"
                       >
-                        <FiTrash className="mr-2" />
+                        <FiTrash />
                         Hapus
                       </DropdownMenuItem>
                     </DropdownMenuContent>

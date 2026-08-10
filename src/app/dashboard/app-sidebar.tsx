@@ -28,19 +28,10 @@ import {
   FiShoppingCart,
   FiTool,
 } from "react-icons/fi";
-import {
-  HiLockOpen,
-  HiOutlineBookOpen,
-  HiOutlineLockClosed,
-  HiOutlineLogout,
-  HiOutlineUser,
-  HiUser,
-} from "react-icons/hi";
+import { HiOutlineBookOpen } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
 export function AppSidebar() {
-  const auth = useAuth();
-
   return (
     <Sidebar>
       <SidebarHeader>
@@ -97,53 +88,6 @@ export function AppSidebar() {
             <HiOutlineBookOpen /> Panduan Penggunaan
           </Link>
         </SidebarMenuButton>
-        {auth.user && (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <SidebarMenuButton size="lg">
-                <Avatar>
-                  <AvatarImage
-                    src={`https://ui-avatars.com/api/?name=${auth.user.nama}&background=3b82f6&color=fff`}
-                  />
-                  <AvatarFallback>
-                    <HiOutlineUser />
-                  </AvatarFallback>
-                </Avatar>
-                <div className="hidden text-left lg:block">
-                  <div className="block text-sm">{auth.user.nama}</div>
-                  <div className="block text-xs font-normal text-slate-400">
-                    {auth.user.pegawai?.jabatan || auth.user.instansi}
-                    {auth.user.pegawai?.pengelolaBlud.map((blud, index) => (
-                      <div
-                        className="text-xs font-normal text-slate-400"
-                        key={index}
-                      >
-                        {blud.role}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </SidebarMenuButton>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem asChild>
-                <Link to="/profil">
-                  <HiUser />
-                  Profil Saya
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to="/profil/ganti-password">
-                  <HiLockOpen />
-                  Ganti Password
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => auth.logout()}>
-                <HiOutlineLogout /> Logout
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        )}
       </SidebarFooter>
     </Sidebar>
   );

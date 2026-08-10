@@ -172,7 +172,7 @@ export default function BkuTable() {
                 <th className="border border-black px-2 py-1 text-center font-serif">
                   Tanggal
                 </th>
-                <th className="w-10 border border-black px-2 py-1 text-center font-serif">
+                <th className="border border-black px-2 py-1 text-center font-serif">
                   No. Bukti
                 </th>
                 <th className="border border-black px-2 py-1 text-center font-serif">

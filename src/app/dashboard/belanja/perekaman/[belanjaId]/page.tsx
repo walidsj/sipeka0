@@ -1,5 +1,6 @@
 import {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
   CardHeader,
@@ -86,65 +87,63 @@ export default function EditPage() {
 
   return (
     <Card>
-      <div className="mb-5 flex flex-row items-center justify-between px-6 pt-6">
-        <CardHeader className="p-0">
-          <CardTitle>Detail Belanja</CardTitle>
-          <CardDescription>Data untuk detail belanja</CardDescription>
-        </CardHeader>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline">
-              Aksi <FiChevronsDown className="ml-2" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="start">
-            <Link to="edit">
-              <DropdownMenuItem>
-                <FiEdit className="mr-2" />
-                Edit
-              </DropdownMenuItem>
-            </Link>
-            <Link to="cetak-kwitansi">
-              <DropdownMenuItem>
-                <FiPrinter className="mr-2" />
-                Cetak Kwitansi
-              </DropdownMenuItem>
-            </Link>
-            <Link to="cetak-amplop">
-              <DropdownMenuItem>
-                <FiPrinter className="mr-2" />
-                Cetak Amplop
-              </DropdownMenuItem>
-            </Link>
-            <Link to="cetak-daftar-potong">
-              <DropdownMenuItem>
-                <FiPrinter className="mr-2" />
-                Cetak Daftar Potong
-              </DropdownMenuItem>
-            </Link>
-            {belanja.metodePembayaran === "TRANSFER" && (
+      <CardHeader>
+        <CardTitle>Detail Belanja</CardTitle>
+        <CardDescription>Data untuk detail belanja</CardDescription>
+        <CardAction>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                Aksi <FiChevronsDown className="ml-2" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <Link to="edit">
+                <DropdownMenuItem>
+                  <FiEdit className="mr-2" />
+                  Edit
+                </DropdownMenuItem>
+              </Link>
+              <Link to="cetak-kwitansi">
+                <DropdownMenuItem>
+                  <FiPrinter className="mr-2" />
+                  Cetak Kwitansi
+                </DropdownMenuItem>
+              </Link>
+              <Link to="cetak-amplop">
+                <DropdownMenuItem>
+                  <FiPrinter className="mr-2" />
+                  Cetak Amplop
+                </DropdownMenuItem>
+              </Link>
+              <Link to="cetak-daftar-potong">
+                <DropdownMenuItem>
+                  <FiPrinter className="mr-2" />
+                  Cetak Daftar Potong
+                </DropdownMenuItem>
+              </Link>
               <Link to="cetak-setoran-bank">
                 <DropdownMenuItem>
                   <FiPrinter className="mr-2" />
                   Cetak Setoran Bank
                 </DropdownMenuItem>
               </Link>
-            )}
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => {
-                if (confirm("Apakah anda yakin menghapus data ini?")) {
-                  deleteBelanja.mutate(Number(params.belanjaId));
-                }
-              }}
-              className="text-red-500"
-            >
-              <FiTrash className="mr-2" />
-              Hapus
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={() => {
+                  if (confirm("Apakah anda yakin menghapus data ini?")) {
+                    deleteBelanja.mutate(Number(params.belanjaId));
+                  }
+                }}
+                className="text-red-500"
+              >
+                <FiTrash className="mr-2" />
+                Hapus
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </CardAction>
+      </CardHeader>
       <CardContent>
         <Table>
           <TableBody>
@@ -388,18 +387,18 @@ export default function EditPage() {
           </TableBody>
         </Table>
       </CardContent>
-      <div className="mb-5 flex flex-row items-center justify-between px-6 pt-6">
-        <CardHeader className="p-0">
-          <CardTitle>Potongan Belanja</CardTitle>
-          <CardDescription>Daftar rincian potongan belanja</CardDescription>
-        </CardHeader>
-        <Button asChild>
-          <Link to="potongan/tambah">
-            <FiPlus className="mr-2" />
-            Tambah
-          </Link>
-        </Button>
-      </div>
+      <CardHeader>
+        <CardTitle>Potongan Belanja</CardTitle>
+        <CardDescription>Daftar rincian potongan belanja</CardDescription>
+        <CardAction>
+          <Button asChild>
+            <Link to="potongan/tambah">
+              <FiPlus className="mr-2" />
+              Tambah
+            </Link>
+          </Button>
+        </CardAction>
+      </CardHeader>
       <CardContent>
         <PotonganTable />
       </CardContent>

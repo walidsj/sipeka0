@@ -33,7 +33,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { cn, formatAngka, formatTanggal } from "@/lib/utils";
+import { cn, formatAngka } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import { keepPreviousData } from "@tanstack/react-query";
 import { format } from "date-fns";
@@ -220,16 +220,18 @@ export default function BelanjaTable() {
               <TableCell className="text-center">
                 {formatAngka(belanja.meta.pagination.firstRow + index)}.
               </TableCell>
-              <TableCell>{format(item.tglDokumen!, "dd/MM/yyyy")}</TableCell>
-              <TableCell className="font-semibold">
+              <TableCell className="text-center">
+                {format(item.tglDokumen!, "dd/MM/yyyy")}
+              </TableCell>
+              <TableCell className="text-center font-semibold">
                 {item.noDokumen}{" "}
                 {item.file && (
                   <FiCheckCircle className="inline text-green-500" />
                 )}
               </TableCell>
               <TableCell>
-                <p className="font-medium">{item.rab?.uraian}</p>
-                <p className="text-sm text-slate-500">
+                <p>{item.rab?.uraian}</p>
+                <p className="text-xs text-slate-500">
                   {item.rab?.kodeRekening}
                 </p>
                 <p className="text-xs text-slate-500">
@@ -338,20 +340,20 @@ export default function BelanjaTable() {
               <TableCell>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="outline">
-                      Aksi <FiChevronsDown className="ml-2" />
+                    <Button size="sm" variant="outline">
+                      Aksi <FiChevronsDown />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="start">
                     <Link to={`${item.id}`}>
                       <DropdownMenuItem>
-                        <FiEye className="mr-2" />
+                        <FiEye />
                         Detail
                       </DropdownMenuItem>
                     </Link>
                     <Link to={`${item.id}/edit`}>
                       <DropdownMenuItem>
-                        <FiEdit className="mr-2" />
+                        <FiEdit />
                         Edit
                       </DropdownMenuItem>
                     </Link>
@@ -361,7 +363,7 @@ export default function BelanjaTable() {
                         target="_blank"
                       >
                         <DropdownMenuItem>
-                          <FiFile className="mr-2" />
+                          <FiFile />
                           Lihat File
                         </DropdownMenuItem>
                       </a>
@@ -369,7 +371,7 @@ export default function BelanjaTable() {
                     <DropdownMenuSeparator />
                     <Link to={`${item.id}/upload`}>
                       <DropdownMenuItem>
-                        <FiUploadCloud className="mr-2" />
+                        <FiUploadCloud />
                         Upload File
                       </DropdownMenuItem>
                     </Link>
@@ -382,7 +384,7 @@ export default function BelanjaTable() {
                       }}
                       className="text-red-500"
                     >
-                      <FiTrash className="mr-2" />
+                      <FiTrash />
                       Hapus
                     </DropdownMenuItem>
                   </DropdownMenuContent>
