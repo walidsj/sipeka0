@@ -13,6 +13,8 @@ export const belanjaSchema = z.object({
   lpjBelanjaId: z.number().nullish(),
 });
 
+export type BelanjaSchema = z.infer<typeof belanjaSchema>;
+
 export const potonganBelanjaSchema = z.object({
   belanjaId: z.number(),
   jenis: z.enum(["PPH 21", "PPH 22", "PPH 23", "PPH 4(2)", "PPN"]),
@@ -20,3 +22,5 @@ export const potonganBelanjaSchema = z.object({
   billing: z.string().length(15),
   ntpn: z.string(),
 });
+
+export type PotonganBelanjaSchema = z.infer<typeof potonganBelanjaSchema>;

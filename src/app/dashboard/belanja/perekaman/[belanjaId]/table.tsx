@@ -1,3 +1,4 @@
+import { BelanjaSchema } from "#server/schema/belanja.schema";
 import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,11 +18,12 @@ import {
 } from "@/components/ui/table";
 import { formatAngka } from "@/lib/utils";
 import { api } from "@/trpc/react";
+import { handleCopy } from "@/utils/clipboard";
 import toast from "react-hot-toast";
-import { FiChevronsDown, FiEdit, FiTrash } from "react-icons/fi";
+import { FiChevronsDown, FiCopy, FiEdit, FiTrash } from "react-icons/fi";
 import { Link, useParams } from "react-router-dom";
 
-export default function PotonganTable() {
+export default function PotonganTable({ belanja }: { belanja: BelanjaSchema }) {
   const params = useParams<{ belanjaId: string }>();
   const utils = api.useUtils();
 
@@ -69,6 +71,7 @@ export default function PotonganTable() {
           <TableHead>Kode Billing</TableHead>
           <TableHead>Kode NTPN</TableHead>
           <TableHead>Nominal</TableHead>
+          <TableHead className="w-0" />
           <TableHead className="w-1" />
         </TableRow>
       </TableHeader>
@@ -76,23 +79,46 @@ export default function PotonganTable() {
         {potongan.map((item, index) => (
           <TableRow key={index}>
             <TableCell className="text-center">{index + 1}.</TableCell>
-            <TableCell>{item.jenis}</TableCell>
+            <TableCell>
+              {item.jenis}
+              <Button
+                size="icon"
+                variant="outline"
+                className="ml-3"
+                onClick={() =>
+                  handleCopy(
+                    `[${item.jenis}] ${belanja.uraian} (Rp${Number(belanja.jumlah).toLocaleString("id")})`,
+                  )
+                }
+              >
+                <FiCopy />
+              </Button>
+            </TableCell>
             <TableCell>{item.billing}</TableCell>
             <TableCell>{item.ntpn}</TableCell>
             <TableCell className="text-right">
               {formatAngka(item.jumlah)}
             </TableCell>
             <TableCell>
+              <Button
+                size="icon"
+                variant="outline"
+                onClick={() => handleCopy(Number(item.jumlah).toString())}
+              >
+                <FiCopy />
+              </Button>
+            </TableCell>
+            <TableCell>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline">
-                    Aksi <FiChevronsDown className="ml-2" />
+                    Aksi <FiChevronsDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
                   <Link to={`potongan/${item.id}/edit`}>
                     <DropdownMenuItem>
-                      <FiEdit className="mr-2" />
+                      <FiEdit />
                       Edit
                     </DropdownMenuItem>
                   </Link>
@@ -104,7 +130,7 @@ export default function PotonganTable() {
                     }}
                     className="text-red-500"
                   >
-                    <FiTrash className="mr-2" />
+                    <FiTrash />
                     Hapus
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -126,6 +152,7 @@ export default function PotonganTable() {
           <TableCell className="text-right">
             {formatAngka(totalPotongan)}
           </TableCell>
+          <TableCell />
           <TableCell />
         </TableRow>
       </TableFooter>

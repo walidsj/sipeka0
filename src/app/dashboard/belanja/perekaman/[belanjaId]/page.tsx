@@ -38,6 +38,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import NotFound from "@/app/not-found";
+import { handleCopy } from "@/utils/clipboard";
 
 export default function EditPage() {
   const params = useParams<{ belanjaId: string }>();
@@ -72,14 +73,6 @@ export default function EditPage() {
 
   if (!belanja) return <NotFound />;
 
-  function handleCopy(text: string | null | undefined) {
-    if (!text) return toast.error("Tidak ada data yang bisa di-copy");
-
-    navigator.clipboard.writeText(text);
-
-    toast.success(`"${text}" berhasil dicopy`);
-  }
-
   const biayaAdmin =
     belanja.rekanan?.bank?.kode == "124" || belanja.pegawai?.bank?.kode == "124"
       ? 0
@@ -93,8 +86,8 @@ export default function EditPage() {
         <CardAction>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline">
-                Aksi <FiChevronsDown className="ml-2" />
+              <Button>
+                Aksi <FiChevronsDown />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
@@ -162,7 +155,6 @@ export default function EditPage() {
                 <Button
                   size="icon"
                   variant="outline"
-                  className="h-8 w-8"
                   onClick={() => handleCopy(belanja.noDokumen)}
                 >
                   <FiCopy />
@@ -181,7 +173,6 @@ export default function EditPage() {
                 <Button
                   size="icon"
                   variant="outline"
-                  className="h-8 w-8"
                   onClick={() => handleCopy(belanja.uraian)}
                 >
                   <FiCopy />
@@ -236,7 +227,6 @@ export default function EditPage() {
                     <Button
                       size="icon"
                       variant="outline"
-                      className="h-8 w-8"
                       onClick={() => handleCopy(belanja.rekanan?.npwp)}
                     >
                       <FiCopy />
@@ -255,7 +245,6 @@ export default function EditPage() {
                         <Button
                           size="icon"
                           variant="outline"
-                          className="h-8 w-8"
                           onClick={() =>
                             handleCopy(belanja.rekanan?.bank?.kode)
                           }
@@ -271,7 +260,6 @@ export default function EditPage() {
                         <Button
                           size="icon"
                           variant="outline"
-                          className="h-8 w-8"
                           onClick={() =>
                             handleCopy(belanja.rekanan?.namaRekening)
                           }
@@ -287,7 +275,6 @@ export default function EditPage() {
                         <Button
                           size="icon"
                           variant="outline"
-                          className="h-8 w-8"
                           onClick={() =>
                             handleCopy(belanja.rekanan?.noRekening)
                           }
@@ -320,7 +307,6 @@ export default function EditPage() {
                     <Button
                       size="icon"
                       variant="outline"
-                      className="h-8 w-8"
                       onClick={() => handleCopy(belanja.pegawai?.npwp)}
                     >
                       <FiCopy />
@@ -339,7 +325,6 @@ export default function EditPage() {
                         <Button
                           size="icon"
                           variant="outline"
-                          className="h-8 w-8"
                           onClick={() =>
                             handleCopy(belanja.pegawai?.bank?.kode)
                           }
@@ -355,7 +340,6 @@ export default function EditPage() {
                         <Button
                           size="icon"
                           variant="outline"
-                          className="h-8 w-8"
                           onClick={() =>
                             handleCopy(belanja.pegawai?.namaRekening)
                           }
@@ -371,7 +355,6 @@ export default function EditPage() {
                         <Button
                           size="icon"
                           variant="outline"
-                          className="h-8 w-8"
                           onClick={() =>
                             handleCopy(belanja.pegawai?.noRekening)
                           }
@@ -393,14 +376,14 @@ export default function EditPage() {
         <CardAction>
           <Button asChild>
             <Link to="potongan/tambah">
-              <FiPlus className="mr-2" />
+              <FiPlus />
               Tambah
             </Link>
           </Button>
         </CardAction>
       </CardHeader>
       <CardContent>
-        <PotonganTable />
+        <PotonganTable belanja={belanja} />
       </CardContent>
       <CardHeader>
         <CardTitle>Realisasi Belanja</CardTitle>
@@ -439,7 +422,25 @@ export default function EditPage() {
                     ),
                 )}
               </TableCell>
-              <TableCell />
+              <TableCell>
+                <Button
+                  size="icon"
+                  variant="outline"
+                  onClick={() =>
+                    handleCopy(
+                      String(
+                        Number(belanja.jumlah) -
+                          belanja.potonganBelanja.reduce(
+                            (acc, item) => acc + Number(item.jumlah),
+                            0,
+                          ),
+                      ),
+                    )
+                  }
+                >
+                  <FiCopy />
+                </Button>
+              </TableCell>
             </TableRow>
             <TableRow>
               <TableHead>Biaya Admin Bank</TableHead>
@@ -464,7 +465,6 @@ export default function EditPage() {
                 <Button
                   size="icon"
                   variant="outline"
-                  className="h-8 w-8"
                   onClick={() =>
                     handleCopy(
                       String(

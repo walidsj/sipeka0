@@ -252,17 +252,6 @@ export default function BelanjaTable() {
                 )}
                 {item.pegawai && (
                   <p className="mt-3 text-xs text-slate-500">
-                    {item.pegawai.jenisKelamin && (
-                      <img
-                        src={
-                          item.pegawai.jenisKelamin === "PEREMPUAN"
-                            ? "/images/icons/woman.png"
-                            : "/images/icons/man.png"
-                        }
-                        alt="pegawai"
-                        className="mr-1 inline h-4 w-4"
-                      />
-                    )}
                     {item.pegawai.gelarDepan && `${item.pegawai.gelarDepan} `}
                     {item.pegawai.nama}
                     {item.pegawai.gelarBelakang &&
@@ -290,11 +279,11 @@ export default function BelanjaTable() {
               </TableCell>
               {searchParams.get("showPotonganColumn") && (
                 <>
-                  <TableCell>
+                  <TableCell className="p-0">
                     {item.potonganBelanja && (
                       <Table className="text-xs">
                         {item.potonganBelanja.map((potongan) => (
-                          <TableRow key={potongan.id} className="font-semibold">
+                          <TableRow key={potongan.id}>
                             <TableCell className="py-0 text-nowrap">
                               {potongan.jenis}
                             </TableCell>
