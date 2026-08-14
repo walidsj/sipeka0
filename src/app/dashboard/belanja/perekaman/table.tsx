@@ -441,19 +441,19 @@ export default function BelanjaTable() {
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
-              disabled={Number(belanja.meta.pagination.page) === 1}
               onClick={() => {
-                Number(belanja.meta.pagination.page) > 1 &&
+                if (Number(belanja.meta.pagination.page) > 1) {
                   searchParams.set(
                     "page",
                     String(Number(belanja.meta.pagination.page) - 1),
                   );
-                setSearchParams(searchParams);
+                  setSearchParams(searchParams);
+                }
               }}
             />
           </PaginationItem>
           <Select
-            value={String(belanja.meta.pagination.page) ?? "1"}
+            value={String(belanja.meta.pagination.page)}
             onValueChange={(val) => {
               searchParams.set("page", val);
               setSearchParams(searchParams);
@@ -477,18 +477,17 @@ export default function BelanjaTable() {
           </Select>
           <PaginationItem>
             <PaginationNext
-              disabled={
-                Number(belanja.meta.pagination.page) ===
-                Number(belanja.meta.pagination.pageCount)
-              }
               onClick={() => {
-                Number(belanja.meta.pagination.page) <
-                  Number(belanja.meta.pagination.pageCount) &&
+                if (
+                  Number(belanja.meta.pagination.page) <
+                  Number(belanja.meta.pagination.pageCount)
+                ) {
                   searchParams.set(
                     "page",
                     String(Number(belanja.meta.pagination.page) + 1),
                   );
-                setSearchParams(searchParams);
+                  setSearchParams(searchParams);
+                }
               }}
             />
           </PaginationItem>

@@ -360,36 +360,29 @@ export const routes: DataRouteObject[] = [
           ]
         },
         {
-          id: "src/app/dashboard/anggaran/monitoring/layout.tsx",
-          path: "anggaran/monitoring",
-          Component: React.lazy(() => import("./app/dashboard/anggaran/monitoring/layout")),
+          id: "src/app/dashboard/anggaran/monitoring/realisasi-belanja/layout.tsx",
+          path: "anggaran/monitoring/realisasi-belanja",
+          Component: React.lazy(() => import("./app/dashboard/anggaran/monitoring/realisasi-belanja/layout")),
           children: [
           {
-            id: "src/app/dashboard/anggaran/monitoring/realisasi-belanja/layout.tsx",
-            path: "realisasi-belanja",
-            Component: React.lazy(() => import("./app/dashboard/anggaran/monitoring/realisasi-belanja/layout")),
-            children: [
-            {
-              id: "src/app/dashboard/anggaran/monitoring/realisasi-belanja/[rincianRbaBelanjaId]/detail-belanja/page.tsx",
-              path: ":rincianRbaBelanjaId/detail-belanja",
-              Component: React.lazy(() => import("./app/dashboard/anggaran/monitoring/realisasi-belanja/[rincianRbaBelanjaId]/detail-belanja/page"))
-            },
-            {
-              id: "src/app/dashboard/anggaran/monitoring/realisasi-belanja/[rincianRbaBelanjaId]/edit/page.tsx",
-              path: ":rincianRbaBelanjaId/edit",
-              Component: React.lazy(() => import("./app/dashboard/anggaran/monitoring/realisasi-belanja/[rincianRbaBelanjaId]/edit/page"))
-            },
-            {
-              id: "src/app/dashboard/anggaran/monitoring/realisasi-belanja/page.tsx",
-              index: true,
-              Component: React.lazy(() => import("./app/dashboard/anggaran/monitoring/realisasi-belanja/page"))
-            },
-            {
-              id: "src/app/dashboard/anggaran/monitoring/realisasi-belanja/tidak-terklasifikasi/page.tsx",
-              path: "tidak-terklasifikasi",
-              Component: React.lazy(() => import("./app/dashboard/anggaran/monitoring/realisasi-belanja/tidak-terklasifikasi/page"))
-            }
-            ]
+            id: "src/app/dashboard/anggaran/monitoring/realisasi-belanja/[rincianRbaBelanjaId]/detail-belanja/page.tsx",
+            path: ":rincianRbaBelanjaId/detail-belanja",
+            Component: React.lazy(() => import("./app/dashboard/anggaran/monitoring/realisasi-belanja/[rincianRbaBelanjaId]/detail-belanja/page"))
+          },
+          {
+            id: "src/app/dashboard/anggaran/monitoring/realisasi-belanja/[rincianRbaBelanjaId]/edit/page.tsx",
+            path: ":rincianRbaBelanjaId/edit",
+            Component: React.lazy(() => import("./app/dashboard/anggaran/monitoring/realisasi-belanja/[rincianRbaBelanjaId]/edit/page"))
+          },
+          {
+            id: "src/app/dashboard/anggaran/monitoring/realisasi-belanja/page.tsx",
+            index: true,
+            Component: React.lazy(() => import("./app/dashboard/anggaran/monitoring/realisasi-belanja/page"))
+          },
+          {
+            id: "src/app/dashboard/anggaran/monitoring/realisasi-belanja/tidak-terklasifikasi/page.tsx",
+            path: "tidak-terklasifikasi",
+            Component: React.lazy(() => import("./app/dashboard/anggaran/monitoring/realisasi-belanja/tidak-terklasifikasi/page"))
           }
           ]
         },

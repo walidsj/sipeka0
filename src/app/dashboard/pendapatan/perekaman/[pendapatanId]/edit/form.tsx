@@ -33,7 +33,7 @@ export default function EditForm({
     resolver: zodResolver(pendapatanSchema),
     mode: "onTouched",
     defaultValues: {
-      jumlah: Number(data.jumlah) ?? undefined,
+      jumlah: Number(data.jumlah) || undefined,
       keterangan: data.keterangan ?? "",
       rapId: data.rapId ?? undefined,
       tglDokumen: data.tglDokumen ?? undefined,

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
   CardHeader,
@@ -13,22 +14,19 @@ import SpmTable from "./table";
 export default function Page() {
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <div className="flex flex-col gap-1.5">
-          <CardTitle>SPM Belanja</CardTitle>
-          <CardDescription>
-            Daftar SPM Belanja Bendahara Pengeluaran BLUD RSJD Atma Husada
-            Mahakam
-          </CardDescription>
-        </div>
-        <div>
+      <CardHeader>
+        <CardTitle>SPM Belanja</CardTitle>
+        <CardDescription>
+          Daftar SPM Belanja Bendahara Pengeluaran BLUD RSJD Atma Husada Mahakam
+        </CardDescription>
+        <CardAction>
           <Button asChild>
             <Link to="tambah">
-              <HiOutlinePlus className="mr-2" />
+              <HiOutlinePlus />
               Tambah
             </Link>
           </Button>
-        </div>
+        </CardAction>
       </CardHeader>
       <CardContent>
         <SpmTable />

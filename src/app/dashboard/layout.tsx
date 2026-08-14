@@ -44,7 +44,8 @@ export default function DashboardLayout() {
                   <div className="hidden text-left lg:block">
                     <div className="block text-sm">{auth.user.nama}</div>
                     <div className="block text-xs font-normal text-slate-400">
-                      {auth.user.pegawai?.pengelolaBlud.length > 0
+                      {auth.user.pegawai?.pengelolaBlud &&
+                      auth.user.pegawai?.pengelolaBlud.length > 0
                         ? auth.user.pegawai?.pengelolaBlud.map(
                             (blud, index) => (
                               <div

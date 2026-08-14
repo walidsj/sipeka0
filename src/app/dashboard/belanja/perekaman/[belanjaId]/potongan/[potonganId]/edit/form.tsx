@@ -42,7 +42,7 @@ export default function EditForm({
     mode: "onTouched",
     defaultValues: {
       jenis: data.jenis ?? undefined,
-      jumlah: Number(data.jumlah) ?? undefined,
+      jumlah: Number(data.jumlah) || undefined,
       billing: data.billing ?? "",
       ntpn: data.ntpn ?? "",
     },

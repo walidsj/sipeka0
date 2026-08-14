@@ -128,31 +128,30 @@ export default function Page() {
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
-              disabled={Number(rekening.meta.pagination.page) === 1}
               onClick={() => {
-                Number(rekening.meta.pagination.page) > 1 &&
+                if (Number(rekening.meta.pagination.page) > 1) {
                   searchParams.set(
                     "page",
                     String(Number(rekening.meta.pagination.page) - 1),
                   );
-                setSearchParams(searchParams);
+                  setSearchParams(searchParams);
+                }
               }}
             />
           </PaginationItem>
           <PaginationItem>
             <PaginationNext
-              disabled={
-                Number(rekening.meta.pagination.page) ===
-                Number(rekening.meta.pagination.pageCount)
-              }
               onClick={() => {
-                Number(rekening.meta.pagination.page) <
-                  Number(rekening.meta.pagination.pageCount) &&
+                if (
+                  Number(rekening.meta.pagination.page) <
+                  Number(rekening.meta.pagination.pageCount)
+                ) {
                   searchParams.set(
                     "page",
                     String(Number(rekening.meta.pagination.page) + 1),
                   );
-                setSearchParams(searchParams);
+                  setSearchParams(searchParams);
+                }
               }}
             />
           </PaginationItem>

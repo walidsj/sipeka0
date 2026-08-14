@@ -55,10 +55,8 @@ if (isDev) {
 
   const vite = await createViteServer({
     appType: "spa",
-
     server: {
       middlewareMode: true,
-      hmr: true,
     },
   });
 
@@ -74,7 +72,7 @@ if (isDev) {
     }),
   );
 
-  app.use("/{*splat}", (_req, res) => {
+  app.use("/{*splat}", (req, res) => {
     res.sendFile("index.html", {
       root: "dist",
     });

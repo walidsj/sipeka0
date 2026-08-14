@@ -236,19 +236,19 @@ export default function PendapatanTable() {
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
-              disabled={Number(pendapatan.meta.pagination.page) === 1}
               onClick={() => {
-                Number(pendapatan.meta.pagination.page) > 1 &&
+                if (Number(pendapatan.meta.pagination.page) > 1) {
                   searchParams.set(
                     "page",
                     String(Number(pendapatan.meta.pagination.page) - 1),
                   );
-                setSearchParams(searchParams);
+                  setSearchParams(searchParams);
+                }
               }}
             />
           </PaginationItem>
           <Select
-            value={String(pendapatan.meta.pagination.page) ?? "1"}
+            value={String(pendapatan.meta.pagination.page)}
             onValueChange={(val) => {
               searchParams.set("page", val);
               setSearchParams(searchParams);
@@ -272,18 +272,17 @@ export default function PendapatanTable() {
           </Select>
           <PaginationItem>
             <PaginationNext
-              disabled={
-                Number(pendapatan.meta.pagination.page) ===
-                Number(pendapatan.meta.pagination.pageCount)
-              }
               onClick={() => {
-                Number(pendapatan.meta.pagination.page) <
-                  Number(pendapatan.meta.pagination.pageCount) &&
+                if (
+                  Number(pendapatan.meta.pagination.page) <
+                  Number(pendapatan.meta.pagination.pageCount)
+                ) {
                   searchParams.set(
                     "page",
                     String(Number(searchParams.get("page")) + 1),
                   );
-                setSearchParams(searchParams);
+                  setSearchParams(searchParams);
+                }
               }}
             />
           </PaginationItem>

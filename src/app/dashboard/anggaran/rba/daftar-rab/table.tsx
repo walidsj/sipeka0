@@ -239,19 +239,19 @@ export default function RabTable() {
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
-              disabled={Number(rab.meta.pagination.page) === 1}
               onClick={() => {
-                Number(rab.meta.pagination.page) > 1 &&
+                if (Number(rab.meta.pagination.page) > 1) {
                   searchParams.set(
                     "page",
                     String(Number(rab.meta.pagination.page) - 1),
                   );
-                setSearchParams(searchParams);
+                  setSearchParams(searchParams);
+                }
               }}
             />
           </PaginationItem>
           <Select
-            value={String(rab.meta.pagination.page) ?? "1"}
+            value={String(rab.meta.pagination.page)}
             onValueChange={(val) => {
               searchParams.set("page", val);
               setSearchParams(searchParams);
@@ -275,18 +275,17 @@ export default function RabTable() {
           </Select>
           <PaginationItem>
             <PaginationNext
-              disabled={
-                Number(rab.meta.pagination.page) ===
-                Number(rab.meta.pagination.pageCount)
-              }
               onClick={() => {
-                Number(rab.meta.pagination.page) <
-                  Number(rab.meta.pagination.pageCount) &&
+                if (
+                  Number(rab.meta.pagination.page) <
+                  Number(rab.meta.pagination.pageCount)
+                ) {
                   searchParams.set(
                     "page",
                     String(Number(rab.meta.pagination.page) + 1),
                   );
-                setSearchParams(searchParams);
+                  setSearchParams(searchParams);
+                }
               }}
             />
           </PaginationItem>
