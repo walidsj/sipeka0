@@ -37,12 +37,8 @@ export default function BkPajakTable() {
     data: belanja,
   } = api.belanja.getAllBkPajak.useQuery(
     {
-      startDate: searchParams.get("startDate")
-        ? new Date(searchParams.get("startDate")!)
-        : undefined,
-      endDate: searchParams.get("endDate")
-        ? new Date(searchParams.get("endDate")!)
-        : undefined,
+      startDate: searchParams.get("startDate") || undefined,
+      endDate: searchParams.get("endDate") || undefined,
     },
     { placeholderData: keepPreviousData },
   );
@@ -119,7 +115,9 @@ export default function BkPajakTable() {
                         day: "2-digit",
                         month: "2-digit",
                         year: "numeric",
-                      }).format(blj.tglDokumen || new Date())}
+                      }).format(
+                        blj.tglDokumen ? new Date(blj.tglDokumen) : new Date(),
+                      )}
                     </TableCell>
                     <TableCell className="text-center">
                       {blj.noDokumen}

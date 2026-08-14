@@ -75,7 +75,9 @@ export default function Page() {
                 Tahun Anggaran{" "}
                 {Intl.DateTimeFormat("id-ID", {
                   year: "numeric",
-                }).format(spp.tglDokumen || new Date())}
+                }).format(
+                  spp.tglDokumen ? new Date(spp.tglDokumen) : new Date(),
+                )}
               </div>
             </div>
             <table className="mb-5 w-[calc(100%-2px)] border-collapse">

@@ -1,4 +1,3 @@
-import { BelanjaSchema } from "#server/schema/belanja.schema";
 import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import {
@@ -23,7 +22,11 @@ import toast from "react-hot-toast";
 import { FiChevronsDown, FiCopy, FiEdit, FiTrash } from "react-icons/fi";
 import { Link, useParams } from "react-router-dom";
 
-export default function PotonganTable({ belanja }: { belanja: BelanjaSchema }) {
+export default function PotonganTable({
+  belanja,
+}: {
+  belanja: { uraian?: string | null; jumlah: string | number | null };
+}) {
   const params = useParams<{ belanjaId: string }>();
   const utils = api.useUtils();
 

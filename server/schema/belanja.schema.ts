@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 export const belanjaSchema = z.object({
-  rabId: z.number(),
-  tglDokumen: z.date(),
+  rabId: z.number().nullable(),
+  tglDokumen: z.string(),
   noDokumen: z.string(),
   uraian: z.string(),
   jumlah: z.number(),

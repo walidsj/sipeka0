@@ -35,8 +35,8 @@ export const sp3bRouter = createTRPCRouter({
 
     const belanjaList = await ctx.db.query.belanja.findMany({
       where: and(
-        gte(belanja.tglDokumen, sp3b?.tglMulai as Date),
-        lte(belanja.tglDokumen, sp3b?.tglSelesai as Date),
+        gte(belanja.tglDokumen, sp3b?.tglMulai ?? ""),
+        lte(belanja.tglDokumen, sp3b?.tglSelesai ?? ""),
       ),
       with: {
         rab: true,
@@ -44,22 +44,22 @@ export const sp3bRouter = createTRPCRouter({
     });
 
     const belanjaBeforeList = await ctx.db.query.belanja.findMany({
-      where: lt(belanja.tglDokumen, sp3b?.tglMulai as Date),
+      where: lt(belanja.tglDokumen, sp3b?.tglMulai ?? ""),
     });
 
     const rapList = await ctx.db.query.rap.findMany({
       with: {
         pendapatan: {
           where: and(
-            gte(pendapatan.tglDokumen, sp3b?.tglMulai as Date),
-            lte(pendapatan.tglDokumen, sp3b?.tglSelesai as Date),
+            gte(pendapatan.tglDokumen, sp3b?.tglMulai ?? ""),
+            lte(pendapatan.tglDokumen, sp3b?.tglSelesai ?? ""),
           ),
         },
       },
     });
 
     const pendapatanBeforeList = await ctx.db.query.pendapatan.findMany({
-      where: lt(pendapatan.tglDokumen, sp3b?.tglMulai as Date),
+      where: lt(pendapatan.tglDokumen, sp3b?.tglMulai ?? ""),
     });
 
     // const saldoAwalRekeningKoran = 8_847_392_664.45

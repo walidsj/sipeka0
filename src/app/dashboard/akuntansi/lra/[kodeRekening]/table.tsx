@@ -32,12 +32,8 @@ export default function DetailTable() {
   } = api.belanja.getBelanjaLrabyKodeRekening.useQuery(
     {
       kodeRekening: params.kodeRekening!,
-      startDate: searchParams.get("startDate")
-        ? new Date(searchParams.get("startDate")!)
-        : undefined,
-      endDate: searchParams.get("endDate")
-        ? new Date(searchParams.get("endDate")!)
-        : undefined,
+      startDate: searchParams.get("startDate") || undefined,
+      endDate: searchParams.get("endDate") || undefined,
     },
     {
       placeholderData: keepPreviousData,

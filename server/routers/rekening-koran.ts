@@ -117,7 +117,7 @@ export const rekeningKoranRouter = createTRPCRouter({
         if (rekeningBankId) {
           return {
             rekeningBankId,
-            tglTransaksi: new Date(item.tglTransaksiRaw),
+            tglTransaksi: item.tglTransaksiRaw,
             keterangan: item.keterangan,
             noReferensi: item.noReferensi,
             debet: String(
@@ -145,7 +145,7 @@ export const rekeningKoranRouter = createTRPCRouter({
     }),
 
   getSaldoByDate: userProcedure
-    .input(z.object({ rekeningBankId: z.number(), tglTransaksi: z.date() }))
+    .input(z.object({ rekeningBankId: z.number(), tglTransaksi: z.string() }))
     .query(async ({ ctx, input }) => {
       const jurnal = await ctx.db.query.rekeningKoranTable.findMany({
         where: and(

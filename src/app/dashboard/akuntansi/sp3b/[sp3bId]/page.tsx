@@ -31,7 +31,8 @@ export default function Page() {
   const { data: saldoAkhirRekeningBankPenerimaan } =
     api.rekeningKoran.getSaldoByDate.useQuery(
       {
-        tglTransaksi: new Date(sp3b?.tglSelesai ?? new Date()),
+        tglTransaksi:
+          sp3b?.tglSelesai ?? new Date().toISOString().split("T")[0],
         rekeningBankId: 1,
       },
       {
@@ -42,7 +43,8 @@ export default function Page() {
   const { data: saldoAkhirRekeningBankPengeluaran } =
     api.rekeningKoran.getSaldoByDate.useQuery(
       {
-        tglTransaksi: new Date(sp3b?.tglSelesai ?? new Date()),
+        tglTransaksi:
+          sp3b?.tglSelesai ?? new Date().toISOString().split("T")[0],
         rekeningBankId: 2,
       },
       {

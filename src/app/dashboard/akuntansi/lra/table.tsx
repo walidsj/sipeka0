@@ -36,12 +36,8 @@ export default function LraTable() {
     data: belanja,
   } = api.belanja.getBelanjaLra.useQuery(
     {
-      startDate: searchParams.get("startDate")
-        ? new Date(searchParams.get("startDate")!)
-        : undefined,
-      endDate: searchParams.get("endDate")
-        ? new Date(searchParams.get("endDate")!)
-        : undefined,
+      startDate: searchParams.get("startDate") || undefined,
+      endDate: searchParams.get("endDate") || undefined,
     },
     { placeholderData: keepPreviousData },
   );

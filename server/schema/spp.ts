@@ -12,7 +12,7 @@
 import { z } from "zod";
 
 export const sppSchema = z.object({
-  tglDokumen: z.date(),
+  tglDokumen: z.string(),
   noDokumen: z.string(),
   lpjBelanjaId: z.number(),
 });

@@ -6,6 +6,7 @@ import { user } from "server/db/schema";
 import { getSession } from "server/auth";
 import { type CreateExpressContextOptions } from "@trpc/server/adapters/express";
 import SuperJSON from "superjson";
+import { z } from "zod";
 
 export const createTRPCContext = async ({
   req,
@@ -17,20 +18,24 @@ export const createTRPCContext = async ({
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: SuperJSON,
+
   errorFormatter({ shape, error }) {
+    const zodError = error.cause instanceof ZodError ? error.cause : null;
+
     return {
       ...shape,
-      message:
-        error.cause instanceof ZodError
-          ? "Validation error: " +
-            error.cause.errors
-              .map((e) => `${e.path.join(".").toUpperCase()}: ${e.message}`)
-              .join(", ")
-          : error.message,
+
+      message: zodError
+        ? "Validation error: " +
+          zodError.issues
+            .map((e) => `${e.path.join(".").toUpperCase()}: ${e.message}`)
+            .join(", ")
+        : error.message,
+
       data: {
         ...shape.data,
-        zodError:
-          error.cause instanceof ZodError ? error.cause.flatten() : null,
+
+        zodError: zodError ? z.flattenError(zodError) : null,
       },
     };
   },

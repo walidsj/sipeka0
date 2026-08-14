@@ -13,5 +13,5 @@ export const pengelolaBludSchema = z.object({
     "PEJABAT PENGADAAN",
   ]),
   noSk: z.string().min(1),
-  tglSk: z.date(),
+  tglSk: z.string(),
 });

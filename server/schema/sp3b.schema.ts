@@ -1,10 +1,10 @@
 import { z } from "zod";
 
 export const sp3bSchema = z.object({
-  tglMulai: z.date(),
-  tglSelesai: z.date(),
+  tglMulai: z.string(),
+  tglSelesai: z.string(),
   noDokumen: z.string(),
-  tglDokumen: z.date(),
+  tglDokumen: z.string(),
   penandatanganId: z.number(),
 });
 

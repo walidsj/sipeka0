@@ -99,7 +99,9 @@ export default function Page() {
                     Tahun Anggaran{" "}
                     {Intl.DateTimeFormat("id-ID", {
                       year: "numeric",
-                    }).format(spm.tglDokumen || new Date())}
+                    }).format(
+                      spm.tglDokumen ? new Date(spm.tglDokumen) : new Date(),
+                    )}
                   </th>
                   <th className="w-[50%] border-[0.5pt] border-black px-3 py-1 font-serif">
                     Nomor SPM:

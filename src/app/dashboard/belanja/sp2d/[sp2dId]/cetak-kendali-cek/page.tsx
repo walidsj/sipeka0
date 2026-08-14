@@ -107,7 +107,9 @@ export default function Page() {
               Tahun Anggaran{" "}
               {Intl.DateTimeFormat("id", {
                 year: "numeric",
-              }).format(sp2d.tglDokumen || new Date())}
+              }).format(
+                sp2d.tglDokumen ? new Date(sp2d.tglDokumen) : new Date(),
+              )}
             </h4>
             <table className="mb-5 w-[calc(100%-2px)]">
               <thead className="border-b-2 border-double border-black">
@@ -150,7 +152,9 @@ export default function Page() {
                     day: "2-digit",
                     month: "2-digit",
                     year: "numeric",
-                  }).format(sp2d.tglDokumen || new Date())}
+                  }).format(
+                    sp2d.tglDokumen ? new Date(sp2d.tglDokumen) : new Date(),
+                  )}
                 </td>
                 <td className="border border-black px-2 py-1 text-center align-top font-serif">
                   {sp2d.noCek}

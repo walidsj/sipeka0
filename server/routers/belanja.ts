@@ -41,7 +41,7 @@ export type JurnalJenis = "UP" | "BELANJA" | "LPJ_LS" | "LPJ_GU";
 
 export type PotonganBelanjaType = {
   id?: string | number;
-  tgl: Date | null;
+  tgl: string;
   noDokumen: string | null;
   kodeRekening: string | null;
   uraian: string | null;
@@ -52,7 +52,7 @@ export type PotonganBelanjaType = {
 export type JurnalType = {
   id?: string | number;
   jenisJurnal: JurnalJenis;
-  tgl: Date | null;
+  tgl: string;
   noDokumen: string | null;
   kodeRekening: string | null;
   uraian: string | null;
@@ -62,7 +62,7 @@ export type JurnalType = {
 };
 
 type JurnalGroup = {
-  tgl: Date | null;
+  tgl: string;
   jenis: "UP" | "BELANJA" | "LPJ_LS" | "LPJ_GU";
   order: number;
   data: JurnalType[];
@@ -75,8 +75,8 @@ export const belanjaRouter = createTRPCRouter({
         search: z.string().optional(),
         page: z.number().optional(),
         pageSize: z.number().optional(),
-        startDate: z.date().optional(),
-        endDate: z.date().optional(),
+        startDate: z.string().optional(),
+        endDate: z.string().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -384,8 +384,8 @@ export const belanjaRouter = createTRPCRouter({
   getBelanjaBku: userProcedure
     .input(
       z.object({
-        startDate: z.date().optional(),
-        endDate: z.date().optional(),
+        startDate: z.string().optional(),
+        endDate: z.string().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -393,10 +393,9 @@ export const belanjaRouter = createTRPCRouter({
       // DATE
       // ============================================================
 
-      const startDate =
-        input.startDate ?? new Date(format(new Date(), "yyyy-MM-01"));
+      const startDate = input.startDate ?? format(new Date(), "yyyy-MM-01");
 
-      const endDate = input.endDate ?? new Date();
+      const endDate = input.endDate ?? format(new Date(), "yyyy-MM-dd");
 
       const filterDate = and(
         startDate ? gte(belanja.tglDokumen, startDate) : undefined,
@@ -507,7 +506,7 @@ export const belanjaRouter = createTRPCRouter({
       // UP
       // ============================================================
 
-      const tanggalUp = new Date("2026-01-23");
+      const tanggalUp = "2026-01-23";
 
       const jumlahUp = 750_000_000;
 
@@ -539,7 +538,7 @@ export const belanjaRouter = createTRPCRouter({
 
           jenisJurnal: "BELANJA",
 
-          tgl: blj.tglDokumen,
+          tgl: blj.tglDokumen ?? "",
 
           noDokumen: blj.noDokumen,
 
@@ -570,7 +569,7 @@ export const belanjaRouter = createTRPCRouter({
             {
               jenisJurnal: "UP",
 
-              tgl: tanggalUp,
+              tgl: tanggalUp as string,
 
               noDokumen: "XAAB-873241",
 
@@ -615,7 +614,7 @@ export const belanjaRouter = createTRPCRouter({
         group.push({
           jenisJurnal: "LPJ_LS",
 
-          tgl: lpj.tglDokumen,
+          tgl: lpj.tglDokumen ?? "",
 
           noDokumen: lpj.spp.spm.sp2d.noCek,
 
@@ -642,7 +641,7 @@ export const belanjaRouter = createTRPCRouter({
         }
 
         jurnalGroups.push({
-          tgl: lpj.tglDokumen,
+          tgl: lpj.tglDokumen ?? "",
 
           jenis: "LPJ_LS",
 
@@ -692,7 +691,7 @@ export const belanjaRouter = createTRPCRouter({
         group.push({
           jenisJurnal: "LPJ_GU",
 
-          tgl: lpj.tglDokumen,
+          tgl: lpj.tglDokumen ?? "",
 
           noDokumen: lpj.spp.spm.sp2d.noCek,
 
@@ -709,7 +708,7 @@ export const belanjaRouter = createTRPCRouter({
         });
 
         jurnalGroups.push({
-          tgl: lpj.tglDokumen,
+          tgl: lpj.tglDokumen ?? "",
 
           jenis: "LPJ_GU",
 
@@ -731,7 +730,7 @@ export const belanjaRouter = createTRPCRouter({
 
       for (const blj of belanjaTanpaLpj) {
         jurnalGroups.push({
-          tgl: blj.tglDokumen,
+          tgl: blj.tglDokumen ?? "",
 
           jenis: "BELANJA",
 
@@ -757,16 +756,16 @@ export const belanjaRouter = createTRPCRouter({
       // ============================================================
 
       jurnalGroups.sort((a, b) => {
-        const dateA = a.tgl?.getTime() ?? 0;
+        const dateA = a.tgl ?? "";
 
-        const dateB = b.tgl?.getTime() ?? 0;
+        const dateB = b.tgl ?? "";
 
         // ----------------------------------------------
         // TANGGAL
         // ----------------------------------------------
 
         if (dateA !== dateB) {
-          return dateA - dateB;
+          return dateA < dateB ? -1 : 1;
         }
 
         // ----------------------------------------------
@@ -833,14 +832,13 @@ export const belanjaRouter = createTRPCRouter({
   getAllBkPajak: userProcedure
     .input(
       z.object({
-        startDate: z.date().optional(),
-        endDate: z.date().optional(),
+        startDate: z.string().optional(),
+        endDate: z.string().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
-      const startDate =
-        input.startDate || new Date(format(new Date(), "yyyy-MM-01"));
-      const endDate = input.endDate || new Date();
+      const startDate = input.startDate || format(new Date(), "yyyy-MM-01");
+      const endDate = input.endDate || format(new Date(), "yyyy-MM-dd");
 
       const filterDate = and(
         startDate ? gte(belanja.tglDokumen, startDate) : undefined,
@@ -864,8 +862,8 @@ export const belanjaRouter = createTRPCRouter({
   getBelanjaLra: userProcedure
     .input(
       z.object({
-        startDate: z.date().optional(),
-        endDate: z.date().optional(),
+        startDate: z.string().optional(),
+        endDate: z.string().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -915,9 +913,8 @@ export const belanjaRouter = createTRPCRouter({
 
       const anggaranBelanjaFlatten = anggaranBelanja.flat();
 
-      const startDate =
-        input.startDate || new Date(format(new Date(), "yyyy-01-01"));
-      const endDate = input.endDate || new Date();
+      const startDate = input.startDate || format(new Date(), "yyyy-01-01");
+      const endDate = input.endDate || format(new Date(), "yyyy-MM-dd");
 
       const filterDate = and(
         startDate ? gte(belanja.tglDokumen, startDate) : undefined,
@@ -987,14 +984,13 @@ export const belanjaRouter = createTRPCRouter({
     .input(
       z.object({
         kodeRekening: z.string(),
-        startDate: z.date().optional(),
-        endDate: z.date().optional(),
+        startDate: z.string().optional(),
+        endDate: z.string().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
-      const startDate =
-        input.startDate || new Date(format(new Date(), "yyyy-01-01"));
-      const endDate = input.endDate || new Date();
+      const startDate = input.startDate || format(new Date(), "yyyy-01-01");
+      const endDate = input.endDate || format(new Date(), "yyyy-MM-dd");
 
       const filterDate = and(
         startDate ? gte(belanja.tglDokumen, startDate) : undefined,

@@ -18,8 +18,8 @@ export const user = mysqlTable("user", {
   role: mysqlEnum("role", ["ADMIN", "USER"]),
   pegawaiId: int("pegawai_id", { unsigned: true }),
   image: varchar("image", { length: 256 }),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
@@ -28,8 +28,8 @@ export const bank = mysqlTable("bank", {
   id: serial("id").primaryKey(),
   nama: varchar("nama", { length: 256 }),
   kode: varchar("kode", { length: 256 }),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
@@ -49,8 +49,8 @@ export const pegawai = mysqlTable("pegawai", {
   namaRekening: varchar("nama_rekening", { length: 256 }),
   noRekening: varchar("no_rekening", { length: 256 }),
   jenisKelamin: mysqlEnum("jenis_kelamin", ["LAKI-LAKI", "PEREMPUAN"]),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
@@ -71,8 +71,8 @@ export const rekanan = mysqlTable("rekanan", {
   bankId: int("bank_id", { unsigned: true }),
   namaRekening: varchar("nama_rekening", { length: 256 }),
   noRekening: varchar("no_rekening", { length: 256 }),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
@@ -91,9 +91,9 @@ export const pengelolaBlud = mysqlTable("pengelola_blud", {
     "PEJABAT PENGADAAN",
   ]),
   noSk: varchar("no_sk", { length: 256 }),
-  tglSk: timestamp("tgl_sk", { mode: "date" }),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  tglSk: timestamp("tgl_sk", { mode: "string" }),
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
@@ -106,8 +106,8 @@ export const profilBlud = mysqlTable("profil_blud", {
   noFax: varchar("no_fax", { length: 256 }),
   email: varchar("email", { length: 256 }),
   website: varchar("website", { length: 256 }),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
@@ -116,9 +116,9 @@ export const rba = mysqlTable("rba", {
   id: serial("id").primaryKey(),
   noDokumen: varchar("no_dokumen", { length: 256 }),
   uraian: varchar("uraian", { length: 256 }),
-  tglDokumen: timestamp("tgl_dokumen", { mode: "date" }),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  tglDokumen: timestamp("tgl_dokumen", { mode: "string" }),
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
@@ -126,8 +126,8 @@ export const rba = mysqlTable("rba", {
 export const unitKerja = mysqlTable("unit_kerja", {
   id: serial("id").primaryKey(),
   nama: varchar("nama", { length: 256 }),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
@@ -138,8 +138,8 @@ export const aktivitasRba = mysqlTable("aktivitas_rba", {
   nama: varchar("nama", { length: 256 }),
   rbaId: int("rba_id", { unsigned: true }),
   jenis: mysqlEnum("jenis", ["BELANJA", "PENDAPATAN", "PEMBIAYAAN"]),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
@@ -151,8 +151,8 @@ export const rincianRbaBelanja = mysqlTable("rincian_rba_belanja", {
   volume: decimal("volume", { precision: 20, scale: 2 }),
   satuan: varchar("satuan", { length: 256 }),
   harga: decimal("harga", { precision: 20, scale: 2 }),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
@@ -162,8 +162,8 @@ export const rincianRbaPendapatan = mysqlTable("rincian_rba_pendapatan", {
   aktivitasRbaId: int("aktivitas_rba_id", { unsigned: true }),
   rapId: int("rap_id", { unsigned: true }),
   jumlah: decimal("jumlah", { precision: 20, scale: 2 }),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
@@ -182,8 +182,8 @@ export const rab = mysqlTable("rab", {
     "APBD",
   ]),
   unitKerjaId: int("unit_kerja_id", { unsigned: true }),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
@@ -192,8 +192,8 @@ export const rap = mysqlTable("rap", {
   id: serial("id").primaryKey(),
   kodeRekening: varchar("kode_rekening", { length: 256 }),
   uraian: varchar("uraian", { length: 256 }),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
@@ -201,11 +201,11 @@ export const rap = mysqlTable("rap", {
 export const pendapatan = mysqlTable("pendapatan", {
   id: serial("id").primaryKey(),
   rapId: int("rap_id", { unsigned: true }),
-  tglDokumen: timestamp("tgl_dokumen", { mode: "date" }),
+  tglDokumen: timestamp("tgl_dokumen", { mode: "string" }),
   jumlah: decimal("jumlah", { precision: 20, scale: 2 }),
   keterangan: varchar("keterangan", { length: 256 }),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
@@ -215,9 +215,9 @@ export const dba = mysqlTable("dba", {
   noDokumen: varchar("no_dokumen", { length: 256 }),
   rbaId: int("rba_id", { unsigned: true }),
   uraian: varchar("uraian", { length: 256 }),
-  tglDokumen: timestamp("tgl_dokumen", { mode: "date" }),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  tglDokumen: timestamp("tgl_dokumen", { mode: "string" }),
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
@@ -225,7 +225,7 @@ export const dba = mysqlTable("dba", {
 export const belanja = mysqlTable("belanja", {
   id: serial("id").primaryKey(),
   rabId: int("rab_id", { unsigned: true }),
-  tglDokumen: timestamp("tgl_dokumen", { mode: "date" }),
+  tglDokumen: timestamp("tgl_dokumen", { mode: "string" }),
   noDokumen: varchar("no_dokumen", { length: 256 }),
   uraian: varchar("uraian", { length: 256 }),
   jumlah: decimal("jumlah", { precision: 20, scale: 2 }),
@@ -235,20 +235,20 @@ export const belanja = mysqlTable("belanja", {
   buktiPembayaran: varchar("bukti_pembayaran", { length: 256 }),
   lpjBelanjaId: int("lpj_belanja_id", { unsigned: true }),
   file: varchar("file", { length: 256 }),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
 
 export const lpjBelanjaTable = mysqlTable("lpj_belanja", {
   id: serial("id").primaryKey(),
-  tglDokumen: timestamp("tgl_dokumen", { mode: "date" }),
+  tglDokumen: timestamp("tgl_dokumen", { mode: "string" }),
   noDokumen: varchar("no_dokumen", { length: 256 }),
   jenis: mysqlEnum("jenis", ["GU", "LS", "TU"]),
   uraian: varchar("uraian", { length: 256 }),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
@@ -260,55 +260,55 @@ export const potonganBelanja = mysqlTable("potongan_belanja", {
   jumlah: decimal("jumlah", { precision: 20, scale: 2 }),
   billing: varchar("billing", { length: 256 }),
   ntpn: varchar("ntpn", { length: 256 }),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
 
 export const sp3bTable = mysqlTable("sp3b", {
   id: serial("id").primaryKey(),
-  tglMulai: timestamp("tgl_mulai", { mode: "date" }),
-  tglSelesai: timestamp("tgl_selesai", { mode: "date" }),
+  tglMulai: timestamp("tgl_mulai", { mode: "string" }),
+  tglSelesai: timestamp("tgl_selesai", { mode: "string" }),
   noDokumen: varchar("no_dokumen", { length: 256 }),
-  tglDokumen: timestamp("tgl_dokumen", { mode: "date" }),
+  tglDokumen: timestamp("tgl_dokumen", { mode: "string" }),
   penandatanganId: int("penandatangan_id", { unsigned: true }),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
 
 export const sppTable = mysqlTable("spp", {
   id: serial("id").primaryKey(),
-  tglDokumen: timestamp("tgl_dokumen", { mode: "date" }),
+  tglDokumen: timestamp("tgl_dokumen", { mode: "string" }),
   noDokumen: varchar("no_dokumen", { length: 256 }),
   lpjBelanjaId: int("lpj_belanja_id", { unsigned: true }),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
 
 export const spmTable = mysqlTable("spm", {
   id: serial("id").primaryKey(),
-  tglDokumen: timestamp("tgl_dokumen", { mode: "date" }),
+  tglDokumen: timestamp("tgl_dokumen", { mode: "string" }),
   noDokumen: varchar("no_dokumen", { length: 256 }),
   sppId: int("spp_id", { unsigned: true }),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
 
 export const sp2dTable = mysqlTable("sp2d", {
   id: serial("id").primaryKey(),
-  tglDokumen: timestamp("tgl_dokumen", { mode: "date" }),
+  tglDokumen: timestamp("tgl_dokumen", { mode: "string" }),
   noDokumen: varchar("no_dokumen", { length: 256 }),
   spmId: int("spm_id", { unsigned: true }),
   noCek: varchar("no_cek", { length: 256 }),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
@@ -318,8 +318,8 @@ export const rekeningBankTable = mysqlTable("rekening_bank", {
   bankId: int("bank_id", { unsigned: true }),
   namaRekening: varchar("nama_rekening", { length: 256 }),
   noRekening: varchar("no_rekening", { length: 256 }),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });
@@ -327,14 +327,14 @@ export const rekeningBankTable = mysqlTable("rekening_bank", {
 export const rekeningKoranTable = mysqlTable("rekening_koran", {
   id: serial("id").primaryKey(),
   rekeningBankId: int("rekening_bank_id", { unsigned: true }),
-  tglTransaksi: timestamp("tgl_transaksi", { mode: "date" }),
+  tglTransaksi: timestamp("tgl_transaksi", { mode: "string" }),
   keterangan: varchar("keterangan", { length: 256 }),
   noReferensi: varchar("no_referensi", { length: 256 }),
   debet: decimal("debet", { precision: 20, scale: 2 }),
   kredit: decimal("kredit", { precision: 20, scale: 2 }),
   keteranganTambahan: varchar("keterangan_tambahan", { length: 256 }),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
     .onUpdateNow(),
 });

@@ -136,7 +136,7 @@ export default function Page() {
               Tahun Anggaran{" "}
               {Intl.DateTimeFormat("id", {
                 year: "numeric",
-              }).format(spm.tglDokumen || new Date())}
+              }).format(spm.tglDokumen ? new Date(spm.tglDokumen) : new Date())}
               , dengan ini menyatakan dengan sebenarnya bahwa:
             </p>
             <ol className="mb-2 list-outside list-decimal pl-[1cm]">

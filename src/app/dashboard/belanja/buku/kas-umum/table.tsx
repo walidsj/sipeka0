@@ -3,12 +3,7 @@ import { Button } from "@/components/ui/button";
 import { CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { TableCell, TableRow } from "@/components/ui/table";
-import {
-  formatAngka,
-  formatAngkaDecimal,
-  formatTanggal,
-  terbilang,
-} from "@/lib/utils";
+import { formatAngkaDecimal, formatTanggal, terbilang } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import { keepPreviousData } from "@tanstack/react-query";
 import { format } from "date-fns";
@@ -32,12 +27,8 @@ export default function BkuTable() {
     data: jurnal,
   } = api.belanja.getBelanjaBku.useQuery(
     {
-      startDate: searchParams.get("startDate")
-        ? new Date(searchParams.get("startDate")!)
-        : undefined,
-      endDate: searchParams.get("endDate")
-        ? new Date(searchParams.get("endDate")!)
-        : undefined,
+      startDate: searchParams.get("startDate") || undefined,
+      endDate: searchParams.get("endDate") || undefined,
     },
     { placeholderData: keepPreviousData },
   );
@@ -107,7 +98,7 @@ export default function BkuTable() {
           <table className="my-3 w-full">
             <tbody>
               <tr>
-                <td className="w-20 font-serif">
+                <td className="w-20">
                   <img
                     src="/images/logo-kaltimprov.webp"
                     className="h-16 w-auto"
@@ -116,19 +107,19 @@ export default function BkuTable() {
                 <td className="text-left">
                   <div
                     style={{ fontSize: "10pt" }}
-                    className="font-serif font-bold uppercase"
+                    className="font-bold uppercase"
                   >
                     Pemerintah Provinsi Kalimantan Timur
                   </div>
                   <div
                     style={{ fontSize: "10pt" }}
-                    className="font-serif font-bold uppercase"
+                    className="font-bold uppercase"
                   >
                     BLUD RSJD ATMA HUSADA MAHAKAM
                   </div>
                   <div
                     style={{ fontSize: "10pt" }}
-                    className="font-serif font-bold uppercase"
+                    className="font-bold uppercase"
                   >
                     TAHUN ANGGARAN 2026
                   </div>
@@ -139,17 +130,17 @@ export default function BkuTable() {
           </table>
           <h5
             style={{ fontSize: "11pt" }}
-            className="text-center font-serif font-bold uppercase"
+            className="text-center font-bold uppercase"
           >
             BUKU KAS UMUM
           </h5>
           <h4
             style={{ fontSize: "9pt" }}
-            className="text-center font-serif font-bold uppercase"
+            className="text-center font-bold uppercase"
           >
             BENDAHARA PENGELUARAN BLUD
           </h4>
-          <h6 className="mb-5 text-center font-serif">
+          <h6 className="mb-5 text-center">
             Periode{" "}
             {formatTanggal(
               searchParams.get("startDate") || format(new Date(), "yyyy-MM-01"),
@@ -169,29 +160,27 @@ export default function BkuTable() {
               className="border-b-2 border-double border-black bg-black text-white"
             >
               <tr>
-                <th className="border border-black px-2 py-1 text-center font-serif">
+                <th className="border border-black px-2 py-1 text-center">
                   Tanggal
                 </th>
-                <th className="border border-black px-2 py-1 text-center font-serif">
+                <th className="border border-black px-2 py-1 text-center">
                   No. Bukti
                 </th>
-                <th className="border border-black px-2 py-1 text-center font-serif">
+                <th className="border border-black px-2 py-1 text-center">
                   Kode Rekening
                 </th>
-                <th className="border border-black px-2 py-1 font-serif">
-                  Uraian
-                </th>
-                <th className="border border-black px-2 py-1 font-serif">
+                <th className="border border-black px-2 py-1">Uraian</th>
+                <th className="border border-black px-2 py-1">
                   Penerimaan
                   <br />
                   (Rp)
                 </th>
-                <th className="border border-black px-2 py-1 font-serif">
+                <th className="border border-black px-2 py-1">
                   Pengeluaran
                   <br />
                   (Rp)
                 </th>
-                <th className="border border-black px-2 py-1 font-serif">
+                <th className="border border-black px-2 py-1">
                   Saldo
                   <br />
                   (Rp)
@@ -203,22 +192,26 @@ export default function BkuTable() {
                 <td className="border border-black px-2 py-0.5"></td>
                 <td className="border border-black px-2 py-0.5"></td>
                 <td className="border border-black px-2 py-0.5"></td>
-                <td className="border border-black px-2 py-0.5 text-right font-serif">
+                <td className="border border-black px-2 py-0.5 text-right">
                   Saldo Sebelumnya
                 </td>
-                <td className="border border-black px-2 py-0.5 text-right font-serif">
-                  {formatAngka(0)}
+                <td className="border border-black px-2 py-0.5 text-right">
+                  {formatAngkaDecimal(
+                    (saldoPenerimaan +=
+                      jurnal.meta.totalLastPeriode.penerimaan),
+                  )}
                 </td>
-                <td className="border border-black px-2 py-0.5 text-right font-serif">
-                  {formatAngka(0)}
+                <td className="border border-black px-2 py-0.5 text-right">
+                  {formatAngkaDecimal(
+                    (saldoPengeluaran +=
+                      jurnal.meta.totalLastPeriode.pengeluaran),
+                  )}
                 </td>
-                <td className="border border-black px-2 py-0.5 text-right font-serif">
-                  {formatAngka(
+                <td className="border border-black px-2 py-0.5 text-right">
+                  {formatAngkaDecimal(
                     (saldo +=
-                      jurnal.meta.totalLastPeriode.penerimaan +
-                      jurnal.meta.totalLastPeriode.potongan -
-                      jurnal.meta.totalLastPeriode.pengeluaran -
-                      jurnal.meta.totalLastPeriode.potongan),
+                      jurnal.meta.totalLastPeriode.penerimaan -
+                      jurnal.meta.totalLastPeriode.pengeluaran),
                   )}
                 </td>
               </tr>
@@ -234,32 +227,33 @@ export default function BkuTable() {
                       pageBreakAfter: "auto",
                     }}
                   >
-                    <td className="border-x border-black px-2 py-0.5 text-center align-top font-serif">
+                    <td className="border-x border-black px-2 py-0.5 text-center align-top">
                       {item.tgl &&
                         Intl.DateTimeFormat("id-ID", {
                           day: "2-digit",
                           month: "2-digit",
                           year: "numeric",
-                        }).format(item.tgl!)}
+                        }).format(new Date(item.tgl!))}
                     </td>
-                    <td className="border-r border-black px-2 py-0.5 text-center align-top font-serif">
+                    <td className="border-r border-black px-2 py-0.5 text-center align-top">
                       {item.noDokumen}
                     </td>
-                    <td className="border-r border-black px-2 py-0.5 text-center align-top font-serif">
+                    <td className="border-r border-black px-2 py-0.5 text-center align-top">
                       {item.kodeRekening}
                     </td>
-                    <td className="border-r border-black px-2 py-0.5 align-top font-serif">
+                    <td className="border-r border-black px-2 py-0.5 align-top">
                       {item.uraian}
                     </td>
-                    <td className="border-r border-black px-2 py-0.5 text-right align-top font-serif">
-                      {item.penerimaan !== null && formatAngka(item.penerimaan)}
+                    <td className="border-r border-black px-2 py-0.5 text-right align-top">
+                      {item.penerimaan !== null &&
+                        formatAngkaDecimal(item.penerimaan)}
                     </td>
-                    <td className="border-r border-black px-2 py-0.5 text-right align-top font-serif">
+                    <td className="border-r border-black px-2 py-0.5 text-right align-top">
                       {item.pengeluaran !== null &&
-                        formatAngka(item.pengeluaran)}
+                        formatAngkaDecimal(item.pengeluaran)}
                     </td>
-                    <td className="border-r border-black px-2 py-0.5 text-right align-top font-serif">
-                      {formatAngka(
+                    <td className="border-r border-black px-2 py-0.5 text-right align-top">
+                      {formatAngkaDecimal(
                         (saldo +=
                           Number(item.penerimaan) - Number(item.pengeluaran)),
                       )}
@@ -274,294 +268,92 @@ export default function BkuTable() {
                   </TableCell>
                 </TableRow>
               )}
-              <tr className="border-t-2 border-double border-black">
+              <tr className="border border-black bg-amber-100 font-semibold">
                 <td
-                  colSpan={100}
-                  className="border border-black px-2 py-1 text-left font-serif font-bold"
+                  colSpan={4}
+                  className="border-l border-black px-2 py-0.5 text-left"
                 >
-                  Total
+                  Jumlah s/d saat ini
+                </td>
+                <td className="border-l border-black px-2 py-0.5 text-right">
+                  {formatAngkaDecimal(saldoPenerimaan)}
+                </td>
+                <td className="border-l border-black px-2 py-0.5 text-right">
+                  {formatAngkaDecimal(saldoPengeluaran)}
+                </td>
+                <td className="border-l border-black px-2 py-0.5 text-right">
+                  {formatAngkaDecimal(saldoPenerimaan - saldoPengeluaran)}
                 </td>
               </tr>
-              <tr>
+              <tr className="border border-black bg-amber-100 font-semibold">
                 <td
-                  colSpan={5}
-                  className="border-l border-black px-2 py-0.5 text-left font-serif"
+                  colSpan={4}
+                  className="border-l border-black px-2 py-0.5 text-left"
                 >
-                  Jumlah periode Ini
+                  Jumlah s/d Sebelumnya
                 </td>
-                <td className="px-2 py-0.5 text-right font-serif">
-                  {formatAngka(saldoPenerimaan)}
+                <td className="border-l border-black px-2 py-0.5 text-right">
+                  {formatAngkaDecimal(jurnal.meta.totalLastPeriode.penerimaan)}
                 </td>
-                <td className="px-2 py-0.5 text-right font-serif">
-                  {formatAngka(saldoPengeluaran)}
+                <td className="border-l border-black px-2 py-0.5 text-right">
+                  {formatAngkaDecimal(jurnal.meta.totalLastPeriode.pengeluaran)}
                 </td>
-                <td className="border-r border-black"></td>
+                <td className="border-l border-black"></td>
               </tr>
-              <tr>
+              <tr className="border border-black bg-amber-100 font-semibold">
                 <td
-                  colSpan={5}
-                  className="border-l border-black px-2 py-0.5 text-left font-serif"
+                  colSpan={4}
+                  className="border-l border-black px-2 py-0.5 text-left"
                 >
-                  Jumlah yang lalu (per tanggal{" "}
-                  {Intl.DateTimeFormat("id-ID", {
-                    day: "2-digit",
-                    month: "long",
-                    year: "numeric",
-                  }).format(
-                    new Date(
-                      searchParams.get("startDate") ||
-                        format(new Date(), "yyyy-MM-01"),
-                    ).getTime() -
-                      24 * 60 * 60 * 1000,
-                  )}
-                  )
+                  Jumlah saat ini
                 </td>
-                <td className="px-2 py-0.5 text-right font-serif">
-                  {formatAngka(
-                    jurnal.meta.totalLastPeriode.penerimaan +
-                      jurnal.meta.totalLastPeriode.potongan,
+                <td className="border-l border-black px-2 py-0.5 text-right">
+                  {formatAngkaDecimal(
+                    saldoPenerimaan - jurnal.meta.totalLastPeriode.penerimaan,
                   )}
                 </td>
-                <td className="px-2 py-0.5 text-right font-serif">
-                  {formatAngka(
-                    jurnal.meta.totalLastPeriode.pengeluaran +
-                      jurnal.meta.totalLastPeriode.potongan,
+                <td className="border-l border-black px-2 py-0.5 text-right">
+                  {formatAngkaDecimal(
+                    saldoPengeluaran - jurnal.meta.totalLastPeriode.pengeluaran,
                   )}
                 </td>
-                <td className="border-r border-black"></td>
-              </tr>
-              <tr>
-                <td
-                  colSpan={5}
-                  className="border-l border-black px-2 py-0.5 text-left font-serif"
-                >
-                  Jumlah sampai dengan saat ini
+                <td className="border-l border-black px-2 py-0.5 text-right">
+                  {formatAngkaDecimal(saldoPenerimaan - saldoPengeluaran)}
                 </td>
-                <td className="border-b border-black px-2 py-0.5 text-right font-serif">
-                  {formatAngka(
-                    saldoPenerimaan +
-                      jurnal.meta.totalLastPeriode.penerimaan +
-                      jurnal.meta.totalLastPeriode.potongan,
-                  )}
-                </td>
-                <td className="border-b border-black px-2 py-0.5 text-right font-serif">
-                  {formatAngka(
-                    saldoPengeluaran +
-                      jurnal.meta.totalLastPeriode.pengeluaran +
-                      jurnal.meta.totalLastPeriode.potongan,
-                  )}
-                </td>
-                <td className="border-r border-black"></td>
-              </tr>
-              <tr>
-                <td
-                  colSpan={5}
-                  className="border-l border-black px-2 py-0.5 text-left font-serif"
-                >
-                  Sisa kas
-                </td>
-                <td className="px-2 py-0.5 text-right font-serif">
-                  {formatAngka(
-                    saldoPenerimaan +
-                      jurnal.meta.totalLastPeriode.penerimaan +
-                      jurnal.meta.totalLastPeriode.potongan -
-                      (saldoPengeluaran +
-                        jurnal.meta.totalLastPeriode.pengeluaran +
-                        jurnal.meta.totalLastPeriode.potongan),
-                  )}
-                </td>
-                <td></td>
-                <td className="border-r border-black"></td>
-              </tr>
-              <tr className="border-t-2 border-double border-black">
-                <td
-                  colSpan={100}
-                  className="border border-black px-2 py-1 text-left font-serif font-bold"
-                >
-                  Dikurangi Jurnal Pemotongan/Penyetoran Pajak
-                </td>
-              </tr>
-              <tr>
-                <td
-                  colSpan={5}
-                  className="border-l border-black px-2 py-0.5 text-left font-serif"
-                >
-                  Jumlah pemotongan/penyetoran periode ini
-                </td>
-                <td className="px-2 py-0.5 text-right font-serif">
-                  {formatAngka(jurnal.meta.totalThisPeriode.potongan)}
-                </td>
-                <td className="px-2 py-0.5 text-right font-serif">
-                  {formatAngka(jurnal.meta.totalThisPeriode.potongan)}
-                </td>
-                <td className="border-r border-black"></td>
-              </tr>
-              <tr>
-                <td
-                  colSpan={5}
-                  className="border-l border-black px-2 py-0.5 text-left font-serif"
-                >
-                  Jumlah periode Ini
-                </td>
-                <td className="px-2 py-0.5 text-right font-serif">
-                  {formatAngka(
-                    saldoPenerimaan - jurnal.meta.totalThisPeriode.potongan,
-                  )}
-                </td>
-                <td className="px-2 py-0.5 text-right font-serif">
-                  {formatAngka(
-                    saldoPengeluaran - jurnal.meta.totalThisPeriode.potongan,
-                  )}
-                </td>
-                <td className="border-r border-black"></td>
-              </tr>
-              <tr>
-                <td
-                  colSpan={5}
-                  className="border-l border-black px-2 py-0.5 text-left font-serif"
-                >
-                  Jumlah pemotongan/penyetoran yang lalu (per tanggal{" "}
-                  {Intl.DateTimeFormat("id-ID", {
-                    day: "2-digit",
-                    month: "long",
-                    year: "numeric",
-                  }).format(
-                    new Date(
-                      searchParams.get("startDate") ||
-                        format(new Date(), "yyyy-MM-01"),
-                    ).getTime() -
-                      24 * 60 * 60 * 1000,
-                  )}
-                  )
-                </td>
-                <td className="px-2 py-0.5 text-right font-serif">
-                  {formatAngka(jurnal.meta.totalLastPeriode.potongan)}
-                </td>
-                <td className="px-2 py-0.5 text-right font-serif">
-                  {formatAngka(jurnal.meta.totalLastPeriode.potongan)}
-                </td>
-                <td className="border-r border-black"></td>
-              </tr>
-              <tr>
-                <td
-                  colSpan={5}
-                  className="border-l border-black px-2 py-0.5 text-left font-serif"
-                >
-                  Jumlah yang lalu (per tanggal{" "}
-                  {Intl.DateTimeFormat("id-ID", {
-                    day: "2-digit",
-                    month: "long",
-                    year: "numeric",
-                  }).format(
-                    new Date(
-                      searchParams.get("startDate") ||
-                        format(new Date(), "yyyy-MM-01"),
-                    ).getTime() -
-                      24 * 60 * 60 * 1000,
-                  )}
-                  )
-                </td>
-                <td className="px-2 py-0.5 text-right font-serif">
-                  {formatAngka(jurnal.meta.totalLastPeriode.penerimaan)}
-                </td>
-                <td className="px-2 py-0.5 text-right font-serif">
-                  {formatAngka(jurnal.meta.totalLastPeriode.pengeluaran)}
-                </td>
-                <td className="border-r border-black"></td>
-              </tr>
-
-              <tr>
-                <td
-                  colSpan={5}
-                  className="border-l border-black px-2 py-0.5 text-left font-serif"
-                >
-                  Jumlah sampai dengan saat ini
-                </td>
-                <td className="border-b border-black px-2 py-0.5 text-right font-serif">
-                  {formatAngka(
-                    saldoPenerimaan +
-                      jurnal.meta.totalLastPeriode.penerimaan -
-                      jurnal.meta.totalThisPeriode.potongan,
-                  )}
-                </td>
-                <td className="border-b border-black px-2 py-0.5 text-right font-serif">
-                  {formatAngka(
-                    saldoPengeluaran +
-                      jurnal.meta.totalLastPeriode.pengeluaran -
-                      jurnal.meta.totalThisPeriode.potongan,
-                  )}
-                </td>
-                <td className="border-r border-black"></td>
-              </tr>
-              <tr>
-                <td
-                  colSpan={5}
-                  className="border-l border-black px-2 py-0.5 text-left font-serif"
-                >
-                  Sisa kas
-                </td>
-                <td className="px-2 py-0.5 text-right font-serif">
-                  {formatAngka(
-                    saldoPenerimaan +
-                      jurnal.meta.totalLastPeriode.penerimaan -
-                      jurnal.meta.totalThisPeriode.potongan -
-                      (saldoPengeluaran +
-                        jurnal.meta.totalLastPeriode.pengeluaran -
-                        jurnal.meta.totalThisPeriode.potongan),
-                  )}
-                </td>
-                <td></td>
-                <td className="border-r border-black"></td>
               </tr>
             </tbody>
           </table>
-          <p className="mt-5 font-serif">
-            Pada hari ini tanggal{" "}
-            {terbilang(
-              Number(format(searchParams.get("endDate") || new Date(), "d")),
-            )}{" "}
-            bulan{" "}
-            {Intl.DateTimeFormat("id-ID", {
-              month: "long",
-            }).format(new Date(searchParams.get("endDate") || new Date()))}{" "}
-            tahun{" "}
-            {terbilang(
-              Number(format(searchParams.get("endDate") || new Date(), "y")),
-            )}
-            , Buku Kas Umum Bendahara Pengeluaran Pembantu BLUD ditutup.
-            <br />
-            Oleh kami didapat di dalam kas sebesar{" "}
-            <strong className="font-serif">
-              Rp{" "}
-              {formatAngkaDecimal(
-                saldoPenerimaan +
-                  jurnal.meta.totalLastPeriode.penerimaan +
-                  jurnal.meta.totalLastPeriode.potongan -
-                  (saldoPengeluaran +
-                    jurnal.meta.totalLastPeriode.pengeluaran +
-                    jurnal.meta.totalLastPeriode.potongan),
-              )}
-            </strong>{" "}
-            (
-            {terbilang(
-              saldoPenerimaan +
-                jurnal.meta.totalLastPeriode.penerimaan +
-                jurnal.meta.totalLastPeriode.potongan -
-                (saldoPengeluaran +
-                  jurnal.meta.totalLastPeriode.pengeluaran +
-                  jurnal.meta.totalLastPeriode.potongan),
-            )}{" "}
-            rupiah).
-          </p>
-          <p className="mt-3 font-serif">Terdiri dari:</p>
-          <table className="w-1/3">
+          <table className="mt-5 w-full">
             <tbody>
               <tr>
-                <td className="w-5 font-serif">1.</td>
-                <td className="font-serif">Saldo Tunai</td>
-                <td className="w-5 font-serif">:</td>
-                <td className="font-serif">Rp</td>
-                <td className="text-right font-serif">
+                <td className="font-bold">
+                  Saldo Kas di Bendahara Pengeluaran BLUD :
+                </td>
+                <td className="font-bold">
+                  Rp {formatAngkaDecimal(saldoPenerimaan - saldoPengeluaran)}
+                </td>
+              </tr>
+              <tr>
+                <td className="font-bold">Terbilang :</td>
+                <td className="font-bold">
+                  {terbilang(saldoPenerimaan - saldoPengeluaran)} rupiah
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table className="mt-5 w-1/3">
+            <tbody>
+              <tr>
+                <td colSpan={5} className="font-bold">
+                  Rincian Saldo Kas :
+                </td>
+              </tr>
+              <tr>
+                <td className="w-5">1.</td>
+                <td>Saldo TU</td>
+                <td className="w-5">:</td>
+                <td>Rp</td>
+                <td className="text-right">
                   {formatAngkaDecimal(
                     saldoPenerimaan +
                       jurnal.meta.totalLastPeriode.penerimaan +
@@ -573,66 +365,33 @@ export default function BkuTable() {
                 </td>
               </tr>
               <tr>
-                <td className="w-5 font-serif">2.</td>
-                <td className="font-serif">Saldo Bank</td>
-                <td className="w-5 font-serif">:</td>
-                <td className="font-serif">Rp</td>
-                <td className="text-right font-serif">
-                  {formatAngkaDecimal(0)}
-                </td>
-              </tr>
-              <tr>
-                <td className="w-5 font-serif">3.</td>
-                <td className="font-serif">Panjar</td>
-                <td className="w-5 font-serif">:</td>
-                <td className="font-serif">Rp</td>
-                <td className="text-right font-serif">
-                  {formatAngkaDecimal(0)}
-                </td>
-              </tr>
-              <tr>
-                <td className="w-5 font-serif">4.</td>
-                <td className="font-serif">Surat Berharga</td>
-                <td className="w-5 font-serif">:</td>
-                <td className="font-serif">Rp</td>
-                <td className="text-right font-serif">
-                  {formatAngkaDecimal(0)}
-                </td>
+                <td className="w-5">2.</td>
+                <td>Saldo UP</td>
+                <td className="w-5">:</td>
+                <td>Rp</td>
+                <td className="text-right">{formatAngkaDecimal(0)}</td>
               </tr>
             </tbody>
           </table>
-          <p className="mt-5 font-serif">
-            Demikian Buku Kas Umum Bendahara Pengeluaran Pembantu BLUD ini
-            dibuat dengan sebenarnya untuk dipergunakan sebagaimana mestinya.
-          </p>
-          <div className="mt-5 flex">
-            <div className="w-1/3">
-              <div className="font-serif">Menyetujui:</div>
-              <div className="font-serif">Kuasa Pengguna Anggaran BLUD</div>
-              <div className="mt-14 font-serif font-bold">
-                dr. Indah Puspitasari, MARS
-              </div>
-              <div className="font-serif">Pembina Utama Muda</div>
-              <div className="font-serif">NIP. 196705301998032003</div>
+
+          <div className="mt-10 flex">
+            <div className="w-1/3 text-center">
+              <div>Menyetujui:</div>
+              <div>Kuasa Pengguna Anggaran BLUD</div>
+              <div className="mt-14 font-bold">dr. Indah Puspitasari, MARS</div>
+              <div>NIP. 196705301998032003</div>
             </div>
-            <div className="w-1/3">
-              <div className="font-serif">Mengetahui:</div>
-              <div className="font-serif">PPTK BLUD</div>
-              <div className="mt-14 font-serif font-bold">Sudoto, S.Kom</div>
-              <div className="font-serif">Pembina</div>
-              <div className="font-serif">NIP. 197407291994021002</div>
-            </div>
-            <div className="w-1/3">
-              <div className="font-serif">
+            <div className="w-1/3"></div>
+            <div className="w-1/3 text-center">
+              <div>
                 Samarinda,{" "}
                 {formatTanggal(searchParams.get("endDate") || new Date())}
               </div>
-              <div className="font-serif">
-                Bendahara Pengeluaran Pembantu BLUD
+              <div>Bendahara Pengeluaran BLUD</div>
+              <div className="mt-14 font-bold">
+                Moh. Walid Arkham Sani, A.Md.Pnl
               </div>
-              <div className="mt-14 font-serif font-bold">Riandy, S.Kep</div>
-              <div className="font-serif">Penata Tk. I</div>
-              <div className="font-serif">NIP. 197901281999031003</div>
+              <div>NIP. 200008062022011001</div>
             </div>
           </div>
         </div>

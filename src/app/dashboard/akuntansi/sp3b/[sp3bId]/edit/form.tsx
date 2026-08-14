@@ -74,12 +74,8 @@ export default function EditForm({
                 <FormControl>
                   <Input
                     type="date"
-                    onChange={(e) => field.onChange(e.target.valueAsDate)}
-                    value={
-                      field.value
-                        ? format(field.value, "yyyy-MM-dd")
-                        : undefined
-                    }
+                    onChange={(e) => field.onChange(e.target.value)}
+                    value={field.value ?? undefined}
                   />
                 </FormControl>
                 <FormMessage />
@@ -94,12 +90,8 @@ export default function EditForm({
                 <FormControl>
                   <Input
                     type="date"
-                    onChange={(e) => field.onChange(e.target.valueAsDate)}
-                    value={
-                      field.value
-                        ? format(field.value, "yyyy-MM-dd")
-                        : undefined
-                    }
+                    onChange={(e) => field.onChange(e.target.value)}
+                    value={field.value ?? undefined}
                   />
                 </FormControl>
                 <FormMessage />
@@ -126,12 +118,8 @@ export default function EditForm({
                 <FormControl>
                   <Input
                     type="date"
-                    onChange={(e) => field.onChange(e.target.valueAsDate)}
-                    value={
-                      field.value
-                        ? format(field.value, "yyyy-MM-dd")
-                        : undefined
-                    }
+                    onChange={(e) => field.onChange(e.target.value)}
+                    value={field.value ?? undefined}
                   />
                 </FormControl>
                 <FormMessage />

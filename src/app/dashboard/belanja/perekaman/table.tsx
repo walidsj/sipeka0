@@ -76,12 +76,8 @@ export default function BelanjaTable() {
       search: searchValue ?? "",
       page: Number(searchParams.get("page") ?? 1),
       pageSize: Number(searchParams.get("pageSize") ?? 10),
-      startDate: searchParams.get("startDate")
-        ? new Date(searchParams.get("startDate")!)
-        : undefined,
-      endDate: searchParams.get("endDate")
-        ? new Date(searchParams.get("endDate")!)
-        : undefined,
+      startDate: searchParams.get("startDate") || undefined,
+      endDate: searchParams.get("endDate") || undefined,
     },
     { placeholderData: keepPreviousData },
   );
