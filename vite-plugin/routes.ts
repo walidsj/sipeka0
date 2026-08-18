@@ -412,7 +412,7 @@ export default function routes(options: RoutesPluginOptions = {}): Plugin {
 
     const absoluteFiles = await scanFiles(appRoot);
 
-    const routes = absoluteFiles.map((absoluteFilePath) => {
+    const routes: RouteObj[] = absoluteFiles.map((absoluteFilePath): RouteObj => {
       const relativeFilePath = normalizePath(
         path.relative(appRoot, absoluteFilePath),
       );

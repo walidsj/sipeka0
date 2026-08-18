@@ -72,7 +72,7 @@ if (isDev) {
     }),
   );
 
-  app.use("/{*splat}", (req, res) => {
+  app.use("/{*splat}", (_req, res) => {
     res.sendFile("index.html", {
       root: "dist",
     });

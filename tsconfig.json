@@ -6,10 +6,10 @@
         "moduleDetection": "force",
 
     /* Path Aliases */
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
       "#server/*": ["./server/*"],
+      "server/*": ["./server/*"],
     },
 
     /* Target */
