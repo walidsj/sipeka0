@@ -105,7 +105,7 @@ export function AppSidebar() {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <Link to="/dashboard">
+                  <Link to="/">
                     <FiHome /> Dashboard
                   </Link>
                 </SidebarMenuButton>

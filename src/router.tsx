@@ -23,118 +23,117 @@ import {
 export type Paths =
   "/login" |
   "/register" |
-  "/dashboard/akuntansi/lra/:kodeRekening" |
-  "/dashboard/akuntansi/lra/cetak" |
-  "/dashboard/akuntansi/lra" |
-  "/dashboard/akuntansi" |
-  "/dashboard/akuntansi/rekening-koran/:rekeningBankId/:rekeningKoranId/edit" |
-  "/dashboard/akuntansi/rekening-koran/:rekeningBankId" |
-  "/dashboard/akuntansi/rekening-koran/import" |
-  "/dashboard/akuntansi/rekening-koran" |
-  "/dashboard/akuntansi/sp3b/:sp3bId/cetak-sp3b" |
-  "/dashboard/akuntansi/sp3b/:sp3bId/cetak-sptjb-belanja" |
-  "/dashboard/akuntansi/sp3b/:sp3bId/cetak-sptjb-pendapatan" |
-  "/dashboard/akuntansi/sp3b/:sp3bId/cetak-surat-pengantar" |
-  "/dashboard/akuntansi/sp3b/:sp3bId/edit" |
-  "/dashboard/akuntansi/sp3b/:sp3bId" |
-  "/dashboard/akuntansi/sp3b" |
-  "/dashboard/akuntansi/sp3b/tambah" |
-  "/dashboard/anggaran/dba/penetapan/:dbaId/edit" |
-  "/dashboard/anggaran/dba/penetapan" |
-  "/dashboard/anggaran/dba/penetapan/tambah" |
-  "/dashboard/anggaran/monitoring/realisasi-belanja/:rincianRbaBelanjaId/detail-belanja" |
-  "/dashboard/anggaran/monitoring/realisasi-belanja/:rincianRbaBelanjaId/edit" |
-  "/dashboard/anggaran/monitoring/realisasi-belanja" |
-  "/dashboard/anggaran/monitoring/realisasi-belanja/tidak-terklasifikasi" |
-  "/dashboard/anggaran" |
-  "/dashboard/anggaran/rba/daftar-rab/:rabId/edit" |
-  "/dashboard/anggaran/rba/daftar-rab" |
-  "/dashboard/anggaran/rba/daftar-rab/tambah" |
-  "/dashboard/anggaran/rba/daftar-rap/:rapId/edit" |
-  "/dashboard/anggaran/rba/daftar-rap" |
-  "/dashboard/anggaran/rba/daftar-rap/tambah" |
-  "/dashboard/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/edit" |
-  "/dashboard/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/rincian-rba" |
-  "/dashboard/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/rincian-rba/rab/:rincianRbaBelanjaId/edit" |
-  "/dashboard/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/rincian-rba/rab/tambah" |
-  "/dashboard/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/rincian-rba/rap/:rincianRbaPendapatanId/edit" |
-  "/dashboard/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/rincian-rba/rap/tambah" |
-  "/dashboard/anggaran/rba/penyusunan-rba/:rbaId/aktivitas" |
-  "/dashboard/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/tambah" |
-  "/dashboard/anggaran/rba/penyusunan-rba/:rbaId/edit" |
-  "/dashboard/anggaran/rba/penyusunan-rba" |
-  "/dashboard/anggaran/rba/penyusunan-rba/tambah" |
-  "/dashboard/belanja/buku/buku-pajak/cetak" |
-  "/dashboard/belanja/buku/buku-pajak" |
-  "/dashboard/belanja/buku/kas-umum" |
-  "/dashboard/belanja/lpj-belanja/:lpjBelanjaId/cetak" |
-  "/dashboard/belanja/lpj-belanja/:lpjBelanjaId/edit" |
-  "/dashboard/belanja/lpj-belanja/:lpjBelanjaId" |
-  "/dashboard/belanja/lpj-belanja/:lpjBelanjaId/tambah-belanja" |
-  "/dashboard/belanja/lpj-belanja" |
-  "/dashboard/belanja/lpj-belanja/tambah" |
-  "/dashboard/belanja/perekaman/:belanjaId/cetak-amplop" |
-  "/dashboard/belanja/perekaman/:belanjaId/cetak-daftar-potong" |
-  "/dashboard/belanja/perekaman/:belanjaId/cetak-kwitansi" |
-  "/dashboard/belanja/perekaman/:belanjaId/cetak-setoran-bank" |
-  "/dashboard/belanja/perekaman/:belanjaId/edit" |
-  "/dashboard/belanja/perekaman/:belanjaId" |
-  "/dashboard/belanja/perekaman/:belanjaId/potongan/:potonganId/edit" |
-  "/dashboard/belanja/perekaman/:belanjaId/potongan/tambah" |
-  "/dashboard/belanja/perekaman/:belanjaId/upload" |
-  "/dashboard/belanja/perekaman" |
-  "/dashboard/belanja/perekaman/tambah" |
-  "/dashboard/belanja/sp2d/:sp2dId/cetak-kendali-cek" |
-  "/dashboard/belanja/sp2d/:sp2dId/cetak-sp2d" |
-  "/dashboard/belanja/sp2d/:sp2dId/edit" |
-  "/dashboard/belanja/sp2d/:sp2dId" |
-  "/dashboard/belanja/sp2d" |
-  "/dashboard/belanja/sp2d/tambah" |
-  "/dashboard/belanja/spm/:spmId/cetak-pernyataan-verifikasi" |
-  "/dashboard/belanja/spm/:spmId/cetak-spm" |
-  "/dashboard/belanja/spm/:spmId/cetak-sptjm" |
-  "/dashboard/belanja/spm/:spmId/edit" |
-  "/dashboard/belanja/spm/:spmId" |
-  "/dashboard/belanja/spm" |
-  "/dashboard/belanja/spm/tambah" |
-  "/dashboard/belanja/spp/:sppId/cetak-spp-rincian" |
-  "/dashboard/belanja/spp/:sppId/cetak-spp" |
-  "/dashboard/belanja/spp/:sppId/cetak-surat-pengantar" |
-  "/dashboard/belanja/spp/:sppId/edit" |
-  "/dashboard/belanja/spp/:sppId" |
-  "/dashboard/belanja/spp" |
-  "/dashboard/belanja/spp/tambah" |
-  "/dashboard/lainnya/database/bank/:id/edit" |
-  "/dashboard/lainnya/database/bank" |
-  "/dashboard/lainnya/database/bank/tambah" |
-  "/dashboard/lainnya/database/pegawai/:id/edit" |
-  "/dashboard/lainnya/database/pegawai" |
-  "/dashboard/lainnya/database/pegawai/tambah" |
-  "/dashboard/lainnya/database/rekanan/:id/edit" |
-  "/dashboard/lainnya/database/rekanan" |
-  "/dashboard/lainnya/database/rekanan/tambah" |
-  "/dashboard/lainnya/database/unit-kerja/:id/edit" |
-  "/dashboard/lainnya/database/unit-kerja" |
-  "/dashboard/lainnya/database/unit-kerja/tambah" |
-  "/dashboard/lainnya" |
-  "/dashboard/lainnya/pengaturan/pengelola-blud/:id/edit" |
-  "/dashboard/lainnya/pengaturan/pengelola-blud" |
-  "/dashboard/lainnya/pengaturan/pengelola-blud/tambah" |
-  "/dashboard/lainnya/pengaturan/profil-blud" |
-  "/dashboard/lainnya/pengaturan/rekening-bank/:id/edit" |
-  "/dashboard/lainnya/pengaturan/rekening-bank" |
-  "/dashboard/lainnya/pengaturan/rekening-bank/tambah" |
-  "/dashboard/lainnya/referensi/kode-rekening/:level" |
-  "/dashboard/lainnya/user/:id/edit" |
-  "/dashboard/lainnya/user/tambah" |
-  "/dashboard/lainnya/user" |
-  "/dashboard" |
-  "/dashboard/pendapatan/perekaman/:pendapatanId/edit" |
-  "/dashboard/pendapatan/perekaman" |
-  "/dashboard/pendapatan/perekaman/tambah" |
-  "/dashboard/profil/ganti-password" |
-  "/dashboard/profil" |
+  "/akuntansi/lra/:kodeRekening" |
+  "/akuntansi/lra/cetak" |
+  "/akuntansi/lra" |
+  "/akuntansi" |
+  "/akuntansi/rekening-koran/:rekeningBankId/:rekeningKoranId/edit" |
+  "/akuntansi/rekening-koran/:rekeningBankId" |
+  "/akuntansi/rekening-koran/import" |
+  "/akuntansi/rekening-koran" |
+  "/akuntansi/sp3b/:sp3bId/cetak-sp3b" |
+  "/akuntansi/sp3b/:sp3bId/cetak-sptjb-belanja" |
+  "/akuntansi/sp3b/:sp3bId/cetak-sptjb-pendapatan" |
+  "/akuntansi/sp3b/:sp3bId/cetak-surat-pengantar" |
+  "/akuntansi/sp3b/:sp3bId/edit" |
+  "/akuntansi/sp3b/:sp3bId" |
+  "/akuntansi/sp3b" |
+  "/akuntansi/sp3b/tambah" |
+  "/anggaran/dba/penetapan/:dbaId/edit" |
+  "/anggaran/dba/penetapan" |
+  "/anggaran/dba/penetapan/tambah" |
+  "/anggaran/monitoring/realisasi-belanja/:rincianRbaBelanjaId/detail-belanja" |
+  "/anggaran/monitoring/realisasi-belanja/:rincianRbaBelanjaId/edit" |
+  "/anggaran/monitoring/realisasi-belanja" |
+  "/anggaran/monitoring/realisasi-belanja/tidak-terklasifikasi" |
+  "/anggaran" |
+  "/anggaran/rba/daftar-rab/:rabId/edit" |
+  "/anggaran/rba/daftar-rab" |
+  "/anggaran/rba/daftar-rab/tambah" |
+  "/anggaran/rba/daftar-rap/:rapId/edit" |
+  "/anggaran/rba/daftar-rap" |
+  "/anggaran/rba/daftar-rap/tambah" |
+  "/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/edit" |
+  "/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/rincian-rba" |
+  "/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/rincian-rba/rab/:rincianRbaBelanjaId/edit" |
+  "/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/rincian-rba/rab/tambah" |
+  "/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/rincian-rba/rap/:rincianRbaPendapatanId/edit" |
+  "/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/rincian-rba/rap/tambah" |
+  "/anggaran/rba/penyusunan-rba/:rbaId/aktivitas" |
+  "/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/tambah" |
+  "/anggaran/rba/penyusunan-rba/:rbaId/edit" |
+  "/anggaran/rba/penyusunan-rba" |
+  "/anggaran/rba/penyusunan-rba/tambah" |
+  "/belanja/buku/buku-pajak/cetak" |
+  "/belanja/buku/buku-pajak" |
+  "/belanja/buku/kas-umum" |
+  "/belanja/lpj-belanja/:lpjBelanjaId/cetak" |
+  "/belanja/lpj-belanja/:lpjBelanjaId/edit" |
+  "/belanja/lpj-belanja/:lpjBelanjaId" |
+  "/belanja/lpj-belanja/:lpjBelanjaId/tambah-belanja" |
+  "/belanja/lpj-belanja" |
+  "/belanja/lpj-belanja/tambah" |
+  "/belanja/perekaman/:belanjaId/cetak-amplop" |
+  "/belanja/perekaman/:belanjaId/cetak-daftar-potong" |
+  "/belanja/perekaman/:belanjaId/cetak-kwitansi" |
+  "/belanja/perekaman/:belanjaId/cetak-setoran-bank" |
+  "/belanja/perekaman/:belanjaId/edit" |
+  "/belanja/perekaman/:belanjaId" |
+  "/belanja/perekaman/:belanjaId/potongan/:potonganId/edit" |
+  "/belanja/perekaman/:belanjaId/potongan/tambah" |
+  "/belanja/perekaman/:belanjaId/upload" |
+  "/belanja/perekaman" |
+  "/belanja/perekaman/tambah" |
+  "/belanja/sp2d/:sp2dId/cetak-kendali-cek" |
+  "/belanja/sp2d/:sp2dId/cetak-sp2d" |
+  "/belanja/sp2d/:sp2dId/edit" |
+  "/belanja/sp2d/:sp2dId" |
+  "/belanja/sp2d" |
+  "/belanja/sp2d/tambah" |
+  "/belanja/spm/:spmId/cetak-pernyataan-verifikasi" |
+  "/belanja/spm/:spmId/cetak-spm" |
+  "/belanja/spm/:spmId/cetak-sptjm" |
+  "/belanja/spm/:spmId/edit" |
+  "/belanja/spm/:spmId" |
+  "/belanja/spm" |
+  "/belanja/spm/tambah" |
+  "/belanja/spp/:sppId/cetak-spp-rincian" |
+  "/belanja/spp/:sppId/cetak-spp" |
+  "/belanja/spp/:sppId/cetak-surat-pengantar" |
+  "/belanja/spp/:sppId/edit" |
+  "/belanja/spp/:sppId" |
+  "/belanja/spp" |
+  "/belanja/spp/tambah" |
+  "/lainnya/database/bank/:id/edit" |
+  "/lainnya/database/bank" |
+  "/lainnya/database/bank/tambah" |
+  "/lainnya/database/pegawai/:id/edit" |
+  "/lainnya/database/pegawai" |
+  "/lainnya/database/pegawai/tambah" |
+  "/lainnya/database/rekanan/:id/edit" |
+  "/lainnya/database/rekanan" |
+  "/lainnya/database/rekanan/tambah" |
+  "/lainnya/database/unit-kerja/:id/edit" |
+  "/lainnya/database/unit-kerja" |
+  "/lainnya/database/unit-kerja/tambah" |
+  "/lainnya" |
+  "/lainnya/pengaturan/pengelola-blud/:id/edit" |
+  "/lainnya/pengaturan/pengelola-blud" |
+  "/lainnya/pengaturan/pengelola-blud/tambah" |
+  "/lainnya/pengaturan/profil-blud" |
+  "/lainnya/pengaturan/rekening-bank/:id/edit" |
+  "/lainnya/pengaturan/rekening-bank" |
+  "/lainnya/pengaturan/rekening-bank/tambah" |
+  "/lainnya/referensi/kode-rekening/:level" |
+  "/lainnya/user/:id/edit" |
+  "/lainnya/user/tambah" |
+  "/lainnya/user" |
   "/" |
+  "/pendapatan/perekaman/:pendapatanId/edit" |
+  "/pendapatan/perekaman" |
+  "/pendapatan/perekaman/tambah" |
+  "/profil/ganti-password" |
+  "/profil" |
   "/panduan/faq" |
   "/panduan/login" |
   "/panduan" |
@@ -148,65 +147,65 @@ export type Paths =
 
 export type Params =
   {
-  "/dashboard/akuntansi/lra/:kodeRekening": { "kodeRekening": string }
-  "/dashboard/akuntansi/rekening-koran/:rekeningBankId/:rekeningKoranId/edit": { "rekeningBankId": string; "rekeningKoranId": string }
-  "/dashboard/akuntansi/rekening-koran/:rekeningBankId": { "rekeningBankId": string }
-  "/dashboard/akuntansi/sp3b/:sp3bId/cetak-sp3b": { "sp3bId": string }
-  "/dashboard/akuntansi/sp3b/:sp3bId/cetak-sptjb-belanja": { "sp3bId": string }
-  "/dashboard/akuntansi/sp3b/:sp3bId/cetak-sptjb-pendapatan": { "sp3bId": string }
-  "/dashboard/akuntansi/sp3b/:sp3bId/cetak-surat-pengantar": { "sp3bId": string }
-  "/dashboard/akuntansi/sp3b/:sp3bId/edit": { "sp3bId": string }
-  "/dashboard/akuntansi/sp3b/:sp3bId": { "sp3bId": string }
-  "/dashboard/anggaran/dba/penetapan/:dbaId/edit": { "dbaId": string }
-  "/dashboard/anggaran/monitoring/realisasi-belanja/:rincianRbaBelanjaId/detail-belanja": { "rincianRbaBelanjaId": string }
-  "/dashboard/anggaran/monitoring/realisasi-belanja/:rincianRbaBelanjaId/edit": { "rincianRbaBelanjaId": string }
-  "/dashboard/anggaran/rba/daftar-rab/:rabId/edit": { "rabId": string }
-  "/dashboard/anggaran/rba/daftar-rap/:rapId/edit": { "rapId": string }
-  "/dashboard/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/edit": { "rbaId": string; "aktivitasRbaId": string }
-  "/dashboard/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/rincian-rba": { "rbaId": string; "aktivitasRbaId": string }
-  "/dashboard/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/rincian-rba/rab/:rincianRbaBelanjaId/edit": { "rbaId": string; "aktivitasRbaId": string; "rincianRbaBelanjaId": string }
-  "/dashboard/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/rincian-rba/rab/tambah": { "rbaId": string; "aktivitasRbaId": string }
-  "/dashboard/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/rincian-rba/rap/:rincianRbaPendapatanId/edit": { "rbaId": string; "aktivitasRbaId": string; "rincianRbaPendapatanId": string }
-  "/dashboard/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/rincian-rba/rap/tambah": { "rbaId": string; "aktivitasRbaId": string }
-  "/dashboard/anggaran/rba/penyusunan-rba/:rbaId/aktivitas": { "rbaId": string }
-  "/dashboard/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/tambah": { "rbaId": string }
-  "/dashboard/anggaran/rba/penyusunan-rba/:rbaId/edit": { "rbaId": string }
-  "/dashboard/belanja/lpj-belanja/:lpjBelanjaId/cetak": { "lpjBelanjaId": string }
-  "/dashboard/belanja/lpj-belanja/:lpjBelanjaId/edit": { "lpjBelanjaId": string }
-  "/dashboard/belanja/lpj-belanja/:lpjBelanjaId": { "lpjBelanjaId": string }
-  "/dashboard/belanja/lpj-belanja/:lpjBelanjaId/tambah-belanja": { "lpjBelanjaId": string }
-  "/dashboard/belanja/perekaman/:belanjaId/cetak-amplop": { "belanjaId": string }
-  "/dashboard/belanja/perekaman/:belanjaId/cetak-daftar-potong": { "belanjaId": string }
-  "/dashboard/belanja/perekaman/:belanjaId/cetak-kwitansi": { "belanjaId": string }
-  "/dashboard/belanja/perekaman/:belanjaId/cetak-setoran-bank": { "belanjaId": string }
-  "/dashboard/belanja/perekaman/:belanjaId/edit": { "belanjaId": string }
-  "/dashboard/belanja/perekaman/:belanjaId": { "belanjaId": string }
-  "/dashboard/belanja/perekaman/:belanjaId/potongan/:potonganId/edit": { "belanjaId": string; "potonganId": string }
-  "/dashboard/belanja/perekaman/:belanjaId/potongan/tambah": { "belanjaId": string }
-  "/dashboard/belanja/perekaman/:belanjaId/upload": { "belanjaId": string }
-  "/dashboard/belanja/sp2d/:sp2dId/cetak-kendali-cek": { "sp2dId": string }
-  "/dashboard/belanja/sp2d/:sp2dId/cetak-sp2d": { "sp2dId": string }
-  "/dashboard/belanja/sp2d/:sp2dId/edit": { "sp2dId": string }
-  "/dashboard/belanja/sp2d/:sp2dId": { "sp2dId": string }
-  "/dashboard/belanja/spm/:spmId/cetak-pernyataan-verifikasi": { "spmId": string }
-  "/dashboard/belanja/spm/:spmId/cetak-spm": { "spmId": string }
-  "/dashboard/belanja/spm/:spmId/cetak-sptjm": { "spmId": string }
-  "/dashboard/belanja/spm/:spmId/edit": { "spmId": string }
-  "/dashboard/belanja/spm/:spmId": { "spmId": string }
-  "/dashboard/belanja/spp/:sppId/cetak-spp-rincian": { "sppId": string }
-  "/dashboard/belanja/spp/:sppId/cetak-spp": { "sppId": string }
-  "/dashboard/belanja/spp/:sppId/cetak-surat-pengantar": { "sppId": string }
-  "/dashboard/belanja/spp/:sppId/edit": { "sppId": string }
-  "/dashboard/belanja/spp/:sppId": { "sppId": string }
-  "/dashboard/lainnya/database/bank/:id/edit": { "id": string }
-  "/dashboard/lainnya/database/pegawai/:id/edit": { "id": string }
-  "/dashboard/lainnya/database/rekanan/:id/edit": { "id": string }
-  "/dashboard/lainnya/database/unit-kerja/:id/edit": { "id": string }
-  "/dashboard/lainnya/pengaturan/pengelola-blud/:id/edit": { "id": string }
-  "/dashboard/lainnya/pengaturan/rekening-bank/:id/edit": { "id": string }
-  "/dashboard/lainnya/referensi/kode-rekening/:level": { "level": string }
-  "/dashboard/lainnya/user/:id/edit": { "id": string }
-  "/dashboard/pendapatan/perekaman/:pendapatanId/edit": { "pendapatanId": string }
+  "/akuntansi/lra/:kodeRekening": { "kodeRekening": string }
+  "/akuntansi/rekening-koran/:rekeningBankId/:rekeningKoranId/edit": { "rekeningBankId": string; "rekeningKoranId": string }
+  "/akuntansi/rekening-koran/:rekeningBankId": { "rekeningBankId": string }
+  "/akuntansi/sp3b/:sp3bId/cetak-sp3b": { "sp3bId": string }
+  "/akuntansi/sp3b/:sp3bId/cetak-sptjb-belanja": { "sp3bId": string }
+  "/akuntansi/sp3b/:sp3bId/cetak-sptjb-pendapatan": { "sp3bId": string }
+  "/akuntansi/sp3b/:sp3bId/cetak-surat-pengantar": { "sp3bId": string }
+  "/akuntansi/sp3b/:sp3bId/edit": { "sp3bId": string }
+  "/akuntansi/sp3b/:sp3bId": { "sp3bId": string }
+  "/anggaran/dba/penetapan/:dbaId/edit": { "dbaId": string }
+  "/anggaran/monitoring/realisasi-belanja/:rincianRbaBelanjaId/detail-belanja": { "rincianRbaBelanjaId": string }
+  "/anggaran/monitoring/realisasi-belanja/:rincianRbaBelanjaId/edit": { "rincianRbaBelanjaId": string }
+  "/anggaran/rba/daftar-rab/:rabId/edit": { "rabId": string }
+  "/anggaran/rba/daftar-rap/:rapId/edit": { "rapId": string }
+  "/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/edit": { "rbaId": string; "aktivitasRbaId": string }
+  "/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/rincian-rba": { "rbaId": string; "aktivitasRbaId": string }
+  "/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/rincian-rba/rab/:rincianRbaBelanjaId/edit": { "rbaId": string; "aktivitasRbaId": string; "rincianRbaBelanjaId": string }
+  "/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/rincian-rba/rab/tambah": { "rbaId": string; "aktivitasRbaId": string }
+  "/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/rincian-rba/rap/:rincianRbaPendapatanId/edit": { "rbaId": string; "aktivitasRbaId": string; "rincianRbaPendapatanId": string }
+  "/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/:aktivitasRbaId/rincian-rba/rap/tambah": { "rbaId": string; "aktivitasRbaId": string }
+  "/anggaran/rba/penyusunan-rba/:rbaId/aktivitas": { "rbaId": string }
+  "/anggaran/rba/penyusunan-rba/:rbaId/aktivitas/tambah": { "rbaId": string }
+  "/anggaran/rba/penyusunan-rba/:rbaId/edit": { "rbaId": string }
+  "/belanja/lpj-belanja/:lpjBelanjaId/cetak": { "lpjBelanjaId": string }
+  "/belanja/lpj-belanja/:lpjBelanjaId/edit": { "lpjBelanjaId": string }
+  "/belanja/lpj-belanja/:lpjBelanjaId": { "lpjBelanjaId": string }
+  "/belanja/lpj-belanja/:lpjBelanjaId/tambah-belanja": { "lpjBelanjaId": string }
+  "/belanja/perekaman/:belanjaId/cetak-amplop": { "belanjaId": string }
+  "/belanja/perekaman/:belanjaId/cetak-daftar-potong": { "belanjaId": string }
+  "/belanja/perekaman/:belanjaId/cetak-kwitansi": { "belanjaId": string }
+  "/belanja/perekaman/:belanjaId/cetak-setoran-bank": { "belanjaId": string }
+  "/belanja/perekaman/:belanjaId/edit": { "belanjaId": string }
+  "/belanja/perekaman/:belanjaId": { "belanjaId": string }
+  "/belanja/perekaman/:belanjaId/potongan/:potonganId/edit": { "belanjaId": string; "potonganId": string }
+  "/belanja/perekaman/:belanjaId/potongan/tambah": { "belanjaId": string }
+  "/belanja/perekaman/:belanjaId/upload": { "belanjaId": string }
+  "/belanja/sp2d/:sp2dId/cetak-kendali-cek": { "sp2dId": string }
+  "/belanja/sp2d/:sp2dId/cetak-sp2d": { "sp2dId": string }
+  "/belanja/sp2d/:sp2dId/edit": { "sp2dId": string }
+  "/belanja/sp2d/:sp2dId": { "sp2dId": string }
+  "/belanja/spm/:spmId/cetak-pernyataan-verifikasi": { "spmId": string }
+  "/belanja/spm/:spmId/cetak-spm": { "spmId": string }
+  "/belanja/spm/:spmId/cetak-sptjm": { "spmId": string }
+  "/belanja/spm/:spmId/edit": { "spmId": string }
+  "/belanja/spm/:spmId": { "spmId": string }
+  "/belanja/spp/:sppId/cetak-spp-rincian": { "sppId": string }
+  "/belanja/spp/:sppId/cetak-spp": { "sppId": string }
+  "/belanja/spp/:sppId/cetak-surat-pengantar": { "sppId": string }
+  "/belanja/spp/:sppId/edit": { "sppId": string }
+  "/belanja/spp/:sppId": { "sppId": string }
+  "/lainnya/database/bank/:id/edit": { "id": string }
+  "/lainnya/database/pegawai/:id/edit": { "id": string }
+  "/lainnya/database/rekanan/:id/edit": { "id": string }
+  "/lainnya/database/unit-kerja/:id/edit": { "id": string }
+  "/lainnya/pengaturan/pengelola-blud/:id/edit": { "id": string }
+  "/lainnya/pengaturan/rekening-bank/:id/edit": { "id": string }
+  "/lainnya/referensi/kode-rekening/:level": { "level": string }
+  "/lainnya/user/:id/edit": { "id": string }
+  "/pendapatan/perekaman/:pendapatanId/edit": { "pendapatanId": string }
 }
 
 // ============================================================
@@ -249,664 +248,663 @@ export const routes: DataRouteObject[] = [
       ]
     },
     {
-      id: "src/app/dashboard/middleware.tsx",
-      path: "dashboard",
-      Component: React.lazy(() => import("./app/dashboard/middleware")),
+      id: "src/app/(dashboard)/middleware.tsx",
+      Component: React.lazy(() => import("./app/(dashboard)/middleware")),
       children: [
       {
-        id: "src/app/dashboard/layout.tsx",
-        Component: React.lazy(() => import("./app/dashboard/layout")),
+        id: "src/app/(dashboard)/layout.tsx",
+        Component: React.lazy(() => import("./app/(dashboard)/layout")),
         children: [
         {
-          id: "src/app/dashboard/akuntansi/lra/[kodeRekening]/page.tsx",
+          id: "src/app/(dashboard)/akuntansi/lra/[kodeRekening]/page.tsx",
           path: "akuntansi/lra/:kodeRekening",
-          Component: React.lazy(() => import("./app/dashboard/akuntansi/lra/[kodeRekening]/page"))
+          Component: React.lazy(() => import("./app/(dashboard)/akuntansi/lra/[kodeRekening]/page"))
         },
         {
-          id: "src/app/dashboard/akuntansi/lra/cetak/page.tsx",
+          id: "src/app/(dashboard)/akuntansi/lra/cetak/page.tsx",
           path: "akuntansi/lra/cetak",
-          Component: React.lazy(() => import("./app/dashboard/akuntansi/lra/cetak/page"))
+          Component: React.lazy(() => import("./app/(dashboard)/akuntansi/lra/cetak/page"))
         },
         {
-          id: "src/app/dashboard/akuntansi/lra/page.tsx",
+          id: "src/app/(dashboard)/akuntansi/lra/page.tsx",
           path: "akuntansi/lra",
-          Component: React.lazy(() => import("./app/dashboard/akuntansi/lra/page"))
+          Component: React.lazy(() => import("./app/(dashboard)/akuntansi/lra/page"))
         },
         {
-          id: "src/app/dashboard/akuntansi/page.tsx",
+          id: "src/app/(dashboard)/akuntansi/page.tsx",
           path: "akuntansi",
-          Component: React.lazy(() => import("./app/dashboard/akuntansi/page"))
+          Component: React.lazy(() => import("./app/(dashboard)/akuntansi/page"))
         },
         {
-          id: "src/app/dashboard/akuntansi/rekening-koran/[rekeningBankId]/[rekeningKoranId]/edit/page.tsx",
+          id: "src/app/(dashboard)/akuntansi/rekening-koran/[rekeningBankId]/[rekeningKoranId]/edit/page.tsx",
           path: "akuntansi/rekening-koran/:rekeningBankId/:rekeningKoranId/edit",
-          Component: React.lazy(() => import("./app/dashboard/akuntansi/rekening-koran/[rekeningBankId]/[rekeningKoranId]/edit/page"))
+          Component: React.lazy(() => import("./app/(dashboard)/akuntansi/rekening-koran/[rekeningBankId]/[rekeningKoranId]/edit/page"))
         },
         {
-          id: "src/app/dashboard/akuntansi/rekening-koran/[rekeningBankId]/page.tsx",
+          id: "src/app/(dashboard)/akuntansi/rekening-koran/[rekeningBankId]/page.tsx",
           path: "akuntansi/rekening-koran/:rekeningBankId",
-          Component: React.lazy(() => import("./app/dashboard/akuntansi/rekening-koran/[rekeningBankId]/page"))
+          Component: React.lazy(() => import("./app/(dashboard)/akuntansi/rekening-koran/[rekeningBankId]/page"))
         },
         {
-          id: "src/app/dashboard/akuntansi/rekening-koran/import/page.tsx",
+          id: "src/app/(dashboard)/akuntansi/rekening-koran/import/page.tsx",
           path: "akuntansi/rekening-koran/import",
-          Component: React.lazy(() => import("./app/dashboard/akuntansi/rekening-koran/import/page"))
+          Component: React.lazy(() => import("./app/(dashboard)/akuntansi/rekening-koran/import/page"))
         },
         {
-          id: "src/app/dashboard/akuntansi/rekening-koran/page.tsx",
+          id: "src/app/(dashboard)/akuntansi/rekening-koran/page.tsx",
           path: "akuntansi/rekening-koran",
-          Component: React.lazy(() => import("./app/dashboard/akuntansi/rekening-koran/page"))
+          Component: React.lazy(() => import("./app/(dashboard)/akuntansi/rekening-koran/page"))
         },
         {
-          id: "src/app/dashboard/akuntansi/sp3b/[sp3bId]/cetak-sp3b/page.tsx",
+          id: "src/app/(dashboard)/akuntansi/sp3b/[sp3bId]/cetak-sp3b/page.tsx",
           path: "akuntansi/sp3b/:sp3bId/cetak-sp3b",
-          Component: React.lazy(() => import("./app/dashboard/akuntansi/sp3b/[sp3bId]/cetak-sp3b/page"))
+          Component: React.lazy(() => import("./app/(dashboard)/akuntansi/sp3b/[sp3bId]/cetak-sp3b/page"))
         },
         {
-          id: "src/app/dashboard/akuntansi/sp3b/[sp3bId]/cetak-sptjb-belanja/page.tsx",
+          id: "src/app/(dashboard)/akuntansi/sp3b/[sp3bId]/cetak-sptjb-belanja/page.tsx",
           path: "akuntansi/sp3b/:sp3bId/cetak-sptjb-belanja",
-          Component: React.lazy(() => import("./app/dashboard/akuntansi/sp3b/[sp3bId]/cetak-sptjb-belanja/page"))
+          Component: React.lazy(() => import("./app/(dashboard)/akuntansi/sp3b/[sp3bId]/cetak-sptjb-belanja/page"))
         },
         {
-          id: "src/app/dashboard/akuntansi/sp3b/[sp3bId]/cetak-sptjb-pendapatan/page.tsx",
+          id: "src/app/(dashboard)/akuntansi/sp3b/[sp3bId]/cetak-sptjb-pendapatan/page.tsx",
           path: "akuntansi/sp3b/:sp3bId/cetak-sptjb-pendapatan",
-          Component: React.lazy(() => import("./app/dashboard/akuntansi/sp3b/[sp3bId]/cetak-sptjb-pendapatan/page"))
+          Component: React.lazy(() => import("./app/(dashboard)/akuntansi/sp3b/[sp3bId]/cetak-sptjb-pendapatan/page"))
         },
         {
-          id: "src/app/dashboard/akuntansi/sp3b/[sp3bId]/cetak-surat-pengantar/page.tsx",
+          id: "src/app/(dashboard)/akuntansi/sp3b/[sp3bId]/cetak-surat-pengantar/page.tsx",
           path: "akuntansi/sp3b/:sp3bId/cetak-surat-pengantar",
-          Component: React.lazy(() => import("./app/dashboard/akuntansi/sp3b/[sp3bId]/cetak-surat-pengantar/page"))
+          Component: React.lazy(() => import("./app/(dashboard)/akuntansi/sp3b/[sp3bId]/cetak-surat-pengantar/page"))
         },
         {
-          id: "src/app/dashboard/akuntansi/sp3b/[sp3bId]/edit/page.tsx",
+          id: "src/app/(dashboard)/akuntansi/sp3b/[sp3bId]/edit/page.tsx",
           path: "akuntansi/sp3b/:sp3bId/edit",
-          Component: React.lazy(() => import("./app/dashboard/akuntansi/sp3b/[sp3bId]/edit/page"))
+          Component: React.lazy(() => import("./app/(dashboard)/akuntansi/sp3b/[sp3bId]/edit/page"))
         },
         {
-          id: "src/app/dashboard/akuntansi/sp3b/[sp3bId]/page.tsx",
+          id: "src/app/(dashboard)/akuntansi/sp3b/[sp3bId]/page.tsx",
           path: "akuntansi/sp3b/:sp3bId",
-          Component: React.lazy(() => import("./app/dashboard/akuntansi/sp3b/[sp3bId]/page"))
+          Component: React.lazy(() => import("./app/(dashboard)/akuntansi/sp3b/[sp3bId]/page"))
         },
         {
-          id: "src/app/dashboard/akuntansi/sp3b/page.tsx",
+          id: "src/app/(dashboard)/akuntansi/sp3b/page.tsx",
           path: "akuntansi/sp3b",
-          Component: React.lazy(() => import("./app/dashboard/akuntansi/sp3b/page"))
+          Component: React.lazy(() => import("./app/(dashboard)/akuntansi/sp3b/page"))
         },
         {
-          id: "src/app/dashboard/akuntansi/sp3b/tambah/page.tsx",
+          id: "src/app/(dashboard)/akuntansi/sp3b/tambah/page.tsx",
           path: "akuntansi/sp3b/tambah",
-          Component: React.lazy(() => import("./app/dashboard/akuntansi/sp3b/tambah/page"))
+          Component: React.lazy(() => import("./app/(dashboard)/akuntansi/sp3b/tambah/page"))
         },
         {
-          id: "src/app/dashboard/anggaran/dba/layout.tsx",
+          id: "src/app/(dashboard)/anggaran/dba/layout.tsx",
           path: "anggaran/dba",
-          Component: React.lazy(() => import("./app/dashboard/anggaran/dba/layout")),
+          Component: React.lazy(() => import("./app/(dashboard)/anggaran/dba/layout")),
           children: [
           {
-            id: "src/app/dashboard/anggaran/dba/penetapan/[dbaId]/edit/page.tsx",
+            id: "src/app/(dashboard)/anggaran/dba/penetapan/[dbaId]/edit/page.tsx",
             path: "penetapan/:dbaId/edit",
-            Component: React.lazy(() => import("./app/dashboard/anggaran/dba/penetapan/[dbaId]/edit/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/anggaran/dba/penetapan/[dbaId]/edit/page"))
           },
           {
-            id: "src/app/dashboard/anggaran/dba/penetapan/page.tsx",
+            id: "src/app/(dashboard)/anggaran/dba/penetapan/page.tsx",
             path: "penetapan",
-            Component: React.lazy(() => import("./app/dashboard/anggaran/dba/penetapan/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/anggaran/dba/penetapan/page"))
           },
           {
-            id: "src/app/dashboard/anggaran/dba/penetapan/tambah/page.tsx",
+            id: "src/app/(dashboard)/anggaran/dba/penetapan/tambah/page.tsx",
             path: "penetapan/tambah",
-            Component: React.lazy(() => import("./app/dashboard/anggaran/dba/penetapan/tambah/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/anggaran/dba/penetapan/tambah/page"))
           }
           ]
         },
         {
-          id: "src/app/dashboard/anggaran/monitoring/realisasi-belanja/layout.tsx",
+          id: "src/app/(dashboard)/anggaran/monitoring/realisasi-belanja/layout.tsx",
           path: "anggaran/monitoring/realisasi-belanja",
-          Component: React.lazy(() => import("./app/dashboard/anggaran/monitoring/realisasi-belanja/layout")),
+          Component: React.lazy(() => import("./app/(dashboard)/anggaran/monitoring/realisasi-belanja/layout")),
           children: [
           {
-            id: "src/app/dashboard/anggaran/monitoring/realisasi-belanja/[rincianRbaBelanjaId]/detail-belanja/page.tsx",
+            id: "src/app/(dashboard)/anggaran/monitoring/realisasi-belanja/[rincianRbaBelanjaId]/detail-belanja/page.tsx",
             path: ":rincianRbaBelanjaId/detail-belanja",
-            Component: React.lazy(() => import("./app/dashboard/anggaran/monitoring/realisasi-belanja/[rincianRbaBelanjaId]/detail-belanja/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/anggaran/monitoring/realisasi-belanja/[rincianRbaBelanjaId]/detail-belanja/page"))
           },
           {
-            id: "src/app/dashboard/anggaran/monitoring/realisasi-belanja/[rincianRbaBelanjaId]/edit/page.tsx",
+            id: "src/app/(dashboard)/anggaran/monitoring/realisasi-belanja/[rincianRbaBelanjaId]/edit/page.tsx",
             path: ":rincianRbaBelanjaId/edit",
-            Component: React.lazy(() => import("./app/dashboard/anggaran/monitoring/realisasi-belanja/[rincianRbaBelanjaId]/edit/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/anggaran/monitoring/realisasi-belanja/[rincianRbaBelanjaId]/edit/page"))
           },
           {
-            id: "src/app/dashboard/anggaran/monitoring/realisasi-belanja/page.tsx",
+            id: "src/app/(dashboard)/anggaran/monitoring/realisasi-belanja/page.tsx",
             index: true,
-            Component: React.lazy(() => import("./app/dashboard/anggaran/monitoring/realisasi-belanja/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/anggaran/monitoring/realisasi-belanja/page"))
           },
           {
-            id: "src/app/dashboard/anggaran/monitoring/realisasi-belanja/tidak-terklasifikasi/page.tsx",
+            id: "src/app/(dashboard)/anggaran/monitoring/realisasi-belanja/tidak-terklasifikasi/page.tsx",
             path: "tidak-terklasifikasi",
-            Component: React.lazy(() => import("./app/dashboard/anggaran/monitoring/realisasi-belanja/tidak-terklasifikasi/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/anggaran/monitoring/realisasi-belanja/tidak-terklasifikasi/page"))
           }
           ]
         },
         {
-          id: "src/app/dashboard/anggaran/page.tsx",
+          id: "src/app/(dashboard)/anggaran/page.tsx",
           path: "anggaran",
-          Component: React.lazy(() => import("./app/dashboard/anggaran/page"))
+          Component: React.lazy(() => import("./app/(dashboard)/anggaran/page"))
         },
         {
-          id: "src/app/dashboard/anggaran/rba/layout.tsx",
+          id: "src/app/(dashboard)/anggaran/rba/layout.tsx",
           path: "anggaran/rba",
-          Component: React.lazy(() => import("./app/dashboard/anggaran/rba/layout")),
+          Component: React.lazy(() => import("./app/(dashboard)/anggaran/rba/layout")),
           children: [
           {
-            id: "src/app/dashboard/anggaran/rba/daftar-rab/[rabId]/edit/page.tsx",
+            id: "src/app/(dashboard)/anggaran/rba/daftar-rab/[rabId]/edit/page.tsx",
             path: "daftar-rab/:rabId/edit",
-            Component: React.lazy(() => import("./app/dashboard/anggaran/rba/daftar-rab/[rabId]/edit/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/anggaran/rba/daftar-rab/[rabId]/edit/page"))
           },
           {
-            id: "src/app/dashboard/anggaran/rba/daftar-rab/page.tsx",
+            id: "src/app/(dashboard)/anggaran/rba/daftar-rab/page.tsx",
             path: "daftar-rab",
-            Component: React.lazy(() => import("./app/dashboard/anggaran/rba/daftar-rab/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/anggaran/rba/daftar-rab/page"))
           },
           {
-            id: "src/app/dashboard/anggaran/rba/daftar-rab/tambah/page.tsx",
+            id: "src/app/(dashboard)/anggaran/rba/daftar-rab/tambah/page.tsx",
             path: "daftar-rab/tambah",
-            Component: React.lazy(() => import("./app/dashboard/anggaran/rba/daftar-rab/tambah/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/anggaran/rba/daftar-rab/tambah/page"))
           },
           {
-            id: "src/app/dashboard/anggaran/rba/daftar-rap/[rapId]/edit/page.tsx",
+            id: "src/app/(dashboard)/anggaran/rba/daftar-rap/[rapId]/edit/page.tsx",
             path: "daftar-rap/:rapId/edit",
-            Component: React.lazy(() => import("./app/dashboard/anggaran/rba/daftar-rap/[rapId]/edit/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/anggaran/rba/daftar-rap/[rapId]/edit/page"))
           },
           {
-            id: "src/app/dashboard/anggaran/rba/daftar-rap/page.tsx",
+            id: "src/app/(dashboard)/anggaran/rba/daftar-rap/page.tsx",
             path: "daftar-rap",
-            Component: React.lazy(() => import("./app/dashboard/anggaran/rba/daftar-rap/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/anggaran/rba/daftar-rap/page"))
           },
           {
-            id: "src/app/dashboard/anggaran/rba/daftar-rap/tambah/page.tsx",
+            id: "src/app/(dashboard)/anggaran/rba/daftar-rap/tambah/page.tsx",
             path: "daftar-rap/tambah",
-            Component: React.lazy(() => import("./app/dashboard/anggaran/rba/daftar-rap/tambah/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/anggaran/rba/daftar-rap/tambah/page"))
           },
           {
-            id: "src/app/dashboard/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/layout.tsx",
+            id: "src/app/(dashboard)/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/layout.tsx",
             path: "penyusunan-rba/:rbaId",
-            Component: React.lazy(() => import("./app/dashboard/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/layout")),
+            Component: React.lazy(() => import("./app/(dashboard)/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/layout")),
             children: [
             {
-              id: "src/app/dashboard/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/edit/page.tsx",
+              id: "src/app/(dashboard)/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/edit/page.tsx",
               path: "aktivitas/:aktivitasRbaId/edit",
-              Component: React.lazy(() => import("./app/dashboard/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/edit/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/edit/page"))
             },
             {
-              id: "src/app/dashboard/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/rincian-rba/page.tsx",
+              id: "src/app/(dashboard)/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/rincian-rba/page.tsx",
               path: "aktivitas/:aktivitasRbaId/rincian-rba",
-              Component: React.lazy(() => import("./app/dashboard/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/rincian-rba/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/rincian-rba/page"))
             },
             {
-              id: "src/app/dashboard/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/rincian-rba/rab/[rincianRbaBelanjaId]/edit/page.tsx",
+              id: "src/app/(dashboard)/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/rincian-rba/rab/[rincianRbaBelanjaId]/edit/page.tsx",
               path: "aktivitas/:aktivitasRbaId/rincian-rba/rab/:rincianRbaBelanjaId/edit",
-              Component: React.lazy(() => import("./app/dashboard/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/rincian-rba/rab/[rincianRbaBelanjaId]/edit/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/rincian-rba/rab/[rincianRbaBelanjaId]/edit/page"))
             },
             {
-              id: "src/app/dashboard/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/rincian-rba/rab/tambah/page.tsx",
+              id: "src/app/(dashboard)/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/rincian-rba/rab/tambah/page.tsx",
               path: "aktivitas/:aktivitasRbaId/rincian-rba/rab/tambah",
-              Component: React.lazy(() => import("./app/dashboard/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/rincian-rba/rab/tambah/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/rincian-rba/rab/tambah/page"))
             },
             {
-              id: "src/app/dashboard/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/rincian-rba/rap/[rincianRbaPendapatanId]/edit/page.tsx",
+              id: "src/app/(dashboard)/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/rincian-rba/rap/[rincianRbaPendapatanId]/edit/page.tsx",
               path: "aktivitas/:aktivitasRbaId/rincian-rba/rap/:rincianRbaPendapatanId/edit",
-              Component: React.lazy(() => import("./app/dashboard/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/rincian-rba/rap/[rincianRbaPendapatanId]/edit/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/rincian-rba/rap/[rincianRbaPendapatanId]/edit/page"))
             },
             {
-              id: "src/app/dashboard/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/rincian-rba/rap/tambah/page.tsx",
+              id: "src/app/(dashboard)/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/rincian-rba/rap/tambah/page.tsx",
               path: "aktivitas/:aktivitasRbaId/rincian-rba/rap/tambah",
-              Component: React.lazy(() => import("./app/dashboard/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/rincian-rba/rap/tambah/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/[aktivitasRbaId]/rincian-rba/rap/tambah/page"))
             },
             {
-              id: "src/app/dashboard/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/page.tsx",
+              id: "src/app/(dashboard)/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/page.tsx",
               path: "aktivitas",
-              Component: React.lazy(() => import("./app/dashboard/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/page"))
             },
             {
-              id: "src/app/dashboard/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/tambah/page.tsx",
+              id: "src/app/(dashboard)/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/tambah/page.tsx",
               path: "aktivitas/tambah",
-              Component: React.lazy(() => import("./app/dashboard/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/tambah/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/anggaran/rba/penyusunan-rba/[rbaId]/(detail)/aktivitas/tambah/page"))
             }
             ]
           },
           {
-            id: "src/app/dashboard/anggaran/rba/penyusunan-rba/[rbaId]/edit/page.tsx",
+            id: "src/app/(dashboard)/anggaran/rba/penyusunan-rba/[rbaId]/edit/page.tsx",
             path: "penyusunan-rba/:rbaId/edit",
-            Component: React.lazy(() => import("./app/dashboard/anggaran/rba/penyusunan-rba/[rbaId]/edit/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/anggaran/rba/penyusunan-rba/[rbaId]/edit/page"))
           },
           {
-            id: "src/app/dashboard/anggaran/rba/penyusunan-rba/page.tsx",
+            id: "src/app/(dashboard)/anggaran/rba/penyusunan-rba/page.tsx",
             path: "penyusunan-rba",
-            Component: React.lazy(() => import("./app/dashboard/anggaran/rba/penyusunan-rba/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/anggaran/rba/penyusunan-rba/page"))
           },
           {
-            id: "src/app/dashboard/anggaran/rba/penyusunan-rba/tambah/page.tsx",
+            id: "src/app/(dashboard)/anggaran/rba/penyusunan-rba/tambah/page.tsx",
             path: "penyusunan-rba/tambah",
-            Component: React.lazy(() => import("./app/dashboard/anggaran/rba/penyusunan-rba/tambah/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/anggaran/rba/penyusunan-rba/tambah/page"))
           }
           ]
         },
         {
-          id: "src/app/dashboard/belanja/layout.tsx",
+          id: "src/app/(dashboard)/belanja/layout.tsx",
           path: "belanja",
-          Component: React.lazy(() => import("./app/dashboard/belanja/layout")),
+          Component: React.lazy(() => import("./app/(dashboard)/belanja/layout")),
           children: [
           {
-            id: "src/app/dashboard/belanja/buku/layout.tsx",
+            id: "src/app/(dashboard)/belanja/buku/layout.tsx",
             path: "buku",
-            Component: React.lazy(() => import("./app/dashboard/belanja/buku/layout")),
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/buku/layout")),
             children: [
             {
-              id: "src/app/dashboard/belanja/buku/buku-pajak/cetak/page.tsx",
+              id: "src/app/(dashboard)/belanja/buku/buku-pajak/cetak/page.tsx",
               path: "buku-pajak/cetak",
-              Component: React.lazy(() => import("./app/dashboard/belanja/buku/buku-pajak/cetak/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/belanja/buku/buku-pajak/cetak/page"))
             },
             {
-              id: "src/app/dashboard/belanja/buku/buku-pajak/page.tsx",
+              id: "src/app/(dashboard)/belanja/buku/buku-pajak/page.tsx",
               path: "buku-pajak",
-              Component: React.lazy(() => import("./app/dashboard/belanja/buku/buku-pajak/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/belanja/buku/buku-pajak/page"))
             },
             {
-              id: "src/app/dashboard/belanja/buku/kas-umum/page.tsx",
+              id: "src/app/(dashboard)/belanja/buku/kas-umum/page.tsx",
               path: "kas-umum",
-              Component: React.lazy(() => import("./app/dashboard/belanja/buku/kas-umum/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/belanja/buku/kas-umum/page"))
             }
             ]
           },
           {
-            id: "src/app/dashboard/belanja/lpj-belanja/[lpjBelanjaId]/cetak/page.tsx",
+            id: "src/app/(dashboard)/belanja/lpj-belanja/[lpjBelanjaId]/cetak/page.tsx",
             path: "lpj-belanja/:lpjBelanjaId/cetak",
-            Component: React.lazy(() => import("./app/dashboard/belanja/lpj-belanja/[lpjBelanjaId]/cetak/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/lpj-belanja/[lpjBelanjaId]/cetak/page"))
           },
           {
-            id: "src/app/dashboard/belanja/lpj-belanja/[lpjBelanjaId]/edit/page.tsx",
+            id: "src/app/(dashboard)/belanja/lpj-belanja/[lpjBelanjaId]/edit/page.tsx",
             path: "lpj-belanja/:lpjBelanjaId/edit",
-            Component: React.lazy(() => import("./app/dashboard/belanja/lpj-belanja/[lpjBelanjaId]/edit/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/lpj-belanja/[lpjBelanjaId]/edit/page"))
           },
           {
-            id: "src/app/dashboard/belanja/lpj-belanja/[lpjBelanjaId]/page.tsx",
+            id: "src/app/(dashboard)/belanja/lpj-belanja/[lpjBelanjaId]/page.tsx",
             path: "lpj-belanja/:lpjBelanjaId",
-            Component: React.lazy(() => import("./app/dashboard/belanja/lpj-belanja/[lpjBelanjaId]/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/lpj-belanja/[lpjBelanjaId]/page"))
           },
           {
-            id: "src/app/dashboard/belanja/lpj-belanja/[lpjBelanjaId]/tambah-belanja/page.tsx",
+            id: "src/app/(dashboard)/belanja/lpj-belanja/[lpjBelanjaId]/tambah-belanja/page.tsx",
             path: "lpj-belanja/:lpjBelanjaId/tambah-belanja",
-            Component: React.lazy(() => import("./app/dashboard/belanja/lpj-belanja/[lpjBelanjaId]/tambah-belanja/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/lpj-belanja/[lpjBelanjaId]/tambah-belanja/page"))
           },
           {
-            id: "src/app/dashboard/belanja/lpj-belanja/page.tsx",
+            id: "src/app/(dashboard)/belanja/lpj-belanja/page.tsx",
             path: "lpj-belanja",
-            Component: React.lazy(() => import("./app/dashboard/belanja/lpj-belanja/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/lpj-belanja/page"))
           },
           {
-            id: "src/app/dashboard/belanja/lpj-belanja/tambah/page.tsx",
+            id: "src/app/(dashboard)/belanja/lpj-belanja/tambah/page.tsx",
             path: "lpj-belanja/tambah",
-            Component: React.lazy(() => import("./app/dashboard/belanja/lpj-belanja/tambah/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/lpj-belanja/tambah/page"))
           },
           {
-            id: "src/app/dashboard/belanja/perekaman/[belanjaId]/cetak-amplop/page.tsx",
+            id: "src/app/(dashboard)/belanja/perekaman/[belanjaId]/cetak-amplop/page.tsx",
             path: "perekaman/:belanjaId/cetak-amplop",
-            Component: React.lazy(() => import("./app/dashboard/belanja/perekaman/[belanjaId]/cetak-amplop/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/perekaman/[belanjaId]/cetak-amplop/page"))
           },
           {
-            id: "src/app/dashboard/belanja/perekaman/[belanjaId]/cetak-daftar-potong/page.tsx",
+            id: "src/app/(dashboard)/belanja/perekaman/[belanjaId]/cetak-daftar-potong/page.tsx",
             path: "perekaman/:belanjaId/cetak-daftar-potong",
-            Component: React.lazy(() => import("./app/dashboard/belanja/perekaman/[belanjaId]/cetak-daftar-potong/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/perekaman/[belanjaId]/cetak-daftar-potong/page"))
           },
           {
-            id: "src/app/dashboard/belanja/perekaman/[belanjaId]/cetak-kwitansi/page.tsx",
+            id: "src/app/(dashboard)/belanja/perekaman/[belanjaId]/cetak-kwitansi/page.tsx",
             path: "perekaman/:belanjaId/cetak-kwitansi",
-            Component: React.lazy(() => import("./app/dashboard/belanja/perekaman/[belanjaId]/cetak-kwitansi/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/perekaman/[belanjaId]/cetak-kwitansi/page"))
           },
           {
-            id: "src/app/dashboard/belanja/perekaman/[belanjaId]/cetak-setoran-bank/page.tsx",
+            id: "src/app/(dashboard)/belanja/perekaman/[belanjaId]/cetak-setoran-bank/page.tsx",
             path: "perekaman/:belanjaId/cetak-setoran-bank",
-            Component: React.lazy(() => import("./app/dashboard/belanja/perekaman/[belanjaId]/cetak-setoran-bank/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/perekaman/[belanjaId]/cetak-setoran-bank/page"))
           },
           {
-            id: "src/app/dashboard/belanja/perekaman/[belanjaId]/edit/page.tsx",
+            id: "src/app/(dashboard)/belanja/perekaman/[belanjaId]/edit/page.tsx",
             path: "perekaman/:belanjaId/edit",
-            Component: React.lazy(() => import("./app/dashboard/belanja/perekaman/[belanjaId]/edit/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/perekaman/[belanjaId]/edit/page"))
           },
           {
-            id: "src/app/dashboard/belanja/perekaman/[belanjaId]/page.tsx",
+            id: "src/app/(dashboard)/belanja/perekaman/[belanjaId]/page.tsx",
             path: "perekaman/:belanjaId",
-            Component: React.lazy(() => import("./app/dashboard/belanja/perekaman/[belanjaId]/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/perekaman/[belanjaId]/page"))
           },
           {
-            id: "src/app/dashboard/belanja/perekaman/[belanjaId]/potongan/[potonganId]/edit/page.tsx",
+            id: "src/app/(dashboard)/belanja/perekaman/[belanjaId]/potongan/[potonganId]/edit/page.tsx",
             path: "perekaman/:belanjaId/potongan/:potonganId/edit",
-            Component: React.lazy(() => import("./app/dashboard/belanja/perekaman/[belanjaId]/potongan/[potonganId]/edit/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/perekaman/[belanjaId]/potongan/[potonganId]/edit/page"))
           },
           {
-            id: "src/app/dashboard/belanja/perekaman/[belanjaId]/potongan/tambah/page.tsx",
+            id: "src/app/(dashboard)/belanja/perekaman/[belanjaId]/potongan/tambah/page.tsx",
             path: "perekaman/:belanjaId/potongan/tambah",
-            Component: React.lazy(() => import("./app/dashboard/belanja/perekaman/[belanjaId]/potongan/tambah/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/perekaman/[belanjaId]/potongan/tambah/page"))
           },
           {
-            id: "src/app/dashboard/belanja/perekaman/[belanjaId]/upload/page.tsx",
+            id: "src/app/(dashboard)/belanja/perekaman/[belanjaId]/upload/page.tsx",
             path: "perekaman/:belanjaId/upload",
-            Component: React.lazy(() => import("./app/dashboard/belanja/perekaman/[belanjaId]/upload/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/perekaman/[belanjaId]/upload/page"))
           },
           {
-            id: "src/app/dashboard/belanja/perekaman/page.tsx",
+            id: "src/app/(dashboard)/belanja/perekaman/page.tsx",
             path: "perekaman",
-            Component: React.lazy(() => import("./app/dashboard/belanja/perekaman/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/perekaman/page"))
           },
           {
-            id: "src/app/dashboard/belanja/perekaman/tambah/page.tsx",
+            id: "src/app/(dashboard)/belanja/perekaman/tambah/page.tsx",
             path: "perekaman/tambah",
-            Component: React.lazy(() => import("./app/dashboard/belanja/perekaman/tambah/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/perekaman/tambah/page"))
           },
           {
-            id: "src/app/dashboard/belanja/sp2d/[sp2dId]/cetak-kendali-cek/page.tsx",
+            id: "src/app/(dashboard)/belanja/sp2d/[sp2dId]/cetak-kendali-cek/page.tsx",
             path: "sp2d/:sp2dId/cetak-kendali-cek",
-            Component: React.lazy(() => import("./app/dashboard/belanja/sp2d/[sp2dId]/cetak-kendali-cek/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/sp2d/[sp2dId]/cetak-kendali-cek/page"))
           },
           {
-            id: "src/app/dashboard/belanja/sp2d/[sp2dId]/cetak-sp2d/page.tsx",
+            id: "src/app/(dashboard)/belanja/sp2d/[sp2dId]/cetak-sp2d/page.tsx",
             path: "sp2d/:sp2dId/cetak-sp2d",
-            Component: React.lazy(() => import("./app/dashboard/belanja/sp2d/[sp2dId]/cetak-sp2d/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/sp2d/[sp2dId]/cetak-sp2d/page"))
           },
           {
-            id: "src/app/dashboard/belanja/sp2d/[sp2dId]/edit/page.tsx",
+            id: "src/app/(dashboard)/belanja/sp2d/[sp2dId]/edit/page.tsx",
             path: "sp2d/:sp2dId/edit",
-            Component: React.lazy(() => import("./app/dashboard/belanja/sp2d/[sp2dId]/edit/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/sp2d/[sp2dId]/edit/page"))
           },
           {
-            id: "src/app/dashboard/belanja/sp2d/[sp2dId]/page.tsx",
+            id: "src/app/(dashboard)/belanja/sp2d/[sp2dId]/page.tsx",
             path: "sp2d/:sp2dId",
-            Component: React.lazy(() => import("./app/dashboard/belanja/sp2d/[sp2dId]/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/sp2d/[sp2dId]/page"))
           },
           {
-            id: "src/app/dashboard/belanja/sp2d/page.tsx",
+            id: "src/app/(dashboard)/belanja/sp2d/page.tsx",
             path: "sp2d",
-            Component: React.lazy(() => import("./app/dashboard/belanja/sp2d/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/sp2d/page"))
           },
           {
-            id: "src/app/dashboard/belanja/sp2d/tambah/page.tsx",
+            id: "src/app/(dashboard)/belanja/sp2d/tambah/page.tsx",
             path: "sp2d/tambah",
-            Component: React.lazy(() => import("./app/dashboard/belanja/sp2d/tambah/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/sp2d/tambah/page"))
           },
           {
-            id: "src/app/dashboard/belanja/spm/[spmId]/cetak-pernyataan-verifikasi/page.tsx",
+            id: "src/app/(dashboard)/belanja/spm/[spmId]/cetak-pernyataan-verifikasi/page.tsx",
             path: "spm/:spmId/cetak-pernyataan-verifikasi",
-            Component: React.lazy(() => import("./app/dashboard/belanja/spm/[spmId]/cetak-pernyataan-verifikasi/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/spm/[spmId]/cetak-pernyataan-verifikasi/page"))
           },
           {
-            id: "src/app/dashboard/belanja/spm/[spmId]/cetak-spm/page.tsx",
+            id: "src/app/(dashboard)/belanja/spm/[spmId]/cetak-spm/page.tsx",
             path: "spm/:spmId/cetak-spm",
-            Component: React.lazy(() => import("./app/dashboard/belanja/spm/[spmId]/cetak-spm/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/spm/[spmId]/cetak-spm/page"))
           },
           {
-            id: "src/app/dashboard/belanja/spm/[spmId]/cetak-sptjm/page.tsx",
+            id: "src/app/(dashboard)/belanja/spm/[spmId]/cetak-sptjm/page.tsx",
             path: "spm/:spmId/cetak-sptjm",
-            Component: React.lazy(() => import("./app/dashboard/belanja/spm/[spmId]/cetak-sptjm/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/spm/[spmId]/cetak-sptjm/page"))
           },
           {
-            id: "src/app/dashboard/belanja/spm/[spmId]/edit/page.tsx",
+            id: "src/app/(dashboard)/belanja/spm/[spmId]/edit/page.tsx",
             path: "spm/:spmId/edit",
-            Component: React.lazy(() => import("./app/dashboard/belanja/spm/[spmId]/edit/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/spm/[spmId]/edit/page"))
           },
           {
-            id: "src/app/dashboard/belanja/spm/[spmId]/page.tsx",
+            id: "src/app/(dashboard)/belanja/spm/[spmId]/page.tsx",
             path: "spm/:spmId",
-            Component: React.lazy(() => import("./app/dashboard/belanja/spm/[spmId]/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/spm/[spmId]/page"))
           },
           {
-            id: "src/app/dashboard/belanja/spm/page.tsx",
+            id: "src/app/(dashboard)/belanja/spm/page.tsx",
             path: "spm",
-            Component: React.lazy(() => import("./app/dashboard/belanja/spm/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/spm/page"))
           },
           {
-            id: "src/app/dashboard/belanja/spm/tambah/page.tsx",
+            id: "src/app/(dashboard)/belanja/spm/tambah/page.tsx",
             path: "spm/tambah",
-            Component: React.lazy(() => import("./app/dashboard/belanja/spm/tambah/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/spm/tambah/page"))
           },
           {
-            id: "src/app/dashboard/belanja/spp/[sppId]/cetak-spp-rincian/page.tsx",
+            id: "src/app/(dashboard)/belanja/spp/[sppId]/cetak-spp-rincian/page.tsx",
             path: "spp/:sppId/cetak-spp-rincian",
-            Component: React.lazy(() => import("./app/dashboard/belanja/spp/[sppId]/cetak-spp-rincian/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/spp/[sppId]/cetak-spp-rincian/page"))
           },
           {
-            id: "src/app/dashboard/belanja/spp/[sppId]/cetak-spp/page.tsx",
+            id: "src/app/(dashboard)/belanja/spp/[sppId]/cetak-spp/page.tsx",
             path: "spp/:sppId/cetak-spp",
-            Component: React.lazy(() => import("./app/dashboard/belanja/spp/[sppId]/cetak-spp/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/spp/[sppId]/cetak-spp/page"))
           },
           {
-            id: "src/app/dashboard/belanja/spp/[sppId]/cetak-surat-pengantar/page.tsx",
+            id: "src/app/(dashboard)/belanja/spp/[sppId]/cetak-surat-pengantar/page.tsx",
             path: "spp/:sppId/cetak-surat-pengantar",
-            Component: React.lazy(() => import("./app/dashboard/belanja/spp/[sppId]/cetak-surat-pengantar/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/spp/[sppId]/cetak-surat-pengantar/page"))
           },
           {
-            id: "src/app/dashboard/belanja/spp/[sppId]/edit/page.tsx",
+            id: "src/app/(dashboard)/belanja/spp/[sppId]/edit/page.tsx",
             path: "spp/:sppId/edit",
-            Component: React.lazy(() => import("./app/dashboard/belanja/spp/[sppId]/edit/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/spp/[sppId]/edit/page"))
           },
           {
-            id: "src/app/dashboard/belanja/spp/[sppId]/page.tsx",
+            id: "src/app/(dashboard)/belanja/spp/[sppId]/page.tsx",
             path: "spp/:sppId",
-            Component: React.lazy(() => import("./app/dashboard/belanja/spp/[sppId]/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/spp/[sppId]/page"))
           },
           {
-            id: "src/app/dashboard/belanja/spp/page.tsx",
+            id: "src/app/(dashboard)/belanja/spp/page.tsx",
             path: "spp",
-            Component: React.lazy(() => import("./app/dashboard/belanja/spp/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/spp/page"))
           },
           {
-            id: "src/app/dashboard/belanja/spp/tambah/page.tsx",
+            id: "src/app/(dashboard)/belanja/spp/tambah/page.tsx",
             path: "spp/tambah",
-            Component: React.lazy(() => import("./app/dashboard/belanja/spp/tambah/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/belanja/spp/tambah/page"))
           }
           ]
         },
         {
-          id: "src/app/dashboard/lainnya/layout.tsx",
+          id: "src/app/(dashboard)/lainnya/layout.tsx",
           path: "lainnya",
-          Component: React.lazy(() => import("./app/dashboard/lainnya/layout")),
+          Component: React.lazy(() => import("./app/(dashboard)/lainnya/layout")),
           children: [
           {
-            id: "src/app/dashboard/lainnya/database/layout.tsx",
+            id: "src/app/(dashboard)/lainnya/database/layout.tsx",
             path: "database",
-            Component: React.lazy(() => import("./app/dashboard/lainnya/database/layout")),
+            Component: React.lazy(() => import("./app/(dashboard)/lainnya/database/layout")),
             children: [
             {
-              id: "src/app/dashboard/lainnya/database/bank/[id]/edit/page.tsx",
+              id: "src/app/(dashboard)/lainnya/database/bank/[id]/edit/page.tsx",
               path: "bank/:id/edit",
-              Component: React.lazy(() => import("./app/dashboard/lainnya/database/bank/[id]/edit/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/lainnya/database/bank/[id]/edit/page"))
             },
             {
-              id: "src/app/dashboard/lainnya/database/bank/page.tsx",
+              id: "src/app/(dashboard)/lainnya/database/bank/page.tsx",
               path: "bank",
-              Component: React.lazy(() => import("./app/dashboard/lainnya/database/bank/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/lainnya/database/bank/page"))
             },
             {
-              id: "src/app/dashboard/lainnya/database/bank/tambah/page.tsx",
+              id: "src/app/(dashboard)/lainnya/database/bank/tambah/page.tsx",
               path: "bank/tambah",
-              Component: React.lazy(() => import("./app/dashboard/lainnya/database/bank/tambah/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/lainnya/database/bank/tambah/page"))
             },
             {
-              id: "src/app/dashboard/lainnya/database/pegawai/[id]/edit/page.tsx",
+              id: "src/app/(dashboard)/lainnya/database/pegawai/[id]/edit/page.tsx",
               path: "pegawai/:id/edit",
-              Component: React.lazy(() => import("./app/dashboard/lainnya/database/pegawai/[id]/edit/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/lainnya/database/pegawai/[id]/edit/page"))
             },
             {
-              id: "src/app/dashboard/lainnya/database/pegawai/page.tsx",
+              id: "src/app/(dashboard)/lainnya/database/pegawai/page.tsx",
               path: "pegawai",
-              Component: React.lazy(() => import("./app/dashboard/lainnya/database/pegawai/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/lainnya/database/pegawai/page"))
             },
             {
-              id: "src/app/dashboard/lainnya/database/pegawai/tambah/page.tsx",
+              id: "src/app/(dashboard)/lainnya/database/pegawai/tambah/page.tsx",
               path: "pegawai/tambah",
-              Component: React.lazy(() => import("./app/dashboard/lainnya/database/pegawai/tambah/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/lainnya/database/pegawai/tambah/page"))
             },
             {
-              id: "src/app/dashboard/lainnya/database/rekanan/[id]/edit/page.tsx",
+              id: "src/app/(dashboard)/lainnya/database/rekanan/[id]/edit/page.tsx",
               path: "rekanan/:id/edit",
-              Component: React.lazy(() => import("./app/dashboard/lainnya/database/rekanan/[id]/edit/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/lainnya/database/rekanan/[id]/edit/page"))
             },
             {
-              id: "src/app/dashboard/lainnya/database/rekanan/page.tsx",
+              id: "src/app/(dashboard)/lainnya/database/rekanan/page.tsx",
               path: "rekanan",
-              Component: React.lazy(() => import("./app/dashboard/lainnya/database/rekanan/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/lainnya/database/rekanan/page"))
             },
             {
-              id: "src/app/dashboard/lainnya/database/rekanan/tambah/page.tsx",
+              id: "src/app/(dashboard)/lainnya/database/rekanan/tambah/page.tsx",
               path: "rekanan/tambah",
-              Component: React.lazy(() => import("./app/dashboard/lainnya/database/rekanan/tambah/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/lainnya/database/rekanan/tambah/page"))
             },
             {
-              id: "src/app/dashboard/lainnya/database/unit-kerja/[id]/edit/page.tsx",
+              id: "src/app/(dashboard)/lainnya/database/unit-kerja/[id]/edit/page.tsx",
               path: "unit-kerja/:id/edit",
-              Component: React.lazy(() => import("./app/dashboard/lainnya/database/unit-kerja/[id]/edit/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/lainnya/database/unit-kerja/[id]/edit/page"))
             },
             {
-              id: "src/app/dashboard/lainnya/database/unit-kerja/page.tsx",
+              id: "src/app/(dashboard)/lainnya/database/unit-kerja/page.tsx",
               path: "unit-kerja",
-              Component: React.lazy(() => import("./app/dashboard/lainnya/database/unit-kerja/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/lainnya/database/unit-kerja/page"))
             },
             {
-              id: "src/app/dashboard/lainnya/database/unit-kerja/tambah/page.tsx",
+              id: "src/app/(dashboard)/lainnya/database/unit-kerja/tambah/page.tsx",
               path: "unit-kerja/tambah",
-              Component: React.lazy(() => import("./app/dashboard/lainnya/database/unit-kerja/tambah/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/lainnya/database/unit-kerja/tambah/page"))
             }
             ]
           },
           {
-            id: "src/app/dashboard/lainnya/page.tsx",
+            id: "src/app/(dashboard)/lainnya/page.tsx",
             index: true,
-            Component: React.lazy(() => import("./app/dashboard/lainnya/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/lainnya/page"))
           },
           {
-            id: "src/app/dashboard/lainnya/pengaturan/layout.tsx",
+            id: "src/app/(dashboard)/lainnya/pengaturan/layout.tsx",
             path: "pengaturan",
-            Component: React.lazy(() => import("./app/dashboard/lainnya/pengaturan/layout")),
+            Component: React.lazy(() => import("./app/(dashboard)/lainnya/pengaturan/layout")),
             children: [
             {
-              id: "src/app/dashboard/lainnya/pengaturan/pengelola-blud/[id]/edit/page.tsx",
+              id: "src/app/(dashboard)/lainnya/pengaturan/pengelola-blud/[id]/edit/page.tsx",
               path: "pengelola-blud/:id/edit",
-              Component: React.lazy(() => import("./app/dashboard/lainnya/pengaturan/pengelola-blud/[id]/edit/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/lainnya/pengaturan/pengelola-blud/[id]/edit/page"))
             },
             {
-              id: "src/app/dashboard/lainnya/pengaturan/pengelola-blud/page.tsx",
+              id: "src/app/(dashboard)/lainnya/pengaturan/pengelola-blud/page.tsx",
               path: "pengelola-blud",
-              Component: React.lazy(() => import("./app/dashboard/lainnya/pengaturan/pengelola-blud/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/lainnya/pengaturan/pengelola-blud/page"))
             },
             {
-              id: "src/app/dashboard/lainnya/pengaturan/pengelola-blud/tambah/page.tsx",
+              id: "src/app/(dashboard)/lainnya/pengaturan/pengelola-blud/tambah/page.tsx",
               path: "pengelola-blud/tambah",
-              Component: React.lazy(() => import("./app/dashboard/lainnya/pengaturan/pengelola-blud/tambah/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/lainnya/pengaturan/pengelola-blud/tambah/page"))
             },
             {
-              id: "src/app/dashboard/lainnya/pengaturan/profil-blud/page.tsx",
+              id: "src/app/(dashboard)/lainnya/pengaturan/profil-blud/page.tsx",
               path: "profil-blud",
-              Component: React.lazy(() => import("./app/dashboard/lainnya/pengaturan/profil-blud/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/lainnya/pengaturan/profil-blud/page"))
             },
             {
-              id: "src/app/dashboard/lainnya/pengaturan/rekening-bank/[id]/edit/page.tsx",
+              id: "src/app/(dashboard)/lainnya/pengaturan/rekening-bank/[id]/edit/page.tsx",
               path: "rekening-bank/:id/edit",
-              Component: React.lazy(() => import("./app/dashboard/lainnya/pengaturan/rekening-bank/[id]/edit/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/lainnya/pengaturan/rekening-bank/[id]/edit/page"))
             },
             {
-              id: "src/app/dashboard/lainnya/pengaturan/rekening-bank/page.tsx",
+              id: "src/app/(dashboard)/lainnya/pengaturan/rekening-bank/page.tsx",
               path: "rekening-bank",
-              Component: React.lazy(() => import("./app/dashboard/lainnya/pengaturan/rekening-bank/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/lainnya/pengaturan/rekening-bank/page"))
             },
             {
-              id: "src/app/dashboard/lainnya/pengaturan/rekening-bank/tambah/page.tsx",
+              id: "src/app/(dashboard)/lainnya/pengaturan/rekening-bank/tambah/page.tsx",
               path: "rekening-bank/tambah",
-              Component: React.lazy(() => import("./app/dashboard/lainnya/pengaturan/rekening-bank/tambah/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/lainnya/pengaturan/rekening-bank/tambah/page"))
             }
             ]
           },
           {
-            id: "src/app/dashboard/lainnya/referensi/layout.tsx",
+            id: "src/app/(dashboard)/lainnya/referensi/layout.tsx",
             path: "referensi",
-            Component: React.lazy(() => import("./app/dashboard/lainnya/referensi/layout")),
+            Component: React.lazy(() => import("./app/(dashboard)/lainnya/referensi/layout")),
             children: [
             {
-              id: "src/app/dashboard/lainnya/referensi/kode-rekening/layout.tsx",
+              id: "src/app/(dashboard)/lainnya/referensi/kode-rekening/layout.tsx",
               path: "kode-rekening",
-              Component: React.lazy(() => import("./app/dashboard/lainnya/referensi/kode-rekening/layout")),
+              Component: React.lazy(() => import("./app/(dashboard)/lainnya/referensi/kode-rekening/layout")),
               children: [
               {
-                id: "src/app/dashboard/lainnya/referensi/kode-rekening/[level]/page.tsx",
+                id: "src/app/(dashboard)/lainnya/referensi/kode-rekening/[level]/page.tsx",
                 path: ":level",
-                Component: React.lazy(() => import("./app/dashboard/lainnya/referensi/kode-rekening/[level]/page"))
+                Component: React.lazy(() => import("./app/(dashboard)/lainnya/referensi/kode-rekening/[level]/page"))
               }
               ]
             }
             ]
           },
           {
-            id: "src/app/dashboard/lainnya/user/(toolbox)/middleware.tsx",
+            id: "src/app/(dashboard)/lainnya/user/(toolbox)/middleware.tsx",
             path: "user",
-            Component: React.lazy(() => import("./app/dashboard/lainnya/user/(toolbox)/middleware")),
+            Component: React.lazy(() => import("./app/(dashboard)/lainnya/user/(toolbox)/middleware")),
             children: [
             {
-              id: "src/app/dashboard/lainnya/user/(toolbox)/[id]/edit/page.tsx",
+              id: "src/app/(dashboard)/lainnya/user/(toolbox)/[id]/edit/page.tsx",
               path: ":id/edit",
-              Component: React.lazy(() => import("./app/dashboard/lainnya/user/(toolbox)/[id]/edit/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/lainnya/user/(toolbox)/[id]/edit/page"))
             },
             {
-              id: "src/app/dashboard/lainnya/user/(toolbox)/tambah/page.tsx",
+              id: "src/app/(dashboard)/lainnya/user/(toolbox)/tambah/page.tsx",
               path: "tambah",
-              Component: React.lazy(() => import("./app/dashboard/lainnya/user/(toolbox)/tambah/page"))
+              Component: React.lazy(() => import("./app/(dashboard)/lainnya/user/(toolbox)/tambah/page"))
             }
             ]
           },
           {
-            id: "src/app/dashboard/lainnya/user/page.tsx",
+            id: "src/app/(dashboard)/lainnya/user/page.tsx",
             path: "user",
-            Component: React.lazy(() => import("./app/dashboard/lainnya/user/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/lainnya/user/page"))
           }
           ]
         },
         {
-          id: "src/app/dashboard/page.tsx",
+          id: "src/app/(dashboard)/page.tsx",
           index: true,
-          Component: React.lazy(() => import("./app/dashboard/page"))
+          Component: React.lazy(() => import("./app/(dashboard)/page"))
         },
         {
-          id: "src/app/dashboard/pendapatan/layout.tsx",
+          id: "src/app/(dashboard)/pendapatan/layout.tsx",
           path: "pendapatan",
-          Component: React.lazy(() => import("./app/dashboard/pendapatan/layout")),
+          Component: React.lazy(() => import("./app/(dashboard)/pendapatan/layout")),
           children: [
           {
-            id: "src/app/dashboard/pendapatan/perekaman/[pendapatanId]/edit/page.tsx",
+            id: "src/app/(dashboard)/pendapatan/perekaman/[pendapatanId]/edit/page.tsx",
             path: "perekaman/:pendapatanId/edit",
-            Component: React.lazy(() => import("./app/dashboard/pendapatan/perekaman/[pendapatanId]/edit/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/pendapatan/perekaman/[pendapatanId]/edit/page"))
           },
           {
-            id: "src/app/dashboard/pendapatan/perekaman/page.tsx",
+            id: "src/app/(dashboard)/pendapatan/perekaman/page.tsx",
             path: "perekaman",
-            Component: React.lazy(() => import("./app/dashboard/pendapatan/perekaman/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/pendapatan/perekaman/page"))
           },
           {
-            id: "src/app/dashboard/pendapatan/perekaman/tambah/page.tsx",
+            id: "src/app/(dashboard)/pendapatan/perekaman/tambah/page.tsx",
             path: "perekaman/tambah",
-            Component: React.lazy(() => import("./app/dashboard/pendapatan/perekaman/tambah/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/pendapatan/perekaman/tambah/page"))
           }
           ]
         },
         {
-          id: "src/app/dashboard/profil/layout.tsx",
+          id: "src/app/(dashboard)/profil/layout.tsx",
           path: "profil",
-          Component: React.lazy(() => import("./app/dashboard/profil/layout")),
+          Component: React.lazy(() => import("./app/(dashboard)/profil/layout")),
           children: [
           {
-            id: "src/app/dashboard/profil/ganti-password/page.tsx",
+            id: "src/app/(dashboard)/profil/ganti-password/page.tsx",
             path: "ganti-password",
-            Component: React.lazy(() => import("./app/dashboard/profil/ganti-password/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/profil/ganti-password/page"))
           },
           {
-            id: "src/app/dashboard/profil/page.tsx",
+            id: "src/app/(dashboard)/profil/page.tsx",
             index: true,
-            Component: React.lazy(() => import("./app/dashboard/profil/page"))
+            Component: React.lazy(() => import("./app/(dashboard)/profil/page"))
           }
           ]
         }
@@ -918,11 +916,6 @@ export const routes: DataRouteObject[] = [
       id: "src/app/not-found.tsx",
       path: "*",
       Component: React.lazy(() => import("./app/not-found"))
-    },
-    {
-      id: "src/app/page.tsx",
-      index: true,
-      Component: React.lazy(() => import("./app/page"))
     },
     {
       id: "src/app/panduan/layout.tsx",

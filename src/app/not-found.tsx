@@ -18,7 +18,7 @@ export default function NotFound() {
           Halaman Sebelumnya
         </Button>
         <Button asChild>
-          <Link to="/dashboard">
+          <Link to="/">
             <FiHome className="mr-2" />
             Kembali ke Home
           </Link>
