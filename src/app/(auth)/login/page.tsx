@@ -73,11 +73,11 @@ export default function Login() {
   }
 
   return (
-    <Card className="mx-auto w-full max-w-xs items-center justify-center border-0 p-0 shadow-none">
+    <Card className="mx-auto w-full max-w-sm">
       <Helmet>
         <title>Login - Atmaku</title>
       </Helmet>
-      <CardHeader className="px-0">
+      <CardHeader>
         <CardTitle className="text-2xl">Selamat Datang!</CardTitle>
         <CardDescription>
           Mohon masukkan informasi akun Anda untuk mulai menggunakan SIPEKA
@@ -86,7 +86,7 @@ export default function Login() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <fieldset disabled={login.isPending}>
-            <CardContent className="flex flex-col gap-2 px-0">
+            <CardContent className="flex flex-col gap-4">
               <FormField
                 name="username"
                 control={form.control}
@@ -143,7 +143,7 @@ export default function Login() {
                 )}
               />
             </CardContent>
-            <CardFooter className="flex flex-col gap-3 px-0">
+            <CardFooter className="flex flex-col gap-3">
               <Button size="lg" className="w-full">
                 {login.isPending ? "Memproses..." : "Masuk ke Sistem"}
               </Button>
