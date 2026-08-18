@@ -2,6 +2,7 @@ import {
   aktivitasRba,
   belanja,
   dba,
+  lpjBelanjaTable,
   potonganBelanja,
   rab,
   rba,
@@ -63,12 +64,660 @@ export type JurnalType = {
 
 type JurnalGroup = {
   tgl: string;
-  jenis: "UP" | "BELANJA" | "LPJ_LS" | "LPJ_GU";
+  jenis: "UP" | "BELANJA_ANGGOTA_GU" | "LPJ_GU" | "BELANJA_NON_GU" | "LPJ_LS";
   order: number;
   data: JurnalType[];
 };
 
+function getTodayWita() {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Makassar",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(new Date());
+
+  const year = parts.find((item) => item.type === "year")?.value;
+  const month = parts.find((item) => item.type === "month")?.value;
+  const day = parts.find((item) => item.type === "day")?.value;
+
+  return `${year}-${month}-${day}`;
+}
+
+// ============================================================
+// ORDER JURNAL
+// ============================================================
+//
+// Prioritas hanya berlaku pada tanggal yang sama:
+//
+// 0 = Penerimaan UP
+// 1 = Belanja anggota LPJ GU pada tanggal yang sama
+// 2 = Pencairan GU
+// 3 = Belanja nonanggota LPJ GU (siklus UP baru)
+// 4 = LPJ LS (pencairan dan belanjanya selalu berpasangan)
+//
+// ============================================================
+
+const JURNAL_ORDER = {
+  UP: 0,
+  BELANJA_ANGGOTA_GU: 1,
+  LPJ_GU: 2,
+  BELANJA_NON_GU: 3,
+  LPJ_LS: 4,
+} as const;
+
 export const belanjaRouter = createTRPCRouter({
+  getBelanjaBku: userProcedure
+    .input(
+      z
+        .object({
+          startDate: z.iso.date().optional(),
+          endDate: z.iso.date().optional(),
+        })
+        .refine(
+          (value) => {
+            if (!value.startDate || !value.endDate) {
+              return true;
+            }
+
+            return value.startDate <= value.endDate;
+          },
+          {
+            message: "Tanggal akhir tidak boleh lebih kecil dari tanggal awal",
+            path: ["endDate"],
+          },
+        ),
+    )
+    .query(async ({ ctx, input }) => {
+      // ============================================================
+      // DATE
+      // ============================================================
+
+      const today = getTodayWita();
+
+      const startDate = input.startDate ?? `${today.slice(0, 7)}-01`;
+
+      const endDate = input.endDate ?? today;
+
+      // ============================================================
+      // FILTER DATE
+      // ============================================================
+
+      const filterBelanjaDate = and(
+        gte(belanja.tglDokumen, startDate),
+        lte(belanja.tglDokumen, endDate),
+      );
+
+      const filterLpjDate = and(
+        gte(lpjBelanjaTable.tglDokumen, startDate),
+        lte(lpjBelanjaTable.tglDokumen, endDate),
+      );
+
+      // ============================================================
+      // GROUP
+      // ============================================================
+
+      const jurnalGroups: JurnalGroup[] = [];
+
+      // ============================================================
+      // QUERY
+      // ============================================================
+
+      const [
+        belanjaBeforeList,
+        lpjBelanjaBeforeList,
+        belanjaList,
+        lpjBelanjaList,
+      ] = await Promise.all([
+        // ----------------------------------------------------------
+        // BELANJA SEBELUM PERIODE
+        // ----------------------------------------------------------
+
+        ctx.db.query.belanja.findMany({
+          where: lt(belanja.tglDokumen, startDate),
+
+          with: {
+            potonganBelanja: true,
+          },
+        }),
+
+        // ----------------------------------------------------------
+        // LPJ SEBELUM PERIODE
+        // ----------------------------------------------------------
+
+        ctx.db.query.lpjBelanjaTable.findMany({
+          where: lt(lpjBelanjaTable.tglDokumen, startDate),
+
+          with: {
+            belanja: true,
+          },
+        }),
+
+        // ----------------------------------------------------------
+        // BELANJA PERIODE BERJALAN
+        // ----------------------------------------------------------
+
+        ctx.db.query.belanja.findMany({
+          with: {
+            rab: true,
+            potonganBelanja: true,
+          },
+
+          where: filterBelanjaDate,
+
+          orderBy: [asc(belanja.tglDokumen), asc(belanja.noDokumen)],
+        }),
+
+        // ----------------------------------------------------------
+        // LPJ PERIODE BERJALAN
+        // ----------------------------------------------------------
+
+        ctx.db.query.lpjBelanjaTable.findMany({
+          with: {
+            // Penting:
+            // ambil detail belanja langsung dari relation LPJ.
+            //
+            // Dengan begini LPJ tetap mengetahui seluruh belanjanya
+            // walaupun tanggal belanja berada di luar periode.
+            belanja: {
+              with: {
+                rab: true,
+                potonganBelanja: true,
+              },
+            },
+
+            spp: {
+              with: {
+                spm: {
+                  with: {
+                    sp2d: true,
+                  },
+                },
+              },
+            },
+          },
+
+          where: filterLpjDate,
+
+          orderBy: [asc(lpjBelanjaTable.tglDokumen)],
+        }),
+      ]);
+
+      // ============================================================
+      // SALDO AWAL PENGELUARAN
+      // ============================================================
+
+      const saldoAwalPengeluaran = belanjaBeforeList.reduce((acc, item) => {
+        return acc + Number(item.jumlah);
+      }, 0);
+
+      // ============================================================
+      // SALDO AWAL POTONGAN
+      // ============================================================
+
+      const saldoAwalPotongan = belanjaBeforeList.reduce((acc, item) => {
+        const potongan = item.potonganBelanja.reduce(
+          (potonganAcc, potonganItem) => {
+            return potonganAcc + Number(potonganItem.jumlah);
+          },
+          0,
+        );
+
+        return acc + potongan;
+      }, 0);
+
+      // ============================================================
+      // SALDO AWAL PENERIMAAN
+      // ============================================================
+
+      let saldoAwalPenerimaan = lpjBelanjaBeforeList.reduce((acc, item) => {
+        const penerimaan = item.belanja.reduce((belanjaAcc, belanjaItem) => {
+          return belanjaAcc + Number(belanjaItem.jumlah);
+        }, 0);
+
+        return acc + penerimaan;
+      }, 0);
+
+      // ============================================================
+      // UP
+      // ============================================================
+
+      const tanggalUp = "2026-01-23";
+
+      const jumlahUp = 750_000_000;
+
+      // ------------------------------------------------------------
+      // UP SEBAGAI SALDO AWAL
+      //
+      // Hanya masuk saldo awal jika transaksi UP benar-benar
+      // terjadi SEBELUM tanggal awal laporan.
+      //
+      // Kalau startDate === tanggalUp, maka UP merupakan transaksi
+      // periode berjalan, bukan saldo awal.
+      // ------------------------------------------------------------
+
+      if (tanggalUp < startDate) {
+        saldoAwalPenerimaan += jumlahUp;
+      }
+
+      // ============================================================
+      // TYPE BELANJA
+      // ============================================================
+
+      type BelanjaRow = (typeof belanjaList)[number];
+
+      // ============================================================
+      // BELANJA YANG SUDAH DIPROSES
+      // ============================================================
+
+      const usedBelanjaIds = new Set<BelanjaRow["id"]>();
+
+      // ============================================================
+      // HELPER: CEK BELANJA DALAM PERIODE
+      // ============================================================
+
+      const isBelanjaInPeriod = (blj: { tglDokumen: string | null }) => {
+        if (!blj.tglDokumen) {
+          return false;
+        }
+
+        return blj.tglDokumen >= startDate && blj.tglDokumen <= endDate;
+      };
+
+      // ============================================================
+      // HELPER: CREATE JURNAL BELANJA
+      // ============================================================
+
+      const createJurnalBelanja = (blj: BelanjaRow): JurnalType => {
+        return {
+          id: blj.id,
+
+          jenisJurnal: "BELANJA",
+
+          tgl: blj.tglDokumen ?? "",
+
+          noDokumen: blj.noDokumen,
+
+          kodeRekening: blj.rab?.kodeRekening ?? null,
+
+          uraian: blj.uraian,
+
+          penerimaan: 0,
+
+          pengeluaran: Number(blj.jumlah),
+        };
+      };
+
+      // ============================================================
+      // PENERIMAAN UP PERIODE BERJALAN
+      // ============================================================
+
+      if (tanggalUp >= startDate && tanggalUp <= endDate) {
+        jurnalGroups.push({
+          tgl: tanggalUp,
+
+          jenis: "UP",
+
+          order: JURNAL_ORDER.UP,
+
+          data: [
+            {
+              jenisJurnal: "UP",
+
+              tgl: tanggalUp,
+
+              noDokumen: "XAAB-873241",
+
+              kodeRekening: null,
+
+              uraian: "Penerimaan UP secara Transfer dari Rekening Kas BLUD",
+
+              penerimaan: jumlahUp,
+
+              pengeluaran: 0,
+            },
+          ],
+        });
+      }
+
+      // ============================================================
+      // LPJ LS
+      // ============================================================
+      //
+      // Konsep:
+      //
+      // LPJ LS tetap dikelompokkan:
+      //
+      // PENERIMAAN LS
+      //   ↓
+      // BELANJA LS
+      // BELANJA LS
+      //
+      // Tetapi hanya belanja yang memang berada di periode laporan
+      // yang ditampilkan sebagai pengeluaran.
+      //
+      // Belanja sebelum startDate sudah masuk saldo awal pengeluaran,
+      // sehingga tidak boleh ditampilkan lagi karena akan double.
+      //
+      // ============================================================
+
+      const lpjBelanjaLs = lpjBelanjaList.filter((lpj) => lpj.jenis === "LS");
+
+      for (const lpj of lpjBelanjaLs) {
+        // ----------------------------------------------------------
+        // BELANJA LS DALAM PERIODE
+        // ----------------------------------------------------------
+
+        const belanjaLs = lpj.belanja.filter((item) => isBelanjaInPeriod(item));
+
+        const sortedBelanjaLs = lodash.sortBy(belanjaLs, [
+          "tglDokumen",
+          "noDokumen",
+        ]);
+
+        const group: JurnalType[] = [];
+
+        // ----------------------------------------------------------
+        // TOTAL LPJ LS
+        //
+        // Total penerimaan tetap berdasarkan seluruh belanja yang
+        // berada pada LPJ tersebut.
+        // ----------------------------------------------------------
+
+        const jumlahLpj = lpj.belanja.reduce((acc, item) => {
+          return acc + Number(item.jumlah);
+        }, 0);
+
+        // ----------------------------------------------------------
+        // PENERIMAAN LPJ LS
+        // ----------------------------------------------------------
+
+        group.push({
+          jenisJurnal: "LPJ_LS",
+
+          tgl: lpj.tglDokumen ?? "",
+
+          noDokumen: lpj.spp.spm.sp2d.noCek,
+
+          kodeRekening: null,
+
+          uraian: `Penerimaan LS secara Transfer untuk: ${lpj.uraian}`,
+
+          penerimaan: jumlahLpj,
+
+          pengeluaran: 0,
+        });
+
+        // ----------------------------------------------------------
+        // BELANJA LS
+        // ----------------------------------------------------------
+
+        for (const blj of sortedBelanjaLs) {
+          // Proteksi apabila belanja secara tidak sengaja
+          // terhubung ke lebih dari satu LPJ.
+          if (usedBelanjaIds.has(blj.id)) {
+            continue;
+          }
+
+          usedBelanjaIds.add(blj.id);
+
+          group.push(createJurnalBelanja(blj));
+        }
+
+        // ----------------------------------------------------------
+        // GROUP LPJ LS
+        // ----------------------------------------------------------
+
+        jurnalGroups.push({
+          tgl: lpj.tglDokumen ?? "",
+
+          jenis: "LPJ_LS",
+
+          order: JURNAL_ORDER.LPJ_LS,
+
+          data: group,
+        });
+      }
+
+      // ============================================================
+      // LPJ GU
+      // ============================================================
+      //
+      // GU berbeda dengan LS.
+      //
+      // Belanja GU tetap muncul pada tanggal belanja sebenarnya.
+      //
+      // Contoh:
+      //
+      // 01 Agustus -> Belanja       10 jt
+      // 03 Agustus -> Belanja       20 jt
+      // 15 Agustus -> Penerimaan GU 30 jt
+      //
+      // ============================================================
+
+      const lpjBelanjaGu = lpjBelanjaList.filter((lpj) => lpj.jenis === "GU");
+
+      for (const lpj of lpjBelanjaGu) {
+        // ----------------------------------------------------------
+        // BELANJA GU YANG BERADA DALAM PERIODE
+        //
+        // Belanja sebelum periode sudah terdapat di saldo awal.
+        // ----------------------------------------------------------
+
+        const belanjaGu = lpj.belanja.filter((item) => isBelanjaInPeriod(item));
+
+        const sortedBelanjaGu = lodash.sortBy(belanjaGu, [
+          "tglDokumen",
+          "noDokumen",
+        ]);
+
+        // ----------------------------------------------------------
+        // BELANJA GU
+        // ----------------------------------------------------------
+
+        for (const blj of sortedBelanjaGu) {
+          if (usedBelanjaIds.has(blj.id)) {
+            continue;
+          }
+
+          usedBelanjaIds.add(blj.id);
+
+          jurnalGroups.push({
+            tgl: blj.tglDokumen ?? "",
+
+            // Belanja ini memang anggota LPJ GU. Jika tanggalnya sama
+            // dengan pencairan, posisinya tetap sebelum pencairan GU.
+            jenis: "BELANJA_ANGGOTA_GU",
+
+            order: JURNAL_ORDER.BELANJA_ANGGOTA_GU,
+
+            data: [createJurnalBelanja(blj)],
+          });
+        }
+
+        // ----------------------------------------------------------
+        // TOTAL GU
+        //
+        // Penerimaan GU tetap sejumlah seluruh belanja yang
+        // direimburse oleh LPJ tersebut.
+        // ----------------------------------------------------------
+
+        const jumlahLpj = lpj.belanja.reduce((acc, item) => {
+          return acc + Number(item.jumlah);
+        }, 0);
+
+        // ----------------------------------------------------------
+        // PENERIMAAN GU
+        // ----------------------------------------------------------
+
+        jurnalGroups.push({
+          tgl: lpj.tglDokumen ?? "",
+
+          jenis: "LPJ_GU",
+
+          order: JURNAL_ORDER.LPJ_GU,
+
+          data: [
+            {
+              jenisJurnal: "LPJ_GU",
+
+              tgl: lpj.tglDokumen ?? "",
+
+              noDokumen: lpj.spp.spm.sp2d.noCek,
+
+              kodeRekening: null,
+
+              uraian:
+                "Penerimaan Ganti UP secara Transfer dari Rekening Kas BLUD",
+
+              penerimaan: jumlahLpj,
+
+              pengeluaran: 0,
+            },
+          ],
+        });
+      }
+
+      // ============================================================
+      // BELANJA BIASA
+      // ============================================================
+      //
+      // Semua belanja periode berjalan yang belum diproses melalui
+      // LS/GU akan dianggap sebagai belanja biasa.
+      //
+      // ============================================================
+
+      const belanjaTanpaLpj = lodash.sortBy(
+        belanjaList.filter((blj) => !usedBelanjaIds.has(blj.id)),
+        ["tglDokumen", "noDokumen"],
+      );
+
+      for (const blj of belanjaTanpaLpj) {
+        jurnalGroups.push({
+          tgl: blj.tglDokumen ?? "",
+
+          // Tidak menjadi anggota LPJ GU pada periode ini. Pada tanggal
+          // pencairan GU yang sama, transaksi ini merupakan awal siklus
+          // UP berikutnya sehingga wajib berada setelah pencairan GU.
+          jenis: "BELANJA_NON_GU",
+
+          order: JURNAL_ORDER.BELANJA_NON_GU,
+
+          data: [createJurnalBelanja(blj)],
+        });
+      }
+
+      // ============================================================
+      // SORT GROUP
+      // ============================================================
+      //
+      // PRIORITAS HANYA BERLAKU PADA TANGGAL YANG SAMA
+      //
+      // Tanggal berbeda:
+      //
+      // tanggal ASC
+      //
+      // Tanggal sama:
+      //
+      // 0 -> UP
+      // 1 -> BELANJA anggota LPJ GU pada tanggal tersebut
+      // 2 -> LPJ GU (menutup siklus UP lama)
+      // 3 -> BELANJA nonanggota LPJ GU / UP baru
+      // 4 -> LPJ LS (pencairan + belanja tetap satu pasangan)
+      //
+      // ============================================================
+
+      jurnalGroups.sort((a, b) => {
+        const dateA = a.tgl ?? "";
+        const dateB = b.tgl ?? "";
+
+        // ----------------------------------------------------------
+        // TANGGAL
+        // ----------------------------------------------------------
+
+        if (dateA !== dateB) {
+          return dateA < dateB ? -1 : 1;
+        }
+
+        // ----------------------------------------------------------
+        // PRIORITAS
+        // ----------------------------------------------------------
+
+        if (a.order !== b.order) {
+          return a.order - b.order;
+        }
+
+        // ----------------------------------------------------------
+        // NO DOKUMEN
+        //
+        // Untuk LPJ LS:
+        // data[0] = penerimaan LS
+        // data[1] = belanja LS pertama
+        //
+        // Supaya urutan sesama LPJ LS mengikuti no dokumen
+        // belanjanya, gunakan data[1] jika tersedia.
+        // ----------------------------------------------------------
+
+        const noA =
+          a.jenis === "LPJ_LS"
+            ? (a.data[1]?.noDokumen ?? a.data[0]?.noDokumen ?? "")
+            : (a.data[0]?.noDokumen ?? "");
+
+        const noB =
+          b.jenis === "LPJ_LS"
+            ? (b.data[1]?.noDokumen ?? b.data[0]?.noDokumen ?? "")
+            : (b.data[0]?.noDokumen ?? "");
+
+        return noA.localeCompare(noB, "id", {
+          numeric: true,
+          sensitivity: "base",
+        });
+      });
+
+      // ============================================================
+      // FLATTEN
+      // ============================================================
+
+      const jurnal = jurnalGroups.flatMap((group) => group.data);
+
+      // ============================================================
+      // TOTAL POTONGAN PERIODE BERJALAN
+      // ============================================================
+
+      const totalPotongan = belanjaList.reduce((acc, item) => {
+        const jumlahPotongan = item.potonganBelanja.reduce(
+          (potonganAcc, potongan) => {
+            return potonganAcc + Number(potongan.jumlah);
+          },
+          0,
+        );
+
+        return acc + jumlahPotongan;
+      }, 0);
+
+      // ============================================================
+      // RETURN
+      // ============================================================
+
+      return {
+        data: jurnal,
+
+        meta: {
+          totalThisPeriode: {
+            potongan: totalPotongan,
+          },
+
+          totalLastPeriode: {
+            penerimaan: saldoAwalPenerimaan,
+
+            pengeluaran: saldoAwalPengeluaran,
+
+            potongan: saldoAwalPotongan,
+          },
+        },
+      };
+    }),
+
   getAll: userProcedure
     .input(
       z.object({
@@ -381,454 +1030,6 @@ export const belanjaRouter = createTRPCRouter({
       }));
   }),
 
-  getBelanjaBku: userProcedure
-    .input(
-      z.object({
-        startDate: z.string().optional(),
-        endDate: z.string().optional(),
-      }),
-    )
-    .query(async ({ ctx, input }) => {
-      // ============================================================
-      // DATE
-      // ============================================================
-
-      const startDate = input.startDate ?? format(new Date(), "yyyy-MM-01");
-
-      const endDate = input.endDate ?? format(new Date(), "yyyy-MM-dd");
-
-      const filterDate = and(
-        startDate ? gte(belanja.tglDokumen, startDate) : undefined,
-
-        endDate ? lte(belanja.tglDokumen, endDate) : undefined,
-      );
-
-      // ============================================================
-      // GROUP
-      // ============================================================
-
-      const jurnalGroups: JurnalGroup[] = [];
-
-      // ============================================================
-      // SALDO AWAL
-      // ============================================================
-
-      const belanjaBeforeList = await ctx.db.query.belanja.findMany({
-        where: lt(belanja.tglDokumen, startDate),
-
-        with: {
-          potonganBelanja: true,
-        },
-      });
-
-      const lpjBelanjaBeforeList = await ctx.db.query.lpjBelanjaTable.findMany({
-        where: lt(belanja.tglDokumen, startDate),
-
-        with: {
-          belanja: true,
-        },
-      });
-
-      // ============================================================
-      // BELANJA
-      // ============================================================
-
-      const belanjaList = await ctx.db.query.belanja.findMany({
-        with: {
-          rab: true,
-          potonganBelanja: true,
-        },
-
-        where: filterDate,
-
-        orderBy: [asc(belanja.tglDokumen), asc(belanja.noDokumen)],
-      });
-
-      // ============================================================
-      // LPJ
-      // ============================================================
-
-      const lpjBelanjaList = await ctx.db.query.lpjBelanjaTable.findMany({
-        with: {
-          belanja: true,
-
-          spp: {
-            with: {
-              spm: {
-                with: {
-                  sp2d: true,
-                },
-              },
-            },
-          },
-        },
-
-        where: filterDate,
-
-        orderBy: [asc(belanja.tglDokumen), asc(belanja.noDokumen)],
-      });
-
-      // ============================================================
-      // SALDO AWAL PENGELUARAN
-      // ============================================================
-
-      const saldoAwalPengeluaran = belanjaBeforeList.reduce((acc, item) => {
-        return acc + Number(item.jumlah);
-      }, 0);
-
-      // ============================================================
-      // SALDO AWAL POTONGAN
-      // ============================================================
-
-      const saldoAwalPotongan = belanjaBeforeList.reduce((acc, item) => {
-        return (
-          acc +
-          item.potonganBelanja.reduce((acc, item) => {
-            return acc + Number(item.jumlah);
-          }, 0)
-        );
-      }, 0);
-
-      // ============================================================
-      // SALDO AWAL PENERIMAAN
-      // ============================================================
-
-      let saldoAwalPenerimaan = lpjBelanjaBeforeList.reduce((acc, item) => {
-        return (
-          acc +
-          item.belanja.reduce((acc, item) => {
-            return acc + Number(item.jumlah);
-          }, 0)
-        );
-      }, 0);
-
-      // ============================================================
-      // UP
-      // ============================================================
-
-      const tanggalUp = "2026-01-23";
-
-      const jumlahUp = 750_000_000;
-
-      if (startDate >= tanggalUp) {
-        saldoAwalPenerimaan += jumlahUp;
-      }
-
-      // ============================================================
-      // MAP BELANJA
-      // ============================================================
-
-      const belanjaMap = new Map(belanjaList.map((item) => [item.id, item]));
-
-      // ============================================================
-      // BELANJA YANG SUDAH MASUK LPJ
-      // ============================================================
-
-      const usedBelanjaIds = new Set<(typeof belanjaList)[number]["id"]>();
-
-      // ============================================================
-      // HELPER BELANJA
-      // ============================================================
-
-      const createJurnalBelanja = (
-        blj: (typeof belanjaList)[number],
-      ): JurnalType => {
-        return {
-          id: blj.id,
-
-          jenisJurnal: "BELANJA",
-
-          tgl: blj.tglDokumen ?? "",
-
-          noDokumen: blj.noDokumen,
-
-          kodeRekening: blj.rab?.kodeRekening ?? null,
-
-          uraian: blj.uraian,
-
-          penerimaan: 0,
-
-          pengeluaran: Number(blj.jumlah),
-        };
-      };
-
-      // ============================================================
-      // PENERIMAAN UP
-      // ============================================================
-
-      if (startDate < tanggalUp) {
-        jurnalGroups.push({
-          tgl: tanggalUp,
-
-          jenis: "UP",
-
-          // UP selalu paling atas pada tanggal yang sama
-          order: 0,
-
-          data: [
-            {
-              jenisJurnal: "UP",
-
-              tgl: tanggalUp as string,
-
-              noDokumen: "XAAB-873241",
-
-              kodeRekening: null,
-
-              uraian: "Penerimaan UP secara Transfer dari Rekening Kas BLUD",
-
-              penerimaan: jumlahUp,
-
-              pengeluaran: 0,
-            },
-          ],
-        });
-      }
-
-      // ============================================================
-      // LPJ LS
-      //
-      // LPJ LS -> BELANJA LS
-      // ============================================================
-
-      const lpjBelanjaLs = lpjBelanjaList.filter((lpj) => lpj.jenis === "LS");
-
-      for (const lpj of lpjBelanjaLs) {
-        const belanjaLs = lpj.belanja
-          .map((item) => belanjaMap.get(item.id))
-          .filter(
-            (item): item is (typeof belanjaList)[number] => item !== undefined,
-          );
-
-        const sortedBelanjaLs = lodash.sortBy(belanjaLs, [
-          "tglDokumen",
-          "noDokumen",
-        ]);
-
-        const group: JurnalType[] = [];
-
-        // --------------------------------------------------------
-        // LPJ LS
-        // --------------------------------------------------------
-
-        group.push({
-          jenisJurnal: "LPJ_LS",
-
-          tgl: lpj.tglDokumen ?? "",
-
-          noDokumen: lpj.spp.spm.sp2d.noCek,
-
-          kodeRekening: null,
-
-          uraian: `Penerimaan LS secara Transfer untuk: ${lpj.uraian}`,
-
-          penerimaan: lpj.belanja.reduce(
-            (acc, item) => acc + Number(item.jumlah),
-            0,
-          ),
-
-          pengeluaran: 0,
-        });
-
-        // --------------------------------------------------------
-        // BELANJA LS
-        // --------------------------------------------------------
-
-        for (const blj of sortedBelanjaLs) {
-          usedBelanjaIds.add(blj.id);
-
-          group.push(createJurnalBelanja(blj));
-        }
-
-        jurnalGroups.push({
-          tgl: lpj.tglDokumen ?? "",
-
-          jenis: "LPJ_LS",
-
-          // LPJ LS didahulukan daripada belanja biasa
-          order: 3,
-
-          data: group,
-        });
-      }
-
-      // ============================================================
-      // LPJ GU
-      //
-      // BELANJA GU -> LPJ GU
-      // ============================================================
-
-      const lpjBelanjaGu = lpjBelanjaList.filter((lpj) => lpj.jenis === "GU");
-
-      for (const lpj of lpjBelanjaGu) {
-        const belanjaGu = lpj.belanja
-          .map((item) => belanjaMap.get(item.id))
-          .filter(
-            (item): item is (typeof belanjaList)[number] => item !== undefined,
-          );
-
-        const sortedBelanjaGu = lodash.sortBy(belanjaGu, [
-          "tglDokumen",
-          "noDokumen",
-        ]);
-
-        const group: JurnalType[] = [];
-
-        // --------------------------------------------------------
-        // BELANJA GU
-        // --------------------------------------------------------
-
-        for (const blj of sortedBelanjaGu) {
-          usedBelanjaIds.add(blj.id);
-
-          group.push(createJurnalBelanja(blj));
-        }
-
-        // --------------------------------------------------------
-        // LPJ GU SEBAGAI PENUTUP
-        // --------------------------------------------------------
-
-        group.push({
-          jenisJurnal: "LPJ_GU",
-
-          tgl: lpj.tglDokumen ?? "",
-
-          noDokumen: lpj.spp.spm.sp2d.noCek,
-
-          kodeRekening: null,
-
-          uraian: "Penerimaan Ganti UP secara Transfer dari Rekening Kas BLUD",
-
-          penerimaan: lpj.belanja.reduce(
-            (acc, item) => acc + Number(item.jumlah),
-            0,
-          ),
-
-          pengeluaran: 0,
-        });
-
-        jurnalGroups.push({
-          tgl: lpj.tglDokumen ?? "",
-
-          jenis: "LPJ_GU",
-
-          // GU diletakkan setelah transaksi biasa
-          order: 2,
-
-          data: group,
-        });
-      }
-
-      // ============================================================
-      // BELANJA BIASA
-      // ============================================================
-
-      const belanjaTanpaLpj = lodash.sortBy(
-        belanjaList.filter((blj) => !usedBelanjaIds.has(blj.id)),
-        ["tglDokumen", "noDokumen"],
-      );
-
-      for (const blj of belanjaTanpaLpj) {
-        jurnalGroups.push({
-          tgl: blj.tglDokumen ?? "",
-
-          jenis: "BELANJA",
-
-          order: 1,
-
-          data: [createJurnalBelanja(blj)],
-        });
-      }
-
-      // ============================================================
-      // SORT GROUP
-      //
-      // PRIORITAS HANYA BERLAKU PADA TANGGAL YANG SAMA
-      //
-      // tanggal berbeda:
-      //     tanggal ASC
-      //
-      // tanggal sama:
-      //     UP
-      //     LPJ LS
-      //     BELANJA
-      //     GU
-      // ============================================================
-
-      jurnalGroups.sort((a, b) => {
-        const dateA = a.tgl ?? "";
-
-        const dateB = b.tgl ?? "";
-
-        // ----------------------------------------------
-        // TANGGAL
-        // ----------------------------------------------
-
-        if (dateA !== dateB) {
-          return dateA < dateB ? -1 : 1;
-        }
-
-        // ----------------------------------------------
-        // PRIORITAS
-        // ----------------------------------------------
-
-        if (a.order !== b.order) {
-          return a.order - b.order;
-        }
-
-        // ----------------------------------------------
-        // NO DOKUMEN
-        // ----------------------------------------------
-
-        const noA = a.data[0]?.noDokumen ?? "";
-
-        const noB = b.data[0]?.noDokumen ?? "";
-
-        return noA.localeCompare(noB);
-      });
-
-      // ============================================================
-      // FLATTEN
-      // ============================================================
-
-      const jurnal = jurnalGroups.flatMap((group) => group.data);
-
-      // ============================================================
-      // TOTAL POTONGAN
-      // ============================================================
-
-      const totalPotongan = belanjaList.reduce((acc, item) => {
-        return (
-          acc +
-          item.potonganBelanja.reduce((acc, potongan) => {
-            return acc + Number(potongan.jumlah);
-          }, 0)
-        );
-      }, 0);
-
-      // ============================================================
-      // RETURN
-      // ============================================================
-
-      return {
-        data: jurnal,
-
-        meta: {
-          totalThisPeriode: {
-            potongan: totalPotongan,
-          },
-
-          totalLastPeriode: {
-            penerimaan: saldoAwalPenerimaan,
-
-            pengeluaran: saldoAwalPengeluaran,
-
-            potongan: saldoAwalPotongan,
-          },
-        },
-      };
-    }),
-
   getAllBkPajak: userProcedure
     .input(
       z.object({
@@ -1018,7 +1219,7 @@ export const belanjaRouter = createTRPCRouter({
       // flatten belanjaList
       const belanjaListFlatten = belanjaList.flat();
 
-      return lodash.sortBy(
+      return lodash.orderBy(
         belanjaListFlatten,
         ["tglDokumen", "noDokumen"],
         ["asc", "asc"],

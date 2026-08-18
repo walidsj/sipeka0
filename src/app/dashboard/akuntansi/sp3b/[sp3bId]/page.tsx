@@ -9,6 +9,7 @@ import { Link, useParams } from "react-router-dom";
 import { api } from "@/trpc/react";
 import Loading from "@/components/loading";
 import { formatAngkaDecimal, formatTanggal } from "@/lib/utils";
+import { format } from "date-fns";
 import {
   Table,
   TableBody,
@@ -31,8 +32,7 @@ export default function Page() {
   const { data: saldoAkhirRekeningBankPenerimaan } =
     api.rekeningKoran.getSaldoByDate.useQuery(
       {
-        tglTransaksi:
-          sp3b?.tglSelesai ?? new Date().toISOString().split("T")[0],
+        tglTransaksi: sp3b?.tglSelesai ?? format(new Date(), "yyyy-MM-dd"),
         rekeningBankId: 1,
       },
       {
@@ -43,8 +43,7 @@ export default function Page() {
   const { data: saldoAkhirRekeningBankPengeluaran } =
     api.rekeningKoran.getSaldoByDate.useQuery(
       {
-        tglTransaksi:
-          sp3b?.tglSelesai ?? new Date().toISOString().split("T")[0],
+        tglTransaksi: sp3b?.tglSelesai ?? format(new Date(), "yyyy-MM-dd"),
         rekeningBankId: 2,
       },
       {

@@ -1,10 +1,12 @@
 import { relations } from "drizzle-orm";
 import {
+  date,
   decimal,
   int,
   mysqlEnum,
   mysqlTable,
   serial,
+  text,
   timestamp,
   varchar,
 } from "drizzle-orm/mysql-core";
@@ -115,8 +117,8 @@ export const profilBlud = mysqlTable("profil_blud", {
 export const rba = mysqlTable("rba", {
   id: serial("id").primaryKey(),
   noDokumen: varchar("no_dokumen", { length: 256 }),
-  uraian: varchar("uraian", { length: 256 }),
-  tglDokumen: timestamp("tgl_dokumen", { mode: "string" }),
+  uraian: text("uraian"),
+  tglDokumen: date("tgl_dokumen", { mode: "string" }),
   createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
@@ -171,7 +173,7 @@ export const rincianRbaPendapatan = mysqlTable("rincian_rba_pendapatan", {
 export const rab = mysqlTable("rab", {
   id: serial("id").primaryKey(),
   kodeRekening: varchar("kode_rekening", { length: 256 }),
-  uraian: varchar("uraian", { length: 256 }),
+  uraian: text("uraian"),
   spesifikasi: varchar("spesifikasi", { length: 256 }),
   sumberDana: mysqlEnum("sumber_dana", [
     "JASA LAYANAN",
@@ -191,7 +193,7 @@ export const rab = mysqlTable("rab", {
 export const rap = mysqlTable("rap", {
   id: serial("id").primaryKey(),
   kodeRekening: varchar("kode_rekening", { length: 256 }),
-  uraian: varchar("uraian", { length: 256 }),
+  uraian: text("uraian"),
   createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
@@ -201,7 +203,7 @@ export const rap = mysqlTable("rap", {
 export const pendapatan = mysqlTable("pendapatan", {
   id: serial("id").primaryKey(),
   rapId: int("rap_id", { unsigned: true }),
-  tglDokumen: timestamp("tgl_dokumen", { mode: "string" }),
+  tglDokumen: date("tgl_dokumen", { mode: "string" }),
   jumlah: decimal("jumlah", { precision: 20, scale: 2 }),
   keterangan: varchar("keterangan", { length: 256 }),
   createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
@@ -214,8 +216,8 @@ export const dba = mysqlTable("dba", {
   id: serial("id").primaryKey(),
   noDokumen: varchar("no_dokumen", { length: 256 }),
   rbaId: int("rba_id", { unsigned: true }),
-  uraian: varchar("uraian", { length: 256 }),
-  tglDokumen: timestamp("tgl_dokumen", { mode: "string" }),
+  uraian: text("uraian"),
+  tglDokumen: date("tgl_dokumen", { mode: "string" }),
   createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
@@ -225,9 +227,9 @@ export const dba = mysqlTable("dba", {
 export const belanja = mysqlTable("belanja", {
   id: serial("id").primaryKey(),
   rabId: int("rab_id", { unsigned: true }),
-  tglDokumen: timestamp("tgl_dokumen", { mode: "string" }),
+  tglDokumen: date("tgl_dokumen", { mode: "string" }),
   noDokumen: varchar("no_dokumen", { length: 256 }),
-  uraian: varchar("uraian", { length: 256 }),
+  uraian: text("uraian"),
   jumlah: decimal("jumlah", { precision: 20, scale: 2 }),
   rekananId: int("rekanan_id", { unsigned: true }),
   pegawaiId: int("pegawai_id", { unsigned: true }),
@@ -243,10 +245,10 @@ export const belanja = mysqlTable("belanja", {
 
 export const lpjBelanjaTable = mysqlTable("lpj_belanja", {
   id: serial("id").primaryKey(),
-  tglDokumen: timestamp("tgl_dokumen", { mode: "string" }),
+  tglDokumen: date("tgl_dokumen", { mode: "string" }),
   noDokumen: varchar("no_dokumen", { length: 256 }),
   jenis: mysqlEnum("jenis", ["GU", "LS", "TU"]),
-  uraian: varchar("uraian", { length: 256 }),
+  uraian: text("uraian"),
   createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { mode: "string" })
     .defaultNow()
@@ -271,7 +273,7 @@ export const sp3bTable = mysqlTable("sp3b", {
   tglMulai: timestamp("tgl_mulai", { mode: "string" }),
   tglSelesai: timestamp("tgl_selesai", { mode: "string" }),
   noDokumen: varchar("no_dokumen", { length: 256 }),
-  tglDokumen: timestamp("tgl_dokumen", { mode: "string" }),
+  tglDokumen: date("tgl_dokumen", { mode: "string" }),
   penandatanganId: int("penandatangan_id", { unsigned: true }),
   createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { mode: "string" })
@@ -281,7 +283,7 @@ export const sp3bTable = mysqlTable("sp3b", {
 
 export const sppTable = mysqlTable("spp", {
   id: serial("id").primaryKey(),
-  tglDokumen: timestamp("tgl_dokumen", { mode: "string" }),
+  tglDokumen: date("tgl_dokumen", { mode: "string" }),
   noDokumen: varchar("no_dokumen", { length: 256 }),
   lpjBelanjaId: int("lpj_belanja_id", { unsigned: true }),
   createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
@@ -292,7 +294,7 @@ export const sppTable = mysqlTable("spp", {
 
 export const spmTable = mysqlTable("spm", {
   id: serial("id").primaryKey(),
-  tglDokumen: timestamp("tgl_dokumen", { mode: "string" }),
+  tglDokumen: date("tgl_dokumen", { mode: "string" }),
   noDokumen: varchar("no_dokumen", { length: 256 }),
   sppId: int("spp_id", { unsigned: true }),
   createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
@@ -303,7 +305,7 @@ export const spmTable = mysqlTable("spm", {
 
 export const sp2dTable = mysqlTable("sp2d", {
   id: serial("id").primaryKey(),
-  tglDokumen: timestamp("tgl_dokumen", { mode: "string" }),
+  tglDokumen: date("tgl_dokumen", { mode: "string" }),
   noDokumen: varchar("no_dokumen", { length: 256 }),
   spmId: int("spm_id", { unsigned: true }),
   noCek: varchar("no_cek", { length: 256 }),

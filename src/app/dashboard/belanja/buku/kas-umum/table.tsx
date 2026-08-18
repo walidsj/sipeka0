@@ -2,14 +2,46 @@ import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import { CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { formatAngkaDecimal, formatTanggal, terbilang } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import { keepPreviousData } from "@tanstack/react-query";
-import { format } from "date-fns";
+import {
+  endOfMonth,
+  format,
+  getDaysInMonth,
+  startOfMonth,
+  subMonths,
+} from "date-fns";
+import { id } from "date-fns/locale";
 import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
+
+// Generate daftar bulan dari Januari 2026 sampai bulan ini
+function generateMonthOptions() {
+  const options: { label: string; value: string }[] = [];
+  const now = new Date();
+  const start = new Date(2026, 0, 1); // Januari 2026
+  let cursor = start;
+  while (cursor <= now) {
+    options.push({
+      label: format(cursor, "MMMM yyyy", { locale: id }),
+      value: format(cursor, "yyyy-MM"),
+    });
+    cursor = subMonths(cursor, -1);
+  }
+  return options.reverse(); // terbaru di atas
+}
+
+const MONTH_OPTIONS = generateMonthOptions();
 
 export default function BkuTable() {
   const [searchParams, setSearchParams] = useSearchParams({
@@ -20,6 +52,33 @@ export default function BkuTable() {
   const componentRef = React.useRef(null);
   const handlePrint = useReactToPrint({ contentRef: componentRef });
 
+  const startDate =
+    searchParams.get("startDate") || format(new Date(), "yyyy-MM-01");
+  const endDate =
+    searchParams.get("endDate") || format(new Date(), "yyyy-MM-dd");
+
+  // Tentukan nilai month picker: cocok jika startDate adalah awal bulan
+  // dan endDate adalah akhir bulan tersebut
+  const selectedMonth = (() => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const isFullMonth =
+      start.getDate() === 1 &&
+      end.getDate() === getDaysInMonth(start) &&
+      start.getMonth() === end.getMonth() &&
+      start.getFullYear() === end.getFullYear();
+    return isFullMonth ? format(start, "yyyy-MM") : "custom";
+  })();
+
+  function setMonth(yearMonth: string) {
+    const date = new Date(yearMonth + "-01");
+    const start = format(startOfMonth(date), "yyyy-MM-dd");
+    const end = format(endOfMonth(date), "yyyy-MM-dd");
+    searchParams.set("startDate", start);
+    searchParams.set("endDate", end);
+    setSearchParams(searchParams);
+  }
+
   const {
     isLoading,
     isError,
@@ -27,8 +86,8 @@ export default function BkuTable() {
     data: jurnal,
   } = api.belanja.getBelanjaBku.useQuery(
     {
-      startDate: searchParams.get("startDate") || undefined,
-      endDate: searchParams.get("endDate") || undefined,
+      startDate: startDate || undefined,
+      endDate: endDate || undefined,
     },
     { placeholderData: keepPreviousData },
   );
@@ -52,22 +111,47 @@ export default function BkuTable() {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-row items-center gap-5">
-        <div className="flex gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Pilih bulan cepat */}
+          <Select
+            value={selectedMonth}
+            onValueChange={(val) => {
+              if (val !== "custom") setMonth(val);
+            }}
+          >
+            <SelectTrigger className="w-44">
+              <SelectValue placeholder="Pilih bulan" />
+            </SelectTrigger>
+            <SelectContent>
+              {selectedMonth === "custom" && (
+                <SelectItem value="custom" disabled>
+                  Rentang kustom
+                </SelectItem>
+              )}
+              {MONTH_OPTIONS.map((opt) => (
+                <SelectItem key={opt.value} value={opt.value}>
+                  {opt.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          {/* Atau pilih rentang manual */}
+          <span className="text-muted-foreground text-sm">atau</span>
           <Input
-            value={
-              searchParams.get("startDate") || format(new Date(), "yyyy-MM-01")
-            }
+            value={startDate}
             type="date"
+            className="w-40"
             onChange={(e) => {
               searchParams.set("startDate", e.target.value);
               setSearchParams(searchParams);
             }}
           />
+          <span className="text-muted-foreground text-sm">s.d.</span>
           <Input
             type="date"
-            value={
-              searchParams.get("endDate") || format(new Date(), "yyyy-MM-dd")
-            }
+            value={endDate}
+            className="w-40"
             onChange={(e) => {
               searchParams.set("endDate", e.target.value);
               setSearchParams(searchParams);
@@ -354,14 +438,7 @@ export default function BkuTable() {
                 <td className="w-5">:</td>
                 <td>Rp</td>
                 <td className="text-right">
-                  {formatAngkaDecimal(
-                    saldoPenerimaan +
-                      jurnal.meta.totalLastPeriode.penerimaan +
-                      jurnal.meta.totalLastPeriode.potongan -
-                      (saldoPengeluaran +
-                        jurnal.meta.totalLastPeriode.pengeluaran +
-                        jurnal.meta.totalLastPeriode.potongan),
-                  )}
+                  {formatAngkaDecimal(saldoPenerimaan - saldoPengeluaran)}
                 </td>
               </tr>
               <tr>
@@ -369,7 +446,11 @@ export default function BkuTable() {
                 <td>Saldo UP</td>
                 <td className="w-5">:</td>
                 <td>Rp</td>
-                <td className="text-right">{formatAngkaDecimal(0)}</td>
+                <td className="text-right">
+                  {formatAngkaDecimal(
+                    saldo - (saldoPenerimaan - saldoPengeluaran),
+                  )}
+                </td>
               </tr>
             </tbody>
           </table>
