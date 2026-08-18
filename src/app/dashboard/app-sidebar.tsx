@@ -190,21 +190,73 @@ export function AppSidebar() {
               </CollapsibleMenu>
 
               <CollapsibleMenu label="Lainnya" icon={<FiTool />}>
-                <NavItem to="lainnya/database/unit-kerja" icon={<FiDatabase />}>
-                  Database
-                </NavItem>
-                <NavItem
-                  to="lainnya/pengaturan/profil-blud"
-                  icon={<FiSettings />}
-                >
-                  Pengaturan
-                </NavItem>
-                <NavItem
-                  to="lainnya/referensi/kode-rekening/1"
-                  icon={<FiBook />}
-                >
-                  Referensi
-                </NavItem>
+                <Collapsible asChild className="group/collapsible">
+                  <SidebarMenuSubItem>
+                    <CollapsibleTrigger asChild>
+                      <SidebarMenuSubButton>
+                        <FiDatabase />
+                        <span>Database</span>
+                        <HiOutlineChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
+                      </SidebarMenuSubButton>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent>
+                      <SidebarMenuSub>
+                        <NavItem to="lainnya/database/unit-kerja">
+                          Data Unit Kerja
+                        </NavItem>
+                        <NavItem to="lainnya/database/bank">Data Bank</NavItem>
+                        <NavItem to="lainnya/database/rekanan">
+                          Data Rekanan
+                        </NavItem>
+                        <NavItem to="lainnya/database/pegawai">
+                          Data Pegawai
+                        </NavItem>
+                      </SidebarMenuSub>
+                    </CollapsibleContent>
+                  </SidebarMenuSubItem>
+                </Collapsible>
+                <Collapsible asChild className="group/collapsible">
+                  <SidebarMenuSubItem>
+                    <CollapsibleTrigger asChild>
+                      <SidebarMenuSubButton>
+                        <FiSettings />
+                        <span>Pengaturan</span>
+                        <HiOutlineChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
+                      </SidebarMenuSubButton>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent>
+                      <SidebarMenuSub>
+                        <NavItem to="lainnya/pengaturan/profil-blud">
+                          Profil BLUD
+                        </NavItem>
+                        <NavItem to="lainnya/pengaturan/pengelola-blud">
+                          Pengelola BLUD
+                        </NavItem>
+                        <NavItem to="lainnya/pengaturan/rekening-bank">
+                          Rekening Bank
+                        </NavItem>
+                      </SidebarMenuSub>
+                    </CollapsibleContent>
+                  </SidebarMenuSubItem>
+                </Collapsible>
+                <Collapsible asChild className="group/collapsible">
+                  <SidebarMenuSubItem>
+                    <CollapsibleTrigger asChild>
+                      <SidebarMenuSubButton>
+                        <FiBook />
+                        <span>Referensi</span>
+                        <HiOutlineChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
+                      </SidebarMenuSubButton>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent>
+                      <SidebarMenuSub>
+                        <NavItem to="lainnya/referensi/kode-rekening/1">
+                          Kode Rekening
+                        </NavItem>
+                      </SidebarMenuSub>
+                    </CollapsibleContent>
+                  </SidebarMenuSubItem>
+                </Collapsible>
                 <NavItem to="lainnya/user" icon={<FiUsers />}>
                   Manajemen User
                 </NavItem>

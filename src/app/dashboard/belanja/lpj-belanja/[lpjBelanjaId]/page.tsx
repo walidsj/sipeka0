@@ -1,5 +1,6 @@
 import {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
   CardHeader,
@@ -64,51 +65,51 @@ export default function EditPage() {
 
   return (
     <Card>
-      <div className="mb-5 flex flex-row items-center justify-between px-6 pt-6">
-        <CardHeader className="p-0">
-          <CardTitle>Detail LPJ Belanja</CardTitle>
-          <CardDescription>Data untuk detail LPJ Belanja</CardDescription>
-        </CardHeader>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline">
-              Aksi <HiOutlineChevronDown className="ml-2" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="start">
-            <Link to="tambah-belanja">
-              <DropdownMenuItem>
-                <HiOutlinePlus className="mr-2" />
-                Tambah Belanja
+      <CardHeader>
+        <CardTitle>Detail LPJ Belanja</CardTitle>
+        <CardDescription>Data untuk detail LPJ Belanja</CardDescription>
+        <CardAction>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                Aksi <HiOutlineChevronDown className="ml-2" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <Link to="tambah-belanja">
+                <DropdownMenuItem>
+                  <HiOutlinePlus className="mr-2" />
+                  Tambah Belanja
+                </DropdownMenuItem>
+              </Link>
+              <Link to="edit">
+                <DropdownMenuItem>
+                  <HiOutlinePencil className="mr-2" />
+                  Edit
+                </DropdownMenuItem>
+              </Link>
+              <Link to="cetak">
+                <DropdownMenuItem>
+                  <HiOutlinePrinter className="mr-2" />
+                  Cetak
+                </DropdownMenuItem>
+              </Link>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={() => {
+                  if (confirm("Apakah anda yakin menghapus data ini?")) {
+                    deleteItem.mutate(Number(params.lpjBelanjaId));
+                  }
+                }}
+                className="text-red-500"
+              >
+                <HiOutlineTrash className="mr-2" />
+                Hapus
               </DropdownMenuItem>
-            </Link>
-            <Link to="edit">
-              <DropdownMenuItem>
-                <HiOutlinePencil className="mr-2" />
-                Edit
-              </DropdownMenuItem>
-            </Link>
-            <Link to="cetak">
-              <DropdownMenuItem>
-                <HiOutlinePrinter className="mr-2" />
-                Cetak
-              </DropdownMenuItem>
-            </Link>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => {
-                if (confirm("Apakah anda yakin menghapus data ini?")) {
-                  deleteItem.mutate(Number(params.lpjBelanjaId));
-                }
-              }}
-              className="text-red-500"
-            >
-              <HiOutlineTrash className="mr-2" />
-              Hapus
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </CardAction>
+      </CardHeader>
       <CardContent>
         <div className="flex flex-row items-center gap-4">
           <img src="/images/icons/research.png" className="h-16" />

@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -35,9 +36,11 @@ const schema = z
 
 export default function GantiPassword() {
   return (
-    <div className="max-w-96">
-      <EditForm />
-    </div>
+    <Card className="max-w-96">
+      <CardContent>
+        <EditForm />
+      </CardContent>
+    </Card>
   );
 }
 

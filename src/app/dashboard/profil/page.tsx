@@ -1,5 +1,6 @@
 import { user } from "server/db/schema";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -35,7 +36,9 @@ export default function Dashboard() {
   const auth = useAuth();
 
   return (
-    <div className="max-w-96">{auth.user && <EditForm data={auth.user} />}</div>
+    <Card className="max-w-96">
+      <CardContent>{auth.user && <EditForm data={auth.user} />}</CardContent>
+    </Card>
   );
 }
 

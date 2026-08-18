@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import {
     Card,
+    CardAction,
     CardContent,
     CardDescription,
     CardHeader,
@@ -13,21 +14,19 @@ import UnitKerjaTable from './table'
 export default function UnitKerja() {
     return (
         <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
-                <div className="flex flex-col gap-1.5">
-                    <CardTitle>Daftar Unit Kerja</CardTitle>
-                    <CardDescription>
-                        Daftar referensi unit kerja untuk BLUD
-                    </CardDescription>
-                </div>
-                <div>
+            <CardHeader>
+                <CardTitle>Daftar Unit Kerja</CardTitle>
+                <CardDescription>
+                    Daftar referensi unit kerja untuk BLUD
+                </CardDescription>
+                <CardAction>
                     <Button asChild>
                         <Link to="tambah">
                             <FiPlus className="mr-2" />
                             Tambah
                         </Link>
                     </Button>
-                </div>
+                </CardAction>
             </CardHeader>
             <CardContent>
                 <UnitKerjaTable />

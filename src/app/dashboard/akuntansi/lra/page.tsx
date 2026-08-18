@@ -1,5 +1,6 @@
 import {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
   CardHeader,
@@ -19,27 +20,27 @@ import LraTable from "./table";
 export default function Page() {
   return (
     <Card>
-      <div className="mb-5 flex flex-row items-center justify-between px-6 pt-6">
-        <CardHeader className="p-0">
-          <CardTitle>Laporan Realisasi Anggaran</CardTitle>
-          <CardDescription>Data laporan realisasi anggaran</CardDescription>
-        </CardHeader>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline">
-              Aksi <HiOutlineChevronDoubleDown className="ml-2" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="start">
-            <Link to="cetak">
-              <DropdownMenuItem>
-                <HiOutlinePrinter className="mr-2" />
-                Cetak
-              </DropdownMenuItem>
-            </Link>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+      <CardHeader>
+        <CardTitle>Laporan Realisasi Anggaran</CardTitle>
+        <CardDescription>Data laporan realisasi anggaran</CardDescription>
+        <CardAction>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                Aksi <HiOutlineChevronDoubleDown className="ml-2" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <Link to="cetak">
+                <DropdownMenuItem>
+                  <HiOutlinePrinter className="mr-2" />
+                  Cetak
+                </DropdownMenuItem>
+              </Link>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </CardAction>
+      </CardHeader>
       <CardContent>
         <LraTable />
       </CardContent>

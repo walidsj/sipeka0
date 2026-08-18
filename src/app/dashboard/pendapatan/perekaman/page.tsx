@@ -1,5 +1,6 @@
 import {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
   CardHeader,
@@ -13,19 +14,17 @@ import { FiPlus } from "react-icons/fi";
 export default function CreatePage() {
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <div className="flex flex-col gap-1.5">
-          <CardTitle>Daftar Perekaman Pendapatan</CardTitle>
-          <CardDescription>Data perekaman pendapatan</CardDescription>
-        </div>
-        <div>
+      <CardHeader>
+        <CardTitle>Daftar Perekaman Pendapatan</CardTitle>
+        <CardDescription>Data perekaman pendapatan</CardDescription>
+        <CardAction>
           <Button asChild>
             <Link to="tambah">
               <FiPlus className="mr-2" />
               Tambah
             </Link>
           </Button>
-        </div>
+        </CardAction>
       </CardHeader>
       <CardContent>
         <PendapatanTable />
