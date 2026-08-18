@@ -253,8 +253,7 @@ export default function BkPajakTable() {
                         <td className="border-x border-black px-2 py-0.5 text-center font-serif"></td>
                         <td className="border-x border-black px-2 py-0.5 font-serif">
                           Penyetoran {item.jenis}{" "}
-                          {blj.rekanan &&
-                            `a.n. ${blj.rekanan.nama}`}
+                          {blj.rekanan && `a.n. ${blj.rekanan.nama}`}
                           {blj.pegawai &&
                             `a.n. ${blj.pegawai.gelarDepan && `${blj.pegawai.gelarDepan} `}${blj.pegawai.nama}${
                               blj.pegawai.gelarBelakang &&
@@ -313,12 +312,12 @@ export default function BkPajakTable() {
                 Samarinda,{" "}
                 {formatTanggal(searchParams.get("endDate") || new Date())}
               </div>
-              <div className="font-serif">
-                Bendahara Pengeluaran Pembantu BLUD
+              <div className="font-serif">Bendahara Pengeluaran BLUD</div>
+              <div className="mt-14 font-serif font-bold">
+                Moh. Walid Arkham Sani, A.Md.Pnl
               </div>
-              <div className="mt-14 font-serif font-bold">Riandy, S.Kep</div>
-              <div className="font-serif">Penata Tk. I</div>
-              <div className="font-serif">NIP. 197901281999031003</div>
+              <div className="font-serif">Pengatur Tk. I</div>
+              <div className="font-serif">NIP. 200008062022011001</div>
             </div>
           </div>
         </div>
