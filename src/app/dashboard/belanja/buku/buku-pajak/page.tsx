@@ -15,9 +15,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { HiOutlineChevronDoubleDown, HiOutlinePrinter } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 export default function Page() {
+  const [searchParams] = useSearchParams();
+  const search = searchParams.toString();
+  const searchQuery = search ? `?${search}` : "";
+
   return (
     <Card>
       <CardHeader>
@@ -33,7 +37,7 @@ export default function Page() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
-              <Link to="cetak">
+              <Link to={`cetak${searchQuery}`}>
                 <DropdownMenuItem>
                   <HiOutlinePrinter className="mr-2" />
                   Cetak

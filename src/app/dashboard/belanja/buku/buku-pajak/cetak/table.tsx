@@ -1,7 +1,6 @@
 import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import { CardFooter } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { formatAngka, formatTanggal } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import { keepPreviousData } from "@tanstack/react-query";
@@ -11,13 +10,18 @@ import { useSearchParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 
 export default function BkPajakTable() {
-  const [searchParams, setSearchParams] = useSearchParams({
+  const [searchParams] = useSearchParams({
     startDate: "",
     endDate: "",
   });
 
   const componentRef = React.useRef(null);
   const handlePrint = useReactToPrint({ contentRef: componentRef });
+
+  const startDate =
+    searchParams.get("startDate") || format(new Date(), "yyyy-MM-01");
+  const endDate =
+    searchParams.get("endDate") || format(new Date(), "yyyy-MM-dd");
 
   const {
     isLoading,
@@ -26,8 +30,8 @@ export default function BkPajakTable() {
     data: belanja,
   } = api.belanja.getAllBkPajak.useQuery(
     {
-      startDate: searchParams.get("startDate") || undefined,
-      endDate: searchParams.get("endDate") || undefined,
+      startDate: startDate || undefined,
+      endDate: endDate || undefined,
     },
     { placeholderData: keepPreviousData },
   );
@@ -47,30 +51,6 @@ export default function BkPajakTable() {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex flex-row items-center gap-5">
-        <div className="flex gap-2">
-          <Input
-            value={
-              searchParams.get("startDate") || format(new Date(), "yyyy-MM-01")
-            }
-            type="date"
-            onChange={(e) => {
-              searchParams.set("startDate", e.target.value);
-              setSearchParams(searchParams);
-            }}
-          />
-          <Input
-            type="date"
-            value={
-              searchParams.get("endDate") || format(new Date(), "yyyy-MM-dd")
-            }
-            onChange={(e) => {
-              searchParams.set("endDate", e.target.value);
-              setSearchParams(searchParams);
-            }}
-          />
-        </div>
-      </div>
       <div className="rounded-md border p-10 shadow">
         <div
           style={{
