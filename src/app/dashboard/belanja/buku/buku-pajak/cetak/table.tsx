@@ -161,7 +161,12 @@ export default function BkPajakTable() {
             s.d. {formatTanggal(searchParams.get("endDate") || new Date())}
           </h6>
           <table className="w-full">
-            <thead className="border-b-2 border-double border-black">
+            <thead
+              style={{
+                display: "table-header-group",
+              }}
+              className="border-b-2 border-double border-black bg-black text-white"
+            >
               <tr>
                 <th className="w-1 border border-black px-2 py-1 font-serif">
                   No.
@@ -249,12 +254,12 @@ export default function BkPajakTable() {
                         <td className="border-x border-black px-2 py-0.5 font-serif">
                           Penyetoran {item.jenis}{" "}
                           {blj.rekanan &&
-                            `a.n. ${blj.rekanan.nama} ${blj.rekanan.npwp && `(${blj.rekanan.npwp})`}`}
+                            `a.n. ${blj.rekanan.nama}`}
                           {blj.pegawai &&
                             `a.n. ${blj.pegawai.gelarDepan && `${blj.pegawai.gelarDepan} `}${blj.pegawai.nama}${
                               blj.pegawai.gelarBelakang &&
                               `, ${blj.pegawai.gelarBelakang}`
-                            } ${blj.pegawai.npwp && `(${blj.pegawai.npwp})`}`}
+                            }`}
                         </td>
                         <td className="border-x border-black px-2 py-0.5 text-center font-serif"></td>
                         <td className="border-x border-black px-2 py-0.5 text-center font-serif">
@@ -281,7 +286,7 @@ export default function BkPajakTable() {
                   </td>
                 </tr>
               )}
-              <tr className="border-t-2 border-double border-black">
+              <tr className="border-t-2 border-double border-black bg-amber-100 font-semibold">
                 <th
                   colSpan={6}
                   className="border-x border-black px-2 py-1 font-serif"

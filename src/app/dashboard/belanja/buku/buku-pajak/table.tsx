@@ -8,6 +8,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Table,
   TableBody,
   TableCell,
@@ -19,16 +26,68 @@ import {
 import { formatAngka } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import { keepPreviousData } from "@tanstack/react-query";
-import { format } from "date-fns";
+import {
+  endOfMonth,
+  format,
+  getDaysInMonth,
+  startOfMonth,
+  subMonths,
+} from "date-fns";
+import { id } from "date-fns/locale";
 import React from "react";
 import { HiOutlineChevronDoubleDown, HiOutlinePencil } from "react-icons/hi";
 import { Link, useSearchParams } from "react-router-dom";
+
+// Generate daftar bulan dari Januari 2026 sampai bulan ini
+function generateMonthOptions() {
+  const options: { label: string; value: string }[] = [];
+  const now = new Date();
+  const start = new Date(2026, 0, 1); // Januari 2026
+  let cursor = start;
+  while (cursor <= now) {
+    options.push({
+      label: format(cursor, "MMMM yyyy", { locale: id }),
+      value: format(cursor, "yyyy-MM"),
+    });
+    cursor = subMonths(cursor, -1);
+  }
+  return options.reverse(); // terbaru di atas
+}
+
+const MONTH_OPTIONS = generateMonthOptions();
 
 export default function BkPajakTable() {
   const [searchParams, setSearchParams] = useSearchParams({
     startDate: "",
     endDate: "",
   });
+
+  const startDate =
+    searchParams.get("startDate") || format(new Date(), "yyyy-MM-01");
+  const endDate =
+    searchParams.get("endDate") || format(new Date(), "yyyy-MM-dd");
+
+  // Tentukan nilai month picker: cocok jika startDate adalah awal bulan
+  // dan endDate adalah akhir bulan tersebut
+  const selectedMonth = (() => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const isFullMonth =
+      start.getDate() === 1 &&
+      end.getDate() === getDaysInMonth(start) &&
+      start.getMonth() === end.getMonth() &&
+      start.getFullYear() === end.getFullYear();
+    return isFullMonth ? format(start, "yyyy-MM") : "custom";
+  })();
+
+  function setMonth(yearMonth: string) {
+    const date = new Date(yearMonth + "-01");
+    const start = format(startOfMonth(date), "yyyy-MM-dd");
+    const end = format(endOfMonth(date), "yyyy-MM-dd");
+    searchParams.set("startDate", start);
+    searchParams.set("endDate", end);
+    setSearchParams(searchParams);
+  }
 
   const {
     isLoading,
@@ -37,8 +96,8 @@ export default function BkPajakTable() {
     data: belanja,
   } = api.belanja.getAllBkPajak.useQuery(
     {
-      startDate: searchParams.get("startDate") || undefined,
-      endDate: searchParams.get("endDate") || undefined,
+      startDate: startDate || undefined,
+      endDate: endDate || undefined,
     },
     { placeholderData: keepPreviousData },
   );
@@ -59,22 +118,47 @@ export default function BkPajakTable() {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-row items-center gap-5">
-        <div className="flex gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Pilih bulan cepat */}
+          <Select
+            value={selectedMonth}
+            onValueChange={(val) => {
+              if (val !== "custom") setMonth(val);
+            }}
+          >
+            <SelectTrigger className="w-44">
+              <SelectValue placeholder="Pilih bulan" />
+            </SelectTrigger>
+            <SelectContent>
+              {selectedMonth === "custom" && (
+                <SelectItem value="custom" disabled>
+                  Rentang kustom
+                </SelectItem>
+              )}
+              {MONTH_OPTIONS.map((opt) => (
+                <SelectItem key={opt.value} value={opt.value}>
+                  {opt.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          {/* Atau pilih rentang manual */}
+          <span className="text-muted-foreground text-sm">atau</span>
           <Input
-            value={
-              searchParams.get("startDate") || format(new Date(), "yyyy-MM-01")
-            }
+            value={startDate}
             type="date"
+            className="w-40"
             onChange={(e) => {
               searchParams.set("startDate", e.target.value);
               setSearchParams(searchParams);
             }}
           />
+          <span className="text-muted-foreground text-sm">s.d.</span>
           <Input
             type="date"
-            value={
-              searchParams.get("endDate") || format(new Date(), "yyyy-MM-dd")
-            }
+            value={endDate}
+            className="w-40"
             onChange={(e) => {
               searchParams.set("endDate", e.target.value);
               setSearchParams(searchParams);
@@ -163,12 +247,12 @@ export default function BkPajakTable() {
                     <TableCell>
                       Penyetoran {item.jenis}{" "}
                       {blj.rekanan &&
-                        `a.n. ${blj.rekanan.nama} ${blj.rekanan.npwp && `(${blj.rekanan.npwp})`}`}
+                        `a.n. ${blj.rekanan.nama}`}
                       {blj.pegawai &&
-                        `a.n. ${blj.pegawai.gelarDepan && `${blj.pegawai.gelarDepan} `}${blj.pegawai.nama}${
-                          blj.pegawai.gelarBelakang &&
-                          `, ${blj.pegawai.gelarBelakang}`
-                        } ${blj.pegawai.npwp && `(${blj.pegawai.npwp})`}`}
+`a.n. ${blj.pegawai.gelarDepan && `${blj.pegawai.gelarDepan} `}${blj.pegawai.nama}${
+                            blj.pegawai.gelarBelakang &&
+                            `, ${blj.pegawai.gelarBelakang}`
+                          }`}
                     </TableCell>
                     <TableCell className="text-center"></TableCell>
                     <TableCell className="text-center">{item.ntpn}</TableCell>
