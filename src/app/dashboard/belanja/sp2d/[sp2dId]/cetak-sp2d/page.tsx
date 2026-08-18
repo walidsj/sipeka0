@@ -254,9 +254,9 @@ export default function Page() {
                               !sp2d.spm.spp.lpjBelanja?.belanja
                                 .map((item) => item.rekanan?.nama)
                                 .join(", ") &&
-                              "Riandy, S.Kep"}
+                              "Moh. Walid Arkham Sani, A.Md.Pnl"}
                             {sp2d.spm.spp.lpjBelanja?.jenis === "GU" &&
-                              "Riandy, S.Kep"}
+                              "Moh. Walid Arkham Sani, A.Md.Pnl"}
                           </td>
                         </tr>
                         <tr>

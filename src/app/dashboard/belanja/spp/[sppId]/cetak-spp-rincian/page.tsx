@@ -212,9 +212,9 @@ export default function Page() {
                 <div className="font-serif">
                   Bendahara Pengeluaran Pembantu BLUD,
                 </div>
-                <div className="mt-12 font-serif underline">Riandy, S.Kep</div>
+                <div className="mt-12 font-serif underline">Moh. Walid Arkham Sani, A.Md.Pnl</div>
                 <div className="font-serif">Pengatur</div>
-                <div className="font-serif">NIP. 197901281999031003</div>
+                <div className="font-serif">NIP. 200008062022011001</div>
               </div>
             </div>
           </div>

@@ -193,7 +193,7 @@ export default function Page() {
                     :
                   </td>
                   <td className="border-[0.5pt] border-black px-3 py-0.5 align-top font-serif">
-                    Riandy, S.Kep
+                    Moh. Walid Arkham Sani, A.Md.Pnl
                   </td>
                 </tr>
                 <tr>
@@ -424,11 +424,11 @@ export default function Page() {
                           Bendahara Pengeluaran Pembantu BLUD,
                         </div>
                         <div className="mt-12 font-serif underline">
-                          Riandy, S.Kep
+                          Moh. Walid Arkham Sani, A.Md.Pnl
                         </div>
-                        <div className="font-serif">Penata Tk. I</div>
+                        <div className="font-serif">Pengatur Tk. I</div>
                         <div className="font-serif">
-                          NIP. 197901281999031003
+                          NIP. 200008062022011001
                         </div>
                       </div>
                     </div>

@@ -146,7 +146,7 @@ export default function Page() {
                           </td>
                           <td className="w-[1%] align-top font-serif">:</td>
                           <td className="w-[60%] align-top font-serif font-semibold">
-                            Riandy, S.Kep
+                            Moh. Walid Arkham Sani, A.Md.Pnl
                           </td>
                         </tr>
                         <tr>

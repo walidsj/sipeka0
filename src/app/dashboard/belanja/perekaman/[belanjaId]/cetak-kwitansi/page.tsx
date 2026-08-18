@@ -183,9 +183,9 @@ export default function EditPage() {
                 <div className="font-serif">
                   Bendahara Pengeluaran Pembantu BLUD
                 </div>
-                <div className="mt-14 font-serif font-bold">Riandy, S.Kep</div>
-                <div className="font-serif">Penata Tk. I</div>
-                <div className="font-serif">NIP. 197901281999031003</div>
+                <div className="mt-14 font-serif font-bold">Moh. Walid Arkham Sani, A.Md.Pnl</div>
+                <div className="font-serif">Pengatur Tk. I</div>
+                <div className="font-serif">NIP. 200008062022011001</div>
               </div>
             </div>
             <hr className="mt-1 border-black" />
