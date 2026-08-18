@@ -34,10 +34,7 @@ import {
   subMonths,
 } from "date-fns";
 import { id } from "date-fns/locale";
-import { saveAs } from "file-saver";
-import * as XLSX from "xlsx";
 import React from "react";
-import { FaFileExcel } from "react-icons/fa6";
 import { HiOutlineChevronDoubleDown, HiOutlinePencil } from "react-icons/hi";
 import { Link, useSearchParams } from "react-router-dom";
 
@@ -91,81 +88,6 @@ export default function BkPajakTable() {
     searchParams.set("endDate", end);
     setSearchParams(searchParams);
   }
-
-  const formatTgl = (tgl: string | Date) =>
-    Intl.DateTimeFormat("id-ID", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    }).format(new Date(tgl));
-
-  const penyetoranUraian = (blj: (typeof belanja)[number], item: {
-    jenis: string;
-  }) => {
-    const rekanan = blj.rekanan ? `a.n. ${blj.rekanan.nama}` : "";
-    const pegawai = blj.pegawai
-      ? `a.n. ${blj.pegawai.gelarDepan ? `${blj.pegawai.gelarDepan} ` : ""}${blj.pegawai.nama}${
-          blj.pegawai.gelarBelakang
-            ? `, ${blj.pegawai.gelarBelakang}`
-            : ""
-        }`
-      : "";
-    return `Penyetoran ${item.jenis} ${rekanan}${pegawai}`;
-  };
-
-  const exportToExcel = () => {
-    const rows: Record<string, string | number>[] = [];
-    let no = 0;
-    let saldo = 0;
-
-    for (const blj of belanja) {
-      for (const item of blj.potonganBelanja) {
-        saldo += Number(item.jumlah);
-
-        rows.push({
-          "No.": ++no,
-          Tanggal: blj.tglDokumen ? formatTgl(blj.tglDokumen) : "",
-          "Nomor Bukti": blj.noDokumen ?? "",
-          Uraian: `Pemotongan ${item.jenis} ${blj.uraian}`,
-          "Kode Billing": item.billing ?? "",
-          NTPN: "",
-          "Penerimaan (Rp)": Number(item.jumlah),
-          "Pengeluaran (Rp)": 0,
-          "Saldo (Rp)": saldo,
-        });
-
-        if (item.ntpn) {
-          saldo -= Number(item.jumlah);
-        }
-
-        rows.push({
-          "No.": "",
-          Tanggal: "",
-          "Nomor Bukti": "",
-          Uraian: penyetoranUraian(blj, item),
-          "Kode Billing": "",
-          NTPN: item.ntpn ?? "",
-          "Penerimaan (Rp)": 0,
-          "Pengeluaran (Rp)": item.ntpn ? Number(item.jumlah) : 0,
-          "Saldo (Rp)": saldo,
-        });
-      }
-    }
-
-    const worksheet = XLSX.utils.json_to_sheet(rows);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Buku Pajak");
-    const excelBuffer = XLSX.write(workbook, {
-      bookType: "xlsx",
-      type: "array",
-    });
-
-    const blob = new Blob([excelBuffer], {
-      type: "application/octet-stream",
-    });
-
-    saveAs(blob, `Buku Pajak ${startDate}_${endDate}.xlsx`);
-  };
 
   const {
     isLoading,
@@ -243,9 +165,6 @@ export default function BkPajakTable() {
             }}
           />
         </div>
-        <Button className="bg-green-500" onClick={exportToExcel}>
-          <FaFileExcel className="mr-2" /> Excel
-        </Button>
       </div>
       <Table>
         <TableHeader>

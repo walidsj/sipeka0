@@ -21,10 +21,7 @@ import {
   subMonths,
 } from "date-fns";
 import { id } from "date-fns/locale";
-import { saveAs } from "file-saver";
-import * as XLSX from "xlsx";
 import React from "react";
-import { FaFileExcel } from "react-icons/fa6";
 import { useSearchParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 
@@ -81,64 +78,6 @@ export default function BkuTable() {
     searchParams.set("endDate", end);
     setSearchParams(searchParams);
   }
-
-  const formatTgl = (tgl: string | Date) =>
-    Intl.DateTimeFormat("id-ID", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    }).format(new Date(tgl));
-
-  const exportToExcel = () => {
-    const rows: Record<string, string | number>[] = [];
-
-    const meta = jurnal.meta;
-
-    const openingPenerimaan = meta.totalLastPeriode.penerimaan;
-    const openingPengeluaran = meta.totalLastPeriode.pengeluaran;
-
-    rows.push({
-      Tanggal: "",
-      "No. Bukti": "",
-      "Kode Rekening": "",
-      Uraian: "Saldo Sebelumnya",
-      "Penerimaan (Rp)": openingPenerimaan,
-      "Pengeluaran (Rp)": openingPengeluaran,
-      "Saldo (Rp)": openingPenerimaan - openingPengeluaran,
-    });
-
-    let saldo = openingPenerimaan - openingPengeluaran;
-
-    for (const item of jurnal.data) {
-      const penerimaan = Number(item.penerimaan || 0);
-      const pengeluaran = Number(item.pengeluaran || 0);
-      saldo += penerimaan - pengeluaran;
-
-      rows.push({
-        Tanggal: item.tgl ? formatTgl(item.tgl) : "",
-        "No. Bukti": item.noDokumen ?? "",
-        "Kode Rekening": item.kodeRekening ?? "",
-        Uraian: item.uraian ?? "",
-        "Penerimaan (Rp)": penerimaan,
-        "Pengeluaran (Rp)": pengeluaran,
-        "Saldo (Rp)": saldo,
-      });
-    }
-
-    const worksheet = XLSX.utils.json_to_sheet(rows);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Buku Kas Umum");
-    const excelBuffer = XLSX.write(workbook, {
-      bookType: "xlsx",
-      type: "array",
-    });
-
-    const blob = new Blob([excelBuffer], {
-      type: "application/octet-stream",
-    });
-
-    saveAs(blob, `Buku Kas Umum ${startDate}_${endDate}.xlsx`);
-  };
 
   const {
     isLoading,
@@ -540,9 +479,6 @@ export default function BkuTable() {
       </div>
       <CardFooter>
         <Button onClick={() => handlePrint()}>Cetak</Button>
-        <Button className="bg-green-500" onClick={exportToExcel}>
-          <FaFileExcel className="mr-2" /> Excel
-        </Button>
       </CardFooter>
     </div>
   );
