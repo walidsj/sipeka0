@@ -34,6 +34,7 @@ import { belanjaSchema, potonganBelanjaSchema } from "../schema/belanja.schema";
 import { rekeningLevel6 } from "@/data/rekening";
 import lodash from "lodash";
 import { format } from "date-fns";
+import { id } from "date-fns/locale";
 import { Base64 } from "js-base64";
 import { tables } from "server/db";
 import fs from "fs";
@@ -1268,6 +1269,72 @@ export const belanjaRouter = createTRPCRouter({
     });
 
     return data;
+  }),
+
+  getRealisasiKurvaS: userProcedure.query(async ({ ctx }) => {
+    const realisasi = await ctx.db.query.belanja.findMany({
+      with: {
+        rab: true,
+      },
+    });
+
+    const realisasiGroupByMonth = lodash.groupBy(realisasi, (item) => {
+      return format(new Date(item.tglDokumen!), "yyyy-MM");
+    });
+
+    const monthly = Object.keys(realisasiGroupByMonth)
+      .sort()
+      .map((key) => {
+        const items = realisasiGroupByMonth[key];
+        const total = items.reduce(
+          (acc, item) => acc + Number(item.jumlah),
+          0,
+        );
+
+        return {
+          name: format(new Date(`${key}-01`), "MMM yyyy", { locale: id }),
+          realisasi: total,
+        };
+      });
+
+    let cumulative = 0;
+
+    return monthly.map((item) => {
+      cumulative += item.realisasi;
+
+      return {
+        name: item.name,
+        realisasi: cumulative,
+      };
+    });
+  }),
+
+  getRealisasiPerUnitKerja: userProcedure.query(async ({ ctx }) => {
+    const realisasi = await ctx.db.query.belanja.findMany({
+      with: {
+        rab: {
+          with: {
+            unitKerja: true,
+          },
+        },
+      },
+    });
+
+    const groupByUnitKerja = lodash.groupBy(realisasi, (item) => {
+      return item.rab?.unitKerja?.nama ?? "Tanpa Unit Kerja";
+    });
+
+    return Object.keys(groupByUnitKerja).map((key) => {
+      const total = groupByUnitKerja[key].reduce(
+        (acc, item) => acc + Number(item.jumlah),
+        0,
+      );
+
+      return {
+        name: key,
+        value: total,
+      };
+    });
   }),
 
   uploadFile: userProcedure
