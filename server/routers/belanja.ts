@@ -520,19 +520,23 @@ export const belanjaRouter = createTRPCRouter({
             continue;
           }
 
-          usedBelanjaIds.add(blj.id);
+          // Belanja hanya menjadi anggota LPJ GU yang posisinya sebelum
+          // pencairan GU bila tanggalnya sama dengan tanggal pencairan.
+          // Selebihnya (belanja UP pada tanggal lain) adalah awal siklus
+          // UP berikutnya, sehingga harus berada setelah pencairan GU.
+          if (blj.tglDokumen === lpj.tglDokumen) {
+            usedBelanjaIds.add(blj.id);
 
-          jurnalGroups.push({
-            tgl: blj.tglDokumen ?? "",
+            jurnalGroups.push({
+              tgl: blj.tglDokumen ?? "",
 
-            // Belanja ini memang anggota LPJ GU. Jika tanggalnya sama
-            // dengan pencairan, posisinya tetap sebelum pencairan GU.
-            jenis: "BELANJA_ANGGOTA_GU",
+              jenis: "BELANJA_ANGGOTA_GU",
 
-            order: JURNAL_ORDER.BELANJA_ANGGOTA_GU,
+              order: JURNAL_ORDER.BELANJA_ANGGOTA_GU,
 
-            data: [createJurnalBelanja(blj)],
-          });
+              data: [createJurnalBelanja(blj)],
+            });
+          }
         }
 
         // ----------------------------------------------------------
