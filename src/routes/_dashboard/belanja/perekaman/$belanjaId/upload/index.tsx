@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, getRouteApi } from "@tanstack/react-router";
 
 import {
   Card,
@@ -11,12 +11,15 @@ import CreateForm from "@/features/belanja/perekaman/$belanjaId/upload/form";
 import { api } from "@/trpc/react";
 import { Spinner } from "@/components/ui/spinner";
 import NotFound from "@/components/not-found";
-import { useParams } from "@tanstack/react-router";
+import {} from "@tanstack/react-router";
 import { formatAngka, formatTanggal } from "@/lib/utils";
 import { FiFile } from "react-icons/fi";
+const routeApi = getRouteApi(
+  "/_dashboard/belanja/perekaman/$belanjaId/upload/",
+);
 
 function Page() {
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
 
   const {
     data: belanja,

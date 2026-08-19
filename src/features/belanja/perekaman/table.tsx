@@ -48,14 +48,16 @@ import {
   FiTrash,
   FiUploadCloud,
 } from "react-icons/fi";
-import { Link, useSearch, useNavigate } from "@tanstack/react-router";
+import { Link, getRouteApi } from "@tanstack/react-router";
 import { useDebounce } from "use-debounce";
+
+const routeApi = getRouteApi("/_dashboard/belanja/perekaman/");
 
 export default function BelanjaTable() {
   const utils = api.useUtils();
 
-  const search = useSearch({ strict: false }) as Record<string, string>;
-  const navigate = useNavigate();
+  const search = routeApi.useSearch();
+  const navigate = routeApi.useNavigate();
   const [searchValue] = useDebounce(search["search"] ?? "", 300);
 
   const { data: belanja } = api.belanja.getAll.useQuery(
@@ -100,12 +102,7 @@ export default function BelanjaTable() {
           value={search["pageSize"] ?? "10"}
           onValueChange={(val) => {
             navigate({
-              search: (prev) =>
-                ({
-                  ...(prev as Record<string, string>),
-                  pageSize: val,
-                  page: "1",
-                }) as never,
+              search: (prev) => ({ ...prev, pageSize: val, page: "1" }),
             });
           }}
         >
@@ -125,12 +122,11 @@ export default function BelanjaTable() {
             type="date"
             onChange={(e) => {
               navigate({
-                search: (prev) =>
-                  ({
-                    ...(prev as Record<string, string>),
-                    page: "1",
-                    startDate: e.target.value,
-                  }) as never,
+                search: (prev) => ({
+                  ...prev,
+                  page: "1",
+                  startDate: e.target.value,
+                }),
               });
             }}
           />
@@ -139,12 +135,11 @@ export default function BelanjaTable() {
             value={search["endDate"] ?? ""}
             onChange={(e) => {
               navigate({
-                search: (prev) =>
-                  ({
-                    ...(prev as Record<string, string>),
-                    page: "1",
-                    endDate: e.target.value,
-                  }) as never,
+                search: (prev) => ({
+                  ...prev,
+                  page: "1",
+                  endDate: e.target.value,
+                }),
               });
             }}
           />
@@ -159,12 +154,11 @@ export default function BelanjaTable() {
             value={search["search"] ?? ""}
             onChange={(e) => {
               navigate({
-                search: (prev) =>
-                  ({
-                    ...(prev as Record<string, string>),
-                    search: e.target.value,
-                    page: "1",
-                  }) as never,
+                search: (prev) => ({
+                  ...prev,
+                  search: e.target.value,
+                  page: "1",
+                }),
               });
             }}
           />
@@ -193,13 +187,12 @@ export default function BelanjaTable() {
                 size="icon"
                 onClick={() => {
                   navigate({
-                    search: (prev) =>
-                      ({
-                        ...(prev as Record<string, string>),
-                        showPotonganColumn: search["showPotonganColumn"]
-                          ? ""
-                          : "true",
-                      }) as never,
+                    search: (prev) => ({
+                      ...prev,
+                      showPotonganColumn: search["showPotonganColumn"]
+                        ? ""
+                        : "true",
+                    }),
                   });
                 }}
               >
@@ -447,11 +440,10 @@ export default function BelanjaTable() {
               onClick={() => {
                 if (Number(belanja.meta.pagination.page) > 1) {
                   navigate({
-                    search: (prev) =>
-                      ({
-                        ...(prev as Record<string, string>),
-                        page: String(Number(belanja.meta.pagination.page) - 1),
-                      }) as never,
+                    search: (prev) => ({
+                      ...prev,
+                      page: String(Number(belanja.meta.pagination.page) - 1),
+                    }),
                   });
                 }
               }}
@@ -461,8 +453,7 @@ export default function BelanjaTable() {
             value={String(belanja.meta.pagination.page)}
             onValueChange={(val) => {
               navigate({
-                search: (prev) =>
-                  ({ ...(prev as Record<string, string>), page: val }) as never,
+                search: (prev) => ({ ...prev, page: val }),
               });
             }}
           >
@@ -490,11 +481,10 @@ export default function BelanjaTable() {
                   Number(belanja.meta.pagination.pageCount)
                 ) {
                   navigate({
-                    search: (prev) =>
-                      ({
-                        ...(prev as Record<string, string>),
-                        page: String(Number(belanja.meta.pagination.page) + 1),
-                      }) as never,
+                    search: (prev) => ({
+                      ...prev,
+                      page: String(Number(belanja.meta.pagination.page) + 1),
+                    }),
                   });
                 }
               }}

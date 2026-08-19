@@ -19,10 +19,13 @@ import { api } from "@/trpc/react";
 import { keepPreviousData } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { FiArrowRight, FiChevronsDown, FiEdit, FiTrash } from "react-icons/fi";
-import { Link, useParams } from "@tanstack/react-router";
+import { Link, getRouteApi } from "@tanstack/react-router";
+const routeApi = getRouteApi(
+  "/_dashboard/anggaran/rba/penyusunan-rba/$rbaId/_detail/aktivitas/",
+);
 
 export default function AktivitasTable() {
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
 
   const aktivitasRba = api.aktivitasRba.getByRbaId.useQuery(
     parseInt(params.rbaId ?? ""),

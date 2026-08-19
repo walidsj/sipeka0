@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { z } from "zod";
 
 import {
   Card,
@@ -19,11 +20,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { HiOutlineChevronDoubleDown, HiOutlinePrinter } from "react-icons/hi";
-import { Link, useSearch } from "@tanstack/react-router";
+import { Link, getRouteApi } from "@tanstack/react-router";
+
+const routeApi = getRouteApi("/_dashboard/belanja/buku/buku-pajak/");
 
 function Page() {
-  const search = useSearch({ strict: false }) as Record<string, string>;
-  const searchObj: Record<string, string> = { ...search };
+  const search = routeApi.useSearch();
+  const searchObj = { ...search };
 
   return (
     <Card>
@@ -40,10 +43,7 @@ function Page() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
-              <Link
-                to="/belanja/buku/buku-pajak/cetak"
-                search={searchObj as never}
-              >
+              <Link to="/belanja/buku/buku-pajak/cetak" search={searchObj}>
                 <DropdownMenuItem>
                   <HiOutlinePrinter className="mr-2" />
                   Cetak
@@ -63,5 +63,9 @@ function Page() {
 }
 
 export const Route = createFileRoute("/_dashboard/belanja/buku/buku-pajak/")({
+  validateSearch: z.object({
+    startDate: z.string().optional(),
+    endDate: z.string().optional(),
+  }),
   component: Page,
 });

@@ -19,14 +19,15 @@ import { api } from "@/trpc/react";
 import { handleCopy } from "@/utils/clipboard";
 import toast from "react-hot-toast";
 import { FiChevronsDown, FiCopy, FiEdit, FiTrash } from "react-icons/fi";
-import { Link, useParams } from "@tanstack/react-router";
+import { Link, getRouteApi } from "@tanstack/react-router";
+const routeApi = getRouteApi("/_dashboard/belanja/perekaman/$belanjaId/");
 
 export default function PotonganTable({
   belanja,
 }: {
   belanja: { uraian?: string | null; jumlah: string | number | null };
 }) {
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
   const utils = api.useUtils();
 
   const { data: potongan } = api.belanja.getPotonganByBelanjaId.useQuery(

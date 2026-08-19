@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, getRouteApi } from "@tanstack/react-router";
 
 import {
   Card,
@@ -7,13 +7,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useParams } from "@tanstack/react-router";
+import {} from "@tanstack/react-router";
 import EditForm from "@/features/akuntansi/rekening-koran/$rekeningBankId/$rekeningKoranId/edit/form";
 import { api } from "@/trpc/react";
 import NotFound from "@/components/not-found";
+const routeApi = getRouteApi(
+  "/_dashboard/akuntansi/rekening-koran/$rekeningBankId/$rekeningKoranId/edit/",
+);
 
 function EditPage() {
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
 
   const rekeningKoran = api.rekeningKoran.getById.useQuery(
     Number(params.rekeningKoranId),

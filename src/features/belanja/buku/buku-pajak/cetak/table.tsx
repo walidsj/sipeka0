@@ -5,11 +5,13 @@ import { api } from "@/trpc/react";
 import { keepPreviousData } from "@tanstack/react-query";
 import { format } from "date-fns";
 import React from "react";
-import { useSearch } from "@tanstack/react-router";
+import { getRouteApi } from "@tanstack/react-router";
 import { useReactToPrint } from "react-to-print";
 
+const routeApi = getRouteApi("/_dashboard/belanja/buku/buku-pajak/cetak/");
+
 export default function BkPajakTable() {
-  const search = useSearch({ strict: false }) as Record<string, string>;
+  const search = routeApi.useSearch();
 
   const componentRef = React.useRef(null);
   const handlePrint = useReactToPrint({ contentRef: componentRef });

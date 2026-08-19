@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { z } from "zod";
 
 import { Spinner } from "@/components/ui/spinner";
 import { Input } from "@/components/ui/input";
@@ -29,21 +30,20 @@ import { formatAngka } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import { keepPreviousData } from "@tanstack/react-query";
 import { FiSearch } from "react-icons/fi";
-import {
-  Navigate,
-  useParams,
-  useSearch,
-  useNavigate,
-} from "@tanstack/react-router";
+import { Navigate, getRouteApi } from "@tanstack/react-router";
 import { useDebounce } from "use-debounce";
 
+const routeApi = getRouteApi(
+  "/_dashboard/lainnya/referensi/kode-rekening/$level/",
+);
+
 function Page() {
-  const params = useParams({ strict: false }) as Record<string, string>;
-  const search = useSearch({ strict: false }) as Record<string, string>;
-  const navigate = useNavigate();
+  const params = routeApi.useParams();
+  const search = routeApi.useSearch();
+  const navigate = routeApi.useNavigate();
   const [searchValue] = useDebounce(search["search"] ?? "", 300);
 
-  if (!["1", "2", "3", "4", "5", "6"].includes(params.level as string)) {
+  if (!["1", "2", "3", "4", "5", "6"].includes(params.level)) {
     return (
       <Navigate
         to="/lainnya/referensi/kode-rekening/$level"
@@ -80,12 +80,7 @@ function Page() {
           value={search["pageSize"] ?? "10"}
           onValueChange={(val) => {
             navigate({
-              search: (prev) =>
-                ({
-                  ...(prev as Record<string, string>),
-                  pageSize: val,
-                  page: "1",
-                }) as never,
+              search: (prev) => ({ ...prev, pageSize: val, page: "1" }),
             });
           }}
         >
@@ -109,12 +104,11 @@ function Page() {
             value={search["search"] ?? ""}
             onChange={(e) => {
               navigate({
-                search: (prev) =>
-                  ({
-                    ...(prev as Record<string, string>),
-                    search: e.target.value,
-                    page: "1",
-                  }) as never,
+                search: (prev) => ({
+                  ...prev,
+                  search: e.target.value,
+                  page: "1",
+                }),
               });
             }}
           />
@@ -149,11 +143,10 @@ function Page() {
               onClick={() => {
                 if (Number(rekening.meta.pagination.page) > 1) {
                   navigate({
-                    search: (prev) =>
-                      ({
-                        ...(prev as Record<string, string>),
-                        page: String(Number(rekening.meta.pagination.page) - 1),
-                      }) as never,
+                    search: (prev) => ({
+                      ...prev,
+                      page: String(Number(rekening.meta.pagination.page) - 1),
+                    }),
                   });
                 }
               }}
@@ -167,11 +160,10 @@ function Page() {
                   Number(rekening.meta.pagination.pageCount)
                 ) {
                   navigate({
-                    search: (prev) =>
-                      ({
-                        ...(prev as Record<string, string>),
-                        page: String(Number(rekening.meta.pagination.page) + 1),
-                      }) as never,
+                    search: (prev) => ({
+                      ...prev,
+                      page: String(Number(rekening.meta.pagination.page) + 1),
+                    }),
                   });
                 }
               }}
@@ -186,5 +178,10 @@ function Page() {
 export const Route = createFileRoute(
   "/_dashboard/lainnya/referensi/kode-rekening/$level/",
 )({
+  validateSearch: z.object({
+    search: z.string().optional(),
+    page: z.string().optional(),
+    pageSize: z.string().optional(),
+  }),
   component: Page,
 });

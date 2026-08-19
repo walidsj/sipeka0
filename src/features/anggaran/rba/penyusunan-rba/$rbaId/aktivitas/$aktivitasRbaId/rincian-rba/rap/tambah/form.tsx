@@ -11,19 +11,22 @@ import { api } from "@/trpc/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useParams } from "@tanstack/react-router";
+import { getRouteApi } from "@tanstack/react-router";
 import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import RapPicker from "@/components/rap-picker";
 import { rincianRbaPendapatanSchema } from "#server/schema/rincian-rba-pendapatan";
 import { NumericFormat } from "react-number-format";
+const routeApi = getRouteApi(
+  "/_dashboard/anggaran/rba/penyusunan-rba/$rbaId/_detail/aktivitas/$aktivitasRbaId/rincian-rba/rap/tambah/",
+);
 
 const newRincianRbaPendapatanSchema = rincianRbaPendapatanSchema.omit({
   aktivitasRbaId: true,
 });
 
 export default function CreateForm() {
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
 
   const form = useForm<z.infer<typeof newRincianRbaPendapatanSchema>>({
     resolver: zodResolver(newRincianRbaPendapatanSchema),

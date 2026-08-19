@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, getRouteApi } from "@tanstack/react-router";
 
 import {
   Card,
@@ -10,13 +10,16 @@ import {
 import RekeningKoranTable from "@/features/akuntansi/rekening-koran/$rekeningBankId/table";
 import { TableBoundary } from "@/components/table-boundary";
 
-import { useParams } from "@tanstack/react-router";
+import {} from "@tanstack/react-router";
 import { api } from "@/trpc/react";
 import NotFound from "@/components/not-found";
 import { Spinner } from "@/components/ui/spinner";
+const routeApi = getRouteApi(
+  "/_dashboard/akuntansi/rekening-koran/$rekeningBankId/",
+);
 
 function Page() {
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
 
   const {
     isError,

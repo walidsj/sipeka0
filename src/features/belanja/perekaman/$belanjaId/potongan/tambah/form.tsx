@@ -11,7 +11,7 @@ import { api } from "@/trpc/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useParams } from "@tanstack/react-router";
+import { getRouteApi } from "@tanstack/react-router";
 import { z } from "zod";
 import { potonganBelanjaSchema } from "#server/schema/belanja.schema";
 import { Input } from "@/components/ui/input";
@@ -24,12 +24,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+const routeApi = getRouteApi(
+  "/_dashboard/belanja/perekaman/$belanjaId/potongan/tambah/",
+);
+
 const createPotonganBelanjaSchema = potonganBelanjaSchema.omit({
   belanjaId: true,
 });
 
 export default function CreateForm() {
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
 
   const utils = api.useUtils();
 

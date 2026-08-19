@@ -21,10 +21,13 @@ import _ from "lodash";
 import React from "react";
 import toast from "react-hot-toast";
 import { FiChevronsDown, FiEdit, FiTrash } from "react-icons/fi";
-import { Link, useParams } from "@tanstack/react-router";
+import { Link, getRouteApi } from "@tanstack/react-router";
+const routeApi = getRouteApi(
+  "/_dashboard/anggaran/rba/penyusunan-rba/$rbaId/_detail/aktivitas/$aktivitasRbaId/rincian-rba/",
+);
 
 export default function RincianRabTable() {
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
 
   const rincianRbaBelanja = api.rincianRbaBelanja.getByAktivitasRbaId.useQuery(
     parseInt(params.aktivitasRbaId ?? ""),

@@ -12,7 +12,7 @@ import { api } from "@/trpc/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useParams } from "@tanstack/react-router";
+import { getRouteApi } from "@tanstack/react-router";
 import { z } from "zod";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -23,11 +23,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { aktivitasRbaSchema } from "#server/schema/aktivitas-rba";
+const routeApi = getRouteApi(
+  "/_dashboard/anggaran/rba/penyusunan-rba/$rbaId/_detail/aktivitas/tambah/",
+);
 
 const newAktivitasRbaSchema = aktivitasRbaSchema.omit({ rbaId: true });
 
 export default function CreateForm() {
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
 
   const form = useForm<z.infer<typeof newAktivitasRbaSchema>>({
     resolver: zodResolver(newAktivitasRbaSchema),

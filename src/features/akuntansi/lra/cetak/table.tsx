@@ -6,12 +6,14 @@ import { api } from "@/trpc/react";
 import { keepPreviousData } from "@tanstack/react-query";
 import { format } from "date-fns";
 import React from "react";
-import { useSearch, useNavigate } from "@tanstack/react-router";
+import { getRouteApi } from "@tanstack/react-router";
 import { useReactToPrint } from "react-to-print";
 
+const routeApi = getRouteApi("/_dashboard/akuntansi/lra/cetak/");
+
 export default function BkPajakTable() {
-  const search = useSearch({ strict: false }) as Record<string, string>;
-  const navigate = useNavigate();
+  const search = routeApi.useSearch();
+  const navigate = routeApi.useNavigate();
   const componentRef = React.useRef(null);
   const handlePrint = useReactToPrint({ contentRef: componentRef });
 
@@ -37,11 +39,7 @@ export default function BkPajakTable() {
             type="date"
             onChange={(e) => {
               navigate({
-                search: (prev) =>
-                  ({
-                    ...(prev as Record<string, string>),
-                    startDate: e.target.value,
-                  }) as never,
+                search: (prev) => ({ ...prev, startDate: e.target.value }),
               });
             }}
           />
@@ -50,11 +48,7 @@ export default function BkPajakTable() {
             value={search["endDate"] || format(new Date(), "yyyy-MM-dd")}
             onChange={(e) => {
               navigate({
-                search: (prev) =>
-                  ({
-                    ...(prev as Record<string, string>),
-                    endDate: e.target.value,
-                  }) as never,
+                search: (prev) => ({ ...prev, endDate: e.target.value }),
               });
             }}
           />

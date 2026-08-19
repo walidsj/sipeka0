@@ -12,14 +12,16 @@ import { formatAngka } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import { keepPreviousData } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { useParams, useSearch, useNavigate } from "@tanstack/react-router";
+import { getRouteApi } from "@tanstack/react-router";
 import ExcelExport from "@/features/akuntansi/lra/$kodeRekening/excel-export";
 import { FiFile } from "react-icons/fi";
 
+const routeApi = getRouteApi("/_dashboard/akuntansi/lra/$kodeRekening/");
+
 export default function DetailTable() {
-  const params = useParams({ strict: false }) as Record<string, string>;
-  const search = useSearch({ strict: false }) as Record<string, string>;
-  const navigate = useNavigate();
+  const params = routeApi.useParams();
+  const search = routeApi.useSearch();
+  const navigate = routeApi.useNavigate();
   const { data: belanja } = api.belanja.getBelanjaLrabyKodeRekening.useQuery(
     {
       kodeRekening: params.kodeRekening!,
@@ -43,11 +45,7 @@ export default function DetailTable() {
             type="date"
             onChange={(e) => {
               navigate({
-                search: (prev) =>
-                  ({
-                    ...(prev as Record<string, string>),
-                    startDate: e.target.value,
-                  }) as never,
+                search: (prev) => ({ ...prev, startDate: e.target.value }),
               });
             }}
           />
@@ -56,11 +54,7 @@ export default function DetailTable() {
             value={search["endDate"] || format(new Date(), "yyyy-MM-dd")}
             onChange={(e) => {
               navigate({
-                search: (prev) =>
-                  ({
-                    ...(prev as Record<string, string>),
-                    endDate: e.target.value,
-                  }) as never,
+                search: (prev) => ({ ...prev, endDate: e.target.value }),
               });
             }}
           />

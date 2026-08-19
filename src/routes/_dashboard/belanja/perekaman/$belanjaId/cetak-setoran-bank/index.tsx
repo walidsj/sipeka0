@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, getRouteApi } from "@tanstack/react-router";
+import { z } from "zod";
 
 import {
   Card,
@@ -8,7 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useParams, useSearch, useNavigate } from "@tanstack/react-router";
 import { api } from "@/trpc/react";
 import { Spinner } from "@/components/ui/spinner";
 import { useReactToPrint } from "react-to-print";
@@ -25,11 +25,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-function Page() {
-  const params = useParams({ strict: false }) as Record<string, string>;
+const routeApi = getRouteApi(
+  "/_dashboard/belanja/perekaman/$belanjaId/cetak-setoran-bank/",
+);
 
-  const search = useSearch({ strict: false }) as Record<string, string>;
-  const navigate = useNavigate();
+function Page() {
+  const params = routeApi.useParams();
+
+  const search = routeApi.useSearch();
+  const navigate = routeApi.useNavigate();
   const {
     data: belanja,
     isError,
@@ -64,11 +68,7 @@ function Page() {
             value={search["includeAdminBank"] || "false"}
             onValueChange={(val) => {
               navigate({
-                search: (prev) =>
-                  ({
-                    ...(prev as Record<string, string>),
-                    includeAdminBank: val,
-                  }) as never,
+                search: (prev) => ({ ...prev, includeAdminBank: val }),
               });
             }}
           >
@@ -399,5 +399,6 @@ function Page() {
 export const Route = createFileRoute(
   "/_dashboard/belanja/perekaman/$belanjaId/cetak-setoran-bank/",
 )({
+  validateSearch: z.object({ includeAdminBank: z.string().optional() }),
   component: Page,
 });

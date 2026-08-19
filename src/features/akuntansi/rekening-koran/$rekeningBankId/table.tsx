@@ -18,15 +18,19 @@ import { formatAngkaDecimal } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import toast from "react-hot-toast";
 import { HiOutlineChevronDown, HiOutlineTrash } from "react-icons/hi";
-import { Link, useParams } from "@tanstack/react-router";
+import { Link, getRouteApi } from "@tanstack/react-router";
 import CreateForm from "@/features/akuntansi/rekening-koran/$rekeningBankId/form";
 import { keepPreviousData } from "@tanstack/react-query";
 import { FiEdit } from "react-icons/fi";
 
+const routeApi = getRouteApi(
+  "/_dashboard/akuntansi/rekening-koran/$rekeningBankId/",
+);
+
 export default function RekeningKoranTable() {
   const utils = api.useUtils();
 
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
 
   const { data: rekeningKoran } =
     api.rekeningKoran.getAllByRekeningBankId.useQuery(

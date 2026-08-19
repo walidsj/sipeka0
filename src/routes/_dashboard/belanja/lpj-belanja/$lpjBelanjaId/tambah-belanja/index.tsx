@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, getRouteApi } from "@tanstack/react-router";
 
 import {
   Card,
@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useParams } from "@tanstack/react-router";
+import {} from "@tanstack/react-router";
 import { api } from "@/trpc/react";
 import { Spinner } from "@/components/ui/spinner";
 
@@ -16,9 +16,12 @@ import BelanjaTable from "@/features/belanja/lpj-belanja/$lpjBelanjaId/tambah-be
 import { TableBoundary } from "@/components/table-boundary";
 
 import NotFound from "@/components/not-found";
+const routeApi = getRouteApi(
+  "/_dashboard/belanja/lpj-belanja/$lpjBelanjaId/tambah-belanja/",
+);
 
 function EditPage() {
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
 
   const {
     data: lpjBelanja,

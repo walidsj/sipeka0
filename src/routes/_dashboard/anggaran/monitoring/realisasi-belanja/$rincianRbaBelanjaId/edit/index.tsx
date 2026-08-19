@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, getRouteApi } from "@tanstack/react-router";
 
 import {
   Card,
@@ -6,16 +6,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useParams } from "@tanstack/react-router";
+import {} from "@tanstack/react-router";
 import EditForm from "@/features/anggaran/monitoring/realisasi-belanja/$rincianRbaBelanjaId/edit/form";
 import { api } from "@/trpc/react";
 import { FiChevronsRight } from "react-icons/fi";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import NotFound from "@/components/not-found";
+const routeApi = getRouteApi(
+  "/_dashboard/anggaran/monitoring/realisasi-belanja/$rincianRbaBelanjaId/edit/",
+);
 
 function EditPage() {
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
 
   const rincianRbaBelanja = api.rincianRbaBelanja.getById.useQuery(
     parseInt(params.rincianRbaBelanjaId ?? ""),

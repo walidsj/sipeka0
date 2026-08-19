@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, getRouteApi } from "@tanstack/react-router";
 
 import {
   Card,
@@ -7,13 +7,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useParams } from "@tanstack/react-router";
+import {} from "@tanstack/react-router";
 import EditForm from "@/features/belanja/sp2d/$sp2dId/edit/form";
 import { api } from "@/trpc/react";
 import NotFound from "@/components/not-found";
+const routeApi = getRouteApi("/_dashboard/belanja/sp2d/$sp2dId/edit/");
 
 function EditPage() {
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
 
   const sp2d = api.sp2d.getById.useQuery(parseInt(params.sp2dId!));
 

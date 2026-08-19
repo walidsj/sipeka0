@@ -11,11 +11,12 @@ import { formatAngka, formatTanggal } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import toast from "react-hot-toast";
 import { HiOutlineTrash } from "react-icons/hi";
-import { useParams } from "@tanstack/react-router";
+import { getRouteApi } from "@tanstack/react-router";
+const routeApi = getRouteApi("/_dashboard/belanja/lpj-belanja/$lpjBelanjaId/");
 
 export default function BelanjaEmptyLpjTable() {
   const utils = api.useUtils();
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
 
   const { data: belanja } = api.lpjBelanja.getBelanjaByLpjBelanjaId.useQuery(
     Number(params.lpjBelanjaId),

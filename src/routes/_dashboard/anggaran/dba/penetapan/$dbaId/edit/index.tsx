@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, getRouteApi } from "@tanstack/react-router";
 
 import {
   Card,
@@ -7,12 +7,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Navigate, useParams } from "@tanstack/react-router";
+import { Navigate } from "@tanstack/react-router";
 import EditForm from "@/features/anggaran/dba/penetapan/$dbaId/edit/form";
 import { api } from "@/trpc/react";
+const routeApi = getRouteApi("/_dashboard/anggaran/dba/penetapan/$dbaId/edit/");
 
 function EditPage() {
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
 
   const dba = api.dba.getById.useQuery(parseInt(params.dbaId!));
 

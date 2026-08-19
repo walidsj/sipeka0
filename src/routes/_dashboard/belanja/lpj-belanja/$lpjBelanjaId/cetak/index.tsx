@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, getRouteApi } from "@tanstack/react-router";
 
 import {
   Card,
@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useParams } from "@tanstack/react-router";
+import {} from "@tanstack/react-router";
 import { api } from "@/trpc/react";
 import { Spinner } from "@/components/ui/spinner";
 import { useReactToPrint } from "react-to-print";
@@ -17,9 +17,12 @@ import { Button } from "@/components/ui/button";
 import NotFound from "@/components/not-found";
 import { formatAngkaDecimal, formatTanggal } from "@/lib/utils";
 import { potonganBelanjaSchema } from "#server/schema/belanja.schema";
+const routeApi = getRouteApi(
+  "/_dashboard/belanja/lpj-belanja/$lpjBelanjaId/cetak/",
+);
 
 function Page() {
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
 
   const { data: lpjBelanja } = api.lpjBelanja.getById.useQuery(
     Number(params.lpjBelanjaId),

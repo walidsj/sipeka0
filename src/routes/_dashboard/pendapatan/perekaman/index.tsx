@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { z } from "zod";
 
 import {
   Card,
@@ -40,5 +41,10 @@ function CreatePage() {
 }
 
 export const Route = createFileRoute("/_dashboard/pendapatan/perekaman/")({
+  validateSearch: z.object({
+    search: z.string().optional(),
+    page: z.string().optional(),
+    pageSize: z.string().optional(),
+  }),
   component: CreatePage,
 });

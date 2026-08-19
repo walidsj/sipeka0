@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, getRouteApi } from "@tanstack/react-router";
 
 import NotFound from "@/components/not-found";
 import {
@@ -11,10 +11,13 @@ import {
 import { api } from "@/trpc/react";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-import { Outlet, useParams } from "@tanstack/react-router";
+import { Outlet } from "@tanstack/react-router";
+const routeApi = getRouteApi(
+  "/_dashboard/anggaran/rba/penyusunan-rba/$rbaId/_detail",
+);
 
 function Layout() {
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
 
   const rba = api.rba.getById.useQuery(parseInt(params.rbaId ?? ""));
 

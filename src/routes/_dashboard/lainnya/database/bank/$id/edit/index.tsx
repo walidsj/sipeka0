@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, getRouteApi } from "@tanstack/react-router";
 
 import {
   Card,
@@ -7,13 +7,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useParams } from "@tanstack/react-router";
+import {} from "@tanstack/react-router";
 import EditForm from "@/features/lainnya/database/bank/$id/edit/form";
 import { api } from "@/trpc/react";
 import NotFound from "@/components/not-found";
+const routeApi = getRouteApi("/_dashboard/lainnya/database/bank/$id/edit/");
 
 function EditBank() {
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
 
   const bank = api.bank.getById.useQuery(parseInt(params.id!));
 

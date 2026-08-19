@@ -1,8 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, getRouteApi } from "@tanstack/react-router";
 
 import { Button } from "@/components/ui/button";
 import { FiPlus } from "react-icons/fi";
-import { Link, useParams } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import {
   Card,
   CardDescription,
@@ -16,9 +16,12 @@ import RincianRabTable from "@/features/anggaran/rba/penyusunan-rba/$rbaId/aktiv
 import RincianRapTable from "@/features/anggaran/rba/penyusunan-rba/$rbaId/aktivitas/$aktivitasRbaId/rincian-rba/rap-table";
 import { Spinner } from "@/components/ui/spinner";
 import NotFound from "@/components/not-found";
+const routeApi = getRouteApi(
+  "/_dashboard/anggaran/rba/penyusunan-rba/$rbaId/_detail/aktivitas/$aktivitasRbaId/rincian-rba/",
+);
 
 function Page() {
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
 
   const aktivitasRba = api.aktivitasRba.getById.useQuery(
     parseInt(params.aktivitasRbaId ?? ""),

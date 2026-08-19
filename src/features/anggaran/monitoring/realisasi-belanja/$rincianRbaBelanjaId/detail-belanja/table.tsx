@@ -11,10 +11,13 @@ import {
 import { api } from "@/trpc/react";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-import { useParams } from "@tanstack/react-router";
+import { getRouteApi } from "@tanstack/react-router";
+const routeApi = getRouteApi(
+  "/_dashboard/anggaran/monitoring/realisasi-belanja/$rincianRbaBelanjaId/detail-belanja/",
+);
 
 export default function DetailTable() {
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
 
   const belanja = api.dba.getRincianBelanjaByRincianRbaBelanjaId.useQuery(
     parseInt(params.rincianRbaBelanjaId ?? ""),

@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, getRouteApi } from "@tanstack/react-router";
 
 import {
   Card,
@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useParams } from "@tanstack/react-router";
+import {} from "@tanstack/react-router";
 import { api } from "@/trpc/react";
 import { Spinner } from "@/components/ui/spinner";
 import { useReactToPrint } from "react-to-print";
@@ -16,9 +16,12 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { formatTanggal } from "@/lib/utils";
 import NotFound from "@/components/not-found";
+const routeApi = getRouteApi(
+  "/_dashboard/belanja/spm/$spmId/cetak-pernyataan-verifikasi/",
+);
 
 function Page() {
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
 
   const {
     data: spm,

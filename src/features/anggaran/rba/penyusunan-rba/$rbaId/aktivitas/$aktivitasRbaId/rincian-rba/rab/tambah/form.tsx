@@ -11,7 +11,7 @@ import { api } from "@/trpc/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useParams } from "@tanstack/react-router";
+import { getRouteApi } from "@tanstack/react-router";
 import { z } from "zod";
 import { rincianRbaBelanjaSchema } from "#server/schema/rincian-rba-belanja";
 import RabPicker from "@/components/rab-picker";
@@ -19,13 +19,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardHeader } from "@/components/ui/card";
 import { NumericFormat } from "react-number-format";
+const routeApi = getRouteApi(
+  "/_dashboard/anggaran/rba/penyusunan-rba/$rbaId/_detail/aktivitas/$aktivitasRbaId/rincian-rba/rab/tambah/",
+);
 
 const newRincianRbaBelanjaSchema = rincianRbaBelanjaSchema.omit({
   aktivitasRbaId: true,
 });
 
 export default function CreateForm() {
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
 
   const form = useForm<z.infer<typeof newRincianRbaBelanjaSchema>>({
     resolver: zodResolver(newRincianRbaBelanjaSchema),

@@ -24,7 +24,6 @@ import { useDebounce } from "use-debounce";
 import { Input } from "@/components/ui/input";
 import { keepPreviousData } from "@tanstack/react-query";
 import { Spinner } from "@/components/ui/spinner";
-import { useSearch, useNavigate } from "@tanstack/react-router";
 import {
   Pagination,
   PaginationContent,
@@ -60,11 +59,10 @@ export default function KodeRekeningPicker({
     { enabled: !!selected, placeholderData: keepPreviousData },
   );
 
-  const search = useSearch({ strict: false }) as Record<string, string>;
-  const navigate = useNavigate();
-  const [searchValue] = useDebounce(search["search"] ?? "", 300);
-
-  const [level] = React.useState<"1" | "2" | "3" | "4" | "5" | "6">("6");
+  const [search, setSearch] = React.useState("");
+  const [page, setPage] = React.useState(1);
+  const [pageSize, setPageSize] = React.useState("10");
+  const [searchValue] = useDebounce(search, 300);
 
   const {
     isLoading,
@@ -74,10 +72,10 @@ export default function KodeRekeningPicker({
   } = api.kodeRekening.getAll.useQuery(
     {
       searchKode: params?.searchKode,
-      level: level,
+      level: "6",
       search: searchValue,
-      page: Number(search["page"] ?? 1),
-      pageSize: Number(search["pageSize"] ?? 10),
+      page,
+      pageSize: Number(pageSize),
     },
     { placeholderData: keepPreviousData },
   );
@@ -130,16 +128,10 @@ export default function KodeRekeningPicker({
         </DialogHeader>
         <div className="flex gap-5">
           <Select
-            value={search["pageSize"] ?? "10"}
+            value={pageSize}
             onValueChange={(val) => {
-              navigate({
-                search: (prev) =>
-                  ({
-                    ...(prev as Record<string, string>),
-                    pageSize: val,
-                    page: "1",
-                  }) as never,
-              });
+              setPageSize(val);
+              setPage(1);
             }}
           >
             <SelectTrigger className="w-20 font-semibold">
@@ -159,16 +151,8 @@ export default function KodeRekeningPicker({
             <Input
               className="w-80 pl-10"
               placeholder="Cari kode rekening"
-              value={search["search"] ?? ""}
-              onChange={(e) =>
-                navigate({
-                  search: (prev) =>
-                    ({
-                      ...(prev as Record<string, string>),
-                      search: e.target.value,
-                    }) as never,
-                })
-              }
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
             />
           </div>
         </div>
@@ -242,19 +226,7 @@ export default function KodeRekeningPicker({
             <PaginationItem>
               <PaginationPrevious
                 disabled={Number(rekening.meta.pagination.page) === 1}
-                onClick={() => {
-                  if (Number(rekening.meta.pagination.page) > 1) {
-                    navigate({
-                      search: (prev) =>
-                        ({
-                          ...(prev as Record<string, string>),
-                          page: String(
-                            Number(rekening.meta.pagination.page) - 1,
-                          ),
-                        }) as never,
-                    });
-                  }
-                }}
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
               />
             </PaginationItem>
             <PaginationItem>
@@ -263,22 +235,11 @@ export default function KodeRekeningPicker({
                   Number(rekening.meta.pagination.page) ===
                   Number(rekening.meta.pagination.pageCount)
                 }
-                onClick={() => {
-                  if (
-                    Number(rekening.meta.pagination.page) <
-                    Number(rekening.meta.pagination.pageCount)
-                  ) {
-                    navigate({
-                      search: (prev) =>
-                        ({
-                          ...(prev as Record<string, string>),
-                          page: String(
-                            Number(rekening.meta.pagination.page) + 1,
-                          ),
-                        }) as never,
-                    });
-                  }
-                }}
+                onClick={() =>
+                  setPage((p) =>
+                    Math.min(p + 1, Number(rekening.meta.pagination.pageCount)),
+                  )
+                }
               />
             </PaginationItem>
           </PaginationContent>

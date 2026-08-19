@@ -20,11 +20,13 @@ import { api } from "@/trpc/react";
 import { keepPreviousData } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { HiOutlineChevronDoubleDown, HiOutlineEye } from "react-icons/hi";
-import { Link, useSearch, useNavigate } from "@tanstack/react-router";
+import { Link, getRouteApi } from "@tanstack/react-router";
+
+const routeApi = getRouteApi("/_dashboard/akuntansi/lra/");
 
 export default function LraTable() {
-  const search = useSearch({ strict: false }) as Record<string, string>;
-  const navigate = useNavigate();
+  const search = routeApi.useSearch();
+  const navigate = routeApi.useNavigate();
   const { data: belanja } = api.belanja.getBelanjaLra.useQuery(
     {
       startDate: search["startDate"] || undefined,
@@ -42,28 +44,20 @@ export default function LraTable() {
           <Input
             value={search["startDate"] || format(new Date(), "yyyy-01-01")}
             type="date"
-            onChange={(e) => {
+            onChange={(e) =>
               navigate({
-                search: (prev) =>
-                  ({
-                    ...(prev as Record<string, string>),
-                    startDate: e.target.value,
-                  }) as never,
-              });
-            }}
+                search: (prev) => ({ ...prev, startDate: e.target.value }),
+              })
+            }
           />
           <Input
             type="date"
             value={search["endDate"] || format(new Date(), "yyyy-MM-dd")}
-            onChange={(e) => {
+            onChange={(e) =>
               navigate({
-                search: (prev) =>
-                  ({
-                    ...(prev as Record<string, string>),
-                    endDate: e.target.value,
-                  }) as never,
-              });
-            }}
+                search: (prev) => ({ ...prev, endDate: e.target.value }),
+              })
+            }
           />
         </div>
       </div>
@@ -112,16 +106,14 @@ export default function LraTable() {
                       <Link
                         to="/akuntansi/lra/$kodeRekening"
                         params={{ kodeRekening: String(item.kodeRekening) }}
-                        search={
-                          {
-                            startDate:
-                              search["startDate"] ||
-                              format(new Date(), "yyyy-01-01"),
-                            endDate:
-                              search["endDate"] ||
-                              format(new Date(), "yyyy-MM-dd"),
-                          } as never
-                        }
+                        search={{
+                          startDate:
+                            search["startDate"] ||
+                            format(new Date(), "yyyy-01-01"),
+                          endDate:
+                            search["endDate"] ||
+                            format(new Date(), "yyyy-MM-dd"),
+                        }}
                       >
                         <DropdownMenuItem>
                           <HiOutlineEye className="mr-2" />

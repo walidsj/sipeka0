@@ -35,7 +35,9 @@ import {
 import { id } from "date-fns/locale";
 import React from "react";
 import { HiOutlineChevronDoubleDown, HiOutlinePencil } from "react-icons/hi";
-import { Link, useSearch, useNavigate } from "@tanstack/react-router";
+import { Link, getRouteApi } from "@tanstack/react-router";
+
+const routeApi = getRouteApi("/_dashboard/belanja/buku/buku-pajak/");
 
 // Generate daftar bulan dari Januari 2026 sampai bulan ini
 function generateMonthOptions() {
@@ -56,8 +58,8 @@ function generateMonthOptions() {
 const MONTH_OPTIONS = generateMonthOptions();
 
 export default function BkPajakTable() {
-  const search = useSearch({ strict: false }) as Record<string, string>;
-  const navigate = useNavigate();
+  const search = routeApi.useSearch();
+  const navigate = routeApi.useNavigate();
   const startDate = search["startDate"] || format(new Date(), "yyyy-MM-01");
   const endDate = search["endDate"] || format(new Date(), "yyyy-MM-dd");
 
@@ -79,12 +81,7 @@ export default function BkPajakTable() {
     const start = format(startOfMonth(date), "yyyy-MM-dd");
     const end = format(endOfMonth(date), "yyyy-MM-dd");
     navigate({
-      search: (prev) =>
-        ({
-          ...(prev as Record<string, string>),
-          startDate: start,
-          endDate: end,
-        }) as never,
+      search: (prev) => ({ ...prev, startDate: start, endDate: end }),
     });
   }
 
@@ -139,11 +136,7 @@ export default function BkPajakTable() {
             className="w-40"
             onChange={(e) => {
               navigate({
-                search: (prev) =>
-                  ({
-                    ...(prev as Record<string, string>),
-                    startDate: e.target.value,
-                  }) as never,
+                search: (prev) => ({ ...prev, startDate: e.target.value }),
               });
             }}
           />
@@ -154,11 +147,7 @@ export default function BkPajakTable() {
             className="w-40"
             onChange={(e) => {
               navigate({
-                search: (prev) =>
-                  ({
-                    ...(prev as Record<string, string>),
-                    endDate: e.target.value,
-                  }) as never,
+                search: (prev) => ({ ...prev, endDate: e.target.value }),
               });
             }}
           />

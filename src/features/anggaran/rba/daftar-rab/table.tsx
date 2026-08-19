@@ -36,14 +36,16 @@ import _ from "lodash";
 import React from "react";
 import toast from "react-hot-toast";
 import { FiChevronsDown, FiEdit, FiSearch, FiTrash } from "react-icons/fi";
-import { Link, useSearch, useNavigate } from "@tanstack/react-router";
+import { Link, getRouteApi } from "@tanstack/react-router";
 import { useDebounce } from "use-debounce";
+
+const routeApi = getRouteApi("/_dashboard/anggaran/rba/daftar-rab/");
 
 export default function RabTable() {
   const utils = api.useUtils();
 
-  const search = useSearch({ strict: false }) as Record<string, string>;
-  const navigate = useNavigate();
+  const search = routeApi.useSearch();
+  const navigate = routeApi.useNavigate();
   const [searchValue] = useDebounce(search["search"] ?? "", 300);
 
   const { data: rab } = api.rab.getAll.useQuery(
@@ -87,12 +89,7 @@ export default function RabTable() {
           value={search["pageSize"] ?? "10"}
           onValueChange={(val) => {
             navigate({
-              search: (prev) =>
-                ({
-                  ...(prev as Record<string, string>),
-                  pageSize: val,
-                  page: "1",
-                }) as never,
+              search: (prev) => ({ ...prev, pageSize: val, page: "1" }),
             });
           }}
         >
@@ -116,12 +113,11 @@ export default function RabTable() {
             value={search["search"] ?? ""}
             onChange={(e) => {
               navigate({
-                search: (prev) =>
-                  ({
-                    ...(prev as Record<string, string>),
-                    search: e.target.value,
-                    page: "1",
-                  }) as never,
+                search: (prev) => ({
+                  ...prev,
+                  search: e.target.value,
+                  page: "1",
+                }),
               });
             }}
           />
@@ -230,11 +226,10 @@ export default function RabTable() {
               onClick={() => {
                 if (Number(rab.meta.pagination.page) > 1) {
                   navigate({
-                    search: (prev) =>
-                      ({
-                        ...(prev as Record<string, string>),
-                        page: String(Number(rab.meta.pagination.page) - 1),
-                      }) as never,
+                    search: (prev) => ({
+                      ...prev,
+                      page: String(Number(rab.meta.pagination.page) - 1),
+                    }),
                   });
                 }
               }}
@@ -244,8 +239,7 @@ export default function RabTable() {
             value={String(rab.meta.pagination.page)}
             onValueChange={(val) => {
               navigate({
-                search: (prev) =>
-                  ({ ...(prev as Record<string, string>), page: val }) as never,
+                search: (prev) => ({ ...prev, page: val }),
               });
             }}
           >
@@ -273,11 +267,10 @@ export default function RabTable() {
                   Number(rab.meta.pagination.pageCount)
                 ) {
                   navigate({
-                    search: (prev) =>
-                      ({
-                        ...(prev as Record<string, string>),
-                        page: String(Number(rab.meta.pagination.page) + 1),
-                      }) as never,
+                    search: (prev) => ({
+                      ...prev,
+                      page: String(Number(rab.meta.pagination.page) + 1),
+                    }),
                   });
                 }
               }}

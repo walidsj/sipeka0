@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, getRouteApi } from "@tanstack/react-router";
 
 import {
   Card,
@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Link, useParams } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { api } from "@/trpc/react";
 import {
   Table,
@@ -43,9 +43,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import NotFound from "@/components/not-found";
 import { handleCopy } from "@/utils/clipboard";
+const routeApi = getRouteApi("/_dashboard/belanja/perekaman/$belanjaId/");
 
 function EditPage() {
-  const params = useParams({ strict: false }) as Record<string, string>;
+  const params = routeApi.useParams();
   const utils = api.useUtils();
 
   const {
