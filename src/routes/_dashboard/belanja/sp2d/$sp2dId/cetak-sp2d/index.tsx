@@ -178,7 +178,11 @@ function Page() {
                           <td className="align-top font-serif font-semibold">
                             {Intl.DateTimeFormat("id", {
                               year: "numeric",
-                            }).format(new Date())}
+                            }).format(
+                              sp2d.tglDokumen
+                                ? new Date(sp2d.tglDokumen)
+                                : new Date(),
+                            )}
                           </td>
                         </tr>
                       </tbody>

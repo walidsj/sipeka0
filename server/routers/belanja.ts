@@ -283,9 +283,18 @@ export const belanjaRouter = createTRPCRouter({
       // UP
       // ============================================================
 
-      const tanggalUp = "2026-01-23";
+      // Konfigurasi transaksi UP per tahun anggaran.
+      const UP_TAHUN: Record<string, { tanggal: string; jumlah: number }> = {
+        "2025": { tanggal: "2025-01-31", jumlah: 750_000_000 },
+        "2026": { tanggal: "2026-01-23", jumlah: 750_000_000 },
+      };
 
-      const jumlahUp = 750_000_000;
+      const upConfig =
+        UP_TAHUN[ctx.session?.tahun ?? "2026"] ?? UP_TAHUN["2026"];
+
+      const tanggalUp = upConfig.tanggal;
+
+      const jumlahUp = upConfig.jumlah;
 
       // ------------------------------------------------------------
       // UP SEBAGAI SALDO AWAL

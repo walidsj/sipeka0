@@ -11,7 +11,6 @@ import {
 import { formatAngka } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import { keepPreviousData } from "@tanstack/react-query";
-import { format } from "date-fns";
 import { getRouteApi } from "@tanstack/react-router";
 import ExcelExport from "@/features/akuntansi/lra/$kodeRekening/excel-export";
 import { FiFile } from "react-icons/fi";
@@ -67,8 +66,8 @@ export default function DetailTable() {
           <ExcelExport
             data={belanja}
             kodeRekening={params.kodeRekening!}
-            startDate={new Date(search["startDate"]!)}
-            endDate={new Date(search["endDate"]!)}
+            startDate={new Date(startDate)}
+            endDate={new Date(endDate)}
           />
         </div>
       </div>

@@ -56,7 +56,7 @@ export default function BkuTable() {
           style={{
             fontSize: "8pt",
           }}
-          className="leading-4 font-serif"
+          className="font-serif leading-4"
           ref={componentRef}
         >
           <style type="text/css" media="print">
@@ -97,7 +97,7 @@ export default function BkuTable() {
                     style={{ fontSize: "10pt" }}
                     className="font-bold uppercase"
                   >
-                    TAHUN ANGGARAN 2026
+                    TAHUN ANGGARAN {tahun}
                   </div>
                 </td>
                 <td className="w-16"></td>
@@ -117,8 +117,7 @@ export default function BkuTable() {
             BENDAHARA PENGELUARAN BLUD
           </h4>
           <h6 className="mb-5 text-center">
-            Periode{" "}
-            {formatTanggal(startDate)} s.d. {formatTanggal(endDate)}
+            Periode {formatTanggal(startDate)} s.d. {formatTanggal(endDate)}
           </h6>
           <table
             className="my-5 w-[calc(100%-2px)]"

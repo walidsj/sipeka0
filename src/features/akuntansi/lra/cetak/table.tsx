@@ -4,10 +4,11 @@ import { Input } from "@/components/ui/input";
 import { formatAngka, formatTanggal } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import { keepPreviousData } from "@tanstack/react-query";
-import { format } from "date-fns";
 import React from "react";
 import { getRouteApi } from "@tanstack/react-router";
 import { useReactToPrint } from "react-to-print";
+import { defaultDateRange } from "@/components/month-filter";
+import { useAuth } from "@/lib/auth";
 
 const routeApi = getRouteApi("/_dashboard/akuntansi/lra/cetak/");
 
@@ -17,10 +18,15 @@ export default function BkPajakTable() {
   const componentRef = React.useRef(null);
   const handlePrint = useReactToPrint({ contentRef: componentRef });
 
+  const { user } = useAuth();
+  const tahun = user?.tahun ?? "2026";
+  const startDate = search["startDate"] || defaultDateRange(tahun).startDate;
+  const endDate = search["endDate"] || defaultDateRange(tahun).endDate;
+
   const { data: belanja } = api.belanja.getAllBkPajak.useQuery(
     {
-      startDate: search["startDate"] || undefined,
-      endDate: search["endDate"] || undefined,
+      startDate,
+      endDate,
     },
     { placeholderData: keepPreviousData, suspense: true },
   );
@@ -35,7 +41,7 @@ export default function BkPajakTable() {
       <div className="flex flex-row items-center gap-5">
         <div className="flex gap-2">
           <Input
-            value={search["startDate"] || format(new Date(), "yyyy-MM-01")}
+            value={startDate}
             type="date"
             onChange={(e) => {
               navigate({
@@ -45,7 +51,7 @@ export default function BkPajakTable() {
           />
           <Input
             type="date"
-            value={search["endDate"] || format(new Date(), "yyyy-MM-dd")}
+            value={endDate}
             onChange={(e) => {
               navigate({
                 search: (prev) => ({ ...prev, endDate: e.target.value }),
@@ -128,14 +134,10 @@ export default function BkPajakTable() {
             BENDAHARA PENGELUARAN PEMBANTU
           </h4>
           <h6 className="text-center font-serif uppercase">
-            Tahun Anggaran 2024
+            Tahun Anggaran {tahun}
           </h6>
           <h6 className="mb-5 text-center font-serif">
-            Periode{" "}
-            {formatTanggal(
-              search["startDate"] || format(new Date(), "yyyy-MM-01"),
-            )}{" "}
-            s.d. {formatTanggal(search["endDate"] || new Date())}
+            Periode {formatTanggal(startDate)} s.d. {formatTanggal(endDate)}
           </h6>
           <table className="w-full">
             <thead className="border-b-2 border-double border-black">
@@ -295,7 +297,7 @@ export default function BkPajakTable() {
             <div className="w-1/3"></div>
             <div className="w-1/3">
               <div className="font-serif">
-                Samarinda, {formatTanggal(search["endDate"] || new Date())}
+                Samarinda, {formatTanggal(endDate)}
               </div>
               <div className="font-serif">
                 Bendahara Pengeluaran Pembantu BLUD
