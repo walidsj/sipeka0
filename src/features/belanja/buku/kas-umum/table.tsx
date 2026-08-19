@@ -1,79 +1,27 @@
 import { Button } from "@/components/ui/button";
 import { CardFooter } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { formatAngkaDecimal, formatTanggal, terbilang } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import { keepPreviousData } from "@tanstack/react-query";
-import {
-  endOfMonth,
-  format,
-  getDaysInMonth,
-  startOfMonth,
-  subMonths,
-} from "date-fns";
-import { id } from "date-fns/locale";
 import React from "react";
 import { getRouteApi } from "@tanstack/react-router";
 import { useReactToPrint } from "react-to-print";
+import { MonthFilter, defaultDateRange } from "@/components/month-filter";
+import { useAuth } from "@/lib/auth";
 
 const routeApi = getRouteApi("/_dashboard/belanja/buku/kas-umum/");
-
-// Generate daftar bulan dari Januari 2026 sampai bulan ini
-function generateMonthOptions() {
-  const options: { label: string; value: string }[] = [];
-  const now = new Date();
-  const start = new Date(2026, 0, 1); // Januari 2026
-  let cursor = start;
-  while (cursor <= now) {
-    options.push({
-      label: format(cursor, "MMMM yyyy", { locale: id }),
-      value: format(cursor, "yyyy-MM"),
-    });
-    cursor = subMonths(cursor, -1);
-  }
-  return options.reverse(); // terbaru di atas
-}
-
-const MONTH_OPTIONS = generateMonthOptions();
 
 export default function BkuTable() {
   const search = routeApi.useSearch();
   const navigate = routeApi.useNavigate();
   const componentRef = React.useRef(null);
   const handlePrint = useReactToPrint({ contentRef: componentRef });
+  const { user } = useAuth();
+  const tahun = user?.tahun ?? "2026";
 
-  const startDate = search["startDate"] || format(new Date(), "yyyy-MM-01");
-  const endDate = search["endDate"] || format(new Date(), "yyyy-MM-dd");
-
-  // Tentukan nilai month picker: cocok jika startDate adalah awal bulan
-  // dan endDate adalah akhir bulan tersebut
-  const selectedMonth = (() => {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    const isFullMonth =
-      start.getDate() === 1 &&
-      end.getDate() === getDaysInMonth(start) &&
-      start.getMonth() === end.getMonth() &&
-      start.getFullYear() === end.getFullYear();
-    return isFullMonth ? format(start, "yyyy-MM") : "custom";
-  })();
-
-  function setMonth(yearMonth: string) {
-    const date = new Date(yearMonth + "-01");
-    const start = format(startOfMonth(date), "yyyy-MM-dd");
-    const end = format(endOfMonth(date), "yyyy-MM-dd");
-    navigate({
-      search: (prev) => ({ ...prev, startDate: start, endDate: end }),
-    });
-  }
+  const startDate = search["startDate"] || defaultDateRange(tahun).startDate;
+  const endDate = search["endDate"] || defaultDateRange(tahun).endDate;
 
   const { data: jurnal } = api.belanja.getBelanjaBku.useQuery(
     {
@@ -94,55 +42,14 @@ export default function BkuTable() {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-row items-center gap-5">
-        <div className="flex flex-wrap items-center gap-2">
-          {/* Pilih bulan cepat */}
-          <Select
-            value={selectedMonth}
-            onValueChange={(val) => {
-              if (val !== "custom") setMonth(val);
-            }}
-          >
-            <SelectTrigger className="w-44">
-              <SelectValue placeholder="Pilih bulan" />
-            </SelectTrigger>
-            <SelectContent>
-              {selectedMonth === "custom" && (
-                <SelectItem value="custom" disabled>
-                  Rentang kustom
-                </SelectItem>
-              )}
-              {MONTH_OPTIONS.map((opt) => (
-                <SelectItem key={opt.value} value={opt.value}>
-                  {opt.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          {/* Atau pilih rentang manual */}
-          <span className="text-muted-foreground text-sm">atau</span>
-          <Input
-            value={startDate}
-            type="date"
-            className="w-40"
-            onChange={(e) => {
-              navigate({
-                search: (prev) => ({ ...prev, startDate: e.target.value }),
-              });
-            }}
-          />
-          <span className="text-muted-foreground text-sm">s.d.</span>
-          <Input
-            type="date"
-            value={endDate}
-            className="w-40"
-            onChange={(e) => {
-              navigate({
-                search: (prev) => ({ ...prev, endDate: e.target.value }),
-              });
-            }}
-          />
-        </div>
+        <MonthFilter
+          startDate={startDate}
+          endDate={endDate}
+          tahun={tahun}
+          onChange={(range) =>
+            navigate({ search: (prev) => ({ ...prev, ...range }) })
+          }
+        />
       </div>
       <div className="rounded-md border p-10 shadow">
         <div
@@ -211,10 +118,7 @@ export default function BkuTable() {
           </h4>
           <h6 className="mb-5 text-center">
             Periode{" "}
-            {formatTanggal(
-              search["startDate"] || format(new Date(), "yyyy-MM-01"),
-            )}{" "}
-            s.d. {formatTanggal(search["endDate"] || new Date())}
+            {formatTanggal(startDate)} s.d. {formatTanggal(endDate)}
           </h6>
           <table
             className="my-5 w-[calc(100%-2px)]"

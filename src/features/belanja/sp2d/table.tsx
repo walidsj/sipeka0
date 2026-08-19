@@ -24,7 +24,8 @@ import {
   HiOutlineTrash,
 } from "react-icons/hi";
 import { Link, getRouteApi } from "@tanstack/react-router";
-import { MonthFilter } from "@/components/month-filter";
+import { MonthFilter, defaultDateRange } from "@/components/month-filter";
+import { useAuth } from "@/lib/auth";
 
 const routeApi = getRouteApi("/_dashboard/belanja/sp2d/");
 
@@ -33,8 +34,10 @@ export default function Sp2dTable() {
   const search = routeApi.useSearch();
   const navigate = routeApi.useNavigate();
 
-  const startDate = search.startDate || format(new Date(), "yyyy-MM-01");
-  const endDate = search.endDate || format(new Date(), "yyyy-MM-dd");
+  const { user } = useAuth();
+  const tahun = user?.tahun ?? "2026";
+  const startDate = search.startDate || defaultDateRange(tahun).startDate;
+  const endDate = search.endDate || defaultDateRange(tahun).endDate;
 
   const { data: sp2d } = api.sp2d.getAll.useQuery(
     { startDate, endDate },
@@ -63,6 +66,7 @@ export default function Sp2dTable() {
       <MonthFilter
         startDate={startDate}
         endDate={endDate}
+        tahun={tahun}
         onChange={(range) =>
           navigate({ search: (prev) => ({ ...prev, ...range }) })
         }

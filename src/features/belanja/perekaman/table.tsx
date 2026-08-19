@@ -49,7 +49,8 @@ import {
   FiUploadCloud,
 } from "react-icons/fi";
 import { Link, getRouteApi } from "@tanstack/react-router";
-import { MonthFilter } from "@/components/month-filter";
+import { MonthFilter, defaultDateRange } from "@/components/month-filter";
+import { useAuth } from "@/lib/auth";
 import { useDebounce } from "use-debounce";
 
 const routeApi = getRouteApi("/_dashboard/belanja/perekaman/");
@@ -61,8 +62,10 @@ export default function BelanjaTable() {
   const navigate = routeApi.useNavigate();
   const [searchValue] = useDebounce(search["search"] ?? "", 300);
 
-  const startDate = search["startDate"] || format(new Date(), "yyyy-MM-01");
-  const endDate = search["endDate"] || format(new Date(), "yyyy-MM-dd");
+  const { user } = useAuth();
+  const tahun = user?.tahun ?? "2026";
+  const startDate = search["startDate"] || defaultDateRange(tahun).startDate;
+  const endDate = search["endDate"] || defaultDateRange(tahun).endDate;
 
   const { data: belanja } = api.belanja.getAll.useQuery(
     {
@@ -123,6 +126,7 @@ export default function BelanjaTable() {
         <MonthFilter
           startDate={startDate}
           endDate={endDate}
+          tahun={tahun}
           onChange={(range) =>
             navigate({
               search: (prev) => ({ ...prev, page: "1", ...range }),

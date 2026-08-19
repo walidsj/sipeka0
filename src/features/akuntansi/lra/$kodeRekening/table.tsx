@@ -15,6 +15,8 @@ import { format } from "date-fns";
 import { getRouteApi } from "@tanstack/react-router";
 import ExcelExport from "@/features/akuntansi/lra/$kodeRekening/excel-export";
 import { FiFile } from "react-icons/fi";
+import { defaultDateRange } from "@/components/month-filter";
+import { useAuth } from "@/lib/auth";
 
 const routeApi = getRouteApi("/_dashboard/akuntansi/lra/$kodeRekening/");
 
@@ -22,6 +24,10 @@ export default function DetailTable() {
   const params = routeApi.useParams();
   const search = routeApi.useSearch();
   const navigate = routeApi.useNavigate();
+  const { user } = useAuth();
+  const tahun = user?.tahun ?? "2026";
+  const startDate = search["startDate"] || defaultDateRange(tahun).startDate;
+  const endDate = search["endDate"] || defaultDateRange(tahun).endDate;
   const { data: belanja } = api.belanja.getBelanjaLrabyKodeRekening.useQuery(
     {
       kodeRekening: params.kodeRekening!,
@@ -41,7 +47,7 @@ export default function DetailTable() {
       <div className="flex flex-row items-center gap-5">
         <div className="flex gap-2">
           <Input
-            value={search["startDate"] || format(new Date(), "yyyy-01-01")}
+            value={startDate}
             type="date"
             onChange={(e) => {
               navigate({
@@ -51,7 +57,7 @@ export default function DetailTable() {
           />
           <Input
             type="date"
-            value={search["endDate"] || format(new Date(), "yyyy-MM-dd")}
+            value={endDate}
             onChange={(e) => {
               navigate({
                 search: (prev) => ({ ...prev, endDate: e.target.value }),

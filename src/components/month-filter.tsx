@@ -11,36 +11,47 @@ import {
   format,
   getDaysInMonth,
   startOfMonth,
-  subMonths,
 } from "date-fns";
 import { id } from "date-fns/locale";
 
-function generateMonthOptions() {
+function generateMonthOptions(tahun: string) {
   const options: { label: string; value: string }[] = [];
+  const year = Number(tahun);
   const now = new Date();
-  const start = new Date(2026, 0, 1);
-  let cursor = start;
-  while (cursor <= now) {
+  const lastMonth = year === now.getFullYear() ? now.getMonth() : 11;
+  for (let month = 0; month <= lastMonth; month++) {
+    const date = new Date(year, month, 1);
     options.push({
-      label: format(cursor, "MMMM yyyy", { locale: id }),
-      value: format(cursor, "yyyy-MM"),
+      label: format(date, "MMMM yyyy", { locale: id }),
+      value: format(date, "yyyy-MM"),
     });
-    cursor = subMonths(cursor, -1);
   }
-  return options.reverse();
+  return options;
 }
 
-const MONTH_OPTIONS = generateMonthOptions();
+export function defaultDateRange(tahun: string) {
+  const year = Number(tahun);
+  if (year < new Date().getFullYear()) {
+    return { startDate: `${year}-12-01`, endDate: `${year}-12-31` };
+  }
+  return {
+    startDate: format(new Date(), "yyyy-MM-01"),
+    endDate: format(new Date(), "yyyy-MM-dd"),
+  };
+}
 
 export function MonthFilter({
   startDate,
   endDate,
+  tahun,
   onChange,
 }: {
   startDate: string;
   endDate: string;
+  tahun: string;
   onChange: (range: { startDate: string; endDate: string }) => void;
 }) {
+  const monthOptions = generateMonthOptions(tahun);
   const selectedMonth = (() => {
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -77,7 +88,7 @@ export function MonthFilter({
               Rentang kustom
             </SelectItem>
           )}
-          {MONTH_OPTIONS.map((opt) => (
+          {monthOptions.map((opt) => (
             <SelectItem key={opt.value} value={opt.value}>
               {opt.label}
             </SelectItem>
