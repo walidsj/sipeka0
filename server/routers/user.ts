@@ -13,6 +13,7 @@ import { type JWTPayload, SignJWT } from "jose";
 import { env } from "#server/env";
 import { userSchema } from "#server/schema/user";
 import fs from "fs";
+import { getDbForYear } from "#server/db";
 
 const secret = env.JWT_SECRET_KEY ?? "secret";
 const key = new TextEncoder().encode(secret);
@@ -22,10 +23,16 @@ export const userRouter = createTRPCRouter({
     .input(
       userSchema
         .pick({ username: true })
-        .merge(z.object({ password: z.string().min(1) })),
+        .merge(
+          z.object({
+            password: z.string().min(1),
+            tahun: z.enum(["2025", "2026"]),
+          }),
+        ),
     )
-    .mutation(async ({ ctx, input }) => {
-      const existedUser = await ctx.db.query.user.findFirst({
+    .mutation(async ({ input }) => {
+      const selectedDb = getDbForYear(input.tahun);
+      const existedUser = await selectedDb.query.user.findFirst({
         where: eq(user.username, input.username),
       });
 
@@ -47,6 +54,7 @@ export const userRouter = createTRPCRouter({
         id: existedUser.id.toString(),
         username: existedUser.username,
         role: existedUser.role,
+        tahun: input.tahun,
       } as JWTPayload)
         .setProtectedHeader({ alg: "HS256" })
         .setIssuedAt()
@@ -105,7 +113,11 @@ export const userRouter = createTRPCRouter({
       });
     }
 
-    return { ...existedUser, password: undefined };
+    return {
+      ...existedUser,
+      password: undefined,
+      tahun: ctx.session?.tahun ?? "2026",
+    };
   }),
 
   updateProfile: userProcedure

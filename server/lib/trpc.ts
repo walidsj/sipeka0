@@ -1,6 +1,6 @@
 import { initTRPC, TRPCError } from "@trpc/server";
 import { ZodError } from "zod";
-import { db } from "#server/db";
+import { getDbForYear } from "#server/db";
 import { eq } from "drizzle-orm";
 import { user } from "#server/db/schema";
 import { getSession } from "#server/auth";
@@ -8,13 +8,15 @@ import { type CreateExpressContextOptions } from "@trpc/server/adapters/express"
 import SuperJSON from "superjson";
 import { z } from "zod";
 
-export const createTRPCContext = async ({
-  req,
-}: CreateExpressContextOptions) => ({
-  headers: req.headers,
-  db,
-  session: await getSession(req.headers.authorization ?? ""),
-});
+export const createTRPCContext = async ({ req }: CreateExpressContextOptions) => {
+  const session = await getSession(req.headers.authorization ?? "");
+
+  return {
+    headers: req.headers,
+    db: getDbForYear(session?.tahun ?? "2026"),
+    session,
+  };
+};
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: SuperJSON,

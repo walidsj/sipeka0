@@ -78,6 +78,9 @@ function DashboardLayout() {
                           )
                         : auth.user.pegawai?.jabatan || auth.user.instansi}
                     </div>
+                    <div className="text-primary text-xs font-medium">
+                      Tahun Anggaran {auth.user.tahun}
+                    </div>
                   </div>
                 </SidebarMenuButton>
               </DropdownMenuTrigger>

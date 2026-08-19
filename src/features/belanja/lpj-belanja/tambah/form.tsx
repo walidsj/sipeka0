@@ -14,7 +14,6 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 import { Textarea } from "@/components/ui/textarea";
-import { format } from "date-fns";
 import {
   Select,
   SelectContent,
@@ -107,12 +106,8 @@ export default function CreateForm() {
                 <FormControl>
                   <Input
                     type="date"
-                    onChange={(e) => field.onChange(e.target.valueAsDate)}
-                    value={
-                      field.value
-                        ? format(field.value, "yyyy-MM-dd")
-                        : undefined
-                    }
+                    onChange={(e) => field.onChange(e.target.value)}
+                    value={field.value ?? ""}
                   />
                 </FormControl>
                 <FormMessage />
