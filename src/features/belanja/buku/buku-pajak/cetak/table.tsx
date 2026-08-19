@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { CardFooter } from "@/components/ui/card";
-import { formatAngka, formatTanggal } from "@/lib/utils";
+import { formatAngka, formatTanggal, getBendahara } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import { keepPreviousData } from "@tanstack/react-query";
 import React from "react";
@@ -271,10 +271,10 @@ export default function BkPajakTable() {
               </div>
               <div className="font-serif">Bendahara Pengeluaran BLUD</div>
               <div className="mt-14 font-serif font-bold">
-                Moh. Walid Arkham Sani, A.Md.Pnl
+                {getBendahara(endDate).nama}
               </div>
               <div className="font-serif">Pengatur Tk. I</div>
-              <div className="font-serif">NIP. 200008062022011001</div>
+              <div className="font-serif">{getBendahara(endDate).nip}</div>
             </div>
           </div>
         </div>

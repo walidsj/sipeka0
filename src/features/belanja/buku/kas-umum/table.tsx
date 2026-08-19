@@ -1,7 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { CardFooter } from "@/components/ui/card";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { formatAngkaDecimal, formatTanggal, terbilang } from "@/lib/utils";
+import {
+  formatAngkaDecimal,
+  formatTanggal,
+  getBendahara,
+  terbilang,
+} from "@/lib/utils";
 import { api } from "@/trpc/react";
 import { keepPreviousData } from "@tanstack/react-query";
 import React from "react";
@@ -357,9 +362,9 @@ export default function BkuTable() {
               </div>
               <div>Bendahara Pengeluaran BLUD</div>
               <div className="mt-14 font-bold">
-                Moh. Walid Arkham Sani, A.Md.Pnl
+                {getBendahara(search["endDate"]).nama}
               </div>
-              <div>NIP. 200008062022011001</div>
+              <div>{getBendahara(search["endDate"]).nip}</div>
             </div>
           </div>
         </div>

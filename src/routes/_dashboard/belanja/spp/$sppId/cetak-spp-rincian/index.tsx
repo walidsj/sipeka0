@@ -15,7 +15,7 @@ import { useReactToPrint } from "react-to-print";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import NotFound from "@/components/not-found";
-import { formatAngkaDecimal, formatTanggal, terbilang } from "@/lib/utils";
+import { formatAngkaDecimal, formatTanggal, getBendahara, terbilang } from "@/lib/utils";
 const routeApi = getRouteApi(
   "/_dashboard/belanja/spp/$sppId/cetak-spp-rincian/",
 );
@@ -218,10 +218,10 @@ function Page() {
                   Bendahara Pengeluaran Pembantu BLUD,
                 </div>
                 <div className="mt-12 font-serif underline">
-                  Moh. Walid Arkham Sani, A.Md.Pnl
+                  {getBendahara(spp.tglDokumen).nama}
                 </div>
                 <div className="font-serif">Pengatur</div>
-                <div className="font-serif">NIP. 200008062022011001</div>
+                <div className="font-serif">{getBendahara(spp.tglDokumen).nip}</div>
               </div>
             </div>
           </div>

@@ -15,7 +15,7 @@ import { useReactToPrint } from "react-to-print";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import NotFound from "@/components/not-found";
-import { cn, formatAngkaDecimal, formatTanggal, terbilang } from "@/lib/utils";
+import { cn, formatAngkaDecimal, formatTanggal, getBendahara, terbilang } from "@/lib/utils";
 const routeApi = getRouteApi("/_dashboard/belanja/spm/$spmId/cetak-spm/");
 
 function Page() {
@@ -149,7 +149,7 @@ function Page() {
                           </td>
                           <td className="w-[1%] align-top font-serif">:</td>
                           <td className="w-[60%] align-top font-serif font-semibold">
-                            Moh. Walid Arkham Sani, A.Md.Pnl
+                            {getBendahara(spm.tglDokumen).nama}
                           </td>
                         </tr>
                         <tr>

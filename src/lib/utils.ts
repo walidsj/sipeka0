@@ -234,3 +234,34 @@ export function escapeHtml(unsafe: string) {
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
 }
+
+export type BendaharaInfo = {
+  nama: string;
+  nip: string;
+};
+
+export function getBendahara(tanggal?: string | Date | null): BendaharaInfo {
+  const tgl = tanggal ? new Date(tanggal) : new Date();
+
+  const batasRiandy = new Date("2025-12-31");
+  const batasWalid = new Date("2026-07-31");
+
+  if (tgl <= batasRiandy) {
+    return {
+      nama: "Riandy, S.Kep",
+      nip: "NIP. 197901281999031003",
+    };
+  }
+
+  if (tgl <= batasWalid) {
+    return {
+      nama: "Moh. Walid Arkham Sani, A.Md.Pnl",
+      nip: "NIP. 200008062022011001",
+    };
+  }
+
+  return {
+    nama: "Milenia Febrianti, A.Md.Pnl",
+    nip: "NIP. 200002012022012002",
+  };
+}

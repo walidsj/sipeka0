@@ -15,7 +15,7 @@ import { useReactToPrint } from "react-to-print";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import NotFound from "@/components/not-found";
-import { formatAngkaDecimal, formatTanggal, terbilang } from "@/lib/utils";
+import { formatAngkaDecimal, formatTanggal, getBendahara, terbilang } from "@/lib/utils";
 const routeApi = getRouteApi("/_dashboard/belanja/sp2d/$sp2dId/cetak-sp2d/");
 
 function Page() {
@@ -261,9 +261,9 @@ function Page() {
                               !sp2d.spm.spp.lpjBelanja?.belanja
                                 .map((item) => item.rekanan?.nama)
                                 .join(", ") &&
-                              "Moh. Walid Arkham Sani, A.Md.Pnl"}
+                              getBendahara(sp2d.tglDokumen).nama}
                             {sp2d.spm.spp.lpjBelanja?.jenis === "GU" &&
-                              "Moh. Walid Arkham Sani, A.Md.Pnl"}
+                              getBendahara(sp2d.tglDokumen).nama}
                           </td>
                         </tr>
                         <tr>

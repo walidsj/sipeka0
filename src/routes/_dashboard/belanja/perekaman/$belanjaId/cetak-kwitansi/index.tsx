@@ -15,7 +15,7 @@ import { useReactToPrint } from "react-to-print";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
-import { terbilang, formatTanggal } from "@/lib/utils";
+import { terbilang, formatTanggal, getBendahara } from "@/lib/utils";
 import NotFound from "@/components/not-found";
 const routeApi = getRouteApi(
   "/_dashboard/belanja/perekaman/$belanjaId/cetak-kwitansi/",
@@ -189,10 +189,10 @@ function EditPage() {
                   Bendahara Pengeluaran Pembantu BLUD
                 </div>
                 <div className="mt-14 font-serif font-bold">
-                  Moh. Walid Arkham Sani, A.Md.Pnl
+                  {getBendahara(belanja.tglDokumen).nama}
                 </div>
                 <div className="font-serif">Pengatur Tk. I</div>
-                <div className="font-serif">NIP. 200008062022011001</div>
+                <div className="font-serif">{getBendahara(belanja.tglDokumen).nip}</div>
               </div>
             </div>
             <hr className="mt-1 border-black" />

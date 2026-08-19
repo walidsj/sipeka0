@@ -14,7 +14,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { useReactToPrint } from "react-to-print";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { formatAngka } from "@/lib/utils";
+import { formatAngka, getBendahara } from "@/lib/utils";
 import NotFound from "@/components/not-found";
 const routeApi = getRouteApi(
   "/_dashboard/belanja/perekaman/$belanjaId/cetak-daftar-potong/",
@@ -270,10 +270,10 @@ function Page() {
                   Bendahara Pengeluaran Pembantu BLUD
                 </div>
                 <div className="mt-14 font-serif font-bold">
-                  Moh. Walid Arkham Sani, A.Md.Pnl
+                  {getBendahara().nama}
                 </div>
                 <div className="font-serif">Pengatur Tk. I</div>
-                <div className="font-serif">NIP. 200008062022011001</div>
+                <div className="font-serif">{getBendahara().nip}</div>
               </div>
             </div>
           </div>

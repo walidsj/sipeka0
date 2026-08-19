@@ -15,7 +15,7 @@ import { useReactToPrint } from "react-to-print";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import NotFound from "@/components/not-found";
-import { formatAngkaDecimal, formatTanggal } from "@/lib/utils";
+import { formatAngkaDecimal, formatTanggal, getBendahara } from "@/lib/utils";
 import { potonganBelanjaSchema } from "#server/schema/belanja.schema";
 const routeApi = getRouteApi(
   "/_dashboard/belanja/lpj-belanja/$lpjBelanjaId/cetak/",
@@ -281,10 +281,10 @@ function Page() {
                   Bendahara Pengeluaran Pembantu BLUD
                 </div>
                 <div className="mt-14 font-serif font-bold">
-                  Moh. Walid Arkham Sani, A.Md.Pnl
+                  {getBendahara(lpjBelanja?.tglDokumen).nama}
                 </div>
                 <div className="font-serif">Pengatur Tk. I</div>
-                <div className="font-serif">NIP. 200008062022011001</div>
+                <div className="font-serif">{getBendahara(lpjBelanja?.tglDokumen).nip}</div>
               </div>
             </div>
           </div>
