@@ -5,7 +5,7 @@ import {
   pengelolaProcedure,
   userProcedure,
 } from "#server/lib/trpc";
-import { desc, eq, like, or } from "drizzle-orm";
+import { and, desc, eq, gte, like, lte, or } from "drizzle-orm";
 import { z } from "zod";
 import { rekeningLevel6 } from "@/data/rekening";
 
@@ -15,6 +15,8 @@ export const spmRouter = createTRPCRouter({
       z.object({
         search: z.string().optional(),
         haveSp2d: z.boolean().optional(),
+        startDate: z.string().optional(),
+        endDate: z.string().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -32,9 +34,15 @@ export const spmRouter = createTRPCRouter({
           },
           sp2d: true,
         },
-        where: input.search
-          ? or(like(spmTable.noDokumen, `%${input.search}%`))
-          : undefined,
+        where: and(
+          input.search
+            ? or(like(spmTable.noDokumen, `%${input.search}%`))
+            : undefined,
+          input.startDate
+            ? gte(spmTable.tglDokumen, input.startDate)
+            : undefined,
+          input.endDate ? lte(spmTable.tglDokumen, input.endDate) : undefined,
+        ),
       });
 
       if (input.haveSp2d === true) {

@@ -25,13 +25,21 @@ import {
   HiOutlinePencil,
   HiOutlineTrash,
 } from "react-icons/hi";
-import { Link } from "@tanstack/react-router";
+import { Link, getRouteApi } from "@tanstack/react-router";
+import { MonthFilter } from "@/components/month-filter";
+
+const routeApi = getRouteApi("/_dashboard/belanja/lpj-belanja/");
 
 export default function LpjBelanjaTable() {
   const utils = api.useUtils();
+  const search = routeApi.useSearch();
+  const navigate = routeApi.useNavigate();
+
+  const startDate = search.startDate || format(new Date(), "yyyy-MM-01");
+  const endDate = search.endDate || format(new Date(), "yyyy-MM-dd");
 
   const { data: lpjBelanja } = api.lpjBelanja.getAll.useQuery(
-    {},
+    { startDate, endDate },
     { suspense: true },
   );
 
@@ -53,104 +61,113 @@ export default function LpjBelanjaTable() {
   if (!lpjBelanja) return <div>Data tidak dapat dimuat.</div>;
 
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead className="w-1">No.</TableHead>
-          <TableHead>Tanggal Dokumen</TableHead>
-          <TableHead>Nomor Dokumen</TableHead>
-          <TableHead>Uraian</TableHead>
-          <TableHead className="text-center">Jenis</TableHead>
-          <TableHead className="text-right">Jumlah</TableHead>
-          <TableHead className="w-1" />
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {lpjBelanja.map((item, index) => (
-          <TableRow key={index}>
-            <TableCell className="text-center">{index + 1}.</TableCell>
-            <TableCell className="text-center">
-              {format(item.tglDokumen!, "dd/MM/yyyy")}
-            </TableCell>
-            <TableCell className="text-center font-semibold">
-              {item.noDokumen}
-            </TableCell>
-            <TableCell>{item.uraian}</TableCell>
-            <TableCell className="text-center">
-              {item.jenis === "GU" && <Badge>GU</Badge>}
-              {item.jenis === "LS" && (
-                <Badge className="bg-green-500">LS</Badge>
-              )}
-              {item.jenis === "TU" && (
-                <Badge className="bg-yellow-500">TU</Badge>
-              )}
-            </TableCell>
-            <TableCell className="text-right font-semibold">
-              {formatAngka(item.jumlah)}
-            </TableCell>
-            <TableCell>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button size="sm" variant="outline">
-                    Aksi <HiOutlineChevronDown />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start">
-                  <Link
-                    to="/belanja/lpj-belanja/$lpjBelanjaId"
-                    params={{ lpjBelanjaId: String(item.id) }}
-                  >
-                    <DropdownMenuItem>
-                      <HiOutlineEye />
-                      Detail
-                    </DropdownMenuItem>
-                  </Link>
-                  <Link
-                    to="/belanja/lpj-belanja/$lpjBelanjaId/edit"
-                    params={{ lpjBelanjaId: String(item.id) }}
-                  >
-                    <DropdownMenuItem>
-                      <HiOutlinePencil />
-                      Edit
-                    </DropdownMenuItem>
-                  </Link>
-                  <DropdownMenuItem
-                    onClick={() => {
-                      if (confirm("Apakah anda yakin menghapus data ini?")) {
-                        deleteItem.mutate(item.id);
-                      }
-                    }}
-                    className="text-red-500"
-                  >
-                    <HiOutlineTrash />
-                    Hapus
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </TableCell>
-          </TableRow>
-        ))}
-        {lpjBelanja.length === 0 && (
+    <div className="flex flex-col gap-5">
+      <MonthFilter
+        startDate={startDate}
+        endDate={endDate}
+        onChange={(range) =>
+          navigate({ search: (prev) => ({ ...prev, ...range }) })
+        }
+      />
+      <Table>
+        <TableHeader>
           <TableRow>
-            <TableCell colSpan={5} className="text-center">
-              Tidak ada data
-            </TableCell>
+            <TableHead className="w-1">No.</TableHead>
+            <TableHead>Tanggal Dokumen</TableHead>
+            <TableHead>Nomor Dokumen</TableHead>
+            <TableHead>Uraian</TableHead>
+            <TableHead className="text-center">Jenis</TableHead>
+            <TableHead className="text-right">Jumlah</TableHead>
+            <TableHead className="w-1" />
           </TableRow>
-        )}
-      </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TableHead colSpan={5} className="text-center">
-            Total
-          </TableHead>
-          <TableHead>
-            {formatAngka(
-              lpjBelanja.reduce((acc, curr) => acc + Number(curr.jumlah), 0),
-            )}
-          </TableHead>
-          <TableHead />
-        </TableRow>
-      </TableFooter>
-    </Table>
+        </TableHeader>
+        <TableBody>
+          {lpjBelanja.map((item, index) => (
+            <TableRow key={index}>
+              <TableCell className="text-center">{index + 1}.</TableCell>
+              <TableCell className="text-center">
+                {format(item.tglDokumen!, "dd/MM/yyyy")}
+              </TableCell>
+              <TableCell className="text-center font-semibold">
+                {item.noDokumen}
+              </TableCell>
+              <TableCell>{item.uraian}</TableCell>
+              <TableCell className="text-center">
+                {item.jenis === "GU" && <Badge>GU</Badge>}
+                {item.jenis === "LS" && (
+                  <Badge className="bg-green-500">LS</Badge>
+                )}
+                {item.jenis === "TU" && (
+                  <Badge className="bg-yellow-500">TU</Badge>
+                )}
+              </TableCell>
+              <TableCell className="text-right font-semibold">
+                {formatAngka(item.jumlah)}
+              </TableCell>
+              <TableCell>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button size="sm" variant="outline">
+                      Aksi <HiOutlineChevronDown />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start">
+                    <Link
+                      to="/belanja/lpj-belanja/$lpjBelanjaId"
+                      params={{ lpjBelanjaId: String(item.id) }}
+                    >
+                      <DropdownMenuItem>
+                        <HiOutlineEye />
+                        Detail
+                      </DropdownMenuItem>
+                    </Link>
+                    <Link
+                      to="/belanja/lpj-belanja/$lpjBelanjaId/edit"
+                      params={{ lpjBelanjaId: String(item.id) }}
+                    >
+                      <DropdownMenuItem>
+                        <HiOutlinePencil />
+                        Edit
+                      </DropdownMenuItem>
+                    </Link>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        if (confirm("Apakah anda yakin menghapus data ini?")) {
+                          deleteItem.mutate(item.id);
+                        }
+                      }}
+                      className="text-red-500"
+                    >
+                      <HiOutlineTrash />
+                      Hapus
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </TableCell>
+            </TableRow>
+          ))}
+          {lpjBelanja.length === 0 && (
+            <TableRow>
+              <TableCell colSpan={5} className="text-center">
+                Tidak ada data
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableHead colSpan={5} className="text-center">
+              Total
+            </TableHead>
+            <TableHead>
+              {formatAngka(
+                lpjBelanja.reduce((acc, curr) => acc + Number(curr.jumlah), 0),
+              )}
+            </TableHead>
+            <TableHead />
+          </TableRow>
+        </TableFooter>
+      </Table>
+    </div>
   );
 }

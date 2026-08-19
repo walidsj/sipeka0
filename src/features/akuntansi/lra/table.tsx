@@ -5,7 +5,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -21,45 +20,41 @@ import { keepPreviousData } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { HiOutlineChevronDoubleDown, HiOutlineEye } from "react-icons/hi";
 import { Link, getRouteApi } from "@tanstack/react-router";
+import { MonthFilter } from "@/components/month-filter";
 
 const routeApi = getRouteApi("/_dashboard/akuntansi/lra/");
 
 export default function LraTable() {
   const search = routeApi.useSearch();
   const navigate = routeApi.useNavigate();
+  const startDate = search["startDate"] || format(new Date(), "yyyy-MM-01");
+  const endDate = search["endDate"] || format(new Date(), "yyyy-MM-dd");
+
   const { data: belanja } = api.belanja.getBelanjaLra.useQuery(
     {
-      startDate: search["startDate"] || undefined,
-      endDate: search["endDate"] || undefined,
+      startDate,
+      endDate,
     },
     { placeholderData: keepPreviousData, suspense: true },
   );
 
   if (!belanja) return <div>Data tidak dapat dimuat.</div>;
 
+  const isFullPeriod =
+    startDate.slice(5) === "01-01" && endDate.slice(5) === "12-31";
+  const realisasi = (item: (typeof belanja)[number]) =>
+    Number(item.jumlahSebelumnya ?? 0) + Number(item.jumlah ?? 0);
+
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-row items-center gap-5">
-        <div className="flex gap-2">
-          <Input
-            value={search["startDate"] || format(new Date(), "yyyy-01-01")}
-            type="date"
-            onChange={(e) =>
-              navigate({
-                search: (prev) => ({ ...prev, startDate: e.target.value }),
-              })
-            }
-          />
-          <Input
-            type="date"
-            value={search["endDate"] || format(new Date(), "yyyy-MM-dd")}
-            onChange={(e) =>
-              navigate({
-                search: (prev) => ({ ...prev, endDate: e.target.value }),
-              })
-            }
-          />
-        </div>
+        <MonthFilter
+          startDate={startDate}
+          endDate={endDate}
+          onChange={(range) =>
+            navigate({ search: (prev) => ({ ...prev, ...range }) })
+          }
+        />
       </div>
       <Table>
         <TableHeader>
@@ -67,7 +62,18 @@ export default function LraTable() {
             <TableHead>Kode Rekening</TableHead>
             <TableHead>Uraian</TableHead>
             <TableHead className="text-right">Anggaran (Rp)</TableHead>
-            <TableHead className="text-right">Realisasi (Rp)</TableHead>
+            {isFullPeriod ? (
+              <TableHead className="text-right">Realisasi (Rp)</TableHead>
+            ) : (
+              <>
+                <TableHead className="text-right">
+                  Realisasi Periode Sebelumnya (Rp)
+                </TableHead>
+                <TableHead className="text-right">
+                  Realisasi Periode Ini (Rp)
+                </TableHead>
+              </>
+            )}
             <TableHead className="text-right">Sisa Anggaran (Rp)</TableHead>
             <TableHead className="w-1" />
           </TableRow>
@@ -78,8 +84,8 @@ export default function LraTable() {
               <TableRow
                 key={index}
                 className={cn(
-                  item.jumlah > item.anggaran && "text-red-500",
-                  item.jumlah === 0 && "text-gray-400",
+                  realisasi(item) > item.anggaran && "text-red-500",
+                  realisasi(item) === 0 && "text-gray-400",
                 )}
               >
                 <TableCell className="font-semibold">
@@ -89,11 +95,22 @@ export default function LraTable() {
                 <TableCell className="text-right font-semibold">
                   {formatAngka(item.anggaran)}
                 </TableCell>
+                {isFullPeriod ? (
+                  <TableCell className="text-right font-semibold">
+                    {formatAngka(item.jumlah)}
+                  </TableCell>
+                ) : (
+                  <>
+                    <TableCell className="text-right font-semibold">
+                      {formatAngka(item.jumlahSebelumnya)}
+                    </TableCell>
+                    <TableCell className="text-right font-semibold">
+                      {formatAngka(item.jumlah)}
+                    </TableCell>
+                  </>
+                )}
                 <TableCell className="text-right font-semibold">
-                  {formatAngka(item.jumlah)}
-                </TableCell>
-                <TableCell className="text-right font-semibold">
-                  {formatAngka(item.anggaran - item.jumlah)}
+                  {formatAngka(item.anggaran - realisasi(item))}
                 </TableCell>
                 <TableCell>
                   <DropdownMenu>
@@ -106,14 +123,7 @@ export default function LraTable() {
                       <Link
                         to="/akuntansi/lra/$kodeRekening"
                         params={{ kodeRekening: String(item.kodeRekening) }}
-                        search={{
-                          startDate:
-                            search["startDate"] ||
-                            format(new Date(), "yyyy-01-01"),
-                          endDate:
-                            search["endDate"] ||
-                            format(new Date(), "yyyy-MM-dd"),
-                        }}
+                        search={{ startDate, endDate }}
                       >
                         <DropdownMenuItem>
                           <HiOutlineEye className="mr-2" />
@@ -142,13 +152,33 @@ export default function LraTable() {
                 belanja.reduce((acc, item) => acc + item.anggaran, 0),
               )}
             </TableHead>
-            <TableHead className="text-right">
-              {formatAngka(belanja.reduce((acc, item) => acc + item.jumlah, 0))}
-            </TableHead>
+            {isFullPeriod ? (
+              <TableHead className="text-right">
+                {formatAngka(
+                  belanja.reduce((acc, item) => acc + item.jumlah, 0),
+                )}
+              </TableHead>
+            ) : (
+              <>
+                <TableHead className="text-right">
+                  {formatAngka(
+                    belanja.reduce(
+                      (acc, item) => acc + Number(item.jumlahSebelumnya ?? 0),
+                      0,
+                    ),
+                  )}
+                </TableHead>
+                <TableHead className="text-right">
+                  {formatAngka(
+                    belanja.reduce((acc, item) => acc + item.jumlah, 0),
+                  )}
+                </TableHead>
+              </>
+            )}
             <TableHead className="text-right">
               {formatAngka(
                 belanja.reduce(
-                  (acc, item) => acc + item.anggaran - item.jumlah,
+                  (acc, item) => acc + item.anggaran - realisasi(item),
                   0,
                 ),
               )}

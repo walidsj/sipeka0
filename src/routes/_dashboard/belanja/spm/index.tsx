@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -41,5 +42,9 @@ function Page() {
 }
 
 export const Route = createFileRoute("/_dashboard/belanja/spm/")({
+  validateSearch: z.object({
+    startDate: z.string().optional(),
+    endDate: z.string().optional(),
+  }),
   component: Page,
 });

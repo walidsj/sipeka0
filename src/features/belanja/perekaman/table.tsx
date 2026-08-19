@@ -49,6 +49,7 @@ import {
   FiUploadCloud,
 } from "react-icons/fi";
 import { Link, getRouteApi } from "@tanstack/react-router";
+import { MonthFilter } from "@/components/month-filter";
 import { useDebounce } from "use-debounce";
 
 const routeApi = getRouteApi("/_dashboard/belanja/perekaman/");
@@ -60,13 +61,16 @@ export default function BelanjaTable() {
   const navigate = routeApi.useNavigate();
   const [searchValue] = useDebounce(search["search"] ?? "", 300);
 
+  const startDate = search["startDate"] || format(new Date(), "yyyy-MM-01");
+  const endDate = search["endDate"] || format(new Date(), "yyyy-MM-dd");
+
   const { data: belanja } = api.belanja.getAll.useQuery(
     {
       search: searchValue ?? "",
       page: Number(search["page"] ?? 1),
       pageSize: Number(search["pageSize"] ?? 10),
-      startDate: search["startDate"] || undefined,
-      endDate: search["endDate"] || undefined,
+      startDate,
+      endDate,
     },
     { placeholderData: keepPreviousData, suspense: true },
   );
@@ -116,34 +120,15 @@ export default function BelanjaTable() {
             <SelectItem value="100">100</SelectItem>
           </SelectContent>
         </Select>
-        <div className="flex gap-2">
-          <Input
-            value={search["startDate"] ?? ""}
-            type="date"
-            onChange={(e) => {
-              navigate({
-                search: (prev) => ({
-                  ...prev,
-                  page: "1",
-                  startDate: e.target.value,
-                }),
-              });
-            }}
-          />
-          <Input
-            type="date"
-            value={search["endDate"] ?? ""}
-            onChange={(e) => {
-              navigate({
-                search: (prev) => ({
-                  ...prev,
-                  page: "1",
-                  endDate: e.target.value,
-                }),
-              });
-            }}
-          />
-        </div>
+        <MonthFilter
+          startDate={startDate}
+          endDate={endDate}
+          onChange={(range) =>
+            navigate({
+              search: (prev) => ({ ...prev, page: "1", ...range }),
+            })
+          }
+        />
         <div className="relative">
           <div className="absolute inset-y-0 left-0 flex items-center justify-center px-3">
             <FiSearch className="text-gray-400" />

@@ -4,7 +4,7 @@ import {
   pengelolaProcedure,
   userProcedure,
 } from "#server/lib/trpc";
-import { and, asc, desc, eq, isNull, like, or } from "drizzle-orm";
+import { and, asc, desc, eq, gte, isNull, like, lte, or } from "drizzle-orm";
 import { z } from "zod";
 import { lpjBelanjaSchema } from "../schema/lpj_belanja";
 
@@ -14,6 +14,8 @@ export const lpjBelanjaRouter = createTRPCRouter({
       z.object({
         search: z.string().optional(),
         haveSpp: z.boolean().optional(),
+        startDate: z.string().optional(),
+        endDate: z.string().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -33,6 +35,12 @@ export const lpjBelanjaRouter = createTRPCRouter({
                 like(lpjBelanjaTable.noDokumen, `%${input.search}%`),
                 like(lpjBelanjaTable.uraian, `%${input.search}%`),
               )
+            : undefined,
+          input.startDate
+            ? gte(lpjBelanjaTable.tglDokumen, input.startDate)
+            : undefined,
+          input.endDate
+            ? lte(lpjBelanjaTable.tglDokumen, input.endDate)
             : undefined,
         ),
       });

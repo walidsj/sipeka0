@@ -1137,15 +1137,35 @@ export const belanjaRouter = createTRPCRouter({
         .groupBy(belanja.rabId)
         .as("belanja");
 
+      const rekapBelanjaSebelumnya = ctx.db
+        .select({
+          rabId: belanja.rabId,
+          jumlah: sql`SUM(${belanja.jumlah})`.as("jumlah"),
+        })
+        .from(belanja)
+        .where(startDate ? lt(belanja.tglDokumen, startDate) : undefined)
+        .groupBy(belanja.rabId)
+        .as("belanjaSebelumnya");
+
       const belanjaList = await ctx.db
         .select({
           id: rab.id,
           kodeRekening: rab.kodeRekening,
           jumlah: rekapBelanja.jumlah,
+          jumlahSebelumnya: rekapBelanjaSebelumnya.jumlah,
         })
         .from(rab)
         .leftJoin(rekapBelanja, eq(rab.id, rekapBelanja.rabId))
-        .where(isNotNull(rekapBelanja.jumlah));
+        .leftJoin(
+          rekapBelanjaSebelumnya,
+          eq(rab.id, rekapBelanjaSebelumnya.rabId),
+        )
+        .where(
+          or(
+            isNotNull(rekapBelanja.jumlah),
+            isNotNull(rekapBelanjaSebelumnya.jumlah),
+          ),
+        );
 
       const kodeRekeningBelanja = [
         ...new Set(belanjaList.map((item) => item.kodeRekening)),
@@ -1179,6 +1199,9 @@ export const belanjaRouter = createTRPCRouter({
             }, 0),
           jumlah: belanja.reduce((acc, item) => {
             return acc + Number(item.jumlah);
+          }, 0),
+          jumlahSebelumnya: belanja.reduce((acc, item) => {
+            return acc + Number(item.jumlahSebelumnya);
           }, 0),
         };
       });
