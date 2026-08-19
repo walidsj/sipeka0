@@ -6,7 +6,7 @@ import {
   potonganBelanja,
   rab,
   rba,
-} from "server/db/schema";
+} from "#server/db/schema";
 import {
   createTRPCRouter,
   pengelolaProcedure,
@@ -36,7 +36,7 @@ import lodash from "lodash";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { Base64 } from "js-base64";
-import { tables } from "server/db";
+import { tables } from "#server/db";
 import fs from "fs";
 
 export type JurnalJenis = "UP" | "BELANJA" | "LPJ_LS" | "LPJ_GU";

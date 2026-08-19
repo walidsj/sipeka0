@@ -10,6 +10,7 @@ import {
 import { FiPlus } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import PegawaiTable from "./table";
+import { TableBoundary } from "@/components/table-boundary";
 
 export default function Pegawai() {
   return (
@@ -29,7 +30,9 @@ export default function Pegawai() {
         </CardAction>
       </CardHeader>
       <CardContent>
+        <TableBoundary>
         <PegawaiTable />
+        </TableBoundary>
       </CardContent>
     </Card>
   );

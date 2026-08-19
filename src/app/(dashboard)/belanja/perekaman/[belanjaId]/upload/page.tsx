@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import CreateForm from "./form";
 import { api } from "@/trpc/react";
-import Loading from "@/components/loading";
+import { Spinner } from "@/components/ui/spinner";
 import NotFound from "@/app/not-found";
 import { useParams } from "react-router-dom";
 import { formatAngka, formatTanggal } from "@/lib/utils";
@@ -22,7 +22,7 @@ export default function Page() {
     isLoading,
   } = api.belanja.getById.useQuery(Number(params.belanjaId));
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <Spinner />;
 
   if (isError) return <NotFound />;
 

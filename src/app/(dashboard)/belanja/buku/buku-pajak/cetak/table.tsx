@@ -1,4 +1,3 @@
-import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import { CardFooter } from "@/components/ui/card";
 import { formatAngka, formatTanggal } from "@/lib/utils";
@@ -24,23 +23,14 @@ export default function BkPajakTable() {
     searchParams.get("endDate") || format(new Date(), "yyyy-MM-dd");
 
   const {
-    isLoading,
-    isError,
-    error,
     data: belanja,
   } = api.belanja.getAllBkPajak.useQuery(
     {
       startDate: startDate || undefined,
       endDate: endDate || undefined,
     },
-    { placeholderData: keepPreviousData },
+    { placeholderData: keepPreviousData, suspense: true },
   );
-
-  if (isLoading) return <Loading />;
-
-  if (isError) {
-    return <div>{error.message}</div>;
-  }
 
   if (!belanja) return <div>Data tidak dapat dimuat.</div>;
 

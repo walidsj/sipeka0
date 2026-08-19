@@ -1,5 +1,5 @@
 import { sppSchema } from "../schema/spp";
-import { sppTable } from "server/db/schema";
+import { sppTable } from "#server/db/schema";
 import {
   createTRPCRouter,
   pengelolaProcedure,

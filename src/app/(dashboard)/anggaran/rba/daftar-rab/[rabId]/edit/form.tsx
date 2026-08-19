@@ -1,4 +1,4 @@
-import { rab } from 'server/db/schema'
+import { rab } from '#server/db/schema'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { api } from '@/trpc/react'

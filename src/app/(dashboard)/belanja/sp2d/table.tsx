@@ -1,4 +1,3 @@
-import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -30,11 +29,8 @@ export default function Sp2dTable() {
   const utils = api.useUtils();
 
   const {
-    isLoading,
-    isError,
-    error,
     data: sp2d,
-  } = api.sp2d.getAll.useQuery({});
+  } = api.sp2d.getAll.useQuery({}, { suspense: true });
 
   const deleteItem = api.sp2d.deleteById.useMutation({
     onMutate() {
@@ -50,12 +46,6 @@ export default function Sp2dTable() {
       toast.error(error.message);
     },
   });
-
-  if (isLoading) return <Loading />;
-
-  if (isError) {
-    return <div>{error.message}</div>;
-  }
 
   if (!sp2d) return <div>Data tidak dapat dimuat.</div>;
 

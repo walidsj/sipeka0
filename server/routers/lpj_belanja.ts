@@ -1,4 +1,4 @@
-import { belanja, lpjBelanjaTable } from "server/db/schema";
+import { belanja, lpjBelanjaTable } from "#server/db/schema";
 import {
   createTRPCRouter,
   pengelolaProcedure,

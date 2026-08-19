@@ -1,4 +1,4 @@
-import { rekeningBankTable, rekeningKoranTable } from "server/db/schema";
+import { rekeningBankTable, rekeningKoranTable } from "#server/db/schema";
 import {
   createTRPCRouter,
   pengelolaProcedure,

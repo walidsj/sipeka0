@@ -1,4 +1,3 @@
-import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -52,9 +51,6 @@ export default function RabTable() {
   const [searchValue] = useDebounce(searchParams.get("search") ?? "", 300);
 
   const {
-    isLoading,
-    isError,
-    error,
     data: rab,
   } = api.rab.getAll.useQuery(
     {
@@ -62,7 +58,7 @@ export default function RabTable() {
       page: Number(searchParams.get("page") ?? 1),
       pageSize: Number(searchParams.get("pageSize") ?? 10),
     },
-    { placeholderData: keepPreviousData },
+    { placeholderData: keepPreviousData, suspense: true },
   );
 
   const deleteRab = api.rab.deleteById.useMutation({
@@ -79,14 +75,6 @@ export default function RabTable() {
       toast.error(error.message);
     },
   });
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (isError) {
-    return <div>{error.message}</div>;
-  }
 
   if (!rab) {
     return <div>Data tidak dapat dimuat.</div>;

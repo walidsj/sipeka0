@@ -21,7 +21,7 @@ import { cn } from '@/lib/utils'
 import { useDebounce } from 'use-debounce'
 import { Input } from '@/components/ui/input'
 import { keepPreviousData } from '@tanstack/react-query'
-import Loading from '@/components/loading'
+import { Spinner } from '@/components/ui/spinner'
 import { format } from 'date-fns'
 import { id } from 'date-fns/locale'
 
@@ -91,7 +91,7 @@ export default function RbaPicker({
                             )}
                             {rbaSelected.isLoading && (
                                 <div className="flex items-center gap-3">
-                                    <Loading />
+                                    <Spinner />
                                 </div>
                             )}
                         </div>
@@ -124,7 +124,7 @@ export default function RbaPicker({
                             {rba.isLoading && (
                                 <TableRow>
                                     <TableCell colSpan={5}>
-                                        <Loading />
+                                        <Spinner />
                                     </TableCell>
                                 </TableRow>
                             )}

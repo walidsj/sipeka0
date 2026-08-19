@@ -1,4 +1,3 @@
-import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -53,9 +52,6 @@ export default function PendapatanTable() {
   const [searchValue] = useDebounce(searchParams.get("search") ?? "", 300);
 
   const {
-    isLoading,
-    isError,
-    error,
     data: pendapatan,
   } = api.pendapatan.getAll.useQuery(
     {
@@ -63,7 +59,7 @@ export default function PendapatanTable() {
       page: Number(searchParams.get("page") ?? 1),
       pageSize: Number(searchParams.get("pageSize") ?? 10),
     },
-    { placeholderData: keepPreviousData },
+    { placeholderData: keepPreviousData, suspense: true },
   );
 
   const deletePendapatan = api.pendapatan.deleteById.useMutation({
@@ -80,14 +76,6 @@ export default function PendapatanTable() {
       toast.error(error.message);
     },
   });
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (isError) {
-    return <div>{error.message}</div>;
-  }
 
   if (!pendapatan) {
     return <div>Data tidak dapat dimuat.</div>;

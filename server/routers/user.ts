@@ -1,4 +1,4 @@
-import { pegawai, user } from "server/db/schema";
+import { pegawai, user } from "#server/db/schema";
 import {
   adminProcedure,
   createTRPCRouter,

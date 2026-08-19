@@ -10,6 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import { HiOutlinePlus } from "react-icons/hi";
 import SppTable from "./table";
+import { TableBoundary } from "@/components/table-boundary";
 
 export default function Page() {
   return (
@@ -29,7 +30,9 @@ export default function Page() {
         </CardAction>
       </CardHeader>
       <CardContent>
+        <TableBoundary>
         <SppTable />
+        </TableBoundary>
       </CardContent>
     </Card>
   );

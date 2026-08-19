@@ -1,5 +1,5 @@
 import { rekeningLevel6 } from "@/data/rekening";
-import { aktivitasRba, dba, pendapatan } from "server/db/schema";
+import { aktivitasRba, dba, pendapatan } from "#server/db/schema";
 import { createTRPCRouter, userProcedure } from "#server/lib/trpc";
 import { and, count, desc, eq, like, sum } from "drizzle-orm";
 import { z } from "zod";

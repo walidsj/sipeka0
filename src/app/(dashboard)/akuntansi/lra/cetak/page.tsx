@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import BkPajakTable from "./table";
+import { TableBoundary } from "@/components/table-boundary";
 
 export default function Page() {
   return (
@@ -17,7 +18,9 @@ export default function Page() {
         </CardDescription>
       </CardHeader>
       <CardContent>
+        <TableBoundary>
         <BkPajakTable />
+        </TableBoundary>
       </CardContent>
     </Card>
   );

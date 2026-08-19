@@ -19,7 +19,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Loading from "@/components/loading";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function RbaContentList() {
   const rba = api.rba.getAll.useQuery(
@@ -46,7 +46,7 @@ export default function RbaContentList() {
     <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
       {rba.isLoading && (
         <div className="col-span-3">
-          <Loading />
+          <Spinner />
         </div>
       )}
       {rba.isSuccess &&

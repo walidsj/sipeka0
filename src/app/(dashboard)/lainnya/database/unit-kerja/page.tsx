@@ -10,6 +10,7 @@ import {
 import { FiPlus } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import UnitKerjaTable from './table'
+import { TableBoundary } from '@/components/table-boundary'
 
 export default function UnitKerja() {
     return (
@@ -29,7 +30,9 @@ export default function UnitKerja() {
                 </CardAction>
             </CardHeader>
             <CardContent>
-                <UnitKerjaTable />
+                <TableBoundary>
+                    <UnitKerjaTable />
+                </TableBoundary>
             </CardContent>
         </Card>
     )

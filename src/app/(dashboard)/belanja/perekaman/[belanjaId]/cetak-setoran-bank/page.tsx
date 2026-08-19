@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { useParams, useSearchParams } from "react-router-dom";
 import { api } from "@/trpc/react";
-import Loading from "@/components/loading";
+import { Spinner } from "@/components/ui/spinner";
 import { useReactToPrint } from "react-to-print";
 import React from "react";
 import { Button } from "@/components/ui/button";
@@ -40,7 +40,7 @@ export default function Page() {
   const componentRef = React.useRef(null);
   const handlePrint = useReactToPrint({ contentRef: componentRef });
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <Spinner />;
 
   if (isError) return <NotFound />;
 

@@ -1,4 +1,3 @@
-import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -23,7 +22,7 @@ import { Link } from "react-router-dom";
 export default function BankTable() {
   const bank = api.bank.getAll.useQuery(
     {},
-    { placeholderData: keepPreviousData },
+    { placeholderData: keepPreviousData, suspense: true },
   );
 
   const deleteBank = api.bank.deleteById.useMutation({
@@ -52,13 +51,6 @@ export default function BankTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {bank.isLoading && (
-          <TableRow>
-            <TableCell colSpan={5} className="text-center">
-              <Loading />
-            </TableCell>
-          </TableRow>
-        )}
         {bank.isSuccess &&
           bank.data?.map((item, index) => (
             <TableRow key={item.id}>
@@ -106,13 +98,6 @@ export default function BankTable() {
           <TableRow>
             <TableCell colSpan={5} className="text-center">
               Tidak ada data
-            </TableCell>
-          </TableRow>
-        )}
-        {bank.isError && (
-          <TableRow>
-            <TableCell colSpan={5} className="text-center">
-              {bank.error.message}
             </TableCell>
           </TableRow>
         )}

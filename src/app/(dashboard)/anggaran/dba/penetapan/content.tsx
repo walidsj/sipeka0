@@ -19,7 +19,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Loading from "@/components/loading";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function DbaContentList() {
   const dba = api.dba.getAll.useQuery(
@@ -46,7 +46,7 @@ export default function DbaContentList() {
     <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
       {dba.isLoading && (
         <div className="col-span-3">
-          <Loading />
+          <Spinner />
         </div>
       )}
       {dba.isSuccess &&

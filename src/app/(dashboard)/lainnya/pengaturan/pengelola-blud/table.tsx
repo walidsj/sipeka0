@@ -1,4 +1,3 @@
-import Loading from "@/components/loading";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -26,6 +25,7 @@ import { Link } from "react-router-dom";
 export default function PengelolaBludTable() {
   const pengelolaBlud = api.pengelolaBlud.getAll.useQuery(undefined, {
     placeholderData: keepPreviousData,
+    suspense: true,
   });
 
   const deletePengelolaBlud = api.pengelolaBlud.deleteById.useMutation({
@@ -56,13 +56,6 @@ export default function PengelolaBludTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {pengelolaBlud.isLoading && (
-          <TableRow>
-            <TableCell colSpan={6} className="text-center">
-              <Loading />
-            </TableCell>
-          </TableRow>
-        )}
         {pengelolaBlud.isSuccess &&
           pengelolaBlud.data?.map((item, index) => (
             <TableRow key={item.id}>
@@ -119,13 +112,6 @@ export default function PengelolaBludTable() {
           <TableRow>
             <TableCell colSpan={6} className="text-center">
               Tidak ada data
-            </TableCell>
-          </TableRow>
-        )}
-        {pengelolaBlud.isError && (
-          <TableRow>
-            <TableCell colSpan={6} className="text-center">
-              {pengelolaBlud.error.message}
             </TableCell>
           </TableRow>
         )}

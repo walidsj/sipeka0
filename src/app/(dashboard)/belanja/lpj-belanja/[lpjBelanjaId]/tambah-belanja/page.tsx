@@ -7,10 +7,11 @@ import {
 } from "@/components/ui/card";
 import { useParams } from "react-router-dom";
 import { api } from "@/trpc/react";
-import Loading from "@/components/loading";
+import { Spinner } from "@/components/ui/spinner";
 
 import { formatTanggal } from "@/lib/utils";
-import BelanjaTable from "./table";
+import BelanjaTable from "./table";import { TableBoundary } from "@/components/table-boundary";
+
 import NotFound from "@/app/not-found";
 
 export default function EditPage() {
@@ -22,7 +23,7 @@ export default function EditPage() {
     isLoading,
   } = api.lpjBelanja.getById.useQuery(Number(params.lpjBelanjaId));
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <Spinner />;
 
   if (isError) return <NotFound />;
 
@@ -48,7 +49,9 @@ export default function EditPage() {
         </div>
       </CardContent>
       <CardContent>
+        <TableBoundary>
         <BelanjaTable />
+        </TableBoundary>
       </CardContent>
     </Card>
   );

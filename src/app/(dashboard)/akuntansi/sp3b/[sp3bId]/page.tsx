@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Link, useParams } from "react-router-dom";
 import { api } from "@/trpc/react";
-import Loading from "@/components/loading";
+import { Spinner } from "@/components/ui/spinner";
 import { formatAngkaDecimal, formatTanggal } from "@/lib/utils";
 import { format } from "date-fns";
 import {
@@ -51,7 +51,7 @@ export default function Page() {
       },
     );
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <Spinner />;
 
   if (isError) return <NotFound />;
 

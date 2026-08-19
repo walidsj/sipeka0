@@ -6,6 +6,7 @@ import {
     CardTitle,
 } from '@/components/ui/card'
 import DetailTable from './table'
+import { TableBoundary } from '@/components/table-boundary'
 
 export default function Page() {
     return (
@@ -15,7 +16,9 @@ export default function Page() {
                 <CardDescription>Daftar belanja terealisasi</CardDescription>
             </CardHeader>
             <CardContent>
-                <DetailTable />
+                <TableBoundary>
+                    <DetailTable />
+                </TableBoundary>
             </CardContent>
         </Card>
     )

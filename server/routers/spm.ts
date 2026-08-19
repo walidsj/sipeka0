@@ -1,5 +1,5 @@
 import { spmSchema } from "../schema/spm";
-import { spmTable } from "server/db/schema";
+import { spmTable } from "#server/db/schema";
 import {
   createTRPCRouter,
   pengelolaProcedure,

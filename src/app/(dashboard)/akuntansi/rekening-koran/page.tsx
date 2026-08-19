@@ -1,5 +1,5 @@
 import NotFound from "@/app/not-found";
-import Loading from "@/components/loading";
+import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -19,7 +19,7 @@ export default function Page() {
     data: rekeningBank,
   } = api.rekeningBank.getAll.useQuery();
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <Spinner />;
 
   if (isError) return <NotFound />;
 

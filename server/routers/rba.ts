@@ -1,5 +1,5 @@
 import { rbaSchema } from "../schema/rba";
-import { rba } from "server/db/schema";
+import { rba } from "#server/db/schema";
 import { createTRPCRouter, userProcedure } from "#server/lib/trpc";
 import { asc, eq, like, or } from "drizzle-orm";
 import { z } from "zod";

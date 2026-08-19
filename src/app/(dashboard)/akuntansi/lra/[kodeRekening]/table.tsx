@@ -1,4 +1,3 @@
-import Loading from "@/components/loading";
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -25,9 +24,6 @@ export default function DetailTable() {
   });
 
   const {
-    isLoading,
-    isError,
-    error,
     data: belanja,
   } = api.belanja.getBelanjaLrabyKodeRekening.useQuery(
     {
@@ -37,14 +33,9 @@ export default function DetailTable() {
     },
     {
       placeholderData: keepPreviousData,
+      suspense: true,
     },
   );
-
-  if (isLoading) return <Loading />;
-
-  if (isError) {
-    return <div>{error.message}</div>;
-  }
 
   if (!belanja) return <div>Data tidak dapat dimuat.</div>;
 

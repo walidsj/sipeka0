@@ -1,4 +1,3 @@
-import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -31,11 +30,8 @@ export default function PotonganTable({
   const utils = api.useUtils();
 
   const {
-    isLoading,
-    isError,
-    error,
     data: potongan,
-  } = api.belanja.getPotonganByBelanjaId.useQuery(Number(params.belanjaId));
+  } = api.belanja.getPotonganByBelanjaId.useQuery(Number(params.belanjaId), { suspense: true });
 
   const deletePotongan = api.belanja.deletePotonganById.useMutation({
     onMutate() {
@@ -51,12 +47,6 @@ export default function PotonganTable({
       toast.error(error.message);
     },
   });
-
-  if (isLoading) return <Loading />;
-
-  if (isError) {
-    return <div>{error.message}</div>;
-  }
 
   if (!potongan) return <div>Data tidak dapat dimuat.</div>;
 

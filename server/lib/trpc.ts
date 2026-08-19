@@ -1,9 +1,9 @@
 import { initTRPC, TRPCError } from "@trpc/server";
 import { ZodError } from "zod";
-import { db } from "server/db";
+import { db } from "#server/db";
 import { eq } from "drizzle-orm";
-import { user } from "server/db/schema";
-import { getSession } from "server/auth";
+import { user } from "#server/db/schema";
+import { getSession } from "#server/auth";
 import { type CreateExpressContextOptions } from "@trpc/server/adapters/express";
 import SuperJSON from "superjson";
 import { z } from "zod";

@@ -19,7 +19,8 @@ export default function DetailTable() {
     }>()
 
     const belanja = api.dba.getRincianBelanjaByRincianRbaBelanjaId.useQuery(
-        parseInt(params.rincianRbaBelanjaId ?? '')
+        parseInt(params.rincianRbaBelanjaId ?? ''),
+        { suspense: true }
     )
 
     if ((belanja.isSuccess && !belanja.data) || belanja.isError)

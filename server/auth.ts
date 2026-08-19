@@ -1,6 +1,6 @@
 import { env } from "#server/env";
 import { type JWTPayload, SignJWT, jwtVerify } from "jose";
-import { user } from "server/db/schema";
+import { user } from "#server/db/schema";
 
 const secret = env.JWT_SECRET_KEY ?? "secret";
 const key = new TextEncoder().encode(secret);

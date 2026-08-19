@@ -1,4 +1,3 @@
-import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -30,14 +29,12 @@ export default function RekeningKoranTable() {
   const params = useParams<{ rekeningBankId: string }>();
 
   const {
-    isLoading,
-    isError,
-    error,
     data: rekeningKoran,
   } = api.rekeningKoran.getAllByRekeningBankId.useQuery(
     Number(params.rekeningBankId),
     {
       placeholderData: keepPreviousData,
+      suspense: true,
     },
   );
 
@@ -55,12 +52,6 @@ export default function RekeningKoranTable() {
       toast.error(error.message);
     },
   });
-
-  if (isLoading) return <Loading />;
-
-  if (isError) {
-    return <div>{error.message}</div>;
-  }
 
   if (!rekeningKoran) return <div>Data tidak dapat dimuat.</div>;
 

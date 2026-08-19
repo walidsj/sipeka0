@@ -1,4 +1,3 @@
-import Loading from '@/components/loading'
 import { Button } from '@/components/ui/button'
 import {
     DropdownMenu,
@@ -23,7 +22,7 @@ import { Link } from 'react-router-dom'
 export default function UnitKerjaTable() {
     const unitKerja = api.unitKerja.getAll.useQuery(
         {},
-        { placeholderData: keepPreviousData }
+        { placeholderData: keepPreviousData, suspense: true }
     )
 
     const deleteUnitKerja = api.unitKerja.deleteById.useMutation({
@@ -51,13 +50,6 @@ export default function UnitKerjaTable() {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {unitKerja.isLoading && (
-                    <TableRow>
-                        <TableCell colSpan={4} className="text-center">
-                            <Loading />
-                        </TableCell>
-                    </TableRow>
-                )}
                 {unitKerja.isSuccess &&
                     unitKerja.data?.map((item, index) => (
                         <TableRow key={item.id}>
@@ -115,13 +107,6 @@ export default function UnitKerjaTable() {
                     <TableRow>
                         <TableCell colSpan={4} className="text-center">
                             Tidak ada data
-                        </TableCell>
-                    </TableRow>
-                )}
-                {unitKerja.isError && (
-                    <TableRow>
-                        <TableCell colSpan={4} className="text-center">
-                            {unitKerja.error.message}
                         </TableCell>
                     </TableRow>
                 )}

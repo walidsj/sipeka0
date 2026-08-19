@@ -16,7 +16,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn, formatAngka, formatTanggal } from "@/lib/utils";
-import Loading from "@/components/loading";
+import { Spinner } from "@/components/ui/spinner";
 import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -29,7 +29,8 @@ import {
   FiTrash,
 } from "react-icons/fi";
 import toast from "react-hot-toast";
-import PotonganTable from "./table";
+import PotonganTable from "./table";import { TableBoundary } from "@/components/table-boundary";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -67,7 +68,7 @@ export default function EditPage() {
     },
   });
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <Spinner />;
 
   if (isError) return <NotFound />;
 
@@ -383,7 +384,9 @@ export default function EditPage() {
         </CardAction>
       </CardHeader>
       <CardContent>
+        <TableBoundary>
         <PotonganTable belanja={belanja} />
+        </TableBoundary>
       </CardContent>
       <CardHeader>
         <CardTitle>Realisasi Belanja</CardTitle>

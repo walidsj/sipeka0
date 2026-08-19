@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Link, useParams } from "react-router-dom";
 import { api } from "@/trpc/react";
-import Loading from "@/components/loading";
+import { Spinner } from "@/components/ui/spinner";
 
 import NotFound from "@/app/not-found";
 import {
@@ -29,7 +29,7 @@ export default function EditPage() {
     isLoading,
   } = api.spp.getById.useQuery(Number(params.sppId));
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <Spinner />;
 
   if (isError) return <NotFound />;
 

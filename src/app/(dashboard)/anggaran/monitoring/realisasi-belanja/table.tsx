@@ -1,4 +1,3 @@
-import Loading from '@/components/loading'
 import {
     Table,
     TableBody,
@@ -24,13 +23,9 @@ import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 
 export default function MonitoringTable() {
-    const rbaMonitoring = api.dba.getRbaBelanjaMonitoring.useQuery()
+    const rbaMonitoring = api.dba.getRbaBelanjaMonitoring.useQuery(undefined, { suspense: true })
 
-    const realisasiMonitoring = api.dba.getRealisasiBelanjaMonitoring.useQuery()
-
-    if (rbaMonitoring.isLoading || realisasiMonitoring.isLoading) {
-        return <Loading />
-    }
+    const realisasiMonitoring = api.dba.getRealisasiBelanjaMonitoring.useQuery(undefined, { suspense: true })
 
     let totalPagu = 0
     let totalRealisasi = 0

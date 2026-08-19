@@ -1,4 +1,3 @@
-import Loading from '@/components/loading'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -25,7 +24,7 @@ import { Link } from 'react-router-dom'
 export default function RekananTable() {
     const rekanan = api.rekanan.getAll.useQuery(
         {},
-        { placeholderData: keepPreviousData }
+        { placeholderData: keepPreviousData, suspense: true }
     )
 
     const deleteRekanan = api.rekanan.deleteById.useMutation({
@@ -56,13 +55,6 @@ export default function RekananTable() {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {rekanan.isLoading && (
-                    <TableRow>
-                        <TableCell colSpan={7} className="text-center">
-                            <Loading />
-                        </TableCell>
-                    </TableRow>
-                )}
                 {rekanan.isSuccess &&
                     rekanan.data?.map((item, index) => (
                         <TableRow key={item.id}>
@@ -143,13 +135,6 @@ export default function RekananTable() {
                     <TableRow>
                         <TableCell colSpan={7} className="text-center">
                             Tidak ada data
-                        </TableCell>
-                    </TableRow>
-                )}
-                {rekanan.isError && (
-                    <TableRow>
-                        <TableCell colSpan={7} className="text-center">
-                            {rekanan.error.message}
                         </TableCell>
                     </TableRow>
                 )}

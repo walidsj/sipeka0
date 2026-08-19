@@ -1,4 +1,3 @@
-import Loading from '@/components/loading'
 import { Button } from '@/components/ui/button'
 import {
     DropdownMenu,
@@ -26,12 +25,10 @@ export default function Sp3bTable() {
     const utils = api.useUtils()
 
     const {
-        isLoading,
-        isError,
-        error,
         data: sp3b,
     } = api.sp3b.getAll.useQuery(undefined, {
         placeholderData: keepPreviousData,
+        suspense: true,
     })
 
     const deleteSp3b = api.sp3b.deleteById.useMutation({
@@ -48,14 +45,6 @@ export default function Sp3bTable() {
             toast.error(error.message)
         },
     })
-
-    if (isLoading) {
-        return <Loading />
-    }
-
-    if (isError) {
-        return <div>{error.message}</div>
-    }
 
     if (!sp3b) {
         return <div>Data tidak dapat dimuat.</div>

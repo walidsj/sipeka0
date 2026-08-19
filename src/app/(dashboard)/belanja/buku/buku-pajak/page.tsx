@@ -6,7 +6,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import BkPajakTable from "./table";
+import BkPajakTable from "./table";import { TableBoundary } from "@/components/table-boundary";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -48,7 +49,9 @@ export default function Page() {
         </CardAction>
       </CardHeader>
       <CardContent>
+        <TableBoundary>
         <BkPajakTable />
+        </TableBoundary>
       </CardContent>
     </Card>
   );

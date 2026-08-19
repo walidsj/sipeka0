@@ -8,7 +8,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import LpjBelanjaTable from "./table";
+import LpjBelanjaTable from "./table";import { TableBoundary } from "@/components/table-boundary";
+
 import { HiOutlinePlus } from "react-icons/hi";
 
 export default function Page() {
@@ -30,7 +31,9 @@ export default function Page() {
         </CardAction>
       </CardHeader>
       <CardContent>
+        <TableBoundary>
         <LpjBelanjaTable />
+        </TableBoundary>
       </CardContent>
     </Card>
   );

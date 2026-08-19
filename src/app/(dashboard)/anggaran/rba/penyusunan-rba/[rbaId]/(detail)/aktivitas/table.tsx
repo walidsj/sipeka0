@@ -1,4 +1,3 @@
-import Loading from "@/components/loading";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -27,7 +26,7 @@ export default function AktivitasTable() {
 
   const aktivitasRba = api.aktivitasRba.getByRbaId.useQuery(
     parseInt(params.rbaId ?? ""),
-    { placeholderData: keepPreviousData },
+    { placeholderData: keepPreviousData, suspense: true },
   );
 
   const deleteAktivitasRba = api.aktivitasRba.deleteById.useMutation({
@@ -57,13 +56,6 @@ export default function AktivitasTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {aktivitasRba.isLoading && (
-          <TableRow>
-            <TableCell colSpan={5} className="text-center">
-              <Loading />
-            </TableCell>
-          </TableRow>
-        )}
         {aktivitasRba.isSuccess &&
           aktivitasRba.data?.map((item, index) => (
             <TableRow key={item.id}>
@@ -125,13 +117,6 @@ export default function AktivitasTable() {
           <TableRow>
             <TableCell colSpan={5} className="text-center">
               Tidak ada data
-            </TableCell>
-          </TableRow>
-        )}
-        {aktivitasRba.isError && (
-          <TableRow>
-            <TableCell colSpan={5} className="text-center">
-              {aktivitasRba.error.message}
             </TableCell>
           </TableRow>
         )}

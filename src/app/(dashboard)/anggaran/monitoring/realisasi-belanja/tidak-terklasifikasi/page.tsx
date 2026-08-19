@@ -1,4 +1,4 @@
-import Loading from '@/components/loading'
+import { Spinner } from '@/components/ui/spinner'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
     Table,
@@ -21,7 +21,7 @@ export default function Page() {
     } = api.belanja.getUnclassifiedBelanjaByRba.useQuery()
 
     if (isLoading) {
-        return <Loading />
+        return <Spinner />
     }
 
     if (isError) {

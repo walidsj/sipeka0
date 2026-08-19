@@ -1,5 +1,5 @@
 import { pengelolaBludSchema } from "../schema/pengelola-blud";
-import { pengelolaBlud } from "server/db/schema";
+import { pengelolaBlud } from "#server/db/schema";
 import { createTRPCRouter, userProcedure } from "#server/lib/trpc";
 import { eq } from "drizzle-orm";
 import { z } from "zod";

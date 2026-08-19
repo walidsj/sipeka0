@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { FiPlus } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import RabTable from "./table";
+import RabTable from "./table";import { TableBoundary } from "@/components/table-boundary";
+
 import {
   Card,
   CardAction,
@@ -29,7 +30,9 @@ export default function Page() {
         </CardAction>
       </CardHeader>
       <CardContent>
+        <TableBoundary>
         <RabTable />
+        </TableBoundary>
       </CardContent>
     </Card>
   );

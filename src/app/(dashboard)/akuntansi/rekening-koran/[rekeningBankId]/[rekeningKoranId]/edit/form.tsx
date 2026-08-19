@@ -15,7 +15,7 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 import { rekeningKoranSchema } from "#server/schema/rekening-koran";
 import { NumericFormat } from "react-number-format";
-import { rekeningKoranTable } from "server/db/schema";
+import { rekeningKoranTable } from "#server/db/schema";
 import { useNavigate } from "react-router-dom";
 
 const editRekeningKoranSchema = rekeningKoranSchema.omit({

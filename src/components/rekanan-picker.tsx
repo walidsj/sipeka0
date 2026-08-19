@@ -14,8 +14,8 @@ import { cn } from '@/lib/utils'
 import { useDebounce } from 'use-debounce'
 import { Input } from '@/components/ui/input'
 import { keepPreviousData } from '@tanstack/react-query'
-import Loading from '@/components/loading'
-import { rekanan as rekananSchema } from 'server/db/schema'
+import { Spinner } from '@/components/ui/spinner'
+import { rekanan as rekananSchema } from '#server/db/schema'
 
 export default function RekananPicker({
     value,
@@ -64,7 +64,7 @@ export default function RekananPicker({
                             )}
                             {rekananSelected.isLoading && (
                                 <div className="flex items-center gap-3">
-                                    <Loading />
+                                    <Spinner />
                                 </div>
                             )}
                         </div>

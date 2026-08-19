@@ -1,4 +1,4 @@
-import { sppTable } from "server/db/schema";
+import { sppTable } from "#server/db/schema";
 import { Button } from "@/components/ui/button";
 import {
   Form,

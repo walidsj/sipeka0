@@ -6,7 +6,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import BelanjaTable from "./table";
+import BelanjaTable from "./table";import { TableBoundary } from "@/components/table-boundary";
+
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { FiPlus } from "react-icons/fi";
@@ -27,7 +28,9 @@ export default function Page() {
         </CardAction>
       </CardHeader>
       <CardContent>
+        <TableBoundary>
         <BelanjaTable />
+        </TableBoundary>
       </CardContent>
     </Card>
   );

@@ -1,5 +1,5 @@
 import { rekeningBankSchema } from "../schema/rekening-bank";
-import { rekeningBankTable } from "server/db/schema";
+import { rekeningBankTable } from "#server/db/schema";
 import { createTRPCRouter, userProcedure } from "#server/lib/trpc";
 import { desc, eq } from "drizzle-orm";
 import { z } from "zod";

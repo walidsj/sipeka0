@@ -1,4 +1,3 @@
-import Loading from "@/components/loading";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -29,6 +28,7 @@ export default function UserTable() {
 
   const user = api.user.getAll.useQuery(undefined, {
     placeholderData: keepPreviousData,
+    suspense: true,
   });
 
   const deleteUser = api.user.deleteById.useMutation({
@@ -59,13 +59,6 @@ export default function UserTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {user.isLoading && (
-          <TableRow>
-            <TableCell colSpan={6} className="text-center">
-              <Loading />
-            </TableCell>
-          </TableRow>
-        )}
         {user.isSuccess &&
           user.data?.map((item, index) => (
             <TableRow key={item.id}>
@@ -141,13 +134,6 @@ export default function UserTable() {
           <TableRow>
             <TableCell colSpan={6} className="text-center">
               Tidak ada data
-            </TableCell>
-          </TableRow>
-        )}
-        {user.isError && (
-          <TableRow>
-            <TableCell colSpan={6} className="text-center">
-              {user.error.message}
             </TableCell>
           </TableRow>
         )}

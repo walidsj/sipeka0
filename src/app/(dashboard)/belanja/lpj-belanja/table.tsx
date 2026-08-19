@@ -1,4 +1,3 @@
-import Loading from "@/components/loading";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -32,11 +31,8 @@ export default function LpjBelanjaTable() {
   const utils = api.useUtils();
 
   const {
-    isLoading,
-    isError,
-    error,
     data: lpjBelanja,
-  } = api.lpjBelanja.getAll.useQuery({});
+  } = api.lpjBelanja.getAll.useQuery({}, { suspense: true });
 
   const deleteItem = api.lpjBelanja.deleteById.useMutation({
     onMutate() {
@@ -52,12 +48,6 @@ export default function LpjBelanjaTable() {
       toast.error(error.message);
     },
   });
-
-  if (isLoading) return <Loading />;
-
-  if (isError) {
-    return <div>{error.message}</div>;
-  }
 
   if (!lpjBelanja) return <div>Data tidak dapat dimuat.</div>;
 

@@ -1,4 +1,3 @@
-import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -19,12 +18,10 @@ export default function BelanjaEmptyLpjTable() {
   const params = useParams<{ lpjBelanjaId: string }>();
 
   const {
-    isLoading,
-    isError,
-    error,
     data: belanja,
   } = api.lpjBelanja.getBelanjaByLpjBelanjaId.useQuery(
     Number(params.lpjBelanjaId),
+    { suspense: true },
   );
 
   const deleteItem = api.lpjBelanja.deleteLpjBelanjaIdBelanja.useMutation({
@@ -41,12 +38,6 @@ export default function BelanjaEmptyLpjTable() {
       toast.error(error.message);
     },
   });
-
-  if (isLoading) return <Loading />;
-
-  if (isError) {
-    return <div>{error.message}</div>;
-  }
 
   if (!belanja) return <div>Data tidak dapat dimuat.</div>;
 

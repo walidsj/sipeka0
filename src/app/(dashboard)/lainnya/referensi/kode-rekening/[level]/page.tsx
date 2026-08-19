@@ -1,4 +1,4 @@
-import Loading from "@/components/loading";
+import { Spinner } from "@/components/ui/spinner";
 import { Input } from "@/components/ui/input";
 import {
   Pagination,
@@ -59,7 +59,7 @@ export default function Page() {
     { placeholderData: keepPreviousData },
   );
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <Spinner />;
 
   if (isError) return <div>{error.message}</div>;
 

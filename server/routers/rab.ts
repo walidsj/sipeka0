@@ -1,6 +1,6 @@
 import { rabSchema } from "../schema/rab";
 import { rekeningLevel6 } from "@/data/rekening";
-import { rab } from "server/db/schema";
+import { rab } from "#server/db/schema";
 import { createTRPCRouter, userProcedure } from "#server/lib/trpc";
 import { asc, count, eq, like, or } from "drizzle-orm";
 import { z } from "zod";

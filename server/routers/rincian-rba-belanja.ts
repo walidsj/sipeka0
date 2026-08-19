@@ -1,6 +1,6 @@
 import { rincianRbaBelanjaSchema } from "../schema/rincian-rba-belanja";
 import { rekeningLevel6 } from "@/data/rekening";
-import { rincianRbaBelanja } from "server/db/schema";
+import { rincianRbaBelanja } from "#server/db/schema";
 import { createTRPCRouter, userProcedure } from "#server/lib/trpc";
 import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";

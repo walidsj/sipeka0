@@ -1,5 +1,5 @@
 import { pegawaiSchema } from "../schema/pegawai";
-import { pegawai } from "server/db/schema";
+import { pegawai } from "#server/db/schema";
 import { createTRPCRouter, userProcedure } from "#server/lib/trpc";
 import { asc, eq, like, or } from "drizzle-orm";
 import { z } from "zod";

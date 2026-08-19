@@ -20,7 +20,7 @@ import { cn, formatAngka, formatTanggal } from '@/lib/utils'
 import { useDebounce } from 'use-debounce'
 import { Input } from '@/components/ui/input'
 import { keepPreviousData } from '@tanstack/react-query'
-import Loading from '@/components/loading'
+import { Spinner } from '@/components/ui/spinner'
 
 export default function LpjBelanjaPicker({
     value,
@@ -87,7 +87,7 @@ export default function LpjBelanjaPicker({
                                 )}
                             {lpjBelanjaSelected.isLoading && (
                                 <div className="flex items-center gap-3">
-                                    <Loading />
+                                    <Spinner />
                                 </div>
                             )}
                         </div>

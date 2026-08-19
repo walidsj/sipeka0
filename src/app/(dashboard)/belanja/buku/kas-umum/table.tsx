@@ -1,4 +1,3 @@
-import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import { CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -80,25 +79,14 @@ export default function BkuTable() {
   }
 
   const {
-    isLoading,
-    isError,
-    error,
     data: jurnal,
   } = api.belanja.getBelanjaBku.useQuery(
     {
       startDate: startDate || undefined,
       endDate: endDate || undefined,
     },
-    { placeholderData: keepPreviousData },
+    { placeholderData: keepPreviousData, suspense: true },
   );
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (isError) {
-    return <div>{error.message}</div>;
-  }
 
   if (!jurnal) {
     return <div>Data tidak dapat dimuat.</div>;

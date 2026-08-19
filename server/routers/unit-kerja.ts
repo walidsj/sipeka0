@@ -1,5 +1,5 @@
 import { unitKerjaSchema } from "../schema/unit-kerja";
-import { unitKerja } from "server/db/schema";
+import { unitKerja } from "#server/db/schema";
 import { createTRPCRouter, userProcedure } from "#server/lib/trpc";
 import { eq, like, or } from "drizzle-orm";
 import { z } from "zod";

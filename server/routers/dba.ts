@@ -7,7 +7,7 @@ import {
   rab,
   rba,
   rincianRbaBelanja,
-} from "server/db/schema";
+} from "#server/db/schema";
 import { createTRPCRouter, userProcedure } from "#server/lib/trpc";
 import { TRPCError } from "@trpc/server";
 import { asc, count, desc, eq, isNotNull, like, or, sql } from "drizzle-orm";

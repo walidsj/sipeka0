@@ -1,4 +1,4 @@
-import { belanja } from "server/db/schema";
+import { belanja } from "#server/db/schema";
 import { Button } from "@/components/ui/button";
 import {
   Form,

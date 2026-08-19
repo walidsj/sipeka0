@@ -23,7 +23,7 @@ import { cn, formatAngka } from '@/lib/utils'
 import { useDebounce } from 'use-debounce'
 import { Input } from '@/components/ui/input'
 import { keepPreviousData } from '@tanstack/react-query'
-import Loading from '@/components/loading'
+import { Spinner } from '@/components/ui/spinner'
 import { useSearchParams } from 'react-router-dom'
 import {
     Pagination,
@@ -86,7 +86,7 @@ export default function KodeRekeningPicker({
         { placeholderData: keepPreviousData }
     )
 
-    if (isLoading) return <Loading />
+    if (isLoading) return <Spinner />
 
     if (isError) return <div>{error.message}</div>
 
@@ -124,7 +124,7 @@ export default function KodeRekeningPicker({
                                 )}
                             {kodeRekeningSelected.isLoading && (
                                 <div className="flex items-center gap-3">
-                                    <Loading />
+                                    <Spinner />
                                 </div>
                             )}
                         </div>

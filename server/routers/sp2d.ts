@@ -1,4 +1,4 @@
-import { sp2dTable } from "server/db/schema";
+import { sp2dTable } from "#server/db/schema";
 import {
   createTRPCRouter,
   pengelolaProcedure,

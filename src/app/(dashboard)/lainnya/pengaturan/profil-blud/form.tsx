@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 import { profilBludSchema } from "./schema";
-import { profilBlud } from "server/db/schema";
+import { profilBlud } from "#server/db/schema";
 import { Textarea } from "@/components/ui/textarea";
 import { useAuth } from "@/lib/auth";
 

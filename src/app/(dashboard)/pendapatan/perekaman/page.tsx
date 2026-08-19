@@ -6,7 +6,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import PendapatanTable from "./table";
+import PendapatanTable from "./table";import { TableBoundary } from "@/components/table-boundary";
+
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { FiPlus } from "react-icons/fi";
@@ -27,7 +28,9 @@ export default function CreatePage() {
         </CardAction>
       </CardHeader>
       <CardContent>
+        <TableBoundary>
         <PendapatanTable />
+        </TableBoundary>
       </CardContent>
     </Card>
   );

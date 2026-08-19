@@ -1,4 +1,3 @@
-import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import { CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -20,23 +19,14 @@ export default function BkPajakTable() {
   const handlePrint = useReactToPrint({ contentRef: componentRef });
 
   const {
-    isLoading,
-    isError,
-    error,
     data: belanja,
   } = api.belanja.getAllBkPajak.useQuery(
     {
       startDate: searchParams.get("startDate") || undefined,
       endDate: searchParams.get("endDate") || undefined,
     },
-    { placeholderData: keepPreviousData },
+    { placeholderData: keepPreviousData, suspense: true },
   );
-
-  if (isLoading) return <Loading />;
-
-  if (isError) {
-    return <div>{error.message}</div>;
-  }
 
   if (!belanja) return <div>Data tidak dapat dimuat.</div>;
 

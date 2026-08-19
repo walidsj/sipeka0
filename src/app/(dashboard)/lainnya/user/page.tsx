@@ -9,7 +9,8 @@ import {
 } from "@/components/ui/card";
 import { FiPlus } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import UserTable from "./table";
+import UserTable from "./table";import { TableBoundary } from "@/components/table-boundary";
+
 import { useAuth } from "@/lib/auth";
 
 export default function Page() {
@@ -34,7 +35,9 @@ export default function Page() {
         )}
       </CardHeader>
       <CardContent>
+        <TableBoundary>
         <UserTable />
+        </TableBoundary>
       </CardContent>
     </Card>
   );

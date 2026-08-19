@@ -1,4 +1,3 @@
-import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -25,10 +24,9 @@ export default function RekeningBankTable() {
 
   const {
     data: rekeningBank,
-    error,
-    isLoading,
   } = api.rekeningBank.getAll.useQuery(undefined, {
     placeholderData: keepPreviousData,
+    suspense: true,
   });
 
   const deleteRekeningBank = api.rekeningBank.deleteById.useMutation({
@@ -46,9 +44,7 @@ export default function RekeningBankTable() {
     },
   });
 
-  if (isLoading) return <Loading />;
-
-  if (!rekeningBank) return <div>{error?.message}</div>;
+  if (!rekeningBank) return <div>Data tidak dapat dimuat.</div>;
 
   return (
     <Table>

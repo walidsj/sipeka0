@@ -1,4 +1,4 @@
-import { belanja, pendapatan, sp3bTable } from "server/db/schema";
+import { belanja, pendapatan, sp3bTable } from "#server/db/schema";
 import { createTRPCRouter, userProcedure } from "#server/lib/trpc";
 import { and, desc, eq, gte, lt, lte } from "drizzle-orm";
 import { z } from "zod";

@@ -1,5 +1,5 @@
 import { rekananSchema } from "../schema/rekanan";
-import { rekanan } from "server/db/schema";
+import { rekanan } from "#server/db/schema";
 import { createTRPCRouter, userProcedure } from "#server/lib/trpc";
 import { asc, eq, like, or } from "drizzle-orm";
 import { z } from "zod";

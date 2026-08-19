@@ -1,4 +1,4 @@
-import { pendapatan } from "server/db/schema";
+import { pendapatan } from "#server/db/schema";
 import { Button } from "@/components/ui/button";
 import {
   Form,

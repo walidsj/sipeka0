@@ -1,4 +1,4 @@
-import { bank } from "server/db/schema";
+import { bank } from "#server/db/schema";
 import { bankSchema } from "#server/schema/bank";
 import { Button } from "@/components/ui/button";
 import {

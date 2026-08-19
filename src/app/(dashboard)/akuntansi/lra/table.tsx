@@ -1,4 +1,3 @@
-import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -30,23 +29,14 @@ export default function LraTable() {
   });
 
   const {
-    isLoading,
-    isError,
-    error,
     data: belanja,
   } = api.belanja.getBelanjaLra.useQuery(
     {
       startDate: searchParams.get("startDate") || undefined,
       endDate: searchParams.get("endDate") || undefined,
     },
-    { placeholderData: keepPreviousData },
+    { placeholderData: keepPreviousData, suspense: true },
   );
-
-  if (isLoading) return <Loading />;
-
-  if (isError) {
-    return <div>{error.message}</div>;
-  }
 
   if (!belanja) return <div>Data tidak dapat dimuat.</div>;
 

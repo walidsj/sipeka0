@@ -10,6 +10,7 @@ import {
 import { FiPlus } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import PengelolaBludTable from "./table";
+import { TableBoundary } from "@/components/table-boundary";
 
 export default function PengelolaBlud() {
   return (
@@ -29,7 +30,9 @@ export default function PengelolaBlud() {
         </CardAction>
       </CardHeader>
       <CardContent>
+        <TableBoundary>
         <PengelolaBludTable />
+        </TableBoundary>
       </CardContent>
     </Card>
   );

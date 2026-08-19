@@ -1,4 +1,3 @@
-import Loading from "@/components/loading";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,7 +24,7 @@ import { Link } from "react-router-dom";
 export default function PegawaiTable() {
   const pegawai = api.pegawai.getAll.useQuery(
     {},
-    { placeholderData: keepPreviousData },
+    { placeholderData: keepPreviousData, suspense: true },
   );
 
   const deletePegawai = api.pegawai.deleteById.useMutation({
@@ -55,13 +54,6 @@ export default function PegawaiTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {pegawai.isLoading && (
-          <TableRow>
-            <TableCell colSpan={6} className="text-center">
-              <Loading />
-            </TableCell>
-          </TableRow>
-        )}
         {pegawai.isSuccess &&
           pegawai.data?.map((item, index) => (
             <TableRow key={item.id}>
@@ -135,13 +127,6 @@ export default function PegawaiTable() {
           <TableRow>
             <TableCell colSpan={6} className="text-center">
               Tidak ada data
-            </TableCell>
-          </TableRow>
-        )}
-        {pegawai.isError && (
-          <TableRow>
-            <TableCell colSpan={6} className="text-center">
-              {pegawai.error.message}
             </TableCell>
           </TableRow>
         )}

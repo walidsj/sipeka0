@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { api } from "@/trpc/react";
-import Loading from "@/components/loading";
+import { Spinner } from "@/components/ui/spinner";
 
 import toast from "react-hot-toast";
 import {
@@ -26,7 +26,8 @@ import {
   HiOutlinePrinter,
   HiOutlineTrash,
 } from "react-icons/hi";
-import BelanjaEmptyLpjTable from "./table";
+import BelanjaEmptyLpjTable from "./table";import { TableBoundary } from "@/components/table-boundary";
+
 import { formatTanggal } from "@/lib/utils";
 import NotFound from "@/app/not-found";
 
@@ -57,7 +58,7 @@ export default function EditPage() {
     },
   });
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <Spinner />;
 
   if (isError) return <NotFound />;
 
@@ -124,7 +125,9 @@ export default function EditPage() {
         </div>
       </CardContent>
       <CardContent>
+        <TableBoundary>
         <BelanjaEmptyLpjTable />
+        </TableBoundary>
       </CardContent>
     </Card>
   );

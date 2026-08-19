@@ -1,4 +1,3 @@
-import Loading from '@/components/loading'
 import { Button } from '@/components/ui/button'
 import {
     DropdownMenu,
@@ -30,7 +29,7 @@ export default function RapTable() {
 
     const rap = api.rap.getAll.useQuery(
         { search: searchValue },
-        { placeholderData: keepPreviousData }
+        { placeholderData: keepPreviousData, suspense: true }
     )
 
     const deleteRap = api.rap.deleteById.useMutation({
@@ -74,13 +73,6 @@ export default function RapTable() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {rap.isLoading && (
-                        <TableRow>
-                            <TableCell colSpan={4} className="text-center">
-                                <Loading />
-                            </TableCell>
-                        </TableRow>
-                    )}
                     {rap.isSuccess &&
                         groupedData &&
                         Object.keys(groupedData).map((key) => (
@@ -155,13 +147,6 @@ export default function RapTable() {
                         <TableRow>
                             <TableCell colSpan={4} className="text-center">
                                 Tidak ada data
-                            </TableCell>
-                        </TableRow>
-                    )}
-                    {rap.isError && (
-                        <TableRow>
-                            <TableCell colSpan={4} className="text-center">
-                                {rap.error.message}
                             </TableCell>
                         </TableRow>
                     )}

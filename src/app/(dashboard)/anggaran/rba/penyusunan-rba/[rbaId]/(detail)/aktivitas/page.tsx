@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { FiPlus } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import AktivitasTable from "./table";
+import AktivitasTable from "./table";import { TableBoundary } from "@/components/table-boundary";
+
 import { CardDescription, CardTitle } from "@/components/ui/card";
 
 export default function Page() {
@@ -19,7 +20,9 @@ export default function Page() {
           </Link>
         </Button>
       </div>
+      <TableBoundary>
       <AktivitasTable />
+      </TableBoundary>
     </div>
   );
 }

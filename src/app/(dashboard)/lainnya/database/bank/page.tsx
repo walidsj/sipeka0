@@ -10,6 +10,7 @@ import {
 import { FiPlus } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import BankTable from "./table";
+import { TableBoundary } from "@/components/table-boundary";
 
 export default function Bank() {
   return (
@@ -29,7 +30,9 @@ export default function Bank() {
         </CardAction>
       </CardHeader>
       <CardContent>
+        <TableBoundary>
         <BankTable />
+        </TableBoundary>
       </CardContent>
     </Card>
   );

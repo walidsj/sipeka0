@@ -1,4 +1,4 @@
-import { bank } from "server/db/schema";
+import { bank } from "#server/db/schema";
 import { createTRPCRouter, userProcedure } from "#server/lib/trpc";
 import { eq, like, or } from "drizzle-orm";
 import { z } from "zod";

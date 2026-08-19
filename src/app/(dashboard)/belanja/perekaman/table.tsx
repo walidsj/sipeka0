@@ -1,4 +1,3 @@
-import Loading from "@/components/loading";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -67,9 +66,6 @@ export default function BelanjaTable() {
   const [searchValue] = useDebounce(searchParams.get("search") ?? "", 300);
 
   const {
-    isLoading,
-    isError,
-    error,
     data: belanja,
   } = api.belanja.getAll.useQuery(
     {
@@ -79,7 +75,7 @@ export default function BelanjaTable() {
       startDate: searchParams.get("startDate") || undefined,
       endDate: searchParams.get("endDate") || undefined,
     },
-    { placeholderData: keepPreviousData },
+    { placeholderData: keepPreviousData, suspense: true },
   );
 
   const deleteBelanja = api.belanja.deleteById.useMutation({
@@ -96,14 +92,6 @@ export default function BelanjaTable() {
       toast.error(error.message);
     },
   });
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (isError) {
-    return <div>{error.message}</div>;
-  }
 
   if (!belanja) {
     return <div>Data tidak dapat dimuat.</div>;

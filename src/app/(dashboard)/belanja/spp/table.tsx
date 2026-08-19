@@ -1,4 +1,3 @@
-import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -30,7 +29,7 @@ import { Link } from "react-router-dom";
 export default function SppTable() {
   const utils = api.useUtils();
 
-  const { isLoading, isError, error, data: spp } = api.spp.getAll.useQuery({});
+  const { data: spp } = api.spp.getAll.useQuery({}, { suspense: true });
 
   const deleteItem = api.spp.deleteById.useMutation({
     onMutate() {
@@ -46,12 +45,6 @@ export default function SppTable() {
       toast.error(error.message);
     },
   });
-
-  if (isLoading) return <Loading />;
-
-  if (isError) {
-    return <div>{error.message}</div>;
-  }
 
   if (!spp) return <div>Data tidak dapat dimuat.</div>;
 

@@ -1,5 +1,5 @@
 import { aktivitasRbaSchema } from "../schema/aktivitas-rba";
-import { aktivitasRba } from "server/db/schema";
+import { aktivitasRba } from "#server/db/schema";
 import { createTRPCRouter, userProcedure } from "#server/lib/trpc";
 import { TRPCError } from "@trpc/server";
 import { asc, eq, like, or } from "drizzle-orm";

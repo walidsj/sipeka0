@@ -1,5 +1,5 @@
 import { profilBludSchema } from "../schema/profil-blud";
-import { profilBlud } from "server/db/schema";
+import { profilBlud } from "#server/db/schema";
 import {
   createTRPCRouter,
   userProcedure,

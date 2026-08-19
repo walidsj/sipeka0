@@ -12,7 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import RincianRabTable from "./rab-table";
 import RincianRapTable from "./rap-table";
-import Loading from "@/components/loading";
+import { Spinner } from "@/components/ui/spinner";
 import NotFound from "@/app/not-found";
 
 export default function Page() {
@@ -49,7 +49,7 @@ export default function Page() {
           </Button>
         )}
       </div>
-      {aktivitasRba.isLoading && <Loading />}
+      {aktivitasRba.isLoading && <Spinner />}
       {aktivitasRba.data && (
         <Card>
           <CardHeader>
