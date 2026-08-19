@@ -59,10 +59,7 @@ function Login() {
       toast.dismiss();
       auth.login(data.token);
       toast.success(data.message);
-      if (search.redirect) {
-        navigate({ href: search.redirect });
-        return;
-      }
+      navigate({ href: search.redirect || "/" });
     },
     onError(error) {
       toast.dismiss();
