@@ -1,0 +1,9 @@
+[
+  { "kode": "4.1", "uraian": "PENDAPATAN ASLI DAERAH (PAD)" },
+  { "kode": "4.2", "uraian": "PENDAPATAN TRANSFER" },
+  { "kode": "4.3", "uraian": "LAIN-LAIN PENDAPATAN DAERAH YANG SAH" },
+  { "kode": "5.1", "uraian": "BELANJA OPERASI" },
+  { "kode": "5.2", "uraian": "BELANJA MODAL" },
+  { "kode": "5.3", "uraian": "BELANJA TIDAK TERDUGA" },
+  { "kode": "5.4", "uraian": "BELANJA TRANSFER" }
+]

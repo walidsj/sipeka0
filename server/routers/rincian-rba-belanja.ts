@@ -1,5 +1,5 @@
 import { rincianRbaBelanjaSchema } from "../schema/rincian-rba-belanja";
-import { rekeningLevel6 } from "@/data/rekening";
+import { getRekening } from "@/data/rekening";
 import { rincianRbaBelanja } from "#server/db/schema";
 import { createTRPCRouter, userProcedure } from "#server/lib/trpc";
 import { TRPCError } from "@trpc/server";
@@ -20,6 +20,8 @@ export const rincianRbaBelanjaRouter = createTRPCRouter({
             rab: true,
           },
         });
+
+      const rekeningLevel6 = getRekening(ctx.session?.tahun).level6;
 
       return rincianRbaBelanjaList.map((rincianRbaBelanja) => {
         const kodeRekening = rekeningLevel6.find(
@@ -43,6 +45,8 @@ export const rincianRbaBelanjaRouter = createTRPCRouter({
   getByAktivitasRbaId: userProcedure
     .input(z.number())
     .query(async ({ ctx, input }) => {
+      const rekeningLevel6 = getRekening(ctx.session?.tahun).level6;
+
       const rincianRbaBelanjaList =
         await ctx.db.query.rincianRbaBelanja.findMany({
           where: eq(rincianRbaBelanja.aktivitasRbaId, input),

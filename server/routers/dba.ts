@@ -1,5 +1,5 @@
 import { dbaSchema } from "../schema/dba";
-import { rekeningLevel6 } from "@/data/rekening";
+import { getRekening } from "@/data/rekening";
 import {
   aktivitasRba,
   belanja,
@@ -124,6 +124,8 @@ export const dbaRouter = createTRPCRouter({
       })
       .from(rab)
       .leftJoin(rekapBelanja, eq(rab.id, rekapBelanja.rabId));
+
+    const rekeningLevel6 = getRekening(ctx.session?.tahun).level6;
 
     const dataBelanja = belanjaList.map((belanja) => {
       return {

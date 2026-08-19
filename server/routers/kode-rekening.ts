@@ -1,12 +1,4 @@
-import {
-  Rekening,
-  rekeningLevel1,
-  rekeningLevel2,
-  rekeningLevel3,
-  rekeningLevel4,
-  rekeningLevel5,
-  rekeningLevel6,
-} from "@/data/rekening";
+import { Rekening, getRekening } from "@/data/rekening";
 import { createTRPCRouter, userProcedure } from "#server/lib/trpc";
 import { z } from "zod";
 
@@ -22,16 +14,28 @@ export const kodeRekeningRouter = createTRPCRouter({
         pageSize: z.number().optional(),
       }),
     )
-    .query(async ({ input }) => {
+    .query(async ({ ctx, input }) => {
       const page = input.page ?? 1;
       const pageSize = input.pageSize ?? 10;
+
+      const rekening = getRekening(ctx.session?.tahun);
+
+      const levelMap: Record<string, Rekening> = {
+        "1": rekening.level1,
+        "2": rekening.level2,
+        "3": rekening.level3,
+        "4": rekening.level4,
+        "5": rekening.level5,
+        "6": rekening.level6,
+      };
+
+      const levelData = levelMap[input.level];
 
       let data: Rekening = [];
       let dataTotal: number = 0;
 
-      if (input.level === "1") {
-        dataTotal = rekeningLevel1.length;
-        data = rekeningLevel1.filter((item) => {
+      dataTotal = levelData.length;
+      data = levelData.filter((item) => {
           if (input.search) {
             if (input.searchKode) {
               return (
@@ -55,147 +59,6 @@ export const kodeRekeningRouter = createTRPCRouter({
 
           return true;
         });
-      }
-
-      if (input.level === "2") {
-        dataTotal = rekeningLevel2.length;
-        data = rekeningLevel2.filter((item) => {
-          if (input.search) {
-            if (input.searchKode) {
-              return (
-                (item.uraian
-                  .toLowerCase()
-                  .includes(input.search.toLowerCase()) ||
-                  item.kode.startsWith(input.search.toLowerCase())) &&
-                item.kode.startsWith(input.searchKode.toLowerCase())
-              );
-            }
-
-            return (
-              item.uraian.toLowerCase().includes(input.search.toLowerCase()) ||
-              item.kode.startsWith(input.search.toLowerCase())
-            );
-          }
-
-          if (input.searchKode) {
-            return item.kode.startsWith(input.searchKode.toLowerCase());
-          }
-
-          return true;
-        });
-      }
-
-      if (input.level === "3") {
-        dataTotal = rekeningLevel3.length;
-        data = rekeningLevel3.filter((item) => {
-          if (input.search) {
-            if (input.searchKode) {
-              return (
-                (item.uraian
-                  .toLowerCase()
-                  .includes(input.search.toLowerCase()) ||
-                  item.kode.startsWith(input.search.toLowerCase())) &&
-                item.kode.startsWith(input.searchKode.toLowerCase())
-              );
-            }
-
-            return (
-              item.uraian.toLowerCase().includes(input.search.toLowerCase()) ||
-              item.kode.startsWith(input.search.toLowerCase())
-            );
-          }
-
-          if (input.searchKode) {
-            return item.kode.startsWith(input.searchKode.toLowerCase());
-          }
-
-          return true;
-        });
-      }
-
-      if (input.level === "4") {
-        dataTotal = rekeningLevel4.length;
-        data = rekeningLevel4.filter((item) => {
-          if (input.search) {
-            if (input.searchKode) {
-              return (
-                (item.uraian
-                  .toLowerCase()
-                  .includes(input.search.toLowerCase()) ||
-                  item.kode.startsWith(input.search.toLowerCase())) &&
-                item.kode.startsWith(input.searchKode.toLowerCase())
-              );
-            }
-
-            return (
-              item.uraian.toLowerCase().includes(input.search.toLowerCase()) ||
-              item.kode.startsWith(input.search.toLowerCase())
-            );
-          }
-
-          if (input.searchKode) {
-            return item.kode.startsWith(input.searchKode.toLowerCase());
-          }
-
-          return true;
-        });
-      }
-
-      if (input.level === "5") {
-        dataTotal = rekeningLevel5.length;
-        data = rekeningLevel5.filter((item) => {
-          if (input.search) {
-            if (input.searchKode) {
-              return (
-                (item.uraian
-                  .toLowerCase()
-                  .includes(input.search.toLowerCase()) ||
-                  item.kode.startsWith(input.search.toLowerCase())) &&
-                item.kode.startsWith(input.searchKode.toLowerCase())
-              );
-            }
-
-            return (
-              item.uraian.toLowerCase().includes(input.search.toLowerCase()) ||
-              item.kode.startsWith(input.search.toLowerCase())
-            );
-          }
-
-          if (input.searchKode) {
-            return item.kode.startsWith(input.searchKode.toLowerCase());
-          }
-
-          return true;
-        });
-      }
-
-      if (input.level === "6") {
-        dataTotal = rekeningLevel6.length;
-        data = rekeningLevel6.filter((item) => {
-          if (input.search) {
-            if (input.searchKode) {
-              return (
-                (item.uraian
-                  .toLowerCase()
-                  .includes(input.search.toLowerCase()) ||
-                  item.kode.startsWith(input.search.toLowerCase())) &&
-                item.kode.startsWith(input.searchKode.toLowerCase())
-              );
-            }
-
-            return (
-              item.uraian.toLowerCase().includes(input.search.toLowerCase()) ||
-              item.kode.startsWith(input.search.toLowerCase())
-            );
-          }
-
-          if (input.searchKode) {
-            return item.kode.startsWith(input.searchKode.toLowerCase());
-          }
-
-          return true;
-        });
-      }
 
       const dataFiltered = data.length;
 
@@ -233,32 +96,21 @@ export const kodeRekeningRouter = createTRPCRouter({
         kode: z.string(),
       }),
     )
-    .query(async ({ input }) => {
-      let data;
+    .query(async ({ ctx, input }) => {
+      const rekening = getRekening(ctx.session?.tahun);
 
-      if (input.level === "1") {
-        data = rekeningLevel1.find((item) => item.kode === input.kode);
-      }
+      const levelMap: Record<string, Rekening> = {
+        "1": rekening.level1,
+        "2": rekening.level2,
+        "3": rekening.level3,
+        "4": rekening.level4,
+        "5": rekening.level5,
+        "6": rekening.level6,
+      };
 
-      if (input.level === "2") {
-        data = rekeningLevel2.find((item) => item.kode === input.kode);
-      }
-
-      if (input.level === "3") {
-        data = rekeningLevel3.find((item) => item.kode === input.kode);
-      }
-
-      if (input.level === "4") {
-        data = rekeningLevel4.find((item) => item.kode === input.kode);
-      }
-
-      if (input.level === "5") {
-        data = rekeningLevel5.find((item) => item.kode === input.kode);
-      }
-
-      if (input.level === "6") {
-        data = rekeningLevel6.find((item) => item.kode === input.kode);
-      }
+      const data = levelMap[input.level]?.find(
+        (item) => item.kode === input.kode,
+      );
 
       return data;
     }),

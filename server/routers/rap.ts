@@ -1,5 +1,5 @@
 import { rapSchema } from "../schema/rap";
-import { rekeningLevel6 } from "@/data/rekening";
+import { getRekening } from "@/data/rekening";
 import { rap } from "#server/db/schema";
 import { createTRPCRouter, userProcedure } from "#server/lib/trpc";
 import { eq, like, or } from "drizzle-orm";
@@ -18,6 +18,8 @@ export const rapRouter = createTRPCRouter({
           ? or(like(rap.uraian, `%${input.search}%`))
           : undefined,
       });
+
+      const rekeningLevel6 = getRekening(ctx.session?.tahun).level6;
 
       return rapList.map((rap) => {
         return {

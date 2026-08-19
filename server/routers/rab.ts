@@ -1,5 +1,5 @@
 import { rabSchema } from "../schema/rab";
-import { rekeningLevel6 } from "@/data/rekening";
+import { getRekening } from "@/data/rekening";
 import { rab } from "#server/db/schema";
 import { createTRPCRouter, userProcedure } from "#server/lib/trpc";
 import { asc, count, eq, like, or } from "drizzle-orm";
@@ -26,6 +26,8 @@ export const rabRouter = createTRPCRouter({
         offset: page ? (page - 1) * pageSize : 0,
         orderBy: asc(rab.kodeRekening),
       });
+
+      const rekeningLevel6 = getRekening(ctx.session?.tahun).level6;
 
       const data = rabList.map((rab) => ({
         ...rab,

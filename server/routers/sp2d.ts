@@ -6,7 +6,7 @@ import {
 } from "#server/lib/trpc";
 import { and, desc, eq, gte, like, lte, or } from "drizzle-orm";
 import { z } from "zod";
-import { rekeningLevel6 } from "@/data/rekening";
+import { getRekening } from "@/data/rekening";
 import { sp2dSchema } from "../schema/sp2d";
 
 export const sp2dRouter = createTRPCRouter({
@@ -100,6 +100,8 @@ export const sp2dRouter = createTRPCRouter({
     if (!sp2dData) {
       return null;
     }
+
+    const rekeningLevel6 = getRekening(ctx.session?.tahun).level6;
 
     // add kode and uraian to kodeRekening rab
     return {

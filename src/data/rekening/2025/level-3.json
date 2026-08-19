@@ -1,0 +1,32 @@
+[
+  { "kode": "4.1.01", "uraian": "Pajak Daerah" },
+  { "kode": "4.1.02", "uraian": "Retribusi Daerah" },
+  {
+    "kode": "4.1.03",
+    "uraian": "Hasil Pengelolaan Kekayaan Daerah yang Dipisahkan"
+  },
+  { "kode": "4.1.04", "uraian": "Lain-lain PAD yang Sah" },
+  { "kode": "4.2.01", "uraian": "Pendapatan Transfer Pemerintah Pusat" },
+  { "kode": "4.2.02", "uraian": "Pendapatan Transfer Antar Daerah" },
+  { "kode": "4.3.01", "uraian": "Pendapatan Hibah" },
+  { "kode": "4.3.02", "uraian": "Dana Darurat" },
+  {
+    "kode": "4.3.03",
+    "uraian": "Lain-lain Pendapatan Sesuai dengan Ketentuan Peraturan Perundang-Undangan"
+  },
+  { "kode": "5.1.01", "uraian": "Belanja Pegawai" },
+  { "kode": "5.1.02", "uraian": "Belanja Barang dan Jasa" },
+  { "kode": "5.1.03", "uraian": "Belanja Bunga" },
+  { "kode": "5.1.04", "uraian": "Belanja Subsidi" },
+  { "kode": "5.1.05", "uraian": "Belanja Hibah" },
+  { "kode": "5.1.06", "uraian": "Belanja Bantuan Sosial" },
+  { "kode": "5.2.01", "uraian": "Belanja Modal Tanah" },
+  { "kode": "5.2.02", "uraian": "Belanja Modal Peralatan dan Mesin" },
+  { "kode": "5.2.03", "uraian": "Belanja Modal Gedung dan Bangunan" },
+  { "kode": "5.2.04", "uraian": "Belanja Modal Jalan, Jaringan, dan Irigasi" },
+  { "kode": "5.2.05", "uraian": "Belanja Modal Aset Tetap Lainnya" },
+  { "kode": "5.2.06", "uraian": "Belanja Modal Aset Lainnya" },
+  { "kode": "5.3.01", "uraian": "Belanja Tidak Terduga" },
+  { "kode": "5.4.01", "uraian": "Belanja Bagi Hasil" },
+  { "kode": "5.4.02", "uraian": "Belanja Bantuan Keuangan" }
+]

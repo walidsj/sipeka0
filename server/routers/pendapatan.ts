@@ -1,4 +1,4 @@
-import { rekeningLevel6 } from "@/data/rekening";
+import { getRekening } from "@/data/rekening";
 import { aktivitasRba, dba, pendapatan } from "#server/db/schema";
 import { createTRPCRouter, userProcedure } from "#server/lib/trpc";
 import { and, count, desc, eq, like, sum } from "drizzle-orm";
@@ -29,6 +29,8 @@ export const pendapatanRouter = createTRPCRouter({
         limit: pageSize ?? 10,
         offset: page ? (page - 1) * pageSize : 0,
       });
+
+      const rekeningLevel6 = getRekening(ctx.session?.tahun).level6;
 
       const data = pendapatanList.map((pendapatan) => ({
         ...pendapatan,

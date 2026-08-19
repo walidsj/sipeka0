@@ -31,7 +31,7 @@ import {
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { belanjaSchema, potonganBelanjaSchema } from "../schema/belanja.schema";
-import { rekeningLevel6 } from "@/data/rekening";
+import { getRekening } from "@/data/rekening";
 import lodash from "lodash";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
@@ -783,6 +783,8 @@ export const belanjaRouter = createTRPCRouter({
         offset: page ? (page - 1) * pageSize : 0,
       });
 
+      const rekeningLevel6 = getRekening(ctx.session?.tahun).level6;
+
       const data = belanjaList.map((belanja) => ({
         ...belanja,
         rekening: rekeningLevel6.find(
@@ -1030,6 +1032,8 @@ export const belanjaRouter = createTRPCRouter({
       orderBy: [asc(belanja.tglDokumen), asc(belanja.createdAt)],
     });
 
+    const rekeningLevel6 = getRekening(ctx.session?.tahun).level6;
+
     return unclassified
       .filter((item) => {
         return !item.rab?.rincianRbaBelanja.find((rincian) => {
@@ -1186,6 +1190,8 @@ export const belanjaRouter = createTRPCRouter({
       const kodeRekeningAnggaran = [
         ...new Set(anggaranBelanjaFlatten.map((item) => item.kodeRekening)),
       ];
+
+      const rekeningLevel6 = getRekening(ctx.session?.tahun).level6;
 
       const rekeningLv6 = rekeningLevel6.filter((item) => {
         return (

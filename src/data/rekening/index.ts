@@ -1,9 +1,16 @@
-import level1 from "./level-1.json";
-import level2 from "./level-2.json";
-import level3 from "./level-3.json";
-import level4 from "./level-4.json";
-import level5 from "./level-5.json";
-import level6 from "./level-6.json";
+import level1_2025 from "./2025/level-1.json";
+import level2_2025 from "./2025/level-2.json";
+import level3_2025 from "./2025/level-3.json";
+import level4_2025 from "./2025/level-4.json";
+import level5_2025 from "./2025/level-5.json";
+import level6_2025 from "./2025/level-6.json";
+
+import level1_2026 from "./2026/level-1.json";
+import level2_2026 from "./2026/level-2.json";
+import level3_2026 from "./2026/level-3.json";
+import level4_2026 from "./2026/level-4.json";
+import level5_2026 from "./2026/level-5.json";
+import level6_2026 from "./2026/level-6.json";
 
 export type RekeningLevel = {
   kode: string;
@@ -12,9 +19,35 @@ export type RekeningLevel = {
 
 export type Rekening = RekeningLevel[];
 
-export const rekeningLevel1 = level1 as unknown as Rekening;
-export const rekeningLevel2 = level2 as unknown as Rekening;
-export const rekeningLevel3 = level3 as unknown as Rekening;
-export const rekeningLevel4 = level4 as unknown as Rekening;
-export const rekeningLevel5 = level5 as unknown as Rekening;
-export const rekeningLevel6 = level6 as unknown as Rekening;
+type RekeningData = {
+  level1: Rekening;
+  level2: Rekening;
+  level3: Rekening;
+  level4: Rekening;
+  level5: Rekening;
+  level6: Rekening;
+};
+
+const rekeningData: Record<string, RekeningData> = {
+  "2025": {
+    level1: level1_2025 as unknown as Rekening,
+    level2: level2_2025 as unknown as Rekening,
+    level3: level3_2025 as unknown as Rekening,
+    level4: level4_2025 as unknown as Rekening,
+    level5: level5_2025 as unknown as Rekening,
+    level6: level6_2025 as unknown as Rekening,
+  },
+  "2026": {
+    level1: level1_2026 as unknown as Rekening,
+    level2: level2_2026 as unknown as Rekening,
+    level3: level3_2026 as unknown as Rekening,
+    level4: level4_2026 as unknown as Rekening,
+    level5: level5_2026 as unknown as Rekening,
+    level6: level6_2026 as unknown as Rekening,
+  },
+};
+
+export function getRekening(tahun?: string): RekeningData {
+  const key = tahun === "2025" ? "2025" : "2026";
+  return rekeningData[key];
+}

@@ -7,7 +7,7 @@ import {
 } from "#server/lib/trpc";
 import { and, desc, eq, gte, like, lte, or } from "drizzle-orm";
 import { z } from "zod";
-import { rekeningLevel6 } from "@/data/rekening";
+import { getRekening } from "@/data/rekening";
 
 export const sppRouter = createTRPCRouter({
   getAll: userProcedure
@@ -98,6 +98,8 @@ export const sppRouter = createTRPCRouter({
     if (!sppData) {
       return null;
     }
+
+    const rekeningLevel6 = getRekening(ctx.session?.tahun).level6;
 
     // add kode and uraian to kodeRekening rab
     return {
