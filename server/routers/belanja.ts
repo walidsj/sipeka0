@@ -1140,7 +1140,10 @@ export const belanjaRouter = createTRPCRouter({
       const rekapBelanjaSebelumnya = ctx.db
         .select({
           rabId: belanja.rabId,
-          jumlah: sql`SUM(${belanja.jumlah})`.as("jumlah"),
+          // Kolom agregat diberi alias berbeda dari `rekapBelanja` karena
+          // referensi kolom derived table oleh Drizzle tidak di-prefix tabel,
+          // sehingga nama kolom yang sama membuat query ambigu di MySQL.
+          jumlahSebelumnya: sql`SUM(${belanja.jumlah})`.as("jumlahSebelumnya"),
         })
         .from(belanja)
         .where(startDate ? lt(belanja.tglDokumen, startDate) : undefined)
@@ -1152,7 +1155,7 @@ export const belanjaRouter = createTRPCRouter({
           id: rab.id,
           kodeRekening: rab.kodeRekening,
           jumlah: rekapBelanja.jumlah,
-          jumlahSebelumnya: rekapBelanjaSebelumnya.jumlah,
+          jumlahSebelumnya: rekapBelanjaSebelumnya.jumlahSebelumnya,
         })
         .from(rab)
         .leftJoin(rekapBelanja, eq(rab.id, rekapBelanja.rabId))
@@ -1163,7 +1166,7 @@ export const belanjaRouter = createTRPCRouter({
         .where(
           or(
             isNotNull(rekapBelanja.jumlah),
-            isNotNull(rekapBelanjaSebelumnya.jumlah),
+            isNotNull(rekapBelanjaSebelumnya.jumlahSebelumnya),
           ),
         );
 
