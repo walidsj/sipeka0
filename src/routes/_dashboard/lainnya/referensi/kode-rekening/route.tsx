@@ -1,0 +1,151 @@
+import { createFileRoute } from "@tanstack/react-router";
+
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import { Link, Outlet, useLocation } from "@tanstack/react-router";
+
+function Layout() {
+  const { pathname } = useLocation();
+
+  return (
+    <div className="flex flex-col gap-5">
+      <Card>
+        <CardHeader>
+          <CardTitle>Daftar Kode Rekening</CardTitle>
+          <CardDescription>
+            Sesuai dengan Permendagri 90/2019, Kepmendagri 050-5889/2021, dan
+            Kepmendagri 900.1.15.5-1317/2023
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <nav className="mb-3 w-full border-b">
+            <ul className="flex">
+              <li>
+                <Button
+                  asChild
+                  variant="ghost"
+                  className={cn(
+                    "h-12 rounded-none",
+                    pathname === "1" &&
+                      "border-primary text-primary border-b-4",
+                  )}
+                >
+                  <Link
+                    to="/lainnya/referensi/kode-rekening/$level"
+                    params={{ level: "1" }}
+                  >
+                    Akun
+                  </Link>
+                </Button>
+              </li>
+              <li>
+                <Button
+                  asChild
+                  variant="ghost"
+                  className={cn(
+                    "h-12 rounded-none",
+                    pathname === "2" &&
+                      "border-primary text-primary border-b-4",
+                  )}
+                >
+                  <Link
+                    to="/lainnya/referensi/kode-rekening/$level"
+                    params={{ level: "2" }}
+                  >
+                    Kelompok
+                  </Link>
+                </Button>
+              </li>
+              <li>
+                <Button
+                  asChild
+                  variant="ghost"
+                  className={cn(
+                    "h-12 rounded-none",
+                    pathname === "3" &&
+                      "border-primary text-primary border-b-4",
+                  )}
+                >
+                  <Link
+                    to="/lainnya/referensi/kode-rekening/$level"
+                    params={{ level: "3" }}
+                  >
+                    Jenis
+                  </Link>
+                </Button>
+              </li>
+              <li>
+                <Button
+                  asChild
+                  variant="ghost"
+                  className={cn(
+                    "h-12 rounded-none",
+                    pathname === "4" &&
+                      "border-primary text-primary border-b-4",
+                  )}
+                >
+                  <Link
+                    to="/lainnya/referensi/kode-rekening/$level"
+                    params={{ level: "4" }}
+                  >
+                    Objek
+                  </Link>
+                </Button>
+              </li>
+              <li>
+                <Button
+                  asChild
+                  variant="ghost"
+                  className={cn(
+                    "h-12 rounded-none",
+                    pathname === "5" &&
+                      "border-primary text-primary border-b-4",
+                  )}
+                >
+                  <Link
+                    to="/lainnya/referensi/kode-rekening/$level"
+                    params={{ level: "5" }}
+                  >
+                    Rincian Objek
+                  </Link>
+                </Button>
+              </li>
+              <li>
+                <Button
+                  asChild
+                  variant="ghost"
+                  className={cn(
+                    "h-12 rounded-none",
+                    pathname === "6" &&
+                      "border-primary text-primary border-b-4",
+                  )}
+                >
+                  <Link
+                    to="/lainnya/referensi/kode-rekening/$level"
+                    params={{ level: "6" }}
+                  >
+                    Sub Rincian Objek
+                  </Link>
+                </Button>
+              </li>
+            </ul>
+          </nav>
+          <Outlet />
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+export const Route = createFileRoute(
+  "/_dashboard/lainnya/referensi/kode-rekening",
+)({
+  component: Layout,
+});

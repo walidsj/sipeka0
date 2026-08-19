@@ -1,2842 +1,2842 @@
 [
-    {
-        "kode": "5.1.01.01.001",
-        "uraian": "Belanja Gaji Pokok ASN"
-    },
-    {
-        "kode": "5.1.01.01.002",
-        "uraian": "Belanja Tunjangan Keluarga ASN"
-    },
-    {
-        "kode": "5.1.01.01.003",
-        "uraian": "Belanja Tunjangan Jabatan ASN"
-    },
-    {
-        "kode": "5.1.01.01.004",
-        "uraian": "Belanja Tunjangan Fungsional ASN"
-    },
-    {
-        "kode": "5.1.01.01.005",
-        "uraian": "Belanja Tunjangan Fungsional Umum ASN"
-    },
-    {
-        "kode": "5.1.01.01.006",
-        "uraian": "Belanja Tunjangan Beras ASN"
-    },
-    {
-        "kode": "5.1.01.01.007",
-        "uraian": "Belanja Tunjangan PPh/Tunjangan Khusus ASN"
-    },
-    {
-        "kode": "5.1.01.01.008",
-        "uraian": "Belanja Pembulatan Gaji ASN"
-    },
-    {
-        "kode": "5.1.01.01.009",
-        "uraian": "Belanja Iuran Jaminan Kesehatan ASN"
-    },
-    {
-        "kode": "5.1.01.01.010",
-        "uraian": "Belanja Iuran Jaminan Kecelakaan Kerja ASN"
-    },
-    {
-        "kode": "5.1.01.01.011",
-        "uraian": "Belanja Iuran Jaminan Kematian ASN"
-    },
-    {
-        "kode": "5.1.01.01.012",
-        "uraian": "Belanja Iuran Simpanan Peserta Tabungan Perumahan Rakyat ASN"
-    },
-    {
-        "kode": "5.1.01.01.013",
-        "uraian": "Belanja Jaminan Hari Tua ASN"
-    },
-    {
-        "kode": "5.1.01.01.014",
-        "uraian": "Belanja Tunjangan Khusus*)"
-    },
-    {
-        "kode": "5.1.01.01.015",
-        "uraian": "Belanja Zakat ASN"
-    },
-    {
-        "kode": "5.1.01.02.001",
-        "uraian": "Tambahan Penghasilan berdasarkan Beban Kerja ASN"
-    },
-    {
-        "kode": "5.1.01.02.002",
-        "uraian": "Tambahan Penghasilan berdasarkan Tempat Bertugas ASN"
-    },
-    {
-        "kode": "5.1.01.02.003",
-        "uraian": "Tambahan Penghasilan berdasarkan Kondisi Kerja ASN"
-    },
-    {
-        "kode": "5.1.01.02.004",
-        "uraian": "Tambahan Penghasilan berdasarkan Kelangkaan Profesi ASN"
-    },
-    {
-        "kode": "5.1.01.02.005",
-        "uraian": "Tambahan Penghasilan berdasarkan Prestasi Kerja ASN"
-    },
-    {
-        "kode": "5.1.01.02.006",
-        "uraian": "Tambahan Penghasilan berdasarkan Pertimbangan Objektif Lainnya ASN"
-    },
-    {
-        "kode": "5.1.01.04.001",
-        "uraian": "Belanja Uang Representasi DPRD"
-    },
-    {
-        "kode": "5.1.01.04.002",
-        "uraian": "Belanja Tunjangan Keluarga DPRD"
-    },
-    {
-        "kode": "5.1.01.04.003",
-        "uraian": "Belanja Tunjangan Beras DPRD"
-    },
-    {
-        "kode": "5.1.01.04.004",
-        "uraian": "Belanja Uang Paket DPRD"
-    },
-    {
-        "kode": "5.1.01.04.005",
-        "uraian": "Belanja Tunjangan Jabatan DPRD"
-    },
-    {
-        "kode": "5.1.01.04.006",
-        "uraian": "Belanja Tunjangan Alat Kelengkapan DPRD"
-    },
-    {
-        "kode": "5.1.01.04.007",
-        "uraian": "Belanja Tunjangan Alat Kelengkapan Lainnya DPRD"
-    },
-    {
-        "kode": "5.1.01.04.008",
-        "uraian": "Belanja Tunjangan Komunikasi Intensif Pimpinan dan Anggota DPRD"
-    },
-    {
-        "kode": "5.1.01.04.009",
-        "uraian": "Belanja Tunjangan Reses DPRD"
-    },
-    {
-        "kode": "5.1.01.04.010",
-        "uraian": "Belanja Pembebanan PPh kepada Pimpinan dan Anggota DPRD"
-    },
-    {
-        "kode": "5.1.01.04.011",
-        "uraian": "Belanja Pembulatan Gaji DPRD"
-    },
-    {
-        "kode": "5.1.01.04.012",
-        "uraian": "Belanja Tunjangan Kesejahteraan Pimpinan dan Anggota DPRD"
-    },
-    {
-        "kode": "5.1.01.04.013",
-        "uraian": "Belanja Tunjangan Transportasi DPRD"
-    },
-    {
-        "kode": "5.1.01.04.014",
-        "uraian": "Belanja Uang Jasa Pengabdian DPRD"
-    },
-    {
-        "kode": "5.1.01.05.001",
-        "uraian": "Belanja Gaji Pokok KDH/WKDH"
-    },
-    {
-        "kode": "5.1.01.05.002",
-        "uraian": "Belanja Tunjangan Keluarga KDH/WKDH"
-    },
-    {
-        "kode": "5.1.01.05.003",
-        "uraian": "Belanja Tunjangan Jabatan KDH/WKDH"
-    },
-    {
-        "kode": "5.1.01.05.004",
-        "uraian": "Belanja Tunjangan Beras KDH/WKDH"
-    },
-    {
-        "kode": "5.1.01.05.005",
-        "uraian": "Belanja Tunjangan PPh/Tunjangan Khusus KDH/WKDH"
-    },
-    {
-        "kode": "5.1.01.05.006",
-        "uraian": "Belanja Pembulatan Gaji KDH/WKDH"
-    },
-    {
-        "kode": "5.1.01.05.007",
-        "uraian": "Belanja Iuran Jaminan Kesehatan bagi KDH/WKDH"
-    },
-    {
-        "kode": "5.1.01.05.008",
-        "uraian": "Belanja Iuran Jaminan Kecelakaan Kerja KDH/WKDH"
-    },
-    {
-        "kode": "5.1.01.05.009",
-        "uraian": "Belanja Iuran Jaminan Kematian KDH/WKDH"
-    },
-    {
-        "kode": "5.1.01.05.010",
-        "uraian": "Belanja Insentif bagi KDH/WKDH atas Pemungutan Pajak Daerah"
-    },
-    {
-        "kode": "5.1.01.05.011",
-        "uraian": "Belanja Insentif bagi KDH/WKDH atas Pemungutan Retribusi Daerah bagi KDH/WKDH"
-    },
-    {
-        "kode": "5.1.01.05.012",
-        "uraian": "Belanja Jasa Pengelolaan BMD bagi KDH"
-    },
-    {
-        "kode": "5.1.01.06.001",
-        "uraian": "Belanja Dana Operasional Pimpinan DPRD"
-    },
-    {
-        "kode": "5.1.01.06.002",
-        "uraian": "Belanja Dana Operasional KDH/WKDH"
-    },
-    {
-        "kode": "5.1.01.07.001",
-        "uraian": "Belanja Uang Representasi MRP"
-    },
-    {
-        "kode": "5.1.01.07.002",
-        "uraian": "Belanja Tunjangan Keluarga MRP"
-    },
-    {
-        "kode": "5.1.01.07.003",
-        "uraian": "Belanja Tunjangan Beras MRP"
-    },
-    {
-        "kode": "5.1.01.07.004",
-        "uraian": "Belanja Uang Paket MRP"
-    },
-    {
-        "kode": "5.1.01.07.005",
-        "uraian": "Belanja Tunjangan Jabatan MRP"
-    },
-    {
-        "kode": "5.1.01.07.006",
-        "uraian": "Belanja Tunjangan Kelompok Kerja MRP"
-    },
-    {
-        "kode": "5.1.01.07.007",
-        "uraian": "Belanja Uang Penghargaan MRP"
-    },
-    {
-        "kode": "5.1.01.07.008",
-        "uraian": "Belanja Tunjangan Komunikasi Intensif MRP"
-    },
-    {
-        "kode": "5.1.01.07.009",
-        "uraian": "Belanja Tunjangan Transportasi MRP"
-    },
-    {
-        "kode": "5.1.01.07.010",
-        "uraian": "Belanja Pembebanan PPh kepada Pimpinan dan Anggota MRP"
-    },
-    {
-        "kode": "5.1.01.07.011",
-        "uraian": "Belanja Pembulatan Gaji MRP"
-    },
-    {
-        "kode": "5.1.01.07.012",
-        "uraian": "Belanja Tunjangan Kesejahteraan Pimpinan dan Anggota MRP"
-    },
-    {
-        "kode": "5.1.01.89.001",
-        "uraian": "Belanja Pegawai BOSP-BOS"
-    },
-    {
-        "kode": "5.1.01.89.002",
-        "uraian": "Belanja Pegawai BOSP-BOP PAUD"
-    },
-    {
-        "kode": "5.1.01.89.003",
-        "uraian": "Belanja Pegawai BOSP-BOP Kesetaraan"
-    },
-    {
-        "kode": "5.1.01.99.099",
-        "uraian": "Belanja Pegawai BLUD"
-    },
-    {
-        "kode": "5.1.02.01.001",
-        "uraian": "Belanja Barang Pakai Habis"
-    },
-    {
-        "kode": "5.1.02.01.002",
-        "uraian": "Belanja Barang Tak Habis Pakai"
-    },
-    {
-        "kode": "5.1.02.01.003",
-        "uraian": "Belanja Barang Bekas Dipakai"
-    },
-    {
-        "kode": "5.1.02.01.004",
-        "uraian": "Belanja Aset Tetap yang Tidak Memenuhi Kriteria Kapitalisasi"
-    },
-    {
-        "kode": "5.1.02.02.001",
-        "uraian": "Belanja Jasa Kantor"
-    },
-    {
-        "kode": "5.1.02.02.002",
-        "uraian": "Belanja Iuran Jaminan/Asuransi"
-    },
-    {
-        "kode": "5.1.02.02.003",
-        "uraian": "Belanja Sewa Tanah"
-    },
-    {
-        "kode": "5.1.02.02.004",
-        "uraian": "Belanja Sewa Peralatan dan Mesin"
-    },
-    {
-        "kode": "5.1.02.02.005",
-        "uraian": "Belanja Sewa Gedung dan Bangunan"
-    },
-    {
-        "kode": "5.1.02.02.006",
-        "uraian": "Belanja Sewa Jalan, Jaringan dan Irigasi"
-    },
-    {
-        "kode": "5.1.02.02.007",
-        "uraian": "Belanja Sewa Aset Tetap Lainnya"
-    },
-    {
-        "kode": "5.1.02.02.008",
-        "uraian": "Belanja Jasa Konsultansi Konstruksi"
-    },
-    {
-        "kode": "5.1.02.02.009",
-        "uraian": "Belanja Jasa Konsultansi Non Konstruksi"
-    },
-    {
-        "kode": "5.1.02.02.010",
-        "uraian": "Belanja Jasa Ketersediaan Layanan (Availibility Payment)"
-    },
-    {
-        "kode": "5.1.02.02.011",
-        "uraian": "Belanja Beasiswa Pendidikan ASN"
-    },
-    {
-        "kode": "5.1.02.02.012",
-        "uraian": "Belanja Kursus/Pelatihan, Sosialisasi, Bimbingan Teknis serta Pendidikan dan Pelatihan"
-    },
-    {
-        "kode": "5.1.02.02.013",
-        "uraian": "Belanja Jasa Insentif bagi Pegawai Non ASN atas Pemungutan Pajak Daerah"
-    },
-    {
-        "kode": "5.1.02.02.014",
-        "uraian": "Belanja Jasa Insentif bagi Pegawai Non ASN atas Pemungutan Retribusi Daerah"
-    },
-    {
-        "kode": "5.1.02.02.015",
-        "uraian": "Belanja Sewa Aset Tidak Berwujud"
-    },
-    {
-        "kode": "5.1.02.02.016",
-        "uraian": "Belanja Gaji dan Tunjangan Perangkat Lembaga Wali Nanggroe"
-    },
-    {
-        "kode": "5.1.02.02.017",
-        "uraian": "Belanja Jasa Kerja Sama Pemungutan Pajak Daerah"
-    },
-    {
-        "kode": "5.1.02.02.018",
-        "uraian": "Belanja Jasa Kerja Sama Pemungutan Retribusi Daerah"
-    },
-    {
-        "kode": "5.1.02.02.019",
-        "uraian": "Belanja Jasa Pelayanan Kesehatan bagi ASN"
-    },
-    {
-        "kode": "5.1.02.03.001",
-        "uraian": "Belanja Pemeliharaan Tanah"
-    },
-    {
-        "kode": "5.1.02.03.002",
-        "uraian": "Belanja Pemeliharaan Peralatan dan Mesin"
-    },
-    {
-        "kode": "5.1.02.03.003",
-        "uraian": "Belanja Pemeliharaan Gedung dan Bangunan"
-    },
-    {
-        "kode": "5.1.02.03.004",
-        "uraian": "Belanja Pemeliharaan Jalan, Jaringan, dan Irigasi"
-    },
-    {
-        "kode": "5.1.02.03.005",
-        "uraian": "Belanja Pemeliharaan Aset Tetap Lainnya"
-    },
-    {
-        "kode": "5.1.02.03.006",
-        "uraian": "Belanja Pemeliharaan Aset Tidak Berwujud"
-    },
-    {
-        "kode": "5.1.02.04.001",
-        "uraian": "Belanja Perjalanan Dinas Dalam Negeri"
-    },
-    {
-        "kode": "5.1.02.04.002",
-        "uraian": "Belanja Perjalanan Dinas Luar Negeri"
-    },
-    {
-        "kode": "5.1.02.05.001",
-        "uraian": "Belanja Uang yang Diberikan kepada Pihak Ketiga/Pihak Lain/Masyarakat"
-    },
-    {
-        "kode": "5.1.02.05.002",
-        "uraian": "Belanja Jasa yang Diberikan kepada Pihak Ketiga/Pihak Lain/Masyarakat"
-    },
-    {
-        "kode": "5.1.02.89.001",
-        "uraian": "Belanja Barang dan Jasa BOSP-BOS"
-    },
-    {
-        "kode": "5.1.02.89.002",
-        "uraian": "Belanja Barang dan Jasa BOSP-BOP PAUD"
-    },
-    {
-        "kode": "5.1.02.89.003",
-        "uraian": "Belanja Barang dan Jasa BOSP-BOP Kesetaraan"
-    },
-    {
-        "kode": "5.1.02.90.001",
-        "uraian": "Belanja Barang dan Jasa BOK Puskesmas"
-    },
-    {
-        "kode": "5.1.02.99.099",
-        "uraian": "Belanja Barang dan Jasa BLUD"
-    },
-    {
-        "kode": "5.1.03.01.001",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Pemerintah Pusat atas Penerusan Pinjaman Dalam Negeri-Jangka Menengah"
-    },
-    {
-        "kode": "5.1.03.01.002",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Pemerintah Pusat atas Penerusan Pinjaman Dalam Negeri-Jangka Panjang"
-    },
-    {
-        "kode": "5.1.03.01.003",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Pemerintah Pusat atas Penerusan Pinjaman Luar Negeri-Jangka Menengah"
-    },
-    {
-        "kode": "5.1.03.01.004",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Pemerintah Pusat atas Penerusan Pinjaman Luar Negeri-Jangka Panjang"
-    },
-    {
-        "kode": "5.1.03.01.005",
-        "uraian": "Belanja Bunga Utang Pinjaman Sumber Lainnya sesuai Ketentuan Peraturan Perundang-Undangan-Jangka Menengah"
-    },
-    {
-        "kode": "5.1.03.01.006",
-        "uraian": "Belanja Bunga Utang Pinjaman Sumber Lainnya sesuai Ketentuan Peraturan Perundang-Undangan-Jangka Panjang"
-    },
-    {
-        "kode": "5.1.03.02.001",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Pemerintah Daerah-Jangka Pendek"
-    },
-    {
-        "kode": "5.1.03.03.001",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bank (LKB)-BUMN-Jangka Pendek"
-    },
-    {
-        "kode": "5.1.03.03.002",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bank (LKB)-BUMN-Jangka Menengah"
-    },
-    {
-        "kode": "5.1.03.03.003",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bank (LKB)-BUMN-Jangka Panjang"
-    },
-    {
-        "kode": "5.1.03.03.004",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bank (LKB)-BUMD-Jangka Pendek"
-    },
-    {
-        "kode": "5.1.03.03.005",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bank (LKB)-BUMD-Jangka Menengah"
-    },
-    {
-        "kode": "5.1.03.03.006",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bank (LKB)-BUMD-Jangka Panjang"
-    },
-    {
-        "kode": "5.1.03.03.007",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bank (LKB)-Swasta-Jangka Pendek"
-    },
-    {
-        "kode": "5.1.03.03.008",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bank (LKB)-Swasta-Jangka Menengah"
-    },
-    {
-        "kode": "5.1.03.03.009",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bank (LKB)-Swasta-Jangka Panjang"
-    },
-    {
-        "kode": "5.1.03.04.001",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bukan Bank (LKBB)-BUMN-Jangka Pendek"
-    },
-    {
-        "kode": "5.1.03.04.002",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bukan Bank (LKBB)-BUMN-Jangka Menengah"
-    },
-    {
-        "kode": "5.1.03.04.003",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bukan Bank (LKBB)-BUMN-Jangka Panjang"
-    },
-    {
-        "kode": "5.1.03.04.004",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bukan Bank (LKBB)-BUMD-Jangka Pendek"
-    },
-    {
-        "kode": "5.1.03.04.005",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bukan Bank (LKBB)-BUMD-Jangka Menengah"
-    },
-    {
-        "kode": "5.1.03.04.006",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bukan Bank (LKBB)-BUMD-Jangka Panjang"
-    },
-    {
-        "kode": "5.1.03.04.007",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bukan Bank (LKBB)-Swasta-Jangka Pendek"
-    },
-    {
-        "kode": "5.1.03.04.008",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bukan Bank (LKBB)-Swasta-Jangka Menengah"
-    },
-    {
-        "kode": "5.1.03.04.009",
-        "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bukan Bank (LKBB)-Swasta-Jangka Panjang"
-    },
-    {
-        "kode": "5.1.03.05.001",
-        "uraian": "Belanja Bunga Utang Kepada Masyarakat (Obligasi)"
-    },
-    {
-        "kode": "5.1.03.06.001",
-        "uraian": "Belanja Bunga Utang Pinjaman melalui BLUD-Jangka Pendek"
-    },
-    {
-        "kode": "5.1.03.06.002",
-        "uraian": "Belanja Bunga Utang Pinjaman melalui BLUD-Jangka Menengah"
-    },
-    {
-        "kode": "5.1.03.06.003",
-        "uraian": "Belanja Bunga Utang Pinjaman melalui BLUD-Jangka Panjang"
-    },
-    {
-        "kode": "5.1.03.07.001",
-        "uraian": "Belanja Bunga Pinjaman Daerah dari Pemerintah"
-    },
-    {
-        "kode": "5.1.03.07.002",
-        "uraian": "Belanja Bunga Pinjaman Daerah dari Pemerintah Daerah Lain"
-    },
-    {
-        "kode": "5.1.03.07.003",
-        "uraian": "Belanja Bunga Pinjaman Daerah dari Lembaga Keuangan Bank (LKB)"
-    },
-    {
-        "kode": "5.1.03.07.004",
-        "uraian": "Belanja Bunga Pinjaman Daerah dari Lembaga Keuangan Bukan Bank (LKBB)"
-    },
-    {
-        "kode": "5.1.03.08.001",
-        "uraian": "Belanja Bunga Obligasi Daerah"
-    },
-    {
-        "kode": "5.1.04.01.001",
-        "uraian": "Belanja Subsidi kepada BUMN"
-    },
-    {
-        "kode": "5.1.04.02.002",
-        "uraian": "Belanja Subsidi kepada BUMD"
-    },
-    {
-        "kode": "5.1.04.03.001",
-        "uraian": "Belanja Subsidi kepada Badan Usaha Milik Swasta"
-    },
-    {
-        "kode": "5.1.04.04.001",
-        "uraian": "Belanja Subsidi kepada Koperasi"
-    },
-    {
-        "kode": "5.1.05.01.001",
-        "uraian": "Belanja Hibah Uang kepada Pemerintah Pusat"
-    },
-    {
-        "kode": "5.1.05.01.002",
-        "uraian": "Belanja Hibah Barang kepada Pemerintah Pusat"
-    },
-    {
-        "kode": "5.1.05.01.003",
-        "uraian": "Belanja Hibah Jasa kepada Pemerintah Pusat"
-    },
-    {
-        "kode": "5.1.05.02.001",
-        "uraian": "Belanja Hibah Uang kepada Pemerintah Daerah Lainnya"
-    },
-    {
-        "kode": "5.1.05.02.002",
-        "uraian": "Belanja Hibah Barang kepada Pemerintah Daerah Lainnya"
-    },
-    {
-        "kode": "5.1.05.02.003",
-        "uraian": "Belanja Hibah Jasa kepada Pemerintah Daerah Lainnya"
-    },
-    {
-        "kode": "5.1.05.03.001",
-        "uraian": "Belanja Hibah Uang kepada BUMN"
-    },
-    {
-        "kode": "5.1.05.03.002",
-        "uraian": "Belanja Hibah Barang kepada BUMN"
-    },
-    {
-        "kode": "5.1.05.03.003",
-        "uraian": "Belanja Hibah Jasa kepada BUMN"
-    },
-    {
-        "kode": "5.1.05.04.001",
-        "uraian": "Belanja Hibah Uang kepada BUMD"
-    },
-    {
-        "kode": "5.1.05.04.002",
-        "uraian": "Belanja Hibah Barang kepada BUMD"
-    },
-    {
-        "kode": "5.1.05.04.003",
-        "uraian": "Belanja Hibah Jasa kepada BUMD"
-    },
-    {
-        "kode": "5.1.05.05.001",
-        "uraian": "Belanja Hibah kepada Badan dan Lembaga yang Bersifat Nirlaba, Sukarela dan Sosial yang Dibentuk Berdasarkan Peraturan Perundang-Undangan"
-    },
-    {
-        "kode": "5.1.05.05.002",
-        "uraian": "Belanja Hibah kepada Badan dan Lembaga Nirlaba, Sukarela dan Sosial yang Telah Memiliki Surat Keterangan Terdaftar"
-    },
-    {
-        "kode": "5.1.05.05.003",
-        "uraian": "Belanja Hibah kepada Badan dan Lembaga Nirlaba, Sukarela Bersifat Sosial Kemasyarakatan"
-    },
-    {
-        "kode": "5.1.05.05.004",
-        "uraian": "Belanja Hibah kepada Koperasi"
-    },
-    {
-        "kode": "5.1.05.05.005",
-        "uraian": "Belanja Hibah kepada Usaha Mikro dan Usaha Kecil"
-    },
-    {
-        "kode": "5.1.05.05.006",
-        "uraian": "Belanja Hibah kepada Organisasi Kemasyarakatan yang Berbadan Hukum Indonesia"
-    },
-    {
-        "kode": "5.1.05.07.001",
-        "uraian": "Belanja Hibah Bantuan Keuangan kepada Partai Politik"
-    },
-    {
-        "kode": "5.1.05.08.001",
-        "uraian": "Belanja Hibah Dana BOSP-BOS"
-    },
-    {
-        "kode": "5.1.05.08.002",
-        "uraian": "Belanja Hibah Dana BOSP-BOP PAUD"
-    },
-    {
-        "kode": "5.1.05.08.003",
-        "uraian": "Belanja Hibah Dana BOSP-BOP Kesetaraan"
-    },
-    {
-        "kode": "5.1.05.09.001",
-        "uraian": "Belanja Hibah Uang kepada BUMDesa"
-    },
-    {
-        "kode": "5.1.05.09.002",
-        "uraian": "Belanja Hibah Barang kepada BUMDesa"
-    },
-    {
-        "kode": "5.1.05.09.003",
-        "uraian": "Belanja Hibah Jasa kepada BUMDesa"
-    },
-    {
-        "kode": "5.1.05.10.001",
-        "uraian": "Belanja Hibah Uang kepada Koperasi"
-    },
-    {
-        "kode": "5.1.05.10.002",
-        "uraian": "Belanja Hibah Barang kepada Koperasi"
-    },
-    {
-        "kode": "5.1.05.10.003",
-        "uraian": "Belanja Hibah Jasa kepada Koperasi"
-    },
-    {
-        "kode": "5.1.05.11.001",
-        "uraian": "Belanja Hibah Uang kepada Usaha Mikro"
-    },
-    {
-        "kode": "5.1.05.11.002",
-        "uraian": "Belanja Hibah Barang kepada Usaha Mikro"
-    },
-    {
-        "kode": "5.1.05.11.003",
-        "uraian": "Belanja Hibah Jasa kepada Usaha Mikro"
-    },
-    {
-        "kode": "5.1.05.12.001",
-        "uraian": "Belanja Hibah Uang kepada Usaha Kecil"
-    },
-    {
-        "kode": "5.1.05.12.002",
-        "uraian": "Belanja Hibah Barang kepada Usaha Kecil"
-    },
-    {
-        "kode": "5.1.05.12.003",
-        "uraian": "Belanja Hibah Jasa kepada Usaha Kecil"
-    },
-    {
-        "kode": "5.1.06.01.001",
-        "uraian": "Belanja Bantuan Sosial Uang yang direncanakan kepada Individu"
-    },
-    {
-        "kode": "5.1.06.01.002",
-        "uraian": "Belanja Bantuan Sosial Barang yang Direncanakan kepada Individu"
-    },
-    {
-        "kode": "5.1.06.02.001",
-        "uraian": "Belanja Bantuan Sosial Uang yang direncanakan kepada Keluarga"
-    },
-    {
-        "kode": "5.1.06.02.002",
-        "uraian": "Belanja Bantuan Sosial Barang yang Direncanakan kepada Keluarga"
-    },
-    {
-        "kode": "5.1.06.03.001",
-        "uraian": "Belanja Bantuan Sosial Uang yang direncanakan kepada Kelompok Masyarakat"
-    },
-    {
-        "kode": "5.1.06.03.002",
-        "uraian": "Belanja Bantuan Sosial Barang yang Direncanakan kepada Kelompok Masyarakat"
-    },
-    {
-        "kode": "5.1.06.04.001",
-        "uraian": "Belanja Bantuan Sosial Uang yang direncanakan kepada Lembaga Non Pemerintahan (Bidang Pendidikan, Keagamaan dan Bidang Lainnya)"
-    },
-    {
-        "kode": "5.1.06.04.002",
-        "uraian": "Belanja Bantuan Sosial Barang yang Direncanakan kepada Lembaga Non Pemerintahan Bidang (Pendidikan, Keagamaan dan Bidang Lainnya)"
-    },
-    {
-        "kode": "5.1.07.01.001",
-        "uraian": "Belanja Imbalan Sukuk Daerah"
-    },
-    {
-        "kode": "5.2.01.01.001",
-        "uraian": "Belanja Modal Tanah Persil"
-    },
-    {
-        "kode": "5.2.01.01.002",
-        "uraian": "Belanja Modal Tanah Non Persil"
-    },
-    {
-        "kode": "5.2.01.01.003",
-        "uraian": "Belanja Modal Lapangan"
-    },
-    {
-        "kode": "5.2.01.99.099",
-        "uraian": "Belanja Modal Tanah BLUD"
-    },
-    {
-        "kode": "5.2.02.01.001",
-        "uraian": "Belanja Modal Alat Besar Darat"
-    },
-    {
-        "kode": "5.2.02.01.002",
-        "uraian": "Belanja Modal Alat Besar Apung"
-    },
-    {
-        "kode": "5.2.02.01.003",
-        "uraian": "Belanja Modal Alat Bantu"
-    },
-    {
-        "kode": "5.2.02.02.001",
-        "uraian": "Belanja Modal Alat Angkutan Darat Bermotor"
-    },
-    {
-        "kode": "5.2.02.02.002",
-        "uraian": "Belanja Modal Alat Angkutan Darat Tak Bermotor"
-    },
-    {
-        "kode": "5.2.02.02.003",
-        "uraian": "Belanja Modal Alat Angkutan Apung Bermotor"
-    },
-    {
-        "kode": "5.2.02.02.004",
-        "uraian": "Belanja Modal Alat Angkutan Apung Tak Bermotor"
-    },
-    {
-        "kode": "5.2.02.02.005",
-        "uraian": "Belanja Modal Alat Angkutan Bermotor Udara"
-    },
-    {
-        "kode": "5.2.02.03.001",
-        "uraian": "Belanja Modal Alat Bengkel Bermesin"
-    },
-    {
-        "kode": "5.2.02.03.002",
-        "uraian": "Belanja Modal Alat Bengkel Tak Bermesin"
-    },
-    {
-        "kode": "5.2.02.03.003",
-        "uraian": "Belanja Modal Alat Ukur"
-    },
-    {
-        "kode": "5.2.02.04.001",
-        "uraian": "Belanja Modal Alat Pengolahan"
-    },
-    {
-        "kode": "5.2.02.05.001",
-        "uraian": "Belanja Modal Alat Kantor"
-    },
-    {
-        "kode": "5.2.02.05.002",
-        "uraian": "Belanja Modal Alat Rumah Tangga"
-    },
-    {
-        "kode": "5.2.02.05.003",
-        "uraian": "Belanja Modal Meja dan Kursi Kerja/Rapat Pejabat"
-    },
-    {
-        "kode": "5.2.02.06.001",
-        "uraian": "Belanja Modal Alat Studio"
-    },
-    {
-        "kode": "5.2.02.06.002",
-        "uraian": "Belanja Modal Alat Komunikasi"
-    },
-    {
-        "kode": "5.2.02.06.003",
-        "uraian": "Belanja Modal Peralatan Pemancar"
-    },
-    {
-        "kode": "5.2.02.06.004",
-        "uraian": "Belanja Modal Peralatan Komunikasi Navigasi"
-    },
-    {
-        "kode": "5.2.02.07.001",
-        "uraian": "Belanja Modal Alat Kedokteran"
-    },
-    {
-        "kode": "5.2.02.07.002",
-        "uraian": "Belanja Modal Alat Kesehatan Umum"
-    },
-    {
-        "kode": "5.2.02.08.001",
-        "uraian": "Belanja Modal Unit Alat Laboratorium"
-    },
-    {
-        "kode": "5.2.02.08.002",
-        "uraian": "Belanja Modal Unit Alat Laboratorium Kimia Nuklir"
-    },
-    {
-        "kode": "5.2.02.08.003",
-        "uraian": "Belanja Modal Alat Peraga Praktek Sekolah"
-    },
-    {
-        "kode": "5.2.02.08.004",
-        "uraian": "Belanja Modal Alat Laboratorium Fisika Nuklir/Elektronika"
-    },
-    {
-        "kode": "5.2.02.08.005",
-        "uraian": "Belanja Modal Alat Proteksi Radiasi/Proteksi Lingkungan"
-    },
-    {
-        "kode": "5.2.02.08.006",
-        "uraian": "Belanja Modal Radiation Application and Non Destructive Testing Laboratory Lainnya"
-    },
-    {
-        "kode": "5.2.02.08.007",
-        "uraian": "Belanja Modal Alat Laboratorium Lingkungan Hidup"
-    },
-    {
-        "kode": "5.2.02.08.008",
-        "uraian": "Belanja Modal Peralatan Laboratorium Hydrodinamica"
-    },
-    {
-        "kode": "5.2.02.08.009",
-        "uraian": "Belanja Modal Alat Laboratorium Standarisasi Kalibrasi dan Instrumentasi"
-    },
-    {
-        "kode": "5.2.02.10.001",
-        "uraian": "Belanja Modal Komputer Unit"
-    },
-    {
-        "kode": "5.2.02.10.002",
-        "uraian": "Belanja Modal Peralatan Komputer"
-    },
-    {
-        "kode": "5.2.02.11.001",
-        "uraian": "Belanja Modal Alat Eksplorasi Topografi"
-    },
-    {
-        "kode": "5.2.02.11.002",
-        "uraian": "Belanja Modal Alat Eksplorasi Geofisika"
-    },
-    {
-        "kode": "5.2.02.12.001",
-        "uraian": "Belanja Modal Alat Pengeboran Mesin"
-    },
-    {
-        "kode": "5.2.02.12.002",
-        "uraian": "Belanja Modal Alat Pengeboran Non Mesin"
-    },
-    {
-        "kode": "5.2.02.13.001",
-        "uraian": "Belanja Modal Sumur"
-    },
-    {
-        "kode": "5.2.02.13.002",
-        "uraian": "Belanja Modal Produksi"
-    },
-    {
-        "kode": "5.2.02.13.003",
-        "uraian": "Belanja Modal Pengolahan dan Pemurnian"
-    },
-    {
-        "kode": "5.2.02.14.001",
-        "uraian": "Belanja Modal Alat Bantu Eksplorasi"
-    },
-    {
-        "kode": "5.2.02.14.002",
-        "uraian": "Belanja Modal Alat Bantu Produksi"
-    },
-    {
-        "kode": "5.2.02.15.001",
-        "uraian": "Belanja Modal Alat Deteksi"
-    },
-    {
-        "kode": "5.2.02.15.002",
-        "uraian": "Belanja Modal Alat Pelindung"
-    },
-    {
-        "kode": "5.2.02.15.003",
-        "uraian": "Belanja Modal Alat SAR"
-    },
-    {
-        "kode": "5.2.02.15.004",
-        "uraian": "Belanja Modal Alat Kerja Penerbangan"
-    },
-    {
-        "kode": "5.2.02.16.001",
-        "uraian": "Belanja Modal Alat Peraga Pelatihan dan Percontohan"
-    },
-    {
-        "kode": "5.2.02.17.001",
-        "uraian": "Belanja Modal Unit Peralatan Proses/Produksi"
-    },
-    {
-        "kode": "5.2.02.18.001",
-        "uraian": "Belanja Modal Rambu-Rambu Lalu Lintas Darat"
-    },
-    {
-        "kode": "5.2.02.18.002",
-        "uraian": "Belanja Modal Rambu-Rambu Lalu Lintas Udara"
-    },
-    {
-        "kode": "5.2.02.18.003",
-        "uraian": "Belanja Modal Rambu-Rambu Lalu Lintas Laut"
-    },
-    {
-        "kode": "5.2.02.19.001",
-        "uraian": "Belanja Modal Peralatan Olahraga"
-    },
-    {
-        "kode": "5.2.02.89.001",
-        "uraian": "Belanja Modal Peralatan dan Mesin BOSP-BOS"
-    },
-    {
-        "kode": "5.2.02.89.002",
-        "uraian": "Belanja Modal Peralatan dan Mesin BOSP-BOP PAUD"
-    },
-    {
-        "kode": "5.2.02.89.003",
-        "uraian": "Belanja Modal Peralatan dan Mesin BOSP-BOP Kesetaraan"
-    },
-    {
-        "kode": "5.2.02.99.099",
-        "uraian": "Belanja Modal Peralatan dan Mesin BLUD"
-    },
-    {
-        "kode": "5.2.03.01.001",
-        "uraian": "Belanja Modal Bangunan Gedung Tempat Kerja"
-    },
-    {
-        "kode": "5.2.03.01.002",
-        "uraian": "Belanja Modal Bangunan Gedung Tempat Tinggal"
-    },
-    {
-        "kode": "5.2.03.02.001",
-        "uraian": "Belanja Modal Candi/Tugu Peringatan/Prasasti"
-    },
-    {
-        "kode": "5.2.03.03.001",
-        "uraian": "Belanja Modal Bangunan Menara Perambuan"
-    },
-    {
-        "kode": "5.2.03.04.001",
-        "uraian": "Belanja Modal Tugu/Tanda Batas"
-    },
-    {
-        "kode": "5.2.03.99.099",
-        "uraian": "Belanja Modal Gedung dan Bangunan BLUD"
-    },
-    {
-        "kode": "5.2.04.01.001",
-        "uraian": "Belanja Modal Jalan"
-    },
-    {
-        "kode": "5.2.04.01.002",
-        "uraian": "Belanja Modal Jembatan"
-    },
-    {
-        "kode": "5.2.04.02.001",
-        "uraian": "Belanja Modal Bangunan Air Irigasi"
-    },
-    {
-        "kode": "5.2.04.02.002",
-        "uraian": "Belanja Modal Bangunan Pengairan Pasang Surut"
-    },
-    {
-        "kode": "5.2.04.02.003",
-        "uraian": "Belanja Modal Bangunan Pengembangan Rawa dan Polder"
-    },
-    {
-        "kode": "5.2.04.02.004",
-        "uraian": "Belanja Modal Bangunan Pengaman Sungai/Pantai dan Penanggulangan Bencana Alam"
-    },
-    {
-        "kode": "5.2.04.02.005",
-        "uraian": "Belanja Modal Bangunan Pengembangan Sumber Air dan Air Tanah"
-    },
-    {
-        "kode": "5.2.04.02.006",
-        "uraian": "Belanja Modal Bangunan Air Bersih/Air Baku"
-    },
-    {
-        "kode": "5.2.04.02.007",
-        "uraian": "Belanja Modal Bangunan Air Kotor"
-    },
-    {
-        "kode": "5.2.04.03.001",
-        "uraian": "Belanja Modal Instalasi Air Bersih/Air Baku"
-    },
-    {
-        "kode": "5.2.04.03.002",
-        "uraian": "Belanja Modal Instalasi Air Kotor"
-    },
-    {
-        "kode": "5.2.04.03.003",
-        "uraian": "Belanja Modal Instalasi Pengolahan Sampah"
-    },
-    {
-        "kode": "5.2.04.03.004",
-        "uraian": "Belanja Modal Instalasi Pengolahan Bahan Bangunan"
-    },
-    {
-        "kode": "5.2.04.03.005",
-        "uraian": "Belanja Modal Instalasi Pembangkit Listrik"
-    },
-    {
-        "kode": "5.2.04.03.006",
-        "uraian": "Belanja Modal Instalasi Gardu Listrik"
-    },
-    {
-        "kode": "5.2.04.03.007",
-        "uraian": "Belanja Modal Instalasi Pertahanan"
-    },
-    {
-        "kode": "5.2.04.03.008",
-        "uraian": "Belanja Modal Instalasi Gas"
-    },
-    {
-        "kode": "5.2.04.03.009",
-        "uraian": "Belanja Modal Instalasi Pengaman"
-    },
-    {
-        "kode": "5.2.04.03.010",
-        "uraian": "Belanja Modal Instalasi Lain"
-    },
-    {
-        "kode": "5.2.04.04.001",
-        "uraian": "Belanja Modal Jaringan Air Minum"
-    },
-    {
-        "kode": "5.2.04.04.002",
-        "uraian": "Belanja Modal Jaringan Listrik"
-    },
-    {
-        "kode": "5.2.04.04.003",
-        "uraian": "Belanja Modal Jaringan Telepon"
-    },
-    {
-        "kode": "5.2.04.04.004",
-        "uraian": "Belanja Modal Jaringan Gas"
-    },
-    {
-        "kode": "5.2.04.99.099",
-        "uraian": "Belanja Modal Jalan, Jaringan, dan Irigasi BLUD"
-    },
-    {
-        "kode": "5.2.05.01.001",
-        "uraian": "Belanja Modal Bahan Perpustakaan Tercetak"
-    },
-    {
-        "kode": "5.2.05.01.002",
-        "uraian": "Belanja Modal Bahan Perpustakaan Terekam dan Bentuk Mikro"
-    },
-    {
-        "kode": "5.2.05.01.003",
-        "uraian": "Belanja Modal Kartografi, Naskah, dan Lukisan"
-    },
-    {
-        "kode": "5.2.05.01.004",
-        "uraian": "Belanja Modal Musik"
-    },
-    {
-        "kode": "5.2.05.01.005",
-        "uraian": "Belanja Modal Karya Grafika (Graphic Material)"
-    },
-    {
-        "kode": "5.2.05.01.006",
-        "uraian": "Belanja Modal Three Dimensional Artifacts and Realita"
-    },
-    {
-        "kode": "5.2.05.01.007",
-        "uraian": "Belanja Modal Tarscalt"
-    },
-    {
-        "kode": "5.2.05.02.001",
-        "uraian": "Belanja Modal Barang Bercorak Kesenian"
-    },
-    {
-        "kode": "5.2.05.02.002",
-        "uraian": "Belanja Modal Alat Bercorak Kebudayaan"
-    },
-    {
-        "kode": "5.2.05.02.003",
-        "uraian": "Belanja Modal Tanda Penghargaan"
-    },
-    {
-        "kode": "5.2.05.03.001",
-        "uraian": "Belanja Modal Hewan Piaraan"
-    },
-    {
-        "kode": "5.2.05.03.002",
-        "uraian": "Belanja Modal Ternak"
-    },
-    {
-        "kode": "5.2.05.03.003",
-        "uraian": "Belanja Modal Hewan Lainnya"
-    },
-    {
-        "kode": "5.2.05.04.001",
-        "uraian": "Belanja Modal Ikan Bersirip (Pisces/Ikan Bersirip)"
-    },
-    {
-        "kode": "5.2.05.04.002",
-        "uraian": "Belanja Modal Crustea (Udang, Rajungan, Kepiting, dan Sebangsanya)"
-    },
-    {
-        "kode": "5.2.05.04.003",
-        "uraian": "Belanja Modal Mollusca (Kerang, Tiram, Cumi-cumi, Gurita, Siput, dan Sebangsanya)"
-    },
-    {
-        "kode": "5.2.05.04.004",
-        "uraian": "Belanja Modal Coelenterata (Ubur-ubur dan Sebangsanya)"
-    },
-    {
-        "kode": "5.2.05.04.005",
-        "uraian": "Belanja Modal Echinodermata (Tripang, Bulu Babi, dan Sebangsanya)"
-    },
-    {
-        "kode": "5.2.05.04.006",
-        "uraian": "Belanja Modal Amphibia (Kodok dan Sebangsanya)"
-    },
-    {
-        "kode": "5.2.05.04.007",
-        "uraian": "Belanja Modal Reptilia (Buaya, Penyu, Kura-kura, Biawak, Ular Air, dan Sebangsanya)"
-    },
-    {
-        "kode": "5.2.05.04.008",
-        "uraian": "Belanja Modal Mammalia (Paus, Lumba-lumba, Pesut, Duyung, dan Sebangsanya)"
-    },
-    {
-        "kode": "5.2.05.04.009",
-        "uraian": "Belanja Modal Algae (Rumput Laut dan Tumbuh-Tumbuhan Lain yang Hidup di Dalam Air)"
-    },
-    {
-        "kode": "5.2.05.04.010",
-        "uraian": "Belanja Modal Biota Perairan Lainnya"
-    },
-    {
-        "kode": "5.2.05.05.001",
-        "uraian": "Belanja Modal Tanaman"
-    },
-    {
-        "kode": "5.2.05.06.001",
-        "uraian": "Belanja Modal Barang Koleksi Non Budaya"
-    },
-    {
-        "kode": "5.2.05.07.001",
-        "uraian": "Belanja Modal Aset Tetap Dalam Renovasi"
-    },
-    {
-        "kode": "5.2.05.08.001",
-        "uraian": "Belanja Modal Aset Tidak Berwujud"
-    },
-    {
-        "kode": "5.2.05.89.001",
-        "uraian": "Belanja Modal Aset Tetap Lainnya BOSP-BOS"
-    },
-    {
-        "kode": "5.2.05.89.002",
-        "uraian": "Belanja Modal Aset Tetap Lainnya BOSP-BOP PAUD"
-    },
-    {
-        "kode": "5.2.05.89.003",
-        "uraian": "Belanja Modal Aset Tetap Lainnya BOSP-BOP Kesetaraan"
-    },
-    {
-        "kode": "5.2.05.99.099",
-        "uraian": "Belanja Modal Aset Tetap Lainnya BLUD"
-    },
-    {
-        "kode": "5.2.06.01.001",
-        "uraian": "Belanja Modal Aset Tidak Berwujud"
-    },
-    {
-        "kode": "5.2.06.99.099",
-        "uraian": "Belanja Modal Aset Lainnya BLUD"
-    },
-    {
-        "kode": "5.3.01.01.001",
-        "uraian": "Belanja Tidak Terduga"
-    },
-    {
-        "kode": "5.4.01.01.001",
-        "uraian": "Belanja Bagi Hasil Pajak Daerah Kepada Pemerintahan Kabupaten"
-    },
-    {
-        "kode": "5.4.01.01.002",
-        "uraian": "Belanja Bagi Hasil Pajak Daerah Kepada Pemerintahan Kota"
-    },
-    {
-        "kode": "5.4.01.01.003",
-        "uraian": "Belanja Bagi Hasil Pajak Daerah Kepada Pemerintahan Desa"
-    },
-    {
-        "kode": "5.4.01.02.001",
-        "uraian": "Belanja Bagi Hasil Retribusi Daerah Kabupaten/Kota Kepada Pemerintah Desa"
-    },
-    {
-        "kode": "5.4.02.01.001",
-        "uraian": "Belanja Bantuan Keuangan Umum antar Daerah Provinsi"
-    },
-    {
-        "kode": "5.4.02.01.002",
-        "uraian": "Belanja Bantuan Keuangan Khusus antar Daerah Provinsi"
-    },
-    {
-        "kode": "5.4.02.02.001",
-        "uraian": "Belanja Bantuan Keuangan Umum antar Daerah Kabupaten/Kota"
-    },
-    {
-        "kode": "5.4.02.02.002",
-        "uraian": "Belanja Bantuan Keuangan Khusus kepada Pemerintah Kabupaten/Kota"
-    },
-    {
-        "kode": "5.4.02.03.001",
-        "uraian": "Belanja Bantuan Keuangan Umum Daerah Provinsi ke Kabupaten/Kota"
-    },
-    {
-        "kode": "5.4.02.03.002",
-        "uraian": "Belanja Bantuan Keuangan Khusus Daerah Provinsi ke Kabupaten/Kota"
-    },
-    {
-        "kode": "5.4.02.04.001",
-        "uraian": "Belanja Bantuan Keuangan Umum Daerah Kabupaten/Kota ke Provinsi"
-    },
-    {
-        "kode": "5.4.02.04.002",
-        "uraian": "Belanja Bantuan Keuangan Khusus Daerah Kabupaten/Kota ke Provinsi"
-    },
-    {
-        "kode": "5.4.02.05.001",
-        "uraian": "Belanja Bantuan Keuangan Umum Daerah Provinsi atau Kabupaten/Kota kepada Desa"
-    },
-    {
-        "kode": "5.4.02.05.002",
-        "uraian": "Belanja Bantuan Keuangan Khusus Daerah Provinsi atau Kabupaten/Kota kepada Desa"
-    },
-    {
-        "kode": "5.4.02.06.001",
-        "uraian": "Belanja Transfer Dana Otonomi Khusus Provinsi kepada Kabupaten/Kota"
-    },
-    {
-        "kode": "4.1.01.01.001",
-        "uraian": "PKB-Mobil Penumpang-Sedan"
-    },
-    {
-        "kode": "4.1.01.01.002",
-        "uraian": "PKB-Mobil Penumpang-Jeep"
-    },
-    {
-        "kode": "4.1.01.01.003",
-        "uraian": "PKB-Mobil Penumpang-Minibus"
-    },
-    {
-        "kode": "4.1.01.01.004",
-        "uraian": "PKB-Mobil Bus-Microbus"
-    },
-    {
-        "kode": "4.1.01.01.005",
-        "uraian": "PKB-Mobil Bus-Bus"
-    },
-    {
-        "kode": "4.1.01.01.006",
-        "uraian": "PKB-Mobil Barang/Beban-Pick Up"
-    },
-    {
-        "kode": "4.1.01.01.007",
-        "uraian": "PKB-Mobil Barang/Beban-Light Truck"
-    },
-    {
-        "kode": "4.1.01.01.008",
-        "uraian": "PKB-Mobil Barang/Beban-Truck"
-    },
-    {
-        "kode": "4.1.01.01.009",
-        "uraian": "PKB-Mobil Barang/Beban-Blind Van"
-    },
-    {
-        "kode": "4.1.01.01.010",
-        "uraian": "PKB-Sepeda Motor-Sepeda Motor Roda Dua"
-    },
-    {
-        "kode": "4.1.01.01.011",
-        "uraian": "PKB-Sepeda Motor-Sepeda Motor Roda Tiga"
-    },
-    {
-        "kode": "4.1.01.01.012",
-        "uraian": "PKB-Kendaraan Bermotor yang Dioperasikan di Air"
-    },
-    {
-        "kode": "4.1.01.01.013",
-        "uraian": "PKB-Kendaraan Khusus Alat Berat/Alat Besar"
-    },
-    {
-        "kode": "4.1.01.01.014",
-        "uraian": "PKB-Mobil Roda Tiga"
-    },
-    {
-        "kode": "4.1.01.01.015",
-        "uraian": "PKB-Mobil Penumpang-Roda Tiga"
-    },
-    {
-        "kode": "4.1.01.01.016",
-        "uraian": "PKB-Mobil Barang-Roda Tiga"
-    },
-    {
-        "kode": "4.1.01.01.017",
-        "uraian": "PKB-Mobil Barang/Beban-Pick Up Box"
-    },
-    {
-        "kode": "4.1.01.01.018",
-        "uraian": "PKB-Sepeda Motor-Sepeda Motor Roda Tiga Penumpang"
-    },
-    {
-        "kode": "4.1.01.02.001",
-        "uraian": "BBNKB-Mobil Penumpang-Sedan"
-    },
-    {
-        "kode": "4.1.01.02.002",
-        "uraian": "BBNKB-Mobil Penumpang-Jeep"
-    },
-    {
-        "kode": "4.1.01.02.003",
-        "uraian": "BBNKB-Mobil Penumpang-Minibus"
-    },
-    {
-        "kode": "4.1.01.02.004",
-        "uraian": "BBNKB-Mobil Bus-Microbus"
-    },
-    {
-        "kode": "4.1.01.02.005",
-        "uraian": "BBNKB-Mobil Bus-Bus"
-    },
-    {
-        "kode": "4.1.01.02.006",
-        "uraian": "BBNKB-Mobil Barang/Beban-Pick Up"
-    },
-    {
-        "kode": "4.1.01.02.007",
-        "uraian": "BBNKB-Mobil Barang/Beban-Light Truck"
-    },
-    {
-        "kode": "4.1.01.02.008",
-        "uraian": "BBNKB-Mobil Barang/Beban-Truck"
-    },
-    {
-        "kode": "4.1.01.02.009",
-        "uraian": "BBNKB-Mobil Barang/Beban-Blind Van"
-    },
-    {
-        "kode": "4.1.01.02.010",
-        "uraian": "BBNKB-Sepeda Motor-Sepeda Motor Roda Dua"
-    },
-    {
-        "kode": "4.1.01.02.011",
-        "uraian": "BBNKB-Sepeda Motor-Sepeda Motor Roda Tiga"
-    },
-    {
-        "kode": "4.1.01.02.012",
-        "uraian": "BBNKB-Kendaraan Bermotor yang Dioperasikan di Air"
-    },
-    {
-        "kode": "4.1.01.02.013",
-        "uraian": "BBNKB-Kendaraan Khusus Alat Berat"
-    },
-    {
-        "kode": "4.1.01.02.014",
-        "uraian": "BBNKB-Mobil Roda Tiga"
-    },
-    {
-        "kode": "4.1.01.02.015",
-        "uraian": "BBNKB-Mobil Penumpang-Roda Tiga"
-    },
-    {
-        "kode": "4.1.01.02.016",
-        "uraian": "BBNKB-Mobil Barang-Roda Tiga"
-    },
-    {
-        "kode": "4.1.01.02.017",
-        "uraian": "BBNKB-Mobil Barang/Beban-Pick Up Box"
-    },
-    {
-        "kode": "4.1.01.02.018",
-        "uraian": "BBNKB-Sepeda Motor-Sepeda Motor Roda Tiga Penumpang"
-    },
-    {
-        "kode": "4.1.01.03.001",
-        "uraian": "PBBKB-Bahan Bakar Bensin"
-    },
-    {
-        "kode": "4.1.01.03.002",
-        "uraian": "PBBKB-Bahan Bakar Solar"
-    },
-    {
-        "kode": "4.1.01.03.003",
-        "uraian": "PBBKB-Bahan Bakar Gas"
-    },
-    {
-        "kode": "4.1.01.03.004",
-        "uraian": "PBBKB-Bahan Bakar Lainnya"
-    },
-    {
-        "kode": "4.1.01.04.001",
-        "uraian": "Pajak Air Permukaan"
-    },
-    {
-        "kode": "4.1.01.05.001",
-        "uraian": "Pajak Rokok"
-    },
-    {
-        "kode": "4.1.01.06.001",
-        "uraian": "Pajak Hotel"
-    },
-    {
-        "kode": "4.1.01.06.002",
-        "uraian": "Pajak Motel"
-    },
-    {
-        "kode": "4.1.01.06.003",
-        "uraian": "Pajak Losmen"
-    },
-    {
-        "kode": "4.1.01.06.004",
-        "uraian": "Pajak Gubuk Pariwisata"
-    },
-    {
-        "kode": "4.1.01.06.005",
-        "uraian": "Pajak Wisma Pariwisata"
-    },
-    {
-        "kode": "4.1.01.06.006",
-        "uraian": "Pajak Pesanggrahan"
-    },
-    {
-        "kode": "4.1.01.06.007",
-        "uraian": "Pajak Rumah Penginapan dan Sejenisnya"
-    },
-    {
-        "kode": "4.1.01.06.008",
-        "uraian": "Pajak Rumah Kos dengan Jumlah Kamar Lebih dari 10 (Sepuluh)"
-    },
-    {
-        "kode": "4.1.01.07.001",
-        "uraian": "Pajak Restoran dan Sejenisnya"
-    },
-    {
-        "kode": "4.1.01.07.002",
-        "uraian": "Pajak Rumah Makan dan Sejenisnya"
-    },
-    {
-        "kode": "4.1.01.07.003",
-        "uraian": "Pajak Kafetaria dan Sejenisnya"
-    },
-    {
-        "kode": "4.1.01.07.004",
-        "uraian": "Pajak Kantin dan Sejenisnya"
-    },
-    {
-        "kode": "4.1.01.07.005",
-        "uraian": "Pajak Warung dan Sejenisnya"
-    },
-    {
-        "kode": "4.1.01.07.006",
-        "uraian": "Pajak Bar dan Sejenisnya"
-    },
-    {
-        "kode": "4.1.01.07.007",
-        "uraian": "Pajak Jasa Boga/Katering dan Sejenisnya"
-    },
-    {
-        "kode": "4.1.01.08.001",
-        "uraian": "Pajak Tontonan Film"
-    },
-    {
-        "kode": "4.1.01.08.002",
-        "uraian": "Pajak Pagelaran Kesenian/Musik/Tari/ Busana"
-    },
-    {
-        "kode": "4.1.01.08.003",
-        "uraian": "Pajak Kontes Kecantikan, Binaraga, dan Sejenisnya"
-    },
-    {
-        "kode": "4.1.01.08.004",
-        "uraian": "Pajak Pameran"
-    },
-    {
-        "kode": "4.1.01.08.005",
-        "uraian": "Pajak Diskotik, Karaoke, Klub Malam, dan Sejenisnya"
-    },
-    {
-        "kode": "4.1.01.08.006",
-        "uraian": "Pajak Sirkus/Akrobat/Sulap"
-    },
-    {
-        "kode": "4.1.01.08.007",
-        "uraian": "Pajak Permainan Biliar dan Bowling"
-    },
-    {
-        "kode": "4.1.01.08.008",
-        "uraian": "Pajak Pacuan Kuda, Kendaraan Bermotor, dan Permainan Ketangkasan"
-    },
-    {
-        "kode": "4.1.01.08.009",
-        "uraian": "Pajak Panti Pijat, Refleksi, Mandi Uap/Spa dan Pusat Kebugaran (Fitness Center)"
-    },
-    {
-        "kode": "4.1.01.08.010",
-        "uraian": "Pajak Pertandingan Olahraga"
-    },
-    {
-        "kode": "4.1.01.09.001",
-        "uraian": "Pajak Reklame Papan/Billboard/Videotron/ Megatron"
-    },
-    {
-        "kode": "4.1.01.09.002",
-        "uraian": "Pajak Reklame Kain"
-    },
-    {
-        "kode": "4.1.01.09.003",
-        "uraian": "Pajak Reklame Melekat/Stiker"
-    },
-    {
-        "kode": "4.1.01.09.004",
-        "uraian": "Pajak Reklame Selebaran"
-    },
-    {
-        "kode": "4.1.01.09.005",
-        "uraian": "Pajak Reklame Berjalan"
-    },
-    {
-        "kode": "4.1.01.09.006",
-        "uraian": "Pajak Reklame Udara"
-    },
-    {
-        "kode": "4.1.01.09.007",
-        "uraian": "Pajak Reklame Apung"
-    },
-    {
-        "kode": "4.1.01.09.008",
-        "uraian": "Pajak Reklame Suara"
-    },
-    {
-        "kode": "4.1.01.09.009",
-        "uraian": "Pajak Reklame Film/Slide"
-    },
-    {
-        "kode": "4.1.01.09.010",
-        "uraian": "Pajak Reklame Peragaan"
-    },
-    {
-        "kode": "4.1.01.10.001",
-        "uraian": "Pajak Penerangan Jalan Dihasilkan Sendiri"
-    },
-    {
-        "kode": "4.1.01.10.002",
-        "uraian": "Pajak Penerangan Jalan Sumber Lain"
-    },
-    {
-        "kode": "4.1.01.11.001",
-        "uraian": "Pajak Parkir"
-    },
-    {
-        "kode": "4.1.01.12.001",
-        "uraian": "Pajak Air Tanah"
-    },
-    {
-        "kode": "4.1.01.13.001",
-        "uraian": "Pajak Sarang Burung Walet"
-    },
-    {
-        "kode": "4.1.01.14.001",
-        "uraian": "Pajak Asbes"
-    },
-    {
-        "kode": "4.1.01.14.002",
-        "uraian": "Pajak Batu Tulis"
-    },
-    {
-        "kode": "4.1.01.14.003",
-        "uraian": "Pajak Batu Setengah Permata"
-    },
-    {
-        "kode": "4.1.01.14.004",
-        "uraian": "Pajak Batu Kapur"
-    },
-    {
-        "kode": "4.1.01.14.005",
-        "uraian": "Pajak Batu Apung"
-    },
-    {
-        "kode": "4.1.01.14.006",
-        "uraian": "Pajak Batu Permata"
-    },
-    {
-        "kode": "4.1.01.14.007",
-        "uraian": "Pajak Bentonit"
-    },
-    {
-        "kode": "4.1.01.14.008",
-        "uraian": "Pajak Dolomit"
-    },
-    {
-        "kode": "4.1.01.14.009",
-        "uraian": "Pajak Felspar"
-    },
-    {
-        "kode": "4.1.01.14.010",
-        "uraian": "Pajak Garam Batu (Halite)"
-    },
-    {
-        "kode": "4.1.01.14.011",
-        "uraian": "Pajak Grafit"
-    },
-    {
-        "kode": "4.1.01.14.012",
-        "uraian": "Pajak Granit/Andesit"
-    },
-    {
-        "kode": "4.1.01.14.013",
-        "uraian": "Pajak Gips"
-    },
-    {
-        "kode": "4.1.01.14.014",
-        "uraian": "Pajak Kalsit"
-    },
-    {
-        "kode": "4.1.01.14.015",
-        "uraian": "Pajak Kaolin"
-    },
-    {
-        "kode": "4.1.01.14.016",
-        "uraian": "Pajak Leusit"
-    },
-    {
-        "kode": "4.1.01.14.017",
-        "uraian": "Pajak Magnesit"
-    },
-    {
-        "kode": "4.1.01.14.018",
-        "uraian": "Pajak Mika"
-    },
-    {
-        "kode": "4.1.01.14.019",
-        "uraian": "Pajak Marmer"
-    },
-    {
-        "kode": "4.1.01.14.020",
-        "uraian": "Pajak Nitrat"
-    },
-    {
-        "kode": "4.1.01.14.021",
-        "uraian": "Pajak Opsidien"
-    },
-    {
-        "kode": "4.1.01.14.022",
-        "uraian": "Pajak Oker"
-    },
-    {
-        "kode": "4.1.01.14.023",
-        "uraian": "Pajak Pasir dan Kerikil"
-    },
-    {
-        "kode": "4.1.01.14.024",
-        "uraian": "Pajak Pasir Kuarsa"
-    },
-    {
-        "kode": "4.1.01.14.025",
-        "uraian": "Pajak Perlit"
-    },
-    {
-        "kode": "4.1.01.14.026",
-        "uraian": "Pajak Phospat"
-    },
-    {
-        "kode": "4.1.01.14.027",
-        "uraian": "Pajak Talk"
-    },
-    {
-        "kode": "4.1.01.14.028",
-        "uraian": "Pajak Tanah Serap (Fullers Earth)"
-    },
-    {
-        "kode": "4.1.01.14.029",
-        "uraian": "Pajak Tanah Diatome"
-    },
-    {
-        "kode": "4.1.01.14.030",
-        "uraian": "Pajak Tanah Liat"
-    },
-    {
-        "kode": "4.1.01.14.031",
-        "uraian": "Pajak Tawas (Alum)"
-    },
-    {
-        "kode": "4.1.01.14.032",
-        "uraian": "Pajak Tras"
-    },
-    {
-        "kode": "4.1.01.14.033",
-        "uraian": "Pajak Yarosif"
-    },
-    {
-        "kode": "4.1.01.14.034",
-        "uraian": "Pajak Zeolit"
-    },
-    {
-        "kode": "4.1.01.14.035",
-        "uraian": "Pajak Basal"
-    },
-    {
-        "kode": "4.1.01.14.036",
-        "uraian": "Pajak Trakit"
-    },
-    {
-        "kode": "4.1.01.14.037",
-        "uraian": "Pajak Mineral bukan Logam dan Batuan Lainnya"
-    },
-    {
-        "kode": "4.1.01.14.038",
-        "uraian": "Pajak Belerang"
-    },
-    {
-        "kode": "4.1.01.14.039",
-        "uraian": "Pajak MBLB Ikutan Dalam Suatu Pertambangan Mineral"
-    },
-    {
-        "kode": "4.1.01.15.001",
-        "uraian": "PBBP2"
-    },
-    {
-        "kode": "4.1.01.16.001",
-        "uraian": "BPHTB-Pemindahan Hak"
-    },
-    {
-        "kode": "4.1.01.16.002",
-        "uraian": "BPHTB-Pemberian Hak Baru"
-    },
-    {
-        "kode": "4.1.01.17.001",
-        "uraian": "Pajak Alat Berat"
-    },
-    {
-        "kode": "4.1.01.18.001",
-        "uraian": "Opsen Pajak Mineral Bukan Logam dan Batuan (MBLB)"
-    },
-    {
-        "kode": "4.1.01.19.001",
-        "uraian": "PBJT-Makanan dan/atau Minuman"
-    },
-    {
-        "kode": "4.1.01.19.002",
-        "uraian": "PBJT-Tenaga Listrik"
-    },
-    {
-        "kode": "4.1.01.19.003",
-        "uraian": "PBJT-Jasa Perhotelan"
-    },
-    {
-        "kode": "4.1.01.19.004",
-        "uraian": "PBJT-Jasa Parkir"
-    },
-    {
-        "kode": "4.1.01.19.005",
-        "uraian": "PBJT-Jasa Kesenian dan Hiburan"
-    },
-    {
-        "kode": "4.1.01.20.001",
-        "uraian": "Opsen PKB"
-    },
-    {
-        "kode": "4.1.01.21.001",
-        "uraian": "Opsen BBNKB"
-    },
-    {
-        "kode": "4.1.02.01.001",
-        "uraian": "Retribusi Pelayanan Kesehatan"
-    },
-    {
-        "kode": "4.1.02.01.002",
-        "uraian": "Retribusi Pelayanan Persampahan/ Kebersihan"
-    },
-    {
-        "kode": "4.1.02.01.003",
-        "uraian": "Retribusi Pelayanan Pemakaman dan Pengabuan Mayat"
-    },
-    {
-        "kode": "4.1.02.01.004",
-        "uraian": "Retribusi Pelayanan Parkir di Tepi Jalan Umum"
-    },
-    {
-        "kode": "4.1.02.01.005",
-        "uraian": "Retribusi Pelayanan Pasar"
-    },
-    {
-        "kode": "4.1.02.01.006",
-        "uraian": "Retribusi Pengujian Kendaraan Bermotor"
-    },
-    {
-        "kode": "4.1.02.01.007",
-        "uraian": "Retribusi Pemeriksaan Alat Pemadam Kebakaran"
-    },
-    {
-        "kode": "4.1.02.01.008",
-        "uraian": "Retribusi Penggantian Biaya Cetak Peta"
-    },
-    {
-        "kode": "4.1.02.01.009",
-        "uraian": "Retribusi Penyediaan dan/atau Penyedotan Kakus"
-    },
-    {
-        "kode": "4.1.02.01.010",
-        "uraian": "Retribusi Pengolahan Limbah Cair"
-    },
-    {
-        "kode": "4.1.02.01.011",
-        "uraian": "Retribusi Pelayanan Tera/Tera Ulang"
-    },
-    {
-        "kode": "4.1.02.01.012",
-        "uraian": "Retribusi Pelayanan Pendidikan"
-    },
-    {
-        "kode": "4.1.02.01.013",
-        "uraian": "Retribusi Pengawasan dan Pengendalian Menara Telekomunikasi"
-    },
-    {
-        "kode": "4.1.02.01.014",
-        "uraian": "Retribusi Pelayanan Kebersihan"
-    },
-    {
-        "kode": "4.1.02.01.015",
-        "uraian": "Retribusi Pengendalian Lalu Lintas"
-    },
-    {
-        "kode": "4.1.02.02.001",
-        "uraian": "Retribusi Pemakaian Kekayaan Daerah"
-    },
-    {
-        "kode": "4.1.02.02.002",
-        "uraian": "Retribusi Pasar Grosir dan/atau Pertokoan"
-    },
-    {
-        "kode": "4.1.02.02.003",
-        "uraian": "Retribusi Tempat Pelelangan"
-    },
-    {
-        "kode": "4.1.02.02.004",
-        "uraian": "Retribusi Terminal"
-    },
-    {
-        "kode": "4.1.02.02.005",
-        "uraian": "Retribusi Tempat Khusus Parkir"
-    },
-    {
-        "kode": "4.1.02.02.006",
-        "uraian": "Retribusi Tempat Penginapan/ Pesanggrahan/Vila"
-    },
-    {
-        "kode": "4.1.02.02.007",
-        "uraian": "Retribusi Rumah Potong Hewan"
-    },
-    {
-        "kode": "4.1.02.02.008",
-        "uraian": "Retribusi Pelayanan Kepelabuhanan"
-    },
-    {
-        "kode": "4.1.02.02.009",
-        "uraian": "Retribusi Tempat Rekreasi dan Olahraga"
-    },
-    {
-        "kode": "4.1.02.02.010",
-        "uraian": "Retribusi Penyeberangan di Air"
-    },
-    {
-        "kode": "4.1.02.02.011",
-        "uraian": "Retribusi Penjualan Produksi Usaha Daerah"
-    },
-    {
-        "kode": "4.1.02.02.012",
-        "uraian": "Retribusi Penyediaan Tempat Kegiatan Usaha berupa Pasar, Grosir, Pertokoan, dan Tempat Kegiatan Usaha Lainnya"
-    },
-    {
-        "kode": "4.1.02.02.013",
-        "uraian": "Retribusi Penyediaan Tempat Pelelangan Ikan, Ternak, Hasil Bumi, dan Hasil Hutan Termasuk Fasilitas Lainnya dalam Lingkungan Tempat Pelelangan"
-    },
-    {
-        "kode": "4.1.02.02.014",
-        "uraian": "Retribusi Penyediaan Tempat Khusus Parkir Diluar Badan Jalan"
-    },
-    {
-        "kode": "4.1.02.02.015",
-        "uraian": "Retribusi Pelayanan Rumah Pemotongan Hewan Ternak"
-    },
-    {
-        "kode": "4.1.02.02.016",
-        "uraian": "Retribusi Pelayanan Jasa Kepelabuhanan"
-    },
-    {
-        "kode": "4.1.02.02.017",
-        "uraian": "Retribusi Pelayanan Tempat Rekreasi, Pariwisata, dan Olahraga"
-    },
-    {
-        "kode": "4.1.02.02.018",
-        "uraian": "Retribusi Pelayanan Penyeberangan Orang atau Barang dengan Menggunakan Kendaraan di Air"
-    },
-    {
-        "kode": "4.1.02.02.019",
-        "uraian": "Retribusi Penjualan Hasil Produksi Usaha Pemerintah Daerah"
-    },
-    {
-        "kode": "4.1.02.02.020",
-        "uraian": "Retribusi Pemanfaatan Aset Daerah "
-    },
-    {
-        "kode": "4.1.02.03.001",
-        "uraian": "Retribusi Izin Mendirikan Bangunan"
-    },
-    {
-        "kode": "4.1.02.03.002",
-        "uraian": "Retribusi Izin Tempat Penjualan Minuman Beralkohol"
-    },
-    {
-        "kode": "4.1.02.03.003",
-        "uraian": "Retribusi Izin Trayek untuk Menyediakan Pelayanan Angkutan Umum"
-    },
-    {
-        "kode": "4.1.02.03.004",
-        "uraian": "Retribusi Izin Usaha Perikanan"
-    },
-    {
-        "kode": "4.1.02.03.005",
-        "uraian": "Retribusi Pengendalian Lalu Lintas"
-    },
-    {
-        "kode": "4.1.02.03.006",
-        "uraian": "Retribusi Perpanjangan Izin Mempekerjakan Tenaga Kerja Asing (IMTA)"
-    },
-    {
-        "kode": "4.1.02.03.007",
-        "uraian": "Retribusi Persetujuan Bangunan Gedung"
-    },
-    {
-        "kode": "4.1.02.03.008",
-        "uraian": "Retribusi Penggunaan Tenaga Kerja Asing (TKA)"
-    },
-    {
-        "kode": "4.1.02.03.009",
-        "uraian": "Retribusi Pertambangan Rakyat"
-    },
-    {
-        "kode": "4.1.03.01.001",
-        "uraian": "Bagian Laba yang Dibagikan kepada Pemerintah Daerah (Dividen) atas Penyertaan Modal pada BUMN"
-    },
-    {
-        "kode": "4.1.03.02.001",
-        "uraian": "Bagian Laba yang Dibagikan kepada Pemerintah Daerah (Dividen) atas Penyertaan Modal pada BUMD (Lembaga Keuangan)"
-    },
-    {
-        "kode": "4.1.03.02.002",
-        "uraian": "Bagian Laba yang Dibagikan kepada Pemerintah Daerah (Dividen) atas Penyertaan Modal pada BUMD (Aneka Usaha)"
-    },
-    {
-        "kode": "4.1.03.02.003",
-        "uraian": "Bagian Laba yang Dibagikan kepada Pemerintah Daerah (Dividen) atas Penyertaan Modal pada BUMD (Bidang Air Minum)"
-    },
-    {
-        "kode": "4.1.03.02.004",
-        "uraian": "Bagian Laba yang Dibagikan kepada Pemerintah Daerah (Dividen) atas Penyertaan Modal pada BUMD (Bidang Limbah)"
-    },
-    {
-        "kode": "4.1.03.02.005",
-        "uraian": "Bagian Laba yang Dibagikan kepada Pemerintah Daerah (Dividen) atas Penyertaan Modal pada BUMD (Bidang Sanitasi)"
-    },
-    {
-        "kode": "4.1.03.03.001",
-        "uraian": "Bagian Laba yang Dibagikan kepada Pemerintah Daerah (Dividen) atas Penyertaan Modal pada Perusahaan Milik Swasta"
-    },
-    {
-        "kode": "4.1.04.01.001",
-        "uraian": "Hasil Penjualan Tanah"
-    },
-    {
-        "kode": "4.1.04.01.002",
-        "uraian": "Hasil Penjualan Peralatan dan Mesin"
-    },
-    {
-        "kode": "4.1.04.01.003",
-        "uraian": "Hasil Penjualan Gedung dan Bangunan"
-    },
-    {
-        "kode": "4.1.04.01.004",
-        "uraian": "Hasil Penjualan Jalan, Jaringan, dan Irigasi"
-    },
-    {
-        "kode": "4.1.04.01.005",
-        "uraian": "Hasil Penjualan Aset Tetap Lainnya"
-    },
-    {
-        "kode": "4.1.04.01.006",
-        "uraian": "Hasil Penjualan Aset Lainnya"
-    },
-    {
-        "kode": "4.1.04.01.007",
-        "uraian": "Hasil Penjualan Aset Tidak Berwujud"
-    },
-    {
-        "kode": "4.1.04.01.008",
-        "uraian": "Hasil Penjualan Aset Lain-Lain"
-    },
-    {
-        "kode": "4.1.04.02.001",
-        "uraian": "Hasil Selisih Lebih Tukar Menukar Tanah"
-    },
-    {
-        "kode": "4.1.04.02.002",
-        "uraian": "Hasil Selisih Lebih Tukar Menukar Peralatan dan Mesin"
-    },
-    {
-        "kode": "4.1.04.02.003",
-        "uraian": "Hasil Selisih Lebih Tukar Menukar Gedung dan Bangunan"
-    },
-    {
-        "kode": "4.1.04.02.004",
-        "uraian": "Hasil Selisih Lebih Tukar Menukar Jalan, Jaringan, dan Irigasi"
-    },
-    {
-        "kode": "4.1.04.02.005",
-        "uraian": "Hasil Selisih Lebih Tukar Menukar Aset Tetap Lainnya"
-    },
-    {
-        "kode": "4.1.04.02.006",
-        "uraian": "Hasil Selisih Lebih Tukar Menukar Aset Lainnya"
-    },
-    {
-        "kode": "4.1.04.02.007",
-        "uraian": "Hasil Selisih Lebih Tukar Menukar Aset Tidak Berwujud"
-    },
-    {
-        "kode": "4.1.04.02.008",
-        "uraian": "Hasil Selisih Lebih Tukar Menukar Aset Lain-Lain"
-    },
-    {
-        "kode": "4.1.04.03.001",
-        "uraian": "Hasil Sewa BMD"
-    },
-    {
-        "kode": "4.1.04.03.002",
-        "uraian": "Hasil Kerja Sama Pemanfaatan BMD"
-    },
-    {
-        "kode": "4.1.04.03.003",
-        "uraian": "Hasil dari Bangun Guna Serah"
-    },
-    {
-        "kode": "4.1.04.03.004",
-        "uraian": "Hasil dari Bangun Serah Guna"
-    },
-    {
-        "kode": "4.1.04.03.005",
-        "uraian": "Hasil dari Kerja Sama Penyediaan Infrastruktur"
-    },
-    {
-        "kode": "4.1.04.04.001",
-        "uraian": "Hasil Kerja Sama Daerah"
-    },
-    {
-        "kode": "4.1.04.05.001",
-        "uraian": "Jasa Giro pada Kas Daerah"
-    },
-    {
-        "kode": "4.1.04.05.002",
-        "uraian": "Jasa Giro pada Kas di Bendahara"
-    },
-    {
-        "kode": "4.1.04.05.003",
-        "uraian": "Jasa Giro pada Rekening Dana Cadangan"
-    },
-    {
-        "kode": "4.1.04.05.005",
-        "uraian": "Jasa Giro Dana Kapitasi pada FKTP"
-    },
-    {
-        "kode": "4.1.04.05.006",
-        "uraian": "Pendapatan Jasa Giro pada Rekening Dana BOSP"
-    },
-    {
-        "kode": "4.1.04.05.007",
-        "uraian": "Pendapatan Jasa Giro pada Rekening Dana BOK Puskesmas"
-    },
-    {
-        "kode": "4.1.04.05.008",
-        "uraian": "Jasa Giro pada Rekening Kas Otonomi Khusus"
-    },
-    {
-        "kode": "4.1.04.05.009",
-        "uraian": "Jasa Giro pada Rekening Kas Dana Abadi Daerah"
-    },
-    {
-        "kode": "4.1.04.06.001",
-        "uraian": "Hasil Pengelolaan Dana Bergulir"
-    },
-    {
-        "kode": "4.1.04.07.001",
-        "uraian": "Pendapatan Bunga atas Penempatan Uang Pemerintah Daerah"
-    },
-    {
-        "kode": "4.1.04.08.001",
-        "uraian": "Tuntutan Ganti Kerugian Daerah terhadap Bendahara"
-    },
-    {
-        "kode": "4.1.04.08.002",
-        "uraian": "Tuntutan Ganti Kerugian Daerah terhadap Pegawai Negeri Bukan Bendahara atau Pejabat Lain"
-    },
-    {
-        "kode": "4.1.04.09.001",
-        "uraian": "Penerimaan Komisi, Potongan, atau Bentuk Lain"
-    },
-    {
-        "kode": "4.1.04.10.001",
-        "uraian": "Penerimaan Keuntungan dari Selisih Nilai Tukar Rupiah terhadap Mata Uang Asing"
-    },
-    {
-        "kode": "4.1.04.11.001",
-        "uraian": "Pendapatan Denda atas Keterlambatan Pelaksanaan Pekerjaan"
-    },
-    {
-        "kode": "4.1.04.14.001",
-        "uraian": "Hasil Eksekusi atas Jaminan atas Pengadaan Barang/Jasa"
-    },
-    {
-        "kode": "4.1.04.15.001",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Pajak Penghasilan Pasal 21"
-    },
-    {
-        "kode": "4.1.04.15.002",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Iuran Simpanan Peserta Tabungan Perumahan Rakyat ASN"
-    },
-    {
-        "kode": "4.1.04.15.003",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Gaji dan Tunjangan"
-    },
-    {
-        "kode": "4.1.04.15.004",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Perjalanan Dinas"
-    },
-    {
-        "kode": "4.1.04.15.005",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Jaminan Kecelakaan Kerja (JKK)"
-    },
-    {
-        "kode": "4.1.04.15.006",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Jaminan Kematian (JKM)"
-    },
-    {
-        "kode": "4.1.04.15.007",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Jaminan Kesehatan Nasional (JKN)"
-    },
-    {
-        "kode": "4.1.04.15.008",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Gaji dan Tunjangan ASN"
-    },
-    {
-        "kode": "4.1.04.15.009",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Tambahan Penghasilan ASN"
-    },
-    {
-        "kode": "4.1.04.15.011",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Gaji dan Tunjangan DPRD"
-    },
-    {
-        "kode": "4.1.04.15.012",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Gaji dan Tunjangan KDH/WKDH"
-    },
-    {
-        "kode": "4.1.04.15.013",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Penerimaan Lainnya Pimpinan DPRD serta KDH/WKDH"
-    },
-    {
-        "kode": "4.1.04.15.014",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Gaji dan Tunjangan MRP"
-    },
-    {
-        "kode": "4.1.04.15.015",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Barang"
-    },
-    {
-        "kode": "4.1.04.15.016",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Jasa"
-    },
-    {
-        "kode": "4.1.04.15.017",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Pemeliharaan"
-    },
-    {
-        "kode": "4.1.04.15.018",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Uang dan/atau Jasa untuk Diberikan kepada Pihak Ketiga/Pihak Lain/Masyarakat"
-    },
-    {
-        "kode": "4.1.04.15.019",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Penunjang Otonomi Khusus*)"
-    },
-    {
-        "kode": "4.1.04.15.020",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bunga Utang Pinjaman kepada Pemerintah Pusat"
-    },
-    {
-        "kode": "4.1.04.15.021",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bunga Utang Pinjaman kepada Pemerintah Daerah Lain"
-    },
-    {
-        "kode": "4.1.04.15.022",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bank (LKB)"
-    },
-    {
-        "kode": "4.1.04.15.023",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bukan Bank (LKBB)"
-    },
-    {
-        "kode": "4.1.04.15.024",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bunga Utang Kepada Masyarakat (Obligasi)"
-    },
-    {
-        "kode": "4.1.04.15.025",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bunga Utang Pinjaman melalui BLUD"
-    },
-    {
-        "kode": "4.1.04.15.026",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Subsidi kepada BUMN"
-    },
-    {
-        "kode": "4.1.04.15.027",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Subsidi kepada BUMD"
-    },
-    {
-        "kode": "4.1.04.15.028",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Subsidi kepada Badan Usaha Milik Swasta"
-    },
-    {
-        "kode": "4.1.04.15.029",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Subsidi kepada Koperasi"
-    },
-    {
-        "kode": "4.1.04.15.030",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Hibah kepada Pemerintah Pusat"
-    },
-    {
-        "kode": "4.1.04.15.031",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Hibah kepada Pemerintah Daerah Lainnya"
-    },
-    {
-        "kode": "4.1.04.15.032",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Hibah kepada BUMN"
-    },
-    {
-        "kode": "4.1.04.15.033",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Hibah kepada BUMD"
-    },
-    {
-        "kode": "4.1.04.15.034",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Hibah kepada Badan, Lembaga, Organisasi Kemasyarakatan yang Berbadan Hukum Indonesia"
-    },
-    {
-        "kode": "4.1.04.15.036",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Hibah Bantuan Keuangan kepada Partai Politik"
-    },
-    {
-        "kode": "4.1.04.15.037",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bantuan Sosial kepada Individu"
-    },
-    {
-        "kode": "4.1.04.15.038",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bantuan Sosial kepada Keluarga"
-    },
-    {
-        "kode": "4.1.04.15.039",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bantuan Sosial kepada Kelompok Masyarakat"
-    },
-    {
-        "kode": "4.1.04.15.040",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bantuan Sosial Bantuan Sosial kepada Lembaga Non Pemerintahan (Bidang Pendidikan, Keagamaan dan Bidang Lainnya)"
-    },
-    {
-        "kode": "4.1.04.15.041",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Tanah"
-    },
-    {
-        "kode": "4.1.04.15.042",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Besar"
-    },
-    {
-        "kode": "4.1.04.15.043",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Angkutan"
-    },
-    {
-        "kode": "4.1.04.15.044",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Bengkel dan Alat Ukur"
-    },
-    {
-        "kode": "4.1.04.15.045",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Pertanian"
-    },
-    {
-        "kode": "4.1.04.15.046",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Kantor dan Rumah Tangga"
-    },
-    {
-        "kode": "4.1.04.15.047",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Studio, Komunikasi, dan Pemancar"
-    },
-    {
-        "kode": "4.1.04.15.048",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Kedokteran dan Kesehatan"
-    },
-    {
-        "kode": "4.1.04.15.049",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Laboratorium"
-    },
-    {
-        "kode": "4.1.04.15.051",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Komputer"
-    },
-    {
-        "kode": "4.1.04.15.052",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Eksplorasi"
-    },
-    {
-        "kode": "4.1.04.15.053",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Pengeboran"
-    },
-    {
-        "kode": "4.1.04.15.054",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Produksi, Pengolahan, dan Pemurnian"
-    },
-    {
-        "kode": "4.1.04.15.055",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Bantu Eksplorasi"
-    },
-    {
-        "kode": "4.1.04.15.056",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Keselamatan Kerja"
-    },
-    {
-        "kode": "4.1.04.15.057",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Peraga"
-    },
-    {
-        "kode": "4.1.04.15.058",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Peralatan Proses/Produksi"
-    },
-    {
-        "kode": "4.1.04.15.059",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Rambu-Rambu"
-    },
-    {
-        "kode": "4.1.04.15.060",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Peralatan Olahraga"
-    },
-    {
-        "kode": "4.1.04.15.061",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Gedung dan Bangunan-Bangunan Gedung"
-    },
-    {
-        "kode": "4.1.04.15.062",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Gedung dan Bangunan-Monumen"
-    },
-    {
-        "kode": "4.1.04.15.063",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Gedung dan Bangunan-Bangunan Menara"
-    },
-    {
-        "kode": "4.1.04.15.064",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Gedung dan Bangunan-Tugu Titik Kontrol/Pasti"
-    },
-    {
-        "kode": "4.1.04.15.065",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Jalan, Jaringan, dan Irigasi-Jalan dan Jembatan"
-    },
-    {
-        "kode": "4.1.04.15.066",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Jalan, Jaringan, dan Irigasi-Bangunan Air"
-    },
-    {
-        "kode": "4.1.04.15.067",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Jalan, Jaringan, dan Instalasi-Instalasi"
-    },
-    {
-        "kode": "4.1.04.15.068",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Jalan, Jaringan, dan Irigasi-Jaringan"
-    },
-    {
-        "kode": "4.1.04.15.069",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Aset Tetap Lainnya-Bahan Perpustakaan"
-    },
-    {
-        "kode": "4.1.04.15.070",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Aset Tetap Lainnya-Barang Bercorak Kesenian/Kebudayaan/Olahraga"
-    },
-    {
-        "kode": "4.1.04.15.071",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Aset Tetap Lainnya-Hewan"
-    },
-    {
-        "kode": "4.1.04.15.072",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Aset Tetap Lainnya-Biota Perairan"
-    },
-    {
-        "kode": "4.1.04.15.073",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Aset Tetap Lainnya-Tanaman"
-    },
-    {
-        "kode": "4.1.04.15.074",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Aset Tetap Lainnya-Barang Koleksi Non Budaya"
-    },
-    {
-        "kode": "4.1.04.15.075",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Aset Tetap Lainnya-Aset Tetap dalam Renovasi"
-    },
-    {
-        "kode": "4.1.04.15.076",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Aset Lainnya-Aset Tidak Berwujud"
-    },
-    {
-        "kode": "4.1.04.15.077",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Tidak Terduga"
-    },
-    {
-        "kode": "4.1.04.15.078",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bagi Hasil Pajak Daerah Kepada Pemerintahan Kabupaten/Kota dan Desa"
-    },
-    {
-        "kode": "4.1.04.15.079",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bagi Hasil Retribusi Daerah Kabupaten/Kota Kepada Pemerintah Desa"
-    },
-    {
-        "kode": "4.1.04.15.080",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bantuan Keuangan antar Daerah Provinsi"
-    },
-    {
-        "kode": "4.1.04.15.081",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bantuan Keuangan antar Daerah Kabupaten/Kota"
-    },
-    {
-        "kode": "4.1.04.15.082",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bantuan Keuangan Daerah Provinsi ke Kabupaten/Kota"
-    },
-    {
-        "kode": "4.1.04.15.083",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bantuan Keuangan Kabupaten/Kota ke Daerah Provinsi"
-    },
-    {
-        "kode": "4.1.04.15.084",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bantuan Keuangan Daerah Provinsi atau Kabupaten/Kota kepada Desa"
-    },
-    {
-        "kode": "4.1.04.15.085",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Transfer Dana Otonomi Khusus Provinsi kepada Kabupaten/Kota"
-    },
-    {
-        "kode": "4.1.04.15.087",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Hibah Dana BOSP"
-    },
-    {
-        "kode": "4.1.04.15.089",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Pegawai BOSP, Belanja Barang dan Jasa BOSP, Belanja Modal Peralatan dan Mesin BOSP, dan Belanja Modal Aset Tetap Lainnya BOSP"
-    },
-    {
-        "kode": "4.1.04.15.090",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Barang dan Jasa BOK Puskesmas"
-    },
-    {
-        "kode": "4.1.04.15.091",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Hibah kepada BUMDesa"
-    },
-    {
-        "kode": "4.1.04.15.092",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Hibah kepada Koperasi"
-    },
-    {
-        "kode": "4.1.04.15.093",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Imbalan-Imbalan Sukuk Daerah"
-    },
-    {
-        "kode": "4.1.04.15.094",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bunga Pembiayaan Utang Daerah-Pinjaman Daerah"
-    },
-    {
-        "kode": "4.1.04.15.095",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bunga Pembiayaan Utang Daerah-Obligasi Daerah"
-    },
-    {
-        "kode": "4.1.04.15.096",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bunga Pembiayaan Utang Daerah-Pinjaman Daerah"
-    },
-    {
-        "kode": "4.1.04.15.097",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bunga Pembiayaan Utang Daerah-Obligasi Daerah"
-    },
-    {
-        "kode": "4.1.04.15.099",
-        "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Pegawai BLUD, Belanja Barang dan Jasa BLUD, Belanja Modal Tanah BLUD, Belanja Modal Peralatan dan Mesin BLUD, Belanja Modal Gedung dan Bangunan BLUD, Belanja Modal Jalan, Jaringan, dan Irigasi BLUD, Belanja Modal Aset Tetap Lainnya BLUD, serta Belanja Modal Aset Lainnya BLUD"
-    },
-    {
-        "kode": "4.1.04.16.001",
-        "uraian": "Pendapatan BLUD"
-    },
-    {
-        "kode": "4.1.04.16.002",
-        "uraian": "Pendapatan BLUD dari Jasa Layanan"
-    },
-    {
-        "kode": "4.1.04.16.003",
-        "uraian": "Pendapatan BLUD dari Hibah"
-    },
-    {
-        "kode": "4.1.04.16.004",
-        "uraian": "Pendapatan BLUD dari Hasil Kerja Sama dengan Pihak Lain"
-    },
-    {
-        "kode": "4.1.04.16.005",
-        "uraian": "Pendapatan BLUD dari APBD"
-    },
-    {
-        "kode": "4.1.04.16.006",
-        "uraian": "Pendapatan BLUD dari Lain-Lain Pendapatan BLUD yang Sah"
-    },
-    {
-        "kode": "4.1.04.17.001",
-        "uraian": "Pendapatan Denda Pengakhiran Sewa BMD"
-    },
-    {
-        "kode": "4.1.04.17.002",
-        "uraian": "Pendapatan Denda Hasil dari Kerja Sama Penyediaan Infrastruktur"
-    },
-    {
-        "kode": "4.1.04.19.001",
-        "uraian": "Pendapatan Hasil Pengelolaan Dana Bergulir"
-    },
-    {
-        "kode": "4.1.04.20.001",
-        "uraian": "Pendapatan Berdasarkan Putusan Pengadilan (Inkracht)"
-    },
-    {
-        "kode": "4.1.04.21.001",
-        "uraian": "Pendapatan Denda atas Pelanggaran Peraturan Daerah"
-    },
-    {
-        "kode": "4.1.04.22.001",
-        "uraian": "Pendapatan Zakat"
-    },
-    {
-        "kode": "4.1.04.23.001",
-        "uraian": "Pendapatan Hasil Pelaksanaan Perjanjian/Kontrak"
-    },
-    {
-        "kode": "4.1.04.24.001",
-        "uraian": "Pungutan bagi Wisatawan Asing"
-    },
-    {
-        "kode": "4.1.04.25.001",
-        "uraian": "Hasil Pengelolaan Dana Abadi Daerah"
-    },
-    {
-        "kode": "4.1.04.26.001",
-        "uraian": "Hasil Pengelolaan Dana Cadangan"
-    },
-    {
-        "kode": "4.1.04.27.001",
-        "uraian": "Pendapatan Denda Pajak Daerah"
-    },
-    {
-        "kode": "4.1.04.27.002",
-        "uraian": "Pendapatan Bunga Pajak Daerah"
-    },
-    {
-        "kode": "4.1.04.27.003",
-        "uraian": "Pendapatan Kenaikan Pokok Pajak Daerah"
-    },
-    {
-        "kode": "4.1.04.28.001",
-        "uraian": "Pendapatan Denda Retribusi Daerah"
-    },
-    {
-        "kode": "4.1.04.28.002",
-        "uraian": "Pendapatan Bunga Retribusi Daerah"
-    },
-    {
-        "kode": "4.2.01.03.001",
-        "uraian": "Dana Otonomi Khusus-Provinsi Papua"
-    },
-    {
-        "kode": "4.2.01.03.002",
-        "uraian": "Dana Otonomi Khusus-Provinsi Papua Barat"
-    },
-    {
-        "kode": "4.2.01.03.003",
-        "uraian": "Dana Otonomi Khusus-Provinsi Aceh"
-    },
-    {
-        "kode": "4.2.01.03.004",
-        "uraian": "Dana Tambahan Infrastruktur dalam rangka Otonomi Khusus Provinsi Papua"
-    },
-    {
-        "kode": "4.2.01.03.005",
-        "uraian": "Dana Tambahan Infrastruktur dalam rangka Otonomi Khusus Provinsi Papua Barat"
-    },
-    {
-        "kode": "4.2.01.03.006",
-        "uraian": "Dana Bagi Hasil (DBH) Minyak dan Gas Otonomi Khusus Papua"
-    },
-    {
-        "kode": "4.2.01.03.007",
-        "uraian": "Dana Bagi Hasil (DBH) Minyak dan Gas Otonomi Khusus Aceh"
-    },
-    {
-        "kode": "4.2.01.03.008",
-        "uraian": "Dana Otonomi Khusus 1%-Papua"
-    },
-    {
-        "kode": "4.2.01.03.009",
-        "uraian": "DBH SDA Pertambangan Minyak Bumi-Papua"
-    },
-    {
-        "kode": "4.2.01.03.010",
-        "uraian": "DBH SDA Pertambangan Gas Alam-Papua"
-    },
-    {
-        "kode": "4.2.01.03.011",
-        "uraian": "Dana Otonomi Khusus 1,25%-Papua"
-    },
-    {
-        "kode": "4.2.01.03.012",
-        "uraian": "DTI-Papua"
-    },
-    {
-        "kode": "4.2.01.03.013",
-        "uraian": "DBH SDA Pertambangan Minyak Bumi-Aceh"
-    },
-    {
-        "kode": "4.2.01.03.014",
-        "uraian": "DBH SDA Pertambangan Gas Alam-Aceh"
-    },
-    {
-        "kode": "4.2.01.04.001",
-        "uraian": "Dana Keistimewaan Daerah Istimewa Yogyakarta"
-    },
-    {
-        "kode": "4.2.01.05.001",
-        "uraian": "Dana Desa"
-    },
-    {
-        "kode": "4.2.01.06.002",
-        "uraian": "Insentif Fiskal Untuk Penghargaan Kinerja Tahun Sebelumnya"
-    },
-    {
-        "kode": "4.2.01.06.003",
-        "uraian": "Insentif Fiskal Untuk Penghargaan Kinerja Tahun Berjalan"
-    },
-    {
-        "kode": "4.2.01.07.001",
-        "uraian": "DBH Pajak"
-    },
-    {
-        "kode": "4.2.01.07.002",
-        "uraian": "DBH Sumber Daya Alam (SDA)"
-    },
-    {
-        "kode": "4.2.01.07.003",
-        "uraian": "DBH Lainnya"
-    },
-    {
-        "kode": "4.2.01.08.001",
-        "uraian": "DAU yang Tidak Ditentukan Penggunaannya"
-    },
-    {
-        "kode": "4.2.01.08.002",
-        "uraian": "DAU yang Ditentukan Penggunaannya"
-    },
-    {
-        "kode": "4.2.01.09.001",
-        "uraian": "DAK Fisik"
-    },
-    {
-        "kode": "4.2.01.09.002",
-        "uraian": "DAK Non Fisik"
-    },
-    {
-        "kode": "4.2.01.09.003",
-        "uraian": "Hibah kepada Daerah"
-    },
-    {
-        "kode": "4.2.02.01.001",
-        "uraian": "Pendapatan Bagi Hasil Pajak"
-    },
-    {
-        "kode": "4.2.02.02.001",
-        "uraian": "Bantuan Keuangan Umum dari Pemerintah Provinsi"
-    },
-    {
-        "kode": "4.2.02.02.002",
-        "uraian": "Bantuan Keuangan Khusus dari Pemerintah Provinsi"
-    },
-    {
-        "kode": "4.2.02.02.003",
-        "uraian": "Bantuan Keuangan Umum dari Pemerintah Kabupaten/Kota"
-    },
-    {
-        "kode": "4.2.02.02.004",
-        "uraian": "Bantuan Keuangan Khusus dari Pemerintah Kabupaten/Kota"
-    },
-    {
-        "kode": "4.3.01.01.001",
-        "uraian": "Pendapatan Hibah dari Pemerintah Pusat"
-    },
-    {
-        "kode": "4.3.01.02.001",
-        "uraian": "Pendapatan Hibah dari Pemerintah Daerah Lainnya"
-    },
-    {
-        "kode": "4.3.01.03.001",
-        "uraian": "Pendapatan Hibah dari Kelompok Masyarakat/Perorangan Dalam Negeri"
-    },
-    {
-        "kode": "4.3.01.04.001",
-        "uraian": "Pendapatan Hibah dari Badan/Lembaga/ Organisasi Dalam Negeri"
-    },
-    {
-        "kode": "4.3.01.04.002",
-        "uraian": "Pendapatan Hibah dari Badan/Lembaga/ Organisasi Luar Negeri"
-    },
-    {
-        "kode": "4.3.01.04.003",
-        "uraian": "Pendapatan Hibah dari Lembaga/Organisasi Swasta Dalam Negeri"
-    },
-    {
-        "kode": "4.3.01.04.004",
-        "uraian": "Pendapatan Hibah dari Lembaga/Organisasi Swasta Luar Negeri"
-    },
-    {
-        "kode": "4.3.01.05.001",
-        "uraian": "Sumbangan Pihak Ketiga/Sejenis"
-    },
-    {
-        "kode": "4.3.01.06.001",
-        "uraian": "Pendapatan atas Tanggung Jawab Sosial dan Lingkungan/Sejenis"
-    },
-    {
-        "kode": "4.3.02.01.001",
-        "uraian": "Dana Darurat"
-    },
-    {
-        "kode": "4.3.03.01.001",
-        "uraian": "Pendapatan Hibah Dana BOS"
-    },
-    {
-        "kode": "4.3.03.01.002",
-        "uraian": "Pendapatan atas Pengembalian Hibah"
-    },
-    {
-        "kode": "4.3.03.01.003",
-        "uraian": "Pendapatan atas Dana Reducing Emission from Deforestration and Forest Degradation Results Based Payment"
-    },
-    {
-        "kode": "4.3.03.02.001",
-        "uraian": "Pendapatan Dana Kapitasi JKN pada FKTP"
-    },
-    {
-        "kode": "4.3.03.03.001",
-        "uraian": "Pendapatan Bagi Hasil Pemegang IUPK atas Pertambangan Mineral Logam dan Batu Bara"
-    },
-    {
-        "kode": "4.3.03.04.001",
-        "uraian": "Kontribusi dari Sumber Lain yang Sah dan Tidak Mengikat"
-    },
-    {
-        "kode": "4.3.03.05.001",
-        "uraian": "Pendapatan Klaim Pelayanan Kesehatan/Nonkapitasi"
-    },
-    {
-        "kode": "4.3.03.06.001",
-        "uraian": "Pendapatan Bonus Produksi Panas Bumi"
-    },
-    {
-        "kode": "4.3.03.07.001",
-        "uraian": "Pendapatan Bonus Tandatangan dan Bonus Produksi Pemerintah Aceh"
-    },
-    {
-        "kode": "4.3.03.08.001",
-        "uraian": "Pendapatan Pembayaran Tetap (Lumpsum Payment) Perjanjian Karya Pengusahaan Pertambangan Batubara (PKP2B) Generasi 1"
-    },
-    {
-        "kode": "4.3.03.09.001",
-        "uraian": "Pendapatan Divestasi Saham pada Pemegang IUP dan IUPK pada Tahap Kegiatan Operasi Produksi dalam rangka Penanaman Modal Asing"
-    }
+  {
+    "kode": "5.1.01.01.001",
+    "uraian": "Belanja Gaji Pokok ASN"
+  },
+  {
+    "kode": "5.1.01.01.002",
+    "uraian": "Belanja Tunjangan Keluarga ASN"
+  },
+  {
+    "kode": "5.1.01.01.003",
+    "uraian": "Belanja Tunjangan Jabatan ASN"
+  },
+  {
+    "kode": "5.1.01.01.004",
+    "uraian": "Belanja Tunjangan Fungsional ASN"
+  },
+  {
+    "kode": "5.1.01.01.005",
+    "uraian": "Belanja Tunjangan Fungsional Umum ASN"
+  },
+  {
+    "kode": "5.1.01.01.006",
+    "uraian": "Belanja Tunjangan Beras ASN"
+  },
+  {
+    "kode": "5.1.01.01.007",
+    "uraian": "Belanja Tunjangan PPh/Tunjangan Khusus ASN"
+  },
+  {
+    "kode": "5.1.01.01.008",
+    "uraian": "Belanja Pembulatan Gaji ASN"
+  },
+  {
+    "kode": "5.1.01.01.009",
+    "uraian": "Belanja Iuran Jaminan Kesehatan ASN"
+  },
+  {
+    "kode": "5.1.01.01.010",
+    "uraian": "Belanja Iuran Jaminan Kecelakaan Kerja ASN"
+  },
+  {
+    "kode": "5.1.01.01.011",
+    "uraian": "Belanja Iuran Jaminan Kematian ASN"
+  },
+  {
+    "kode": "5.1.01.01.012",
+    "uraian": "Belanja Iuran Simpanan Peserta Tabungan Perumahan Rakyat ASN"
+  },
+  {
+    "kode": "5.1.01.01.013",
+    "uraian": "Belanja Jaminan Hari Tua ASN"
+  },
+  {
+    "kode": "5.1.01.01.014",
+    "uraian": "Belanja Tunjangan Khusus*)"
+  },
+  {
+    "kode": "5.1.01.01.015",
+    "uraian": "Belanja Zakat ASN"
+  },
+  {
+    "kode": "5.1.01.02.001",
+    "uraian": "Tambahan Penghasilan berdasarkan Beban Kerja ASN"
+  },
+  {
+    "kode": "5.1.01.02.002",
+    "uraian": "Tambahan Penghasilan berdasarkan Tempat Bertugas ASN"
+  },
+  {
+    "kode": "5.1.01.02.003",
+    "uraian": "Tambahan Penghasilan berdasarkan Kondisi Kerja ASN"
+  },
+  {
+    "kode": "5.1.01.02.004",
+    "uraian": "Tambahan Penghasilan berdasarkan Kelangkaan Profesi ASN"
+  },
+  {
+    "kode": "5.1.01.02.005",
+    "uraian": "Tambahan Penghasilan berdasarkan Prestasi Kerja ASN"
+  },
+  {
+    "kode": "5.1.01.02.006",
+    "uraian": "Tambahan Penghasilan berdasarkan Pertimbangan Objektif Lainnya ASN"
+  },
+  {
+    "kode": "5.1.01.04.001",
+    "uraian": "Belanja Uang Representasi DPRD"
+  },
+  {
+    "kode": "5.1.01.04.002",
+    "uraian": "Belanja Tunjangan Keluarga DPRD"
+  },
+  {
+    "kode": "5.1.01.04.003",
+    "uraian": "Belanja Tunjangan Beras DPRD"
+  },
+  {
+    "kode": "5.1.01.04.004",
+    "uraian": "Belanja Uang Paket DPRD"
+  },
+  {
+    "kode": "5.1.01.04.005",
+    "uraian": "Belanja Tunjangan Jabatan DPRD"
+  },
+  {
+    "kode": "5.1.01.04.006",
+    "uraian": "Belanja Tunjangan Alat Kelengkapan DPRD"
+  },
+  {
+    "kode": "5.1.01.04.007",
+    "uraian": "Belanja Tunjangan Alat Kelengkapan Lainnya DPRD"
+  },
+  {
+    "kode": "5.1.01.04.008",
+    "uraian": "Belanja Tunjangan Komunikasi Intensif Pimpinan dan Anggota DPRD"
+  },
+  {
+    "kode": "5.1.01.04.009",
+    "uraian": "Belanja Tunjangan Reses DPRD"
+  },
+  {
+    "kode": "5.1.01.04.010",
+    "uraian": "Belanja Pembebanan PPh kepada Pimpinan dan Anggota DPRD"
+  },
+  {
+    "kode": "5.1.01.04.011",
+    "uraian": "Belanja Pembulatan Gaji DPRD"
+  },
+  {
+    "kode": "5.1.01.04.012",
+    "uraian": "Belanja Tunjangan Kesejahteraan Pimpinan dan Anggota DPRD"
+  },
+  {
+    "kode": "5.1.01.04.013",
+    "uraian": "Belanja Tunjangan Transportasi DPRD"
+  },
+  {
+    "kode": "5.1.01.04.014",
+    "uraian": "Belanja Uang Jasa Pengabdian DPRD"
+  },
+  {
+    "kode": "5.1.01.05.001",
+    "uraian": "Belanja Gaji Pokok KDH/WKDH"
+  },
+  {
+    "kode": "5.1.01.05.002",
+    "uraian": "Belanja Tunjangan Keluarga KDH/WKDH"
+  },
+  {
+    "kode": "5.1.01.05.003",
+    "uraian": "Belanja Tunjangan Jabatan KDH/WKDH"
+  },
+  {
+    "kode": "5.1.01.05.004",
+    "uraian": "Belanja Tunjangan Beras KDH/WKDH"
+  },
+  {
+    "kode": "5.1.01.05.005",
+    "uraian": "Belanja Tunjangan PPh/Tunjangan Khusus KDH/WKDH"
+  },
+  {
+    "kode": "5.1.01.05.006",
+    "uraian": "Belanja Pembulatan Gaji KDH/WKDH"
+  },
+  {
+    "kode": "5.1.01.05.007",
+    "uraian": "Belanja Iuran Jaminan Kesehatan bagi KDH/WKDH"
+  },
+  {
+    "kode": "5.1.01.05.008",
+    "uraian": "Belanja Iuran Jaminan Kecelakaan Kerja KDH/WKDH"
+  },
+  {
+    "kode": "5.1.01.05.009",
+    "uraian": "Belanja Iuran Jaminan Kematian KDH/WKDH"
+  },
+  {
+    "kode": "5.1.01.05.010",
+    "uraian": "Belanja Insentif bagi KDH/WKDH atas Pemungutan Pajak Daerah"
+  },
+  {
+    "kode": "5.1.01.05.011",
+    "uraian": "Belanja Insentif bagi KDH/WKDH atas Pemungutan Retribusi Daerah bagi KDH/WKDH"
+  },
+  {
+    "kode": "5.1.01.05.012",
+    "uraian": "Belanja Jasa Pengelolaan BMD bagi KDH"
+  },
+  {
+    "kode": "5.1.01.06.001",
+    "uraian": "Belanja Dana Operasional Pimpinan DPRD"
+  },
+  {
+    "kode": "5.1.01.06.002",
+    "uraian": "Belanja Dana Operasional KDH/WKDH"
+  },
+  {
+    "kode": "5.1.01.07.001",
+    "uraian": "Belanja Uang Representasi MRP"
+  },
+  {
+    "kode": "5.1.01.07.002",
+    "uraian": "Belanja Tunjangan Keluarga MRP"
+  },
+  {
+    "kode": "5.1.01.07.003",
+    "uraian": "Belanja Tunjangan Beras MRP"
+  },
+  {
+    "kode": "5.1.01.07.004",
+    "uraian": "Belanja Uang Paket MRP"
+  },
+  {
+    "kode": "5.1.01.07.005",
+    "uraian": "Belanja Tunjangan Jabatan MRP"
+  },
+  {
+    "kode": "5.1.01.07.006",
+    "uraian": "Belanja Tunjangan Kelompok Kerja MRP"
+  },
+  {
+    "kode": "5.1.01.07.007",
+    "uraian": "Belanja Uang Penghargaan MRP"
+  },
+  {
+    "kode": "5.1.01.07.008",
+    "uraian": "Belanja Tunjangan Komunikasi Intensif MRP"
+  },
+  {
+    "kode": "5.1.01.07.009",
+    "uraian": "Belanja Tunjangan Transportasi MRP"
+  },
+  {
+    "kode": "5.1.01.07.010",
+    "uraian": "Belanja Pembebanan PPh kepada Pimpinan dan Anggota MRP"
+  },
+  {
+    "kode": "5.1.01.07.011",
+    "uraian": "Belanja Pembulatan Gaji MRP"
+  },
+  {
+    "kode": "5.1.01.07.012",
+    "uraian": "Belanja Tunjangan Kesejahteraan Pimpinan dan Anggota MRP"
+  },
+  {
+    "kode": "5.1.01.89.001",
+    "uraian": "Belanja Pegawai BOSP-BOS"
+  },
+  {
+    "kode": "5.1.01.89.002",
+    "uraian": "Belanja Pegawai BOSP-BOP PAUD"
+  },
+  {
+    "kode": "5.1.01.89.003",
+    "uraian": "Belanja Pegawai BOSP-BOP Kesetaraan"
+  },
+  {
+    "kode": "5.1.01.99.099",
+    "uraian": "Belanja Pegawai BLUD"
+  },
+  {
+    "kode": "5.1.02.01.001",
+    "uraian": "Belanja Barang Pakai Habis"
+  },
+  {
+    "kode": "5.1.02.01.002",
+    "uraian": "Belanja Barang Tak Habis Pakai"
+  },
+  {
+    "kode": "5.1.02.01.003",
+    "uraian": "Belanja Barang Bekas Dipakai"
+  },
+  {
+    "kode": "5.1.02.01.004",
+    "uraian": "Belanja Aset Tetap yang Tidak Memenuhi Kriteria Kapitalisasi"
+  },
+  {
+    "kode": "5.1.02.02.001",
+    "uraian": "Belanja Jasa Kantor"
+  },
+  {
+    "kode": "5.1.02.02.002",
+    "uraian": "Belanja Iuran Jaminan/Asuransi"
+  },
+  {
+    "kode": "5.1.02.02.003",
+    "uraian": "Belanja Sewa Tanah"
+  },
+  {
+    "kode": "5.1.02.02.004",
+    "uraian": "Belanja Sewa Peralatan dan Mesin"
+  },
+  {
+    "kode": "5.1.02.02.005",
+    "uraian": "Belanja Sewa Gedung dan Bangunan"
+  },
+  {
+    "kode": "5.1.02.02.006",
+    "uraian": "Belanja Sewa Jalan, Jaringan dan Irigasi"
+  },
+  {
+    "kode": "5.1.02.02.007",
+    "uraian": "Belanja Sewa Aset Tetap Lainnya"
+  },
+  {
+    "kode": "5.1.02.02.008",
+    "uraian": "Belanja Jasa Konsultansi Konstruksi"
+  },
+  {
+    "kode": "5.1.02.02.009",
+    "uraian": "Belanja Jasa Konsultansi Non Konstruksi"
+  },
+  {
+    "kode": "5.1.02.02.010",
+    "uraian": "Belanja Jasa Ketersediaan Layanan (Availibility Payment)"
+  },
+  {
+    "kode": "5.1.02.02.011",
+    "uraian": "Belanja Beasiswa Pendidikan ASN"
+  },
+  {
+    "kode": "5.1.02.02.012",
+    "uraian": "Belanja Kursus/Pelatihan, Sosialisasi, Bimbingan Teknis serta Pendidikan dan Pelatihan"
+  },
+  {
+    "kode": "5.1.02.02.013",
+    "uraian": "Belanja Jasa Insentif bagi Pegawai Non ASN atas Pemungutan Pajak Daerah"
+  },
+  {
+    "kode": "5.1.02.02.014",
+    "uraian": "Belanja Jasa Insentif bagi Pegawai Non ASN atas Pemungutan Retribusi Daerah"
+  },
+  {
+    "kode": "5.1.02.02.015",
+    "uraian": "Belanja Sewa Aset Tidak Berwujud"
+  },
+  {
+    "kode": "5.1.02.02.016",
+    "uraian": "Belanja Gaji dan Tunjangan Perangkat Lembaga Wali Nanggroe"
+  },
+  {
+    "kode": "5.1.02.02.017",
+    "uraian": "Belanja Jasa Kerja Sama Pemungutan Pajak Daerah"
+  },
+  {
+    "kode": "5.1.02.02.018",
+    "uraian": "Belanja Jasa Kerja Sama Pemungutan Retribusi Daerah"
+  },
+  {
+    "kode": "5.1.02.02.019",
+    "uraian": "Belanja Jasa Pelayanan Kesehatan bagi ASN"
+  },
+  {
+    "kode": "5.1.02.03.001",
+    "uraian": "Belanja Pemeliharaan Tanah"
+  },
+  {
+    "kode": "5.1.02.03.002",
+    "uraian": "Belanja Pemeliharaan Peralatan dan Mesin"
+  },
+  {
+    "kode": "5.1.02.03.003",
+    "uraian": "Belanja Pemeliharaan Gedung dan Bangunan"
+  },
+  {
+    "kode": "5.1.02.03.004",
+    "uraian": "Belanja Pemeliharaan Jalan, Jaringan, dan Irigasi"
+  },
+  {
+    "kode": "5.1.02.03.005",
+    "uraian": "Belanja Pemeliharaan Aset Tetap Lainnya"
+  },
+  {
+    "kode": "5.1.02.03.006",
+    "uraian": "Belanja Pemeliharaan Aset Tidak Berwujud"
+  },
+  {
+    "kode": "5.1.02.04.001",
+    "uraian": "Belanja Perjalanan Dinas Dalam Negeri"
+  },
+  {
+    "kode": "5.1.02.04.002",
+    "uraian": "Belanja Perjalanan Dinas Luar Negeri"
+  },
+  {
+    "kode": "5.1.02.05.001",
+    "uraian": "Belanja Uang yang Diberikan kepada Pihak Ketiga/Pihak Lain/Masyarakat"
+  },
+  {
+    "kode": "5.1.02.05.002",
+    "uraian": "Belanja Jasa yang Diberikan kepada Pihak Ketiga/Pihak Lain/Masyarakat"
+  },
+  {
+    "kode": "5.1.02.89.001",
+    "uraian": "Belanja Barang dan Jasa BOSP-BOS"
+  },
+  {
+    "kode": "5.1.02.89.002",
+    "uraian": "Belanja Barang dan Jasa BOSP-BOP PAUD"
+  },
+  {
+    "kode": "5.1.02.89.003",
+    "uraian": "Belanja Barang dan Jasa BOSP-BOP Kesetaraan"
+  },
+  {
+    "kode": "5.1.02.90.001",
+    "uraian": "Belanja Barang dan Jasa BOK Puskesmas"
+  },
+  {
+    "kode": "5.1.02.99.099",
+    "uraian": "Belanja Barang dan Jasa BLUD"
+  },
+  {
+    "kode": "5.1.03.01.001",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Pemerintah Pusat atas Penerusan Pinjaman Dalam Negeri-Jangka Menengah"
+  },
+  {
+    "kode": "5.1.03.01.002",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Pemerintah Pusat atas Penerusan Pinjaman Dalam Negeri-Jangka Panjang"
+  },
+  {
+    "kode": "5.1.03.01.003",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Pemerintah Pusat atas Penerusan Pinjaman Luar Negeri-Jangka Menengah"
+  },
+  {
+    "kode": "5.1.03.01.004",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Pemerintah Pusat atas Penerusan Pinjaman Luar Negeri-Jangka Panjang"
+  },
+  {
+    "kode": "5.1.03.01.005",
+    "uraian": "Belanja Bunga Utang Pinjaman Sumber Lainnya sesuai Ketentuan Peraturan Perundang-Undangan-Jangka Menengah"
+  },
+  {
+    "kode": "5.1.03.01.006",
+    "uraian": "Belanja Bunga Utang Pinjaman Sumber Lainnya sesuai Ketentuan Peraturan Perundang-Undangan-Jangka Panjang"
+  },
+  {
+    "kode": "5.1.03.02.001",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Pemerintah Daerah-Jangka Pendek"
+  },
+  {
+    "kode": "5.1.03.03.001",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bank (LKB)-BUMN-Jangka Pendek"
+  },
+  {
+    "kode": "5.1.03.03.002",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bank (LKB)-BUMN-Jangka Menengah"
+  },
+  {
+    "kode": "5.1.03.03.003",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bank (LKB)-BUMN-Jangka Panjang"
+  },
+  {
+    "kode": "5.1.03.03.004",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bank (LKB)-BUMD-Jangka Pendek"
+  },
+  {
+    "kode": "5.1.03.03.005",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bank (LKB)-BUMD-Jangka Menengah"
+  },
+  {
+    "kode": "5.1.03.03.006",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bank (LKB)-BUMD-Jangka Panjang"
+  },
+  {
+    "kode": "5.1.03.03.007",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bank (LKB)-Swasta-Jangka Pendek"
+  },
+  {
+    "kode": "5.1.03.03.008",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bank (LKB)-Swasta-Jangka Menengah"
+  },
+  {
+    "kode": "5.1.03.03.009",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bank (LKB)-Swasta-Jangka Panjang"
+  },
+  {
+    "kode": "5.1.03.04.001",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bukan Bank (LKBB)-BUMN-Jangka Pendek"
+  },
+  {
+    "kode": "5.1.03.04.002",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bukan Bank (LKBB)-BUMN-Jangka Menengah"
+  },
+  {
+    "kode": "5.1.03.04.003",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bukan Bank (LKBB)-BUMN-Jangka Panjang"
+  },
+  {
+    "kode": "5.1.03.04.004",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bukan Bank (LKBB)-BUMD-Jangka Pendek"
+  },
+  {
+    "kode": "5.1.03.04.005",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bukan Bank (LKBB)-BUMD-Jangka Menengah"
+  },
+  {
+    "kode": "5.1.03.04.006",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bukan Bank (LKBB)-BUMD-Jangka Panjang"
+  },
+  {
+    "kode": "5.1.03.04.007",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bukan Bank (LKBB)-Swasta-Jangka Pendek"
+  },
+  {
+    "kode": "5.1.03.04.008",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bukan Bank (LKBB)-Swasta-Jangka Menengah"
+  },
+  {
+    "kode": "5.1.03.04.009",
+    "uraian": "Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bukan Bank (LKBB)-Swasta-Jangka Panjang"
+  },
+  {
+    "kode": "5.1.03.05.001",
+    "uraian": "Belanja Bunga Utang Kepada Masyarakat (Obligasi)"
+  },
+  {
+    "kode": "5.1.03.06.001",
+    "uraian": "Belanja Bunga Utang Pinjaman melalui BLUD-Jangka Pendek"
+  },
+  {
+    "kode": "5.1.03.06.002",
+    "uraian": "Belanja Bunga Utang Pinjaman melalui BLUD-Jangka Menengah"
+  },
+  {
+    "kode": "5.1.03.06.003",
+    "uraian": "Belanja Bunga Utang Pinjaman melalui BLUD-Jangka Panjang"
+  },
+  {
+    "kode": "5.1.03.07.001",
+    "uraian": "Belanja Bunga Pinjaman Daerah dari Pemerintah"
+  },
+  {
+    "kode": "5.1.03.07.002",
+    "uraian": "Belanja Bunga Pinjaman Daerah dari Pemerintah Daerah Lain"
+  },
+  {
+    "kode": "5.1.03.07.003",
+    "uraian": "Belanja Bunga Pinjaman Daerah dari Lembaga Keuangan Bank (LKB)"
+  },
+  {
+    "kode": "5.1.03.07.004",
+    "uraian": "Belanja Bunga Pinjaman Daerah dari Lembaga Keuangan Bukan Bank (LKBB)"
+  },
+  {
+    "kode": "5.1.03.08.001",
+    "uraian": "Belanja Bunga Obligasi Daerah"
+  },
+  {
+    "kode": "5.1.04.01.001",
+    "uraian": "Belanja Subsidi kepada BUMN"
+  },
+  {
+    "kode": "5.1.04.02.002",
+    "uraian": "Belanja Subsidi kepada BUMD"
+  },
+  {
+    "kode": "5.1.04.03.001",
+    "uraian": "Belanja Subsidi kepada Badan Usaha Milik Swasta"
+  },
+  {
+    "kode": "5.1.04.04.001",
+    "uraian": "Belanja Subsidi kepada Koperasi"
+  },
+  {
+    "kode": "5.1.05.01.001",
+    "uraian": "Belanja Hibah Uang kepada Pemerintah Pusat"
+  },
+  {
+    "kode": "5.1.05.01.002",
+    "uraian": "Belanja Hibah Barang kepada Pemerintah Pusat"
+  },
+  {
+    "kode": "5.1.05.01.003",
+    "uraian": "Belanja Hibah Jasa kepada Pemerintah Pusat"
+  },
+  {
+    "kode": "5.1.05.02.001",
+    "uraian": "Belanja Hibah Uang kepada Pemerintah Daerah Lainnya"
+  },
+  {
+    "kode": "5.1.05.02.002",
+    "uraian": "Belanja Hibah Barang kepada Pemerintah Daerah Lainnya"
+  },
+  {
+    "kode": "5.1.05.02.003",
+    "uraian": "Belanja Hibah Jasa kepada Pemerintah Daerah Lainnya"
+  },
+  {
+    "kode": "5.1.05.03.001",
+    "uraian": "Belanja Hibah Uang kepada BUMN"
+  },
+  {
+    "kode": "5.1.05.03.002",
+    "uraian": "Belanja Hibah Barang kepada BUMN"
+  },
+  {
+    "kode": "5.1.05.03.003",
+    "uraian": "Belanja Hibah Jasa kepada BUMN"
+  },
+  {
+    "kode": "5.1.05.04.001",
+    "uraian": "Belanja Hibah Uang kepada BUMD"
+  },
+  {
+    "kode": "5.1.05.04.002",
+    "uraian": "Belanja Hibah Barang kepada BUMD"
+  },
+  {
+    "kode": "5.1.05.04.003",
+    "uraian": "Belanja Hibah Jasa kepada BUMD"
+  },
+  {
+    "kode": "5.1.05.05.001",
+    "uraian": "Belanja Hibah kepada Badan dan Lembaga yang Bersifat Nirlaba, Sukarela dan Sosial yang Dibentuk Berdasarkan Peraturan Perundang-Undangan"
+  },
+  {
+    "kode": "5.1.05.05.002",
+    "uraian": "Belanja Hibah kepada Badan dan Lembaga Nirlaba, Sukarela dan Sosial yang Telah Memiliki Surat Keterangan Terdaftar"
+  },
+  {
+    "kode": "5.1.05.05.003",
+    "uraian": "Belanja Hibah kepada Badan dan Lembaga Nirlaba, Sukarela Bersifat Sosial Kemasyarakatan"
+  },
+  {
+    "kode": "5.1.05.05.004",
+    "uraian": "Belanja Hibah kepada Koperasi"
+  },
+  {
+    "kode": "5.1.05.05.005",
+    "uraian": "Belanja Hibah kepada Usaha Mikro dan Usaha Kecil"
+  },
+  {
+    "kode": "5.1.05.05.006",
+    "uraian": "Belanja Hibah kepada Organisasi Kemasyarakatan yang Berbadan Hukum Indonesia"
+  },
+  {
+    "kode": "5.1.05.07.001",
+    "uraian": "Belanja Hibah Bantuan Keuangan kepada Partai Politik"
+  },
+  {
+    "kode": "5.1.05.08.001",
+    "uraian": "Belanja Hibah Dana BOSP-BOS"
+  },
+  {
+    "kode": "5.1.05.08.002",
+    "uraian": "Belanja Hibah Dana BOSP-BOP PAUD"
+  },
+  {
+    "kode": "5.1.05.08.003",
+    "uraian": "Belanja Hibah Dana BOSP-BOP Kesetaraan"
+  },
+  {
+    "kode": "5.1.05.09.001",
+    "uraian": "Belanja Hibah Uang kepada BUMDesa"
+  },
+  {
+    "kode": "5.1.05.09.002",
+    "uraian": "Belanja Hibah Barang kepada BUMDesa"
+  },
+  {
+    "kode": "5.1.05.09.003",
+    "uraian": "Belanja Hibah Jasa kepada BUMDesa"
+  },
+  {
+    "kode": "5.1.05.10.001",
+    "uraian": "Belanja Hibah Uang kepada Koperasi"
+  },
+  {
+    "kode": "5.1.05.10.002",
+    "uraian": "Belanja Hibah Barang kepada Koperasi"
+  },
+  {
+    "kode": "5.1.05.10.003",
+    "uraian": "Belanja Hibah Jasa kepada Koperasi"
+  },
+  {
+    "kode": "5.1.05.11.001",
+    "uraian": "Belanja Hibah Uang kepada Usaha Mikro"
+  },
+  {
+    "kode": "5.1.05.11.002",
+    "uraian": "Belanja Hibah Barang kepada Usaha Mikro"
+  },
+  {
+    "kode": "5.1.05.11.003",
+    "uraian": "Belanja Hibah Jasa kepada Usaha Mikro"
+  },
+  {
+    "kode": "5.1.05.12.001",
+    "uraian": "Belanja Hibah Uang kepada Usaha Kecil"
+  },
+  {
+    "kode": "5.1.05.12.002",
+    "uraian": "Belanja Hibah Barang kepada Usaha Kecil"
+  },
+  {
+    "kode": "5.1.05.12.003",
+    "uraian": "Belanja Hibah Jasa kepada Usaha Kecil"
+  },
+  {
+    "kode": "5.1.06.01.001",
+    "uraian": "Belanja Bantuan Sosial Uang yang direncanakan kepada Individu"
+  },
+  {
+    "kode": "5.1.06.01.002",
+    "uraian": "Belanja Bantuan Sosial Barang yang Direncanakan kepada Individu"
+  },
+  {
+    "kode": "5.1.06.02.001",
+    "uraian": "Belanja Bantuan Sosial Uang yang direncanakan kepada Keluarga"
+  },
+  {
+    "kode": "5.1.06.02.002",
+    "uraian": "Belanja Bantuan Sosial Barang yang Direncanakan kepada Keluarga"
+  },
+  {
+    "kode": "5.1.06.03.001",
+    "uraian": "Belanja Bantuan Sosial Uang yang direncanakan kepada Kelompok Masyarakat"
+  },
+  {
+    "kode": "5.1.06.03.002",
+    "uraian": "Belanja Bantuan Sosial Barang yang Direncanakan kepada Kelompok Masyarakat"
+  },
+  {
+    "kode": "5.1.06.04.001",
+    "uraian": "Belanja Bantuan Sosial Uang yang direncanakan kepada Lembaga Non Pemerintahan (Bidang Pendidikan, Keagamaan dan Bidang Lainnya)"
+  },
+  {
+    "kode": "5.1.06.04.002",
+    "uraian": "Belanja Bantuan Sosial Barang yang Direncanakan kepada Lembaga Non Pemerintahan Bidang (Pendidikan, Keagamaan dan Bidang Lainnya)"
+  },
+  {
+    "kode": "5.1.07.01.001",
+    "uraian": "Belanja Imbalan Sukuk Daerah"
+  },
+  {
+    "kode": "5.2.01.01.001",
+    "uraian": "Belanja Modal Tanah Persil"
+  },
+  {
+    "kode": "5.2.01.01.002",
+    "uraian": "Belanja Modal Tanah Non Persil"
+  },
+  {
+    "kode": "5.2.01.01.003",
+    "uraian": "Belanja Modal Lapangan"
+  },
+  {
+    "kode": "5.2.01.99.099",
+    "uraian": "Belanja Modal Tanah BLUD"
+  },
+  {
+    "kode": "5.2.02.01.001",
+    "uraian": "Belanja Modal Alat Besar Darat"
+  },
+  {
+    "kode": "5.2.02.01.002",
+    "uraian": "Belanja Modal Alat Besar Apung"
+  },
+  {
+    "kode": "5.2.02.01.003",
+    "uraian": "Belanja Modal Alat Bantu"
+  },
+  {
+    "kode": "5.2.02.02.001",
+    "uraian": "Belanja Modal Alat Angkutan Darat Bermotor"
+  },
+  {
+    "kode": "5.2.02.02.002",
+    "uraian": "Belanja Modal Alat Angkutan Darat Tak Bermotor"
+  },
+  {
+    "kode": "5.2.02.02.003",
+    "uraian": "Belanja Modal Alat Angkutan Apung Bermotor"
+  },
+  {
+    "kode": "5.2.02.02.004",
+    "uraian": "Belanja Modal Alat Angkutan Apung Tak Bermotor"
+  },
+  {
+    "kode": "5.2.02.02.005",
+    "uraian": "Belanja Modal Alat Angkutan Bermotor Udara"
+  },
+  {
+    "kode": "5.2.02.03.001",
+    "uraian": "Belanja Modal Alat Bengkel Bermesin"
+  },
+  {
+    "kode": "5.2.02.03.002",
+    "uraian": "Belanja Modal Alat Bengkel Tak Bermesin"
+  },
+  {
+    "kode": "5.2.02.03.003",
+    "uraian": "Belanja Modal Alat Ukur"
+  },
+  {
+    "kode": "5.2.02.04.001",
+    "uraian": "Belanja Modal Alat Pengolahan"
+  },
+  {
+    "kode": "5.2.02.05.001",
+    "uraian": "Belanja Modal Alat Kantor"
+  },
+  {
+    "kode": "5.2.02.05.002",
+    "uraian": "Belanja Modal Alat Rumah Tangga"
+  },
+  {
+    "kode": "5.2.02.05.003",
+    "uraian": "Belanja Modal Meja dan Kursi Kerja/Rapat Pejabat"
+  },
+  {
+    "kode": "5.2.02.06.001",
+    "uraian": "Belanja Modal Alat Studio"
+  },
+  {
+    "kode": "5.2.02.06.002",
+    "uraian": "Belanja Modal Alat Komunikasi"
+  },
+  {
+    "kode": "5.2.02.06.003",
+    "uraian": "Belanja Modal Peralatan Pemancar"
+  },
+  {
+    "kode": "5.2.02.06.004",
+    "uraian": "Belanja Modal Peralatan Komunikasi Navigasi"
+  },
+  {
+    "kode": "5.2.02.07.001",
+    "uraian": "Belanja Modal Alat Kedokteran"
+  },
+  {
+    "kode": "5.2.02.07.002",
+    "uraian": "Belanja Modal Alat Kesehatan Umum"
+  },
+  {
+    "kode": "5.2.02.08.001",
+    "uraian": "Belanja Modal Unit Alat Laboratorium"
+  },
+  {
+    "kode": "5.2.02.08.002",
+    "uraian": "Belanja Modal Unit Alat Laboratorium Kimia Nuklir"
+  },
+  {
+    "kode": "5.2.02.08.003",
+    "uraian": "Belanja Modal Alat Peraga Praktek Sekolah"
+  },
+  {
+    "kode": "5.2.02.08.004",
+    "uraian": "Belanja Modal Alat Laboratorium Fisika Nuklir/Elektronika"
+  },
+  {
+    "kode": "5.2.02.08.005",
+    "uraian": "Belanja Modal Alat Proteksi Radiasi/Proteksi Lingkungan"
+  },
+  {
+    "kode": "5.2.02.08.006",
+    "uraian": "Belanja Modal Radiation Application and Non Destructive Testing Laboratory Lainnya"
+  },
+  {
+    "kode": "5.2.02.08.007",
+    "uraian": "Belanja Modal Alat Laboratorium Lingkungan Hidup"
+  },
+  {
+    "kode": "5.2.02.08.008",
+    "uraian": "Belanja Modal Peralatan Laboratorium Hydrodinamica"
+  },
+  {
+    "kode": "5.2.02.08.009",
+    "uraian": "Belanja Modal Alat Laboratorium Standarisasi Kalibrasi dan Instrumentasi"
+  },
+  {
+    "kode": "5.2.02.10.001",
+    "uraian": "Belanja Modal Komputer Unit"
+  },
+  {
+    "kode": "5.2.02.10.002",
+    "uraian": "Belanja Modal Peralatan Komputer"
+  },
+  {
+    "kode": "5.2.02.11.001",
+    "uraian": "Belanja Modal Alat Eksplorasi Topografi"
+  },
+  {
+    "kode": "5.2.02.11.002",
+    "uraian": "Belanja Modal Alat Eksplorasi Geofisika"
+  },
+  {
+    "kode": "5.2.02.12.001",
+    "uraian": "Belanja Modal Alat Pengeboran Mesin"
+  },
+  {
+    "kode": "5.2.02.12.002",
+    "uraian": "Belanja Modal Alat Pengeboran Non Mesin"
+  },
+  {
+    "kode": "5.2.02.13.001",
+    "uraian": "Belanja Modal Sumur"
+  },
+  {
+    "kode": "5.2.02.13.002",
+    "uraian": "Belanja Modal Produksi"
+  },
+  {
+    "kode": "5.2.02.13.003",
+    "uraian": "Belanja Modal Pengolahan dan Pemurnian"
+  },
+  {
+    "kode": "5.2.02.14.001",
+    "uraian": "Belanja Modal Alat Bantu Eksplorasi"
+  },
+  {
+    "kode": "5.2.02.14.002",
+    "uraian": "Belanja Modal Alat Bantu Produksi"
+  },
+  {
+    "kode": "5.2.02.15.001",
+    "uraian": "Belanja Modal Alat Deteksi"
+  },
+  {
+    "kode": "5.2.02.15.002",
+    "uraian": "Belanja Modal Alat Pelindung"
+  },
+  {
+    "kode": "5.2.02.15.003",
+    "uraian": "Belanja Modal Alat SAR"
+  },
+  {
+    "kode": "5.2.02.15.004",
+    "uraian": "Belanja Modal Alat Kerja Penerbangan"
+  },
+  {
+    "kode": "5.2.02.16.001",
+    "uraian": "Belanja Modal Alat Peraga Pelatihan dan Percontohan"
+  },
+  {
+    "kode": "5.2.02.17.001",
+    "uraian": "Belanja Modal Unit Peralatan Proses/Produksi"
+  },
+  {
+    "kode": "5.2.02.18.001",
+    "uraian": "Belanja Modal Rambu-Rambu Lalu Lintas Darat"
+  },
+  {
+    "kode": "5.2.02.18.002",
+    "uraian": "Belanja Modal Rambu-Rambu Lalu Lintas Udara"
+  },
+  {
+    "kode": "5.2.02.18.003",
+    "uraian": "Belanja Modal Rambu-Rambu Lalu Lintas Laut"
+  },
+  {
+    "kode": "5.2.02.19.001",
+    "uraian": "Belanja Modal Peralatan Olahraga"
+  },
+  {
+    "kode": "5.2.02.89.001",
+    "uraian": "Belanja Modal Peralatan dan Mesin BOSP-BOS"
+  },
+  {
+    "kode": "5.2.02.89.002",
+    "uraian": "Belanja Modal Peralatan dan Mesin BOSP-BOP PAUD"
+  },
+  {
+    "kode": "5.2.02.89.003",
+    "uraian": "Belanja Modal Peralatan dan Mesin BOSP-BOP Kesetaraan"
+  },
+  {
+    "kode": "5.2.02.99.099",
+    "uraian": "Belanja Modal Peralatan dan Mesin BLUD"
+  },
+  {
+    "kode": "5.2.03.01.001",
+    "uraian": "Belanja Modal Bangunan Gedung Tempat Kerja"
+  },
+  {
+    "kode": "5.2.03.01.002",
+    "uraian": "Belanja Modal Bangunan Gedung Tempat Tinggal"
+  },
+  {
+    "kode": "5.2.03.02.001",
+    "uraian": "Belanja Modal Candi/Tugu Peringatan/Prasasti"
+  },
+  {
+    "kode": "5.2.03.03.001",
+    "uraian": "Belanja Modal Bangunan Menara Perambuan"
+  },
+  {
+    "kode": "5.2.03.04.001",
+    "uraian": "Belanja Modal Tugu/Tanda Batas"
+  },
+  {
+    "kode": "5.2.03.99.099",
+    "uraian": "Belanja Modal Gedung dan Bangunan BLUD"
+  },
+  {
+    "kode": "5.2.04.01.001",
+    "uraian": "Belanja Modal Jalan"
+  },
+  {
+    "kode": "5.2.04.01.002",
+    "uraian": "Belanja Modal Jembatan"
+  },
+  {
+    "kode": "5.2.04.02.001",
+    "uraian": "Belanja Modal Bangunan Air Irigasi"
+  },
+  {
+    "kode": "5.2.04.02.002",
+    "uraian": "Belanja Modal Bangunan Pengairan Pasang Surut"
+  },
+  {
+    "kode": "5.2.04.02.003",
+    "uraian": "Belanja Modal Bangunan Pengembangan Rawa dan Polder"
+  },
+  {
+    "kode": "5.2.04.02.004",
+    "uraian": "Belanja Modal Bangunan Pengaman Sungai/Pantai dan Penanggulangan Bencana Alam"
+  },
+  {
+    "kode": "5.2.04.02.005",
+    "uraian": "Belanja Modal Bangunan Pengembangan Sumber Air dan Air Tanah"
+  },
+  {
+    "kode": "5.2.04.02.006",
+    "uraian": "Belanja Modal Bangunan Air Bersih/Air Baku"
+  },
+  {
+    "kode": "5.2.04.02.007",
+    "uraian": "Belanja Modal Bangunan Air Kotor"
+  },
+  {
+    "kode": "5.2.04.03.001",
+    "uraian": "Belanja Modal Instalasi Air Bersih/Air Baku"
+  },
+  {
+    "kode": "5.2.04.03.002",
+    "uraian": "Belanja Modal Instalasi Air Kotor"
+  },
+  {
+    "kode": "5.2.04.03.003",
+    "uraian": "Belanja Modal Instalasi Pengolahan Sampah"
+  },
+  {
+    "kode": "5.2.04.03.004",
+    "uraian": "Belanja Modal Instalasi Pengolahan Bahan Bangunan"
+  },
+  {
+    "kode": "5.2.04.03.005",
+    "uraian": "Belanja Modal Instalasi Pembangkit Listrik"
+  },
+  {
+    "kode": "5.2.04.03.006",
+    "uraian": "Belanja Modal Instalasi Gardu Listrik"
+  },
+  {
+    "kode": "5.2.04.03.007",
+    "uraian": "Belanja Modal Instalasi Pertahanan"
+  },
+  {
+    "kode": "5.2.04.03.008",
+    "uraian": "Belanja Modal Instalasi Gas"
+  },
+  {
+    "kode": "5.2.04.03.009",
+    "uraian": "Belanja Modal Instalasi Pengaman"
+  },
+  {
+    "kode": "5.2.04.03.010",
+    "uraian": "Belanja Modal Instalasi Lain"
+  },
+  {
+    "kode": "5.2.04.04.001",
+    "uraian": "Belanja Modal Jaringan Air Minum"
+  },
+  {
+    "kode": "5.2.04.04.002",
+    "uraian": "Belanja Modal Jaringan Listrik"
+  },
+  {
+    "kode": "5.2.04.04.003",
+    "uraian": "Belanja Modal Jaringan Telepon"
+  },
+  {
+    "kode": "5.2.04.04.004",
+    "uraian": "Belanja Modal Jaringan Gas"
+  },
+  {
+    "kode": "5.2.04.99.099",
+    "uraian": "Belanja Modal Jalan, Jaringan, dan Irigasi BLUD"
+  },
+  {
+    "kode": "5.2.05.01.001",
+    "uraian": "Belanja Modal Bahan Perpustakaan Tercetak"
+  },
+  {
+    "kode": "5.2.05.01.002",
+    "uraian": "Belanja Modal Bahan Perpustakaan Terekam dan Bentuk Mikro"
+  },
+  {
+    "kode": "5.2.05.01.003",
+    "uraian": "Belanja Modal Kartografi, Naskah, dan Lukisan"
+  },
+  {
+    "kode": "5.2.05.01.004",
+    "uraian": "Belanja Modal Musik"
+  },
+  {
+    "kode": "5.2.05.01.005",
+    "uraian": "Belanja Modal Karya Grafika (Graphic Material)"
+  },
+  {
+    "kode": "5.2.05.01.006",
+    "uraian": "Belanja Modal Three Dimensional Artifacts and Realita"
+  },
+  {
+    "kode": "5.2.05.01.007",
+    "uraian": "Belanja Modal Tarscalt"
+  },
+  {
+    "kode": "5.2.05.02.001",
+    "uraian": "Belanja Modal Barang Bercorak Kesenian"
+  },
+  {
+    "kode": "5.2.05.02.002",
+    "uraian": "Belanja Modal Alat Bercorak Kebudayaan"
+  },
+  {
+    "kode": "5.2.05.02.003",
+    "uraian": "Belanja Modal Tanda Penghargaan"
+  },
+  {
+    "kode": "5.2.05.03.001",
+    "uraian": "Belanja Modal Hewan Piaraan"
+  },
+  {
+    "kode": "5.2.05.03.002",
+    "uraian": "Belanja Modal Ternak"
+  },
+  {
+    "kode": "5.2.05.03.003",
+    "uraian": "Belanja Modal Hewan Lainnya"
+  },
+  {
+    "kode": "5.2.05.04.001",
+    "uraian": "Belanja Modal Ikan Bersirip (Pisces/Ikan Bersirip)"
+  },
+  {
+    "kode": "5.2.05.04.002",
+    "uraian": "Belanja Modal Crustea (Udang, Rajungan, Kepiting, dan Sebangsanya)"
+  },
+  {
+    "kode": "5.2.05.04.003",
+    "uraian": "Belanja Modal Mollusca (Kerang, Tiram, Cumi-cumi, Gurita, Siput, dan Sebangsanya)"
+  },
+  {
+    "kode": "5.2.05.04.004",
+    "uraian": "Belanja Modal Coelenterata (Ubur-ubur dan Sebangsanya)"
+  },
+  {
+    "kode": "5.2.05.04.005",
+    "uraian": "Belanja Modal Echinodermata (Tripang, Bulu Babi, dan Sebangsanya)"
+  },
+  {
+    "kode": "5.2.05.04.006",
+    "uraian": "Belanja Modal Amphibia (Kodok dan Sebangsanya)"
+  },
+  {
+    "kode": "5.2.05.04.007",
+    "uraian": "Belanja Modal Reptilia (Buaya, Penyu, Kura-kura, Biawak, Ular Air, dan Sebangsanya)"
+  },
+  {
+    "kode": "5.2.05.04.008",
+    "uraian": "Belanja Modal Mammalia (Paus, Lumba-lumba, Pesut, Duyung, dan Sebangsanya)"
+  },
+  {
+    "kode": "5.2.05.04.009",
+    "uraian": "Belanja Modal Algae (Rumput Laut dan Tumbuh-Tumbuhan Lain yang Hidup di Dalam Air)"
+  },
+  {
+    "kode": "5.2.05.04.010",
+    "uraian": "Belanja Modal Biota Perairan Lainnya"
+  },
+  {
+    "kode": "5.2.05.05.001",
+    "uraian": "Belanja Modal Tanaman"
+  },
+  {
+    "kode": "5.2.05.06.001",
+    "uraian": "Belanja Modal Barang Koleksi Non Budaya"
+  },
+  {
+    "kode": "5.2.05.07.001",
+    "uraian": "Belanja Modal Aset Tetap Dalam Renovasi"
+  },
+  {
+    "kode": "5.2.05.08.001",
+    "uraian": "Belanja Modal Aset Tidak Berwujud"
+  },
+  {
+    "kode": "5.2.05.89.001",
+    "uraian": "Belanja Modal Aset Tetap Lainnya BOSP-BOS"
+  },
+  {
+    "kode": "5.2.05.89.002",
+    "uraian": "Belanja Modal Aset Tetap Lainnya BOSP-BOP PAUD"
+  },
+  {
+    "kode": "5.2.05.89.003",
+    "uraian": "Belanja Modal Aset Tetap Lainnya BOSP-BOP Kesetaraan"
+  },
+  {
+    "kode": "5.2.05.99.099",
+    "uraian": "Belanja Modal Aset Tetap Lainnya BLUD"
+  },
+  {
+    "kode": "5.2.06.01.001",
+    "uraian": "Belanja Modal Aset Tidak Berwujud"
+  },
+  {
+    "kode": "5.2.06.99.099",
+    "uraian": "Belanja Modal Aset Lainnya BLUD"
+  },
+  {
+    "kode": "5.3.01.01.001",
+    "uraian": "Belanja Tidak Terduga"
+  },
+  {
+    "kode": "5.4.01.01.001",
+    "uraian": "Belanja Bagi Hasil Pajak Daerah Kepada Pemerintahan Kabupaten"
+  },
+  {
+    "kode": "5.4.01.01.002",
+    "uraian": "Belanja Bagi Hasil Pajak Daerah Kepada Pemerintahan Kota"
+  },
+  {
+    "kode": "5.4.01.01.003",
+    "uraian": "Belanja Bagi Hasil Pajak Daerah Kepada Pemerintahan Desa"
+  },
+  {
+    "kode": "5.4.01.02.001",
+    "uraian": "Belanja Bagi Hasil Retribusi Daerah Kabupaten/Kota Kepada Pemerintah Desa"
+  },
+  {
+    "kode": "5.4.02.01.001",
+    "uraian": "Belanja Bantuan Keuangan Umum antar Daerah Provinsi"
+  },
+  {
+    "kode": "5.4.02.01.002",
+    "uraian": "Belanja Bantuan Keuangan Khusus antar Daerah Provinsi"
+  },
+  {
+    "kode": "5.4.02.02.001",
+    "uraian": "Belanja Bantuan Keuangan Umum antar Daerah Kabupaten/Kota"
+  },
+  {
+    "kode": "5.4.02.02.002",
+    "uraian": "Belanja Bantuan Keuangan Khusus kepada Pemerintah Kabupaten/Kota"
+  },
+  {
+    "kode": "5.4.02.03.001",
+    "uraian": "Belanja Bantuan Keuangan Umum Daerah Provinsi ke Kabupaten/Kota"
+  },
+  {
+    "kode": "5.4.02.03.002",
+    "uraian": "Belanja Bantuan Keuangan Khusus Daerah Provinsi ke Kabupaten/Kota"
+  },
+  {
+    "kode": "5.4.02.04.001",
+    "uraian": "Belanja Bantuan Keuangan Umum Daerah Kabupaten/Kota ke Provinsi"
+  },
+  {
+    "kode": "5.4.02.04.002",
+    "uraian": "Belanja Bantuan Keuangan Khusus Daerah Kabupaten/Kota ke Provinsi"
+  },
+  {
+    "kode": "5.4.02.05.001",
+    "uraian": "Belanja Bantuan Keuangan Umum Daerah Provinsi atau Kabupaten/Kota kepada Desa"
+  },
+  {
+    "kode": "5.4.02.05.002",
+    "uraian": "Belanja Bantuan Keuangan Khusus Daerah Provinsi atau Kabupaten/Kota kepada Desa"
+  },
+  {
+    "kode": "5.4.02.06.001",
+    "uraian": "Belanja Transfer Dana Otonomi Khusus Provinsi kepada Kabupaten/Kota"
+  },
+  {
+    "kode": "4.1.01.01.001",
+    "uraian": "PKB-Mobil Penumpang-Sedan"
+  },
+  {
+    "kode": "4.1.01.01.002",
+    "uraian": "PKB-Mobil Penumpang-Jeep"
+  },
+  {
+    "kode": "4.1.01.01.003",
+    "uraian": "PKB-Mobil Penumpang-Minibus"
+  },
+  {
+    "kode": "4.1.01.01.004",
+    "uraian": "PKB-Mobil Bus-Microbus"
+  },
+  {
+    "kode": "4.1.01.01.005",
+    "uraian": "PKB-Mobil Bus-Bus"
+  },
+  {
+    "kode": "4.1.01.01.006",
+    "uraian": "PKB-Mobil Barang/Beban-Pick Up"
+  },
+  {
+    "kode": "4.1.01.01.007",
+    "uraian": "PKB-Mobil Barang/Beban-Light Truck"
+  },
+  {
+    "kode": "4.1.01.01.008",
+    "uraian": "PKB-Mobil Barang/Beban-Truck"
+  },
+  {
+    "kode": "4.1.01.01.009",
+    "uraian": "PKB-Mobil Barang/Beban-Blind Van"
+  },
+  {
+    "kode": "4.1.01.01.010",
+    "uraian": "PKB-Sepeda Motor-Sepeda Motor Roda Dua"
+  },
+  {
+    "kode": "4.1.01.01.011",
+    "uraian": "PKB-Sepeda Motor-Sepeda Motor Roda Tiga"
+  },
+  {
+    "kode": "4.1.01.01.012",
+    "uraian": "PKB-Kendaraan Bermotor yang Dioperasikan di Air"
+  },
+  {
+    "kode": "4.1.01.01.013",
+    "uraian": "PKB-Kendaraan Khusus Alat Berat/Alat Besar"
+  },
+  {
+    "kode": "4.1.01.01.014",
+    "uraian": "PKB-Mobil Roda Tiga"
+  },
+  {
+    "kode": "4.1.01.01.015",
+    "uraian": "PKB-Mobil Penumpang-Roda Tiga"
+  },
+  {
+    "kode": "4.1.01.01.016",
+    "uraian": "PKB-Mobil Barang-Roda Tiga"
+  },
+  {
+    "kode": "4.1.01.01.017",
+    "uraian": "PKB-Mobil Barang/Beban-Pick Up Box"
+  },
+  {
+    "kode": "4.1.01.01.018",
+    "uraian": "PKB-Sepeda Motor-Sepeda Motor Roda Tiga Penumpang"
+  },
+  {
+    "kode": "4.1.01.02.001",
+    "uraian": "BBNKB-Mobil Penumpang-Sedan"
+  },
+  {
+    "kode": "4.1.01.02.002",
+    "uraian": "BBNKB-Mobil Penumpang-Jeep"
+  },
+  {
+    "kode": "4.1.01.02.003",
+    "uraian": "BBNKB-Mobil Penumpang-Minibus"
+  },
+  {
+    "kode": "4.1.01.02.004",
+    "uraian": "BBNKB-Mobil Bus-Microbus"
+  },
+  {
+    "kode": "4.1.01.02.005",
+    "uraian": "BBNKB-Mobil Bus-Bus"
+  },
+  {
+    "kode": "4.1.01.02.006",
+    "uraian": "BBNKB-Mobil Barang/Beban-Pick Up"
+  },
+  {
+    "kode": "4.1.01.02.007",
+    "uraian": "BBNKB-Mobil Barang/Beban-Light Truck"
+  },
+  {
+    "kode": "4.1.01.02.008",
+    "uraian": "BBNKB-Mobil Barang/Beban-Truck"
+  },
+  {
+    "kode": "4.1.01.02.009",
+    "uraian": "BBNKB-Mobil Barang/Beban-Blind Van"
+  },
+  {
+    "kode": "4.1.01.02.010",
+    "uraian": "BBNKB-Sepeda Motor-Sepeda Motor Roda Dua"
+  },
+  {
+    "kode": "4.1.01.02.011",
+    "uraian": "BBNKB-Sepeda Motor-Sepeda Motor Roda Tiga"
+  },
+  {
+    "kode": "4.1.01.02.012",
+    "uraian": "BBNKB-Kendaraan Bermotor yang Dioperasikan di Air"
+  },
+  {
+    "kode": "4.1.01.02.013",
+    "uraian": "BBNKB-Kendaraan Khusus Alat Berat"
+  },
+  {
+    "kode": "4.1.01.02.014",
+    "uraian": "BBNKB-Mobil Roda Tiga"
+  },
+  {
+    "kode": "4.1.01.02.015",
+    "uraian": "BBNKB-Mobil Penumpang-Roda Tiga"
+  },
+  {
+    "kode": "4.1.01.02.016",
+    "uraian": "BBNKB-Mobil Barang-Roda Tiga"
+  },
+  {
+    "kode": "4.1.01.02.017",
+    "uraian": "BBNKB-Mobil Barang/Beban-Pick Up Box"
+  },
+  {
+    "kode": "4.1.01.02.018",
+    "uraian": "BBNKB-Sepeda Motor-Sepeda Motor Roda Tiga Penumpang"
+  },
+  {
+    "kode": "4.1.01.03.001",
+    "uraian": "PBBKB-Bahan Bakar Bensin"
+  },
+  {
+    "kode": "4.1.01.03.002",
+    "uraian": "PBBKB-Bahan Bakar Solar"
+  },
+  {
+    "kode": "4.1.01.03.003",
+    "uraian": "PBBKB-Bahan Bakar Gas"
+  },
+  {
+    "kode": "4.1.01.03.004",
+    "uraian": "PBBKB-Bahan Bakar Lainnya"
+  },
+  {
+    "kode": "4.1.01.04.001",
+    "uraian": "Pajak Air Permukaan"
+  },
+  {
+    "kode": "4.1.01.05.001",
+    "uraian": "Pajak Rokok"
+  },
+  {
+    "kode": "4.1.01.06.001",
+    "uraian": "Pajak Hotel"
+  },
+  {
+    "kode": "4.1.01.06.002",
+    "uraian": "Pajak Motel"
+  },
+  {
+    "kode": "4.1.01.06.003",
+    "uraian": "Pajak Losmen"
+  },
+  {
+    "kode": "4.1.01.06.004",
+    "uraian": "Pajak Gubuk Pariwisata"
+  },
+  {
+    "kode": "4.1.01.06.005",
+    "uraian": "Pajak Wisma Pariwisata"
+  },
+  {
+    "kode": "4.1.01.06.006",
+    "uraian": "Pajak Pesanggrahan"
+  },
+  {
+    "kode": "4.1.01.06.007",
+    "uraian": "Pajak Rumah Penginapan dan Sejenisnya"
+  },
+  {
+    "kode": "4.1.01.06.008",
+    "uraian": "Pajak Rumah Kos dengan Jumlah Kamar Lebih dari 10 (Sepuluh)"
+  },
+  {
+    "kode": "4.1.01.07.001",
+    "uraian": "Pajak Restoran dan Sejenisnya"
+  },
+  {
+    "kode": "4.1.01.07.002",
+    "uraian": "Pajak Rumah Makan dan Sejenisnya"
+  },
+  {
+    "kode": "4.1.01.07.003",
+    "uraian": "Pajak Kafetaria dan Sejenisnya"
+  },
+  {
+    "kode": "4.1.01.07.004",
+    "uraian": "Pajak Kantin dan Sejenisnya"
+  },
+  {
+    "kode": "4.1.01.07.005",
+    "uraian": "Pajak Warung dan Sejenisnya"
+  },
+  {
+    "kode": "4.1.01.07.006",
+    "uraian": "Pajak Bar dan Sejenisnya"
+  },
+  {
+    "kode": "4.1.01.07.007",
+    "uraian": "Pajak Jasa Boga/Katering dan Sejenisnya"
+  },
+  {
+    "kode": "4.1.01.08.001",
+    "uraian": "Pajak Tontonan Film"
+  },
+  {
+    "kode": "4.1.01.08.002",
+    "uraian": "Pajak Pagelaran Kesenian/Musik/Tari/ Busana"
+  },
+  {
+    "kode": "4.1.01.08.003",
+    "uraian": "Pajak Kontes Kecantikan, Binaraga, dan Sejenisnya"
+  },
+  {
+    "kode": "4.1.01.08.004",
+    "uraian": "Pajak Pameran"
+  },
+  {
+    "kode": "4.1.01.08.005",
+    "uraian": "Pajak Diskotik, Karaoke, Klub Malam, dan Sejenisnya"
+  },
+  {
+    "kode": "4.1.01.08.006",
+    "uraian": "Pajak Sirkus/Akrobat/Sulap"
+  },
+  {
+    "kode": "4.1.01.08.007",
+    "uraian": "Pajak Permainan Biliar dan Bowling"
+  },
+  {
+    "kode": "4.1.01.08.008",
+    "uraian": "Pajak Pacuan Kuda, Kendaraan Bermotor, dan Permainan Ketangkasan"
+  },
+  {
+    "kode": "4.1.01.08.009",
+    "uraian": "Pajak Panti Pijat, Refleksi, Mandi Uap/Spa dan Pusat Kebugaran (Fitness Center)"
+  },
+  {
+    "kode": "4.1.01.08.010",
+    "uraian": "Pajak Pertandingan Olahraga"
+  },
+  {
+    "kode": "4.1.01.09.001",
+    "uraian": "Pajak Reklame Papan/Billboard/Videotron/ Megatron"
+  },
+  {
+    "kode": "4.1.01.09.002",
+    "uraian": "Pajak Reklame Kain"
+  },
+  {
+    "kode": "4.1.01.09.003",
+    "uraian": "Pajak Reklame Melekat/Stiker"
+  },
+  {
+    "kode": "4.1.01.09.004",
+    "uraian": "Pajak Reklame Selebaran"
+  },
+  {
+    "kode": "4.1.01.09.005",
+    "uraian": "Pajak Reklame Berjalan"
+  },
+  {
+    "kode": "4.1.01.09.006",
+    "uraian": "Pajak Reklame Udara"
+  },
+  {
+    "kode": "4.1.01.09.007",
+    "uraian": "Pajak Reklame Apung"
+  },
+  {
+    "kode": "4.1.01.09.008",
+    "uraian": "Pajak Reklame Suara"
+  },
+  {
+    "kode": "4.1.01.09.009",
+    "uraian": "Pajak Reklame Film/Slide"
+  },
+  {
+    "kode": "4.1.01.09.010",
+    "uraian": "Pajak Reklame Peragaan"
+  },
+  {
+    "kode": "4.1.01.10.001",
+    "uraian": "Pajak Penerangan Jalan Dihasilkan Sendiri"
+  },
+  {
+    "kode": "4.1.01.10.002",
+    "uraian": "Pajak Penerangan Jalan Sumber Lain"
+  },
+  {
+    "kode": "4.1.01.11.001",
+    "uraian": "Pajak Parkir"
+  },
+  {
+    "kode": "4.1.01.12.001",
+    "uraian": "Pajak Air Tanah"
+  },
+  {
+    "kode": "4.1.01.13.001",
+    "uraian": "Pajak Sarang Burung Walet"
+  },
+  {
+    "kode": "4.1.01.14.001",
+    "uraian": "Pajak Asbes"
+  },
+  {
+    "kode": "4.1.01.14.002",
+    "uraian": "Pajak Batu Tulis"
+  },
+  {
+    "kode": "4.1.01.14.003",
+    "uraian": "Pajak Batu Setengah Permata"
+  },
+  {
+    "kode": "4.1.01.14.004",
+    "uraian": "Pajak Batu Kapur"
+  },
+  {
+    "kode": "4.1.01.14.005",
+    "uraian": "Pajak Batu Apung"
+  },
+  {
+    "kode": "4.1.01.14.006",
+    "uraian": "Pajak Batu Permata"
+  },
+  {
+    "kode": "4.1.01.14.007",
+    "uraian": "Pajak Bentonit"
+  },
+  {
+    "kode": "4.1.01.14.008",
+    "uraian": "Pajak Dolomit"
+  },
+  {
+    "kode": "4.1.01.14.009",
+    "uraian": "Pajak Felspar"
+  },
+  {
+    "kode": "4.1.01.14.010",
+    "uraian": "Pajak Garam Batu (Halite)"
+  },
+  {
+    "kode": "4.1.01.14.011",
+    "uraian": "Pajak Grafit"
+  },
+  {
+    "kode": "4.1.01.14.012",
+    "uraian": "Pajak Granit/Andesit"
+  },
+  {
+    "kode": "4.1.01.14.013",
+    "uraian": "Pajak Gips"
+  },
+  {
+    "kode": "4.1.01.14.014",
+    "uraian": "Pajak Kalsit"
+  },
+  {
+    "kode": "4.1.01.14.015",
+    "uraian": "Pajak Kaolin"
+  },
+  {
+    "kode": "4.1.01.14.016",
+    "uraian": "Pajak Leusit"
+  },
+  {
+    "kode": "4.1.01.14.017",
+    "uraian": "Pajak Magnesit"
+  },
+  {
+    "kode": "4.1.01.14.018",
+    "uraian": "Pajak Mika"
+  },
+  {
+    "kode": "4.1.01.14.019",
+    "uraian": "Pajak Marmer"
+  },
+  {
+    "kode": "4.1.01.14.020",
+    "uraian": "Pajak Nitrat"
+  },
+  {
+    "kode": "4.1.01.14.021",
+    "uraian": "Pajak Opsidien"
+  },
+  {
+    "kode": "4.1.01.14.022",
+    "uraian": "Pajak Oker"
+  },
+  {
+    "kode": "4.1.01.14.023",
+    "uraian": "Pajak Pasir dan Kerikil"
+  },
+  {
+    "kode": "4.1.01.14.024",
+    "uraian": "Pajak Pasir Kuarsa"
+  },
+  {
+    "kode": "4.1.01.14.025",
+    "uraian": "Pajak Perlit"
+  },
+  {
+    "kode": "4.1.01.14.026",
+    "uraian": "Pajak Phospat"
+  },
+  {
+    "kode": "4.1.01.14.027",
+    "uraian": "Pajak Talk"
+  },
+  {
+    "kode": "4.1.01.14.028",
+    "uraian": "Pajak Tanah Serap (Fullers Earth)"
+  },
+  {
+    "kode": "4.1.01.14.029",
+    "uraian": "Pajak Tanah Diatome"
+  },
+  {
+    "kode": "4.1.01.14.030",
+    "uraian": "Pajak Tanah Liat"
+  },
+  {
+    "kode": "4.1.01.14.031",
+    "uraian": "Pajak Tawas (Alum)"
+  },
+  {
+    "kode": "4.1.01.14.032",
+    "uraian": "Pajak Tras"
+  },
+  {
+    "kode": "4.1.01.14.033",
+    "uraian": "Pajak Yarosif"
+  },
+  {
+    "kode": "4.1.01.14.034",
+    "uraian": "Pajak Zeolit"
+  },
+  {
+    "kode": "4.1.01.14.035",
+    "uraian": "Pajak Basal"
+  },
+  {
+    "kode": "4.1.01.14.036",
+    "uraian": "Pajak Trakit"
+  },
+  {
+    "kode": "4.1.01.14.037",
+    "uraian": "Pajak Mineral bukan Logam dan Batuan Lainnya"
+  },
+  {
+    "kode": "4.1.01.14.038",
+    "uraian": "Pajak Belerang"
+  },
+  {
+    "kode": "4.1.01.14.039",
+    "uraian": "Pajak MBLB Ikutan Dalam Suatu Pertambangan Mineral"
+  },
+  {
+    "kode": "4.1.01.15.001",
+    "uraian": "PBBP2"
+  },
+  {
+    "kode": "4.1.01.16.001",
+    "uraian": "BPHTB-Pemindahan Hak"
+  },
+  {
+    "kode": "4.1.01.16.002",
+    "uraian": "BPHTB-Pemberian Hak Baru"
+  },
+  {
+    "kode": "4.1.01.17.001",
+    "uraian": "Pajak Alat Berat"
+  },
+  {
+    "kode": "4.1.01.18.001",
+    "uraian": "Opsen Pajak Mineral Bukan Logam dan Batuan (MBLB)"
+  },
+  {
+    "kode": "4.1.01.19.001",
+    "uraian": "PBJT-Makanan dan/atau Minuman"
+  },
+  {
+    "kode": "4.1.01.19.002",
+    "uraian": "PBJT-Tenaga Listrik"
+  },
+  {
+    "kode": "4.1.01.19.003",
+    "uraian": "PBJT-Jasa Perhotelan"
+  },
+  {
+    "kode": "4.1.01.19.004",
+    "uraian": "PBJT-Jasa Parkir"
+  },
+  {
+    "kode": "4.1.01.19.005",
+    "uraian": "PBJT-Jasa Kesenian dan Hiburan"
+  },
+  {
+    "kode": "4.1.01.20.001",
+    "uraian": "Opsen PKB"
+  },
+  {
+    "kode": "4.1.01.21.001",
+    "uraian": "Opsen BBNKB"
+  },
+  {
+    "kode": "4.1.02.01.001",
+    "uraian": "Retribusi Pelayanan Kesehatan"
+  },
+  {
+    "kode": "4.1.02.01.002",
+    "uraian": "Retribusi Pelayanan Persampahan/ Kebersihan"
+  },
+  {
+    "kode": "4.1.02.01.003",
+    "uraian": "Retribusi Pelayanan Pemakaman dan Pengabuan Mayat"
+  },
+  {
+    "kode": "4.1.02.01.004",
+    "uraian": "Retribusi Pelayanan Parkir di Tepi Jalan Umum"
+  },
+  {
+    "kode": "4.1.02.01.005",
+    "uraian": "Retribusi Pelayanan Pasar"
+  },
+  {
+    "kode": "4.1.02.01.006",
+    "uraian": "Retribusi Pengujian Kendaraan Bermotor"
+  },
+  {
+    "kode": "4.1.02.01.007",
+    "uraian": "Retribusi Pemeriksaan Alat Pemadam Kebakaran"
+  },
+  {
+    "kode": "4.1.02.01.008",
+    "uraian": "Retribusi Penggantian Biaya Cetak Peta"
+  },
+  {
+    "kode": "4.1.02.01.009",
+    "uraian": "Retribusi Penyediaan dan/atau Penyedotan Kakus"
+  },
+  {
+    "kode": "4.1.02.01.010",
+    "uraian": "Retribusi Pengolahan Limbah Cair"
+  },
+  {
+    "kode": "4.1.02.01.011",
+    "uraian": "Retribusi Pelayanan Tera/Tera Ulang"
+  },
+  {
+    "kode": "4.1.02.01.012",
+    "uraian": "Retribusi Pelayanan Pendidikan"
+  },
+  {
+    "kode": "4.1.02.01.013",
+    "uraian": "Retribusi Pengawasan dan Pengendalian Menara Telekomunikasi"
+  },
+  {
+    "kode": "4.1.02.01.014",
+    "uraian": "Retribusi Pelayanan Kebersihan"
+  },
+  {
+    "kode": "4.1.02.01.015",
+    "uraian": "Retribusi Pengendalian Lalu Lintas"
+  },
+  {
+    "kode": "4.1.02.02.001",
+    "uraian": "Retribusi Pemakaian Kekayaan Daerah"
+  },
+  {
+    "kode": "4.1.02.02.002",
+    "uraian": "Retribusi Pasar Grosir dan/atau Pertokoan"
+  },
+  {
+    "kode": "4.1.02.02.003",
+    "uraian": "Retribusi Tempat Pelelangan"
+  },
+  {
+    "kode": "4.1.02.02.004",
+    "uraian": "Retribusi Terminal"
+  },
+  {
+    "kode": "4.1.02.02.005",
+    "uraian": "Retribusi Tempat Khusus Parkir"
+  },
+  {
+    "kode": "4.1.02.02.006",
+    "uraian": "Retribusi Tempat Penginapan/ Pesanggrahan/Vila"
+  },
+  {
+    "kode": "4.1.02.02.007",
+    "uraian": "Retribusi Rumah Potong Hewan"
+  },
+  {
+    "kode": "4.1.02.02.008",
+    "uraian": "Retribusi Pelayanan Kepelabuhanan"
+  },
+  {
+    "kode": "4.1.02.02.009",
+    "uraian": "Retribusi Tempat Rekreasi dan Olahraga"
+  },
+  {
+    "kode": "4.1.02.02.010",
+    "uraian": "Retribusi Penyeberangan di Air"
+  },
+  {
+    "kode": "4.1.02.02.011",
+    "uraian": "Retribusi Penjualan Produksi Usaha Daerah"
+  },
+  {
+    "kode": "4.1.02.02.012",
+    "uraian": "Retribusi Penyediaan Tempat Kegiatan Usaha berupa Pasar, Grosir, Pertokoan, dan Tempat Kegiatan Usaha Lainnya"
+  },
+  {
+    "kode": "4.1.02.02.013",
+    "uraian": "Retribusi Penyediaan Tempat Pelelangan Ikan, Ternak, Hasil Bumi, dan Hasil Hutan Termasuk Fasilitas Lainnya dalam Lingkungan Tempat Pelelangan"
+  },
+  {
+    "kode": "4.1.02.02.014",
+    "uraian": "Retribusi Penyediaan Tempat Khusus Parkir Diluar Badan Jalan"
+  },
+  {
+    "kode": "4.1.02.02.015",
+    "uraian": "Retribusi Pelayanan Rumah Pemotongan Hewan Ternak"
+  },
+  {
+    "kode": "4.1.02.02.016",
+    "uraian": "Retribusi Pelayanan Jasa Kepelabuhanan"
+  },
+  {
+    "kode": "4.1.02.02.017",
+    "uraian": "Retribusi Pelayanan Tempat Rekreasi, Pariwisata, dan Olahraga"
+  },
+  {
+    "kode": "4.1.02.02.018",
+    "uraian": "Retribusi Pelayanan Penyeberangan Orang atau Barang dengan Menggunakan Kendaraan di Air"
+  },
+  {
+    "kode": "4.1.02.02.019",
+    "uraian": "Retribusi Penjualan Hasil Produksi Usaha Pemerintah Daerah"
+  },
+  {
+    "kode": "4.1.02.02.020",
+    "uraian": "Retribusi Pemanfaatan Aset Daerah "
+  },
+  {
+    "kode": "4.1.02.03.001",
+    "uraian": "Retribusi Izin Mendirikan Bangunan"
+  },
+  {
+    "kode": "4.1.02.03.002",
+    "uraian": "Retribusi Izin Tempat Penjualan Minuman Beralkohol"
+  },
+  {
+    "kode": "4.1.02.03.003",
+    "uraian": "Retribusi Izin Trayek untuk Menyediakan Pelayanan Angkutan Umum"
+  },
+  {
+    "kode": "4.1.02.03.004",
+    "uraian": "Retribusi Izin Usaha Perikanan"
+  },
+  {
+    "kode": "4.1.02.03.005",
+    "uraian": "Retribusi Pengendalian Lalu Lintas"
+  },
+  {
+    "kode": "4.1.02.03.006",
+    "uraian": "Retribusi Perpanjangan Izin Mempekerjakan Tenaga Kerja Asing (IMTA)"
+  },
+  {
+    "kode": "4.1.02.03.007",
+    "uraian": "Retribusi Persetujuan Bangunan Gedung"
+  },
+  {
+    "kode": "4.1.02.03.008",
+    "uraian": "Retribusi Penggunaan Tenaga Kerja Asing (TKA)"
+  },
+  {
+    "kode": "4.1.02.03.009",
+    "uraian": "Retribusi Pertambangan Rakyat"
+  },
+  {
+    "kode": "4.1.03.01.001",
+    "uraian": "Bagian Laba yang Dibagikan kepada Pemerintah Daerah (Dividen) atas Penyertaan Modal pada BUMN"
+  },
+  {
+    "kode": "4.1.03.02.001",
+    "uraian": "Bagian Laba yang Dibagikan kepada Pemerintah Daerah (Dividen) atas Penyertaan Modal pada BUMD (Lembaga Keuangan)"
+  },
+  {
+    "kode": "4.1.03.02.002",
+    "uraian": "Bagian Laba yang Dibagikan kepada Pemerintah Daerah (Dividen) atas Penyertaan Modal pada BUMD (Aneka Usaha)"
+  },
+  {
+    "kode": "4.1.03.02.003",
+    "uraian": "Bagian Laba yang Dibagikan kepada Pemerintah Daerah (Dividen) atas Penyertaan Modal pada BUMD (Bidang Air Minum)"
+  },
+  {
+    "kode": "4.1.03.02.004",
+    "uraian": "Bagian Laba yang Dibagikan kepada Pemerintah Daerah (Dividen) atas Penyertaan Modal pada BUMD (Bidang Limbah)"
+  },
+  {
+    "kode": "4.1.03.02.005",
+    "uraian": "Bagian Laba yang Dibagikan kepada Pemerintah Daerah (Dividen) atas Penyertaan Modal pada BUMD (Bidang Sanitasi)"
+  },
+  {
+    "kode": "4.1.03.03.001",
+    "uraian": "Bagian Laba yang Dibagikan kepada Pemerintah Daerah (Dividen) atas Penyertaan Modal pada Perusahaan Milik Swasta"
+  },
+  {
+    "kode": "4.1.04.01.001",
+    "uraian": "Hasil Penjualan Tanah"
+  },
+  {
+    "kode": "4.1.04.01.002",
+    "uraian": "Hasil Penjualan Peralatan dan Mesin"
+  },
+  {
+    "kode": "4.1.04.01.003",
+    "uraian": "Hasil Penjualan Gedung dan Bangunan"
+  },
+  {
+    "kode": "4.1.04.01.004",
+    "uraian": "Hasil Penjualan Jalan, Jaringan, dan Irigasi"
+  },
+  {
+    "kode": "4.1.04.01.005",
+    "uraian": "Hasil Penjualan Aset Tetap Lainnya"
+  },
+  {
+    "kode": "4.1.04.01.006",
+    "uraian": "Hasil Penjualan Aset Lainnya"
+  },
+  {
+    "kode": "4.1.04.01.007",
+    "uraian": "Hasil Penjualan Aset Tidak Berwujud"
+  },
+  {
+    "kode": "4.1.04.01.008",
+    "uraian": "Hasil Penjualan Aset Lain-Lain"
+  },
+  {
+    "kode": "4.1.04.02.001",
+    "uraian": "Hasil Selisih Lebih Tukar Menukar Tanah"
+  },
+  {
+    "kode": "4.1.04.02.002",
+    "uraian": "Hasil Selisih Lebih Tukar Menukar Peralatan dan Mesin"
+  },
+  {
+    "kode": "4.1.04.02.003",
+    "uraian": "Hasil Selisih Lebih Tukar Menukar Gedung dan Bangunan"
+  },
+  {
+    "kode": "4.1.04.02.004",
+    "uraian": "Hasil Selisih Lebih Tukar Menukar Jalan, Jaringan, dan Irigasi"
+  },
+  {
+    "kode": "4.1.04.02.005",
+    "uraian": "Hasil Selisih Lebih Tukar Menukar Aset Tetap Lainnya"
+  },
+  {
+    "kode": "4.1.04.02.006",
+    "uraian": "Hasil Selisih Lebih Tukar Menukar Aset Lainnya"
+  },
+  {
+    "kode": "4.1.04.02.007",
+    "uraian": "Hasil Selisih Lebih Tukar Menukar Aset Tidak Berwujud"
+  },
+  {
+    "kode": "4.1.04.02.008",
+    "uraian": "Hasil Selisih Lebih Tukar Menukar Aset Lain-Lain"
+  },
+  {
+    "kode": "4.1.04.03.001",
+    "uraian": "Hasil Sewa BMD"
+  },
+  {
+    "kode": "4.1.04.03.002",
+    "uraian": "Hasil Kerja Sama Pemanfaatan BMD"
+  },
+  {
+    "kode": "4.1.04.03.003",
+    "uraian": "Hasil dari Bangun Guna Serah"
+  },
+  {
+    "kode": "4.1.04.03.004",
+    "uraian": "Hasil dari Bangun Serah Guna"
+  },
+  {
+    "kode": "4.1.04.03.005",
+    "uraian": "Hasil dari Kerja Sama Penyediaan Infrastruktur"
+  },
+  {
+    "kode": "4.1.04.04.001",
+    "uraian": "Hasil Kerja Sama Daerah"
+  },
+  {
+    "kode": "4.1.04.05.001",
+    "uraian": "Jasa Giro pada Kas Daerah"
+  },
+  {
+    "kode": "4.1.04.05.002",
+    "uraian": "Jasa Giro pada Kas di Bendahara"
+  },
+  {
+    "kode": "4.1.04.05.003",
+    "uraian": "Jasa Giro pada Rekening Dana Cadangan"
+  },
+  {
+    "kode": "4.1.04.05.005",
+    "uraian": "Jasa Giro Dana Kapitasi pada FKTP"
+  },
+  {
+    "kode": "4.1.04.05.006",
+    "uraian": "Pendapatan Jasa Giro pada Rekening Dana BOSP"
+  },
+  {
+    "kode": "4.1.04.05.007",
+    "uraian": "Pendapatan Jasa Giro pada Rekening Dana BOK Puskesmas"
+  },
+  {
+    "kode": "4.1.04.05.008",
+    "uraian": "Jasa Giro pada Rekening Kas Otonomi Khusus"
+  },
+  {
+    "kode": "4.1.04.05.009",
+    "uraian": "Jasa Giro pada Rekening Kas Dana Abadi Daerah"
+  },
+  {
+    "kode": "4.1.04.06.001",
+    "uraian": "Hasil Pengelolaan Dana Bergulir"
+  },
+  {
+    "kode": "4.1.04.07.001",
+    "uraian": "Pendapatan Bunga atas Penempatan Uang Pemerintah Daerah"
+  },
+  {
+    "kode": "4.1.04.08.001",
+    "uraian": "Tuntutan Ganti Kerugian Daerah terhadap Bendahara"
+  },
+  {
+    "kode": "4.1.04.08.002",
+    "uraian": "Tuntutan Ganti Kerugian Daerah terhadap Pegawai Negeri Bukan Bendahara atau Pejabat Lain"
+  },
+  {
+    "kode": "4.1.04.09.001",
+    "uraian": "Penerimaan Komisi, Potongan, atau Bentuk Lain"
+  },
+  {
+    "kode": "4.1.04.10.001",
+    "uraian": "Penerimaan Keuntungan dari Selisih Nilai Tukar Rupiah terhadap Mata Uang Asing"
+  },
+  {
+    "kode": "4.1.04.11.001",
+    "uraian": "Pendapatan Denda atas Keterlambatan Pelaksanaan Pekerjaan"
+  },
+  {
+    "kode": "4.1.04.14.001",
+    "uraian": "Hasil Eksekusi atas Jaminan atas Pengadaan Barang/Jasa"
+  },
+  {
+    "kode": "4.1.04.15.001",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Pajak Penghasilan Pasal 21"
+  },
+  {
+    "kode": "4.1.04.15.002",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Iuran Simpanan Peserta Tabungan Perumahan Rakyat ASN"
+  },
+  {
+    "kode": "4.1.04.15.003",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Gaji dan Tunjangan"
+  },
+  {
+    "kode": "4.1.04.15.004",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Perjalanan Dinas"
+  },
+  {
+    "kode": "4.1.04.15.005",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Jaminan Kecelakaan Kerja (JKK)"
+  },
+  {
+    "kode": "4.1.04.15.006",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Jaminan Kematian (JKM)"
+  },
+  {
+    "kode": "4.1.04.15.007",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Jaminan Kesehatan Nasional (JKN)"
+  },
+  {
+    "kode": "4.1.04.15.008",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Gaji dan Tunjangan ASN"
+  },
+  {
+    "kode": "4.1.04.15.009",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Tambahan Penghasilan ASN"
+  },
+  {
+    "kode": "4.1.04.15.011",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Gaji dan Tunjangan DPRD"
+  },
+  {
+    "kode": "4.1.04.15.012",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Gaji dan Tunjangan KDH/WKDH"
+  },
+  {
+    "kode": "4.1.04.15.013",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Penerimaan Lainnya Pimpinan DPRD serta KDH/WKDH"
+  },
+  {
+    "kode": "4.1.04.15.014",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Gaji dan Tunjangan MRP"
+  },
+  {
+    "kode": "4.1.04.15.015",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Barang"
+  },
+  {
+    "kode": "4.1.04.15.016",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Jasa"
+  },
+  {
+    "kode": "4.1.04.15.017",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Pemeliharaan"
+  },
+  {
+    "kode": "4.1.04.15.018",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Uang dan/atau Jasa untuk Diberikan kepada Pihak Ketiga/Pihak Lain/Masyarakat"
+  },
+  {
+    "kode": "4.1.04.15.019",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Penunjang Otonomi Khusus*)"
+  },
+  {
+    "kode": "4.1.04.15.020",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bunga Utang Pinjaman kepada Pemerintah Pusat"
+  },
+  {
+    "kode": "4.1.04.15.021",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bunga Utang Pinjaman kepada Pemerintah Daerah Lain"
+  },
+  {
+    "kode": "4.1.04.15.022",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bank (LKB)"
+  },
+  {
+    "kode": "4.1.04.15.023",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bunga Utang Pinjaman kepada Lembaga Keuangan Bukan Bank (LKBB)"
+  },
+  {
+    "kode": "4.1.04.15.024",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bunga Utang Kepada Masyarakat (Obligasi)"
+  },
+  {
+    "kode": "4.1.04.15.025",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bunga Utang Pinjaman melalui BLUD"
+  },
+  {
+    "kode": "4.1.04.15.026",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Subsidi kepada BUMN"
+  },
+  {
+    "kode": "4.1.04.15.027",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Subsidi kepada BUMD"
+  },
+  {
+    "kode": "4.1.04.15.028",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Subsidi kepada Badan Usaha Milik Swasta"
+  },
+  {
+    "kode": "4.1.04.15.029",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Subsidi kepada Koperasi"
+  },
+  {
+    "kode": "4.1.04.15.030",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Hibah kepada Pemerintah Pusat"
+  },
+  {
+    "kode": "4.1.04.15.031",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Hibah kepada Pemerintah Daerah Lainnya"
+  },
+  {
+    "kode": "4.1.04.15.032",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Hibah kepada BUMN"
+  },
+  {
+    "kode": "4.1.04.15.033",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Hibah kepada BUMD"
+  },
+  {
+    "kode": "4.1.04.15.034",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Hibah kepada Badan, Lembaga, Organisasi Kemasyarakatan yang Berbadan Hukum Indonesia"
+  },
+  {
+    "kode": "4.1.04.15.036",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Hibah Bantuan Keuangan kepada Partai Politik"
+  },
+  {
+    "kode": "4.1.04.15.037",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bantuan Sosial kepada Individu"
+  },
+  {
+    "kode": "4.1.04.15.038",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bantuan Sosial kepada Keluarga"
+  },
+  {
+    "kode": "4.1.04.15.039",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bantuan Sosial kepada Kelompok Masyarakat"
+  },
+  {
+    "kode": "4.1.04.15.040",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bantuan Sosial Bantuan Sosial kepada Lembaga Non Pemerintahan (Bidang Pendidikan, Keagamaan dan Bidang Lainnya)"
+  },
+  {
+    "kode": "4.1.04.15.041",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Tanah"
+  },
+  {
+    "kode": "4.1.04.15.042",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Besar"
+  },
+  {
+    "kode": "4.1.04.15.043",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Angkutan"
+  },
+  {
+    "kode": "4.1.04.15.044",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Bengkel dan Alat Ukur"
+  },
+  {
+    "kode": "4.1.04.15.045",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Pertanian"
+  },
+  {
+    "kode": "4.1.04.15.046",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Kantor dan Rumah Tangga"
+  },
+  {
+    "kode": "4.1.04.15.047",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Studio, Komunikasi, dan Pemancar"
+  },
+  {
+    "kode": "4.1.04.15.048",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Kedokteran dan Kesehatan"
+  },
+  {
+    "kode": "4.1.04.15.049",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Laboratorium"
+  },
+  {
+    "kode": "4.1.04.15.051",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Komputer"
+  },
+  {
+    "kode": "4.1.04.15.052",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Eksplorasi"
+  },
+  {
+    "kode": "4.1.04.15.053",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Pengeboran"
+  },
+  {
+    "kode": "4.1.04.15.054",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Produksi, Pengolahan, dan Pemurnian"
+  },
+  {
+    "kode": "4.1.04.15.055",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Bantu Eksplorasi"
+  },
+  {
+    "kode": "4.1.04.15.056",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Keselamatan Kerja"
+  },
+  {
+    "kode": "4.1.04.15.057",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Alat Peraga"
+  },
+  {
+    "kode": "4.1.04.15.058",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Peralatan Proses/Produksi"
+  },
+  {
+    "kode": "4.1.04.15.059",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Rambu-Rambu"
+  },
+  {
+    "kode": "4.1.04.15.060",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Peralatan dan Mesin-Peralatan Olahraga"
+  },
+  {
+    "kode": "4.1.04.15.061",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Gedung dan Bangunan-Bangunan Gedung"
+  },
+  {
+    "kode": "4.1.04.15.062",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Gedung dan Bangunan-Monumen"
+  },
+  {
+    "kode": "4.1.04.15.063",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Gedung dan Bangunan-Bangunan Menara"
+  },
+  {
+    "kode": "4.1.04.15.064",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Gedung dan Bangunan-Tugu Titik Kontrol/Pasti"
+  },
+  {
+    "kode": "4.1.04.15.065",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Jalan, Jaringan, dan Irigasi-Jalan dan Jembatan"
+  },
+  {
+    "kode": "4.1.04.15.066",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Jalan, Jaringan, dan Irigasi-Bangunan Air"
+  },
+  {
+    "kode": "4.1.04.15.067",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Jalan, Jaringan, dan Instalasi-Instalasi"
+  },
+  {
+    "kode": "4.1.04.15.068",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Jalan, Jaringan, dan Irigasi-Jaringan"
+  },
+  {
+    "kode": "4.1.04.15.069",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Aset Tetap Lainnya-Bahan Perpustakaan"
+  },
+  {
+    "kode": "4.1.04.15.070",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Aset Tetap Lainnya-Barang Bercorak Kesenian/Kebudayaan/Olahraga"
+  },
+  {
+    "kode": "4.1.04.15.071",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Aset Tetap Lainnya-Hewan"
+  },
+  {
+    "kode": "4.1.04.15.072",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Aset Tetap Lainnya-Biota Perairan"
+  },
+  {
+    "kode": "4.1.04.15.073",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Aset Tetap Lainnya-Tanaman"
+  },
+  {
+    "kode": "4.1.04.15.074",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Aset Tetap Lainnya-Barang Koleksi Non Budaya"
+  },
+  {
+    "kode": "4.1.04.15.075",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Aset Tetap Lainnya-Aset Tetap dalam Renovasi"
+  },
+  {
+    "kode": "4.1.04.15.076",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Aset Lainnya-Aset Tidak Berwujud"
+  },
+  {
+    "kode": "4.1.04.15.077",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Tidak Terduga"
+  },
+  {
+    "kode": "4.1.04.15.078",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bagi Hasil Pajak Daerah Kepada Pemerintahan Kabupaten/Kota dan Desa"
+  },
+  {
+    "kode": "4.1.04.15.079",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bagi Hasil Retribusi Daerah Kabupaten/Kota Kepada Pemerintah Desa"
+  },
+  {
+    "kode": "4.1.04.15.080",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bantuan Keuangan antar Daerah Provinsi"
+  },
+  {
+    "kode": "4.1.04.15.081",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bantuan Keuangan antar Daerah Kabupaten/Kota"
+  },
+  {
+    "kode": "4.1.04.15.082",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bantuan Keuangan Daerah Provinsi ke Kabupaten/Kota"
+  },
+  {
+    "kode": "4.1.04.15.083",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bantuan Keuangan Kabupaten/Kota ke Daerah Provinsi"
+  },
+  {
+    "kode": "4.1.04.15.084",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bantuan Keuangan Daerah Provinsi atau Kabupaten/Kota kepada Desa"
+  },
+  {
+    "kode": "4.1.04.15.085",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Transfer Dana Otonomi Khusus Provinsi kepada Kabupaten/Kota"
+  },
+  {
+    "kode": "4.1.04.15.087",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Hibah Dana BOSP"
+  },
+  {
+    "kode": "4.1.04.15.089",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Pegawai BOSP, Belanja Barang dan Jasa BOSP, Belanja Modal Peralatan dan Mesin BOSP, dan Belanja Modal Aset Tetap Lainnya BOSP"
+  },
+  {
+    "kode": "4.1.04.15.090",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Barang dan Jasa BOK Puskesmas"
+  },
+  {
+    "kode": "4.1.04.15.091",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Hibah kepada BUMDesa"
+  },
+  {
+    "kode": "4.1.04.15.092",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Hibah kepada Koperasi"
+  },
+  {
+    "kode": "4.1.04.15.093",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Imbalan-Imbalan Sukuk Daerah"
+  },
+  {
+    "kode": "4.1.04.15.094",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bunga Pembiayaan Utang Daerah-Pinjaman Daerah"
+  },
+  {
+    "kode": "4.1.04.15.095",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bunga Pembiayaan Utang Daerah-Obligasi Daerah"
+  },
+  {
+    "kode": "4.1.04.15.096",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bunga Pembiayaan Utang Daerah-Pinjaman Daerah"
+  },
+  {
+    "kode": "4.1.04.15.097",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bunga Pembiayaan Utang Daerah-Obligasi Daerah"
+  },
+  {
+    "kode": "4.1.04.15.099",
+    "uraian": "Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Pegawai BLUD, Belanja Barang dan Jasa BLUD, Belanja Modal Tanah BLUD, Belanja Modal Peralatan dan Mesin BLUD, Belanja Modal Gedung dan Bangunan BLUD, Belanja Modal Jalan, Jaringan, dan Irigasi BLUD, Belanja Modal Aset Tetap Lainnya BLUD, serta Belanja Modal Aset Lainnya BLUD"
+  },
+  {
+    "kode": "4.1.04.16.001",
+    "uraian": "Pendapatan BLUD"
+  },
+  {
+    "kode": "4.1.04.16.002",
+    "uraian": "Pendapatan BLUD dari Jasa Layanan"
+  },
+  {
+    "kode": "4.1.04.16.003",
+    "uraian": "Pendapatan BLUD dari Hibah"
+  },
+  {
+    "kode": "4.1.04.16.004",
+    "uraian": "Pendapatan BLUD dari Hasil Kerja Sama dengan Pihak Lain"
+  },
+  {
+    "kode": "4.1.04.16.005",
+    "uraian": "Pendapatan BLUD dari APBD"
+  },
+  {
+    "kode": "4.1.04.16.006",
+    "uraian": "Pendapatan BLUD dari Lain-Lain Pendapatan BLUD yang Sah"
+  },
+  {
+    "kode": "4.1.04.17.001",
+    "uraian": "Pendapatan Denda Pengakhiran Sewa BMD"
+  },
+  {
+    "kode": "4.1.04.17.002",
+    "uraian": "Pendapatan Denda Hasil dari Kerja Sama Penyediaan Infrastruktur"
+  },
+  {
+    "kode": "4.1.04.19.001",
+    "uraian": "Pendapatan Hasil Pengelolaan Dana Bergulir"
+  },
+  {
+    "kode": "4.1.04.20.001",
+    "uraian": "Pendapatan Berdasarkan Putusan Pengadilan (Inkracht)"
+  },
+  {
+    "kode": "4.1.04.21.001",
+    "uraian": "Pendapatan Denda atas Pelanggaran Peraturan Daerah"
+  },
+  {
+    "kode": "4.1.04.22.001",
+    "uraian": "Pendapatan Zakat"
+  },
+  {
+    "kode": "4.1.04.23.001",
+    "uraian": "Pendapatan Hasil Pelaksanaan Perjanjian/Kontrak"
+  },
+  {
+    "kode": "4.1.04.24.001",
+    "uraian": "Pungutan bagi Wisatawan Asing"
+  },
+  {
+    "kode": "4.1.04.25.001",
+    "uraian": "Hasil Pengelolaan Dana Abadi Daerah"
+  },
+  {
+    "kode": "4.1.04.26.001",
+    "uraian": "Hasil Pengelolaan Dana Cadangan"
+  },
+  {
+    "kode": "4.1.04.27.001",
+    "uraian": "Pendapatan Denda Pajak Daerah"
+  },
+  {
+    "kode": "4.1.04.27.002",
+    "uraian": "Pendapatan Bunga Pajak Daerah"
+  },
+  {
+    "kode": "4.1.04.27.003",
+    "uraian": "Pendapatan Kenaikan Pokok Pajak Daerah"
+  },
+  {
+    "kode": "4.1.04.28.001",
+    "uraian": "Pendapatan Denda Retribusi Daerah"
+  },
+  {
+    "kode": "4.1.04.28.002",
+    "uraian": "Pendapatan Bunga Retribusi Daerah"
+  },
+  {
+    "kode": "4.2.01.03.001",
+    "uraian": "Dana Otonomi Khusus-Provinsi Papua"
+  },
+  {
+    "kode": "4.2.01.03.002",
+    "uraian": "Dana Otonomi Khusus-Provinsi Papua Barat"
+  },
+  {
+    "kode": "4.2.01.03.003",
+    "uraian": "Dana Otonomi Khusus-Provinsi Aceh"
+  },
+  {
+    "kode": "4.2.01.03.004",
+    "uraian": "Dana Tambahan Infrastruktur dalam rangka Otonomi Khusus Provinsi Papua"
+  },
+  {
+    "kode": "4.2.01.03.005",
+    "uraian": "Dana Tambahan Infrastruktur dalam rangka Otonomi Khusus Provinsi Papua Barat"
+  },
+  {
+    "kode": "4.2.01.03.006",
+    "uraian": "Dana Bagi Hasil (DBH) Minyak dan Gas Otonomi Khusus Papua"
+  },
+  {
+    "kode": "4.2.01.03.007",
+    "uraian": "Dana Bagi Hasil (DBH) Minyak dan Gas Otonomi Khusus Aceh"
+  },
+  {
+    "kode": "4.2.01.03.008",
+    "uraian": "Dana Otonomi Khusus 1%-Papua"
+  },
+  {
+    "kode": "4.2.01.03.009",
+    "uraian": "DBH SDA Pertambangan Minyak Bumi-Papua"
+  },
+  {
+    "kode": "4.2.01.03.010",
+    "uraian": "DBH SDA Pertambangan Gas Alam-Papua"
+  },
+  {
+    "kode": "4.2.01.03.011",
+    "uraian": "Dana Otonomi Khusus 1,25%-Papua"
+  },
+  {
+    "kode": "4.2.01.03.012",
+    "uraian": "DTI-Papua"
+  },
+  {
+    "kode": "4.2.01.03.013",
+    "uraian": "DBH SDA Pertambangan Minyak Bumi-Aceh"
+  },
+  {
+    "kode": "4.2.01.03.014",
+    "uraian": "DBH SDA Pertambangan Gas Alam-Aceh"
+  },
+  {
+    "kode": "4.2.01.04.001",
+    "uraian": "Dana Keistimewaan Daerah Istimewa Yogyakarta"
+  },
+  {
+    "kode": "4.2.01.05.001",
+    "uraian": "Dana Desa"
+  },
+  {
+    "kode": "4.2.01.06.002",
+    "uraian": "Insentif Fiskal Untuk Penghargaan Kinerja Tahun Sebelumnya"
+  },
+  {
+    "kode": "4.2.01.06.003",
+    "uraian": "Insentif Fiskal Untuk Penghargaan Kinerja Tahun Berjalan"
+  },
+  {
+    "kode": "4.2.01.07.001",
+    "uraian": "DBH Pajak"
+  },
+  {
+    "kode": "4.2.01.07.002",
+    "uraian": "DBH Sumber Daya Alam (SDA)"
+  },
+  {
+    "kode": "4.2.01.07.003",
+    "uraian": "DBH Lainnya"
+  },
+  {
+    "kode": "4.2.01.08.001",
+    "uraian": "DAU yang Tidak Ditentukan Penggunaannya"
+  },
+  {
+    "kode": "4.2.01.08.002",
+    "uraian": "DAU yang Ditentukan Penggunaannya"
+  },
+  {
+    "kode": "4.2.01.09.001",
+    "uraian": "DAK Fisik"
+  },
+  {
+    "kode": "4.2.01.09.002",
+    "uraian": "DAK Non Fisik"
+  },
+  {
+    "kode": "4.2.01.09.003",
+    "uraian": "Hibah kepada Daerah"
+  },
+  {
+    "kode": "4.2.02.01.001",
+    "uraian": "Pendapatan Bagi Hasil Pajak"
+  },
+  {
+    "kode": "4.2.02.02.001",
+    "uraian": "Bantuan Keuangan Umum dari Pemerintah Provinsi"
+  },
+  {
+    "kode": "4.2.02.02.002",
+    "uraian": "Bantuan Keuangan Khusus dari Pemerintah Provinsi"
+  },
+  {
+    "kode": "4.2.02.02.003",
+    "uraian": "Bantuan Keuangan Umum dari Pemerintah Kabupaten/Kota"
+  },
+  {
+    "kode": "4.2.02.02.004",
+    "uraian": "Bantuan Keuangan Khusus dari Pemerintah Kabupaten/Kota"
+  },
+  {
+    "kode": "4.3.01.01.001",
+    "uraian": "Pendapatan Hibah dari Pemerintah Pusat"
+  },
+  {
+    "kode": "4.3.01.02.001",
+    "uraian": "Pendapatan Hibah dari Pemerintah Daerah Lainnya"
+  },
+  {
+    "kode": "4.3.01.03.001",
+    "uraian": "Pendapatan Hibah dari Kelompok Masyarakat/Perorangan Dalam Negeri"
+  },
+  {
+    "kode": "4.3.01.04.001",
+    "uraian": "Pendapatan Hibah dari Badan/Lembaga/ Organisasi Dalam Negeri"
+  },
+  {
+    "kode": "4.3.01.04.002",
+    "uraian": "Pendapatan Hibah dari Badan/Lembaga/ Organisasi Luar Negeri"
+  },
+  {
+    "kode": "4.3.01.04.003",
+    "uraian": "Pendapatan Hibah dari Lembaga/Organisasi Swasta Dalam Negeri"
+  },
+  {
+    "kode": "4.3.01.04.004",
+    "uraian": "Pendapatan Hibah dari Lembaga/Organisasi Swasta Luar Negeri"
+  },
+  {
+    "kode": "4.3.01.05.001",
+    "uraian": "Sumbangan Pihak Ketiga/Sejenis"
+  },
+  {
+    "kode": "4.3.01.06.001",
+    "uraian": "Pendapatan atas Tanggung Jawab Sosial dan Lingkungan/Sejenis"
+  },
+  {
+    "kode": "4.3.02.01.001",
+    "uraian": "Dana Darurat"
+  },
+  {
+    "kode": "4.3.03.01.001",
+    "uraian": "Pendapatan Hibah Dana BOS"
+  },
+  {
+    "kode": "4.3.03.01.002",
+    "uraian": "Pendapatan atas Pengembalian Hibah"
+  },
+  {
+    "kode": "4.3.03.01.003",
+    "uraian": "Pendapatan atas Dana Reducing Emission from Deforestration and Forest Degradation Results Based Payment"
+  },
+  {
+    "kode": "4.3.03.02.001",
+    "uraian": "Pendapatan Dana Kapitasi JKN pada FKTP"
+  },
+  {
+    "kode": "4.3.03.03.001",
+    "uraian": "Pendapatan Bagi Hasil Pemegang IUPK atas Pertambangan Mineral Logam dan Batu Bara"
+  },
+  {
+    "kode": "4.3.03.04.001",
+    "uraian": "Kontribusi dari Sumber Lain yang Sah dan Tidak Mengikat"
+  },
+  {
+    "kode": "4.3.03.05.001",
+    "uraian": "Pendapatan Klaim Pelayanan Kesehatan/Nonkapitasi"
+  },
+  {
+    "kode": "4.3.03.06.001",
+    "uraian": "Pendapatan Bonus Produksi Panas Bumi"
+  },
+  {
+    "kode": "4.3.03.07.001",
+    "uraian": "Pendapatan Bonus Tandatangan dan Bonus Produksi Pemerintah Aceh"
+  },
+  {
+    "kode": "4.3.03.08.001",
+    "uraian": "Pendapatan Pembayaran Tetap (Lumpsum Payment) Perjanjian Karya Pengusahaan Pertambangan Batubara (PKP2B) Generasi 1"
+  },
+  {
+    "kode": "4.3.03.09.001",
+    "uraian": "Pendapatan Divestasi Saham pada Pemegang IUP dan IUPK pada Tahap Kegiatan Operasi Produksi dalam rangka Penanaman Modal Asing"
+  }
 ]

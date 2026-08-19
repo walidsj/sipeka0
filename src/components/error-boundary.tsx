@@ -13,9 +13,7 @@ export function ErrorBoundary({
     return <>{fallback(error)}</>;
   }
 
-  return (
-    <ErrorBoundaryImpl onError={setError}>{children}</ErrorBoundaryImpl>
-  );
+  return <ErrorBoundaryImpl onError={setError}>{children}</ErrorBoundaryImpl>;
 }
 
 class ErrorBoundaryImpl extends React.Component<

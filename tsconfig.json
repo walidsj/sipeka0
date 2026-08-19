@@ -1,9 +1,9 @@
 {
-    "compilerOptions": {
-        /* Base Options: */
-        "esModuleInterop": true,
-        "allowJs": true,
-        "moduleDetection": "force",
+  "compilerOptions": {
+    /* Base Options: */
+    "esModuleInterop": true,
+    "allowJs": true,
+    "moduleDetection": "force",
 
     /* Path Aliases */
     "paths": {

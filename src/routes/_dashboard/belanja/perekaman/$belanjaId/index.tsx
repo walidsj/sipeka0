@@ -1,0 +1,519 @@
+import { createFileRoute } from "@tanstack/react-router";
+
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Link, useParams } from "@tanstack/react-router";
+import { api } from "@/trpc/react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@/components/ui/table";
+import { cn, formatAngka, formatTanggal } from "@/lib/utils";
+import { Spinner } from "@/components/ui/spinner";
+import React from "react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  FiChevronsDown,
+  FiCopy,
+  FiEdit,
+  FiPlus,
+  FiPrinter,
+  FiTrash,
+} from "react-icons/fi";
+import toast from "react-hot-toast";
+import PotonganTable from "@/features/belanja/perekaman/$belanjaId/table";
+import { TableBoundary } from "@/components/table-boundary";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import NotFound from "@/components/not-found";
+import { handleCopy } from "@/utils/clipboard";
+
+function EditPage() {
+  const params = useParams({ strict: false }) as Record<string, string>;
+  const utils = api.useUtils();
+
+  const {
+    data: belanja,
+    isError,
+    isLoading,
+  } = api.belanja.getById.useQuery(Number(params.belanjaId));
+
+  const deleteBelanja = api.belanja.deleteById.useMutation({
+    onMutate() {
+      toast.loading("Menghapus data...");
+    },
+    onSuccess(data) {
+      toast.dismiss();
+      window.history.back();
+      utils.belanja.invalidate();
+      toast.success(data.message);
+    },
+    onError(error) {
+      toast.dismiss();
+      toast.error(error.message);
+    },
+  });
+
+  if (isLoading) return <Spinner />;
+
+  if (isError) return <NotFound />;
+
+  if (!belanja) return <NotFound />;
+
+  const biayaAdmin =
+    belanja.rekanan?.bank?.kode == "124" || belanja.pegawai?.bank?.kode == "124"
+      ? 0
+      : 2900;
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Detail Belanja</CardTitle>
+        <CardDescription>Data untuk detail belanja</CardDescription>
+        <CardAction>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button>
+                Aksi <FiChevronsDown />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <Link
+                to="/belanja/perekaman/$belanjaId/edit"
+                params={{ belanjaId: params.belanjaId }}
+              >
+                <DropdownMenuItem>
+                  <FiEdit className="mr-2" />
+                  Edit
+                </DropdownMenuItem>
+              </Link>
+              <Link
+                to="/belanja/perekaman/$belanjaId/cetak-kwitansi"
+                params={{ belanjaId: params.belanjaId }}
+              >
+                <DropdownMenuItem>
+                  <FiPrinter className="mr-2" />
+                  Cetak Kwitansi
+                </DropdownMenuItem>
+              </Link>
+              <Link
+                to="/belanja/perekaman/$belanjaId/cetak-amplop"
+                params={{ belanjaId: params.belanjaId }}
+              >
+                <DropdownMenuItem>
+                  <FiPrinter className="mr-2" />
+                  Cetak Amplop
+                </DropdownMenuItem>
+              </Link>
+              <Link
+                to="/belanja/perekaman/$belanjaId/cetak-daftar-potong"
+                params={{ belanjaId: params.belanjaId }}
+              >
+                <DropdownMenuItem>
+                  <FiPrinter className="mr-2" />
+                  Cetak Daftar Potong
+                </DropdownMenuItem>
+              </Link>
+              <Link
+                to="/belanja/perekaman/$belanjaId/cetak-setoran-bank"
+                params={{ belanjaId: params.belanjaId }}
+              >
+                <DropdownMenuItem>
+                  <FiPrinter className="mr-2" />
+                  Cetak Setoran Bank
+                </DropdownMenuItem>
+              </Link>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={() => {
+                  if (confirm("Apakah anda yakin menghapus data ini?")) {
+                    deleteBelanja.mutate(Number(params.belanjaId));
+                  }
+                }}
+                className="text-red-500"
+              >
+                <FiTrash className="mr-2" />
+                Hapus
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </CardAction>
+      </CardHeader>
+      <CardContent>
+        <Table>
+          <TableBody>
+            <TableRow>
+              <TableHead className="w-60">Kode Rekening</TableHead>
+              <TableCell>
+                <p>{belanja.rab?.kodeRekening}</p>
+                <p className="text-sm text-slate-500">{belanja.rab?.uraian}</p>
+              </TableCell>
+              <TableCell className="w-1" />
+            </TableRow>
+            <TableRow>
+              <TableHead>Nomor Dokumen</TableHead>
+              <TableCell>{belanja.noDokumen}</TableCell>
+              <TableCell>
+                <Button
+                  size="icon"
+                  variant="outline"
+                  onClick={() => handleCopy(belanja.noDokumen)}
+                >
+                  <FiCopy />
+                </Button>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableHead>Tanggal Dokumen</TableHead>
+              <TableCell>{formatTanggal(belanja.tglDokumen)}</TableCell>
+              <TableCell />
+            </TableRow>
+            <TableRow>
+              <TableHead>Uraian</TableHead>
+              <TableCell>{belanja.uraian}</TableCell>
+              <TableCell>
+                <Button
+                  size="icon"
+                  variant="outline"
+                  onClick={() => handleCopy(belanja.uraian)}
+                >
+                  <FiCopy />
+                </Button>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableHead>Jumlah</TableHead>
+              <TableCell>{formatAngka(belanja.jumlah)}</TableCell>
+              <TableCell />
+            </TableRow>
+            <TableRow>
+              <TableHead>Metode Pembayaran</TableHead>
+              <TableCell>
+                <Badge
+                  className={cn(
+                    belanja.metodePembayaran === "TUNAI" && "bg-green-500",
+                    belanja.metodePembayaran === "TRANSFER" && "bg-blue-500",
+                  )}
+                >
+                  {belanja.metodePembayaran}
+                </Badge>
+              </TableCell>
+              <TableCell />
+            </TableRow>
+            <TableRow>
+              <TableHead>Bukti Pembayaran</TableHead>
+              <TableCell>{belanja.buktiPembayaran}</TableCell>
+              <TableCell />
+            </TableRow>
+          </TableBody>
+        </Table>
+      </CardContent>
+      <CardHeader>
+        <CardTitle>Data Lawan Transaksi</CardTitle>
+        <CardDescription>Rincian data lawan transaksi</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Table>
+          <TableBody>
+            {belanja.rekanan && (
+              <React.Fragment>
+                <TableRow>
+                  <TableHead>Nama</TableHead>
+                  <TableCell>{belanja.rekanan.nama}</TableCell>
+                  <TableCell className="w-1" />
+                </TableRow>
+                <TableRow>
+                  <TableHead>NPWP</TableHead>
+                  <TableCell>{belanja.rekanan.npwp}</TableCell>
+                  <TableCell>
+                    <Button
+                      size="icon"
+                      variant="outline"
+                      onClick={() => handleCopy(belanja.rekanan?.npwp)}
+                    >
+                      <FiCopy />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+                {belanja.metodePembayaran === "TRANSFER" && (
+                  <>
+                    <TableRow>
+                      <TableHead>Rekening Bank</TableHead>
+                      <TableCell>
+                        <p>{belanja.rekanan.bank?.nama}</p>
+                        <p>{belanja.rekanan.bank?.kode}</p>
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          size="icon"
+                          variant="outline"
+                          onClick={() =>
+                            handleCopy(belanja.rekanan?.bank?.kode)
+                          }
+                        >
+                          <FiCopy />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableHead>Nama di Rekening</TableHead>
+                      <TableCell>{belanja.rekanan.namaRekening}</TableCell>
+                      <TableCell>
+                        <Button
+                          size="icon"
+                          variant="outline"
+                          onClick={() =>
+                            handleCopy(belanja.rekanan?.namaRekening)
+                          }
+                        >
+                          <FiCopy />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableHead>Nomor Rekening</TableHead>
+                      <TableCell>{belanja.rekanan.noRekening}</TableCell>
+                      <TableCell>
+                        <Button
+                          size="icon"
+                          variant="outline"
+                          onClick={() =>
+                            handleCopy(belanja.rekanan?.noRekening)
+                          }
+                        >
+                          <FiCopy />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  </>
+                )}
+              </React.Fragment>
+            )}
+            {belanja.pegawai && (
+              <React.Fragment>
+                <TableRow>
+                  <TableHead>Nama</TableHead>
+                  <TableCell>
+                    {belanja.pegawai.gelarDepan &&
+                      `${belanja.pegawai.gelarDepan} `}
+                    {belanja.pegawai.nama}
+                    {belanja.pegawai.gelarBelakang &&
+                      `, ${belanja.pegawai.gelarBelakang}`}
+                  </TableCell>
+                  <TableCell className="w-1" />
+                </TableRow>
+                <TableRow>
+                  <TableHead>NPWP</TableHead>
+                  <TableCell>{belanja.pegawai?.npwp}</TableCell>
+                  <TableCell>
+                    <Button
+                      size="icon"
+                      variant="outline"
+                      onClick={() => handleCopy(belanja.pegawai?.npwp)}
+                    >
+                      <FiCopy />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+                {belanja.metodePembayaran === "TRANSFER" && (
+                  <>
+                    <TableRow>
+                      <TableHead>Rekening Bank</TableHead>
+                      <TableCell>
+                        <p>{belanja.pegawai.bank?.nama}</p>
+                        <p>{belanja.pegawai.bank?.kode}</p>
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          size="icon"
+                          variant="outline"
+                          onClick={() =>
+                            handleCopy(belanja.pegawai?.bank?.kode)
+                          }
+                        >
+                          <FiCopy />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableHead>Nama di Rekening</TableHead>
+                      <TableCell>{belanja.pegawai.namaRekening}</TableCell>
+                      <TableCell>
+                        <Button
+                          size="icon"
+                          variant="outline"
+                          onClick={() =>
+                            handleCopy(belanja.pegawai?.namaRekening)
+                          }
+                        >
+                          <FiCopy />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableHead>Nomor Rekening</TableHead>
+                      <TableCell>{belanja.pegawai.noRekening}</TableCell>
+                      <TableCell>
+                        <Button
+                          size="icon"
+                          variant="outline"
+                          onClick={() =>
+                            handleCopy(belanja.pegawai?.noRekening)
+                          }
+                        >
+                          <FiCopy />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  </>
+                )}
+              </React.Fragment>
+            )}
+          </TableBody>
+        </Table>
+      </CardContent>
+      <CardHeader>
+        <CardTitle>Potongan Belanja</CardTitle>
+        <CardDescription>Daftar rincian potongan belanja</CardDescription>
+        <CardAction>
+          <Button asChild>
+            <Link
+              to="/belanja/perekaman/$belanjaId/potongan/tambah"
+              params={{ belanjaId: params.belanjaId }}
+            >
+              <FiPlus />
+              Tambah
+            </Link>
+          </Button>
+        </CardAction>
+      </CardHeader>
+      <CardContent>
+        <TableBoundary>
+          <PotonganTable belanja={belanja} />
+        </TableBoundary>
+      </CardContent>
+      <CardHeader>
+        <CardTitle>Realisasi Belanja</CardTitle>
+        <CardDescription>Daftar rincian realisasi belanja</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Table>
+          <TableBody>
+            <TableRow>
+              <TableHead>Belanja yang Dibayarkan</TableHead>
+              <TableCell className="text-right">
+                {formatAngka(belanja.jumlah)}
+              </TableCell>
+              <TableCell className="w-1" />
+            </TableRow>
+            <TableRow>
+              <TableHead>Jumlah Potongan</TableHead>
+              <TableCell className="text-right">
+                {formatAngka(
+                  belanja.potonganBelanja.reduce(
+                    (acc, item) => acc + Number(item.jumlah),
+                    0,
+                  ),
+                )}
+              </TableCell>
+              <TableCell />
+            </TableRow>
+            <TableRow>
+              <TableHead>Jumlah Setelah Potongan</TableHead>
+              <TableCell className="text-right">
+                {formatAngka(
+                  Number(belanja.jumlah) -
+                    belanja.potonganBelanja.reduce(
+                      (acc, item) => acc + Number(item.jumlah),
+                      0,
+                    ),
+                )}
+              </TableCell>
+              <TableCell>
+                <Button
+                  size="icon"
+                  variant="outline"
+                  onClick={() =>
+                    handleCopy(
+                      String(
+                        Number(belanja.jumlah) -
+                          belanja.potonganBelanja.reduce(
+                            (acc, item) => acc + Number(item.jumlah),
+                            0,
+                          ),
+                      ),
+                    )
+                  }
+                >
+                  <FiCopy />
+                </Button>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableHead>Biaya Admin Bank</TableHead>
+              <TableCell className="text-right">
+                {formatAngka(biayaAdmin)}
+              </TableCell>
+              <TableCell />
+            </TableRow>
+            <TableRow>
+              <TableHead>Jumlah Netto</TableHead>
+              <TableCell className="text-right">
+                {formatAngka(
+                  Number(belanja.jumlah) -
+                    belanja.potonganBelanja.reduce(
+                      (acc, item) => acc + Number(item.jumlah),
+                      0,
+                    ) -
+                    biayaAdmin,
+                )}
+              </TableCell>
+              <TableCell>
+                <Button
+                  size="icon"
+                  variant="outline"
+                  onClick={() =>
+                    handleCopy(
+                      String(
+                        Number(belanja.jumlah) -
+                          belanja.potonganBelanja.reduce(
+                            (acc, item) => acc + Number(item.jumlah),
+                            0,
+                          ) -
+                          biayaAdmin,
+                      ),
+                    )
+                  }
+                >
+                  <FiCopy />
+                </Button>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
+  );
+}
+
+export const Route = createFileRoute(
+  "/_dashboard/belanja/perekaman/$belanjaId/",
+)({
+  component: EditPage,
+});

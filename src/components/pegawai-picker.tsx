@@ -1,191 +1,174 @@
-import { Button } from '@/components/ui/button'
-import { api } from '@/trpc/react'
+import { Button } from "@/components/ui/button";
+import { api } from "@/trpc/react";
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from '@/components/ui/dialog'
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from '@/components/ui/table'
-import React from 'react'
-import { cn } from '@/lib/utils'
-import { useDebounce } from 'use-debounce'
-import { Input } from '@/components/ui/input'
-import { keepPreviousData } from '@tanstack/react-query'
-import { Spinner } from '@/components/ui/spinner'
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import React from "react";
+import { cn } from "@/lib/utils";
+import { useDebounce } from "use-debounce";
+import { Input } from "@/components/ui/input";
+import { keepPreviousData } from "@tanstack/react-query";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function PegawaiPicker({
-    value,
-    onValueChange,
-    defaultValue,
+  value,
+  onValueChange,
+  defaultValue,
 }: {
-    value?: number | undefined
-    onValueChange?: (value: number | undefined) => void
-    defaultValue?: number
+  value?: number | undefined;
+  onValueChange?: (value: number | undefined) => void;
+  defaultValue?: number;
 }) {
-    const [selected, setSelected] = React.useState<number | undefined>(
-        value ?? defaultValue ?? 0
-    )
+  const [selected, setSelected] = React.useState<number | undefined>(
+    value ?? defaultValue ?? 0,
+  );
 
-    const pegawaiSelected = api.pegawai.getById.useQuery(selected!, {
-        enabled: !!selected,
-        placeholderData: keepPreviousData,
-    })
+  const pegawaiSelected = api.pegawai.getById.useQuery(selected!, {
+    enabled: !!selected,
+    placeholderData: keepPreviousData,
+  });
 
-    const [search, setSearch] = React.useState<string>('')
-    const [searchValue] = useDebounce(search, 300)
+  const [search, setSearch] = React.useState<string>("");
+  const [searchValue] = useDebounce(search, 300);
 
-    const pegawai = api.pegawai.getAll.useQuery(
-        { search: searchValue },
-        { placeholderData: keepPreviousData }
-    )
+  const pegawai = api.pegawai.getAll.useQuery(
+    { search: searchValue },
+    { placeholderData: keepPreviousData },
+  );
 
-    return (
-        <Dialog>
-            <DialogTrigger asChild>
-                <Button
-                    type="button"
-                    variant="outline"
-                    className={cn(
-                        'w-full justify-start bg-slate-100 text-sm font-normal',
-                        selected && 'h-auto min-h-12'
-                    )}
-                >
-                    {selected !== undefined && (
-                        <div>
-                            {pegawaiSelected.isSuccess &&
-                                pegawaiSelected.data && (
-                                    <div className="flex items-center gap-3">
-                                        <img
-                                            src={
-                                                pegawaiSelected.data
-                                                    .jenisKelamin ===
-                                                'PEREMPUAN'
-                                                    ? '/images/icons/woman.png'
-                                                    : '/images/icons/man.png'
-                                            }
-                                            alt="rekanan"
-                                            className="h-10 w-10"
-                                        />
-                                        <div className="flex flex-col text-left">
-                                            <span className="line-clamp-1">
-                                                {pegawaiSelected.data
-                                                    .gelarDepan &&
-                                                    `${pegawaiSelected.data.gelarDepan} `}
-                                                {pegawaiSelected.data.nama}
-                                                {pegawaiSelected.data
-                                                    .gelarBelakang &&
-                                                    `, ${pegawaiSelected.data.gelarBelakang}`}
-                                            </span>
-                                            <span className="line-clamp-1 text-xs text-slate-500">
-                                                {pegawaiSelected.data.jabatan}
-                                            </span>
-                                        </div>
-                                    </div>
-                                )}
-                            {pegawaiSelected.isLoading && (
-                                <div className="flex items-center gap-3">
-                                    <Spinner />
-                                </div>
-                            )}
-                        </div>
-                    )}
-                </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-2xl">
-                <DialogHeader>
-                    <DialogTitle>Pilih Pegawai</DialogTitle>
-                    <DialogDescription>
-                        Data referensi pegawai
-                    </DialogDescription>
-                </DialogHeader>
-                <Input
-                    placeholder="Cari pegawai..."
-                    onChange={(e) => setSearch(e.target.value)}
-                />
-                <div className="max-h-96 overflow-y-auto">
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead className="w-1">No.</TableHead>
-                                <TableHead>Nama Pegawai</TableHead>
-                                <TableHead>Jabatan</TableHead>
-                                <TableHead className="w-1">Aksi</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {pegawai.isSuccess &&
-                                pegawai.data?.map((item, index) => (
-                                    <TableRow
-                                        key={index}
-                                        className={cn(
-                                            selected === item.id &&
-                                                'bg-yellow-100 hover:bg-yellow-200'
-                                        )}
-                                    >
-                                        <TableCell className="text-center">
-                                            {index + 1}.
-                                        </TableCell>
-                                        <TableCell className="font-semibold">
-                                            {' '}
-                                            {item.gelarDepan &&
-                                                `${item.gelarDepan} `}
-                                            {item.nama}
-                                            {item.gelarBelakang &&
-                                                `, ${item.gelarBelakang}`}
-                                        </TableCell>
-                                        <TableCell>{item.jabatan}</TableCell>
-                                        <TableCell>
-                                            {selected === item.id ? (
-                                                <Button
-                                                    variant="destructive"
-                                                    onClick={() => {
-                                                        setSelected(undefined)
-                                                        onValueChange?.(
-                                                            undefined
-                                                        )
-                                                    }}
-                                                >
-                                                    Batal
-                                                </Button>
-                                            ) : (
-                                                <Button
-                                                    variant="outline"
-                                                    onClick={() => {
-                                                        setSelected(item.id)
-                                                        onValueChange?.(item.id)
-                                                    }}
-                                                >
-                                                    Pilih
-                                                </Button>
-                                            )}
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                            {pegawai.isSuccess &&
-                                pegawai.data?.length === 0 && (
-                                    <TableRow>
-                                        <TableCell
-                                            colSpan={4}
-                                            className="text-center"
-                                        >
-                                            Tidak ada data
-                                        </TableCell>
-                                    </TableRow>
-                                )}
-                        </TableBody>
-                    </Table>
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button
+          type="button"
+          variant="outline"
+          className={cn(
+            "w-full justify-start bg-slate-100 text-sm font-normal",
+            selected && "h-auto min-h-12",
+          )}
+        >
+          {selected !== undefined && (
+            <div>
+              {pegawaiSelected.isSuccess && pegawaiSelected.data && (
+                <div className="flex items-center gap-3">
+                  <img
+                    src={
+                      pegawaiSelected.data.jenisKelamin === "PEREMPUAN"
+                        ? "/images/icons/woman.png"
+                        : "/images/icons/man.png"
+                    }
+                    alt="rekanan"
+                    className="h-10 w-10"
+                  />
+                  <div className="flex flex-col text-left">
+                    <span className="line-clamp-1">
+                      {pegawaiSelected.data.gelarDepan &&
+                        `${pegawaiSelected.data.gelarDepan} `}
+                      {pegawaiSelected.data.nama}
+                      {pegawaiSelected.data.gelarBelakang &&
+                        `, ${pegawaiSelected.data.gelarBelakang}`}
+                    </span>
+                    <span className="line-clamp-1 text-xs text-slate-500">
+                      {pegawaiSelected.data.jabatan}
+                    </span>
+                  </div>
                 </div>
-            </DialogContent>
-        </Dialog>
-    )
+              )}
+              {pegawaiSelected.isLoading && (
+                <div className="flex items-center gap-3">
+                  <Spinner />
+                </div>
+              )}
+            </div>
+          )}
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="max-w-2xl">
+        <DialogHeader>
+          <DialogTitle>Pilih Pegawai</DialogTitle>
+          <DialogDescription>Data referensi pegawai</DialogDescription>
+        </DialogHeader>
+        <Input
+          placeholder="Cari pegawai..."
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <div className="max-h-96 overflow-y-auto">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-1">No.</TableHead>
+                <TableHead>Nama Pegawai</TableHead>
+                <TableHead>Jabatan</TableHead>
+                <TableHead className="w-1">Aksi</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {pegawai.isSuccess &&
+                pegawai.data?.map((item, index) => (
+                  <TableRow
+                    key={index}
+                    className={cn(
+                      selected === item.id &&
+                        "bg-yellow-100 hover:bg-yellow-200",
+                    )}
+                  >
+                    <TableCell className="text-center">{index + 1}.</TableCell>
+                    <TableCell className="font-semibold">
+                      {" "}
+                      {item.gelarDepan && `${item.gelarDepan} `}
+                      {item.nama}
+                      {item.gelarBelakang && `, ${item.gelarBelakang}`}
+                    </TableCell>
+                    <TableCell>{item.jabatan}</TableCell>
+                    <TableCell>
+                      {selected === item.id ? (
+                        <Button
+                          variant="destructive"
+                          onClick={() => {
+                            setSelected(undefined);
+                            onValueChange?.(undefined);
+                          }}
+                        >
+                          Batal
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="outline"
+                          onClick={() => {
+                            setSelected(item.id);
+                            onValueChange?.(item.id);
+                          }}
+                        >
+                          Pilih
+                        </Button>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              {pegawai.isSuccess && pegawai.data?.length === 0 && (
+                <TableRow>
+                  <TableCell colSpan={4} className="text-center">
+                    Tidak ada data
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
 }
