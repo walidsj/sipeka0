@@ -152,7 +152,7 @@ export default function BkuTable() {
           style={{
             fontSize: "8pt",
           }}
-          className="leading-4"
+          className="leading-4 font-serif"
           ref={componentRef}
         >
           <style type="text/css" media="print">

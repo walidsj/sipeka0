@@ -226,11 +226,6 @@ export default function BelanjaTable() {
                 <p>{item.uraian}</p>
                 {item.rekanan && (
                   <p className="mt-3 text-xs text-slate-500">
-                    <img
-                      src="/images/icons/shop.png"
-                      alt="rekanan"
-                      className="mr-1 inline h-4 w-4"
-                    />
                     {item.rekanan.nama}
                   </p>
                 )}

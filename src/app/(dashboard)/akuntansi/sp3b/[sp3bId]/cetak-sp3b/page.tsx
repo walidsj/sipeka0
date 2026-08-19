@@ -77,7 +77,7 @@ export default function Page() {
                     <div
                       style={{
                         fontSize: "11pt",
-                        fontFamily: "Arial",
+                        fontFamily: "Inter Variable",
                       }}
                       className="mb-1 text-center font-bold uppercase"
                     >
@@ -87,7 +87,7 @@ export default function Page() {
                     <div
                       style={{
                         fontSize: "12pt",
-                        fontFamily: "Arial",
+                        fontFamily: "Inter Variable",
                       }}
                       className="mb-2 text-center font-bold uppercase"
                     >
@@ -98,7 +98,7 @@ export default function Page() {
                         <tr>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                             className="w-1/5"
                           >
@@ -107,7 +107,7 @@ export default function Page() {
                           <td className="w-2">:</td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             Rumah Sakit Jiwa Daerah Atma Husada Mahakam
@@ -116,7 +116,7 @@ export default function Page() {
                         <tr>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             Tanggal
@@ -124,7 +124,7 @@ export default function Page() {
                           <td>:</td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             {formatTanggal(sp3b.tglDokumen)}
@@ -133,7 +133,7 @@ export default function Page() {
                         <tr>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             Nomor
@@ -141,7 +141,7 @@ export default function Page() {
                           <td>:</td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             {sp3b.noDokumen}
@@ -155,7 +155,7 @@ export default function Page() {
                         <tr>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             Tahun Anggaran
@@ -163,7 +163,7 @@ export default function Page() {
                           <td>:</td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             {Intl.DateTimeFormat("id-ID", {
@@ -183,7 +183,7 @@ export default function Page() {
                     <p
                       className="mb-4 text-justify"
                       style={{
-                        fontFamily: "Arial",
+                        fontFamily: "Inter Variable",
                       }}
                     >
                       Kepala SKPD Rumah Sakit Jiwa Daerah Atma Husada Mahakam
@@ -197,7 +197,7 @@ export default function Page() {
                         <tr>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                             className="w-5"
                           >
@@ -205,7 +205,7 @@ export default function Page() {
                           </td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                             colSpan={2}
                           >
@@ -213,14 +213,14 @@ export default function Page() {
                           </td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             Rp
                           </td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                             className="text-right"
                           >
@@ -230,14 +230,14 @@ export default function Page() {
                         <tr>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             b.
                           </td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                             colSpan={2}
                           >
@@ -245,14 +245,14 @@ export default function Page() {
                           </td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             Rp
                           </td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                             className="text-right"
                           >
@@ -262,14 +262,14 @@ export default function Page() {
                         <tr>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             c.
                           </td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                             colSpan={2}
                           >
@@ -277,14 +277,14 @@ export default function Page() {
                           </td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             Rp
                           </td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                             className="text-right"
                           >
@@ -299,7 +299,7 @@ export default function Page() {
                           <td></td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                             className="w-5"
                           >
@@ -307,21 +307,21 @@ export default function Page() {
                           </td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             Belanja Pegawai
                           </td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             Rp
                           </td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                             className="text-right"
                           >
@@ -332,28 +332,28 @@ export default function Page() {
                           <td></td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             2.
                           </td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             Belanja Barang dan Jasa
                           </td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             Rp
                           </td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                             className="text-right"
                           >
@@ -364,28 +364,28 @@ export default function Page() {
                           <td className="w-3"></td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             3.
                           </td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             Belanja Modal Peralatan dan Mesin
                           </td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             Rp
                           </td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                             className="text-right"
                           >
@@ -395,7 +395,7 @@ export default function Page() {
                         <tr>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             d.
@@ -403,21 +403,21 @@ export default function Page() {
                           <td
                             colSpan={2}
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             Saldo Akhir
                           </td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                           >
                             Rp
                           </td>
                           <td
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Inter Variable",
                             }}
                             className="text-right"
                           >
@@ -444,21 +444,21 @@ export default function Page() {
                       <div className="w-1/3">
                         <div
                           style={{
-                            fontFamily: "Arial",
+                            fontFamily: "Inter Variable",
                           }}
                         >
                           Samarinda, {formatTanggal(sp3b.tglDokumen)}
                         </div>
                         <div
                           style={{
-                            fontFamily: "Arial",
+                            fontFamily: "Inter Variable",
                           }}
                         >
                           {sp3b.penandatangan?.jabatan},
                         </div>
                         <div
                           style={{
-                            fontFamily: "Arial",
+                            fontFamily: "Inter Variable",
                           }}
                           className="mt-14 underline"
                         >
@@ -470,14 +470,14 @@ export default function Page() {
                         </div>
                         <div
                           style={{
-                            fontFamily: "Arial",
+                            fontFamily: "Inter Variable",
                           }}
                         >
                           Pembina Utama Muda
                         </div>
                         <div
                           style={{
-                            fontFamily: "Arial",
+                            fontFamily: "Inter Variable",
                           }}
                         >
                           NIP. {sp3b.penandatangan?.nip}

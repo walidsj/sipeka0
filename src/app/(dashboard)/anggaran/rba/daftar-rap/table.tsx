@@ -68,7 +68,7 @@ export default function RapTable() {
                 <TableHeader>
                     <TableRow>
                         <TableHead className="w-1 text-center">No.</TableHead>
-                        <TableHead colSpan={2}>Uraian</TableHead>
+                        <TableHead colSpan={1}>Uraian</TableHead>
                         <TableHead className="w-1" />
                     </TableRow>
                 </TableHeader>
@@ -78,7 +78,7 @@ export default function RapTable() {
                         Object.keys(groupedData).map((key) => (
                             <React.Fragment key={key}>
                                 <TableRow>
-                                    <TableCell colSpan={4}>
+                                    <TableCell colSpan={3}>
                                         <span className="mr-3 inline-block font-bold">
                                             {key.split('||')[0]}
                                         </span>
@@ -91,13 +91,6 @@ export default function RapTable() {
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">
                                             {index + 1}.
-                                        </TableCell>
-                                        <TableCell className="w-14">
-                                            <img
-                                                src="/images/icons/sell.png"
-                                                alt="sell"
-                                                className="h-10 w-10"
-                                            />
                                         </TableCell>
                                         <TableCell className="font-semibold">
                                             {item.uraian}

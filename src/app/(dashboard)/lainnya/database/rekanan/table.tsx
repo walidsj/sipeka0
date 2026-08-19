@@ -47,7 +47,7 @@ export default function RekananTable() {
             <TableHeader>
                 <TableRow>
                     <TableHead className="w-1 text-center">No.</TableHead>
-                    <TableHead colSpan={2}>Nama Rekanan</TableHead>
+                    <TableHead colSpan={1}>Nama Rekanan</TableHead>
                     <TableHead className="text-center">Jenis</TableHead>
                     <TableHead className="text-center">Status</TableHead>
                     <TableHead className="text-center">NPWP</TableHead>
@@ -60,13 +60,6 @@ export default function RekananTable() {
                         <TableRow key={item.id}>
                             <TableCell className="text-center">
                                 {index + 1}.
-                            </TableCell>
-                            <TableCell className="w-14">
-                                <img
-                                    src="/images/icons/shop.png"
-                                    alt="rekanan"
-                                    className="h-10 w-10"
-                                />
                             </TableCell>
                             <TableCell>
                                 <p className="block font-semibold">
