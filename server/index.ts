@@ -2,12 +2,10 @@ import express from "express";
 import { createServer as createViteServer } from "vite";
 import {
   createExpressMiddleware,
-  type CreateExpressContextOptions,
 } from "@trpc/server/adapters/express";
 
 import { appRouter } from "./router";
-import { getSession } from "./auth";
-import { db } from "./db";
+import { createTRPCContext } from "./lib/trpc";
 
 const app = express();
 const port = Number(process.env.PORT ?? 8089);
@@ -20,11 +18,7 @@ app.use(
   createExpressMiddleware({
     router: appRouter,
 
-    createContext: async ({ req }: CreateExpressContextOptions) => ({
-      headers: req.headers,
-      db,
-      session: await getSession(req.headers.authorization ?? ""),
-    }),
+    createContext: createTRPCContext,
 
     onError: isDev
       ? ({ path, error }) => {

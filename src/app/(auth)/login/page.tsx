@@ -26,10 +26,18 @@ import { useAuth } from "@/lib/auth";
 import { FiEye, FiEyeOff, FiLock, FiUser } from "react-icons/fi";
 import React from "react";
 import { Helmet } from "react-helmet";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const schema = z.object({
   username: z.string().min(1),
   password: z.string().min(1),
+  tahun: z.enum(["2025", "2026"]),
 });
 
 export default function Login() {
@@ -65,6 +73,7 @@ export default function Login() {
     defaultValues: {
       username: "",
       password: "",
+      tahun: "2026",
     },
   });
 
@@ -138,6 +147,30 @@ export default function Login() {
                         </Button>
                       </div>
                     </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                name="tahun"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Tahun Anggaran</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      value={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="h-12 w-full">
+                          <SelectValue placeholder="Pilih tahun anggaran" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="2026">2026</SelectItem>
+                        <SelectItem value="2025">2025</SelectItem>
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}
