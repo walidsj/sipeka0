@@ -3,7 +3,6 @@ import {
   Link,
   Outlet,
   redirect,
-  useNavigate,
 } from "@tanstack/react-router";
 import {
   SidebarMenuButton,
@@ -41,7 +40,6 @@ export const Route = createFileRoute("/_dashboard")({
 
 function DashboardLayout() {
   const auth = useAuth();
-  const navigate = useNavigate();
 
   return (
     <SidebarProvider>
@@ -100,7 +98,6 @@ function DashboardLayout() {
                 <DropdownMenuItem
                   onClick={() => {
                     auth.logout();
-                    navigate({ to: "/login" });
                   }}
                 >
                   <HiOutlineLogout /> Logout

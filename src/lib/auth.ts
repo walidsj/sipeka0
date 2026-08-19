@@ -1,6 +1,5 @@
 import { useCookies } from "react-cookie";
 import { api } from "@/trpc/react";
-import { getQueryKey } from "@trpc/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
@@ -31,9 +30,20 @@ export function useAuth() {
   }
 
   function logout() {
-    const userKey = getQueryKey(api.user.getProfile, undefined);
-    queryClient.removeQueries({ queryKey: userKey });
-    removeCookie("token");
+    // Hentikan query yang sedang berjalan dan bersihkan seluruh cache,
+    // supaya data user tidak sempat ter-refetch ulang memakai token lama.
+    queryClient.cancelQueries();
+    queryClient.clear();
+
+    // Cookie harus dihapus dengan atribut yang sama seperti saat login
+    // (path & sameSite). Tanpa opsi ini, cookie penghapus ditulis untuk
+    // path default URL saat itu, bukan "/", sehingga cookie token asli
+    // tidak benar-benar terhapus dan guard redirect masih mendeteksinya.
+    removeCookie("token", { path: "/", sameSite: "strict" });
+
+    // Paksa navigasi penuh ke halaman login agar state aplikasi bersih
+    // dan tidak bergantung pada timing guard redirect SPA.
+    window.location.assign("/login");
   }
 
   return { login, logout, token: cookies.token ?? "", user: user, isLoading };
