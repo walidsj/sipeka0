@@ -447,7 +447,7 @@ export const belanjaRouter = createTRPCRouter({
 
           tgl: lpj.tglDokumen ?? "",
 
-          noDokumen: lpj.spp.spm.sp2d.noCek,
+          noDokumen: lpj.spp?.spm?.sp2d?.noCek ?? "",
 
           kodeRekening: null,
 
@@ -577,7 +577,7 @@ export const belanjaRouter = createTRPCRouter({
 
               tgl: lpj.tglDokumen ?? "",
 
-              noDokumen: lpj.spp.spm.sp2d.noCek,
+              noDokumen: lpj.spp?.spm?.sp2d?.noCek ?? "",
 
               kodeRekening: null,
 
