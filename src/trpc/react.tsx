@@ -5,6 +5,7 @@ import { type inferRouterInputs, type inferRouterOutputs } from "@trpc/server";
 import { type AppRouter } from "#server/router";
 import SuperJSON from "superjson";
 import { readCookie, refreshAccessToken } from "@/lib/token";
+import { setTRPCClient } from "@/trpc/client";
 
 const createQueryClient = () => new QueryClient();
 
@@ -39,9 +40,20 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
           return headers;
         },
         fetch: async (input, init) => {
+          const url =
+            typeof input === "string"
+              ? input
+              : input instanceof Request
+                ? input.url
+                : input.toString();
+
+          // Whitelist: request refresh tidak boleh memicu 401-retry lagi,
+          // karena kalau refresh gagal justru akan masuk loop tak berujung.
+          const isRefreshCall = url.includes("/api/trpc/user.refresh");
+
           let res = await fetch(input, init);
 
-          if (res.status === 401) {
+          if (res.status === 401 && !isRefreshCall) {
             const newToken = await refreshAccessToken();
 
             if (newToken) {
@@ -56,6 +68,8 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
       }),
     ],
   });
+
+  setTRPCClient(trpcClient);
 
   return (
     <QueryClientProvider client={queryClient}>

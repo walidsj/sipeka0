@@ -9,11 +9,15 @@ import { TRPCError } from "@trpc/server";
 import { asc, eq } from "drizzle-orm";
 import { z } from "zod";
 import bcryptjs from "bcryptjs";
+import { parse } from "cookie";
 import {
+  clearRefreshCookie,
   type Session,
+  REFRESH_COOKIE_NAME,
   setRefreshCookie,
   signAccessToken,
   signRefreshToken,
+  verifyRefreshToken,
 } from "#server/lib/auth";
 import { userSchema } from "#server/schema/user";
 import fs from "fs";
@@ -65,6 +69,35 @@ export const userRouter = createTRPCRouter({
 
       return { token, message: "Login berhasil" };
     }),
+
+  refresh: publicProcedure.mutation(async ({ ctx }) => {
+    const cookies = parse(ctx.headers.cookie ?? "");
+    const refreshToken = cookies[REFRESH_COOKIE_NAME];
+
+    if (!refreshToken) {
+      throw new TRPCError({
+        code: "UNAUTHORIZED",
+        message: "Refresh token tidak ditemukan",
+      });
+    }
+
+    const session = await verifyRefreshToken(refreshToken);
+
+    if (!session) {
+      clearRefreshCookie(ctx.res);
+      throw new TRPCError({
+        code: "UNAUTHORIZED",
+        message: "Refresh token tidak valid",
+      });
+    }
+
+    const token = await signAccessToken(session);
+    const newRefreshToken = await signRefreshToken(session);
+
+    setRefreshCookie(ctx.res, newRefreshToken);
+
+    return { token };
+  }),
 
   register: publicProcedure
     .input(

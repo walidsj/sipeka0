@@ -1,3 +1,5 @@
+import { getTRPCClient } from "@/trpc/client";
+
 export function readCookie(name: string) {
   if (typeof document === "undefined") return "";
   const match = document.cookie.match(
@@ -15,21 +17,18 @@ let refreshing: Promise<string | null> | null = null;
 export async function refreshAccessToken(): Promise<string | null> {
   if (!refreshing) {
     refreshing = (async () => {
+      const client = getTRPCClient();
+
+      if (!client) {
+        return null;
+      }
+
       try {
-        const res = await fetch("/api/auth/refresh", {
-          method: "POST",
-          credentials: "same-origin",
-        });
+        const result = await client.user.refresh.mutate();
 
-        if (!res.ok) {
-          return null;
-        }
-
-        const data = (await res.json()) as { token?: string };
-
-        if (data?.token) {
-          writeToken(data.token);
-          return data.token;
+        if (result?.token) {
+          writeToken(result.token);
+          return result.token;
         }
 
         return null;
