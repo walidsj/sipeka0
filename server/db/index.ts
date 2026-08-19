@@ -42,6 +42,6 @@ export function getDbForYear(tahun: TahunAnggaran) {
   return drizzle(getConnection(tahun), { schema, mode: "default" });
 }
 
-export const db = getDbForYear("2026");
+export const db = (year: TahunAnggaran) => getDbForYear(year || "2026");
 
 export const tables = schema;

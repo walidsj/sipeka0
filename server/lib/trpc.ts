@@ -3,16 +3,20 @@ import { ZodError } from "zod";
 import { getDbForYear } from "#server/db";
 import { eq } from "drizzle-orm";
 import { user } from "#server/db/schema";
-import { getSession } from "#server/auth";
+import { getSession } from "#server/lib/auth";
 import { type CreateExpressContextOptions } from "@trpc/server/adapters/express";
 import SuperJSON from "superjson";
 import { z } from "zod";
 
-export const createTRPCContext = async ({ req }: CreateExpressContextOptions) => {
+export const createTRPCContext = async ({
+  req,
+  res,
+}: CreateExpressContextOptions) => {
   const session = await getSession(req.headers.authorization ?? "");
 
   return {
     headers: req.headers,
+    res,
     db: getDbForYear(session?.tahun ?? "2026"),
     session,
   };

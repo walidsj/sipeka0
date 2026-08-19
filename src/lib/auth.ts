@@ -35,6 +35,13 @@ export function useAuth() {
     queryClient.cancelQueries();
     queryClient.clear();
 
+    // Bersihkan refresh token (httpOnly) di sisi server, supaya sesi
+    // benar-benar dicabut dan tidak bisa direfresh kembali.
+    fetch("/api/auth/logout", {
+      method: "POST",
+      credentials: "same-origin",
+    }).catch(() => {});
+
     // Cookie harus dihapus dengan atribut yang sama seperti saat login
     // (path & sameSite). Tanpa opsi ini, cookie penghapus ditulis untuk
     // path default URL saat itu, bukan "/", sehingga cookie token asli

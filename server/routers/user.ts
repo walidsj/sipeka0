@@ -9,14 +9,15 @@ import { TRPCError } from "@trpc/server";
 import { asc, eq } from "drizzle-orm";
 import { z } from "zod";
 import bcryptjs from "bcryptjs";
-import { type JWTPayload, SignJWT } from "jose";
-import { env } from "#server/env";
+import {
+  type Session,
+  setRefreshCookie,
+  signAccessToken,
+  signRefreshToken,
+} from "#server/lib/auth";
 import { userSchema } from "#server/schema/user";
 import fs from "fs";
 import { getDbForYear } from "#server/db";
-
-const secret = env.JWT_SECRET_KEY ?? "secret";
-const key = new TextEncoder().encode(secret);
 
 export const userRouter = createTRPCRouter({
   login: publicProcedure
@@ -30,7 +31,7 @@ export const userRouter = createTRPCRouter({
           }),
         ),
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ ctx, input }) => {
       const selectedDb = getDbForYear(input.tahun);
       const existedUser = await selectedDb.query.user.findFirst({
         where: eq(user.username, input.username),
@@ -50,16 +51,17 @@ export const userRouter = createTRPCRouter({
         });
       }
 
-      const token = await new SignJWT({
+      const sessionPayload: Session = {
         id: existedUser.id.toString(),
-        username: existedUser.username,
-        role: existedUser.role,
+        username: existedUser.username ?? undefined,
+        role: existedUser.role ?? undefined,
         tahun: input.tahun,
-      } as JWTPayload)
-        .setProtectedHeader({ alg: "HS256" })
-        .setIssuedAt()
-        .setExpirationTime("30d")
-        .sign(key);
+      };
+
+      const token = await signAccessToken(sessionPayload);
+      const refreshToken = await signRefreshToken(sessionPayload);
+
+      setRefreshCookie(ctx.res, refreshToken);
 
       return { token, message: "Login berhasil" };
     }),
