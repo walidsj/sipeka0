@@ -21,7 +21,6 @@ import {
   eq,
   gte,
   isNotNull,
-  like,
   lt,
   lte,
   or,
@@ -770,28 +769,33 @@ export const belanjaRouter = createTRPCRouter({
             },
           },
         },
-        where: search
-          ? and(
-              or(
-                like(belanja.uraian, `%${search}%`),
-                like(belanja.noDokumen, `%${search}%`),
-              ),
-              filterDate,
-            )
-          : filterDate,
+        where: filterDate,
         orderBy: [desc(belanja.tglDokumen), desc(belanja.noDokumen)],
-        limit: pageSize ?? 10,
-        offset: page ? (page - 1) * pageSize : 0,
       });
+
+      let belanjaFiltered = belanjaList;
+
+      if (search) {
+        const q = search.toLowerCase();
+        belanjaFiltered = belanjaFiltered.filter(
+          (item) =>
+            item.uraian?.toLowerCase().includes(q) ||
+            item.noDokumen?.toLowerCase().includes(q) ||
+            item.rekanan?.nama?.toLowerCase().includes(q) ||
+            item.pegawai?.nama?.toLowerCase().includes(q),
+        );
+      }
 
       const rekeningLevel6 = getRekening(ctx.session?.tahun).level6;
 
-      const data = belanjaList.map((belanja) => ({
-        ...belanja,
-        rekening: rekeningLevel6.find(
-          (rekening) => rekening.kode === belanja.rab?.kodeRekening,
-        ),
-      }));
+      const data = belanjaFiltered
+        .slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize)
+        .map((belanja) => ({
+          ...belanja,
+          rekening: rekeningLevel6.find(
+            (rekening) => rekening.kode === belanja.rab?.kodeRekening,
+          ),
+        }));
 
       const total = await ctx.db
         .select({
@@ -800,26 +804,11 @@ export const belanjaRouter = createTRPCRouter({
         })
         .from(belanja);
 
-      const filtered = await ctx.db
-        .select({ count: count(belanja.jumlah) })
-        .from(belanja)
-        .where(
-          search
-            ? and(
-                or(
-                  like(belanja.uraian, `%${search}%`),
-                  like(belanja.noDokumen, `%${search}%`),
-                ),
-                filterDate,
-              )
-            : filterDate,
-        );
-
       const totalSum = total[0].sum;
-      const dataFiltered = filtered[0].count;
+      const dataFiltered = belanjaFiltered.length;
       const dataTotal = total[0].count;
-      const firstRow = (page ? (page - 1) * pageSize : 0) + 1;
-      const lastRow = (page ? (page - 1) * pageSize : 0) + data.length;
+      const firstRow = (page - 1) * pageSize + 1;
+      const lastRow = (page - 1) * pageSize + data.length;
       const pageCount = Math.ceil(dataFiltered / pageSize);
 
       return {
