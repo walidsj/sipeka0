@@ -109,7 +109,7 @@ export default function SpmPicker({
             </TableHeader>
             <TableBody>
               {spm.isSuccess &&
-                spm.data?.map((item, index) => (
+                spm.data?.data.map((item, index) => (
                   <TableRow
                     key={index}
                     className={cn(
@@ -155,7 +155,7 @@ export default function SpmPicker({
                     </TableCell>
                   </TableRow>
                 ))}
-              {spm.isSuccess && spm.data?.length === 0 && (
+              {spm.isSuccess && spm.data?.data.length === 0 && (
                 <TableRow>
                   <TableCell colSpan={100} className="text-center">
                     Tidak ada data

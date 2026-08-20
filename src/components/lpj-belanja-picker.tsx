@@ -109,7 +109,7 @@ export default function LpjBelanjaPicker({
             </TableHeader>
             <TableBody>
               {lpjBelanja.isSuccess &&
-                lpjBelanja.data?.map((item, index) => (
+                lpjBelanja.data?.data.map((item, index) => (
                   <TableRow
                     key={index}
                     className={cn(
@@ -155,7 +155,7 @@ export default function LpjBelanjaPicker({
                     </TableCell>
                   </TableRow>
                 ))}
-              {lpjBelanja.isSuccess && lpjBelanja.data?.length === 0 && (
+              {lpjBelanja.isSuccess && lpjBelanja.data?.data.length === 0 && (
                 <TableRow>
                   <TableCell colSpan={100} className="text-center">
                     Tidak ada data

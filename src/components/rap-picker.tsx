@@ -109,7 +109,7 @@ export default function RapPicker({
             </TableHeader>
             <TableBody>
               {rap.isSuccess &&
-                rap.data?.map((item, index) => (
+                rap.data?.data.map((item, index) => (
                   <TableRow
                     key={index}
                     className={cn(
@@ -152,7 +152,7 @@ export default function RapPicker({
                     </TableCell>
                   </TableRow>
                 ))}
-              {rap.isSuccess && rap.data?.length === 0 && (
+              {rap.isSuccess && rap.data?.data.length === 0 && (
                 <TableRow>
                   <TableCell colSpan={4} className="text-center">
                     Tidak ada data

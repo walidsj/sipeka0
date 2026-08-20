@@ -109,7 +109,7 @@ export default function SppPicker({
             </TableHeader>
             <TableBody>
               {spp.isSuccess &&
-                spp.data?.map((item, index) => (
+                spp.data?.data.map((item, index) => (
                   <TableRow
                     key={index}
                     className={cn(
@@ -155,7 +155,7 @@ export default function SppPicker({
                     </TableCell>
                   </TableRow>
                 ))}
-              {spp.isSuccess && spp.data?.length === 0 && (
+              {spp.isSuccess && spp.data?.data.length === 0 && (
                 <TableRow>
                   <TableCell colSpan={100} className="text-center">
                     Tidak ada data

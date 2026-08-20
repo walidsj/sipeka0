@@ -29,7 +29,7 @@ export default function SpmRegisterTable() {
 
   if (!spm) return <div>Data tidak dapat dimuat.</div>;
 
-  const totalJumlah = spm.reduce((acc, item) => acc + Number(item.jumlah), 0);
+  const totalJumlah = spm.data.reduce((acc, item) => acc + Number(item.jumlah), 0);
 
   return (
     <div className="flex flex-col gap-5">
@@ -123,7 +123,7 @@ export default function SpmRegisterTable() {
               </tr>
             </thead>
             <tbody className="border-b-2 border-double border-black">
-              {spm.map((item, index) => (
+              {spm.data.map((item, index) => (
                 <tr
                   key={index}
                   className="border-t border-black"
@@ -151,7 +151,7 @@ export default function SpmRegisterTable() {
                   </td>
                 </tr>
               ))}
-              {spm.length === 0 && (
+              {spm.data.length === 0 && (
                 <tr>
                   <td colSpan={100} className="py-1 text-center">
                     Tidak ada data

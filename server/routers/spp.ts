@@ -5,7 +5,7 @@ import {
   pengelolaProcedure,
   userProcedure,
 } from "#server/lib/trpc";
-import { and, desc, eq, gte, like, lte, or } from "drizzle-orm";
+import { and, count, desc, eq, gte, like, lte, or } from "drizzle-orm";
 import { z } from "zod";
 import { getRekening } from "@/data/rekening";
 
@@ -17,9 +17,18 @@ export const sppRouter = createTRPCRouter({
         haveSpm: z.boolean().optional(),
         startDate: z.string().optional(),
         endDate: z.string().optional(),
+        page: z.number().optional(),
+        pageSize: z.number().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
+      const page = input.page ?? 1;
+
+      const dataTotal =
+        (
+          await ctx.db.select({ count: count() }).from(sppTable)
+        )[0].count ?? 0;
+
       let spp = await ctx.db.query.sppTable.findMany({
         orderBy: [desc(sppTable.tglDokumen), desc(sppTable.noDokumen)],
         with: {
@@ -53,30 +62,53 @@ export const sppRouter = createTRPCRouter({
         spp = spp.filter((item) => !item.spm);
       }
 
-      return spp.map((item) => ({
-        id: item.id,
-        tglDokumen: item.tglDokumen,
-        noDokumen: item.noDokumen,
-        uraian: item.lpjBelanja?.uraian,
-        jumlah: item.lpjBelanja?.belanja.reduce(
-          (acc, curr) => acc + Number(curr.jumlah),
-          0,
-        ),
-        spm: item?.spm
-          ? {
-              noDokumen: item.spm.noDokumen,
-              tglDokumen: item.spm.tglDokumen,
-            }
-          : null,
-        sp2d: item?.spm?.sp2d
-          ? {
-              noDokumen: item.spm.sp2d.noDokumen,
-              tglDokumen: item.spm.sp2d.tglDokumen,
-            }
-          : null,
-        createdAt: item.createdAt,
-        updatedAt: item.updatedAt,
-      }));
+      const dataFiltered = spp.length;
+      const pageSize = input.pageSize ?? dataFiltered;
+      const firstRow = (page - 1) * pageSize + 1;
+      const lastRow = (page - 1) * pageSize + Math.min(pageSize, dataFiltered - (page - 1) * pageSize);
+      const pageCount = Math.ceil(dataFiltered / pageSize);
+
+      const data = spp
+        .slice((page - 1) * pageSize, page * pageSize)
+        .map((item) => ({
+          id: item.id,
+          tglDokumen: item.tglDokumen,
+          noDokumen: item.noDokumen,
+          uraian: item.lpjBelanja?.uraian,
+          jumlah: item.lpjBelanja?.belanja.reduce(
+            (acc, curr) => acc + Number(curr.jumlah),
+            0,
+          ),
+          spm: item?.spm
+            ? {
+                noDokumen: item.spm.noDokumen,
+                tglDokumen: item.spm.tglDokumen,
+              }
+            : null,
+          sp2d: item?.spm?.sp2d
+            ? {
+                noDokumen: item.spm.sp2d.noDokumen,
+                tglDokumen: item.spm.sp2d.tglDokumen,
+              }
+            : null,
+          createdAt: item.createdAt,
+          updatedAt: item.updatedAt,
+        }));
+
+      return {
+        data,
+        meta: {
+          pagination: {
+            dataTotal,
+            dataFiltered,
+            page,
+            pageCount,
+            pageSize,
+            firstRow,
+            lastRow,
+          },
+        },
+      };
     }),
 
   getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {

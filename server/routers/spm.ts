@@ -5,7 +5,7 @@ import {
   pengelolaProcedure,
   userProcedure,
 } from "#server/lib/trpc";
-import { and, desc, eq, gte, like, lte, or } from "drizzle-orm";
+import { and, count, desc, eq, gte, like, lte, or } from "drizzle-orm";
 import { z } from "zod";
 import { getRekening } from "@/data/rekening";
 
@@ -17,9 +17,18 @@ export const spmRouter = createTRPCRouter({
         haveSp2d: z.boolean().optional(),
         startDate: z.string().optional(),
         endDate: z.string().optional(),
+        page: z.number().optional(),
+        pageSize: z.number().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
+      const page = input.page ?? 1;
+
+      const dataTotal =
+        (
+          await ctx.db.select({ count: count() }).from(spmTable)
+        )[0].count ?? 0;
+
       let spm = await ctx.db.query.spmTable.findMany({
         orderBy: [desc(spmTable.tglDokumen), desc(spmTable.noDokumen)],
         with: {
@@ -53,24 +62,47 @@ export const spmRouter = createTRPCRouter({
         spm = spm.filter((item) => !item.sp2d);
       }
 
-      return spm.map((item) => ({
-        id: item.id,
-        tglDokumen: item.tglDokumen,
-        noDokumen: item.noDokumen,
-        uraian: item.spp?.lpjBelanja?.uraian,
-        jumlah: item.spp?.lpjBelanja?.belanja.reduce(
-          (acc, curr) => acc + Number(curr.jumlah),
-          0,
-        ),
-        sp2d: item?.sp2d
-          ? {
-              noDokumen: item.sp2d.noDokumen,
-              tglDokumen: item.sp2d.tglDokumen,
-            }
-          : null,
-        createdAt: item.createdAt,
-        updatedAt: item.updatedAt,
-      }));
+      const dataFiltered = spm.length;
+      const pageSize = input.pageSize ?? dataFiltered;
+      const firstRow = (page - 1) * pageSize + 1;
+      const lastRow = (page - 1) * pageSize + Math.min(pageSize, dataFiltered - (page - 1) * pageSize);
+      const pageCount = Math.ceil(dataFiltered / pageSize);
+
+      const data = spm
+        .slice((page - 1) * pageSize, page * pageSize)
+        .map((item) => ({
+          id: item.id,
+          tglDokumen: item.tglDokumen,
+          noDokumen: item.noDokumen,
+          uraian: item.spp?.lpjBelanja?.uraian,
+          jumlah: item.spp?.lpjBelanja?.belanja.reduce(
+            (acc, curr) => acc + Number(curr.jumlah),
+            0,
+          ),
+          sp2d: item?.sp2d
+            ? {
+                noDokumen: item.sp2d.noDokumen,
+                tglDokumen: item.sp2d.tglDokumen,
+              }
+            : null,
+          createdAt: item.createdAt,
+          updatedAt: item.updatedAt,
+        }));
+
+      return {
+        data,
+        meta: {
+          pagination: {
+            dataTotal,
+            dataFiltered,
+            page,
+            pageCount,
+            pageSize,
+            firstRow,
+            lastRow,
+          },
+        },
+      };
     }),
 
   getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {

@@ -4,7 +4,7 @@ import {
   pengelolaProcedure,
   userProcedure,
 } from "#server/lib/trpc";
-import { and, asc, desc, eq, gte, isNull, like, lte, or } from "drizzle-orm";
+import { and, asc, count, desc, eq, gte, isNull, like, lte, or } from "drizzle-orm";
 import { z } from "zod";
 import { lpjBelanjaSchema } from "../schema/lpj_belanja";
 
@@ -16,9 +16,20 @@ export const lpjBelanjaRouter = createTRPCRouter({
         haveSpp: z.boolean().optional(),
         startDate: z.string().optional(),
         endDate: z.string().optional(),
+        page: z.number().optional(),
+        pageSize: z.number().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
+      const page = input.page ?? 1;
+
+      const dataTotal =
+        (
+          await ctx.db
+            .select({ count: count() })
+            .from(lpjBelanjaTable)
+        )[0].count ?? 0;
+
       let lpjBelanja = await ctx.db.query.lpjBelanjaTable.findMany({
         orderBy: [
           desc(lpjBelanjaTable.tglDokumen),
@@ -53,19 +64,42 @@ export const lpjBelanjaRouter = createTRPCRouter({
         lpjBelanja = lpjBelanja.filter((item) => !item.spp);
       }
 
-      return lpjBelanja.map((item) => ({
-        id: item.id,
-        tglDokumen: item.tglDokumen,
-        noDokumen: item.noDokumen,
-        uraian: item.uraian,
-        jumlah: item.belanja.reduce(
-          (acc, curr) => acc + Number(curr.jumlah),
-          0,
-        ),
-        jenis: item.jenis,
-        createdAt: item.createdAt,
-        updatedAt: item.updatedAt,
-      }));
+      const dataFiltered = lpjBelanja.length;
+      const pageSize = input.pageSize ?? dataFiltered;
+      const firstRow = (page - 1) * pageSize + 1;
+      const lastRow = (page - 1) * pageSize + Math.min(pageSize, dataFiltered - (page - 1) * pageSize);
+      const pageCount = Math.ceil(dataFiltered / pageSize);
+
+      const data = lpjBelanja
+        .slice((page - 1) * pageSize, page * pageSize)
+        .map((item) => ({
+          id: item.id,
+          tglDokumen: item.tglDokumen,
+          noDokumen: item.noDokumen,
+          uraian: item.uraian,
+          jumlah: item.belanja.reduce(
+            (acc, curr) => acc + Number(curr.jumlah),
+            0,
+          ),
+          jenis: item.jenis,
+          createdAt: item.createdAt,
+          updatedAt: item.updatedAt,
+        }));
+
+      return {
+        data,
+        meta: {
+          pagination: {
+            dataTotal,
+            dataFiltered,
+            page,
+            pageCount,
+            pageSize,
+            firstRow,
+            lastRow,
+          },
+        },
+      };
     }),
 
   getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {

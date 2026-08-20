@@ -29,7 +29,7 @@ export default function Sp2dRegisterTable() {
 
   if (!sp2d) return <div>Data tidak dapat dimuat.</div>;
 
-  const totalJumlah = sp2d.reduce((acc, item) => acc + Number(item.jumlah), 0);
+  const totalJumlah = sp2d.data.reduce((acc, item) => acc + Number(item.jumlah), 0);
 
   return (
     <div className="flex flex-col gap-5">
@@ -132,7 +132,7 @@ export default function Sp2dRegisterTable() {
               </tr>
             </thead>
             <tbody className="border-b-2 border-double border-black">
-              {sp2d.map((item, index) => (
+              {sp2d.data.map((item, index) => (
                 <tr
                   key={index}
                   className="border-t border-black"
@@ -169,7 +169,7 @@ export default function Sp2dRegisterTable() {
                   </td>
                 </tr>
               ))}
-              {sp2d.length === 0 && (
+              {sp2d.data.length === 0 && (
                 <tr>
                   <td colSpan={100} className="py-1 text-center">
                     Tidak ada data

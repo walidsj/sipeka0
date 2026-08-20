@@ -48,6 +48,9 @@ export const Route = createFileRoute("/_dashboard/belanja/spp/")({
   validateSearch: z.object({
     startDate: z.string().optional(),
     endDate: z.string().optional(),
+    search: z.string().optional(),
+    page: z.string().optional(),
+    pageSize: z.string().optional(),
   }),
   component: Page,
 });
