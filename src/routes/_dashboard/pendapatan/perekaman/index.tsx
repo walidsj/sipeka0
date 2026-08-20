@@ -42,6 +42,8 @@ function CreatePage() {
 
 export const Route = createFileRoute("/_dashboard/pendapatan/perekaman/")({
   validateSearch: z.object({
+    startDate: z.string().optional(),
+    endDate: z.string().optional(),
     search: z.string().optional(),
     page: z.string().optional(),
     pageSize: z.string().optional(),

@@ -75,7 +75,7 @@ export default function BankTable() {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex flex-row items-center gap-5">
+      <div className="flex flex-row items-center justify-end gap-5">
         <Select
           value={search["pageSize"] ?? "10"}
           onValueChange={(val) => {

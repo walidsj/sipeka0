@@ -104,25 +104,7 @@ export default function BelanjaTable() {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex flex-row items-center gap-5">
-        <Select
-          value={search["pageSize"] ?? "10"}
-          onValueChange={(val) => {
-            navigate({
-              search: (prev) => ({ ...prev, pageSize: val ?? "", page: "1" }),
-            });
-          }}
-        >
-          <SelectTrigger className="w-20 font-semibold">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="10">10</SelectItem>
-            <SelectItem value="25">25</SelectItem>
-            <SelectItem value="50">50</SelectItem>
-            <SelectItem value="100">100</SelectItem>
-          </SelectContent>
-        </Select>
+      <div className="flex flex-row items-center justify-between gap-5">
         <MonthFilter
           startDate={startDate}
           endDate={endDate}
@@ -133,24 +115,44 @@ export default function BelanjaTable() {
             })
           }
         />
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 flex items-center justify-center px-3">
-            <FiSearch className="text-gray-400" />
-          </div>
-          <Input
-            className="pl-10"
-            placeholder="Cari data..."
-            value={search["search"] ?? ""}
-            onChange={(e) => {
+        <div className="flex flex-row items-center gap-5">
+          <Select
+            value={search["pageSize"] ?? "10"}
+            onValueChange={(val) => {
               navigate({
-                search: (prev) => ({
-                  ...prev,
-                  search: e.target.value,
-                  page: "1",
-                }),
+                search: (prev) => ({ ...prev, pageSize: val ?? "", page: "1" }),
               });
             }}
-          />
+          >
+            <SelectTrigger className="w-20 font-semibold">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="10">10</SelectItem>
+              <SelectItem value="25">25</SelectItem>
+              <SelectItem value="50">50</SelectItem>
+              <SelectItem value="100">100</SelectItem>
+            </SelectContent>
+          </Select>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 flex items-center justify-center px-3">
+              <FiSearch className="text-gray-400" />
+            </div>
+            <Input
+              className="pl-10"
+              placeholder="Cari data..."
+              value={search["search"] ?? ""}
+              onChange={(e) => {
+                navigate({
+                  search: (prev) => ({
+                    ...prev,
+                    search: e.target.value,
+                    page: "1",
+                  }),
+                });
+              }}
+            />
+          </div>
         </div>
       </div>
       <Table>

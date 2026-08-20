@@ -1,7 +1,7 @@
 import { getRekening } from "@/data/rekening";
 import { aktivitasRba, dba, pendapatan } from "#server/db/schema";
 import { createTRPCRouter, userProcedure } from "#server/lib/trpc";
-import { and, count, desc, eq, like, sum } from "drizzle-orm";
+import { and, count, desc, eq, gte, like, lte, sum } from "drizzle-orm";
 import { z } from "zod";
 import { pendapatanSchema } from "../schema/pendapatan";
 import { TRPCError } from "@trpc/server";
@@ -11,6 +11,8 @@ export const pendapatanRouter = createTRPCRouter({
     .input(
       z.object({
         search: z.string().optional(),
+        startDate: z.string().optional(),
+        endDate: z.string().optional(),
         page: z.number().optional(),
         pageSize: z.number().optional(),
       }),
@@ -20,11 +22,17 @@ export const pendapatanRouter = createTRPCRouter({
       const pageSize = input.pageSize ?? 10;
       const search = input.search ?? "";
 
+      const where = and(
+        search ? like(pendapatan.keterangan, `%${search}%`) : undefined,
+        input.startDate ? gte(pendapatan.tglDokumen, input.startDate) : undefined,
+        input.endDate ? lte(pendapatan.tglDokumen, input.endDate) : undefined,
+      );
+
       const pendapatanList = await ctx.db.query.pendapatan.findMany({
         with: {
           rap: true,
         },
-        where: search ? like(pendapatan.keterangan, `%${search}%`) : undefined,
+        where,
         orderBy: [desc(pendapatan.tglDokumen), desc(pendapatan.createdAt)],
         limit: pageSize ?? 10,
         offset: page ? (page - 1) * pageSize : 0,
@@ -44,12 +52,18 @@ export const pendapatanRouter = createTRPCRouter({
           sum: sum(pendapatan.jumlah),
           count: count(pendapatan.jumlah),
         })
-        .from(pendapatan);
+        .from(pendapatan)
+        .where(
+          and(
+            input.startDate ? gte(pendapatan.tglDokumen, input.startDate) : undefined,
+            input.endDate ? lte(pendapatan.tglDokumen, input.endDate) : undefined,
+          ),
+        );
 
       const filtered = await ctx.db
         .select({ count: count(pendapatan.jumlah) })
         .from(pendapatan)
-        .where(search ? like(pendapatan.keterangan, `%${search}%`) : undefined);
+        .where(where);
 
       const totalSum = total[0].sum;
       const dataFiltered = filtered[0].count;

@@ -5,7 +5,7 @@ import {
   pengelolaProcedure,
   userProcedure,
 } from "#server/lib/trpc";
-import { and, count, desc, eq, gte, like, lte, or } from "drizzle-orm";
+import { and, count, desc, eq, gte, lte } from "drizzle-orm";
 import { z } from "zod";
 import { getRekening } from "@/data/rekening";
 
@@ -44,9 +44,6 @@ export const sppRouter = createTRPCRouter({
           },
         },
         where: and(
-          input.search
-            ? or(like(sppTable.noDokumen, `%${input.search}%`))
-            : undefined,
           input.startDate
             ? gte(sppTable.tglDokumen, input.startDate)
             : undefined,
@@ -60,6 +57,15 @@ export const sppRouter = createTRPCRouter({
 
       if (input.haveSpm === false) {
         spp = spp.filter((item) => !item.spm);
+      }
+
+      if (input.search) {
+        const q = input.search.toLowerCase();
+        spp = spp.filter(
+          (item) =>
+            item.noDokumen?.toLowerCase().includes(q) ||
+            item.lpjBelanja?.uraian?.toLowerCase().includes(q),
+        );
       }
 
       const dataFiltered = spp.length;

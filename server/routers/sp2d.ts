@@ -4,7 +4,7 @@ import {
   pengelolaProcedure,
   userProcedure,
 } from "#server/lib/trpc";
-import { and, count, desc, eq, gte, like, lte, or } from "drizzle-orm";
+import { and, count, desc, eq, gte, lte } from "drizzle-orm";
 import { z } from "zod";
 import { getRekening } from "@/data/rekening";
 import { sp2dSchema } from "../schema/sp2d";
@@ -46,15 +46,23 @@ export const sp2dRouter = createTRPCRouter({
           },
         },
         where: and(
-          input.search
-            ? or(like(sp2dTable.noDokumen, `%${input.search}%`))
-            : undefined,
           input.startDate
             ? gte(sp2dTable.tglDokumen, input.startDate)
             : undefined,
           input.endDate ? lte(sp2dTable.tglDokumen, input.endDate) : undefined,
         ),
       });
+
+      if (input.search) {
+        const q = input.search.toLowerCase();
+        for (let i = sp2d.length - 1; i >= 0; i--) {
+          const item = sp2d[i];
+          const match =
+            item.noDokumen?.toLowerCase().includes(q) ||
+            item.spm?.spp?.lpjBelanja?.uraian?.toLowerCase().includes(q);
+          if (!match) sp2d.splice(i, 1);
+        }
+      }
 
       const dataFiltered = sp2d.length;
       const pageSize = input.pageSize ?? dataFiltered;

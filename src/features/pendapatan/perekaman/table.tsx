@@ -39,6 +39,8 @@ import toast from "react-hot-toast";
 import { FiChevronsDown, FiEdit, FiSearch, FiTrash } from "react-icons/fi";
 import { Link, getRouteApi } from "@tanstack/react-router";
 import { useDebounce } from "use-debounce";
+import { MonthFilter, defaultDateRange } from "@/components/month-filter";
+import { useAuth } from "@/lib/auth";
 
 const routeApi = getRouteApi("/_dashboard/pendapatan/perekaman/");
 
@@ -49,9 +51,16 @@ export default function PendapatanTable() {
   const navigate = routeApi.useNavigate();
   const [searchValue] = useDebounce(search["search"] ?? "", 300);
 
+  const { user } = useAuth();
+  const tahun = user?.tahun ?? "2026";
+  const startDate = search["startDate"] || defaultDateRange(tahun).startDate;
+  const endDate = search["endDate"] || defaultDateRange(tahun).endDate;
+
   const { data: pendapatan } = api.pendapatan.getAll.useQuery(
     {
       search: searchValue ?? "",
+      startDate,
+      endDate,
       page: Number(search["page"] ?? 1),
       pageSize: Number(search["pageSize"] ?? 10),
     },
@@ -84,43 +93,53 @@ export default function PendapatanTable() {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex flex-row items-center gap-5">
-        <Select
-          value={search["pageSize"] ?? "10"}
-          onValueChange={(val) => {
-            navigate({
-              search: (prev) => ({ ...prev, pageSize: val ?? "", page: "1" }),
-            });
-          }}
-        >
-          <SelectTrigger className="w-20 font-semibold">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="10">10</SelectItem>
-            <SelectItem value="25">25</SelectItem>
-            <SelectItem value="50">50</SelectItem>
-            <SelectItem value="100">100</SelectItem>
-          </SelectContent>
-        </Select>
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 flex items-center justify-center px-3">
-            <FiSearch className="text-gray-400" />
-          </div>
-          <Input
-            className="pl-10"
-            placeholder="Cari data..."
-            value={search["search"] ?? ""}
-            onChange={(e) => {
+      <div className="flex flex-row items-center justify-between gap-5">
+        <MonthFilter
+          startDate={startDate}
+          endDate={endDate}
+          tahun={tahun}
+          onChange={(range) =>
+            navigate({ search: (prev) => ({ ...prev, page: "1", ...range }) })
+          }
+        />
+        <div className="flex flex-row items-center gap-5">
+          <Select
+            value={search["pageSize"] ?? "10"}
+            onValueChange={(val) => {
               navigate({
-                search: (prev) => ({
-                  ...prev,
-                  search: e.target.value,
-                  page: "1",
-                }),
+                search: (prev) => ({ ...prev, pageSize: val ?? "", page: "1" }),
               });
             }}
-          />
+          >
+            <SelectTrigger className="w-20 font-semibold">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="10">10</SelectItem>
+              <SelectItem value="25">25</SelectItem>
+              <SelectItem value="50">50</SelectItem>
+              <SelectItem value="100">100</SelectItem>
+            </SelectContent>
+          </Select>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 flex items-center justify-center px-3">
+              <FiSearch className="text-gray-400" />
+            </div>
+            <Input
+              className="pl-10"
+              placeholder="Cari data..."
+              value={search["search"] ?? ""}
+              onChange={(e) => {
+                navigate({
+                  search: (prev) => ({
+                    ...prev,
+                    search: e.target.value,
+                    page: "1",
+                  }),
+                });
+              }}
+            />
+          </div>
         </div>
       </div>
       <Table>
