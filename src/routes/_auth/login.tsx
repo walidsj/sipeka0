@@ -177,7 +177,7 @@ function Login() {
               />
             </CardContent>
             <CardFooter className="flex flex-col gap-3">
-              <Button size="lg" className="w-full">
+              <Button type="submit" size="lg" className="w-full">
                 {login.isPending ? "Memproses..." : "Masuk ke Sistem"}
               </Button>
               <p>

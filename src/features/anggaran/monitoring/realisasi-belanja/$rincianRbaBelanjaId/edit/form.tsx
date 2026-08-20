@@ -65,7 +65,7 @@ export default function EditForm({
   }
 
   return (
-    <Card>
+    <Card className="w-full max-w-lg shrink-0">
       <CardHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>

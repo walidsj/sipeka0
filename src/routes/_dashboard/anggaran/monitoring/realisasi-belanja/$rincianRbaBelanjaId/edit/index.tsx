@@ -36,8 +36,8 @@ function EditPage() {
         <CardTitle>Edit Pagu</CardTitle>
         <CardDescription>Akses cepat untuk mengubah data pagu</CardDescription>
       </div>
-      <div className="flex flex-row gap-5">
-        <Card className="max-w-lg">
+      <div className="flex flex-col gap-5 lg:flex-row">
+        <Card className="w-full max-w-lg shrink-0">
           <CardHeader className="space-y-1.5">
             <div className="space-y-1">
               <Label>Satuan</Label>
