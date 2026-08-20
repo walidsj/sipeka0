@@ -159,6 +159,7 @@ export default function BelanjaTable() {
             <TableHead className="w-1 text-center">No.</TableHead>
             <TableHead>Tanggal Dokumen</TableHead>
             <TableHead>Nomor Dokumen</TableHead>
+            <TableHead>Nomor LPJ</TableHead>
             <TableHead>Kode Rekening</TableHead>
             <TableHead>Uraian</TableHead>
             <TableHead className="text-center">Metode Pembayaran</TableHead>
@@ -209,6 +210,9 @@ export default function BelanjaTable() {
                 {item.file && (
                   <FiCheckCircle className="inline text-green-500" />
                 )}
+              </TableCell>
+              <TableCell className="text-center">
+                {item.lpjBelanja?.noDokumen}
               </TableCell>
               <TableCell>
                 <p>{item.rab?.uraian}</p>
@@ -369,7 +373,7 @@ export default function BelanjaTable() {
           {belanja.data.length === 0 && (
             <TableRow>
               <TableCell
-                colSpan={search["showPotonganColumn"] ? 11 : 9}
+                colSpan={search["showPotonganColumn"] ? 12 : 10}
                 className="text-center"
               >
                 Tidak ada data
@@ -379,7 +383,7 @@ export default function BelanjaTable() {
         </TableBody>
         <TableFooter>
           <TableRow>
-            <TableCell colSpan={6}>Total</TableCell>
+            <TableCell colSpan={7}>Total</TableCell>
             <TableCell
               className={cn(
                 "text-right",
@@ -397,7 +401,7 @@ export default function BelanjaTable() {
             )}
           </TableRow>
           <TableRow>
-            <TableCell colSpan={6}>Total Keseluruhan</TableCell>
+            <TableCell colSpan={7}>Total Keseluruhan</TableCell>
             <TableCell
               className={cn(
                 "text-right",
