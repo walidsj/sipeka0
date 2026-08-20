@@ -212,7 +212,18 @@ export default function BelanjaTable() {
                 )}
               </TableCell>
               <TableCell className="text-center">
-                {item.lpjBelanja?.noDokumen}
+                {item.lpjBelanja?.noDokumen && (
+                  <>
+                    {item.lpjBelanja.noDokumen}
+                    <p className="text-xs text-slate-500">
+                      {item.lpjBelanja.tglDokumen &&
+                        format(
+                          new Date(item.lpjBelanja.tglDokumen),
+                          "(dd-MMM-yy)",
+                        )}
+                    </p>
+                  </>
+                )}
               </TableCell>
               <TableCell>
                 <p>{item.rab?.uraian}</p>
