@@ -1,6 +1,6 @@
 import { bank } from "#server/db/schema";
 import { createTRPCRouter, userProcedure } from "#server/lib/trpc";
-import { eq, like, or } from "drizzle-orm";
+import { count, eq, like, or } from "drizzle-orm";
 import { z } from "zod";
 import { bankSchema } from "../schema/bank";
 
@@ -9,20 +9,55 @@ export const bankRouter = createTRPCRouter({
     .input(
       z.object({
         search: z.string().optional(),
+        page: z.number().optional(),
+        pageSize: z.number().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
-      return await ctx.db
+      const page = input.page ?? 1;
+      const pageSize = input.pageSize ?? 10;
+      const search = input.search ?? "";
+
+      const where = search
+        ? or(
+            like(bank.nama, `%${search}%`),
+            like(bank.kode, `${search}%`),
+          )
+        : undefined;
+
+      const data = await ctx.db
         .select()
         .from(bank)
-        .where(
-          input.search
-            ? or(
-                like(bank.nama, `%${input.search}%`),
-                like(bank.kode, `${input.search}%`),
-              )
-            : undefined,
-        );
+        .where(where)
+        .limit(pageSize)
+        .offset((page - 1) * pageSize);
+
+      const total = await ctx.db.select({ count: count() }).from(bank);
+      const filtered = await ctx.db
+        .select({ count: count() })
+        .from(bank)
+        .where(where);
+
+      const dataFiltered = filtered[0].count;
+      const dataTotal = total[0].count;
+      const firstRow = (page - 1) * pageSize + 1;
+      const lastRow = (page - 1) * pageSize + data.length;
+      const pageCount = Math.ceil(dataFiltered / pageSize);
+
+      return {
+        data,
+        meta: {
+          pagination: {
+            dataTotal,
+            dataFiltered,
+            page,
+            pageCount,
+            pageSize,
+            firstRow,
+            lastRow,
+          },
+        },
+      };
     }),
 
   getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {

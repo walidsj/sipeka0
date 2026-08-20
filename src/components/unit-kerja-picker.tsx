@@ -105,7 +105,7 @@ export default function UnitKerjaPicker({
             </TableHeader>
             <TableBody>
               {unitKerja.isSuccess &&
-                unitKerja.data?.map((item, index) => (
+                unitKerja.data?.data.map((item, index) => (
                   <TableRow
                     key={index}
                     className={cn(
@@ -140,7 +140,7 @@ export default function UnitKerjaPicker({
                     </TableCell>
                   </TableRow>
                 ))}
-              {unitKerja.isSuccess && unitKerja.data?.length === 0 && (
+              {unitKerja.isSuccess && unitKerja.data?.data.length === 0 && (
                 <TableRow>
                   <TableCell colSpan={3} className="text-center">
                     Tidak ada data

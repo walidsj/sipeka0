@@ -1,7 +1,7 @@
 import { pegawaiSchema } from "../schema/pegawai";
 import { pegawai } from "#server/db/schema";
 import { createTRPCRouter, userProcedure } from "#server/lib/trpc";
-import { asc, eq, like, or } from "drizzle-orm";
+import { asc, count, eq, like, or } from "drizzle-orm";
 import { z } from "zod";
 
 export const pegawaiRouter = createTRPCRouter({
@@ -9,23 +9,58 @@ export const pegawaiRouter = createTRPCRouter({
     .input(
       z.object({
         search: z.string().optional(),
+        page: z.number().optional(),
+        pageSize: z.number().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
-      return await ctx.db
+      const page = input.page ?? 1;
+      const pageSize = input.pageSize ?? 10;
+      const search = input.search ?? "";
+
+      const where = search
+        ? or(
+            like(pegawai.nama, `%${search}%`),
+            like(pegawai.jabatan, `%${search}%`),
+            like(pegawai.nip, `${search}%`),
+            like(pegawai.nik, `${search}%`),
+          )
+        : undefined;
+
+      const data = await ctx.db
         .select()
         .from(pegawai)
-        .where(
-          input.search
-            ? or(
-                like(pegawai.nama, `%${input.search}%`),
-                like(pegawai.jabatan, `%${input.search}%`),
-                like(pegawai.nip, `${input.search}%`),
-                like(pegawai.nik, `${input.search}%`),
-              )
-            : undefined,
-        )
-        .orderBy(asc(pegawai.nama));
+        .where(where)
+        .orderBy(asc(pegawai.nama))
+        .limit(pageSize)
+        .offset((page - 1) * pageSize);
+
+      const total = await ctx.db.select({ count: count() }).from(pegawai);
+      const filtered = await ctx.db
+        .select({ count: count() })
+        .from(pegawai)
+        .where(where);
+
+      const dataFiltered = filtered[0].count;
+      const dataTotal = total[0].count;
+      const firstRow = (page - 1) * pageSize + 1;
+      const lastRow = (page - 1) * pageSize + data.length;
+      const pageCount = Math.ceil(dataFiltered / pageSize);
+
+      return {
+        data,
+        meta: {
+          pagination: {
+            dataTotal,
+            dataFiltered,
+            page,
+            pageCount,
+            pageSize,
+            firstRow,
+            lastRow,
+          },
+        },
+      };
     }),
 
   getById: userProcedure.input(z.number()).query(async ({ ctx, input }) => {

@@ -273,7 +273,7 @@ export default function PendapatanTable() {
                   navigate({
                     search: (prev) => ({
                       ...prev,
-                      page: String(Number(search["page"]) + 1),
+                      page: String(Number(pendapatan.meta.pagination.page) + 1),
                     }),
                   });
                 }

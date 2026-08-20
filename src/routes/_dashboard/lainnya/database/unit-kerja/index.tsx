@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -43,5 +44,10 @@ function UnitKerja() {
 export const Route = createFileRoute(
   "/_dashboard/lainnya/database/unit-kerja/",
 )({
+  validateSearch: z.object({
+    search: z.string().optional(),
+    page: z.string().optional(),
+    pageSize: z.string().optional(),
+  }),
   component: UnitKerja,
 });

@@ -109,7 +109,7 @@ export default function BankPicker({
             </TableHeader>
             <TableBody>
               {bank.isSuccess &&
-                bank.data?.map((item, index) => (
+                bank.data?.data.map((item, index) => (
                   <TableRow
                     key={index}
                     className={cn(
@@ -145,7 +145,7 @@ export default function BankPicker({
                     </TableCell>
                   </TableRow>
                 ))}
-              {bank.isSuccess && bank.data?.length === 0 && (
+              {bank.isSuccess && bank.data?.data.length === 0 && (
                 <TableRow>
                   <TableCell colSpan={4} className="text-center">
                     Tidak ada data

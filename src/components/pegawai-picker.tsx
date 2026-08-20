@@ -117,7 +117,7 @@ export default function PegawaiPicker({
             </TableHeader>
             <TableBody>
               {pegawai.isSuccess &&
-                pegawai.data?.map((item, index) => (
+                pegawai.data?.data.map((item, index) => (
                   <TableRow
                     key={index}
                     className={cn(
@@ -158,7 +158,7 @@ export default function PegawaiPicker({
                     </TableCell>
                   </TableRow>
                 ))}
-              {pegawai.isSuccess && pegawai.data?.length === 0 && (
+              {pegawai.isSuccess && pegawai.data?.data.length === 0 && (
                 <TableRow>
                   <TableCell colSpan={4} className="text-center">
                     Tidak ada data

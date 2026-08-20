@@ -113,7 +113,7 @@ export default function RekananPicker({
             </TableHeader>
             <TableBody>
               {rekanan.isSuccess &&
-                rekanan.data?.map((item, index) => (
+                rekanan.data?.data.map((item, index) => (
                   <TableRow
                     key={index}
                     className={cn(
@@ -154,7 +154,7 @@ export default function RekananPicker({
                     </TableCell>
                   </TableRow>
                 ))}
-              {rekanan.isSuccess && rekanan.data?.length === 0 && (
+              {rekanan.isSuccess && rekanan.data?.data.length === 0 && (
                 <TableRow>
                   <TableCell colSpan={4} className="text-center">
                     Tidak ada data
