@@ -25,7 +25,7 @@ function Bank() {
         <CardAction>
           <Button asChild>
             <Link to="/lainnya/database/bank/tambah">
-              <FiPlus className="mr-2" />
+              <FiPlus />
               Tambah
             </Link>
           </Button>

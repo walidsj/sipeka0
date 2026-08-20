@@ -62,6 +62,12 @@ export function MonthFilter({
       start.getFullYear() === end.getFullYear();
     return isFullMonth ? format(start, "yyyy-MM") : "custom";
   })();
+  const items = [
+    ...(selectedMonth === "custom"
+      ? [{ value: "custom", label: "Rentang kustom" }]
+      : []),
+    ...monthOptions,
+  ];
 
   function setMonth(yearMonth: string) {
     const date = new Date(yearMonth + "-01");
@@ -75,8 +81,9 @@ export function MonthFilter({
     <div className="flex flex-wrap items-center gap-2">
       <Select
         value={selectedMonth}
+        items={items}
         onValueChange={(val) => {
-          if (val !== "custom") setMonth(val);
+          if (val && val !== "custom") setMonth(val);
         }}
       >
         <SelectTrigger className="w-44">

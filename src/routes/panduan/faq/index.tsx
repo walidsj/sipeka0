@@ -14,7 +14,7 @@ function Page() {
         Frequently Asked Question (FAQ)
       </h2>
       <div className="py-8 text-justify">
-        <Accordion type="single" collapsible className="w-full">
+        <Accordion className="w-full">
           <AccordionItem value="1">
             <AccordionTrigger>
               Akun tidak dapat login/masuk ke dalam Aplikasi SIPEKA

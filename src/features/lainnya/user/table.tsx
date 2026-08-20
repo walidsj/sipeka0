@@ -101,7 +101,7 @@ export default function UserTable() {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button variant="outline">
-                        Aksi <FiChevronsDown className="ml-2" />
+                        Aksi <FiChevronsDown />
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="start">
@@ -110,7 +110,7 @@ export default function UserTable() {
                         params={{ id: String(item.id) }}
                       >
                         <DropdownMenuItem>
-                          <FiEdit className="mr-2" />
+                          <FiEdit />
                           Edit
                         </DropdownMenuItem>
                       </Link>
@@ -124,7 +124,7 @@ export default function UserTable() {
                         }}
                         className="text-red-500"
                       >
-                        <FiTrash className="mr-2" />
+                        <FiTrash />
                         Hapus
                       </DropdownMenuItem>
                     </DropdownMenuContent>

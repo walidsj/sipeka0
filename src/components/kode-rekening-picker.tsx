@@ -130,7 +130,7 @@ export default function KodeRekeningPicker({
           <Select
             value={pageSize}
             onValueChange={(val) => {
-              setPageSize(val);
+              setPageSize(val ?? "");
               setPage(1);
             }}
           >

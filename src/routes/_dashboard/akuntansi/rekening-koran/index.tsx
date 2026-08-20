@@ -43,7 +43,7 @@ function Page() {
             <Button asChild>
               <Link to={String(rekening.id)}>
                 Lihat Data
-                <HiOutlineArrowSmRight className="ml-2" />
+                <HiOutlineArrowSmRight />
               </Link>
             </Button>
           </CardFooter>

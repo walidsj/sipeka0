@@ -31,13 +31,13 @@ function Page() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline">
-                Aksi <HiOutlineChevronDoubleDown className="ml-2" />
+                Aksi <HiOutlineChevronDoubleDown />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
               <Link to="/akuntansi/lra/cetak">
                 <DropdownMenuItem>
-                  <HiOutlinePrinter className="mr-2" />
+                  <HiOutlinePrinter />
                   Cetak
                 </DropdownMenuItem>
               </Link>

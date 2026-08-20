@@ -25,7 +25,7 @@ function PengelolaBlud() {
         <CardAction>
           <Button asChild>
             <Link to="/lainnya/pengaturan/pengelola-blud/tambah">
-              <FiPlus className="mr-2" />
+              <FiPlus />
               Tambah
             </Link>
           </Button>

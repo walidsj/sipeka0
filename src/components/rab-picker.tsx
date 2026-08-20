@@ -144,7 +144,7 @@ export default function RabPicker({
             onValueChange={(val) =>
               setPagination((prev) => ({
                 ...prev,
-                pageSize: val,
+                pageSize: val ?? "",
                 page: "1",
               }))
             }
@@ -268,7 +268,7 @@ export default function RabPicker({
               onValueChange={(val) => {
                 setPagination((prev) => ({
                   ...prev,
-                  page: val,
+                  page: val ?? "1",
                 }));
               }}
             >

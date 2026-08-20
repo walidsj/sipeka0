@@ -119,7 +119,7 @@ export default function BkPajakTable() {
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button variant="outline">
-                            Aksi <HiOutlineChevronDoubleDown className="ml-2" />
+                            Aksi <HiOutlineChevronDoubleDown />
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="start">
@@ -131,7 +131,7 @@ export default function BkPajakTable() {
                             }}
                           >
                             <DropdownMenuItem>
-                              <HiOutlinePencil className="mr-2" />
+                              <HiOutlinePencil />
                               Edit
                             </DropdownMenuItem>
                           </Link>

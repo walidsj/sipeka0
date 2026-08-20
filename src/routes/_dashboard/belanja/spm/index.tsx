@@ -24,6 +24,9 @@ function Page() {
           Daftar SPM Belanja Bendahara Pengeluaran BLUD RSJD Atma Husada Mahakam
         </CardDescription>
         <CardAction>
+          <Button asChild variant="outline">
+            <Link to="/belanja/spm/cetak">Cetak Register</Link>
+          </Button>
           <Button asChild>
             <Link to="/belanja/spm/tambah">
               <HiOutlinePlus />

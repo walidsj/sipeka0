@@ -51,6 +51,8 @@ export const sp2dRouter = createTRPCRouter({
         id: item.id,
         tglDokumen: item.tglDokumen,
         noDokumen: item.noDokumen,
+        spmNoDokumen: item.spm?.noDokumen ?? null,
+        jenis: item.spm?.spp?.lpjBelanja?.jenis ?? null,
         uraian: item.spm?.spp?.lpjBelanja?.uraian,
         jumlah: item.spm?.spp?.lpjBelanja?.belanja.reduce(
           (acc, curr) => acc + Number(curr.jumlah),

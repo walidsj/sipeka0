@@ -25,6 +25,9 @@ function Page() {
           Mahakam
         </CardDescription>
         <CardAction>
+          <Button asChild variant="outline">
+            <Link to="/belanja/sp2d/cetak">Cetak Register</Link>
+          </Button>
           <Button asChild>
             <Link to="/belanja/sp2d/tambah">
               <HiOutlinePlus />

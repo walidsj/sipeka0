@@ -68,7 +68,7 @@ function Page() {
             value={search["includeAdminBank"] || "false"}
             onValueChange={(val) => {
               navigate({
-                search: (prev) => ({ ...prev, includeAdminBank: val }),
+                search: (prev) => ({ ...prev, includeAdminBank: val ?? "false" }),
               });
             }}
           >

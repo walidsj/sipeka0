@@ -76,7 +76,7 @@ function EditPage() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline">
-                Aksi <HiOutlineChevronDown className="ml-2" />
+                Aksi <HiOutlineChevronDown />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
@@ -85,7 +85,7 @@ function EditPage() {
                 params={{ lpjBelanjaId: params.lpjBelanjaId }}
               >
                 <DropdownMenuItem>
-                  <HiOutlinePlus className="mr-2" />
+                  <HiOutlinePlus />
                   Tambah Belanja
                 </DropdownMenuItem>
               </Link>
@@ -94,7 +94,7 @@ function EditPage() {
                 params={{ lpjBelanjaId: params.lpjBelanjaId }}
               >
                 <DropdownMenuItem>
-                  <HiOutlinePencil className="mr-2" />
+                  <HiOutlinePencil />
                   Edit
                 </DropdownMenuItem>
               </Link>
@@ -103,7 +103,7 @@ function EditPage() {
                 params={{ lpjBelanjaId: params.lpjBelanjaId }}
               >
                 <DropdownMenuItem>
-                  <HiOutlinePrinter className="mr-2" />
+                  <HiOutlinePrinter />
                   Cetak
                 </DropdownMenuItem>
               </Link>
@@ -116,7 +116,7 @@ function EditPage() {
                 }}
                 className="text-red-500"
               >
-                <HiOutlineTrash className="mr-2" />
+                <HiOutlineTrash />
                 Hapus
               </DropdownMenuItem>
             </DropdownMenuContent>

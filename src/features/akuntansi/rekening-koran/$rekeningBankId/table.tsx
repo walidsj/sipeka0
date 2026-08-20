@@ -106,7 +106,7 @@ export default function RekeningKoranTable() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline">
-                    Aksi <HiOutlineChevronDown className="ml-2" />
+                    Aksi <HiOutlineChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
@@ -118,7 +118,7 @@ export default function RekeningKoranTable() {
                     }}
                   >
                     <DropdownMenuItem>
-                      <FiEdit className="mr-2" />
+                      <FiEdit />
                       Edit
                     </DropdownMenuItem>
                   </Link>
@@ -130,7 +130,7 @@ export default function RekeningKoranTable() {
                     }}
                     className="text-red-500"
                   >
-                    <HiOutlineTrash className="mr-2" />
+                    <HiOutlineTrash />
                     Hapus
                   </DropdownMenuItem>
                 </DropdownMenuContent>

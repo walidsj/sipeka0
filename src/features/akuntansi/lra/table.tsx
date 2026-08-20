@@ -119,7 +119,7 @@ export default function LraTable() {
                   <DropdownMenu>
                     <DropdownMenuTrigger>
                       <Button variant="outline">
-                        Aksi <HiOutlineChevronDoubleDown className="ml-2" />
+                        Aksi <HiOutlineChevronDoubleDown />
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
@@ -129,7 +129,7 @@ export default function LraTable() {
                         search={{ startDate, endDate }}
                       >
                         <DropdownMenuItem>
-                          <HiOutlineEye className="mr-2" />
+                          <HiOutlineEye />
                           Detail
                         </DropdownMenuItem>
                       </Link>

@@ -59,7 +59,7 @@ export default function UnitKerjaTable() {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline">
-                      Aksi <FiChevronsDown className="ml-2" />
+                      Aksi <FiChevronsDown />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="start">
@@ -68,7 +68,7 @@ export default function UnitKerjaTable() {
                       params={{ id: String(item.id) }}
                     >
                       <DropdownMenuItem>
-                        <FiEdit className="mr-2" />
+                        <FiEdit />
                         Edit
                       </DropdownMenuItem>
                     </Link>
@@ -80,7 +80,7 @@ export default function UnitKerjaTable() {
                       }}
                       className="text-red-500"
                     >
-                      <FiTrash className="mr-2" />
+                      <FiTrash />
                       Hapus
                     </DropdownMenuItem>
                   </DropdownMenuContent>

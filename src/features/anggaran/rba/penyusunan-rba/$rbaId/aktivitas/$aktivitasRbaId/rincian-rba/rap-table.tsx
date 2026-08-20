@@ -114,7 +114,7 @@ export default function RincianRapTable() {
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                               <Button variant="outline">
-                                Aksi <FiChevronsDown className="ml-2" />
+                                Aksi <FiChevronsDown />
                               </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="start">
@@ -127,7 +127,7 @@ export default function RincianRapTable() {
                                 }}
                               >
                                 <DropdownMenuItem>
-                                  <FiEdit className="mr-2" />
+                                  <FiEdit />
                                   Edit
                                 </DropdownMenuItem>
                               </Link>
@@ -143,7 +143,7 @@ export default function RincianRapTable() {
                                 }}
                                 className="text-red-500"
                               >
-                                <FiTrash className="mr-2" />
+                                <FiTrash />
                                 Hapus
                               </DropdownMenuItem>
                             </DropdownMenuContent>

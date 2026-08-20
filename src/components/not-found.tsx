@@ -12,12 +12,12 @@ export default function NotFound() {
       </p>
       <div className="flex gap-3">
         <Button variant="outline" onClick={() => window.history.back()}>
-          <FiChevronLeft className="mr-2" />
+          <FiChevronLeft />
           Halaman Sebelumnya
         </Button>
         <Button asChild>
           <Link to="/">
-            <FiHome className="mr-2" />
+            <FiHome />
             Kembali ke Home
           </Link>
         </Button>

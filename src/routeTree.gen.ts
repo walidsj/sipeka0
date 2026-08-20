@@ -67,10 +67,13 @@ import { Route as DashboardBelanjaLpjBelanjaTambahIndexRouteImport } from './rou
 import { Route as DashboardBelanjaPerekamanBelanjaIdIndexRouteImport } from './routes/_dashboard/belanja/perekaman/$belanjaId/index'
 import { Route as DashboardBelanjaPerekamanTambahIndexRouteImport } from './routes/_dashboard/belanja/perekaman/tambah/index'
 import { Route as DashboardBelanjaSp2dSp2dIdIndexRouteImport } from './routes/_dashboard/belanja/sp2d/$sp2dId/index'
+import { Route as DashboardBelanjaSp2dCetakIndexRouteImport } from './routes/_dashboard/belanja/sp2d/cetak/index'
 import { Route as DashboardBelanjaSp2dTambahIndexRouteImport } from './routes/_dashboard/belanja/sp2d/tambah/index'
 import { Route as DashboardBelanjaSpmSpmIdIndexRouteImport } from './routes/_dashboard/belanja/spm/$spmId/index'
+import { Route as DashboardBelanjaSpmCetakIndexRouteImport } from './routes/_dashboard/belanja/spm/cetak/index'
 import { Route as DashboardBelanjaSpmTambahIndexRouteImport } from './routes/_dashboard/belanja/spm/tambah/index'
 import { Route as DashboardBelanjaSppSppIdIndexRouteImport } from './routes/_dashboard/belanja/spp/$sppId/index'
+import { Route as DashboardBelanjaSppCetakIndexRouteImport } from './routes/_dashboard/belanja/spp/cetak/index'
 import { Route as DashboardBelanjaSppTambahIndexRouteImport } from './routes/_dashboard/belanja/spp/tambah/index'
 import { Route as DashboardLainnyaDatabaseBankIndexRouteImport } from './routes/_dashboard/lainnya/database/bank/index'
 import { Route as DashboardLainnyaDatabasePegawaiIndexRouteImport } from './routes/_dashboard/lainnya/database/pegawai/index'
@@ -473,6 +476,12 @@ const DashboardBelanjaSp2dSp2dIdIndexRoute =
     path: '/sp2d/$sp2dId/',
     getParentRoute: () => DashboardBelanjaRouteRoute,
   } as any)
+const DashboardBelanjaSp2dCetakIndexRoute =
+  DashboardBelanjaSp2dCetakIndexRouteImport.update({
+    id: '/sp2d/cetak/',
+    path: '/sp2d/cetak/',
+    getParentRoute: () => DashboardBelanjaRouteRoute,
+  } as any)
 const DashboardBelanjaSp2dTambahIndexRoute =
   DashboardBelanjaSp2dTambahIndexRouteImport.update({
     id: '/sp2d/tambah/',
@@ -485,6 +494,12 @@ const DashboardBelanjaSpmSpmIdIndexRoute =
     path: '/spm/$spmId/',
     getParentRoute: () => DashboardBelanjaRouteRoute,
   } as any)
+const DashboardBelanjaSpmCetakIndexRoute =
+  DashboardBelanjaSpmCetakIndexRouteImport.update({
+    id: '/spm/cetak/',
+    path: '/spm/cetak/',
+    getParentRoute: () => DashboardBelanjaRouteRoute,
+  } as any)
 const DashboardBelanjaSpmTambahIndexRoute =
   DashboardBelanjaSpmTambahIndexRouteImport.update({
     id: '/spm/tambah/',
@@ -495,6 +510,12 @@ const DashboardBelanjaSppSppIdIndexRoute =
   DashboardBelanjaSppSppIdIndexRouteImport.update({
     id: '/spp/$sppId/',
     path: '/spp/$sppId/',
+    getParentRoute: () => DashboardBelanjaRouteRoute,
+  } as any)
+const DashboardBelanjaSppCetakIndexRoute =
+  DashboardBelanjaSppCetakIndexRouteImport.update({
+    id: '/spp/cetak/',
+    path: '/spp/cetak/',
     getParentRoute: () => DashboardBelanjaRouteRoute,
   } as any)
 const DashboardBelanjaSppTambahIndexRoute =
@@ -1034,10 +1055,13 @@ export interface FileRoutesByFullPath {
   '/belanja/perekaman/$belanjaId/': typeof DashboardBelanjaPerekamanBelanjaIdIndexRoute
   '/belanja/perekaman/tambah/': typeof DashboardBelanjaPerekamanTambahIndexRoute
   '/belanja/sp2d/$sp2dId/': typeof DashboardBelanjaSp2dSp2dIdIndexRoute
+  '/belanja/sp2d/cetak/': typeof DashboardBelanjaSp2dCetakIndexRoute
   '/belanja/sp2d/tambah/': typeof DashboardBelanjaSp2dTambahIndexRoute
   '/belanja/spm/$spmId/': typeof DashboardBelanjaSpmSpmIdIndexRoute
+  '/belanja/spm/cetak/': typeof DashboardBelanjaSpmCetakIndexRoute
   '/belanja/spm/tambah/': typeof DashboardBelanjaSpmTambahIndexRoute
   '/belanja/spp/$sppId/': typeof DashboardBelanjaSppSppIdIndexRoute
+  '/belanja/spp/cetak/': typeof DashboardBelanjaSppCetakIndexRoute
   '/belanja/spp/tambah/': typeof DashboardBelanjaSppTambahIndexRoute
   '/lainnya/database/bank/': typeof DashboardLainnyaDatabaseBankIndexRoute
   '/lainnya/database/pegawai/': typeof DashboardLainnyaDatabasePegawaiIndexRoute
@@ -1165,10 +1189,13 @@ export interface FileRoutesByTo {
   '/belanja/perekaman/$belanjaId': typeof DashboardBelanjaPerekamanBelanjaIdIndexRoute
   '/belanja/perekaman/tambah': typeof DashboardBelanjaPerekamanTambahIndexRoute
   '/belanja/sp2d/$sp2dId': typeof DashboardBelanjaSp2dSp2dIdIndexRoute
+  '/belanja/sp2d/cetak': typeof DashboardBelanjaSp2dCetakIndexRoute
   '/belanja/sp2d/tambah': typeof DashboardBelanjaSp2dTambahIndexRoute
   '/belanja/spm/$spmId': typeof DashboardBelanjaSpmSpmIdIndexRoute
+  '/belanja/spm/cetak': typeof DashboardBelanjaSpmCetakIndexRoute
   '/belanja/spm/tambah': typeof DashboardBelanjaSpmTambahIndexRoute
   '/belanja/spp/$sppId': typeof DashboardBelanjaSppSppIdIndexRoute
+  '/belanja/spp/cetak': typeof DashboardBelanjaSppCetakIndexRoute
   '/belanja/spp/tambah': typeof DashboardBelanjaSppTambahIndexRoute
   '/lainnya/database/bank': typeof DashboardLainnyaDatabaseBankIndexRoute
   '/lainnya/database/pegawai': typeof DashboardLainnyaDatabasePegawaiIndexRoute
@@ -1304,10 +1331,13 @@ export interface FileRoutesById {
   '/_dashboard/belanja/perekaman/$belanjaId/': typeof DashboardBelanjaPerekamanBelanjaIdIndexRoute
   '/_dashboard/belanja/perekaman/tambah/': typeof DashboardBelanjaPerekamanTambahIndexRoute
   '/_dashboard/belanja/sp2d/$sp2dId/': typeof DashboardBelanjaSp2dSp2dIdIndexRoute
+  '/_dashboard/belanja/sp2d/cetak/': typeof DashboardBelanjaSp2dCetakIndexRoute
   '/_dashboard/belanja/sp2d/tambah/': typeof DashboardBelanjaSp2dTambahIndexRoute
   '/_dashboard/belanja/spm/$spmId/': typeof DashboardBelanjaSpmSpmIdIndexRoute
+  '/_dashboard/belanja/spm/cetak/': typeof DashboardBelanjaSpmCetakIndexRoute
   '/_dashboard/belanja/spm/tambah/': typeof DashboardBelanjaSpmTambahIndexRoute
   '/_dashboard/belanja/spp/$sppId/': typeof DashboardBelanjaSppSppIdIndexRoute
+  '/_dashboard/belanja/spp/cetak/': typeof DashboardBelanjaSppCetakIndexRoute
   '/_dashboard/belanja/spp/tambah/': typeof DashboardBelanjaSppTambahIndexRoute
   '/_dashboard/lainnya/database/bank/': typeof DashboardLainnyaDatabaseBankIndexRoute
   '/_dashboard/lainnya/database/pegawai/': typeof DashboardLainnyaDatabasePegawaiIndexRoute
@@ -1442,10 +1472,13 @@ export interface FileRouteTypes {
     | '/belanja/perekaman/$belanjaId/'
     | '/belanja/perekaman/tambah/'
     | '/belanja/sp2d/$sp2dId/'
+    | '/belanja/sp2d/cetak/'
     | '/belanja/sp2d/tambah/'
     | '/belanja/spm/$spmId/'
+    | '/belanja/spm/cetak/'
     | '/belanja/spm/tambah/'
     | '/belanja/spp/$sppId/'
+    | '/belanja/spp/cetak/'
     | '/belanja/spp/tambah/'
     | '/lainnya/database/bank/'
     | '/lainnya/database/pegawai/'
@@ -1573,10 +1606,13 @@ export interface FileRouteTypes {
     | '/belanja/perekaman/$belanjaId'
     | '/belanja/perekaman/tambah'
     | '/belanja/sp2d/$sp2dId'
+    | '/belanja/sp2d/cetak'
     | '/belanja/sp2d/tambah'
     | '/belanja/spm/$spmId'
+    | '/belanja/spm/cetak'
     | '/belanja/spm/tambah'
     | '/belanja/spp/$sppId'
+    | '/belanja/spp/cetak'
     | '/belanja/spp/tambah'
     | '/lainnya/database/bank'
     | '/lainnya/database/pegawai'
@@ -1711,10 +1747,13 @@ export interface FileRouteTypes {
     | '/_dashboard/belanja/perekaman/$belanjaId/'
     | '/_dashboard/belanja/perekaman/tambah/'
     | '/_dashboard/belanja/sp2d/$sp2dId/'
+    | '/_dashboard/belanja/sp2d/cetak/'
     | '/_dashboard/belanja/sp2d/tambah/'
     | '/_dashboard/belanja/spm/$spmId/'
+    | '/_dashboard/belanja/spm/cetak/'
     | '/_dashboard/belanja/spm/tambah/'
     | '/_dashboard/belanja/spp/$sppId/'
+    | '/_dashboard/belanja/spp/cetak/'
     | '/_dashboard/belanja/spp/tambah/'
     | '/_dashboard/lainnya/database/bank/'
     | '/_dashboard/lainnya/database/pegawai/'
@@ -2205,6 +2244,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardBelanjaSp2dSp2dIdIndexRouteImport
       parentRoute: typeof DashboardBelanjaRouteRoute
     }
+    '/_dashboard/belanja/sp2d/cetak/': {
+      id: '/_dashboard/belanja/sp2d/cetak/'
+      path: '/sp2d/cetak'
+      fullPath: '/belanja/sp2d/cetak/'
+      preLoaderRoute: typeof DashboardBelanjaSp2dCetakIndexRouteImport
+      parentRoute: typeof DashboardBelanjaRouteRoute
+    }
     '/_dashboard/belanja/sp2d/tambah/': {
       id: '/_dashboard/belanja/sp2d/tambah/'
       path: '/sp2d/tambah'
@@ -2219,6 +2265,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardBelanjaSpmSpmIdIndexRouteImport
       parentRoute: typeof DashboardBelanjaRouteRoute
     }
+    '/_dashboard/belanja/spm/cetak/': {
+      id: '/_dashboard/belanja/spm/cetak/'
+      path: '/spm/cetak'
+      fullPath: '/belanja/spm/cetak/'
+      preLoaderRoute: typeof DashboardBelanjaSpmCetakIndexRouteImport
+      parentRoute: typeof DashboardBelanjaRouteRoute
+    }
     '/_dashboard/belanja/spm/tambah/': {
       id: '/_dashboard/belanja/spm/tambah/'
       path: '/spm/tambah'
@@ -2231,6 +2284,13 @@ declare module '@tanstack/react-router' {
       path: '/spp/$sppId'
       fullPath: '/belanja/spp/$sppId/'
       preLoaderRoute: typeof DashboardBelanjaSppSppIdIndexRouteImport
+      parentRoute: typeof DashboardBelanjaRouteRoute
+    }
+    '/_dashboard/belanja/spp/cetak/': {
+      id: '/_dashboard/belanja/spp/cetak/'
+      path: '/spp/cetak'
+      fullPath: '/belanja/spp/cetak/'
+      preLoaderRoute: typeof DashboardBelanjaSppCetakIndexRouteImport
       parentRoute: typeof DashboardBelanjaRouteRoute
     }
     '/_dashboard/belanja/spp/tambah/': {
@@ -2801,10 +2861,13 @@ interface DashboardBelanjaRouteRouteChildren {
   DashboardBelanjaPerekamanBelanjaIdIndexRoute: typeof DashboardBelanjaPerekamanBelanjaIdIndexRoute
   DashboardBelanjaPerekamanTambahIndexRoute: typeof DashboardBelanjaPerekamanTambahIndexRoute
   DashboardBelanjaSp2dSp2dIdIndexRoute: typeof DashboardBelanjaSp2dSp2dIdIndexRoute
+  DashboardBelanjaSp2dCetakIndexRoute: typeof DashboardBelanjaSp2dCetakIndexRoute
   DashboardBelanjaSp2dTambahIndexRoute: typeof DashboardBelanjaSp2dTambahIndexRoute
   DashboardBelanjaSpmSpmIdIndexRoute: typeof DashboardBelanjaSpmSpmIdIndexRoute
+  DashboardBelanjaSpmCetakIndexRoute: typeof DashboardBelanjaSpmCetakIndexRoute
   DashboardBelanjaSpmTambahIndexRoute: typeof DashboardBelanjaSpmTambahIndexRoute
   DashboardBelanjaSppSppIdIndexRoute: typeof DashboardBelanjaSppSppIdIndexRoute
+  DashboardBelanjaSppCetakIndexRoute: typeof DashboardBelanjaSppCetakIndexRoute
   DashboardBelanjaSppTambahIndexRoute: typeof DashboardBelanjaSppTambahIndexRoute
   DashboardBelanjaLpjBelanjaLpjBelanjaIdCetakIndexRoute: typeof DashboardBelanjaLpjBelanjaLpjBelanjaIdCetakIndexRoute
   DashboardBelanjaLpjBelanjaLpjBelanjaIdEditIndexRoute: typeof DashboardBelanjaLpjBelanjaLpjBelanjaIdEditIndexRoute
@@ -2846,10 +2909,13 @@ const DashboardBelanjaRouteRouteChildren: DashboardBelanjaRouteRouteChildren = {
   DashboardBelanjaPerekamanTambahIndexRoute:
     DashboardBelanjaPerekamanTambahIndexRoute,
   DashboardBelanjaSp2dSp2dIdIndexRoute: DashboardBelanjaSp2dSp2dIdIndexRoute,
+  DashboardBelanjaSp2dCetakIndexRoute: DashboardBelanjaSp2dCetakIndexRoute,
   DashboardBelanjaSp2dTambahIndexRoute: DashboardBelanjaSp2dTambahIndexRoute,
   DashboardBelanjaSpmSpmIdIndexRoute: DashboardBelanjaSpmSpmIdIndexRoute,
+  DashboardBelanjaSpmCetakIndexRoute: DashboardBelanjaSpmCetakIndexRoute,
   DashboardBelanjaSpmTambahIndexRoute: DashboardBelanjaSpmTambahIndexRoute,
   DashboardBelanjaSppSppIdIndexRoute: DashboardBelanjaSppSppIdIndexRoute,
+  DashboardBelanjaSppCetakIndexRoute: DashboardBelanjaSppCetakIndexRoute,
   DashboardBelanjaSppTambahIndexRoute: DashboardBelanjaSppTambahIndexRoute,
   DashboardBelanjaLpjBelanjaLpjBelanjaIdCetakIndexRoute:
     DashboardBelanjaLpjBelanjaLpjBelanjaIdCetakIndexRoute,

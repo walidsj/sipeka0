@@ -109,7 +109,7 @@ export default function BelanjaTable() {
           value={search["pageSize"] ?? "10"}
           onValueChange={(val) => {
             navigate({
-              search: (prev) => ({ ...prev, pageSize: val, page: "1" }),
+              search: (prev) => ({ ...prev, pageSize: val ?? "", page: "1" }),
             });
           }}
         >
@@ -457,7 +457,7 @@ export default function BelanjaTable() {
             value={String(belanja.meta.pagination.page)}
             onValueChange={(val) => {
               navigate({
-                search: (prev) => ({ ...prev, page: val }),
+                search: (prev) => ({ ...prev, page: val ?? "1" }),
               });
             }}
           >

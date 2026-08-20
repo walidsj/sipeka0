@@ -25,7 +25,7 @@ function Page() {
         <CardAction>
           <Button asChild>
             <Link to="/akuntansi/sp3b/tambah">
-              <FiPlus className="mr-2" />
+              <FiPlus />
               Buat
             </Link>
           </Button>

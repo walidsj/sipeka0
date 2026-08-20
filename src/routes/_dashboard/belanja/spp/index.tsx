@@ -24,6 +24,9 @@ function Page() {
           Daftar SPP Belanja Bendahara Pengeluaran BLUD RSJD Atma Husada Mahakam
         </CardDescription>
         <CardAction>
+          <Button asChild variant="outline">
+            <Link to="/belanja/spp/cetak">Cetak Register</Link>
+          </Button>
           <Button asChild>
             <Link to="/belanja/spp/tambah">
               <HiOutlinePlus />

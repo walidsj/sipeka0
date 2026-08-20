@@ -100,7 +100,7 @@ function EditPage() {
                 params={{ belanjaId: params.belanjaId }}
               >
                 <DropdownMenuItem>
-                  <FiEdit className="mr-2" />
+                  <FiEdit />
                   Edit
                 </DropdownMenuItem>
               </Link>
@@ -109,7 +109,7 @@ function EditPage() {
                 params={{ belanjaId: params.belanjaId }}
               >
                 <DropdownMenuItem>
-                  <FiPrinter className="mr-2" />
+                  <FiPrinter />
                   Cetak Kwitansi
                 </DropdownMenuItem>
               </Link>
@@ -118,7 +118,7 @@ function EditPage() {
                 params={{ belanjaId: params.belanjaId }}
               >
                 <DropdownMenuItem>
-                  <FiPrinter className="mr-2" />
+                  <FiPrinter />
                   Cetak Amplop
                 </DropdownMenuItem>
               </Link>
@@ -127,7 +127,7 @@ function EditPage() {
                 params={{ belanjaId: params.belanjaId }}
               >
                 <DropdownMenuItem>
-                  <FiPrinter className="mr-2" />
+                  <FiPrinter />
                   Cetak Daftar Potong
                 </DropdownMenuItem>
               </Link>
@@ -136,7 +136,7 @@ function EditPage() {
                 params={{ belanjaId: params.belanjaId }}
               >
                 <DropdownMenuItem>
-                  <FiPrinter className="mr-2" />
+                  <FiPrinter />
                   Cetak Setoran Bank
                 </DropdownMenuItem>
               </Link>
@@ -149,7 +149,7 @@ function EditPage() {
                 }}
                 className="text-red-500"
               >
-                <FiTrash className="mr-2" />
+                <FiTrash />
                 Hapus
               </DropdownMenuItem>
             </DropdownMenuContent>

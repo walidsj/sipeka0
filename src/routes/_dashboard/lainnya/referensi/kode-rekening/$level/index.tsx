@@ -80,7 +80,7 @@ function Page() {
           value={search["pageSize"] ?? "10"}
           onValueChange={(val) => {
             navigate({
-              search: (prev) => ({ ...prev, pageSize: val, page: "1" }),
+              search: (prev) => ({ ...prev, pageSize: val ?? "", page: "1" }),
             });
           }}
         >

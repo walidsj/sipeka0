@@ -82,7 +82,7 @@ export default function PengelolaBludTable() {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline">
-                      Aksi <FiChevronsDown className="ml-2" />
+                      Aksi <FiChevronsDown />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="start">
@@ -91,7 +91,7 @@ export default function PengelolaBludTable() {
                       params={{ id: String(item.id) }}
                     >
                       <DropdownMenuItem>
-                        <FiEdit className="mr-2" />
+                        <FiEdit />
                         Edit
                       </DropdownMenuItem>
                     </Link>
@@ -103,7 +103,7 @@ export default function PengelolaBludTable() {
                       }}
                       className="text-red-500"
                     >
-                      <FiTrash className="mr-2" />
+                      <FiTrash />
                       Hapus
                     </DropdownMenuItem>
                   </DropdownMenuContent>

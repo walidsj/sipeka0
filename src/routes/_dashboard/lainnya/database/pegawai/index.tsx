@@ -23,7 +23,7 @@ function Pegawai() {
         <CardAction>
           <Button asChild>
             <Link to="/lainnya/database/pegawai/tambah">
-              <FiPlus className="mr-2" />
+              <FiPlus />
               Tambah
             </Link>
           </Button>

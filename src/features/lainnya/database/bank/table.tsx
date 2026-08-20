@@ -61,7 +61,7 @@ export default function BankTable() {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline">
-                      Aksi <FiChevronsDown className="ml-2" />
+                      Aksi <FiChevronsDown />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="start">
@@ -70,7 +70,7 @@ export default function BankTable() {
                       params={{ id: String(item.id) }}
                     >
                       <DropdownMenuItem>
-                        <FiEdit className="mr-2" />
+                        <FiEdit />
                         Edit
                       </DropdownMenuItem>
                     </Link>
@@ -82,7 +82,7 @@ export default function BankTable() {
                       }}
                       className="text-red-500"
                     >
-                      <FiTrash className="mr-2" />
+                      <FiTrash />
                       Hapus
                     </DropdownMenuItem>
                   </DropdownMenuContent>

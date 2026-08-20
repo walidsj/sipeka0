@@ -304,7 +304,7 @@ export default function MonitoringTable() {
                                   variant="outline"
                                   className="text-foreground"
                                 >
-                                  Aksi <FiChevronsDown className="ml-2" />
+                                  Aksi <FiChevronsDown />
                                 </Button>
                               </DropdownMenuTrigger>
                               <DropdownMenuContent align="start">
@@ -315,7 +315,7 @@ export default function MonitoringTable() {
                                   }}
                                 >
                                   <DropdownMenuItem>
-                                    <FiList className="mr-2" />
+                                    <FiList />
                                     Detail Belanja
                                   </DropdownMenuItem>
                                 </Link>
@@ -326,7 +326,7 @@ export default function MonitoringTable() {
                                   }}
                                 >
                                   <DropdownMenuItem>
-                                    <FiEdit className="mr-2" />
+                                    <FiEdit />
                                     Edit Pagu
                                   </DropdownMenuItem>
                                 </Link>
