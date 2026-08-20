@@ -164,6 +164,7 @@ export default function BelanjaTable() {
             <TableHead>Nomor LPJ</TableHead>
             <TableHead>Kode Rekening</TableHead>
             <TableHead>Uraian</TableHead>
+            <TableHead>Penerima</TableHead>
             <TableHead className="text-center">Metode Pembayaran</TableHead>
             <TableHead className="text-right">Jumlah</TableHead>
             {search["showPotonganColumn"] && (
@@ -228,23 +229,21 @@ export default function BelanjaTable() {
                 )}
               </TableCell>
               <TableCell>
-                <p>{item.rab?.uraian}</p>
                 <p className="text-xs text-slate-500">
                   {item.rab?.kodeRekening}
                 </p>
                 <p className="text-xs text-slate-500">
                   {item.rekening?.uraian}
                 </p>
+                <p>{item.rab?.uraian}</p>
               </TableCell>
               <TableCell>
                 <p>{item.uraian}</p>
-                {item.rekanan && (
-                  <p className="mt-3 text-xs text-slate-500">
-                    {item.rekanan.nama}
-                  </p>
-                )}
+              </TableCell>
+              <TableCell>
+                {item.rekanan && <p>{item.rekanan.nama}</p>}
                 {item.pegawai && (
-                  <p className="mt-3 text-xs text-slate-500">
+                  <p>
                     {item.pegawai.gelarDepan && `${item.pegawai.gelarDepan} `}
                     {item.pegawai.nama}
                     {item.pegawai.gelarBelakang &&
@@ -386,7 +385,7 @@ export default function BelanjaTable() {
           {belanja.data.length === 0 && (
             <TableRow>
               <TableCell
-                colSpan={search["showPotonganColumn"] ? 12 : 10}
+                colSpan={search["showPotonganColumn"] ? 13 : 11}
                 className="text-center"
               >
                 Tidak ada data
@@ -396,7 +395,7 @@ export default function BelanjaTable() {
         </TableBody>
         <TableFooter>
           <TableRow>
-            <TableCell colSpan={7}>Total</TableCell>
+            <TableCell colSpan={8}>Total</TableCell>
             <TableCell
               className={cn(
                 "text-right",
@@ -414,7 +413,7 @@ export default function BelanjaTable() {
             )}
           </TableRow>
           <TableRow>
-            <TableCell colSpan={7}>Total Keseluruhan</TableCell>
+            <TableCell colSpan={8}>Total Keseluruhan</TableCell>
             <TableCell
               className={cn(
                 "text-right",

@@ -59,6 +59,7 @@ export const sp2dRouter = createTRPCRouter({
           const item = sp2d[i];
           const match =
             item.noDokumen?.toLowerCase().includes(q) ||
+            item.noCek?.toLowerCase().includes(q) ||
             item.spm?.spp?.lpjBelanja?.uraian?.toLowerCase().includes(q);
           if (!match) sp2d.splice(i, 1);
         }
