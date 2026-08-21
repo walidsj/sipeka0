@@ -23,6 +23,7 @@ import {
 import { Button } from "@/components/ui/button";
 import {
   HiOutlineChevronDown,
+  HiOutlineDocumentText,
   HiOutlinePencil,
   HiOutlinePlus,
   HiOutlinePrinter,
@@ -104,7 +105,16 @@ function EditPage() {
               >
                 <DropdownMenuItem>
                   <HiOutlinePrinter />
-                  Cetak
+                  Cetak LPJ
+                </DropdownMenuItem>
+              </Link>
+              <Link
+                to="/belanja/lpj-belanja/$lpjBelanjaId/spj-bendahara"
+                params={{ lpjBelanjaId: params.lpjBelanjaId }}
+              >
+                <DropdownMenuItem>
+                  <HiOutlineDocumentText />
+                  Cetak SPJ Bendahara
                 </DropdownMenuItem>
               </Link>
               <DropdownMenuSeparator />

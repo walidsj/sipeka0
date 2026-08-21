@@ -1411,4 +1411,285 @@ export const belanjaRouter = createTRPCRouter({
 
       return { message: "File berhasil diupload" };
     }),
+
+  getSpjBendahara: userProcedure
+    .input(
+      z.object({
+        startDate: z.string().optional(),
+        endDate: z.string().optional(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const latestDba = await ctx.db.query.dba.findFirst({
+        orderBy: desc(dba.tglDokumen),
+      });
+
+      if (!latestDba) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "DBA belum tersedia",
+        });
+      }
+
+      const rbaByDba = await ctx.db.query.rba.findFirst({
+        where: eq(rba.id, latestDba.rbaId!),
+        with: {
+          aktivitas: {
+            where: eq(aktivitasRba.jenis, "BELANJA"),
+            with: {
+              rincianRbaBelanja: {
+                with: {
+                  rab: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      if (!rbaByDba) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "RBA belum tersedia",
+        });
+      }
+
+      const anggaranBelanjaFlatten = rbaByDba.aktivitas
+        .flatMap((a) => a.rincianRbaBelanja)
+        .map((r) => ({
+          kodeRekening: r.rab?.kodeRekening,
+          jumlah: Number(r.harga) * Number(r.volume),
+        }));
+
+      const startDate = input.startDate || format(new Date(), "yyyy-01-01");
+      const endDate = input.endDate || format(new Date(), "yyyy-MM-dd");
+
+      const filterYear = startDate.slice(0, 4);
+
+      // "s.d Bulan Lalu" = from year start to day before startDate
+      const bulanLaluEnd = startDate.slice(0, 7);
+      const prevMonth = new Date(bulanLaluEnd + "-01");
+      prevMonth.setMonth(prevMonth.getMonth() - 1);
+      const bulanLaluEndDate =
+        format(prevMonth, "yyyy-MM") +
+        "-" +
+        format(new Date(prevMonth.getFullYear(), prevMonth.getMonth() + 1, 0), "dd");
+
+      const filterDate = and(
+        gte(belanja.tglDokumen, startDate),
+        lte(belanja.tglDokumen, endDate),
+      );
+
+      // s.d Bulan Lalu = year start to day before startDate
+      const filterBulanLalu = and(
+        gte(belanja.tglDokumen, `${filterYear}-01-01`),
+        lte(belanja.tglDokumen, bulanLaluEndDate),
+      );
+
+      // s.d Bulan Ini = year start to endDate
+      const filterSdBulanIni = and(
+        gte(belanja.tglDokumen, `${filterYear}-01-01`),
+        lte(belanja.tglDokumen, endDate),
+      );
+
+      const getRekapByJenis = async (
+        dateFilter: typeof filterDate,
+        jenis: string,
+      ) => {
+        const rows = await ctx.db
+          .select({
+            rabId: belanja.rabId,
+            jumlah: sql<string>`COALESCE(SUM(${belanja.jumlah}), 0)`.as(
+              "jumlah",
+            ),
+          })
+          .from(belanja)
+          .innerJoin(lpjBelanjaTable, eq(belanja.lpjBelanjaId, lpjBelanjaTable.id))
+          .where(and(dateFilter, eq(lpjBelanjaTable.jenis, jenis as "LS" | "GU" | "TU")))
+          .groupBy(belanja.rabId);
+
+        return rows;
+      };
+
+      const getRekapNonLs = async (dateFilter: typeof filterDate) => {
+        const rows = await ctx.db
+          .select({
+            rabId: belanja.rabId,
+            jumlah: sql<string>`COALESCE(SUM(${belanja.jumlah}), 0)`.as(
+              "jumlah",
+            ),
+          })
+          .from(belanja)
+          .innerJoin(lpjBelanjaTable, eq(belanja.lpjBelanjaId, lpjBelanjaTable.id))
+          .where(
+            and(
+              dateFilter,
+              or(
+                eq(lpjBelanjaTable.jenis, "GU"),
+                eq(lpjBelanjaTable.jenis, "TU"),
+              ),
+            ),
+          )
+          .groupBy(belanja.rabId);
+
+        return rows;
+      };
+
+      // YTD (s.d Bulan Ini)
+      // s.d Bulan Ini (full year to endDate)
+      const [lsSdBulanIni, nonLsSdBulanIni] = await Promise.all([
+        getRekapByJenis(filterSdBulanIni, "LS"),
+        getRekapNonLs(filterSdBulanIni),
+      ]);
+
+      // s.d Bulan Lalu (year start to day before startDate)
+      const [lsBulanLalu, nonLsBulanLalu] = await Promise.all([
+        getRekapByJenis(filterBulanLalu, "LS"),
+        getRekapNonLs(filterBulanLalu),
+      ]);
+
+      // Bulan Ini = s.d Bulan Ini - s.d Bulan Lalu (per rabId)
+      const lsBulanIni = lsSdBulanIni.map((item) => {
+        const bl = lsBulanLalu.find((r) => r.rabId === item.rabId);
+        return {
+          rabId: item.rabId,
+          jumlah: Number(item.jumlah) - Number(bl?.jumlah ?? 0),
+        };
+      });
+      const nonLsBulanIni = nonLsSdBulanIni.map((item) => {
+        const bl = nonLsBulanLalu.find((r) => r.rabId === item.rabId);
+        return {
+          rabId: item.rabId,
+          jumlah: Number(item.jumlah) - Number(bl?.jumlah ?? 0),
+        };
+      });
+
+      const rekeningLevel6 = getRekening(ctx.session?.tahun).level6;
+
+      // Collect all rabIds that have any belanja
+      const allRabIds = new Set<number>();
+      lsSdBulanIni.forEach((r) => allRabIds.add(r.rabId!));
+      nonLsSdBulanIni.forEach((r) => allRabIds.add(r.rabId!));
+      lsBulanLalu.forEach((r) => allRabIds.add(r.rabId!));
+      nonLsBulanLalu.forEach((r) => allRabIds.add(r.rabId!));
+
+      // Get rab kodeRekening mapping
+      const rabList = await ctx.db
+        .select({ id: rab.id, kodeRekening: rab.kodeRekening })
+        .from(rab)
+        .where(
+          allRabIds.size > 0
+            ? sql`${rab.id} IN (${sql.join([...allRabIds].map((id) => sql`${id}`), sql`, `)})`
+            : undefined,
+        );
+
+      const rabKodeMap = new Map(rabList.map((r) => [r.id, r.kodeRekening]));
+
+      // Collect all kodeRekening that have budget or belanja
+      const allKodeRekening = new Set<string>();
+      anggaranBelanjaFlatten.forEach((a) => {
+        if (a.kodeRekening) allKodeRekening.add(a.kodeRekening);
+      });
+      rabKodeMap.forEach((kode) => { if (kode) allKodeRekening.add(kode); });
+
+      const rekeningLv6 = rekeningLevel6.filter((item) =>
+        allKodeRekening.has(item.kode),
+      );
+
+      // Helper: sum jumlah from rekap rows by rabId
+      const sumByRabId = (
+        rows: { rabId: number | null; jumlah: string | number }[],
+        rabId: number,
+      ) =>
+        rows
+          .filter((r) => r.rabId === rabId)
+          .reduce((acc, r) => acc + Number(r.jumlah), 0);
+
+      // Helper: check if kode starts with prefix
+      const kodeStartsWith = (kode: string, prefix: string) =>
+        kode.startsWith(prefix);
+
+      return rekeningLv6.map((item) => {
+        // Find all rabIds for this kodeRekening
+        const rabIds = rabList
+          .filter((r) => r.kodeRekening === item.kode)
+          .map((r) => r.id);
+
+        const anggaran = anggaranBelanjaFlatten
+          .filter((a) => a.kodeRekening === item.kode)
+          .reduce((acc, a) => acc + a.jumlah, 0);
+
+        // LS Pegawai (5.1.01), LS Barang dan Jasa (5.1.02), LS Modal (5.2)
+        let lsPegawaiSdBulanIni = 0,
+          lsPegawaiBulanLalu = 0,
+          lsPegawaiBulanIni = 0,
+          lsBjSdBulanIni = 0,
+          lsBjBulanLalu = 0,
+          lsBjBulanIni = 0,
+          lsModalSdBulanIni = 0,
+          lsModalBulanLalu = 0,
+          lsModalBulanIni = 0;
+
+        for (const rabId of rabIds) {
+          const sd = sumByRabId(lsSdBulanIni, rabId);
+          const bl = sumByRabId(lsBulanLalu, rabId);
+          const bi = sumByRabId(lsBulanIni, rabId);
+
+          if (kodeStartsWith(item.kode, "5.1.01")) {
+            lsPegawaiSdBulanIni += sd;
+            lsPegawaiBulanLalu += bl;
+            lsPegawaiBulanIni += bi;
+          } else if (kodeStartsWith(item.kode, "5.1.02")) {
+            lsBjSdBulanIni += sd;
+            lsBjBulanLalu += bl;
+            lsBjBulanIni += bi;
+          } else if (kodeStartsWith(item.kode, "5.2")) {
+            lsModalSdBulanIni += sd;
+            lsModalBulanLalu += bl;
+            lsModalBulanIni += bi;
+          }
+        }
+
+        // Non-LS (UP/GU/TU)
+        let nonLsSdBulanIniTotal = 0,
+          nonLsBulanLaluTotal = 0,
+          nonLsBulanIniTotal = 0;
+        for (const rabId of rabIds) {
+          nonLsSdBulanIniTotal += sumByRabId(nonLsSdBulanIni, rabId);
+          nonLsBulanLaluTotal += sumByRabId(nonLsBulanLalu, rabId);
+          nonLsBulanIniTotal += sumByRabId(nonLsBulanIni, rabId);
+        }
+
+        const jumlahSpj =
+          lsPegawaiSdBulanIni + lsBjSdBulanIni + lsModalSdBulanIni + nonLsSdBulanIniTotal;
+
+        return {
+          kodeRekening: item.kode,
+          uraian: item.uraian,
+          anggaran,
+          lsPegawai: {
+            bulanLalu: lsPegawaiBulanLalu,
+            bulanIni: lsPegawaiBulanIni,
+            sdBulanIni: lsPegawaiSdBulanIni,
+          },
+          lsBarangJasa: {
+            bulanLalu: lsBjBulanLalu,
+            bulanIni: lsBjBulanIni,
+            sdBulanIni: lsBjSdBulanIni,
+          },
+          lsModal: {
+            bulanLalu: lsModalBulanLalu,
+            bulanIni: lsModalBulanIni,
+            sdBulanIni: lsModalSdBulanIni,
+          },
+          nonLs: {
+            bulanLalu: nonLsBulanLaluTotal,
+            bulanIni: nonLsBulanIniTotal,
+            sdBulanIni: nonLsSdBulanIniTotal,
+          },
+          jumlahSpj,
+          sisaAnggaran: anggaran - jumlahSpj,
+        };
+      });
+    }),
 });

@@ -19,7 +19,7 @@ import { api } from "@/trpc/react";
 import { keepPreviousData } from "@tanstack/react-query";
 import { HiOutlineChevronDoubleDown, HiOutlineEye } from "react-icons/hi";
 import { Link, getRouteApi } from "@tanstack/react-router";
-import { MonthFilter, defaultDateRange } from "@/components/month-filter";
+import { MonthFilter } from "@/components/month-filter";
 import { useAuth } from "@/lib/auth";
 
 const routeApi = getRouteApi("/_dashboard/akuntansi/lra/");
@@ -29,8 +29,8 @@ export default function LraTable() {
   const navigate = routeApi.useNavigate();
   const { user } = useAuth();
   const tahun = user?.tahun ?? "2026";
-  const startDate = search["startDate"] || defaultDateRange(tahun).startDate;
-  const endDate = search["endDate"] || defaultDateRange(tahun).endDate;
+  const startDate = search["startDate"] || `${tahun}-01-01`;
+  const endDate = search["endDate"] || `${tahun}-12-31`;
 
   const { data: belanja } = api.belanja.getBelanjaLra.useQuery(
     {
@@ -42,8 +42,7 @@ export default function LraTable() {
 
   if (!belanja) return <div>Data tidak dapat dimuat.</div>;
 
-  const isFullPeriod =
-    startDate.slice(5) === "01-01" && endDate.slice(5) === "12-31";
+  const isFullPeriod = startDate.slice(5) === "01-01";
   const realisasi = (item: (typeof belanja)[number]) =>
     Number(item.jumlahSebelumnya ?? 0) + Number(item.jumlah ?? 0);
 
@@ -75,6 +74,9 @@ export default function LraTable() {
                 <TableHead className="text-right">
                   Realisasi Periode Ini (Rp)
                 </TableHead>
+                <TableHead className="text-right">
+                  Jumlah Realisasi (Rp)
+                </TableHead>
               </>
             )}
             <TableHead className="text-right">Sisa Anggaran (Rp)</TableHead>
@@ -88,31 +90,33 @@ export default function LraTable() {
                 key={index}
                 className={cn(
                   realisasi(item) > item.anggaran && "text-red-500",
-                  realisasi(item) === 0 && "text-gray-400",
                 )}
               >
                 <TableCell className="font-semibold">
                   {item.kodeRekening}
                 </TableCell>
                 <TableCell className="font-semibold">{item.uraian}</TableCell>
-                <TableCell className="text-right font-semibold">
+                <TableCell className="text-right">
                   {formatAngka(item.anggaran)}
                 </TableCell>
                 {isFullPeriod ? (
-                  <TableCell className="text-right font-semibold">
+                  <TableCell className="text-right">
                     {formatAngka(item.jumlah)}
                   </TableCell>
                 ) : (
                   <>
-                    <TableCell className="text-right font-semibold">
+                    <TableCell className="text-right">
                       {formatAngka(item.jumlahSebelumnya)}
                     </TableCell>
-                    <TableCell className="text-right font-semibold">
+                    <TableCell className="text-right">
                       {formatAngka(item.jumlah)}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {formatAngka(realisasi(item))}
                     </TableCell>
                   </>
                 )}
-                <TableCell className="text-right font-semibold">
+                <TableCell className="text-right">
                   {formatAngka(item.anggaran - realisasi(item))}
                 </TableCell>
                 <TableCell>
@@ -174,6 +178,11 @@ export default function LraTable() {
                 <TableHead className="text-right">
                   {formatAngka(
                     belanja.reduce((acc, item) => acc + item.jumlah, 0),
+                  )}
+                </TableHead>
+                <TableHead className="text-right">
+                  {formatAngka(
+                    belanja.reduce((acc, item) => acc + realisasi(item), 0),
                   )}
                 </TableHead>
               </>

@@ -97,6 +97,7 @@ import { Route as DashboardAnggaranRbaPenyusunanRbaTambahIndexRouteImport } from
 import { Route as DashboardBelanjaBukuBukuPajakCetakIndexRouteImport } from './routes/_dashboard/belanja/buku/buku-pajak/cetak/index'
 import { Route as DashboardBelanjaLpjBelanjaLpjBelanjaIdCetakIndexRouteImport } from './routes/_dashboard/belanja/lpj-belanja/$lpjBelanjaId/cetak/index'
 import { Route as DashboardBelanjaLpjBelanjaLpjBelanjaIdEditIndexRouteImport } from './routes/_dashboard/belanja/lpj-belanja/$lpjBelanjaId/edit/index'
+import { Route as DashboardBelanjaLpjBelanjaLpjBelanjaIdSpjBendaharaIndexRouteImport } from './routes/_dashboard/belanja/lpj-belanja/$lpjBelanjaId/spj-bendahara/index'
 import { Route as DashboardBelanjaLpjBelanjaLpjBelanjaIdTambahBelanjaIndexRouteImport } from './routes/_dashboard/belanja/lpj-belanja/$lpjBelanjaId/tambah-belanja/index'
 import { Route as DashboardBelanjaPerekamanBelanjaIdCetakAmplopIndexRouteImport } from './routes/_dashboard/belanja/perekaman/$belanjaId/cetak-amplop/index'
 import { Route as DashboardBelanjaPerekamanBelanjaIdCetakDaftarPotongIndexRouteImport } from './routes/_dashboard/belanja/perekaman/$belanjaId/cetak-daftar-potong/index'
@@ -659,6 +660,12 @@ const DashboardBelanjaLpjBelanjaLpjBelanjaIdEditIndexRoute =
     path: '/lpj-belanja/$lpjBelanjaId/edit/',
     getParentRoute: () => DashboardBelanjaRouteRoute,
   } as any)
+const DashboardBelanjaLpjBelanjaLpjBelanjaIdSpjBendaharaIndexRoute =
+  DashboardBelanjaLpjBelanjaLpjBelanjaIdSpjBendaharaIndexRouteImport.update({
+    id: '/lpj-belanja/$lpjBelanjaId/spj-bendahara/',
+    path: '/lpj-belanja/$lpjBelanjaId/spj-bendahara/',
+    getParentRoute: () => DashboardBelanjaRouteRoute,
+  } as any)
 const DashboardBelanjaLpjBelanjaLpjBelanjaIdTambahBelanjaIndexRoute =
   DashboardBelanjaLpjBelanjaLpjBelanjaIdTambahBelanjaIndexRouteImport.update({
     id: '/lpj-belanja/$lpjBelanjaId/tambah-belanja/',
@@ -1085,6 +1092,7 @@ export interface FileRoutesByFullPath {
   '/belanja/buku/buku-pajak/cetak/': typeof DashboardBelanjaBukuBukuPajakCetakIndexRoute
   '/belanja/lpj-belanja/$lpjBelanjaId/cetak/': typeof DashboardBelanjaLpjBelanjaLpjBelanjaIdCetakIndexRoute
   '/belanja/lpj-belanja/$lpjBelanjaId/edit/': typeof DashboardBelanjaLpjBelanjaLpjBelanjaIdEditIndexRoute
+  '/belanja/lpj-belanja/$lpjBelanjaId/spj-bendahara/': typeof DashboardBelanjaLpjBelanjaLpjBelanjaIdSpjBendaharaIndexRoute
   '/belanja/lpj-belanja/$lpjBelanjaId/tambah-belanja/': typeof DashboardBelanjaLpjBelanjaLpjBelanjaIdTambahBelanjaIndexRoute
   '/belanja/perekaman/$belanjaId/cetak-amplop/': typeof DashboardBelanjaPerekamanBelanjaIdCetakAmplopIndexRoute
   '/belanja/perekaman/$belanjaId/cetak-daftar-potong/': typeof DashboardBelanjaPerekamanBelanjaIdCetakDaftarPotongIndexRoute
@@ -1219,6 +1227,7 @@ export interface FileRoutesByTo {
   '/belanja/buku/buku-pajak/cetak': typeof DashboardBelanjaBukuBukuPajakCetakIndexRoute
   '/belanja/lpj-belanja/$lpjBelanjaId/cetak': typeof DashboardBelanjaLpjBelanjaLpjBelanjaIdCetakIndexRoute
   '/belanja/lpj-belanja/$lpjBelanjaId/edit': typeof DashboardBelanjaLpjBelanjaLpjBelanjaIdEditIndexRoute
+  '/belanja/lpj-belanja/$lpjBelanjaId/spj-bendahara': typeof DashboardBelanjaLpjBelanjaLpjBelanjaIdSpjBendaharaIndexRoute
   '/belanja/lpj-belanja/$lpjBelanjaId/tambah-belanja': typeof DashboardBelanjaLpjBelanjaLpjBelanjaIdTambahBelanjaIndexRoute
   '/belanja/perekaman/$belanjaId/cetak-amplop': typeof DashboardBelanjaPerekamanBelanjaIdCetakAmplopIndexRoute
   '/belanja/perekaman/$belanjaId/cetak-daftar-potong': typeof DashboardBelanjaPerekamanBelanjaIdCetakDaftarPotongIndexRoute
@@ -1361,6 +1370,7 @@ export interface FileRoutesById {
   '/_dashboard/belanja/buku/buku-pajak/cetak/': typeof DashboardBelanjaBukuBukuPajakCetakIndexRoute
   '/_dashboard/belanja/lpj-belanja/$lpjBelanjaId/cetak/': typeof DashboardBelanjaLpjBelanjaLpjBelanjaIdCetakIndexRoute
   '/_dashboard/belanja/lpj-belanja/$lpjBelanjaId/edit/': typeof DashboardBelanjaLpjBelanjaLpjBelanjaIdEditIndexRoute
+  '/_dashboard/belanja/lpj-belanja/$lpjBelanjaId/spj-bendahara/': typeof DashboardBelanjaLpjBelanjaLpjBelanjaIdSpjBendaharaIndexRoute
   '/_dashboard/belanja/lpj-belanja/$lpjBelanjaId/tambah-belanja/': typeof DashboardBelanjaLpjBelanjaLpjBelanjaIdTambahBelanjaIndexRoute
   '/_dashboard/belanja/perekaman/$belanjaId/cetak-amplop/': typeof DashboardBelanjaPerekamanBelanjaIdCetakAmplopIndexRoute
   '/_dashboard/belanja/perekaman/$belanjaId/cetak-daftar-potong/': typeof DashboardBelanjaPerekamanBelanjaIdCetakDaftarPotongIndexRoute
@@ -1502,6 +1512,7 @@ export interface FileRouteTypes {
     | '/belanja/buku/buku-pajak/cetak/'
     | '/belanja/lpj-belanja/$lpjBelanjaId/cetak/'
     | '/belanja/lpj-belanja/$lpjBelanjaId/edit/'
+    | '/belanja/lpj-belanja/$lpjBelanjaId/spj-bendahara/'
     | '/belanja/lpj-belanja/$lpjBelanjaId/tambah-belanja/'
     | '/belanja/perekaman/$belanjaId/cetak-amplop/'
     | '/belanja/perekaman/$belanjaId/cetak-daftar-potong/'
@@ -1636,6 +1647,7 @@ export interface FileRouteTypes {
     | '/belanja/buku/buku-pajak/cetak'
     | '/belanja/lpj-belanja/$lpjBelanjaId/cetak'
     | '/belanja/lpj-belanja/$lpjBelanjaId/edit'
+    | '/belanja/lpj-belanja/$lpjBelanjaId/spj-bendahara'
     | '/belanja/lpj-belanja/$lpjBelanjaId/tambah-belanja'
     | '/belanja/perekaman/$belanjaId/cetak-amplop'
     | '/belanja/perekaman/$belanjaId/cetak-daftar-potong'
@@ -1777,6 +1789,7 @@ export interface FileRouteTypes {
     | '/_dashboard/belanja/buku/buku-pajak/cetak/'
     | '/_dashboard/belanja/lpj-belanja/$lpjBelanjaId/cetak/'
     | '/_dashboard/belanja/lpj-belanja/$lpjBelanjaId/edit/'
+    | '/_dashboard/belanja/lpj-belanja/$lpjBelanjaId/spj-bendahara/'
     | '/_dashboard/belanja/lpj-belanja/$lpjBelanjaId/tambah-belanja/'
     | '/_dashboard/belanja/perekaman/$belanjaId/cetak-amplop/'
     | '/_dashboard/belanja/perekaman/$belanjaId/cetak-daftar-potong/'
@@ -2454,6 +2467,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardBelanjaLpjBelanjaLpjBelanjaIdEditIndexRouteImport
       parentRoute: typeof DashboardBelanjaRouteRoute
     }
+    '/_dashboard/belanja/lpj-belanja/$lpjBelanjaId/spj-bendahara/': {
+      id: '/_dashboard/belanja/lpj-belanja/$lpjBelanjaId/spj-bendahara/'
+      path: '/lpj-belanja/$lpjBelanjaId/spj-bendahara'
+      fullPath: '/belanja/lpj-belanja/$lpjBelanjaId/spj-bendahara/'
+      preLoaderRoute: typeof DashboardBelanjaLpjBelanjaLpjBelanjaIdSpjBendaharaIndexRouteImport
+      parentRoute: typeof DashboardBelanjaRouteRoute
+    }
     '/_dashboard/belanja/lpj-belanja/$lpjBelanjaId/tambah-belanja/': {
       id: '/_dashboard/belanja/lpj-belanja/$lpjBelanjaId/tambah-belanja/'
       path: '/lpj-belanja/$lpjBelanjaId/tambah-belanja'
@@ -2871,6 +2891,7 @@ interface DashboardBelanjaRouteRouteChildren {
   DashboardBelanjaSppTambahIndexRoute: typeof DashboardBelanjaSppTambahIndexRoute
   DashboardBelanjaLpjBelanjaLpjBelanjaIdCetakIndexRoute: typeof DashboardBelanjaLpjBelanjaLpjBelanjaIdCetakIndexRoute
   DashboardBelanjaLpjBelanjaLpjBelanjaIdEditIndexRoute: typeof DashboardBelanjaLpjBelanjaLpjBelanjaIdEditIndexRoute
+  DashboardBelanjaLpjBelanjaLpjBelanjaIdSpjBendaharaIndexRoute: typeof DashboardBelanjaLpjBelanjaLpjBelanjaIdSpjBendaharaIndexRoute
   DashboardBelanjaLpjBelanjaLpjBelanjaIdTambahBelanjaIndexRoute: typeof DashboardBelanjaLpjBelanjaLpjBelanjaIdTambahBelanjaIndexRoute
   DashboardBelanjaPerekamanBelanjaIdCetakAmplopIndexRoute: typeof DashboardBelanjaPerekamanBelanjaIdCetakAmplopIndexRoute
   DashboardBelanjaPerekamanBelanjaIdCetakDaftarPotongIndexRoute: typeof DashboardBelanjaPerekamanBelanjaIdCetakDaftarPotongIndexRoute
@@ -2921,6 +2942,8 @@ const DashboardBelanjaRouteRouteChildren: DashboardBelanjaRouteRouteChildren = {
     DashboardBelanjaLpjBelanjaLpjBelanjaIdCetakIndexRoute,
   DashboardBelanjaLpjBelanjaLpjBelanjaIdEditIndexRoute:
     DashboardBelanjaLpjBelanjaLpjBelanjaIdEditIndexRoute,
+  DashboardBelanjaLpjBelanjaLpjBelanjaIdSpjBendaharaIndexRoute:
+    DashboardBelanjaLpjBelanjaLpjBelanjaIdSpjBendaharaIndexRoute,
   DashboardBelanjaLpjBelanjaLpjBelanjaIdTambahBelanjaIndexRoute:
     DashboardBelanjaLpjBelanjaLpjBelanjaIdTambahBelanjaIndexRoute,
   DashboardBelanjaPerekamanBelanjaIdCetakAmplopIndexRoute:

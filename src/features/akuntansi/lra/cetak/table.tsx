@@ -1,18 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { formatAngka, formatTanggal, getBendahara } from "@/lib/utils";
+import { cn, formatAngka, formatTanggal } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import { keepPreviousData } from "@tanstack/react-query";
 import React from "react";
 import { getRouteApi } from "@tanstack/react-router";
 import { useReactToPrint } from "react-to-print";
-import { defaultDateRange } from "@/components/month-filter";
 import { useAuth } from "@/lib/auth";
 
 const routeApi = getRouteApi("/_dashboard/akuntansi/lra/cetak/");
 
-export default function BkPajakTable() {
+export default function LraCetakTable() {
   const search = routeApi.useSearch();
   const navigate = routeApi.useNavigate();
   const componentRef = React.useRef(null);
@@ -20,35 +19,25 @@ export default function BkPajakTable() {
 
   const { user } = useAuth();
   const tahun = user?.tahun ?? "2026";
-  const startDate = search["startDate"] || defaultDateRange(tahun).startDate;
-  const endDate = search["endDate"] || defaultDateRange(tahun).endDate;
+  const startDate = `${tahun}-01-01`;
+  const endDate = search["endDate"] || `${tahun}-12-31`;
 
-  const { data: belanja } = api.belanja.getAllBkPajak.useQuery(
-    {
-      startDate,
-      endDate,
-    },
+  const { data: belanja } = api.belanja.getBelanjaLra.useQuery(
+    { startDate, endDate },
     { placeholderData: keepPreviousData, suspense: true },
   );
 
   if (!belanja) return <div>Data tidak dapat dimuat.</div>;
 
-  let no = 0;
-  let saldo = 0;
+  const isFullPeriod = startDate.slice(5) === "01-01";
+  const realisasi = (item: (typeof belanja)[number]) =>
+    Number(item.jumlahSebelumnya ?? 0) + Number(item.jumlah ?? 0);
 
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-row items-center gap-5">
-        <div className="flex gap-2">
-          <Input
-            value={startDate}
-            type="date"
-            onChange={(e) => {
-              navigate({
-                search: (prev) => ({ ...prev, startDate: e.target.value }),
-              });
-            }}
-          />
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium">Sampai:</span>
           <Input
             type="date"
             value={endDate}
@@ -62,23 +51,20 @@ export default function BkPajakTable() {
       </div>
       <div className="rounded-md border p-10 shadow">
         <div
-          style={{
-            fontSize: "8pt",
-          }}
+          style={{ fontSize: "8pt" }}
           className="leading-4"
           ref={componentRef}
         >
           <style type="text/css" media="print">
             {`
-                            @page {
-                                size: landscape;
-                                margin-top: 1cm;
-                                margin-left: 1.5cm;
-                                margin-right: 1.5cm;
-                                margin-bottom: 1cm;
-
-                            }
-                        `}
+              @page {
+                size: A4 landscape;
+                margin-top: 1cm;
+                margin-left: 1.5cm;
+                margin-right: 1.5cm;
+                margin-bottom: 1cm;
+              }
+            `}
           </style>
           <table className="mt-3 w-full">
             <tbody>
@@ -125,14 +111,8 @@ export default function BkPajakTable() {
             style={{ fontSize: "11pt" }}
             className="text-center font-serif font-bold uppercase underline"
           >
-            BUKU PEMBANTU PAJAK BLUD
+            LAPORAN REALISASI ANGARAN
           </h5>
-          <h4
-            style={{ fontSize: "9pt" }}
-            className="mb-4 text-center font-serif font-bold uppercase"
-          >
-            BENDAHARA PENGELUARAN PEMBANTU
-          </h4>
           <h6 className="text-center font-serif uppercase">
             Tahun Anggaran {tahun}
           </h6>
@@ -140,173 +120,154 @@ export default function BkPajakTable() {
             Periode {formatTanggal(startDate)} s.d. {formatTanggal(endDate)}
           </h6>
           <table className="w-full">
-            <thead className="border-b-2 border-double border-black">
+            <thead>
               <tr>
-                <th className="w-1 border border-black px-2 py-1 font-serif">
-                  No.
+                <th className="border-[0.5pt] border-black px-2 py-1 font-serif uppercase">
+                  Kode Rekening
                 </th>
-                <th className="border border-black px-2 py-1 text-center font-serif">
-                  Tanggal
-                </th>
-                <th className="border border-black px-2 py-1 text-center font-serif">
-                  Nomor Bukti
-                </th>
-                <th className="border border-black px-2 py-1 text-center font-serif">
+                <th className="border-[0.5pt] border-black px-2 py-1 font-serif uppercase">
                   Uraian
                 </th>
-                <th className="border border-black px-2 py-1 text-center font-serif">
-                  Kode Billing
+                <th className="border-[0.5pt] border-black px-2 py-1 text-right font-serif uppercase">
+                  Anggaran (Rp)
                 </th>
-                <th className="border border-black px-2 py-1 text-center font-serif">
-                  NTPN
-                </th>
-                <th className="border border-black px-2 py-1 text-center font-serif">
-                  Penerimaan
-                  <br />
-                  (Rp)
-                </th>
-                <th className="border border-black px-2 py-1 text-center font-serif">
-                  Pengeluaran
-                  <br />
-                  (Rp)
-                </th>
-                <th className="border border-black px-2 py-1 text-center font-serif">
-                  Saldo
-                  <br />
-                  (Rp)
+                {isFullPeriod ? (
+                  <th className="border-[0.5pt] border-black px-2 py-1 text-right font-serif uppercase">
+                    Realisasi (Rp)
+                  </th>
+                ) : (
+                  <>
+                    <th className="border-[0.5pt] border-black px-2 py-1 text-right font-serif uppercase">
+                      Realisasi Periode Sebelumnya (Rp)
+                    </th>
+                    <th className="border-[0.5pt] border-black px-2 py-1 text-right font-serif uppercase">
+                      Realisasi Periode Ini (Rp)
+                    </th>
+                    <th className="border-[0.5pt] border-black px-2 py-1 text-right font-serif uppercase">
+                      Jumlah Realisasi (Rp)
+                    </th>
+                  </>
+                )}
+                <th className="border-[0.5pt] border-black px-2 py-1 text-right font-serif uppercase">
+                  Sisa Anggaran (Rp)
                 </th>
               </tr>
             </thead>
-            <tbody className="border-b-2 border-double border-black">
-              {belanja.map((blj) => {
-                return blj.potonganBelanja.map((item, index) => {
-                  return (
-                    <React.Fragment key={index}>
-                      <tr className="border-t border-black">
-                        <td className="border-x border-black px-2 py-0.5 text-center font-serif">
-                          {++no}.
-                        </td>
-                        <td className="border-x border-black px-2 py-0.5 text-center font-serif">
-                          {Intl.DateTimeFormat("id-ID", {
-                            day: "2-digit",
-                            month: "2-digit",
-                            year: "numeric",
-                          }).format(
-                            blj.tglDokumen
-                              ? new Date(blj.tglDokumen)
-                              : new Date(),
-                          )}
-                        </td>
-                        <td className="border-x border-black px-2 py-0.5 text-center font-serif">
-                          {blj.noDokumen}
-                        </td>
-                        <td className="border-x border-black px-2 py-0.5 font-serif">
-                          Pemotongan {item.jenis} {blj.uraian}
-                        </td>
-                        <td className="border-x border-black px-2 py-0.5 text-center font-serif">
-                          {item.billing}
-                        </td>
-                        <td className="border-x border-black px-2 py-0.5 text-center font-serif"></td>
-                        <td className="border-x border-black px-2 py-0.5 text-right font-serif">
-                          {formatAngka(item.jumlah)}
-                        </td>
-                        <td className="border-x border-black px-2 py-0.5 font-serif"></td>
-                        <td className="border-x border-black px-2 py-0.5 text-right font-serif">
-                          {formatAngka((saldo += Number(item.jumlah)))}
-                        </td>
-                      </tr>
-                      <tr className="border-t border-dotted border-neutral-400">
-                        <td className="border-x border-black px-2 py-0.5 text-center font-serif"></td>
-                        <td className="border-x border-black px-2 py-0.5 text-center font-serif"></td>
-                        <td className="border-x border-black px-2 py-0.5 text-center font-serif"></td>
-                        <td className="border-x border-black px-2 py-0.5 font-serif">
-                          Penyetoran {item.jenis}{" "}
-                          {blj.rekanan &&
-                            `a.n. ${blj.rekanan.nama} ${blj.rekanan.npwp && `(${blj.rekanan.npwp})`}`}
-                          {blj.pegawai &&
-                            `a.n. ${blj.pegawai.gelarDepan && `${blj.pegawai.gelarDepan} `}${blj.pegawai.nama}${
-                              blj.pegawai.gelarBelakang &&
-                              `, ${blj.pegawai.gelarBelakang}`
-                            } ${blj.pegawai.npwp && `(${blj.pegawai.npwp})`}`}
-                        </td>
-                        <td className="border-x border-black px-2 py-0.5 text-center font-serif"></td>
-                        <td className="border-x border-black px-2 py-0.5 text-center font-serif">
-                          {item.ntpn}
-                        </td>
-                        <td className="border-x border-black px-2 py-0.5 font-serif"></td>
-                        <td className="border-x border-black px-2 py-0.5 text-right font-serif">
-                          {formatAngka(item.jumlah)}
-                        </td>
-                        <td className="border-x border-black px-2 py-0.5 text-right font-serif">
-                          {formatAngka((saldo -= Number(item.jumlah)))}
-                        </td>
-                      </tr>
-                    </React.Fragment>
-                  );
-                });
-              })}
+            <tbody>
+              {belanja.map((item, index) => (
+                <tr
+                  key={index}
+                  className={cn(
+                    realisasi(item) > item.anggaran && "text-red-500",
+                  )}
+                >
+                  <td className="border-[0.5pt] border-black px-2 py-1 font-serif">
+                    {item.kodeRekening}
+                  </td>
+                  <td className="border-[0.5pt] border-black px-2 py-1 font-serif">
+                    {item.uraian}
+                  </td>
+                  <td className="border-[0.5pt] border-black px-2 py-1 text-right font-serif">
+                    {formatAngka(item.anggaran)}
+                  </td>
+                  {isFullPeriod ? (
+                    <td className="border-[0.5pt] border-black px-2 py-1 text-right font-serif">
+                      {formatAngka(item.jumlah)}
+                    </td>
+                  ) : (
+                    <>
+                      <td className="border-[0.5pt] border-black px-2 py-1 text-right font-serif">
+                        {formatAngka(item.jumlahSebelumnya)}
+                      </td>
+                      <td className="border-[0.5pt] border-black px-2 py-1 text-right font-serif">
+                        {formatAngka(item.jumlah)}
+                      </td>
+                      <td className="border-[0.5pt] border-black px-2 py-1 text-right font-serif">
+                        {formatAngka(realisasi(item))}
+                      </td>
+                    </>
+                  )}
+                  <td className="border-[0.5pt] border-black px-2 py-1 text-right font-serif">
+                    {formatAngka(item.anggaran - realisasi(item))}
+                  </td>
+                </tr>
+              ))}
               {belanja.length === 0 && (
                 <tr>
-                  <td colSpan={100} className="text-center">
+                  <td colSpan={100} className="border-[0.5pt] border-black px-2 py-2 text-center font-serif">
                     Tidak ada data
                   </td>
                 </tr>
               )}
-              <tr className="border-t-2 border-double border-black">
+            </tbody>
+            <tfoot>
+              <tr>
                 <th
-                  colSpan={6}
-                  className="border-x border-black px-2 py-1 font-serif"
+                  colSpan={2}
+                  className="border-[0.5pt] border-black px-2 py-2 font-serif text-left uppercase"
                 >
                   Total
                 </th>
-                <th className="border-x border-black px-2 py-1 text-right font-serif">
+                <th className="border-[0.5pt] border-black px-2 py-2 text-right font-serif uppercase">
                   {formatAngka(
-                    belanja.reduce(
-                      (acc, curr) =>
-                        acc +
-                        curr.potonganBelanja.reduce(
-                          (acc, curr) => acc + Number(curr.jumlah),
+                    belanja.reduce((acc, item) => acc + item.anggaran, 0),
+                  )}
+                </th>
+                {isFullPeriod ? (
+                  <th className="border-[0.5pt] border-black px-2 py-2 text-right font-serif uppercase">
+                    {formatAngka(
+                      belanja.reduce((acc, item) => acc + item.jumlah, 0),
+                    )}
+                  </th>
+                ) : (
+                  <>
+                    <th className="border-[0.5pt] border-black px-2 py-2 text-right font-serif uppercase">
+                      {formatAngka(
+                        belanja.reduce(
+                          (acc, item) =>
+                            acc + Number(item.jumlahSebelumnya ?? 0),
                           0,
                         ),
+                      )}
+                    </th>
+                    <th className="border-[0.5pt] border-black px-2 py-2 text-right font-serif uppercase">
+                      {formatAngka(
+                        belanja.reduce((acc, item) => acc + item.jumlah, 0),
+                      )}
+                    </th>
+                    <th className="border-[0.5pt] border-black px-2 py-2 text-right font-serif uppercase">
+                      {formatAngka(
+                        belanja.reduce(
+                          (acc, item) => acc + realisasi(item),
+                          0,
+                        ),
+                      )}
+                    </th>
+                  </>
+                )}
+                <th className="border-[0.5pt] border-black px-2 py-2 text-right font-serif uppercase">
+                  {formatAngka(
+                    belanja.reduce(
+                      (acc, item) => acc + item.anggaran - realisasi(item),
                       0,
                     ),
                   )}
-                </th>
-                <th className="border-x border-black px-2 py-1 text-right font-serif">
-                  {formatAngka(
-                    belanja.reduce(
-                      (acc, curr) =>
-                        acc +
-                        curr.potonganBelanja.reduce(
-                          (acc, curr) => acc + Number(curr.jumlah),
-
-                          0,
-                        ),
-                      0,
-                    ),
-                  )}
-                </th>
-                <th className="border-x border-black px-2 py-1 text-right font-serif">
-                  {formatAngka(saldo)}
                 </th>
               </tr>
-            </tbody>
+            </tfoot>
           </table>
-          <div className="mt-5 flex">
-            <div className="w-1/3"></div>
-            <div className="w-1/3"></div>
-            <div className="w-1/3">
+          <div className="mt-10 flex">
+            <div className="w-2/3"></div>
+            <div className="w-1/3 text-center">
               <div className="font-serif">
                 Samarinda, {formatTanggal(endDate)}
               </div>
-              <div className="font-serif">
-                Bendahara Pengeluaran Pembantu BLUD
-              </div>
+              <div className="font-serif">Kuasa Pengguna Anggaran BLUD</div>
               <div className="mt-14 font-serif font-bold">
-                {getBendahara(endDate).nama}
+                dr. Indah Puspitasari, MARS
               </div>
-              <div className="font-serif">Pengatur</div>
-              <div className="font-serif">{getBendahara(endDate).nip}</div>
+              <div className="font-serif">Pembina Utama Muda</div>
+              <div className="font-serif">NIP. 196705301998032003</div>
             </div>
           </div>
         </div>
