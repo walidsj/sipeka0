@@ -30,10 +30,23 @@ import { Route as DashboardLainnyaDatabaseRouteRouteImport } from './routes/_das
 import { Route as DashboardLainnyaPengaturanRouteRouteImport } from './routes/_dashboard/lainnya/pengaturan/route'
 import { Route as DashboardLainnyaReferensiRouteRouteImport } from './routes/_dashboard/lainnya/referensi/route'
 import { Route as DashboardProfilIndexRouteImport } from './routes/_dashboard/profil/index'
+import { Route as PanduanAkuntansiIndexRouteImport } from './routes/panduan/akuntansi/index'
+import { Route as PanduanAnggaranIndexRouteImport } from './routes/panduan/anggaran/index'
+import { Route as PanduanDataReferensiIndexRouteImport } from './routes/panduan/data-referensi/index'
 import { Route as PanduanFaqIndexRouteImport } from './routes/panduan/faq/index'
 import { Route as PanduanLoginIndexRouteImport } from './routes/panduan/login/index'
+import { Route as PanduanLpjIndexRouteImport } from './routes/panduan/lpj/index'
+import { Route as PanduanLraIndexRouteImport } from './routes/panduan/lra/index'
 import { Route as PanduanPendaftaranIndexRouteImport } from './routes/panduan/pendaftaran/index'
+import { Route as PanduanPendapatanIndexRouteImport } from './routes/panduan/pendapatan/index'
 import { Route as PanduanPengenalanIndexRouteImport } from './routes/panduan/pengenalan/index'
+import { Route as PanduanRbaIndexRouteImport } from './routes/panduan/rba/index'
+import { Route as PanduanRekamBelanjaIndexRouteImport } from './routes/panduan/rekam-belanja/index'
+import { Route as PanduanSp2dIndexRouteImport } from './routes/panduan/sp2d/index'
+import { Route as PanduanSp3bIndexRouteImport } from './routes/panduan/sp3b/index'
+import { Route as PanduanSpjBendaharaIndexRouteImport } from './routes/panduan/spj-bendahara/index'
+import { Route as PanduanSpmIndexRouteImport } from './routes/panduan/spm/index'
+import { Route as PanduanSppIndexRouteImport } from './routes/panduan/spp/index'
 import { Route as PanduanTechStackIndexRouteImport } from './routes/panduan/tech-stack/index'
 import { Route as DashboardAkuntansiLraIndexRouteImport } from './routes/_dashboard/akuntansi/lra/index'
 import { Route as DashboardAkuntansiRekeningKoranIndexRouteImport } from './routes/_dashboard/akuntansi/rekening-koran/index'
@@ -260,6 +273,22 @@ const DashboardProfilIndexRoute = DashboardProfilIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardProfilRouteRoute,
 } as any)
+const PanduanAkuntansiIndexRoute = PanduanAkuntansiIndexRouteImport.update({
+  id: '/akuntansi/',
+  path: '/akuntansi/',
+  getParentRoute: () => PanduanRouteRoute,
+} as any)
+const PanduanAnggaranIndexRoute = PanduanAnggaranIndexRouteImport.update({
+  id: '/anggaran/',
+  path: '/anggaran/',
+  getParentRoute: () => PanduanRouteRoute,
+} as any)
+const PanduanDataReferensiIndexRoute =
+  PanduanDataReferensiIndexRouteImport.update({
+    id: '/data-referensi/',
+    path: '/data-referensi/',
+    getParentRoute: () => PanduanRouteRoute,
+  } as any)
 const PanduanFaqIndexRoute = PanduanFaqIndexRouteImport.update({
   id: '/faq/',
   path: '/faq/',
@@ -270,14 +299,66 @@ const PanduanLoginIndexRoute = PanduanLoginIndexRouteImport.update({
   path: '/login/',
   getParentRoute: () => PanduanRouteRoute,
 } as any)
+const PanduanLpjIndexRoute = PanduanLpjIndexRouteImport.update({
+  id: '/lpj/',
+  path: '/lpj/',
+  getParentRoute: () => PanduanRouteRoute,
+} as any)
+const PanduanLraIndexRoute = PanduanLraIndexRouteImport.update({
+  id: '/lra/',
+  path: '/lra/',
+  getParentRoute: () => PanduanRouteRoute,
+} as any)
 const PanduanPendaftaranIndexRoute = PanduanPendaftaranIndexRouteImport.update({
   id: '/pendaftaran/',
   path: '/pendaftaran/',
   getParentRoute: () => PanduanRouteRoute,
 } as any)
+const PanduanPendapatanIndexRoute = PanduanPendapatanIndexRouteImport.update({
+  id: '/pendapatan/',
+  path: '/pendapatan/',
+  getParentRoute: () => PanduanRouteRoute,
+} as any)
 const PanduanPengenalanIndexRoute = PanduanPengenalanIndexRouteImport.update({
   id: '/pengenalan/',
   path: '/pengenalan/',
+  getParentRoute: () => PanduanRouteRoute,
+} as any)
+const PanduanRbaIndexRoute = PanduanRbaIndexRouteImport.update({
+  id: '/rba/',
+  path: '/rba/',
+  getParentRoute: () => PanduanRouteRoute,
+} as any)
+const PanduanRekamBelanjaIndexRoute =
+  PanduanRekamBelanjaIndexRouteImport.update({
+    id: '/rekam-belanja/',
+    path: '/rekam-belanja/',
+    getParentRoute: () => PanduanRouteRoute,
+  } as any)
+const PanduanSp2dIndexRoute = PanduanSp2dIndexRouteImport.update({
+  id: '/sp2d/',
+  path: '/sp2d/',
+  getParentRoute: () => PanduanRouteRoute,
+} as any)
+const PanduanSp3bIndexRoute = PanduanSp3bIndexRouteImport.update({
+  id: '/sp3b/',
+  path: '/sp3b/',
+  getParentRoute: () => PanduanRouteRoute,
+} as any)
+const PanduanSpjBendaharaIndexRoute =
+  PanduanSpjBendaharaIndexRouteImport.update({
+    id: '/spj-bendahara/',
+    path: '/spj-bendahara/',
+    getParentRoute: () => PanduanRouteRoute,
+  } as any)
+const PanduanSpmIndexRoute = PanduanSpmIndexRouteImport.update({
+  id: '/spm/',
+  path: '/spm/',
+  getParentRoute: () => PanduanRouteRoute,
+} as any)
+const PanduanSppIndexRoute = PanduanSppIndexRouteImport.update({
+  id: '/spp/',
+  path: '/spp/',
   getParentRoute: () => PanduanRouteRoute,
 } as any)
 const PanduanTechStackIndexRoute = PanduanTechStackIndexRouteImport.update({
@@ -1025,10 +1106,23 @@ export interface FileRoutesByFullPath {
   '/anggaran/': typeof DashboardAnggaranIndexRoute
   '/lainnya/': typeof DashboardLainnyaIndexRoute
   '/profil/': typeof DashboardProfilIndexRoute
+  '/panduan/akuntansi/': typeof PanduanAkuntansiIndexRoute
+  '/panduan/anggaran/': typeof PanduanAnggaranIndexRoute
+  '/panduan/data-referensi/': typeof PanduanDataReferensiIndexRoute
   '/panduan/faq/': typeof PanduanFaqIndexRoute
   '/panduan/login/': typeof PanduanLoginIndexRoute
+  '/panduan/lpj/': typeof PanduanLpjIndexRoute
+  '/panduan/lra/': typeof PanduanLraIndexRoute
   '/panduan/pendaftaran/': typeof PanduanPendaftaranIndexRoute
+  '/panduan/pendapatan/': typeof PanduanPendapatanIndexRoute
   '/panduan/pengenalan/': typeof PanduanPengenalanIndexRoute
+  '/panduan/rba/': typeof PanduanRbaIndexRoute
+  '/panduan/rekam-belanja/': typeof PanduanRekamBelanjaIndexRoute
+  '/panduan/sp2d/': typeof PanduanSp2dIndexRoute
+  '/panduan/sp3b/': typeof PanduanSp3bIndexRoute
+  '/panduan/spj-bendahara/': typeof PanduanSpjBendaharaIndexRoute
+  '/panduan/spm/': typeof PanduanSpmIndexRoute
+  '/panduan/spp/': typeof PanduanSppIndexRoute
   '/panduan/tech-stack/': typeof PanduanTechStackIndexRoute
   '/anggaran/monitoring/realisasi-belanja': typeof DashboardAnggaranMonitoringRealisasiBelanjaRouteRouteWithChildren
   '/lainnya/referensi/kode-rekening': typeof DashboardLainnyaReferensiKodeRekeningRouteRouteWithChildren
@@ -1162,10 +1256,23 @@ export interface FileRoutesByTo {
   '/anggaran': typeof DashboardAnggaranIndexRoute
   '/lainnya': typeof DashboardLainnyaIndexRoute
   '/profil': typeof DashboardProfilIndexRoute
+  '/panduan/akuntansi': typeof PanduanAkuntansiIndexRoute
+  '/panduan/anggaran': typeof PanduanAnggaranIndexRoute
+  '/panduan/data-referensi': typeof PanduanDataReferensiIndexRoute
   '/panduan/faq': typeof PanduanFaqIndexRoute
   '/panduan/login': typeof PanduanLoginIndexRoute
+  '/panduan/lpj': typeof PanduanLpjIndexRoute
+  '/panduan/lra': typeof PanduanLraIndexRoute
   '/panduan/pendaftaran': typeof PanduanPendaftaranIndexRoute
+  '/panduan/pendapatan': typeof PanduanPendapatanIndexRoute
   '/panduan/pengenalan': typeof PanduanPengenalanIndexRoute
+  '/panduan/rba': typeof PanduanRbaIndexRoute
+  '/panduan/rekam-belanja': typeof PanduanRekamBelanjaIndexRoute
+  '/panduan/sp2d': typeof PanduanSp2dIndexRoute
+  '/panduan/sp3b': typeof PanduanSp3bIndexRoute
+  '/panduan/spj-bendahara': typeof PanduanSpjBendaharaIndexRoute
+  '/panduan/spm': typeof PanduanSpmIndexRoute
+  '/panduan/spp': typeof PanduanSppIndexRoute
   '/panduan/tech-stack': typeof PanduanTechStackIndexRoute
   '/lainnya/referensi/kode-rekening': typeof DashboardLainnyaReferensiKodeRekeningRouteRouteWithChildren
   '/lainnya/user': typeof DashboardLainnyaUserIndexRoute
@@ -1303,10 +1410,23 @@ export interface FileRoutesById {
   '/_dashboard/anggaran/': typeof DashboardAnggaranIndexRoute
   '/_dashboard/lainnya/': typeof DashboardLainnyaIndexRoute
   '/_dashboard/profil/': typeof DashboardProfilIndexRoute
+  '/panduan/akuntansi/': typeof PanduanAkuntansiIndexRoute
+  '/panduan/anggaran/': typeof PanduanAnggaranIndexRoute
+  '/panduan/data-referensi/': typeof PanduanDataReferensiIndexRoute
   '/panduan/faq/': typeof PanduanFaqIndexRoute
   '/panduan/login/': typeof PanduanLoginIndexRoute
+  '/panduan/lpj/': typeof PanduanLpjIndexRoute
+  '/panduan/lra/': typeof PanduanLraIndexRoute
   '/panduan/pendaftaran/': typeof PanduanPendaftaranIndexRoute
+  '/panduan/pendapatan/': typeof PanduanPendapatanIndexRoute
   '/panduan/pengenalan/': typeof PanduanPengenalanIndexRoute
+  '/panduan/rba/': typeof PanduanRbaIndexRoute
+  '/panduan/rekam-belanja/': typeof PanduanRekamBelanjaIndexRoute
+  '/panduan/sp2d/': typeof PanduanSp2dIndexRoute
+  '/panduan/sp3b/': typeof PanduanSp3bIndexRoute
+  '/panduan/spj-bendahara/': typeof PanduanSpjBendaharaIndexRoute
+  '/panduan/spm/': typeof PanduanSpmIndexRoute
+  '/panduan/spp/': typeof PanduanSppIndexRoute
   '/panduan/tech-stack/': typeof PanduanTechStackIndexRoute
   '/_dashboard/anggaran/monitoring/realisasi-belanja': typeof DashboardAnggaranMonitoringRealisasiBelanjaRouteRouteWithChildren
   '/_dashboard/lainnya/referensi/kode-rekening': typeof DashboardLainnyaReferensiKodeRekeningRouteRouteWithChildren
@@ -1445,10 +1565,23 @@ export interface FileRouteTypes {
     | '/anggaran/'
     | '/lainnya/'
     | '/profil/'
+    | '/panduan/akuntansi/'
+    | '/panduan/anggaran/'
+    | '/panduan/data-referensi/'
     | '/panduan/faq/'
     | '/panduan/login/'
+    | '/panduan/lpj/'
+    | '/panduan/lra/'
     | '/panduan/pendaftaran/'
+    | '/panduan/pendapatan/'
     | '/panduan/pengenalan/'
+    | '/panduan/rba/'
+    | '/panduan/rekam-belanja/'
+    | '/panduan/sp2d/'
+    | '/panduan/sp3b/'
+    | '/panduan/spj-bendahara/'
+    | '/panduan/spm/'
+    | '/panduan/spp/'
     | '/panduan/tech-stack/'
     | '/anggaran/monitoring/realisasi-belanja'
     | '/lainnya/referensi/kode-rekening'
@@ -1582,10 +1715,23 @@ export interface FileRouteTypes {
     | '/anggaran'
     | '/lainnya'
     | '/profil'
+    | '/panduan/akuntansi'
+    | '/panduan/anggaran'
+    | '/panduan/data-referensi'
     | '/panduan/faq'
     | '/panduan/login'
+    | '/panduan/lpj'
+    | '/panduan/lra'
     | '/panduan/pendaftaran'
+    | '/panduan/pendapatan'
     | '/panduan/pengenalan'
+    | '/panduan/rba'
+    | '/panduan/rekam-belanja'
+    | '/panduan/sp2d'
+    | '/panduan/sp3b'
+    | '/panduan/spj-bendahara'
+    | '/panduan/spm'
+    | '/panduan/spp'
     | '/panduan/tech-stack'
     | '/lainnya/referensi/kode-rekening'
     | '/lainnya/user'
@@ -1722,10 +1868,23 @@ export interface FileRouteTypes {
     | '/_dashboard/anggaran/'
     | '/_dashboard/lainnya/'
     | '/_dashboard/profil/'
+    | '/panduan/akuntansi/'
+    | '/panduan/anggaran/'
+    | '/panduan/data-referensi/'
     | '/panduan/faq/'
     | '/panduan/login/'
+    | '/panduan/lpj/'
+    | '/panduan/lra/'
     | '/panduan/pendaftaran/'
+    | '/panduan/pendapatan/'
     | '/panduan/pengenalan/'
+    | '/panduan/rba/'
+    | '/panduan/rekam-belanja/'
+    | '/panduan/sp2d/'
+    | '/panduan/sp3b/'
+    | '/panduan/spj-bendahara/'
+    | '/panduan/spm/'
+    | '/panduan/spp/'
     | '/panduan/tech-stack/'
     | '/_dashboard/anggaran/monitoring/realisasi-belanja'
     | '/_dashboard/lainnya/referensi/kode-rekening'
@@ -1998,6 +2157,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardProfilIndexRouteImport
       parentRoute: typeof DashboardProfilRouteRoute
     }
+    '/panduan/akuntansi/': {
+      id: '/panduan/akuntansi/'
+      path: '/akuntansi'
+      fullPath: '/panduan/akuntansi/'
+      preLoaderRoute: typeof PanduanAkuntansiIndexRouteImport
+      parentRoute: typeof PanduanRouteRoute
+    }
+    '/panduan/anggaran/': {
+      id: '/panduan/anggaran/'
+      path: '/anggaran'
+      fullPath: '/panduan/anggaran/'
+      preLoaderRoute: typeof PanduanAnggaranIndexRouteImport
+      parentRoute: typeof PanduanRouteRoute
+    }
+    '/panduan/data-referensi/': {
+      id: '/panduan/data-referensi/'
+      path: '/data-referensi'
+      fullPath: '/panduan/data-referensi/'
+      preLoaderRoute: typeof PanduanDataReferensiIndexRouteImport
+      parentRoute: typeof PanduanRouteRoute
+    }
     '/panduan/faq/': {
       id: '/panduan/faq/'
       path: '/faq'
@@ -2012,6 +2192,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanduanLoginIndexRouteImport
       parentRoute: typeof PanduanRouteRoute
     }
+    '/panduan/lpj/': {
+      id: '/panduan/lpj/'
+      path: '/lpj'
+      fullPath: '/panduan/lpj/'
+      preLoaderRoute: typeof PanduanLpjIndexRouteImport
+      parentRoute: typeof PanduanRouteRoute
+    }
+    '/panduan/lra/': {
+      id: '/panduan/lra/'
+      path: '/lra'
+      fullPath: '/panduan/lra/'
+      preLoaderRoute: typeof PanduanLraIndexRouteImport
+      parentRoute: typeof PanduanRouteRoute
+    }
     '/panduan/pendaftaran/': {
       id: '/panduan/pendaftaran/'
       path: '/pendaftaran'
@@ -2019,11 +2213,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanduanPendaftaranIndexRouteImport
       parentRoute: typeof PanduanRouteRoute
     }
+    '/panduan/pendapatan/': {
+      id: '/panduan/pendapatan/'
+      path: '/pendapatan'
+      fullPath: '/panduan/pendapatan/'
+      preLoaderRoute: typeof PanduanPendapatanIndexRouteImport
+      parentRoute: typeof PanduanRouteRoute
+    }
     '/panduan/pengenalan/': {
       id: '/panduan/pengenalan/'
       path: '/pengenalan'
       fullPath: '/panduan/pengenalan/'
       preLoaderRoute: typeof PanduanPengenalanIndexRouteImport
+      parentRoute: typeof PanduanRouteRoute
+    }
+    '/panduan/rba/': {
+      id: '/panduan/rba/'
+      path: '/rba'
+      fullPath: '/panduan/rba/'
+      preLoaderRoute: typeof PanduanRbaIndexRouteImport
+      parentRoute: typeof PanduanRouteRoute
+    }
+    '/panduan/rekam-belanja/': {
+      id: '/panduan/rekam-belanja/'
+      path: '/rekam-belanja'
+      fullPath: '/panduan/rekam-belanja/'
+      preLoaderRoute: typeof PanduanRekamBelanjaIndexRouteImport
+      parentRoute: typeof PanduanRouteRoute
+    }
+    '/panduan/sp2d/': {
+      id: '/panduan/sp2d/'
+      path: '/sp2d'
+      fullPath: '/panduan/sp2d/'
+      preLoaderRoute: typeof PanduanSp2dIndexRouteImport
+      parentRoute: typeof PanduanRouteRoute
+    }
+    '/panduan/sp3b/': {
+      id: '/panduan/sp3b/'
+      path: '/sp3b'
+      fullPath: '/panduan/sp3b/'
+      preLoaderRoute: typeof PanduanSp3bIndexRouteImport
+      parentRoute: typeof PanduanRouteRoute
+    }
+    '/panduan/spj-bendahara/': {
+      id: '/panduan/spj-bendahara/'
+      path: '/spj-bendahara'
+      fullPath: '/panduan/spj-bendahara/'
+      preLoaderRoute: typeof PanduanSpjBendaharaIndexRouteImport
+      parentRoute: typeof PanduanRouteRoute
+    }
+    '/panduan/spm/': {
+      id: '/panduan/spm/'
+      path: '/spm'
+      fullPath: '/panduan/spm/'
+      preLoaderRoute: typeof PanduanSpmIndexRouteImport
+      parentRoute: typeof PanduanRouteRoute
+    }
+    '/panduan/spp/': {
+      id: '/panduan/spp/'
+      path: '/spp'
+      fullPath: '/panduan/spp/'
+      preLoaderRoute: typeof PanduanSppIndexRouteImport
       parentRoute: typeof PanduanRouteRoute
     }
     '/panduan/tech-stack/': {
@@ -3380,19 +3630,45 @@ const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
 
 interface PanduanRouteRouteChildren {
   PanduanIndexRoute: typeof PanduanIndexRoute
+  PanduanAkuntansiIndexRoute: typeof PanduanAkuntansiIndexRoute
+  PanduanAnggaranIndexRoute: typeof PanduanAnggaranIndexRoute
+  PanduanDataReferensiIndexRoute: typeof PanduanDataReferensiIndexRoute
   PanduanFaqIndexRoute: typeof PanduanFaqIndexRoute
   PanduanLoginIndexRoute: typeof PanduanLoginIndexRoute
+  PanduanLpjIndexRoute: typeof PanduanLpjIndexRoute
+  PanduanLraIndexRoute: typeof PanduanLraIndexRoute
   PanduanPendaftaranIndexRoute: typeof PanduanPendaftaranIndexRoute
+  PanduanPendapatanIndexRoute: typeof PanduanPendapatanIndexRoute
   PanduanPengenalanIndexRoute: typeof PanduanPengenalanIndexRoute
+  PanduanRbaIndexRoute: typeof PanduanRbaIndexRoute
+  PanduanRekamBelanjaIndexRoute: typeof PanduanRekamBelanjaIndexRoute
+  PanduanSp2dIndexRoute: typeof PanduanSp2dIndexRoute
+  PanduanSp3bIndexRoute: typeof PanduanSp3bIndexRoute
+  PanduanSpjBendaharaIndexRoute: typeof PanduanSpjBendaharaIndexRoute
+  PanduanSpmIndexRoute: typeof PanduanSpmIndexRoute
+  PanduanSppIndexRoute: typeof PanduanSppIndexRoute
   PanduanTechStackIndexRoute: typeof PanduanTechStackIndexRoute
 }
 
 const PanduanRouteRouteChildren: PanduanRouteRouteChildren = {
   PanduanIndexRoute: PanduanIndexRoute,
+  PanduanAkuntansiIndexRoute: PanduanAkuntansiIndexRoute,
+  PanduanAnggaranIndexRoute: PanduanAnggaranIndexRoute,
+  PanduanDataReferensiIndexRoute: PanduanDataReferensiIndexRoute,
   PanduanFaqIndexRoute: PanduanFaqIndexRoute,
   PanduanLoginIndexRoute: PanduanLoginIndexRoute,
+  PanduanLpjIndexRoute: PanduanLpjIndexRoute,
+  PanduanLraIndexRoute: PanduanLraIndexRoute,
   PanduanPendaftaranIndexRoute: PanduanPendaftaranIndexRoute,
+  PanduanPendapatanIndexRoute: PanduanPendapatanIndexRoute,
   PanduanPengenalanIndexRoute: PanduanPengenalanIndexRoute,
+  PanduanRbaIndexRoute: PanduanRbaIndexRoute,
+  PanduanRekamBelanjaIndexRoute: PanduanRekamBelanjaIndexRoute,
+  PanduanSp2dIndexRoute: PanduanSp2dIndexRoute,
+  PanduanSp3bIndexRoute: PanduanSp3bIndexRoute,
+  PanduanSpjBendaharaIndexRoute: PanduanSpjBendaharaIndexRoute,
+  PanduanSpmIndexRoute: PanduanSpmIndexRoute,
+  PanduanSppIndexRoute: PanduanSppIndexRoute,
   PanduanTechStackIndexRoute: PanduanTechStackIndexRoute,
 }
 
